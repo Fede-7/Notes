@@ -219,10 +219,6 @@ $$ f \text{ è iniettiva } \iff (\forall b \in B) \quad \bigl| f^{-1}(\{b\}) \bi
 
 ## Lezione 4 — Biettività, Composizione, Invertibilità, Strutture Algebriche
 
-### Insieme delle Parti
-
-> [!note] Insieme delle Parti
-> $$\mathcal{P}(S) = \{X \mid X \subseteq S\}$$
 ### Funzione Biettiva
 
 > [!note] Biettività
