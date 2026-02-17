@@ -24,13 +24,13 @@
 ### 21-03-2025
 - [x] 4.1 EQUIPOTENZA $\Leftrightarrow \exists f \text{ biettiva}$  
 - [x] 4.2 RESTRIZIONE E PROLUNGAMENTO  
-- [ ] 4.3 CORRISPONDENZE E APPLICAZIONI COMPOSTE  
-- [ ] 4.4 COMPOSIZIONE: PROPRIETÀ (ASSOCIATIVA, NON COMMUTATIVA)  
+- [x] 4.3 CORRISPONDENZE E APPLICAZIONI COMPOSTE  
+- [x] 4.4 COMPOSIZIONE: PROPRIETÀ (ASSOCIATIVA, NON COMMUTATIVA)  
 - [x] 4.5 APPLICAZIONE IDENTITÀ  
-- [ ] 4.6 CORRISPONDENZA COMPLEMENTARE  
-- [ ] 4.7 CORRISPONDENZA INVERSA  
+- [x] 4.6 CORRISPONDENZA COMPLEMENTARE  
+- [x] 4.7 CORRISPONDENZA INVERSA  
 - [ ] 4.8 FUNZIONE INVERSA  
-- [ ] 4.9 TEOREMA INVERTIBILITÀ DI FUNZIONI  
+- [ ] 4.9 ==TEOREMA INVERTIBILITÀ DI FUNZIONI==  
 - [ ] 4.10 OPERAZIONI n$\text{-arie}$  
 - [ ] 4.11 OPERAZIONI INTERE  
 - [ ] 4.12 OPERAZIONI ESTERNE  
@@ -177,6 +177,7 @@
 ## Dimostrazioni (checkbox)
 
 ### Dimostrazioni più importanti (+)
+- [ ] 4.9: Teorema Invertibilità di Funzioni
 - [ ] 8.7: Teorema di Wedderburn  
 - [ ] 8.9: Teorema di scomposizione canonica di una permutazione  
 - [ ] 10.5: Teorema della divisione euclidea  

@@ -238,18 +238,36 @@ $$ f \text{ è iniettiva } \iff (\forall b \in B) \quad \bigl| f^{-1}(\{b\}) \bi
 >[!note] Equipotenza $\iff \exists f$   Biettiva
 >$|A| \gt |B| \to \nexists f iniettiva \atop |B| \gt |A| \to \nexists f suriettiva$ $\rbrace \to |A| = |B| \iff \exists f biettiva$
 
-### Composizione di Funzioni
+### Composizione di Funzioni e proprietà
 
 > [!note] Composizione
 > Date $f: A \to B$ e $g: B \to C$:
 > $$(g \circ f)(x) = g(f(x))$$
-> La composizione **non è commutativa**, ma è **associativa**.
+> $$(g \circ f) : A \to C$$
 
-### Funzione Invertibile
+>[!note] Proprietà
+>- Associativa = $(h \circ g) \circ f = h\circ(g\circ f)$
+>- Non commutativa = $g \circ f \not= f \circ g$
+### Corrispondenza Complementare ed Inversa
+>[!note] Corrispondenza Complementare
+Data una relazione $\varphi \subseteq A \times B$,
+ $\varphi' = (A \times B) \setminus \varphi$.
 
-> [!note] Invertibilità
-> $f: A \to B$ è **invertibile** se esiste $f^{-1}: B \to A$ tale che $f^{-1} \circ f = \mathrm{id}_A$ e $f \circ f^{-1} = \mathrm{id}_B$.
-> $$f \text{ invertibile} \;\Longleftrightarrow\; f \text{ biettiva}$$
+>[!note] Corrispondenza Inversa
+Data una relazione $\varphi \subseteq A \times B$, 
+$\varphi^{-1} = \{ (b, a) \in B \times A : (a, b) \in \varphi \}$.
+### Funzione Inversa
+
+>[!note] Funzione Invertibile
+>Una funzione f : A → B $\iff \exists$ f⁻¹ : B → A  tale che:
+>1. f⁻¹ ∘ f = idₐ (Comporre f e poi f⁻¹ riporta all'identità sul dominio originale A)
+>2. f ∘ f⁻¹ = idᵦ (Comporre f⁻¹ e poi f riporta all'identità sul codominio originale B)
+
+>[!note] Teorema Fondamentale: Invertibilità e Biettività
+>Una funzione $f$ è completamente invertibile $\iff$ biettiva.
+>
+>**Costruzione dell'Inversa:**
+>Se f è biettiva, la sua inversa f⁻¹ : B → A è definita associando a ogni b ∈ B l'unico elemento a ∈ A tale che f(a) = b. L'esistenza e unicità di tale a è garantita dalla biettività di f (poiché |f⁻¹({b})| = 1 per ogni b ∈ B).
 ### Operazione e Struttura Algebrica
 
 > [!note] Operazione $n$-aria
