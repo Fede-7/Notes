@@ -263,11 +263,17 @@ $\varphi^{-1} = \{ (b, a) \in B \times A : (a, b) \in \varphi \}$.
 >1. f⁻¹ ∘ f = idₐ (Comporre f e poi f⁻¹ riporta all'identità sul dominio originale A)
 >2. f ∘ f⁻¹ = idᵦ (Comporre f⁻¹ e poi f riporta all'identità sul codominio originale B)
 
->[!note] Teorema Fondamentale: Invertibilità e Biettività
+>[!important] Teorema Fondamentale: Invertibilità e Biettività
 >Una funzione $f$ è completamente invertibile $\iff$ biettiva.
 >
->**Costruzione dell'Inversa:**
->Se f è biettiva, la sua inversa f⁻¹ : B → A è definita associando a ogni b ∈ B l'unico elemento a ∈ A tale che f(a) = b. L'esistenza e unicità di tale a è garantita dalla biettività di f (poiché |f⁻¹({b})| = 1 per ogni b ∈ B).
+>**Dimostrazione**
+>
+>($\implies$) Se $f$ invertibile $\implies$ è biettiva
+>
+>($\impliedby$) 
+>Se $f$ è biettiva $\implies \forall b \in B, \exists! \space a \in A$ t.c. $f(a) = b$ (perché $|f^{-1}(\{b\})| = 1$).
+>
+>Possiamo definire $f^{-1}(b) = a$, che soddisfa le condizioni $f^{-1} \circ f = \text{id}_A$ e $f \circ f^{-1} = \text{id}_B$.
 ### Operazione e Struttura Algebrica
 
 > [!note] Operazione $n$-aria
