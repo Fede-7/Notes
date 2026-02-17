@@ -232,7 +232,7 @@ $$ f \text{ è iniettiva } \iff (\forall b \in B) \quad \bigl| f^{-1}(\{b\}) \bi
 >- Iniettività ⟹ |f⁻¹({b})| ≤ 1
 >- Suriettività ⟹ |f⁻¹({b})| ≥ 1
 >
->Mettendole insieme: |f⁻¹({b})| = **1**
+>Mettendole insieme: |f⁻¹({b})| = 1
 ### Equipotenza $\iff \exists f$   Biettiva
 
 >[!note] Equipotenza $\iff \exists f$   Biettiva
