@@ -199,15 +199,18 @@ $$ f \text{ è iniettiva } \iff (\forall b \in B) \quad \bigl| f^{-1}(\{b\}) \bi
 > [!note] Uguaglianza
 > $f = g$ se e solo se hanno lo **stesso dominio**, lo **stesso codominio** e la **stessa legge**: $f(x) = g(x)$ per ogni $x$.
 
+
 ### Restrizione e Prolungamento
 
 > [!note] Restrizione
 > Sia $C \subseteq A$. La **restrizione** di $f: A \to B$ a $C$ è $f|_C: C \to B$ con $f|_C(x) = f(x)$.
 
 > [!note] Prolungamento (Estensione)
-> $f: A \to B$ **estende** $g: C \to B$ se $C \subseteq A$ e $f(x) = g(x)$ per ogni $x \in C$.
+> $f: A \to B$ **estende** $g: C \to B$, se 
+> - $C \subseteq A$
+> - $f(x) = g(x)$ per ogni $x \in C$.
 
-### Funzione Identità
+### Funzione(o Applicazione) Identità
 
 > [!note] Identità
 > $\mathrm{id}_A: A \to A$ definita da $\mathrm{id}_A(a) = a$. È sempre **biettiva**.
@@ -216,19 +219,24 @@ $$ f \text{ è iniettiva } \iff (\forall b \in B) \quad \bigl| f^{-1}(\{b\}) \bi
 
 ## Lezione 4 — Biettività, Composizione, Invertibilità, Strutture Algebriche
 
-### Insieme delle Parti
-
-> [!note] Insieme delle Parti
-> $$\mathcal{P}(S) = \{X \mid X \subseteq S\}$$
 ### Funzione Biettiva
 
 > [!note] Biettività
 > $f: A \to B$ è **biettiva** se è **iniettiva e suriettiva**:
 > $$\forall b \in B,\; |\overleftarrow{f}(\{b\})| = 1$$
-### Equipotenza e Cardinalità
 
-> [!note] Equipotenza
-> $|A| = |B|$ se e solo se esiste una **biiezione** $f: A \to B$.
+>[!note] Caratterizzazione tramite Controimmagine
+>
+>f è biettiva ⟺ per ogni b ∈ B, la controimmagine f⁻¹({b}) è un singleton (contiene esattamente un elemento).
+>
+>- Iniettività ⟹ |f⁻¹({b})| ≤ 1
+>- Suriettività ⟹ |f⁻¹({b})| ≥ 1
+>
+>Mettendole insieme: |f⁻¹({b})| = 1
+### Equipotenza $\iff \exists f$   Biettiva
+
+>[!note] Equipotenza $\iff \exists f$   Biettiva
+>$|A| \gt |B| \to \nexists f iniettiva \atop |B| \gt |A| \to \nexists f suriettiva$ $\rbrace \to |A| = |B| \iff \exists f biettiva$
 
 ### Composizione di Funzioni
 
