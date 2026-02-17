@@ -31,7 +31,7 @@
 - [x] 4.7 CORRISPONDENZA INVERSA  
 - [x] 4.8 FUNZIONE INVERSA  
 - [x] 4.9 ==TEOREMA INVERTIBILITÀ DI FUNZIONI==  
-- [ ] 4.10 OPERAZIONI n$\text{-arie}$  
+- [x] 4.10 OPERAZIONI n$\text{-arie}$  
 - [ ] 4.11 OPERAZIONI INTERE  
 - [ ] 4.12 OPERAZIONI ESTERNE  
 

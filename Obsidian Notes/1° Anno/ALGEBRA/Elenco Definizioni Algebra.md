@@ -277,7 +277,8 @@ $\varphi^{-1} = \{ (b, a) \in B \times A : (a, b) \in \varphi \}$.
 ### Operazione e Struttura Algebrica
 
 > [!note] Operazione $n$-aria
-> $f: A^n \to A$. Per $n = 2$: **operazione binaria interna**.
+> f : A^n → A, dove An = A × A × ⋯ × A (n
+volte
 
 > [!note] Struttura Algebrica
 > $(S, \mathcal{O})$ dove $S$ è un insieme non vuoto e $\mathcal{O}$ è una famiglia di operazioni su $S$.
