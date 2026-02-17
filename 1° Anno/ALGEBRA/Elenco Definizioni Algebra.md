@@ -224,6 +224,15 @@ $$ f \text{ è iniettiva } \iff (\forall b \in B) \quad \bigl| f^{-1}(\{b\}) \bi
 > [!note] Biettività
 > $f: A \to B$ è **biettiva** se è **iniettiva e suriettiva**:
 > $$\forall b \in B,\; |\overleftarrow{f}(\{b\})| = 1$$
+
+>[!note] Caratterizzazione tramite Controimmagine
+>
+>f è biettiva ⟺ per ogni b ∈ B, la controimmagine f⁻¹({b}) è un singleton (contiene esattamente un elemento).
+>
+>- Iniettività ⟹ |f⁻¹({b})| ≤ 1
+>- Suriettività ⟹ |f⁻¹({b})| ≥ 1
+>
+>Mettendole insieme: |f⁻¹({b})| = **1**
 ### Equipotenza $\iff \exists f$   Biettiva
 
 >[!note] Equipotenza $\iff \exists f$   Biettiva
