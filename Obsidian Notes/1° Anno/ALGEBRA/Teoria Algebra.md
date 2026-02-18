@@ -71,7 +71,7 @@
 - [x] 8.2 DEFINIZIONE OMOMORFISMO  
 - [x] 8.3 DEFINIZIONE DI INTEGRITÀ  
 - [x] 8.4 DEFINIZIONE DI CORPO  
-- [ ] 8.5 DEFINIZIONE DI CAMPO  
+- [x] 8.5 DEFINIZIONE DI CAMPO  
 - [ ] 8.6 DEFINIZIONE DI $V_K$ - SPAZIO VETTORIALE  
 - [ ] <mark style="background:#D4AF37; color:black; padding:0 6px; border-radius:6px;">8.7 TEOREMA DI WEDDERBURN</mark>  
 - [ ] 8.8 DEFINIZIONE DI $\mathcal{B}(S)$  
