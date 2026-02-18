@@ -431,7 +431,7 @@ Mettendo insieme le due uguaglianze: $u_1 = u_1 ∗ u_2 = u_2$. Quindi $u_1 = u_
 > $(S,\cdot) idempotenza prodotto$
 > Anello con $a \cdot a = a$ per ogni $a$. Esempio: $(\mathcal{P}(S), \triangle, \cap)$.
 
-### Caratteristica di un Anello
+### Caratteristica di un Anello Unitario
 
 > [!note] Caratteristica
 > $$\mathrm{char}(A) = \min\{m > 0 \mid \underbrace{1_A + \cdots + 1_A}_{m} = 0_A\}$$
@@ -449,7 +449,8 @@ Mettendo insieme le due uguaglianze: $u_1 = u_1 ∗ u_2 = u_2$. Quindi $u_1 = u_
 > [!tip] Dimostrazione — Invertibile $\Longrightarrow$ Cancellabile
 > Sia $a$ invertibile con inverso $a'$. Se $a \cdot b = a \cdot c$, moltiplichiamo a sinistra per $a'$:
 > $$a' \cdot (a \cdot b) = a' \cdot (a \cdot c) \;\Longrightarrow\; (a' \cdot a) \cdot b = (a' \cdot a) \cdot c \;\Longrightarrow\; u \cdot b = u \cdot c \;\Longrightarrow\; b = c$$
-> Analogamente per la cancellabilità a destra. $\square$
+> Analogamente per la cancellabilità a destra. $\blacksquare$
+> "$\nLeftarrow$" viceversa non vale
 
 ### Divisore dello Zero
 

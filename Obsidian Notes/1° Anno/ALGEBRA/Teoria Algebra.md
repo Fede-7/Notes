@@ -1,5 +1,5 @@
-## Definizioni (checkbox)
-
+# Definizioni (checkbox)
+#
 ### 11-03-2025
 - [x] 1.1 LOGICA  
 - [x] 1.2 TEORIA DEGLI INSIEMI  
@@ -67,7 +67,7 @@
 - [ ] <mark style="background:#C0C0C0; color:black; padding:0 6px; border-radius:6px;">7.6 DIVISORI DELLO 0 (DX, SX, DIVISORI DELLO 0) MAI CANCELLABILI</mark>  
 
 ### 04-04-2025
-- [ ] <mark style="background:#C0C0C0; color:black; padding:0 6px; border-radius:6px;">8.1 ELEMENTI SIMMETRIZZABILI $\Rightarrow$ ELEMENTI CANCELLABILI</mark>  
+- [x] <mark style="background:#C0C0C0; color:black; padding:0 6px; border-radius:6px;">8.1 ELEMENTI SIMMETRIZZABILI $\Rightarrow$ ELEMENTI CANCELLABILI</mark>  
 - [ ] 8.2 DEFINIZIONE OMOMORFISMO  
 - [ ] 8.3 DEFINIZIONE DI INTEGRITÀ  
 - [ ] 8.4 DEFINIZIONE DI CORPO  
@@ -194,10 +194,103 @@
 - [ ] <mark style="background: #D4AF37; color: black; padding: 0 6px; border-radius: 6px;">18.9: Teorema di Stone (Anello Booleano)</mark>  
 
 ### Dimostrazioni meno importanti (-) (ARGENTO)
-- [ ] <mark style="background: #C0C0C0; color: black; padding: 0 6px; border-radius: 6px;">6.1: Elementi simmetrizzabili: se esiste il simmetrico è unico</mark>  
-- [ ] <mark style="background: #C0C0C0; color: black; padding: 0 6px; border-radius: 6px;">7.6: Divisioni dello zero: mai cancellabili</mark>  
+- [x] <mark style="background: #C0C0C0; color: black; padding: 0 6px; border-radius: 6px;">6.1: Elementi simmetrizzabili: se esiste il simmetrico è unico</mark>  
+- [x] <mark style="background: #C0C0C0; color: black; padding: 0 6px; border-radius: 6px;">7.6: Divisioni dello zero: mai cancellabili</mark>  
 - [ ] <mark style="background: #C0C0C0; color: black; padding: 0 6px; border-radius: 6px;">8.1: Elementi simmetrizzabili $\Rightarrow$ elementi cancellabili</mark>  
 - [ ] <mark style="background: #C0C0C0; color: black; padding: 0 6px; border-radius: 6px;">12.2: Gli elementi $\mathbb{Z}_m\neq 0$ sono divisori dello zero o invertibili</mark>  
 - [ ] <mark style="background: #C0C0C0; color: black; padding: 0 6px; border-radius: 6px;">12.3: Proposizioni classi di equivalenza nilpotenti</mark>  
 - [ ] <mark style="background: #C0C0C0; color: black; padding: 0 6px; border-radius: 6px;">14.4: Coefficiente binomiale</mark>  
 - [ ] <mark style="background: #C0C0C0; color: black; padding: 0 6px; border-radius: 6px;">18.4: Proposizione</mark>  
+
+
+# Macro aree
+```mermaid
+graph TD
+    A[1.Logica e Insiemistica] --> B[2.Funzioni e Relazioni]
+    B --> C[3.Gruppi e Monoidi]
+    B --> D[6.Relazioni d'Ordine e Reticoli]
+    C --> E[4.Aritmetica e Teoria dei Numeri]
+    C --> F[5.Anelli, Campi e Spazi Vettoriali]
+    F --> G[7.Temi Monografici: Grafi e Polinomi]
+    E --> G
+    D --> G
+```
+
+
+# Lezioni --> macroaree
+```mermaid
+graph TD
+    subgraph M1 [1.Logica e Insiemistica]
+        L1[Lezione 1: Fondamenti]
+        L2[Lezione 2: Logica Avanzata]
+    end
+
+    subgraph M2 [2.Funzioni e Relazioni]
+        L3[Lezione 3: Immagine e Suriettività]
+        L4[Lezione 4: Biettività e Insieme Parti]
+        L12[Lezione 12: Equivalenze e Funzioni]
+        L16[Lezione 16: Esercizi Equivalenze]
+    end
+
+    subgraph M3 [3.Gruppi e Monoidi]
+        L5[Lezione 5: Semigruppi e Monoidi]
+        L6[Lezione 6: Elementi Invertibili e Gruppi]
+        L7[Lezione 7: Gruppi Abeliani]
+    end
+
+    subgraph M4 [4.Aritmetica e Z_n]
+        L10[Lezione 10: Induzione e Divisibilità]
+        L11[Lezione 11: Algoritmo Euclide e Bézout]
+        L13[Lezione 13: Anelli Quoziente Z_n]
+        L14[Lezione 14: Criteri Divisibilità]
+        L15[Lezione 15: Congruenze Lineari]
+    end
+
+    subgraph M5 [5.Anelli e Campi]
+        L8[Lezione 8: Domini di Integrità e Campi]
+        L9[Lezione 9: Divisibilità in Anelli]
+        L22[Lezione 22: Sottoanelli e Anelli Booleani]
+    end
+
+    subgraph M6 [6.Ordini e Reticoli]
+        L17[Lezione 17: Relazioni d'Ordine]
+        L19[Lezione 19: Diagrammi di Hasse]
+        L20[Lezione 20: Definizioni di Reticolo]
+        L21[Lezione 21: Reticoli Limitati e Complementati]
+    end
+
+    subgraph M7 [7.Temi Monografici]
+        L18[Lezione Bonus 18: Grafi]
+        L23[Lezione Bonus 23: Polinomi]
+    end
+
+    M1 --> M2
+    M2 --> M3
+    M3 --> M4
+    M4 --> M5
+    M2 --> M6
+    M5 --> M7
+    M4 --> M7
+    M6 --> M7
+```
+
+# Strutture algebriche
+```mermaid
+flowchart TD
+Z1[Monoide Abeliano]
+Z2[Gruppo Abeliano]
+
+  A[Strutture Algebriche] --(S,*) --> B[Magma]
+  B -- +Associativa --> C[Semigruppo]
+	C -- +Elemento Neutro --> D[Monoide]-- +Commutatività --> Z1
+	D -- +Elemento Simmetrizzabile --> E[Gruppo]-- +Commutatività  --> Z2
+	
+	A -- (S, somma, prodotto) --> F[Anello]
+	F -- somma --> Z2
+	F -- prodotto --> C
+	F --> Z3>Prodotto distribuito sulla somma]
+	F --> FZ{Tipologie}
+	FZ -- +Idempotenza del Prodotto --> F2[Booleano] 
+	FZ -- +Protto commutativo --> F3[Commutativo] -->F5[Commutativo Unitario] --> Z1
+	FZ -- + (A, prodotto) monoide --> F4[Unitario] --> F5
+```
