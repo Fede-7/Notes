@@ -383,8 +383,13 @@ Mettendo insieme le due uguaglianze: $u_1 = u_1 ∗ u_2 = u_2$. Quindi $u_1 = u_
 ### Parte Stabile (Chiusa)
 
 > [!note] Parte Stabile
-> $H \subseteq S$ è **stabile** (o chiusa) per $*$ se:
+> $H \subseteq S$ è **stabile** (o **chiusa**) per $*$ se:
 > $$\forall h, k \in H:\; h * k \in H$$
+> 
+> ### Proprietà
+> - Se $(S, *)$ è un **semigruppo** e $H \subseteq S$ è una parte stabile, allora $(H, *)$ è anch'esso un semigruppo.
+> - Se $S$ è un **monoide** con elemento neutro $u$, allora $(H, *)$ è un monoide solo se $u \in H$.
+> - L'elemento neutro di $H$ sarà lo stesso $u$.
 ### Gruppo
 
 > [!note] Gruppo
@@ -413,6 +418,7 @@ Mettendo insieme le due uguaglianze: $u_1 = u_1 ∗ u_2 = u_2$. Quindi $u_1 = u_
 > 2. $(A, \cdot)$ è un **semigruppo**
 > 3. Valgono le **proprietà distributive** (sinistra e destra):
 >    $$a \cdot (b + c) = a \cdot b + a \cdot c \qquad (b + c) \cdot a = b \cdot a + c \cdot a$$
+
 > [!note] Anello Commutativo
 > $a \cdot b = b \cdot a$ per ogni $a, b$.
 
