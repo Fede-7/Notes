@@ -30,7 +30,7 @@
 - [x] 4.6 CORRISPONDENZA COMPLEMENTARE  
 - [x] 4.7 CORRISPONDENZA INVERSA  
 - [x] 4.8 FUNZIONE INVERSA  
-- [x] 4.9 ==TEOREMA INVERTIBILITÀ DI FUNZIONI==  
+- [x] <mark style="background:#D4AF37; color:black; padding:0 6px; border-radius:6px;">4.9 TEOREMA INVERTIBILITÀ DI FUNZIONI</mark>  
 - [x] 4.10 OPERAZIONI n$\text{-arie}$  
 - [x] 4.11 OPERAZIONI INTERE  
 - [x] 4.12 OPERAZIONI ESTERNE  
@@ -41,14 +41,14 @@
 - [x] 5.3 $f: A \to B \text{ iniettiva} \Leftrightarrow f \text{ invertibile a sx ma l'inversa è unica}$  
 - [x] 5.4 $f: A \to B \text{ biettiva} \Leftrightarrow f \text{ invertibile e inversa è unica}$  
 - [x] 5.5 STRUTTURE ALGEBRICHE  
-- [ ] 5.6 MAGMA (CHIUSURA)  
-- [ ] 5.7 SEMIGRUPPO (ASSOCIATIVITÀ)  
-- [ ] 5.8 MONOIDE (ELEMENTO NEUTRO)  
+- [x] 5.6 MAGMA (CHIUSURA)  
+- [x] 5.7 SEMIGRUPPO (ASSOCIATIVITÀ)  
+- [x] 5.8 MONOIDE (ELEMENTO NEUTRO)  
   - [ ] ELEMENTO NEUTRO SE ESISTE È UNICO  
-  - [ ] ELEMENTO NEUTRO A DX E A SX  
+	  - [ ] ELEMENTO NEUTRO A DX E A SX  
 
 ### 28-03-2025
-- [ ] 6.1 ELEMENTI SIMMETRIZZABILI: SE ESISTE SIMMETRICO È UNICO  
+- [x] <mark style="background:#C0C0C0; color:black; padding:0 6px; border-radius:6px;">6.1 ELEMENTI SIMMETRIZZABILI: SE ESISTE SIMMETRICO È UNICO</mark>  
 - [ ] 6.2 $\mathcal{U}(S)$ INSIEME DEGLI ELEMENTI SIMMETRIZZABILI  
 - [ ] 6.3 PARTE STABILE / PARTE CHIUSA RISPETTO A UN'OPERAZIONE  
 - [ ] 6.4 $(S, *)$ MONOIDE, $\mathcal{U}(S)$ PARTE STABILE  
@@ -64,18 +64,18 @@
 - [ ] 7.3 $0_A = 0 \Rightarrow \text{UNITÀ DI } (A, +) \text{ ELEMENTO NEUTRO}$  
 - [ ] 7.4 CARATTERISTICA DI A  
 - [ ] 7.5 ELEMENTI CANCELLABILI (DX, SX, CANCELLABILI)  
-- [ ] 7.6 DIVISORI DELLO 0 (DX, SX, DIVISORI DELLO 0) MAI CANCELLABILI  
+- [ ] <mark style="background:#C0C0C0; color:black; padding:0 6px; border-radius:6px;">7.6 DIVISORI DELLO 0 (DX, SX, DIVISORI DELLO 0) MAI CANCELLABILI</mark>  
 
 ### 04-04-2025
-- [ ] 8.1 ELEMENTI SIMMETRIZZABILI $\Rightarrow$ ELEMENTI CANCELLABILI  
+- [ ] <mark style="background:#C0C0C0; color:black; padding:0 6px; border-radius:6px;">8.1 ELEMENTI SIMMETRIZZABILI $\Rightarrow$ ELEMENTI CANCELLABILI</mark>  
 - [ ] 8.2 DEFINIZIONE OMOMORFISMO  
 - [ ] 8.3 DEFINIZIONE DI INTEGRITÀ  
 - [ ] 8.4 DEFINIZIONE DI CORPO  
 - [ ] 8.5 DEFINIZIONE DI CAMPO  
 - [ ] 8.6 DEFINIZIONE DI $V_K$ - SPAZIO VETTORIALE  
-- [ ] 8.7 TEOREMA DI WEDDERBURN  
+- [ ] <mark style="background:#D4AF37; color:black; padding:0 6px; border-radius:6px;">8.7 TEOREMA DI WEDDERBURN</mark>  
 - [ ] 8.8 DEFINIZIONE DI $\mathcal{B}(S)$  
-- [ ] 8.9 TEOREMA SCOMPOSIZIONE CANONICA DI UNA PERMUTAZIONE  
+- [ ] <mark style="background:#D4AF37; color:black; padding:0 6px; border-radius:6px;">8.9 TEOREMA SCOMPOSIZIONE CANONICA DI UNA PERMUTAZIONE</mark>  
 - [ ] 8.10 PERMUTAZIONI INVERSE  
 
 ### 10-04-2025
@@ -102,34 +102,34 @@
 - [ ] 10.2 INSIEME BEN ORDINATO  
 - [ ] 10.3 INSIEME TOTALMENTE ORDINATO  
 - [ ] 10.4 CARDINALITÀ INSIEME DELLE PARTI  
-- [ ] 10.5 TEOREMA DELLA DIVISIONE EUCLIDEA  
-- [ ] 10.6 TEOREMA DI BÉZOUT  
+- [ ] <mark style="background:#D4AF37; color:black; padding:0 6px; border-radius:6px;">10.5 TEOREMA DELLA DIVISIONE EUCLIDEA</mark>  
+- [ ] <mark style="background:#D4AF37; color:black; padding:0 6px; border-radius:6px;">10.6 TEOREMA DI BÉZOUT</mark>  
 - [ ] 10.7 DEF. RELAZIONE EQUIVALENZA  
 - [ ] 10.8 DEF. RELAZIONE D'ORDINE  
 - [ ] 10.9 DEF. GRAFO  
 
 ### 29-04-2025
-- [ ] 11.1 TEOREMA FONDAMENTALE SULLE RELAZIONI DI EQUIVALENZA  
-- [ ] 11.2 TEOREMA SU RELAZIONI DI EQUIVALENZA E PARTIZIONI  
+- [ ] <mark style="background:#D4AF37; color:black; padding:0 6px; border-radius:6px;">11.1 TEOREMA FONDAMENTALE SULLE RELAZIONI DI EQUIVALENZA</mark>  
+- [ ] <mark style="background:#D4AF37; color:black; padding:0 6px; border-radius:6px;">11.2 TEOREMA SU RELAZIONI DI EQUIVALENZA E PARTIZIONI</mark>  
 - [ ] 11.3 DEF. CONGRUENZA  
 - [ ] 11.4 CONGRUENZA IN $\mathbb{Z}$  
 
 ### 06-05-2025
-- [ ] 12.1 $\mathbb{Z}_m$ CAMPO $\Leftrightarrow m$ È PRIMO $(a, m)=1$  
-- [ ] 12.2 GLI ELEMENTI $\mathbb{Z}_m \neq 0$ SONO DIVISORI DELLO 0 $(a, m) \neq 1$ O INV.  
-- [ ] 12.3 PROPOSIZIONI CLASSI DI EQUIVALENZA NILPOTENTI  
-- [ ] 12.4 EQUAZIONI CONGRUENZIALI  
+- [ ] <mark style="background:#D4AF37; color:black; padding:0 6px; border-radius:6px;">12.1 $\mathbb{Z}_m$ CAMPO $\Leftrightarrow m$ È PRIMO $(a, m)=1$</mark>  
+- [ ] <mark style="background:#C0C0C0; color:black; padding:0 6px; border-radius:6px;">12.2 GLI ELEMENTI $\mathbb{Z}_m \neq 0$ SONO DIVISORI DELLO 0 $(a, m) \neq 1$ O INV.</mark>  
+- [ ] <mark style="background:#C0C0C0; color:black; padding:0 6px; border-radius:6px;">12.3 PROPOSIZIONI CLASSI DI EQUIVALENZA NILPOTENTI</mark>  
+- [ ] <mark style="background:#D4AF37; color:black; padding:0 6px; border-radius:6px;">12.4 EQUAZIONI CONGRUENZIALI</mark>  
 
 ### 09-05-2025
 - [ ] 13.1 IDEMPOTENTI IN $\mathbb{Z}_m$  
 - [ ] 13.2 CRITERI DI DIVISIBILITÀ  
-- [ ] 13.3 TEOREMA ESISTENZA SOLUZIONI EQUAZIONI CONGRUENZIALI  
+- [ ] <mark style="background:#D4AF37; color:black; padding:0 6px; border-radius:6px;">13.3 TEOREMA ESISTENZA SOLUZIONI EQUAZIONI CONGRUENZIALI</mark>  
 
 ### 16-05-2025
 - [ ] 14.1 FUNZIONE DI EULERO  
-- [ ] 14.2 TEOREMA DI FERMAT EULERO  
+- [ ] <mark style="background:#D4AF37; color:black; padding:0 6px; border-radius:6px;">14.2 TEOREMA DI FERMAT EULERO</mark>  
 - [ ] 14.3 CALCOLO COMBINATORIO  
-- [ ] 14.4 COEFFICIENTE BINOMIALE  
+- [ ] <mark style="background:#C0C0C0; color:black; padding:0 6px; border-radius:6px;">14.4 COEFFICIENTE BINOMIALE</mark>  
 - [ ] 14.5 APPLICAZIONI INIETTIVE DA $S \to T$  
 - [ ] 14.6 BINOMIO DI NEWTON  
 
@@ -149,7 +149,7 @@
   - [ ] PROP. ASSOCIATIVA  
   - [ ] PROP. COMMUTATIVA  
   - [ ] LEGGE DI ASSORBIMENTO  
-  - [ ] IDEMPOTENZA a $\vee a = a \wedge a = a$  
+  - [ ] IDEMPOTENZA $a \vee a = a \wedge a = a$  
 
 ### 30-05-2025
 - [ ] 17.1 $(S, \le)$ TOTALMENTE ORDINATO $\Rightarrow$ S RETICOLO  
@@ -164,40 +164,40 @@
 ### 03-06-2025
 - [ ] 18.1 DEF. SOTTO ANELLO  
 - [ ] 18.2 PRINCIPIO DI DUALITÀ  
-- [ ] 18.3 TEOREMA $(L, \vee, \wedge)$ DISTRIBUTIVO  
-- [ ] 18.4 PROPOSIZIONE  
-- [ ] 18.5 DEF. RETICOLO BOOLEANO  
+- [ ] <mark style="background:#D4AF37; color:black; padding:0 6px; border-radius:6px;">18.3 TEOREMA $(L, \vee, \wedge)$ DISTRIBUTIVO</mark>  
+- [ ] <mark style="background:#C0C0C0; color:black; padding:0 6px; border-radius:6px;">18.4 PROPOSIZIONE</mark>  
+- [ ] <mark style="background:#D4AF37; color:black; padding:0 6px; border-radius:6px;">18.5 DEF. RETICOLO BOOLEANO</mark>  
 - [ ] 18.6 DEF. ALGEBRA DI BOOLE  
-- [ ] 18.7 TEOREMA $(A, \wedge, \vee, ')$  
+- [ ] <mark style="background:#D4AF37; color:black; padding:0 6px; border-radius:6px;">18.7 TEOREMA $(A, \wedge, \vee, ')$</mark>  
 - [ ] 18.8 DEF. ANELLO BOOLEANO  
-- [ ] 18.9 TEOREMA $(A, +, \cdot)$ ANELLO BOOLEANO (TEOREMA DI STONE)  
-
+- [ ] <mark style="background:#D4AF37; color:black; padding:0 6px; border-radius:6px;">18.9 TEOREMA $(A, +, \cdot)$ ANELLO BOOLEANO (TEOREMA DI STONE)</mark> 
 ---
 
-## Dimostrazioni (checkbox)
 
-### Dimostrazioni più importanti (+)
-- [ ] 4.9: Teorema Invertibilità di Funzioni
-- [ ] 8.7: Teorema di Wedderburn  
-- [ ] 8.9: Teorema di scomposizione canonica di una permutazione  
-- [ ] 10.5: Teorema della divisione euclidea  
-- [ ] 10.6: Teorema di Bézout  
-- [ ] 11.1: Teorema fondamentale sulle relazioni di equivalenza  
-- [ ] 11.2: Teorema su relazioni di equivalenza e partizioni  
-- [ ] 12.1: $\mathbb{Z}_m$ campo $\Leftrightarrow m$ è primo  
-- [ ] 12.4: Equazioni congruenziali  
-- [ ] 13.3: Teorema di esistenza soluzioni equazioni congruenziali  
-- [ ] 14.2: Teorema di Fermat-Eulero  
-- [ ] 18.3: Teorema $(L, \vee, \wedge)$ distributivo  
-- [ ] 18.5: Definizione reticolo Booleano  
-- [ ] 18.7: Teorema $(A, \wedge, \vee, ')$  
-- [ ] 18.9: Teorema di Stone (Anello Booleano)  
+## Dimostrazioni (checkbox) — evidenziate
 
-### Dimostrazioni meno importanti (-)
-- [ ] 6.1: Elementi simmetrizzabili: se esiste il simmetrico è unico  
-- [ ] 7.6: Divisioni dello zero: mai cancellabili  
-- [ ] 8.1: Elementi simmetrizzabili $\Rightarrow$ elementi cancellabili  
-- [ ] 12.2: Gli elementi $\mathbb{Z}_m$ sono divisori dello zero o invertibili  
-- [ ] 12.3: Proposizioni classi di equivalenza nilpotenti  
-- [ ] 14.4: Coefficiente binomiale  
-- [ ] 18.4: Proposizione
+### Dimostrazioni più importanti (+) (ORO)
+- [x] <mark style="background: #D4AF37; color: black; padding: 0 6px; border-radius: 6px;">4.9: Teorema Invertibilità di Funzioni</mark>
+- [ ] <mark style="background: #D4AF37; color: black; padding: 0 6px; border-radius: 6px;">8.7: Teorema di Wedderburn</mark>  
+- [ ] <mark style="background: #D4AF37; color: black; padding: 0 6px; border-radius: 6px;">8.9: Teorema di scomposizione canonica di una permutazione</mark>  
+- [ ] <mark style="background: #D4AF37; color: black; padding: 0 6px; border-radius: 6px;">10.5: Teorema della divisione euclidea</mark>  
+- [ ] <mark style="background: #D4AF37; color: black; padding: 0 6px; border-radius: 6px;">10.6: Teorema di Bézout</mark>  
+- [ ] <mark style="background: #D4AF37; color: black; padding: 0 6px; border-radius: 6px;">11.1: Teorema fondamentale sulle relazioni di equivalenza</mark>  
+- [ ] <mark style="background: #D4AF37; color: black; padding: 0 6px; border-radius: 6px;">11.2: Teorema su relazioni di equivalenza e partizioni</mark>  
+- [ ] <mark style="background: #D4AF37; color: black; padding: 0 6px; border-radius: 6px;">12.1: $\mathbb{Z}_m$ campo $\Leftrightarrow m$ è primo</mark>  
+- [ ] <mark style="background: #D4AF37; color: black; padding: 0 6px; border-radius: 6px;">12.4: Equazioni congruenziali</mark>  
+- [ ] <mark style="background: #D4AF37; color: black; padding: 0 6px; border-radius: 6px;">13.3: Teorema di esistenza soluzioni equazioni congruenziali</mark>  
+- [ ] <mark style="background: #D4AF37; color: black; padding: 0 6px; border-radius: 6px;">14.2: Teorema di Fermat-Eulero</mark>  
+- [ ] <mark style="background: #D4AF37; color: black; padding: 0 6px; border-radius: 6px;">18.3: Teorema $(L, \vee, \wedge)$ distributivo</mark>  
+- [ ] <mark style="background: #D4AF37; color: black; padding: 0 6px; border-radius: 6px;">18.5: Definizione reticolo Booleano</mark>  
+- [ ] <mark style="background: #D4AF37; color: black; padding: 0 6px; border-radius: 6px;">18.7: Teorema $(A, \wedge, \vee, ')$</mark>  
+- [ ] <mark style="background: #D4AF37; color: black; padding: 0 6px; border-radius: 6px;">18.9: Teorema di Stone (Anello Booleano)</mark>  
+
+### Dimostrazioni meno importanti (-) (ARGENTO)
+- [ ] <mark style="background: #C0C0C0; color: black; padding: 0 6px; border-radius: 6px;">6.1: Elementi simmetrizzabili: se esiste il simmetrico è unico</mark>  
+- [ ] <mark style="background: #C0C0C0; color: black; padding: 0 6px; border-radius: 6px;">7.6: Divisioni dello zero: mai cancellabili</mark>  
+- [ ] <mark style="background: #C0C0C0; color: black; padding: 0 6px; border-radius: 6px;">8.1: Elementi simmetrizzabili $\Rightarrow$ elementi cancellabili</mark>  
+- [ ] <mark style="background: #C0C0C0; color: black; padding: 0 6px; border-radius: 6px;">12.2: Gli elementi $\mathbb{Z}_m\neq 0$ sono divisori dello zero o invertibili</mark>  
+- [ ] <mark style="background: #C0C0C0; color: black; padding: 0 6px; border-radius: 6px;">12.3: Proposizioni classi di equivalenza nilpotenti</mark>  
+- [ ] <mark style="background: #C0C0C0; color: black; padding: 0 6px; border-radius: 6px;">14.4: Coefficiente binomiale</mark>  
+- [ ] <mark style="background: #C0C0C0; color: black; padding: 0 6px; border-radius: 6px;">18.4: Proposizione</mark>  

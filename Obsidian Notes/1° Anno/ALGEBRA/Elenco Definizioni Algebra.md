@@ -290,41 +290,56 @@ $\varphi^{-1} = \{ (b, a) \in B \times A : (a, b) \in \varphi \}$.
 > [!note] Inversa Destra
 > $f \circ h = \mathrm{id}_B$. Esiste $\Longleftrightarrow$ $f$ è **suriettiva**.
 
-### Operazione e Struttura Algebrica
+### Operazione $n$-aria
 
 >[!note] Operazione $n$-aria
 >Una operazione $n$-aria è una funzione $f : A^n \to A$, dove $A^n = A \times A \times \cdots \times A$ ($n$ volte).
 >- $n=1 \to$ "Unaria interna"
 >- $n=2 \to$ "Binaria interna"
 >- Si dicono "**esterne**" solo quando si coinvolgono due insiemi diversi
+>---
+
+## Lezione 5 — Matrici, Semigruppo, Monoide
+### Strutture Algebriche
 
 > [!note] Struttura Algebrica
 > $(S, \mathcal{O})$ dove $S$ è un insieme non vuoto e $\mathcal{O}$ è una famiglia di operazioni su $S$ (Interne opp. Esterne).
 
-> [!note] Associatività
-> $$\forall a, b, c \in S:\; (a * b) * c = a * (b * c)$$
----
-
-## Lezione 5 — Matrici, Semigruppo, Monoide
-
-### Matrici
+#### Matrici
 
 > [!note] Matrice $m \times n$
 > Tabella rettangolare di $m$ righe e $n$ colonne di elementi di un anello.
 > **Trasposta:** $(A^T)_{ij} = A_{ji}$.
 
-### Semigruppo
+
+#### Magma
+
+>[!note] Magma
+>$(S,*)$, con $*$ operazione binaria interna
+#### Associatività
+> [!note] Associatività
+> $$\forall a, b, c \in S:\; (a * b) * c = a * (b * c)$$
+
+#### Semigruppo
 
 > [!note] Semigruppo
 > $(S, *)$ dove $*$ è un'operazione binaria **associativa**.
 
-### Elemento Neutro
+#### Elemento Neutro
 
 > [!note] Elemento Neutro
 > $u \in S$ tale che $\forall a \in S:\; a * u = u * a = a$.
 > Se esiste, è **unico**.
 
-### Monoide
+>[!note] Proposizione: Unicità elemento neutro
+> Se in un semigruppo $(S, ∗)$ esiste un elemento neutro "$u$", allora
+> esso è unico.
+> - Dimostrazione: 
+> Siano $u_1$ e $u_2$ due elementi neutri.
+Consideriamo $u_1$. Poiché $u_2$ è neutro (in particolare a destra), $u_1 = u_1 ∗ u_2$.
+Consideriamo $u_2$. Poiché $u_1$ è neutro (in particolare a sinistra), $u_1 ∗ u_2 = u_2$.
+Mettendo insieme le due uguaglianze: $u_1 = u_1 ∗ u_2 = u_2$. Quindi $u_1 = u_2$.
+#### Monoide
 
 > [!note] Monoide
 > **Semigruppo con elemento neutro**: $(S, *, u)$.
@@ -345,10 +360,11 @@ $\varphi^{-1} = \{ (b, a) \in B \times A : (a, b) \in \varphi \}$.
 > $$c_{ij} = \sum_{k=1}^{p} a_{ik} \cdot b_{kj}$$
 > Non commutativo; associativo; la matrice identità $I_n$ è l'elemento neutro.
 
+
 ### Elemento Invertibile (Simmetrico)
 
-> [!note] Elemento Invertibile
-> In un monoide $(S, *, u)$, $a$ è **invertibile** se:
+> [!note] Elemento Invertibile opp. Simmetrizzabile
+> In un monoide $(S, *, u)$, $a \in S$ è **invertibile** se:
 > $$\exists\, a' \in S:\; a * a' = a' * a = u$$
 > L'inverso è **unico**. Invertibile $\Longrightarrow$ Cancellabile.
 
