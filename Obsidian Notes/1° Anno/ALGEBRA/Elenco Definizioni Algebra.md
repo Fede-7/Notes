@@ -457,7 +457,10 @@ Mettendo insieme le due uguaglianze: $u_1 = u_1 ∗ u_2 = u_2$. Quindi $u_1 = u_
 > [!note] Divisore dello Zero
 > $a \neq 0_A$ è **divisore dello zero** se $\exists\, b \neq 0_A:\; a \cdot b = 0_A$.
 > $$a \neq 0 \text{ è divisore dello zero} \;\Longleftrightarrow\; a \text{ non è cancellabile}$$
+
 > [!tip] Dimostrazione — Divisore dello zero $\Longleftrightarrow$ Non cancellabile
+>Un elemento $(a \neq 0_A)$ è un divisore dello zero $\Longleftrightarrow (a)$ non è cancellabile rispetto al prodotto $(\cdot)$.
+> 
 > **($\Longrightarrow$)** Se $a$ è divisore dello zero, $\exists\, b \neq 0_A$ con $a \cdot b = 0_A = a \cdot 0_A$.
 > Se $a$ fosse cancellabile, $b = 0_A$: contraddizione.
 >

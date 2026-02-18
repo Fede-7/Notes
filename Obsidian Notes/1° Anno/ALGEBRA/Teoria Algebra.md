@@ -63,12 +63,12 @@
 - [x] 7.2 $1_A = 1 \Rightarrow \text{UNITÀ DI } (A, \cdot) \text{ ELEMENTO NEUTRO}$  
 - [x] 7.3 $0_A = 0 \Rightarrow \text{UNITÀ DI } (A, +) \text{ ELEMENTO NEUTRO}$  
 - [x] 7.4 CARATTERISTICA DI A  
-- [ ] 7.5 ELEMENTI CANCELLABILI (DX, SX, CANCELLABILI)  
-- [ ] <mark style="background:#C0C0C0; color:black; padding:0 6px; border-radius:6px;">7.6 DIVISORI DELLO 0 (DX, SX, DIVISORI DELLO 0) MAI CANCELLABILI</mark>  
+- [x] 7.5 ELEMENTI CANCELLABILI (DX, SX, CANCELLABILI)  
+- [x] <mark style="background:#C0C0C0; color:black; padding:0 6px; border-radius:6px;">7.6 DIVISORI DELLO 0 (DX, SX, DIVISORI DELLO 0) MAI CANCELLABILI</mark>  
 
 ### 04-04-2025
 - [x] <mark style="background:#C0C0C0; color:black; padding:0 6px; border-radius:6px;">8.1 ELEMENTI SIMMETRIZZABILI $\Rightarrow$ ELEMENTI CANCELLABILI</mark>  
-- [ ] 8.2 DEFINIZIONE OMOMORFISMO  
+- [x] 8.2 DEFINIZIONE OMOMORFISMO  
 - [ ] 8.3 DEFINIZIONE DI INTEGRITÀ  
 - [ ] 8.4 DEFINIZIONE DI CORPO  
 - [ ] 8.5 DEFINIZIONE DI CAMPO  
@@ -196,7 +196,7 @@
 ### Dimostrazioni meno importanti (-) (ARGENTO)
 - [x] <mark style="background: #C0C0C0; color: black; padding: 0 6px; border-radius: 6px;">6.1: Elementi simmetrizzabili: se esiste il simmetrico è unico</mark>  
 - [x] <mark style="background: #C0C0C0; color: black; padding: 0 6px; border-radius: 6px;">7.6: Divisioni dello zero: mai cancellabili</mark>  
-- [ ] <mark style="background: #C0C0C0; color: black; padding: 0 6px; border-radius: 6px;">8.1: Elementi simmetrizzabili $\Rightarrow$ elementi cancellabili</mark>  
+- [x] <mark style="background: #C0C0C0; color: black; padding: 0 6px; border-radius: 6px;">8.1: Elementi simmetrizzabili $\Rightarrow$ elementi cancellabili</mark>  
 - [ ] <mark style="background: #C0C0C0; color: black; padding: 0 6px; border-radius: 6px;">12.2: Gli elementi $\mathbb{Z}_m\neq 0$ sono divisori dello zero o invertibili</mark>  
 - [ ] <mark style="background: #C0C0C0; color: black; padding: 0 6px; border-radius: 6px;">12.3: Proposizioni classi di equivalenza nilpotenti</mark>  
 - [ ] <mark style="background: #C0C0C0; color: black; padding: 0 6px; border-radius: 6px;">14.4: Coefficiente binomiale</mark>  
