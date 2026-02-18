@@ -233,6 +233,15 @@ $$ f \text{ è iniettiva } \iff (\forall b \in B) \quad \bigl| f^{-1}(\{b\}) \bi
 >- Suriettività ⟹ |f⁻¹({b})| ≥ 1
 >
 >Mettendole insieme: |f⁻¹({b})| = 1
+
+> [!note] Funzione biettiva $\mathbb{N}\to\mathbb{Z}$
+>$$f:\mathbb{N}\to\mathbb{Z},\qquad
+> f(n)=
+> \begin{cases}
+> \ \ \frac{n}{2} & \text{se } n \text{ è pari}\\[4pt]
+> -\frac{n+1}{2} & \text{se } n \text{ è dispari}
+> \end{cases} $$
+> (con $\mathbb{N}=\{0,1,2,\dots\}$).
 ### Equipotenza $\iff \exists f$   Biettiva
 
 >[!note] Equipotenza $\iff \exists f$   Biettiva
@@ -263,7 +272,7 @@ $\varphi^{-1} = \{ (b, a) \in B \times A : (a, b) \in \varphi \}$.
 >1. f⁻¹ ∘ f = idₐ (Comporre f e poi f⁻¹ riporta all'identità sul dominio originale A)
 >2. f ∘ f⁻¹ = idᵦ (Comporre f⁻¹ e poi f riporta all'identità sul codominio originale B)
 
->[!important] Teorema Fondamentale: Invertibilità e Biettività
+>[!important] Teorema Fondamentale: Invertibilità
 >Una funzione $f$ è completamente invertibile $\iff$ biettiva.
 >
 >**Dimostrazione**
@@ -274,33 +283,29 @@ $\varphi^{-1} = \{ (b, a) \in B \times A : (a, b) \in \varphi \}$.
 >Se $f$ è biettiva $\implies \forall b \in B, \exists! \space a \in A$ t.c. $f(a) = b$ (perché $|f^{-1}(\{b\})| = 1$).
 >
 >Possiamo definire $f^{-1}(b) = a$, che soddisfa le condizioni $f^{-1} \circ f = \text{id}_A$ e $f \circ f^{-1} = \text{id}_B$.
-### Operazione e Struttura Algebrica
-
-> [!note] Operazione $n$-aria
-> f : A^n → A, dove An = A × A × ⋯ × A (n
-volte
-
-> [!note] Struttura Algebrica
-> $(S, \mathcal{O})$ dove $S$ è un insieme non vuoto e $\mathcal{O}$ è una famiglia di operazioni su $S$.
-
-> [!note] Associatività
-> $$\forall a, b, c \in S:\; (a * b) * c = a * (b * c)$$
----
-
-## Lezione 5 — Inversa, Matrici, Semigruppo, Monoide
-
-### Teorema di Invertibilità
-
-> [!important] Teorema
-> $f: A \to B$ è invertibile se e solo se $f$ è biettiva. L'inversa è unica.
-
-### Inversa Sinistra e Destra
 
 > [!note] Inversa Sinistra
 > $g \circ f = \mathrm{id}_A$. Esiste $\Longleftrightarrow$ $f$ è **iniettiva**.
 
 > [!note] Inversa Destra
 > $f \circ h = \mathrm{id}_B$. Esiste $\Longleftrightarrow$ $f$ è **suriettiva**.
+
+### Operazione e Struttura Algebrica
+
+>[!note] Operazione $n$-aria
+>Una operazione $n$-aria è una funzione $f : A^n \to A$, dove $A^n = A \times A \times \cdots \times A$ ($n$ volte).
+>- $n=1 \to$ "Unaria interna"
+>- $n=2 \to$ "Binaria interna"
+>- Si dicono "**esterne**" solo quando si coinvolgono due insiemi diversi
+
+> [!note] Struttura Algebrica
+> $(S, \mathcal{O})$ dove $S$ è un insieme non vuoto e $\mathcal{O}$ è una famiglia di operazioni su $S$ (Interne opp. Esterne).
+
+> [!note] Associatività
+> $$\forall a, b, c \in S:\; (a * b) * c = a * (b * c)$$
+---
+
+## Lezione 5 — Matrici, Semigruppo, Monoide
 
 ### Matrici
 

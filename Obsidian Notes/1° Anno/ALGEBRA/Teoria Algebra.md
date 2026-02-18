@@ -32,15 +32,15 @@
 - [x] 4.8 FUNZIONE INVERSA  
 - [x] 4.9 ==TEOREMA INVERTIBILITÀ DI FUNZIONI==  
 - [x] 4.10 OPERAZIONI n$\text{-arie}$  
-- [ ] 4.11 OPERAZIONI INTERE  
-- [ ] 4.12 OPERAZIONI ESTERNE  
+- [x] 4.11 OPERAZIONI INTERE  
+- [x] 4.12 OPERAZIONI ESTERNE  
 
 ### 25-03-2025
-- [ ] 5.1 FUNZIONE BIETTIVA $\mathbb{N} \to \mathbb{Z}$  
-- [ ] 5.2 $f: A \to B \text{ suriettiva} \Leftrightarrow f \text{ invertibile a dx ma l'inversa non è unica}$  
-- [ ] 5.3 $f: A \to B \text{ iniettiva} \Leftrightarrow f \text{ invertibile a sx ma l'inversa è unica}$  
-- [ ] 5.4 $f: A \to B \text{ biettiva} \Leftrightarrow f \text{ invertibile e inversa è unica}$  
-- [ ] 5.5 STRUTTURE ALGEBRICHE  
+- [x] 5.1 FUNZIONE BIETTIVA $\mathbb{N} \to \mathbb{Z}$  
+- [x] 5.2 $f: A \to B \text{ suriettiva} \Leftrightarrow f \text{ invertibile a dx ma l'inversa non è unica}$  
+- [x] 5.3 $f: A \to B \text{ iniettiva} \Leftrightarrow f \text{ invertibile a sx ma l'inversa è unica}$  
+- [x] 5.4 $f: A \to B \text{ biettiva} \Leftrightarrow f \text{ invertibile e inversa è unica}$  
+- [x] 5.5 STRUTTURE ALGEBRICHE  
 - [ ] 5.6 MAGMA (CHIUSURA)  
 - [ ] 5.7 SEMIGRUPPO (ASSOCIATIVITÀ)  
 - [ ] 5.8 MONOIDE (ELEMENTO NEUTRO)  
