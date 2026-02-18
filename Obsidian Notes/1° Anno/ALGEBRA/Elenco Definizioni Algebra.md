@@ -493,6 +493,8 @@ Mettendo insieme le due uguaglianze: $u_1 = u_1 ∗ u_2 = u_2$. Quindi $u_1 = u_
 
 > [!important] Teorema di Wedderburn
 > Ogni **corpo finito** è un **campo**.
+> - Spiegazione:
+> Il teorema dimostra che se l'insieme degli elementi è finito, è matematicamente impossibile costruire una struttura dove valga l'invertibilità senza che valga anche la commutatività
 
 ### Spazio Vettoriale
 
