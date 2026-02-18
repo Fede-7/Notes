@@ -60,9 +60,9 @@
   - [ ] $(A, +)$ GRUPPO ABELIANO  
   - [ ] $(A, \cdot)$ SEMIGRUPPO  
   - [ ] DISTRIBUTIVA SU +  
-- [ ] 7.2 $1_A = 1 \Rightarrow \text{UNITÀ DI } (A, \cdot) \text{ ELEMENTO NEUTRO}$  
-- [ ] 7.3 $0_A = 0 \Rightarrow \text{UNITÀ DI } (A, +) \text{ ELEMENTO NEUTRO}$  
-- [ ] 7.4 CARATTERISTICA DI A  
+- [x] 7.2 $1_A = 1 \Rightarrow \text{UNITÀ DI } (A, \cdot) \text{ ELEMENTO NEUTRO}$  
+- [x] 7.3 $0_A = 0 \Rightarrow \text{UNITÀ DI } (A, +) \text{ ELEMENTO NEUTRO}$  
+- [x] 7.4 CARATTERISTICA DI A  
 - [ ] 7.5 ELEMENTI CANCELLABILI (DX, SX, CANCELLABILI)  
 - [ ] <mark style="background:#C0C0C0; color:black; padding:0 6px; border-radius:6px;">7.6 DIVISORI DELLO 0 (DX, SX, DIVISORI DELLO 0) MAI CANCELLABILI</mark>  
 

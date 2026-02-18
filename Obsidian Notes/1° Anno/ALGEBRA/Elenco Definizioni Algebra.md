@@ -420,12 +420,15 @@ Mettendo insieme le due uguaglianze: $u_1 = u_1 ∗ u_2 = u_2$. Quindi $u_1 = u_
 >    $$a \cdot (b + c) = a \cdot b + a \cdot c \qquad (b + c) \cdot a = b \cdot a + c \cdot a$$
 
 > [!note] Anello Commutativo
+> $(S,\cdot)$ commutativo
 > $a \cdot b = b \cdot a$ per ogni $a, b$.
 
 > [!note] Anello Unitario
+> $(S,\cdot)$ monoide
 > Esiste un'unità $1_A$ tale che $a \cdot 1_A = 1_A \cdot a = a$.
 
 > [!note] Anello Booleano
+> $(S,\cdot) idempotenza prodotto$
 > Anello con $a \cdot a = a$ per ogni $a$. Esempio: $(\mathcal{P}(S), \triangle, \cap)$.
 
 ### Caratteristica di un Anello
