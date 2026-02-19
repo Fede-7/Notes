@@ -73,7 +73,7 @@
 - [x] 8.4 DEFINIZIONE DI CORPO  
 - [x] 8.5 DEFINIZIONE DI CAMPO  
 - [ ] 8.6 DEFINIZIONE DI $V_K$ - SPAZIO VETTORIALE  
-- [ ] <mark style="background:#D4AF37; color:black; padding:0 6px; border-radius:6px;">8.7 TEOREMA DI WEDDERBURN</mark>  
+- [x] <mark style="background:#D4AF37; color:black; padding:0 6px; border-radius:6px;">8.7 TEOREMA DI WEDDERBURN</mark>  
 - [ ] 8.8 DEFINIZIONE DI $\mathcal{B}(S)$  
 - [ ] <mark style="background:#D4AF37; color:black; padding:0 6px; border-radius:6px;">8.9 TEOREMA SCOMPOSIZIONE CANONICA DI UNA PERMUTAZIONE</mark>  
 - [ ] 8.10 PERMUTAZIONI INVERSE  

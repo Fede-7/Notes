@@ -476,25 +476,40 @@ Mettendo insieme le due uguaglianze: $u_1 = u_1 ∗ u_2 = u_2$. Quindi $u_1 = u_
 > [!note] Omomorfismo
 > $f: (S, *) \to (T, \perp)$ è un **omomorfismo** se:
 > $$f(a * b) = f(a) \perp f(b) \quad \forall a, b \in S$$
-### Dominio d'Integrità
+### Dominio d'Integrità e campi
 
 > [!note] Dominio d'Integrità
-> Anello **commutativo**, **unitario** (con $1_A \neq 0_A$), **privo di divisori dello zero**.
-> Esempi: $\mathbb{Z}$, $\mathbb{Q}$, $\mathbb{R}$, $\mathbb{C}$.
-
-### Corpo e Campo
+> Un anello $(A, +, \cdot)$ è un **dominio d'integrità** se:
+> - È **commutativo**
+> - È **unitario** (con $1_A \neq 0_A$)
+> - È **privo di divisori dello zero**
+>
+> **Esempi:** $\mathbb{Z}$, $\mathbb{Q}$, $\mathbb{R}$, $\mathbb{C}$.
 
 > [!note] Corpo
-> Anello unitario $(K, +, \cdot)$ con $1_K \neq 0_K$ e $U(K) = K \setminus \{0_K\}$
-> (ogni elemento non nullo è invertibile).
+> Un anello $(K, +, \cdot)$ è un **corpo** se:
+> - È **unitario** (con $1_K \neq 0_K$)
+> - $(K^*, \cdot)$ è un **gruppo** (dove $K^* = K \setminus \{0_K\}$)
+>  Equivalentemente: $\mathcal{U}(K^*) = K \setminus \{0_K\}$, ossia ogni elemento non nullo è invertibile/simmetrizzabile.
 
 > [!note] Campo
-> **Corpo commutativo**. Campo $\Longrightarrow$ Dominio d'integrità.
+> Un **campo** è un **corpo commutativo**, ossia:
+> - È un corpo
+> - La moltiplicazione "$\cdot$" è **commutativa**
+>
+> **Esempi:** $\mathbb{Q}$, $\mathbb{R}$, $\mathbb{C}$, $\mathbb{Z}_p$ (con $p$ primo).
+
+>[!abstract] ciao
+
 
 > [!important] Teorema di Wedderburn
-> Ogni **corpo finito** è un **campo**.
+> Ogni **corpo finito** è anche un **campo**.
 > - Spiegazione:
 > Il teorema dimostra che se l'insieme degli elementi è finito, è matematicamente impossibile costruire una struttura dove valga l'invertibilità senza che valga anche la commutatività
+> Quindi se
+> $$
+> S \text{ è finito e simmetrizzabile} \implies S \text{ è commutativo}
+> $$
 
 ### Spazio Vettoriale
 
