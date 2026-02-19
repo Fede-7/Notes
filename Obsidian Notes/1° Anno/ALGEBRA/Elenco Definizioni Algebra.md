@@ -657,6 +657,7 @@ Mettendo insieme le due uguaglianze: $u_1 = u_1 ∗ u_2 = u_2$. Quindi $u_1 = u_
 
 
 ### Relazioni Binarie — Proprietà
+Sott'insieme del prodotto cartesiano $A \times A$ t.c. $a R b \iff (a,b) \in G)$
 
 > [!note] Proprietà di una Relazione $R \subseteq A \times A$
 > | Proprietà | Definizione |

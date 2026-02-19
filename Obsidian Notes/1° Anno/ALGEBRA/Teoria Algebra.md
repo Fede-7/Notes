@@ -86,10 +86,10 @@
 - [x] 9.5 DEF. ELEMENTI ASSOCIATI $a \sim b$  
 - [x] 9.6 DEF. DI DIVISORI BANALI  
 - [x] 9.7 DEF. DIVISORI PROPRI  
-- [ ] 9.8 ARITMETICA IN $\mathbb{Z}$  
-- [ ] 9.9 DEF. MASSIMO COMUN DIVISORE (MCD)  
-- [ ] 9.10 DEF. MINIMO COMUNE MULTIPLO (mcm)  
-- [ ] 9.11 DEF. NUMERO PRIMO  
+- [x] 9.8 ARITMETICA IN $\mathbb{Z}$  
+- [x] 9.9 DEF. MASSIMO COMUN DIVISORE (MCD)  
+- [x] 9.10 DEF. MINIMO COMUNE MULTIPLO (mcm)  
+- [x] 9.11 DEF. NUMERO PRIMO  
 - [ ] 9.12 RELAZIONI BINARIE  
 - [ ] 9.13 RELAZIONE TOTALE  
 - [ ] 9.14 RELAZIONE D'IDENTITÀ  
@@ -178,8 +178,8 @@
 
 ### Dimostrazioni più importanti (+) (ORO)
 - [x] <mark style="background: #D4AF37; color: black; padding: 0 6px; border-radius: 6px;">4.9: Teorema Invertibilità di Funzioni</mark>
-- [ ] <mark style="background: #D4AF37; color: black; padding: 0 6px; border-radius: 6px;">8.7: Teorema di Wedderburn</mark>  
-- [ ] <mark style="background: #D4AF37; color: black; padding: 0 6px; border-radius: 6px;">8.9: Teorema di scomposizione canonica di una permutazione</mark>  
+- [x] <mark style="background: #D4AF37; color: black; padding: 0 6px; border-radius: 6px;">8.7: Teorema di Wedderburn</mark>  
+- [x] <mark style="background: #D4AF37; color: black; padding: 0 6px; border-radius: 6px;">8.9: Teorema di scomposizione canonica di una permutazione</mark>  
 - [ ] <mark style="background: #D4AF37; color: black; padding: 0 6px; border-radius: 6px;">10.5: Teorema della divisione euclidea</mark>  
 - [ ] <mark style="background: #D4AF37; color: black; padding: 0 6px; border-radius: 6px;">10.6: Teorema di Bézout</mark>  
 - [ ] <mark style="background: #D4AF37; color: black; padding: 0 6px; border-radius: 6px;">11.1: Teorema fondamentale sulle relazioni di equivalenza</mark>  
