@@ -519,24 +519,40 @@ Mettendo insieme le due uguaglianze: $u_1 = u_1 ∗ u_2 = u_2$. Quindi $u_1 = u_
 ### Spazio Vettoriale
 
 > [!note] Spazio Vettoriale
-> $(V, +)$ gruppo abeliano su un campo $(K, +, \cdot)$ con operazione esterna $\cdot: K \times V \to V$ che soddisfa:
-> 1. $\lambda(\mu v) = (\lambda\mu)v$
-> 2. $(\lambda + \mu)v = \lambda v + \mu v$
-> 3. $\lambda(v + w) = \lambda v + \lambda w$
-> 4. $1_K \cdot v = v$
+> Sia $K$ un campo. Un **$K$-spazio vettoriale** è una struttura $(V, +, \cdot_{\text{ext}})$ dove:
+>
+> 1. $(V, +)$ è un **gruppo abeliano** (vettori, somma vettoriale, vettore nullo $0_V$)
+> 2. $\cdot_{\text{ext}}: K \times V \to V$ è un'**operazione esterna** (prodotto per scalare)
+> 3. Valgono $\forall \alpha, \beta \in K, \, \forall u, v \in V$:
+>    - **i)** $\alpha \cdot_{\text{ext}} (\beta \cdot_{\text{ext}} v) = (\alpha \cdot_K \beta) \cdot_{\text{ext}} v$ (Associatività mista)
+>    - **ii)** $(\alpha +_K \beta) \cdot_{\text{ext}} v = (\alpha \cdot_{\text{ext}} v) +_V (\beta \cdot_{\text{ext}} v)$ (Distributività scalari)
+>    - **iii)** $\alpha \cdot_{\text{ext}} (u +_V v) = (\alpha \cdot_{\text{ext}} u) +_V (\alpha \cdot_{\text{ext}} v)$ (Distributività vettori)
+>    - **iv)** $1_K \cdot_{\text{ext}} v = v$ (Elemento neutro)
 
 ### Gruppo Simmetrico
 
 > [!note] Gruppo Simmetrico $S_n$
-> L'insieme di tutte le permutazioni di $\{1, 2, \ldots, n\}$ con l'operazione di composizione.
-> $$|S_n| = n!$$
-> Non abeliano per $n \geq 3$.
+> Sia $S$ un insieme con $|S| = n$ (spesso $S = \{1, 2, \ldots, n\}$).
+>
+> **$\mathcal{B}(S)$** = insieme delle permutazioni (biiezioni) di $S$.
+>
+> $(\mathcal{B}(S), \circ)$ è un **gruppo**, detto **Gruppo Simmetrico**, denotato $S_n$.
+> - $|S_n| = n!$
+> - Non abeliano per $n \geq 3$
 
-> [!note] Notazione Ciclica
-> Ogni permutazione si decompone in **cicli disgiunti** in modo unico (a meno dell'ordine).
+> [!note] Notazione Ciclica e Decomposizione
+> Un **ciclo** $(c_1c_2\cdots c_k)$: $\sigma(c_i) = c_{i+1}$, $\sigma(c_k) = c_1$, $\sigma(x) = x$ altrimenti.
+>
+> **Teorema:** Ogni $\sigma \in S_n$ si scrive univocamente come prodotto di cicli disgiunti.
+>
+> **Esempio:** $\begin{pmatrix} 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 \\ 2 & 4 & 7 & 1 & 5 & 6 & 3 & 9 & 8 \end{pmatrix} = (124)(37)(89)$
 
----
-
+> [!note] Inversa di Cicli
+> **Ciclo:** $(c_1c_2\cdots c_k)^{-1} = (c_1c_kc_{k-1}\cdots c_2)$ 
+>
+> **Esempio:** $(1743)^{-1} = (1347)$
+>
+> **Prodotto:** $(\sigma_1 \circ \sigma_2 \circ \cdots \circ \sigma_k)^{-1} = \sigma_k^{-1} \circ \cdots \circ \sigma_2^{-1} \circ \sigma_1^{-1}$
 ## Lezione 9 — Tavole di Cayley, Nilpotenti, Divisibilità, MCD, Relazioni Binarie
 
 ### Tavole di Cayley
