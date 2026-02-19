@@ -590,11 +590,13 @@ Mettendo insieme le due uguaglianze: $u_1 = u_1 ∗ u_2 = u_2$. Quindi $u_1 = u_
 
 > [!note] Divisibilità
 > $$b \mid a \;\Longleftrightarrow\; \exists c:\; a = b \cdot c$$
-> $\mathrm{div}(a)$: insieme dei divisori di $a$. $\;\mathrm{mult}(b)$: insieme dei multipli di $b$.
+> - $\mathrm{div}(a)$: insieme dei divisori di $a$. 
+> - $\mathrm{mult}(b)$: insieme dei multipli di $b$.
 
 ### Elementi Associati
 
 > [!note] Associati
+> > Sia $x,y \in A$ un anello commutativo unitario.
 > $x \sim y \;\Longleftrightarrow\; \exists\, u \in U(A):\; x = u \cdot y$.
 > È una **relazione di equivalenza**.
 
@@ -604,6 +606,7 @@ Mettendo insieme le due uguaglianze: $u_1 = u_1 ∗ u_2 = u_2$. Quindi $u_1 = u_
 > Sia $a \in A$ un anello unitario.
 > - I **divisori banali** di $a$ sono gli elementi **associati** a $1$ (cioè gli invertibili $U(A)$) e gli associati ad $a$ stesso.
 > - Un **divisore proprio** è un divisore di $a$ che non è né banale né invertibile.
+
 
 ### MCD e mcm
 
@@ -633,6 +636,25 @@ Mettendo insieme le due uguaglianze: $u_1 = u_1 ∗ u_2 = u_2$. Quindi $u_1 = u_
 > Moltiplicando per $b$: $pxb + aby = b$.
 > Ora $p \mid pxb$ (banalmente) e $p \mid aby$ (perché $p \mid ab$).
 > Quindi $p \mid (pxb + aby) = b$. $\square$
+### Aritmentica in $\mathbb{Z}$
+
+> [!note]  Aritmetica in $\mathbb{Z}$
+>
+> $\mathbb{Z}$ è un **dominio d'integrità** speciale con proprietà aritmetiche fondamentali:
+>
+> ### Proprietà strutturali
+> - **Dominio d'integrità:** commutativo, unitario, privo di divisori dello zero
+> - **Privo di elementi nilpotenti:** l'unico elemento nilpotente è $0$ (poiché $0 \cdot 0 = 0$)
+> - **Ordinamento totale:** $\mathbb{Z}$ è totalmente ordinato con $\leq$
+> - **Ben ordinato:** ogni sottoinsieme non vuoto di interi positivi ha minimo
+>
+> ### Struttura aritmetica
+> In $\mathbb{Z}$ definiamo:
+> - **Divisibilità:** $a \mid b \Leftrightarrow \exists k \in \mathbb{Z} : b = a \cdot k$
+> - **Elementi associati:** $a \sim b \Leftrightarrow a \mid b \text{ e } b \mid a \Leftrightarrow a = \pm b$
+> - **Elementi invertibili:** $\mathcal{U}(\mathbb{Z}) = \{\pm 1\}$
+> - **MCD e mcm:** definiti a meno di associazione
+
 
 ### Relazioni Binarie — Proprietà
 
