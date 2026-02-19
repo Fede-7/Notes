@@ -74,14 +74,14 @@
 - [x] 8.5 DEFINIZIONE DI CAMPO  
 - [x] 8.6 DEFINIZIONE DI $V_K$ - SPAZIO VETTORIALE  
 - [x] <mark style="background:#D4AF37; color:black; padding:0 6px; border-radius:6px;">8.7 TEOREMA DI WEDDERBURN</mark>  
-- [ ] 8.8 DEFINIZIONE DI $\mathcal{B}(S)$  
-- [ ] <mark style="background:#D4AF37; color:black; padding:0 6px; border-radius:6px;">8.9 TEOREMA SCOMPOSIZIONE CANONICA DI UNA PERMUTAZIONE</mark>  
-- [ ] 8.10 PERMUTAZIONI INVERSE  
+- [x] 8.8 DEFINIZIONE DI $\mathcal{B}(S)$  
+- [x] <mark style="background:#D4AF37; color:black; padding:0 6px; border-radius:6px;">8.9 TEOREMA SCOMPOSIZIONE CANONICA DI UNA PERMUTAZIONE</mark>  
+- [x] 8.10 PERMUTAZIONI INVERSE  
 
 ### 10-04-2025
-- [ ] 9.1 TAVOLE DI CAYLEY  
-- [ ] 9.2 S INSIEME FINITO  
-- [ ] 9.3 ELEMENTI NILPOTENTI  
+- [x] 9.1 TAVOLE DI CAYLEY  
+- [x] 9.2 S INSIEME FINITO  
+- [x] 9.3 ELEMENTI NILPOTENTI  
 - [ ] 9.4 DEF. ANELLO UNITARIO  
 - [ ] 9.5 DEF. ELEMENTI ASSOCIATI $a \sim b$  
 - [ ] 9.6 DEF. DI DIVISORI BANALI  

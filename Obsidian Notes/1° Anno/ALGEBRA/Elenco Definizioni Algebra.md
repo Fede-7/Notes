@@ -540,12 +540,26 @@ Mettendo insieme le due uguaglianze: $u_1 = u_1 ∗ u_2 = u_2$. Quindi $u_1 = u_
 > - $|S_n| = n!$
 > - Non abeliano per $n \geq 3$
 
-> [!note] Notazione Ciclica e Decomposizione
+> [!note] Notazione Ciclica
 > Un **ciclo** $(c_1c_2\cdots c_k)$: $\sigma(c_i) = c_{i+1}$, $\sigma(c_k) = c_1$, $\sigma(x) = x$ altrimenti.
+
+> [!important] **Teorema di Scomposizione Canonica (Permutazioni)**
 >
-> **Teorema:** Ogni $\sigma \in S_n$ si scrive univocamente come prodotto di cicli disgiunti.
+> - *Enunciato*
+> Ogni permutazione $\sigma \in S_n$ diversa dall'identità si può scrivere come prodotto di cicli disgiunti. Tale scomposizione è **unica a meno dell'ordine** con cui i cicli compaiono nel prodotto.
 >
-> **Esempio:** $\begin{pmatrix} 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 \\ 2 & 4 & 7 & 1 & 5 & 6 & 3 & 9 & 8 \end{pmatrix} = (124)(37)(89)$
+> - *Formulazione Matematica*
+> Sia $\sigma \in S_n$, allora esistono $r$ cicli $\gamma_1, \gamma_2, \ldots, \gamma_r$ tali che:
+> $$\sigma = \gamma_1 \circ \gamma_2 \circ \cdots \circ \gamma_r$$
+>
+> sotto le seguenti condizioni:
+>
+> - **Disgiunzione:** $\text{supp}(\gamma_i) \cap \text{supp}(\gamma_j) = \varnothing$ per ogni $i \neq j$
+> - **Commutatività:** Essendo disgiunti, i cicli commutano: $\gamma_i \circ \gamma_j = \gamma_j \circ \gamma_i$
+> - **Unicità:** La scomposizione è determinata univocamente dall'azione di $\sigma$ sulle orbite di $\{1, \ldots, n\}$
+>
+> - *Esempio*
+> $$\sigma = \begin{pmatrix} 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 \\ 2 & 4 & 7 & 1 & 5 & 6 & 3 & 9 & 8 \end{pmatrix} = (124)(37)(89)$$
 
 > [!note] Inversa di Cicli
 > **Ciclo:** $(c_1c_2\cdots c_k)^{-1} = (c_1c_kc_{k-1}\cdots c_2)$ 
@@ -560,6 +574,8 @@ Mettendo insieme le due uguaglianze: $u_1 = u_1 ∗ u_2 = u_2$. Quindi $u_1 = u_
 > [!note] Proprietà visibili dalle Tavole
 > - **Commutatività** $\Longleftrightarrow$ tabella simmetrica rispetto alla diagonale
 > - **Cancellabilità** $\Longleftrightarrow$ nessuna ripetizione nelle righe e colonne
+> - **Elemento Neutro** $\Longleftrightarrow$ c'è una riga ed una colonna con elementi uguali agli indici
+> - **Simmetrizzabili** $\Longleftrightarrow$ l'operazione $*$ restituisce l'elemento neutro
 
 > [!important] Cancellabilità in Strutture Finite
 > In un magma **finito** $(S, *)$, un elemento $a$ è **cancellabile** se e solo se la funzione $x \mapsto a * x$ è **iniettiva** (e quindi biettiva, essendo $S$ finito).
