@@ -499,8 +499,13 @@ Mettendo insieme le due uguaglianze: $u_1 = u_1 ∗ u_2 = u_2$. Quindi $u_1 = u_
 >
 > **Esempi:** $\mathbb{Q}$, $\mathbb{R}$, $\mathbb{C}$, $\mathbb{Z}_p$ (con $p$ primo).
 
->[!abstract] ciao
-
+>[!danger] Osservazione
+>*Sono privi di divisori dello zero,  per i due teoremi di sopra:*
+>- "Simmetrizzabile $\implies$ Cancellabile"
+>MA
+>- "$\exists$ Divisori dello zero $\iff \neg$ Cancellabile"
+>QUINDI
+>- Cancellabile $\implies \nexists$ Divisori dello zero  
 
 > [!important] Teorema di Wedderburn
 > Ogni **corpo finito** è anche un **campo**.

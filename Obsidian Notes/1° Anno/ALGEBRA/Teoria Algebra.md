@@ -276,21 +276,56 @@ graph TD
 
 # Strutture algebriche
 ```mermaid
-flowchart TD
-Z1[Monoide Abeliano]
-Z2[Gruppo Abeliano]
+graph TD
+    %% Configurazione Grafica
+    accTitle: Mappa delle Strutture Algebriche
+    accDescr: Diagramma di flusso delle gerarchie algebriche da Magma a Spazio Vettoriale
 
-  A[Strutture Algebriche] --(S,*) --> B[Magma]
-  B -- +Associativa --> C[Semigruppo]
-	C -- +Elemento Neutro --> D[Monoide]-- +Commutatività --> Z1
-	D -- +Elemento Simmetrizzabile --> E[Gruppo]-- +Commutatività  --> Z2
-	
-	A -- (S, somma, prodotto) --> F[Anello]
-	F -- somma --> Z2
-	F -- prodotto --> C
-	F --> Z3>Prodotto distribuito sulla somma]
-	F --> FZ{Tipologie}
-	FZ -- +Idempotenza del Prodotto --> F2[Booleano] 
-	FZ -- +Protto commutativo --> F3[Commutativo] -->F5[Commutativo Unitario] --> Z1
-	FZ -- + (A, prodotto) monoide --> F4[Unitario] --> F5
+    %% Stili dei nodi
+    classDef default fill:#202020,stroke:#666,stroke-width:1px,color:#fff;
+    classDef struttura fill:#1a3a5a,stroke:#3a86ff,stroke-width:2px,color:#fff;
+    classDef proprieta fill:#2d333b,stroke:#adb5bd,stroke-dasharray: 5 5,color:#adb5bd;
+    classDef evidenza fill:#3e2723,stroke:#ff5722,stroke-width:2px,color:#fff;
+
+    %% --- RAMO OPERAZIONE SINGOLA (S, *) ---
+    A[Strutture Algebriche] --> B{Magma<br/><i>S, *</i>}:::struttura
+    
+    B -- "Associatività" --> C[[Semigruppo]]:::struttura
+    C -- "Elemento Neutro" --> D[[Monoide]]:::struttura
+    
+    D -- "Commutatività" --> Z1[[Monoide Abeliano]]:::evidenza
+    
+    D -- "Invertibilità" --> E[[Gruppo]]:::struttura
+    E -- "Commutatività" --> Z2[[Gruppo Abeliano]]:::evidenza
+
+    %% --- RAMO DOPPIA OPERAZIONE (S, +, *) ---
+    A -- "(S, +, *)" --> F[[Anello]]:::struttura
+    
+    F -.->|"operazione +"| Z2
+    F -.->|"operazione *"| C
+    F --> Distr>Distribuzione * su +]:::proprieta
+
+    F --> FZ{Proprietà di *}:::proprieta
+    
+    FZ -- "Idempotenza" --> F2[[Anello Booleano]]:::struttura
+    FZ -- "Commutativa" --> F3[[Anello Commutativo]]:::struttura
+    FZ -- "Unità (1)" --> F4[[Anello Unitario]]:::struttura
+    
+    F3 --> F5[[Anello Commutativo Unitario]]:::struttura
+    F4 --> F5
+    
+    F5 -- "Assenza Divisori dello Zero" --> F6[[Dominio di Integrità]]:::evidenza
+    
+    F4 -- "Invertibilità (S\{0}, *)" --> F7[[Corpo / Division Ring]]:::struttura
+    F7 -- "Commutatività *" --> F8[[Campo / Field]]:::evidenza
+
+    %% --- ESTENSIONE SPAZIO VETTORIALE ---
+    F8 -- "Scalari" --> F9[[Spazio Vettoriale]]:::evidenza
+    Vettori[Insieme Vettori V] --> F9
+    Vettori -- "(V, +)" --> Z2
+
+    %% Note per Obsidian
+    click C "[[Semigruppo]]" "Vai alla nota Semigruppo"
+    click E "[[Gruppo]]" "Vai alla nota Gruppo"
+    click F8 "[[Campo]]" "Vai alla nota Campo"
 ```
