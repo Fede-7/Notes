@@ -657,7 +657,22 @@ Mettendo insieme le due uguaglianze: $u_1 = u_1 ∗ u_2 = u_2$. Quindi $u_1 = u_
 
 
 ### Relazioni Binarie — Proprietà
-Sott'insieme del prodotto cartesiano $A \times A$ t.c. $a R b \iff (a,b) \in G)$
+
+> [!note] 9.12 — Relazione Binaria su $A$
+> Una **relazione binaria** $R$ su $A$ è un sottoinsieme del prodotto cartesiano $A \times A$.
+>
+> Formalmente: $R = (A \times A, G)$ dove $G \subseteq A \times A$ è il **grafo**.
+>
+> Scriviamo: $aRb \Leftrightarrow (a, b) \in G$
+
+> [!note] Relazione Banali
+> - **Relazione Totale**:  
+> $G = A \times A$
+> $\forall a, b \in A: \, aRb$
+> ---
+> - **Relazione di Identità**:
+> $G = \text{Diag}(A) = \{(a, a) \mid a \in A\}$
+> $aRb \Leftrightarrow a = b$
 
 > [!note] Proprietà di una Relazione $R \subseteq A \times A$
 > | Proprietà | Definizione |
