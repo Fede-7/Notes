@@ -1,3 +1,7 @@
+---
+Subject: Algebra
+Date:
+---
 # Definizioni
 
 ### 11-03-2025
@@ -103,17 +107,17 @@
 - [x] 10.3 INSIEME TOTALMENTE ORDINATO ✅ 2026-02-20
 - [x] 10.4 CARDINALITÀ INSIEME DELLE PARTI ✅ 2026-02-20
 - [x] <mark style="background:#D4AF37; color:black; padding:0 6px; border-radius:6px;">10.5</mark> TEOREMA DELLA DIVISIONE EUCLIDEA ✅ 2026-02-20
-- [ ] <mark style="background:#D4AF37; color:black; padding:0 6px; border-radius:6px;">10.6</mark> TEOREMA DI BÉZOUT  
+- [x] <mark style="background:#D4AF37; color:black; padding:0 6px; border-radius:6px;">10.6</mark> TEOREMA DI BÉZOUT ✅ 2026-02-20
 - [x] 10.7 DEF. RELAZIONE EQUIVALENZA ✅ 2026-02-20
 - [x] 10.8 DEF. RELAZIONE D'ORDINE ✅ 2026-02-20
 - [x] 10.9 DEF. GRAFO ✅ 2026-02-20
 
 ### 29-04-2025
 - [ ] <mark style="background:#D4AF37; color:black; padding:0 6px; border-radius:6px;">11.1</mark> TEOREMA FONDAMENTALE SULLE RELAZIONI DI EQUIVALENZA  
-- [ ] <mark style="background:#D4AF37; color:black; padding:0 6px; border-radius:6px;">11.2</mark>   TEOREMA SU RELAZIONI DI EQUIVALENZA E PARTIZIONI
+- [ ] <mark style="background:#D4AF37; color:black; padding:0 6px; border-radius:6px;">11.2</mark> TEOREMA SU RELAZIONI DI EQUIVALENZA E PARTIZIONI
 - [ ] 11.3 DEF. CONGRUENZA  
 - [ ] 11.4 CONGRUENZA IN $\mathbb{Z}$  
-
+20-02-26
 ### 06-05-2025
 - [ ] <mark style="background:#D4AF37; color:black; padding:0 6px; border-radius:6px;">12.1</mark>   $\mathbb{Z}_m$ CAMPO $\Leftrightarrow m$ È PRIMO $(a, m)=1$
 - [ ] <mark style="background:#C0C0C0; color:black; padding:0 6px; border-radius:6px;">12.2</mark> GLI ELEMENTI $\mathbb{Z}_m \neq 0$ SONO DIVISORI DELLO 0 $(a, m) \neq 1$ O INV.  
