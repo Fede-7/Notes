@@ -117,7 +117,7 @@ Date:
 - [ ] <mark style="background:#D4AF37; color:black; padding:0 6px; border-radius:6px;">11.2</mark> TEOREMA SU RELAZIONI DI EQUIVALENZA E PARTIZIONI
 - [ ] 11.3 DEF. CONGRUENZA  
 - [ ] 11.4 CONGRUENZA IN $\mathbb{Z}$  
-20-02-26
+
 ### 06-05-2025
 - [ ] <mark style="background:#D4AF37; color:black; padding:0 6px; border-radius:6px;">12.1</mark>   $\mathbb{Z}_m$ CAMPO $\Leftrightarrow m$ È PRIMO $(a, m)=1$
 - [ ] <mark style="background:#C0C0C0; color:black; padding:0 6px; border-radius:6px;">12.2</mark> GLI ELEMENTI $\mathbb{Z}_m \neq 0$ SONO DIVISORI DELLO 0 $(a, m) \neq 1$ O INV.  
