@@ -98,10 +98,10 @@
 - [x] 9.17 RELAZIONE TRANSITIVA (5)  
 
 ### 14-04-2025
-- [ ] 10.1 PRINCIPIO DI INDUZIONE (PRIMA FORMA, SECONDA FORMA)  
+- [x] 10.1 PRINCIPIO DI INDUZIONE (PRIMA FORMA, SECONDA FORMA) ✅ 2026-02-20
 - [x] 10.2 INSIEME BEN ORDINATO ✅ 2026-02-20
 - [x] 10.3 INSIEME TOTALMENTE ORDINATO ✅ 2026-02-20
-- [ ] 10.4 CARDINALITÀ INSIEME DELLE PARTI  
+- [x] 10.4 CARDINALITÀ INSIEME DELLE PARTI ✅ 2026-02-20
 - [ ] <mark style="background:#D4AF37; color:black; padding:0 6px; border-radius:6px;">10.5</mark> TEOREMA DELLA DIVISIONE EUCLIDEA  
 - [ ] <mark style="background:#D4AF37; color:black; padding:0 6px; border-radius:6px;">10.6</mark> TEOREMA DI BÉZOUT  
 - [ ] 10.7 DEF. RELAZIONE EQUIVALENZA  
@@ -164,17 +164,14 @@
 ### 03-06-2025
 - [ ] 18.1 DEF. SOTTO ANELLO  
 - [ ] 18.2 PRINCIPIO DI DUALITÀ  
-- [ ] <mark style="background:#D4AF37; color:black; padding:0 6px; border-radius:6px;">18.3 TEOREMA $(L, \vee, \wedge)$ DISTRIBUTIVO</mark>  
-- [ ] <mark style="background:#C0C0C0; color:black; padding:0 6px; border-radius:6px;">18.4 PROPOSIZIONE</mark>  
-- [ ] <mark style="background:#D4AF37; color:black; padding:0 6px; border-radius:6px;">18.5 DEF. RETICOLO BOOLEANO</mark>  
+- [ ] <mark style="background:#D4AF37; color:black; padding:0 6px; border-radius:6px;">18.3</mark> TEOREMA $(L, \vee, \wedge)$ DISTRIBUTIVO  
+- [ ] <mark style="background:#C0C0C0; color:black; padding:0 6px; border-radius:6px;">18.4</mark> PROPOSIZIONE  
+- [ ] <mark style="background:#D4AF37; color:black; padding:0 6px; border-radius:6px;">18.5</mark> DEF. RETICOLO BOOLEANO  
 - [ ] 18.6 DEF. ALGEBRA DI BOOLE  
-- [ ] <mark style="background:#D4AF37; color:black; padding:0 6px; border-radius:6px;">18.7 TEOREMA $(A, \wedge, \vee, ')$</mark>  
+- [ ] <mark style="background:#D4AF37; color:black; padding:0 6px; border-radius:6px;">18.7</mark> TEOREMA $(A, \wedge, \vee, ')$  
 - [ ] 18.8 DEF. ANELLO BOOLEANO  
-- [ ] <mark style="background:#D4AF37; color:black; padding:0 6px; border-radius:6px;">18.9 TEOREMA $(A, +, \cdot)$ ANELLO BOOLEANO (TEOREMA DI STONE)</mark> 
+- [ ] <mark style="background:#D4AF37; color:black; padding:0 6px; border-radius:6px;">18.9</mark> TEOREMA $(A, +, \cdot)$ ANELLO BOOLEANO (TEOREMA DI STONE)
 ---
-
-
-
 
 # Dimostrazioni
 
@@ -202,7 +199,7 @@
 - [ ] <mark style="background:#C0C0C0; color:black; padding:0 6px; border-radius:6px;">12.3:</mark> Proposizioni classi di equivalenza nilpotenti
 - [ ] <mark style="background:#C0C0C0; color:black; padding:0 6px; border-radius:6px;">14.4:</mark> Coefficiente binomiale
 - [ ] <mark style="background:#C0C0C0; color:black; padding:0 6px; border-radius:6px;">18.4:</mark> Proposizione
-
+---
 
 # Macro aree
 ```mermaid
