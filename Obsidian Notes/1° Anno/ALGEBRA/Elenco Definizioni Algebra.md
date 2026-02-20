@@ -690,13 +690,27 @@ Mettendo insieme le due uguaglianze: $u_1 = u_1 ∗ u_2 = u_2$. Quindi $u_1 = u_
 
 ### Insieme Ben Ordinato
 
+> [!caution] Anticipazione: 
+> ##### Insieme Parzialmente Ordinato (POSet: Partial Order Set)
+> Un **insieme parzialmente ordinato**  è una coppia $(S, \leq)$ dove $\leq$ è una relazione che soddisfa $\forall a, b, c \in S$:
+>
+> 1. **Riflessività:** $a \leq a$
+> 2. **Antisimmetria:** $(a \leq b \land b \leq a) \Rightarrow a = b$
+> 3. **Transitività:** $(a \leq b \land b \leq c) \Rightarrow a \leq c$
+> ##### Insieme totalmente ordinato
+> Un ordine si dice **totale** (o lineare) se, oltre ai tre assiomi precedenti, soddisfa l'assioma di confrontabilità:
+> $∀a,b∈S⟹a≤b∨b≤a$
+> ##### Quindi:
+> Ben Ordinato $\subset$ Totalmente Ordinato $\subset$ Parzialmente Ordinato (Poset)
+
 > [!note] Ben Ordinato
 > $(S, \leq)$ è **ben ordinato** se ogni sottoinsieme non vuoto ammette un **minimo**.
 > Ben ordinato $\Longrightarrow$ totalmente ordinato.
 > Esempio: $(\mathbb{N}, \leq)$.
 
 ### Principio di Induzione
-
+ Si basa sul fatto che $(N, ≤)$ è ben ordinato
+ 
 > [!note] Forma I (Standard)
 > Se $P(\bar{n})$ è vera e $\forall n \geq \bar{n}:\; P(n) \Rightarrow P(n+1)$, allora $P(n)$ è vera $\forall n \geq \bar{n}$.
 

@@ -1,4 +1,4 @@
-# Definizioni (checkbox)
+# Definizioni
 
 ### 11-03-2025
 - [x] 1.1 LOGICA  
@@ -79,7 +79,7 @@
 - [x] 8.10 PERMUTAZIONI INVERSE  
 
 ### 10-04-2025
-- [x] 9.1 TAVOLE DI CAYLEY  
+- [x] 9.1 TAVOLE DI CAYLEY ✅ 2026-02-20
 - [x] 9.2 S INSIEME FINITO  
 - [x] 9.3 ELEMENTI NILPOTENTI  
 - [x] 9.4 DEF. ANELLO UNITARIO  
@@ -99,8 +99,8 @@
 
 ### 14-04-2025
 - [ ] 10.1 PRINCIPIO DI INDUZIONE (PRIMA FORMA, SECONDA FORMA)  
-- [ ] 10.2 INSIEME BEN ORDINATO  
-- [ ] 10.3 INSIEME TOTALMENTE ORDINATO  
+- [x] 10.2 INSIEME BEN ORDINATO ✅ 2026-02-20
+- [x] 10.3 INSIEME TOTALMENTE ORDINATO ✅ 2026-02-20
 - [ ] 10.4 CARDINALITÀ INSIEME DELLE PARTI  
 - [ ] <mark style="background:#D4AF37; color:black; padding:0 6px; border-radius:6px;">10.5</mark> TEOREMA DELLA DIVISIONE EUCLIDEA  
 - [ ] <mark style="background:#D4AF37; color:black; padding:0 6px; border-radius:6px;">10.6</mark> TEOREMA DI BÉZOUT  
@@ -175,6 +175,7 @@
 
 
 
+
 # Dimostrazioni
 
 ### Dimostrazioni più importanti
@@ -202,6 +203,7 @@
 - [ ] <mark style="background:#C0C0C0; color:black; padding:0 6px; border-radius:6px;">14.4:</mark> Coefficiente binomiale
 - [ ] <mark style="background:#C0C0C0; color:black; padding:0 6px; border-radius:6px;">18.4:</mark> Proposizione
 
+
 # Macro aree
 ```mermaid
 graph TD
@@ -214,6 +216,9 @@ graph TD
     E --> G
     D --> G
 ```
+
+
+
 
 
 # Lezioni --> macroaree
@@ -272,6 +277,8 @@ graph TD
     M4 --> M7
     M6 --> M7
 ```
+
+
 
 # Strutture algebriche
 ```mermaid
