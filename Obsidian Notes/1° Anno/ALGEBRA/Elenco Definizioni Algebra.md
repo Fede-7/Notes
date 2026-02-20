@@ -741,15 +741,30 @@ Mettendo insieme le due uguaglianze: $u_1 = u_1 ∗ u_2 = u_2$. Quindi $u_1 = u_
 > $$\mathrm{MCD}(a, b) = a \cdot x + b \cdot y \quad \text{per opportuni } x, y \in \mathbb{Z}$$
 > Corollario: $a, b$ coprimi $\Longleftrightarrow$ $\exists\, x, y:\; ax + by = 1$.
 
-> [!tip] Dimostrazione — Identità di Bézout
-> 1. Sia $S = \{as + bt \mid s, t \in \mathbb{Z},\; as + bt > 0\}$.
-> 2. $S \neq \emptyset$: se $a \neq 0$, $|a| = a \cdot (\pm 1) + b \cdot 0 \in S$; analogamente per $b$.
-> 3. Per il **principio del buon ordinamento**, $S$ ammette un minimo $d = ax + by$.
-> 4. **$d \mid a$:** Dividiamo $a = dq + r$ con $0 \le r < d$. Allora:
->    $$r = a - dq = a - (ax + by)q = a(1 - xq) + b(-yq)$$
->    Se $r > 0$, allora $r \in S$ con $r < d$, contraddicendo la minimalità di $d$. Dunque $r = 0$.
-> 5. **$d \mid b$:** Analogamente.
-> 6. **$d = \mathrm{MCD}(a,b)$:** Se $c \mid a$ e $c \mid b$, allora $c \mid (ax + by) = d$, dunque $d$ è il massimo. $\square$
+> [!tip] Dimostrazione: Teorema di Bézout (Identità di Bézout)
+> 
+> Sia $S = \{as + bt \mid s, t \in \mathbb{Z}, \, as + bt > 0\}$.
+>
+> **1) $S \neq \varnothing$:**
+> - Se $a \neq 0$, scegliendo $s = \pm 1$ si ha $|a| = a \cdot (\pm 1) + b \cdot 0 \in S$
+> - Analogamente se $b \neq 0$
+>
+> **2) Esistenza del minimo:**
+> Per il **principio del buon ordinamento**, $S$ ammette un minimo $d$. Per definizione di $S$, esistono $x, y \in \mathbb{Z}$ tali che:
+> $$d = ax + by$$
+>
+> **3) $d \mid a$:**
+> Dividiamo $a = dq + r$ con $0 \leq r < d$. Allora:
+> $$r = a - dq = a - (ax + by)q = a(1 - xq) + b(-yq)$$
+> 
+> Poiché $1 - xq$ e $-yq$ sono interi, $r$ è una combinazione lineare di $a$ e $b$.
+> 
+> Se $r > 0$, allora $r \in S$ con $r < d$, contro la minimalità di $d$. Dunque $r = 0$, quindi $d \mid a$.
+>
+> **4) $d \mid b$:** Analogamente.
+>
+> **5) $d = \gcd(a, b)$:**
+> Se $c \mid a$ e $c \mid b$, allora $c \mid (ax + by) = d$, dunque $d$ è il massimo comune divisore di $a$ e $b$. $\blacksquare$
 
 ### Relazione d'Equivalenza
 
