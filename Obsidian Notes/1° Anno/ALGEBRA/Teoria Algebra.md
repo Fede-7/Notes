@@ -104,9 +104,9 @@
 - [x] 10.4 CARDINALITÀ INSIEME DELLE PARTI ✅ 2026-02-20
 - [x] <mark style="background:#D4AF37; color:black; padding:0 6px; border-radius:6px;">10.5</mark> TEOREMA DELLA DIVISIONE EUCLIDEA ✅ 2026-02-20
 - [ ] <mark style="background:#D4AF37; color:black; padding:0 6px; border-radius:6px;">10.6</mark> TEOREMA DI BÉZOUT  
-- [ ] 10.7 DEF. RELAZIONE EQUIVALENZA  
-- [ ] 10.8 DEF. RELAZIONE D'ORDINE  
-- [ ] 10.9 DEF. GRAFO  
+- [x] 10.7 DEF. RELAZIONE EQUIVALENZA ✅ 2026-02-20
+- [x] 10.8 DEF. RELAZIONE D'ORDINE ✅ 2026-02-20
+- [x] 10.9 DEF. GRAFO ✅ 2026-02-20
 
 ### 29-04-2025
 - [ ] <mark style="background:#D4AF37; color:black; padding:0 6px; border-radius:6px;">11.1</mark> TEOREMA FONDAMENTALE SULLE RELAZIONI DI EQUIVALENZA  

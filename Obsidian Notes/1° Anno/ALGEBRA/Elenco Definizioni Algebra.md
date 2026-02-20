@@ -760,10 +760,20 @@ Mettendo insieme le due uguaglianze: $u_1 = u_1 ∗ u_2 = u_2$. Quindi $u_1 = u_
 > 3. **Transitiva**
 
 ### Relazione d'Ordine
-
+come accennato...
 > [!note] Ordine (Parziale)
-> Una relazione su $A$ è d'**ordine** se è riflessiva, **antisimmetrica** e transitiva.
+> Una relazione su $A$ è d'**ordine** se è :
+> - riflessiva, 
+> - **antisimmetrica**
+> - transitiva.
 > È **totale** se $\forall x, y:\; xRy \vee yRx$.
+
+### Grafo
+
+>[!note]  Definizione di garfo
+>Una relazione su A è un **grafo** se è: 
+>- Antiriflessivo
+>- Simmetrico
 
 ---
 
