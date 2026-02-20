@@ -1,4 +1,4 @@
-# Definizioni e Teoremi — Corso Celentani 2025
+## Indice
 
 > [!abstract] Indice
 > Raccolta completa di tutte le definizioni testuali e algebriche, ordinate per lezione (1–22, esclusa la 18).
@@ -29,7 +29,7 @@
 
 ---
 
-## Lezione 1 — Logica, Insiemi, Funzioni
+## *Lezione 1* — Logica, Insiemi, Funzioni
 
 ### Connettivi Logici
 
@@ -127,7 +127,7 @@
 
 ---
 
-## Lezione 2 — Quantificatori, Immagini, Iniettività, Partizioni
+## *Lezione 2* — Quantificatori, Immagini, Iniettività, Partizioni
 
 ### Proprietà dei Quantificatori
 
@@ -171,7 +171,7 @@ $\mathcal{F}_2 = \{\{a\}, \{b\}, \{c\}\}$. (Ogni pezzo è un singolo elemento)
 
 ---
 
-## Lezione 3 — Suriettività, Funzione Caratteristica, Restrizione, Identità
+## *Lezione 3* — Suriettività, Funzione Caratteristica, Restrizione, Identità
 
 ### Funzione Suriettiva
 
@@ -217,7 +217,7 @@ $$ f \text{ è iniettiva } \iff (\forall b \in B) \quad \bigl| f^{-1}(\{b\}) \bi
 
 ---
 
-## Lezione 4 — Biettività, Composizione, Invertibilità, Strutture Algebriche
+## *Lezione 4* — Biettività, Composizione, Invertibilità, Strutture Algebriche
 
 ### Funzione Biettiva
 
@@ -299,7 +299,7 @@ $\varphi^{-1} = \{ (b, a) \in B \times A : (a, b) \in \varphi \}$.
 >- Si dicono "**esterne**" solo quando si coinvolgono due insiemi diversi
 >---
 
-## Lezione 5 — Matrici, Semigruppo, Monoide
+## *Lezione 5* — Matrici, Semigruppo, Monoide
 ### Strutture Algebriche
 
 > [!note] Struttura Algebrica
@@ -351,7 +351,7 @@ Mettendo insieme le due uguaglianze: $u_1 = u_1 ∗ u_2 = u_2$. Quindi $u_1 = u_
 
 ---
 
-## Lezione 6 — Prodotto Matrici, Gruppi, Invertibili, Parte Stabile
+## *Lezione 6* — Prodotto Matrici, Gruppi, Invertibili, Parte Stabile
 
 ### Prodotto di Matrici
 
@@ -403,7 +403,7 @@ Mettendo insieme le due uguaglianze: $u_1 = u_1 ∗ u_2 = u_2$. Quindi $u_1 = u_
 
 ---
 
-## Lezione 7 — Anelli, Caratteristica, Cancellabilità, Divisori dello Zero
+## *Lezione 7* — Anelli, Caratteristica, Cancellabilità, Divisori dello Zero
 
 ### Inversa di una Matrice $2 \times 2$
 
@@ -469,7 +469,7 @@ Mettendo insieme le due uguaglianze: $u_1 = u_1 ∗ u_2 = u_2$. Quindi $u_1 = u_
 
 ---
 
-## Lezione 8 — Omomorfismo, Dominio, Campo, Spazio Vettoriale, Gruppo Simmetrico
+## *Lezione 8* — Omomorfismo, Dominio, Campo, Spazio Vettoriale, Gruppo Simmetrico
 
 ### Omomorfismo
 
@@ -567,7 +567,7 @@ Mettendo insieme le due uguaglianze: $u_1 = u_1 ∗ u_2 = u_2$. Quindi $u_1 = u_
 > **Esempio:** $(1743)^{-1} = (1347)$
 >
 > **Prodotto:** $(\sigma_1 \circ \sigma_2 \circ \cdots \circ \sigma_k)^{-1} = \sigma_k^{-1} \circ \cdots \circ \sigma_2^{-1} \circ \sigma_1^{-1}$
-## Lezione 9 — Tavole di Cayley, Nilpotenti, Divisibilità, MCD, Relazioni Binarie
+## *Lezione 9* — Tavole di Cayley, Nilpotenti, Divisibilità, MCD, Relazioni Binarie
 
 ### Tavole di Cayley
 
@@ -686,7 +686,7 @@ Mettendo insieme le due uguaglianze: $u_1 = u_1 ∗ u_2 = u_2$. Quindi $u_1 = u_
 
 ---
 
-## Lezione 10 — Buon Ordinamento, Induzione, Divisione Euclidea, Relazione d'Equivalenza
+## *Lezione 10* — Buon Ordinamento, Induzione, Divisione Euclidea, Relazione d'Equivalenza
 
 ### Insieme Ben Ordinato
 
@@ -751,7 +751,7 @@ Mettendo insieme le due uguaglianze: $u_1 = u_1 ∗ u_2 = u_2$. Quindi $u_1 = u_
 
 ---
 
-## Lezione 11 — Algoritmo di Euclide, Bézout, FTA, Classi di Equivalenza
+## *Lezione 11* — Algoritmo di Euclide, Bézout, FTA, Classi di Equivalenza
 
 ### Algoritmo di Euclide
 
@@ -803,7 +803,7 @@ Mettendo insieme le due uguaglianze: $u_1 = u_1 ∗ u_2 = u_2$. Quindi $u_1 = u_
 
 ---
 
-## Lezione 12 — Equivalenza ↔ Partizioni, Congruenza, Anello $\mathbb{Z}_m$
+## *Lezione 12* — Equivalenza ↔ Partizioni, Congruenza, Anello $\mathbb{Z}_m$
 
 ### Relazione di Equivalenza Indotta da Funzione
 
@@ -862,7 +862,7 @@ Mettendo insieme le due uguaglianze: $u_1 = u_1 ∗ u_2 = u_2$. Quindi $u_1 = u_
 
 ---
 
-## Lezione 13 — Classi di Resto, $\mathbb{Z}_m$ Campo, Invertibili, Nilpotenti, Equazioni Congruenziali
+## *Lezione 13* — Classi di Resto, $\mathbb{Z}_m$ Campo, Invertibili, Nilpotenti, Equazioni Congruenziali
 
 ### $\mathbb{Z}_m$ è un Campo
 
@@ -922,7 +922,7 @@ Mettendo insieme le due uguaglianze: $u_1 = u_1 ∗ u_2 = u_2$. Quindi $u_1 = u_
 
 ---
 
-## Lezione 14 — Idempotenti, Criteri di Divisibilità
+## *Lezione 14* — Idempotenti, Criteri di Divisibilità
 
 ### Elemento Idempotente
 
@@ -944,7 +944,7 @@ Mettendo insieme le due uguaglianze: $u_1 = u_1 ∗ u_2 = u_2$. Quindi $u_1 = u_
 
 ---
 
-## Lezione 15 — Dominio, Anello Prodotto, Caratteristica del Prodotto
+## *Lezione 15* — Dominio, Anello Prodotto, Caratteristica del Prodotto
 
 ### Corollario: $\mathbb{Z}_n$ Dominio d'Integrità
 
@@ -966,7 +966,7 @@ Mettendo insieme le due uguaglianze: $u_1 = u_1 ∗ u_2 = u_2$. Quindi $u_1 = u_
 > $$\mathrm{char}(\mathbb{Z}_m \times \mathbb{Z}_n) = \mathrm{mcm}(\mathrm{char}(\mathbb{Z}_m),\, \mathrm{char}(\mathbb{Z}_n)) = \mathrm{mcm}(m, n)$$
 ---
 
-## Lezione 16 — Equazioni Diofantee, Totiente di Eulero, Fermat-Eulero, Calcolo Combinatorio
+## *Lezione 16* — Equazioni Diofantee, Totiente di Eulero, Fermat-Eulero, Calcolo Combinatorio
 
 ### Equazione Diofantea Lineare
 
