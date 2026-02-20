@@ -720,10 +720,12 @@ Mettendo insieme le due uguaglianze: $u_1 = u_1 ∗ u_2 = u_2$. Quindi $u_1 = u_
 ### Divisione Euclidea
 
 > [!important] Teorema della Divisione Euclidea
-> $\forall\, m \in \mathbb{Z},\; n \in \mathbb{Z} \setminus \{0\},\; \exists!\, q, r \in \mathbb{Z}:$
+> $\forall\, m, n \in \mathbb{Z},\; n \not= 0,\; \exists!\, q, r \in \mathbb{Z}:$
 > $$m = n \cdot q + r, \qquad 0 \leq r < |n|$$
+
+
 > [!tip] Dimostrazione — Divisione Euclidea
-> **Esistenza** (per induzione forte su $m$, $m, n > 0$):
+> **Esistenza** (per induzione forte su $m$):
 > - *Base:* Se $0 \le m < n$, basta prendere $q = 0$ e $r = m$.
 > - *Passo:* Se $m \ge n$, poniamo $\bar{m} = m - n \ge 0$. Poiché $\bar{m} < m$, per ipotesi induttiva $\bar{m} = n\bar{q} + \bar{r}$ con $0 \le \bar{r} < n$.
 >   Allora $m = \bar{m} + n = n(\bar{q} + 1) + \bar{r}$, con $q = \bar{q} + 1$ e $r = \bar{r}$.

@@ -102,15 +102,15 @@
 - [x] 10.2 INSIEME BEN ORDINATO ✅ 2026-02-20
 - [x] 10.3 INSIEME TOTALMENTE ORDINATO ✅ 2026-02-20
 - [x] 10.4 CARDINALITÀ INSIEME DELLE PARTI ✅ 2026-02-20
-- [ ] <mark style="background:#D4AF37; color:black; padding:0 6px; border-radius:6px;">10.5</mark> TEOREMA DELLA DIVISIONE EUCLIDEA  
+- [x] <mark style="background:#D4AF37; color:black; padding:0 6px; border-radius:6px;">10.5</mark> TEOREMA DELLA DIVISIONE EUCLIDEA ✅ 2026-02-20
 - [ ] <mark style="background:#D4AF37; color:black; padding:0 6px; border-radius:6px;">10.6</mark> TEOREMA DI BÉZOUT  
 - [ ] 10.7 DEF. RELAZIONE EQUIVALENZA  
 - [ ] 10.8 DEF. RELAZIONE D'ORDINE  
 - [ ] 10.9 DEF. GRAFO  
 
 ### 29-04-2025
-- [ ] <mark style="background:#D4AF37; color:black; padding:0 6px; border-radius:6px;">11.1 TEOREMA FONDAMENTALE SULLE RELAZIONI DI EQUIVALENZA</mark>  
-- [ ] <mark style="background:#D4AF37; color:black; padding:0 6px; border-radius:6px;">11.2 TEOREMA SU RELAZIONI DI EQUIVALENZA E PARTIZIONI</mark>  
+- [ ] <mark style="background:#D4AF37; color:black; padding:0 6px; border-radius:6px;">11.1</mark> TEOREMA FONDAMENTALE SULLE RELAZIONI DI EQUIVALENZA  
+- [ ] <mark style="background:#D4AF37; color:black; padding:0 6px; border-radius:6px;">11.2</mark>   TEOREMA SU RELAZIONI DI EQUIVALENZA E PARTIZIONI
 - [ ] 11.3 DEF. CONGRUENZA  
 - [ ] 11.4 CONGRUENZA IN $\mathbb{Z}$  
 
@@ -123,13 +123,13 @@
 ### 09-05-2025
 - [ ] 13.1 IDEMPOTENTI IN $\mathbb{Z}_m$  
 - [ ] 13.2 CRITERI DI DIVISIBILITÀ  
-- [ ] <mark style="background:#D4AF37; color:black; padding:0 6px; border-radius:6px;">13.3 TEOREMA ESISTENZA SOLUZIONI EQUAZIONI CONGRUENZIALI</mark>  
+- [ ] <mark style="background:#D4AF37; color:black; padding:0 6px; border-radius:6px;">13.3</mark> TEOREMA ESISTENZA SOLUZIONI EQUAZIONI CONGRUENZIALI  
 
 ### 16-05-2025
 - [ ] 14.1 FUNZIONE DI EULERO  
-- [ ] <mark style="background:#D4AF37; color:black; padding:0 6px; border-radius:6px;">14.2 TEOREMA DI FERMAT EULERO</mark>  
+- [ ] <mark style="background:#D4AF37; color:black; padding:0 6px; border-radius:6px;">14.2</mark> TEOREMA DI FERMAT EULERO  
 - [ ] 14.3 CALCOLO COMBINATORIO  
-- [ ] <mark style="background:#C0C0C0; color:black; padding:0 6px; border-radius:6px;">14.4 COEFFICIENTE BINOMIALE</mark>  
+- [ ] <mark style="background:#C0C0C0; color:black; padding:0 6px; border-radius:6px;">14.4</mark> COEFFICIENTE BINOMIALE  
 - [ ] 14.5 APPLICAZIONI INIETTIVE DA $S \to T$  
 - [ ] 14.6 BINOMIO DI NEWTON  
 
