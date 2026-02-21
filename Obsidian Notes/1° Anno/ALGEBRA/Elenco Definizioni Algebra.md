@@ -810,6 +810,103 @@ come accennato...
 > [!important] FTA
 > Ogni intero $n \geq 2$ si scrive in modo **unico** (a meno dell'ordine) come prodotto di numeri primi:
 > $$n = p_1^{\alpha_1} \cdot p_2^{\alpha_2} \cdots p_k^{\alpha_k}$$
+>- **Unicità della Fattorizzazione :**
+Se abbiamo due scomposizioni in primi positivi:
+$$a = p_1 \cdot p_2 \cdots p_m = q_1 \cdot q_2 \cdots q_n$$
+allora: $(m = n)$ (stesso numero di fattori), e  $(p_i = q_i)\,\space \forall i$
+>$\enspace$
+> - **Ruolo del Lemma di Euclide :**
+Il Lemma di Euclide è cruciale per dimostrare l'unicità della fattorizzazione: se un primo $p \mid (a\cdot b), \implies p\mid a \lor p\mid b$
+
+> [!important] Dimostrazione Th. Fondamenta della aritmetica
+> - Parte 1: Esistenza della fattorizzazione
+>
+> **Per induzione su $n$:**
+>
+> **Base:** $n = 2$ è primo. ✓
+>
+> **Ipotesi induttiva:** Per ogni $m < n$, la fattorizzazione esiste.
+>
+> **Tesi:** La fattorizzazione esiste per $n$.
+>
+> **Dimostrazione:**
+> - Se $n$ è primo, banale.
+> - Altrimenti, per il **Lemma di Euclide**, esiste un primo $p \mid n$ con $n = p \cdot m$ dove $m < n$.
+> - Per ipotesi induttiva, $m$ ha una fattorizzazione.
+> - Dunque $n = p \cdot m$ ha una fattorizzazione. $\checkmark$
+>
+> ---
+>
+> - Parte 2: Unicità della fattorizzazione
+>
+> Supponiamo $n$ abbia due rappresentazioni:
+> $$n = p_1^{a_1} \cdots p_k^{a_k} = q_1^{b_1} \cdots q_r^{b_r}$$
+>
+> dove i $p_i$ e i $q_j$ sono primi distinti.
+>
+> **Caso 1:** Un primo $p_i$ compare nella prima rappresentazione ma non nella seconda.
+>
+> Allora $p_i \mid n = q_1^{b_1} \cdots q_r^{b_r}$.
+>
+> Per il **Lemma di Euclide**, $p_i$ divide uno dei $q_j$. Ma i $q_j$ sono primi, quindi $p_i = q_j$, contraddizione. $\times$
+>
+> **Caso 2:** Le rappresentazioni hanno gli stessi primi, ma esponenti diversi.
+>
+> Supponiamo $a_1 > b_1$ (senza perdita di generalità). Dividendo per $p_1^{b_1}$:
+> $$p_1^{a_1 - b_1} \cdot p_2^{a_2} \cdots p_k^{a_k} = q_2^{b_2} \cdots q_r^{b_r}$$
+>
+> Allora $p_1 \mid q_2^{b_2} \cdots q_r^{b_r}$.
+>
+> Per il **Lemma di Euclide**, $p_1$ divide uno dei $q_j$ (con $j \geq 2$). Ma i $q_j$ sono primi distinti dai $p_i$, contraddizione. $\times$
+>
+> Quindi gli esponenti devono essere uguali: $a_i = b_i$ per ogni $i$. $\checkmark$
+
+> [!tip] 11.4 — Dimostrazione: Teorema Fondamentale dell'Aritmetica
+>
+> **Enunciato:** Ogni $n > 1$ si scrive **unicamente** come $n = p_1^{a_1} \cdot p_2^{a_2} \cdots p_k^{a_k}$ con $p_i$ primi distinti.
+>
+> ---
+>
+> ### Parte 1: Esistenza (Induzione Forte)
+>
+> **Base:** $n = 2$ è primo. ✓
+>
+> **Ipotesi:** Vera per ogni $m < n$.
+>
+> **Tesi:** Vera per $n$.
+>
+> **Dimostrazione:**
+> - Se $n$ è primo: ✓
+> - Se $n$ composto: $\exists p \mid n$ con $n = p \cdot m$, $m < n$
+> - Per ipotesi: $m = p_2^{a_2} \cdots p_k^{a_k}$
+> - Dunque: $n = p \cdot p_2^{a_2} \cdots p_k^{a_k}$ ✓
+>
+> ---
+>
+> ### Parte 2: Unicità (Assurdo)
+>
+> Siano due rappresentazioni: $n = p_1^{a_1} \cdots p_k^{a_k} = q_1^{b_1} \cdots q_r^{b_r}$
+>
+> #### **Caso A:** Insiemi di primi distinti $\{p_i\} \neq \{q_j\}$
+>
+> 1. $\exists p_i$ presente in prima ma non in seconda
+> 2. $p_i \mid n = q_1^{b_1} \cdots q_r^{b_r}$
+> 3. Lemma di Euclide: $p_i \mid q_j$ per qualche $j$
+> 4. Poiché $q_j$ è primo: $p_i = q_j$
+> 5. **Contraddizione** ✗
+>
+> #### **Caso B:** Esponenti distinti $\exists a_i \neq b_i$
+>
+> 6. Siano i primi identici. Supponi $a_1 > b_1$
+> 7. Dividi per $p_1^{b_1}$: $p_1^{a_1-b_1} \cdot p_2^{a_2} \cdots = q_2^{b_2} \cdots q_r^{b_r}$
+> 8. $p_1$ divide membro sinistro
+> 9. $p_1$ non divide membro destro (nessun fattore $p_1$)
+> 10. **Assurdo** per Lemma di Euclide ✗
+>
+> ---
+>
+> **Conclusione:** La rappresentazione è unica a meno dell'ordine dei fattori. $\square$
+
 ### Classi di Equivalenza
 
 > [!note] Classe di Equivalenza

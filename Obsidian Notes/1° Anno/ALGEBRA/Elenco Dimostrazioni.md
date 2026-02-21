@@ -141,6 +141,19 @@
 
 ## <mark style="background:#D4AF37; color:white; padding:0 6px; border-radius:6px;">11.1:</mark> Teorema fondamentale sulle relazioni di equivalenza
 
+## Teorema Fondamentale dell'Aritmetica
+
+> [!important] FTA
+> Ogni intero $n \geq 2$ si scrive in modo **unico** (a meno dell'ordine) come prodotto di numeri primi:
+> $$n = p_1^{\alpha_1} \cdot p_2^{\alpha_2} \cdots p_k^{\alpha_k}$$
+>- **Unicità della Fattorizzazione :**
+Se abbiamo due scomposizioni in primi positivi:
+$$a = p_1 \cdot p_2 \cdots p_m = q_1 \cdot q_2 \cdots q_n$$
+allora: $(m = n)$ (stesso numero di fattori), e  $(p_i = q_i)\,\space \forall i$
+>$\enspace$
+> - **Ruolo del Lemma di Euclide :**
+Il Lemma di Euclide è cruciale per dimostrare l'unicità della fattorizzazione: se un primo $p \mid (a\cdot b), \implies p\mid a \lor p\mid b$
+
 ## <mark style="background:#D4AF37; color:white; padding:0 6px; border-radius:6px;">11.2:</mark> Teorema su relazioni di equivalenza e partizioni
 
 ## <mark style="background:#D4AF37; color:white; padding:0 6px; border-radius:6px;">12.1:</mark>  campo  è primo
