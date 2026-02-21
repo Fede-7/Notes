@@ -920,29 +920,85 @@ Il Lemma di Euclide è cruciale per dimostrare l'unicità della fattorizzazione:
 
 > [!note] Insieme Quoziente
 > $$S / R = \{[a]_R \mid a \in S\}$$
-> L'insieme di tutte le classi di equivalenza.
+> L'insieme di tutte le classi di equivalenza disgiunte.
 
-> [!important] Teorema
-> Esiste una corrispondenza biunivoca tra relazioni di equivalenza su $S$ e partizioni di $S$.
-
-> [!tip] Dimostrazione — Equivalenza $\longleftrightarrow$ Partizioni
-> **(i) Equivalenza $\Longrightarrow$ Partizione.**
-> Le classi di equivalenza $S/\mathcal{R}$ formano una partizione:
-> - Ogni classe è non vuota ($a \in [a]$).
-> - Due classi sono uguali o disgiunte: se $[a] \cap [b] \neq \emptyset$, esiste $c \in [a] \cap [b]$, dunque $a \mathrel{R} c$ e $c \mathrel{R} b$, da cui $a \mathrel{R} b$ e $[a] = [b]$.
-> - L'unione di tutte le classi è $S$.
->
-> **(ii) Partizione $\Longrightarrow$ Equivalenza.**
-> Data una partizione $\mathcal{F}$, definiamo $a \mathrel{R}_{\mathcal{F}} b \iff$ $a$ e $b$ appartengono allo stesso blocco.
-> - *Riflessiva:* $a$ appartiene a qualche blocco, dunque $a \mathrel{R}_{\mathcal{F}} a$.
-> - *Simmetrica:* banale.
-> - *Transitiva:* se $a \mathrel{R} b$ e $b \mathrel{R} c$, allora $b$ sta nei blocchi di $a$ e di $c$; poiché i blocchi sono disgiunti, è lo stesso blocco, dunque $a \mathrel{R} c$.
->
-> Le due costruzioni sono una l'inversa dell'altra: $S/\mathcal{R}_{\mathcal{F}} = \mathcal{F}$. $\square$
 
 ---
 
 ## *Lezione 12* — Equivalenza ↔ Partizioni, Congruenza, Anello $\mathbb{Z}_m$
+
+### Th. Fondamentale sulle relazioni di equivalenza
+> [!important] Teorema Fondamentale sulle Relazioni di Equivalenza
+>
+> Sia $S \neq \varnothing$. Esiste una corrispondenza biunivoca tra:
+> - L'insieme di tutte le **relazioni di equivalenza** su $S$
+> - L'insieme di tutte le **partizioni** di $S$
+>
+> In particolare:
+> - Se $R$ è relazione di equivalenza, allora $S/R = \{[a]_R \mid a \in S\}$ è una partizione
+> - Se $\mathcal{F}$ è una partizione, allora $x R_{\mathcal{F}} y \Leftrightarrow \exists A \in \mathcal{F}: x, y \in A$ è una relazione di equivalenza
+> - Queste costruzioni sono una l'inversa dell'altra
+
+> [!important] Dimostrazione: Teorema Fondamentale sulle Relazioni di Equivalenza
+>
+> ### Parte i) Relazione $\Rightarrow$ Partizione
+>
+> Se $R$ è una relazione di equivalenza su $S$, allora $S/R = \{[a]_R \mid a \in S\}$ è una partizione di $S$.
+>
+> **Dimostrazione:** Le classi di equivalenza sono:
+> - Non vuote
+> - Disgiunte o coincidenti
+> - Unione uguale a $S$
+>
+> Quindi $S/R$ è una partizione. ✓
+>
+> ---
+>
+> ### Parte ii) Partizione $\Rightarrow$ Relazione
+>
+> Se $\mathcal{F}$ è una partizione di $S$, definiamo:
+> $$x R_{\mathcal{F}} y \Leftrightarrow \exists A \in \mathcal{F}: \, x \in A \land y \in A$$
+>
+> Allora $R_{\mathcal{F}}$ è una relazione di equivalenza.
+>
+> **Dimostrazione:**
+>
+> **Riflessiva:** $\forall x \in S$. Poiché $\mathcal{F}$ è partizione: $\bigcup_{A \in \mathcal{F}} A = S$.
+> Quindi $x \in A$ per qualche $A \in \mathcal{F}$. Per definizione: $x R_{\mathcal{F}} x$. ✓
+>
+> **Simmetrica:** Se $x R_{\mathcal{F}} y$, allora $\exists A \in \mathcal{F}: x \in A \land y \in A$.
+> Ma allora $y \in A \land x \in A$, quindi $y R_{\mathcal{F}} x$. ✓
+>
+> **Transitiva:** Se $x R_{\mathcal{F}} y$ e $y R_{\mathcal{F}} z$, allora:
+> - $\exists A \in \mathcal{F}: x, y \in A$
+> - $\exists B \in \mathcal{F}: y, z \in B$
+>
+> Poiché $y \in A \cap B$ e i pezzi di una partizione sono **disgiunti o coincidenti**, deve essere $A = B$.
+>
+> Quindi $x, z \in A$, cioè $x R_{\mathcal{F}} z$. ✓
+>
+> ---
+>
+> ### Parte iii) Corrispondenza Inversa
+>
+> Verifichiamo che $S/R_{\mathcal{F}} = \mathcal{F}$.
+>
+> Consideriamo una classe di equivalenza:
+> $$[a]_{R_{\mathcal{F}}} = \{x \in S \mid x R_{\mathcal{F}} a\}$$
+>
+> Per definizione di $R_{\mathcal{F}}$:
+> $$[a]_{R_{\mathcal{F}}} = \{x \in S \mid \exists A \in \mathcal{F}: x \in A \land a \in A\}$$
+>
+> Poiché $\mathcal{F}$ è una partizione, $\exists! A_a \in \mathcal{F}$ tale che $a \in A_a$.
+>
+> Quindi:
+> $$[a]_{R_{\mathcal{F}}} = \{x \in S \mid x \in A_a\} = A_a$$
+>
+> Le classi di equivalenza di $R_{\mathcal{F}}$ sono esattamente gli insiemi della partizione originale $\mathcal{F}$. ✓
+>
+> ---
+>
+> **Conclusione:** Esiste una biiezione tra relazioni di equivalenza e partizioni su $S$. $\square$
 
 ### Relazione di Equivalenza Indotta da Funzione
 

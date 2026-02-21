@@ -139,8 +139,6 @@
 > **5) $d = \gcd(a, b)$:**
 > Se $c \mid a$ e $c \mid b$, allora $c \mid (ax + by) = d$, dunque $d$ è il massimo comune divisore di $a$ e $b$. $\blacksquare$
 
-## <mark style="background:#D4AF37; color:white; padding:0 6px; border-radius:6px;">11.1:</mark> Teorema fondamentale sulle relazioni di equivalenza
-
 ## Teorema Fondamentale dell'Aritmetica
 
 > [!important] FTA
@@ -154,7 +152,31 @@ allora: $(m = n)$ (stesso numero di fattori), e  $(p_i = q_i)\,\space \forall i$
 > - **Ruolo del Lemma di Euclide :**
 Il Lemma di Euclide è cruciale per dimostrare l'unicità della fattorizzazione: se un primo $p \mid (a\cdot b), \implies p\mid a \lor p\mid b$
 
+
+## <mark style="background:#D4AF37; color:white; padding:0 6px; border-radius:6px;">11.1:</mark> Teorema fondamentale sulle relazioni di equivalenza
+
 ## <mark style="background:#D4AF37; color:white; padding:0 6px; border-radius:6px;">11.2:</mark> Teorema su relazioni di equivalenza e partizioni
+
+> [!important] Teorema: Equivalenza e Partizioni
+> Esiste una corrispondenza biunivoca tra relazioni di equivalenza su $S$ e partizioni di $S$.
+> 1. Ogni relazione di equivalenza R su S induce una partizione di S (data dall'insieme quoziente S/R).
+> 2. Ogni partizione F di S induce una relazione di equivalenza RF su S, definita da:
+aRF b ⟺ a e b appartengono allo stesso blocco (elemento) X ∈ F .
+
+> [!tip] Dimostrazione — Equivalenza $\longleftrightarrow$ Partizioni
+> **(i) Equivalenza $\Longrightarrow$ Partizione.**
+> Le classi di equivalenza $S/\mathcal{R}$ formano una partizione:
+> - Ogni classe è non vuota ($a \in [a]$).
+> - Due classi sono uguali o disgiunte: se $[a] \cap [b] \neq \emptyset$, esiste $c \in [a] \cap [b]$, dunque $a \mathrel{R} c$ e $c \mathrel{R} b$, da cui $a \mathrel{R} b$ e $[a] = [b]$.
+> - L'unione di tutte le classi è $S$.
+>
+> **(ii) Partizione $\Longrightarrow$ Equivalenza.**
+> Data una partizione $\mathcal{F}$, definiamo $a \mathrel{R}_{\mathcal{F}} b \iff$ $a$ e $b$ appartengono allo stesso blocco.
+> - *Riflessiva:* $a$ appartiene a qualche blocco, dunque $a \mathrel{R}_{\mathcal{F}} a$.
+> - *Simmetrica:* banale.
+> - *Transitiva:* se $a \mathrel{R} b$ e $b \mathrel{R} c$, allora $b$ sta nei blocchi di $a$ e di $c$; poiché i blocchi sono disgiunti, è lo stesso blocco, dunque $a \mathrel{R} c$.
+>
+> Le due costruzioni sono una l'inversa dell'altra: $S/\mathcal{R}_{\mathcal{F}} = \mathcal{F}$. $\square$
 
 ## <mark style="background:#D4AF37; color:white; padding:0 6px; border-radius:6px;">12.1:</mark>  campo  è primo
 
