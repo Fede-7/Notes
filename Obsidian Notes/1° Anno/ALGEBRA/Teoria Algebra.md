@@ -1,6 +1,7 @@
 ---
 Subject: Algebra
 Date:
+banner: "[[Banner_n2.jpg]]"
 ---
 # Definizioni
 
@@ -111,70 +112,78 @@ Date:
 - [x] 10.7 DEF. RELAZIONE EQUIVALENZA ✅ 2026-02-20
 - [x] 10.8 DEF. RELAZIONE D'ORDINE ✅ 2026-02-20
 - [x] 10.9 DEF. GRAFO ✅ 2026-02-20
+### 15-04-2025
+- [x] 11.1 ALGORITMO DI EUCLIDE ✅ 2026-02-21
+- [x] 11.2 ALGORITMO ESTESO DI EUCLIDE ✅ 2026-02-21
+- [x] <mark style="background:#C0C0C0; color:black; padding:0 6px; border-radius:6px;">11.3</mark> LEMMA DI EUCLIDE ✅ 2026-02-21
+- [x] <mark style="background:#D4AF37; color:black; padding:0 6px; border-radius:6px;">11.4</mark> TEOREMA FONDAMENTALE DELL'ARITMETICA ✅ 2026-02-21
+- [x] 11.5 CLASSI DI EQUIVALENZA ✅ 2026-02-21
+- [ ] 11.6 INSIEME QUOZIENTE
 
 ### 29-04-2025
-- [ ] <mark style="background:#D4AF37; color:black; padding:0 6px; border-radius:6px;">11.1</mark> TEOREMA FONDAMENTALE SULLE RELAZIONI DI EQUIVALENZA  
-- [ ] <mark style="background:#D4AF37; color:black; padding:0 6px; border-radius:6px;">11.2</mark> TEOREMA SU RELAZIONI DI EQUIVALENZA E PARTIZIONI
-- [ ] 11.3 DEF. CONGRUENZA  
-- [ ] 11.4 CONGRUENZA IN $\mathbb{Z}$  
+- [ ] <mark style="background:#D4AF37; color:black; padding:0 6px; border-radius:6px;">12.1</mark> TEOREMA FONDAMENTALE SULLE RELAZIONI DI EQUIVALENZA  
+- [ ] <mark style="background:#D4AF37; color:black; padding:0 6px; border-radius:6px;">12.2</mark> TEOREMA SU RELAZIONI DI EQUIVALENZA E PARTIZIONI
+- [ ] 12.3 DEF. CONGRUENZA  
+- [ ] 12.4 CONGRUENZA IN $\mathbb{Z}$  
 
 ### 06-05-2025
-- [ ] <mark style="background:#D4AF37; color:black; padding:0 6px; border-radius:6px;">12.1</mark>   $\mathbb{Z}_m$ CAMPO $\Leftrightarrow m$ È PRIMO $(a, m)=1$
-- [ ] <mark style="background:#C0C0C0; color:black; padding:0 6px; border-radius:6px;">12.2</mark> GLI ELEMENTI $\mathbb{Z}_m \neq 0$ SONO DIVISORI DELLO 0 $(a, m) \neq 1$ O INV.  
-- [ ] <mark style="background:#C0C0C0; color:black; padding:0 6px; border-radius:6px;">12.3</mark> PROPOSIZIONI CLASSI DI EQUIVALENZA NILPOTENTI  
-- [ ] <mark style="background:#D4AF37; color:black; padding:0 6px; border-radius:6px;">12.4</mark> EQUAZIONI CONGRUENZIALI  
+- [ ] <mark style="background:#D4AF37; color:black; padding:0 6px; border-radius:6px;">13.1</mark> $\mathbb{Z}_m$ CAMPO $\Leftrightarrow m$ È PRIMO $(a, m)=1$
+- [ ] <mark style="background:#C0C0C0; color:black; padding:0 6px; border-radius:6px;">13.2</mark> GLI ELEMENTI $\mathbb{Z}_m \neq 0$ SONO DIVISORI DELLO 0 $(a, m) \neq 1$ O INV.  
+- [ ] <mark style="background:#C0C0C0; color:black; padding:0 6px; border-radius:6px;">13.3</mark> PROPOSIZIONI CLASSI DI EQUIVALENZA NILPOTENTI  
+- [ ] <mark style="background:#D4AF37; color:black; padding:0 6px; border-radius:6px;">13.4</mark> EQUAZIONI CONGRUENZIALI  
 
 ### 09-05-2025
-- [ ] 13.1 IDEMPOTENTI IN $\mathbb{Z}_m$  
-- [ ] 13.2 CRITERI DI DIVISIBILITÀ  
-- [ ] <mark style="background:#D4AF37; color:black; padding:0 6px; border-radius:6px;">13.3</mark> TEOREMA ESISTENZA SOLUZIONI EQUAZIONI CONGRUENZIALI  
+- [ ] 14.1 IDEMPOTENTI IN $\mathbb{Z}_m$  
+- [ ] 14.2 CRITERI DI DIVISIBILITÀ  
+- [ ] <mark style="background:#D4AF37; color:black; padding:0 6px; border-radius:6px;">14.3</mark> TEOREMA ESISTENZA SOLUZIONI EQUAZIONI CONGRUENZIALI  
 
 ### 16-05-2025
-- [ ] 14.1 FUNZIONE DI EULERO  
-- [ ] <mark style="background:#D4AF37; color:black; padding:0 6px; border-radius:6px;">14.2</mark> TEOREMA DI FERMAT EULERO  
-- [ ] 14.3 CALCOLO COMBINATORIO  
-- [ ] <mark style="background:#C0C0C0; color:black; padding:0 6px; border-radius:6px;">14.4</mark> COEFFICIENTE BINOMIALE  
-- [ ] 14.5 APPLICAZIONI INIETTIVE DA $S \to T$  
-- [ ] 14.6 BINOMIO DI NEWTON  
+- [ ] 15.1 FUNZIONE DI EULERO  
+- [ ] <mark style="background:#D4AF37; color:black; padding:0 6px; border-radius:6px;">15.2</mark> TEOREMA DI FERMAT EULERO  
+- [ ] 15.3 CALCOLO COMBINATORIO  
+- [ ] <mark style="background:#C0C0C0; color:black; padding:0 6px; border-radius:6px;">15.4</mark> COEFFICIENTE BINOMIALE  
+- [ ] 15.5 APPLICAZIONI INIETTIVE DA $S \to T$  
+- [ ] 15.6 BINOMIO DI NEWTON  
 
 ### 20-05-2025
-- [ ] 15.1 RELAZIONE D'ORDINE  
-- [ ] 15.2 RELAZIONE D'ORDINE STRETTO  
-- [ ] 15.3 DIAGRAMMA DI HASSE  
-- [ ] 15.4 ELEMENTI MINIMALI - MASSIMALI  
-- [ ] 15.5 ELEMENTI MINIMO - MASSIMO  
-- [ ] 15.6 ELEMENTI MINORANTI - MAGGIORANTI  
-- [ ] 15.7 ELEMENTI INFERIORI - SUPERIORI  
+- [ ] 16.1 RELAZIONE D'ORDINE  
+- [ ] 16.2 RELAZIONE D'ORDINE STRETTO  
+- [ ] 16.3 DIAGRAMMA DI HASSE  
+- [ ] 16.4 ELEMENTI MINIMALI - MASSIMALI  
+- [ ] 16.5 ELEMENTI MINIMO - MASSIMO  
+- [ ] 16.6 ELEMENTI MINORANTI - MAGGIORANTI  
+- [ ] 16.7 ELEMENTI INFERIORI - SUPERIORI  
 
 ### 27-05-2025
-- [ ] 16.1 CATENA  
-- [ ] 16.2 CATENA MASSIMALE  
-- [ ] 16.3 DEFINIZIONE RETICOLO $(L, \wedge, \vee)$  
+- [ ] 17.1 CATENA  
+- [ ] 17.2 CATENA MASSIMALE  
+- [ ] 17.3 DEFINIZIONE RETICOLO $(L, \wedge, \vee)$  
   - [ ] PROP. ASSOCIATIVA  
   - [ ] PROP. COMMUTATIVA  
   - [ ] LEGGE DI ASSORBIMENTO  
   - [ ] IDEMPOTENZA $a \vee a = a \wedge a = a$  
 
 ### 30-05-2025
-- [ ] 17.1 $(S, \le)$ TOTALMENTE ORDINATO $\Rightarrow$ S RETICOLO  
-- [ ] 17.2 L RETICOLO FINITO $\Rightarrow$ LIMITATO  
-- [ ] 17.3 RETICOLO PENTAGONALE  
-- [ ] 17.4 RETICOLO TRIRETTANGOLO  
-- [ ] 17.5 DEF. SOTTO RETICOLO  
-- [ ] 17.6 ISOMORFISMO INSIEME ORDINATO  
-- [ ] 17.7 ISOMORFISMO RETICOLARE  
-- [ ] 17.8 ISOMORFISMO COMPLEMENTATO  
+- [ ] 18.1 $(S, \le)$ TOTALMENTE ORDINATO $\Rightarrow$ S RETICOLO  
+- [ ] 18.2 L RETICOLO FINITO $\Rightarrow$ LIMITATO  
+- [ ] 18.3 RETICOLO PENTAGONALE  
+- [ ] 18.4 RETICOLO TRIRETTANGOLO  
+- [ ] 18.5 DEF. SOTTO RETICOLO  
+- [ ] 18.6 ISOMORFISMO INSIEME ORDINATO  
+- [ ] 18.7 ISOMORFISMO RETICOLARE  
+- [ ] 18.8 ISOMORFISMO COMPLEMENTATO  
 
 ### 03-06-2025
-- [ ] 18.1 DEF. SOTTO ANELLO  
-- [ ] 18.2 PRINCIPIO DI DUALITÀ  
-- [ ] <mark style="background:#D4AF37; color:black; padding:0 6px; border-radius:6px;">18.3</mark> TEOREMA $(L, \vee, \wedge)$ DISTRIBUTIVO  
-- [ ] <mark style="background:#C0C0C0; color:black; padding:0 6px; border-radius:6px;">18.4</mark> PROPOSIZIONE  
-- [ ] <mark style="background:#D4AF37; color:black; padding:0 6px; border-radius:6px;">18.5</mark> DEF. RETICOLO BOOLEANO  
-- [ ] 18.6 DEF. ALGEBRA DI BOOLE  
-- [ ] <mark style="background:#D4AF37; color:black; padding:0 6px; border-radius:6px;">18.7</mark> TEOREMA $(A, \wedge, \vee, ')$  
-- [ ] 18.8 DEF. ANELLO BOOLEANO  
-- [ ] <mark style="background:#D4AF37; color:black; padding:0 6px; border-radius:6px;">18.9</mark> TEOREMA $(A, +, \cdot)$ ANELLO BOOLEANO (TEOREMA DI STONE)
+- [ ] 19.1 DEF. SOTTO ANELLO  
+- [ ] 19.2 PRINCIPIO DI DUALITÀ  
+- [ ] <mark style="background:#D4AF37; color:black; padding:0 6px; border-radius:6px;">19.3</mark> TEOREMA $(L, \vee, \wedge)$ DISTRIBUTIVO  
+- [ ] <mark style="background:#C0C0C0; color:black; padding:0 6px; border-radius:6px;">19.4</mark> PROPOSIZIONE  
+- [ ] <mark style="background:#D4AF37; color:black; padding:0 6px; border-radius:6px;">19.5</mark> DEF. RETICOLO BOOLEANO  
+- [ ] 19.6 DEF. ALGEBRA DI BOOLE  
+- [ ] <mark style="background:#D4AF37; color:black; padding:0 6px; border-radius:6px;">19.7</mark> TEOREMA $(A, \wedge, \vee, ')$  
+- [ ] 19.8 DEF. ANELLO BOOLEANO  
+- [ ] <mark style="background:#D4AF37; color:black; padding:0 6px; border-radius:6px;">19.9</mark> TEOREMA $(A, +, \cdot)$ ANELLO BOOLEANO (TEOREMA DI STONE)
+
 ---
 
 # Dimostrazioni

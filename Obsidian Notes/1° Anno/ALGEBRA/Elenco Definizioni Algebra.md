@@ -769,7 +769,7 @@ Mettendo insieme le due uguaglianze: $u_1 = u_1 ∗ u_2 = u_2$. Quindi $u_1 = u_
 ### Relazione d'Equivalenza
 
 > [!note] Equivalenza
-> Una relazione $R$ su $A$ è di **equivalenza** se è:
+> Una relazione binaria $R$ su $A$ è di **equivalenza** se è:
 > 1. **Riflessiva**
 > 2. **Simmetrica**
 > 3. **Transitiva**
@@ -797,7 +797,8 @@ come accennato...
 ### Algoritmo di Euclide
 
 > [!note] Algoritmo di Euclide
-> Calcola $\mathrm{MCD}(a, b)$ tramite divisioni successive: si divide ripetutamente il dividendo per il resto, finché il resto è $0$. L'ultimo resto non nullo è il MCD.
+> Calcola $\mathrm{MCD}(a, b)$ tramite divisioni successive: si divide ripetutamente il dividendo per il resto, finché il resto è $r = 0$. L'ultimo resto non nullo è il MCD.
+> $$MCD(a,b) = MCD(b,r)$$
 
 ### Algoritmo Esteso di Euclide
 
@@ -816,7 +817,7 @@ come accennato...
 > Proprietà:
 > - Ogni classe è **non vuota** ($a \in [a]$)
 > - Due classi sono **uguali o disgiunte**
-> - L'unione di tutte le classi è $S$ — formano una **partizione**
+> - L'unione di tutte le classi di equivalenza **distinte** restituisce l'insieme originale $S$.
 
 ### Insieme Quoziente
 
