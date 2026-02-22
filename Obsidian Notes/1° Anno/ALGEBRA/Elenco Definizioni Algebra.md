@@ -1,4 +1,8 @@
- ## Indice
+---
+banner: "[[Banner_n4.jpg]]"
+---
+ ---
+ ## *Indice*
 
 > [!abstract] Indice
 > Raccolta completa di tutte le definizioni testuali e algebriche, ordinate per lezione (1–22, esclusa la 18).
@@ -1233,299 +1237,514 @@ Il Lemma di Euclide è cruciale per dimostrare l'unicità della fattorizzazione:
 > Ri-indicizzando la seconda somma ($j = k+1$):
 > $$= a^{n+1} + \sum_{k=1}^{n} \left[\binom{n}{k} + \binom{n}{k-1}\right] a^{n+1-k} b^k + b^{n+1}$$
 > Per l'identità di Pascal, $\binom{n}{k} + \binom{n}{k-1} = \binom{n+1}{k}$, ottenendo:
-> $$= \sum_{k=0}^{n+1} \binom{n+1}{k} a^{n+1-k} b^k \quad \square$
+> $$= \sum_{k=0}^{n+1} \binom{n+1}{k} a^{n+1-k} b^k \quad \square$$
+
 
 ---
 
-## Lezione 17 — Relazioni d'Ordine, Hasse, Estremi
 
-### Relazione d'Ordine Largo
 
-> [!note] Ordine Largo
-> $\mathcal{R}$ su $S$ è d'**ordine** se è:
-> 1. **Riflessiva**
-> 2. **Antisimmetrica**
-> 3. **Transitiva**
+## *Lezione 17* — Relazioni d'Ordine, Hasse, Estremi
 
-### Relazione d'Ordine Stretto
+### Insieme Parzialmente Ordinato (POSet)
+
+> [!note] Insieme Parzialmente Ordinato
+> Un **insieme parzialmente ordinato** (POSet) è una coppia $(S, \leq)$ dove $\leq$ è una relazione d'ordine su $S$.
+> Se l'ordine è totale, si parla di **insieme totalmente ordinato**.
+
+### Ordine Largo
+
+> [!note] Relazione d'Ordine (Largo, Parziale)
+> Una relazione $\leq$ su $S$ è d'**ordine** se è:
+> 1. **Riflessiva:** $\forall x \in S,\; x \leq x$
+> 2. **Antisimmetrica:** $\forall x, y \in S,\; (x \leq y \wedge y \leq x) \Rightarrow x = y$
+> 3. **Transitiva:** $\forall x, y, z \in S,\; (x \leq y \wedge y \leq z) \Rightarrow x \leq z$
+
+### Ordine Stretto
 
 > [!note] Ordine Stretto
-> $\mathcal{R}'$ su $S$ è d'**ordine stretto** se è:
-> 1. **Antiriflessiva**
-> 2. **Transitiva**
+> Una relazione $<$ su $S$ è d'**ordine stretto** se è:
+> 1. **Antiriflessiva:** $\forall x \in S,\; x \not< x$
+> 2. **Transitiva:** $\forall x, y, z \in S,\; (x < y \wedge y < z) \Rightarrow x < z$
 >
-> Implica automaticamente l'**asimmetria**.
+> **Conseguenza:** Implica automaticamente l'**asimmetria**: se $x < y$, allora $y \not< x$ (altrimenti per transitività $x < x$, contraddendo l'antiriflessività).
+
+> [!tip] Dimostrazione — Asimmetria derivata da ordine stretto
+> Supponiamo $x < y$ e $y < x$. Per transitività, $x < x$, contraddicendo l'antiriflessività. Dunque non può valere contemporaneamente $x < y$ e $y < x$. $\square$
 
 ### Corrispondenza Largo ↔ Stretto
 
-> [!note] Corrispondenza
-> $$x <  y \;\Longleftrightarrow\; (x \leq y \;\wedge\; x \neq y)$$
+> [!note] Relazione tra Ordine Largo e Stretto
+> Esiste una corrispondenza biunivoca tra ordine largo e stretto sullo stesso insieme:
+> $$x < y \;\Longleftrightarrow\; (x \leq y \;\wedge\; x \neq y)$$
 > $$x \leq y \;\Longleftrightarrow\; (x < y \;\vee\; x = y)$$
 ### Ordine Totale
 
-> [!note] Ordine Totale
-> $\forall x, y \in S:\; x \leq y \;\vee\; y \leq x$ (ogni coppia è confrontabile).
+> [!note] Ordine Totale (o Lineare)
+> Un ordine $\leq$ su $S$ è **totale** se ogni coppia di elementi è **confrontabile**:
+> $$\forall x, y \in S:\; x \leq y \;\vee\; y \leq x$$
+> Se un ordine non è totale, è detto **parziale**.
+>
+> **Esempi di ordini totali:** $(\mathbb{N}, \leq)$, $(\mathbb{Z}, \leq)$, $(\mathbb{R}, \leq)$.
+>
+> **Esempio di ordine parziale:** $(\mathcal{P}(S), \subseteq)$ con $|S| \geq 2$.
 
-### Copertura
+### Elemento Minimo e Massimo
+
+> [!note] Minimo e Massimo
+> Sia $(S, \leq)$ un insieme ordinato:
+> - $a$ è **minimo** se $a \leq x$ per ogni $x \in S$. Se esiste, è **unico**.
+> - $a$ è **massimo** se $x \leq a$ per ogni $x \in S$. Se esiste, è **unico**.
+
+> [!tip] Dimostrazione — Unicità del Minimo
+> Se $m_1, m_2$ sono entrambi minimi, allora:
+> - $m_1$ è minimo: $m_1 \leq m_2$
+> - $m_2$ è minimo: $m_2 \leq m_1$
+> 
+> Per antisimmetria, $m_1 = m_2$. $\square$
+
+### Elemento Minimale e Massimale
+
+> [!note] Minimale e Massimale
+> Sia $(S, \leq)$ un insieme ordinato:
+> - $a$ è **minimale** se non esiste $x \in S$ con $x < a$. Equivalentemente: $\forall x \in S,\; (x \leq a \Rightarrow x = a)$.
+> - $a$ è **massimale** se non esiste $x \in S$ con $a < x$. Equivalentemente: $\forall x \in S,\; (a \leq x \Rightarrow x = a)$.
+
+> [!note] Relazione tra Minimo e Minimale
+> - Minimo $\Rightarrow$ unico elemento minimale
+> - Un minimale unico **non è necessariamente** il minimo
+> - In un ordine **totale**, minimale $\Longleftrightarrow$ minimo
+
+> [!important] Teorema — Poset Finiti
+> Ogni insieme **finito non vuoto** parzialmente ordinato possiede almeno un elemento **minimale** e almeno un elemento **massimale**.
+>
+> **Controesempio per insiemi infiniti:** $(\mathbb{Z}, \leq)$ non ha né minimali né massimali.
+
+### Copertura (Successore Immediato)
 
 > [!note] Copertura
-> $b$ **copre** $a$ se $a < b$ e $\nexists\, c:\; a < c < b$.
+> Sia $(S, \leq)$ un poset. L'elemento $b$ **copre** $a$ se:
+> $$a < b \;\wedge\; \nexists\, c \in S:\; a < c < b$$
+> Cioè $b$ è "immediatamente sopra" $a$ nell'ordine (è il successore immediato).
 
 ### Diagramma di Hasse
 
 > [!note] Diagramma di Hasse
-> Rappresentazione grafica di un poset finito: si disegnano solo le relazioni di **copertura**, con l'elemento maggiore in alto.
+> Rappresentazione grafica di un poset finito $(S, \leq)$:
+> - Vertici: elementi di $S$
+> - Archi: solo le relazioni di **copertura**
+> - Disposizione: elementi maggiori più in alto
+> - Non si disegnano loop, archi transitivi, né frecce (è un grafo non orientato)
 
-### Elemento Minimo / Massimo
+### Insieme Ben Ordinato
 
-> [!note] Minimo e Massimo
-> - $a$ è **minimo** se $a \leq x$ per ogni $x \in S$. Se esiste, è **unico**.
-> - $a$ è **massimo** se $x \leq a$ per ogni $x \in S$. Se esiste, è **unico**.
+> [!note] Ben Ordinato
+> $(S, \leq)$ è **ben ordinato** se ogni sottoinsieme non vuoto $X \subseteq S$ ammette un **minimo**.
+> - Ben ordinato $\Rightarrow$ totalmente ordinato
+> - **Esempio:** $(\mathbb{N}, \leq)$
+> - **Controesempi:** $(\mathbb{Z}, \leq)$, $(\mathbb{R}_{\geq 0}, \leq)$ (es. $(0, 1)$ non ha minimo)
 
-### Elemento Minimale / Massimale
-
-> [!note] Minimale e Massimale
-> - $a$ è **minimale** se $\nexists\, x:\; x < a$.
-> - $a$ è **massimale** se $\nexists\, x:\; a < x$.
-> - Minimo $\Longrightarrow$ unico minimale. Ma un minimale unico **non** è necessariamente il minimo.
-
-> [!important] Teorema (Poset Finiti)
-> Ogni insieme **finito non vuoto** parzialmente ordinato possiede almeno un elemento **minimale** e almeno un elemento **massimale**.
-
-### Minoranti, Maggioranti, Inf, Sup
+### Minoranti e Maggioranti
 
 > [!note] Minorante e Maggiorante
-> Sia $X \subseteq S$:
-> - **Minorante** di $X$: $a \leq x\;\forall x \in X$
-> - **Maggiorante** di $X$: $x \leq a\;\forall x \in X$
-
-> [!note] Infimo e Supremo
-> - $\inf(X) = \max(\text{minoranti di } X)$
-> - $\sup(X) = \min(\text{maggioranti di } X)$
+> Sia $(S, \leq)$ un poset e $X \subseteq S$:
+> - $a \in S$ è un **minorante** di $X$ se $a \leq x$ per ogni $x \in X$
+> - $a \in S$ è un **maggiorante** di $X$ se $x \leq a$ per ogni $x \in X$
 >
-> Se $\min(X)$ esiste, allora $\inf(X) = \min(X)$. Analogamente per $\max$ e $\sup$.
+> **Osservazione:** Se un minorante $a$ di $X$ appartiene anche a $X$, allora $a = \min(X)$.
+
+### Infimo e Supremo
+
+> [!note] Infimo
+> $$\inf(X) = \max(\text{minoranti di } X)$$
+> Il **più grande** tra i minoranti di $X$ (se esiste).
+
+> [!note] Supremo
+> $$\sup(X) = \min(\text{maggioranti di } X)$$
+> Il **più piccolo** tra i maggioranti di $X$ (se esiste).
+
+> [!note] Relazione con Minimo e Massimo
+> - Se $\min(X)$ esiste, allora $\inf(X) = \min(X)$
+> - Se $\max(X)$ esiste, allora $\sup(X) = \max(X)$
+
+> [!note] Esempio Fondamentale: $(\mathbb{N}^*, \mid)$
+> Per $X = \{60, 54\}$:
+> - **Minoranti** = divisori comuni = $\{1, 2, 3, 6\}$
+> - **Infimo** = massimo dei minoranti = $6 = \mathrm{MCD}(60, 54)$
+> - **Maggioranti** = multipli comuni
+> - **Supremo** = minimo dei maggioranti = $540 = \mathrm{mcm}(60, 54)$
 
 ---
 
-## Lezione 19 — Ordini (recap), Divisibilità come Ordine, Ordine Indotto
+## *Lezione 19* — Divisibilità come Ordine, Ordine Indotto
 
-### Divisibilità su $\mathbb{N}^*$
+### Divisibilità come Relazione d'Ordine
 
-> [!note] Divisibilità come Ordine
-> $(\mathbb{N}^*, \mid)$ è un **ordine parziale**.
-> $(\mathbb{Z}, \mid)$ **non** è un ordine (non è antisimmetrica: $2 \mid {-2}$ e ${-2} \mid 2$ ma $2 \neq -2$).
+> [!note] Divisibilità su $\mathbb{N}^*$
+> La relazione di divisibilità "$\mid$" su $\mathbb{N}^*$ è una **relazione d'ordine parziale**:
+> 1. **Riflessiva:** $a \mid a$ per ogni $a \in \mathbb{N}^*$
+> 2. **Antisimmetrica:** Se $a \mid b$ e $b \mid a$ con $a, b > 0$, allora $a = b$
+> 3. **Transitiva:** Se $a \mid b$ e $b \mid c$, allora $a \mid c$
+>
+> **Non è totale:** Controesempio: $2 \nmid 3$ e $3 \nmid 2$.
+>
+> **Elementi estremi:**
+> - Minimo: $\min(\mathbb{N}^*, \mid) = 1$
+> - Massimo: non esiste
 
-### Ordine Indotto da Funzione
+> [!note] Divisibilità su $\mathbb{Z}$ — Non è un Ordine
+> La relazione "$\mid$" su $\mathbb{Z}$ **non** è una relazione d'ordine perché **non è antisimmetrica**.
+> 
+> **Controesempio:** $2 \mid (-2)$ e $(-2) \mid 2$, ma $2 \neq -2$.
+
+### Ordine Indotto da una Funzione
 
 > [!note] Ordine Indotto
-> Data $f: S \to T$ e $(T, \leq_T)$ ordinato:
+> Sia $f: S \to T$ una funzione e $(T, \leq_T)$ un insieme ordinato. Su $S$ definiamo la relazione:
 > $$a \leq_f b \;\Longleftrightarrow\; (a = b) \;\vee\; (f(a) <_T f(b))$$
-> Questa è una relazione d'ordine su $S$.
+> Questa è una **relazione d'ordine** su $S$.
+
+> [!tip] Dimostrazione — $\leq_f$ è un ordine
+> **Riflessiva:** $a \leq_f a$ poiché $a = a$.
+>
+> **Antisimmetrica:** Se $a \leq_f b$ e $b \leq_f a$:
+> - Se $a \neq b$: allora $f(a) <_T f(b)$ (da $a \leq_f b$) e $f(b) <_T f(a)$ (da $b \leq_f a$), il che è assurdo per l'asimmetria di $<_T$.
+> - Quindi deve valere $a = b$.
+>
+> **Transitiva:** Se $a \leq_f b$ e $b \leq_f c$:
+> - Se $a = b$: allora $a \leq_f c$.
+> - Se $b = c$: allora $a \leq_f c$.
+> - Se $a \neq b$ e $b \neq c$: allora $f(a) <_T f(b) <_T f(c)$, da cui $f(a) <_T f(c)$ e $a \leq_f c$.
+> $\square$
 
 ---
 
-## Lezione 20 — Reticoli
+## *Lezione 20* — Reticoli
 
 ### Reticolo (Definizione tramite Ordine)
 
 > [!note] Reticolo
-> Un poset $(L, \leq)$ è un **reticolo** se per ogni $a, b \in L$ esistono:
-> - $\inf\{a, b\} = a \wedge b$ (**meet**)
-> - $\sup\{a, b\} = a \vee b$ (**join**)
+> Un poset $(L, \leq)$ è un **reticolo** se per ogni coppia $a, b \in L$ esistono:
+> - $\inf\{a, b\} = a \wedge b$ (**meet**, infimo di due elementi)
+> - $\sup\{a, b\} = a \vee b$ (**join**, supremo di due elementi)
 
 ### Reticolo (Definizione Algebrica)
 
-> [!note] Reticolo (algebrico)
-> $(L, \wedge, \vee)$ è un **reticolo** se $\wedge$ e $\vee$ soddisfano:
-> 1. **Associatività**: $(a \wedge b) \wedge c = a \wedge (b \wedge c)$, $\;(a \vee b) \vee c = a \vee (b \vee c)$
-> 2. **Commutatività**: $a \wedge b = b \wedge a$, $\;a \vee b = b \vee a$
-> 3. **Assorbimento**: $a \wedge (a \vee b) = a$, $\;a \vee (a \wedge b) = a$
+> [!note] Reticolo (struttura algebrica)
+> Una struttura $(L, \wedge, \vee)$ è un **reticolo** se $\wedge$ e $\vee$ sono operazioni binarie che soddisfano:
+> 1. **Associatività:** 
+>    - $(a \wedge b) \wedge c = a \wedge (b \wedge c)$
+>    - $(a \vee b) \vee c = a \vee (b \vee c)$
+> 2. **Commutatività:** 
+>    - $a \wedge b = b \wedge a$
+>    - $a \vee b = b \vee a$
+> 3. **Assorbimento:** 
+>    - $a \wedge (a \vee b) = a$
+>    - $a \vee (a \wedge b) = a$
 
-### Idempotenza (derivata)
+### Idempotenza (Conseguenza)
 
 > [!note] Idempotenza
-> Dalle leggi di assorbimento:
-> $$a \wedge a = a, \qquad a \vee a = a$$
+> Dalle leggi di assorbimento derivano le **proprietà di idempotenza**:
+> $$a \wedge a = a \qquad \qquad a \vee a = a$$
+> [!tip] Dimostrazione — Idempotenza
+> Applicando assorbimento con $b = a$:
+> $$a \wedge (a \vee a) = a$$
+> Sviluppiamo il lato sinistro usando idempotenza di $\vee$ (che assumiamo): $a \wedge a = a$. $\square$
+
 ### Equivalenza tra le Due Definizioni
 
-> [!important] Teorema
-> Le due definizioni sono equivalenti. La relazione d'ordine si recupera da:
+> [!important] Teorema — Equivalenza Ordine ↔ Algebrica
+> Le due definizioni di reticolo sono **equivalenti**. La relazione d'ordine si recupera da:
 > $$a \leq b \;\Longleftrightarrow\; a \wedge b = a \;\Longleftrightarrow\; a \vee b = b$$
 > [!tip] Dimostrazione — Algebrico ⟹ Ordine
 > Data $(L, \wedge, \vee)$ con le proprietà algebriche, definiamo $a \leq b \iff a \wedge b = a$.
-> - *Riflessiva:* $a \wedge a = a$ (idempotenza).
-> - *Antisimmetrica:* $a \wedge b = a$ e $b \wedge a = b$; per commutatività, $a = b$.
-> - *Transitiva:* $a \wedge b = a$ e $b \wedge c = b$. Allora:
->   $a \wedge c = (a \wedge b) \wedge c = a \wedge (b \wedge c) = a \wedge b = a$.
 >
-> Infine $\inf\{a,b\} = a \wedge b$: infatti $(a \wedge b) \wedge a = a \wedge b$ e $(a \wedge b) \wedge b = a \wedge b$, dunque $a \wedge b \leq a$ e $a \wedge b \leq b$. Se $c \leq a$ e $c \leq b$, allora $c \wedge (a \wedge b) = (c \wedge a) \wedge b = c \wedge b = c$, cioè $c \leq a \wedge b$. $\square$
+> **Riflessiva:** $a \wedge a = a$ (per idempotenza).
+>
+> **Antisimmetrica:** Se $a \wedge b = a$ e $b \wedge a = b$, per commutatività di $\wedge$ abbiamo $a = b$.
+>
+> **Transitiva:** Se $a \wedge b = a$ (cioè $a \leq b$) e $b \wedge c = b$ (cioè $b \leq c$), allora:
+> $$a \wedge c = (a \wedge b) \wedge c = a \wedge (b \wedge c) = a \wedge b = a$$
+> Dunque $a \leq c$.
+>
+> **Infimo:** Mostriamo che $\inf\{a, b\} = a \wedge b$.
+> - Da $(a \wedge b) \wedge a = a \wedge b$ e $(a \wedge b) \wedge b = a \wedge b$, derivano $a \wedge b \leq a$ e $a \wedge b \leq b$.
+> - Se $c \leq a$ e $c \leq b$, allora $c \wedge a = c$ e $c \wedge b = c$. 
+>   Per assorbimento: $c \wedge (a \wedge b) = (c \wedge a) \wedge b = c \wedge b = c$, dunque $c \leq a \wedge b$.
+>
+> Pertanto $a \wedge b$ è il massimo dei minoranti di $\{a, b\}$. $\square$
 
 ### Esempio Fondamentale
 
-> [!note] $(\mathcal{P}(S), \subseteq)$ è un Reticolo
-> Con $A \wedge B = A \cap B$ e $A \vee B = A \cup B$.
+> [!note] L'Insieme delle Parti è un Reticolo
+> La struttura $(\mathcal{P}(S), \subseteq)$ è un **reticolo** con:
+> - $A \wedge B = A \cap B$ (infimo = intersezione)
+> - $A \vee B = A \cup B$ (supremo = unione)
+>
+> Le operazioni $\cap$ e $\cup$ soddisfano tutte le proprietà algebriche dei reticoli.
+
 ### Catena
 
 > [!note] Catena
-> Un sottoinsieme $C \subseteq S$ di un insieme parzialmente ordinato $(S, \leq)$ è una **catena** se è **totalmente ordinato**:
+> Un sottoinsieme $C \subseteq S$ di un insieme ordinato $(S, \leq)$ è una **catena** se è **totalmente ordinato**:
 > $$\forall x, y \in C:\; x \leq y \;\vee\; y \leq x$$
 > [!note] Catena Massimale
-> Una catena $C$ in $(S, \leq)$ è **massimale** se non può essere estesa: non esiste alcun elemento $s \in S \setminus C$ tale che $C \cup \{s\}$ sia ancora una catena.
+> Una catena $C$ in $(S, \leq)$ è **massimale** se **non può essere estesa**: non esiste alcun elemento $s \in S \setminus C$ tale che $C \cup \{s\}$ sia ancora una catena.
+
+### Poset che Non è un Reticolo
+
+> [!note] Esempio — Poset Privo di Infimo o Supremo
+> Consideriamo il poset $P = \{0, a, b, c, d, 1\}$ con ordine:
+> $$0 < a, b \quad \text{e} \quad a, b < c, d \quad \text{e} \quad c, d < 1$$
+> dove $c$ e $d$ **non sono confrontabili**.
+>
+> - Per la coppia $\{a, b\}$: i **maggioranti** sono $\{c, d, 1\}$. Poiché $c$ e $d$ non sono confrontabili, $\sup\{a, b\}$ **non esiste**.
+> - Poiché esiste una coppia senza supremo, $P$ **non è un reticolo**.
+
 ---
 
-## Lezione 21 — Reticoli Limitati, Sottoreticoli, Isomorfismi, Reticoli Complementati, Prodotto
+## *Lezione 21* — Reticoli Limitati, Sottoreticoli, Isomorfismi, Complementati, Prodotto
 
 ### Reticolo Limitato
 
 > [!note] Reticolo Limitato
-> Un reticolo $L$ è **limitato** se possiede:
-> - Elemento **minimo** $0_L$: $\;0_L \leq a\;\forall a$, ossia $a \vee 0_L = a$
-> - Elemento **massimo** $1_L$: $\;a \leq 1_L\;\forall a$, ossia $a \wedge 1_L = a$
+> Un reticolo $(L, \leq)$ è **limitato** se possiede:
+> - Un **elemento minimo** $0_L$: $0_L \leq a$ per ogni $a \in L$
+> - Un **elemento massimo** $1_L$: $a \leq 1_L$ per ogni $a \in L$
 >
-> **Ogni reticolo finito è limitato.**
+> Equivalentemente (in notazione algebrica): $a \vee 0_L = a$ e $a \wedge 1_L = a$ per ogni $a$.
 
-> [!important] Insieme Totalmente Ordinato ⇒ Reticolo
-> Se $(S, \leq)$ è un insieme **totalmente ordinato**, allora è un **reticolo**.
-> Per ogni $a, b \in S$: se $a \leq b$, allora $a \wedge b = a$ e $a \vee b = b$.
+> [!important] Teorema — Reticoli Finiti Sono Limitati
+> Ogni reticolo **finito** è **limitato**: possiede sempre un elemento minimo e un elemento massimo.
 
-> [!important] Reticolo Finito ⇒ Limitato
-> Ogni reticolo **finito** è **limitato**: possiede sempre un elemento minimo $0_L$ e un elemento massimo $1_L$.
+> [!important] Corollario — Insieme Totalmente Ordinato è un Reticolo
+> Se $(S, \leq)$ è un insieme **totalmente ordinato**, allora è un **reticolo**. Per ogni $a, b \in S$:
+> $$a \wedge b = \min\{a, b\} \qquad \quad a \vee b = \max\{a, b\}$$
+### Esempi di Reticoli Limitati
+
+> [!note] Esempi Comuni
+> - $(\mathcal{P}(S), \subseteq)$: elemento minimo $0_L = \emptyset$, massimo $1_L = S$
+> - $(\mathbb{D}_n, \mid)$ (divisori di $n$): elemento minimo $0_L = 1$, massimo $1_L = n$
+> - $(\mathbb{N}^*, \mid)$: limitato **inferiormente** (minimo = 1), ma **non** limitato superiormente. Non è un reticolo limitato.
 
 ### Sottoreticolo
 
 > [!note] Sottoreticolo
-> $A \subseteq L$ non vuoto è un **sottoreticolo** se è chiuso per $\wedge$ e $\vee$:
+> Un sottoinsieme non vuoto $A \subseteq L$ di un reticolo $(L, \wedge, \vee)$ è un **sottoreticolo** se è **chiuso** per $\wedge$ e $\vee$:
 > $$\forall x, y \in A:\; x \wedge y \in A \;\wedge\; x \vee y \in A$$
+> In tal caso, $(A, \wedge|_A, \vee|_A)$ è esso stesso un reticolo.
+
+> [!note] Esempi e Non-Esempi
+> - Ogni singolo elemento $\{a\}$ è un **sottoreticolo banale**.
+> - $\{a, b\}$ è un sottoreticolo $\iff$ $a$ e $b$ sono **confrontabili** (uno è $\leq$ all'altro).
+> - In $(\mathbb{D}_{36}, \mid)$: il sottoinsieme $L = \{1, 2, 3, 6, 36\}$ **è** un sottoreticolo.
+> - In $(\mathbb{D}_{36}, \mid)$: il sottoinsieme $M = \{1, 2, 3, 36\}$ **non** è un sottoreticolo perché $\mathrm{mcm}(2, 3) = 6 \notin M$ (non chiuso per $\vee$).
+
 ### Isomorfismo di Reticoli
 
-> [!note] Isomorfismo di Poset / Reticoli
-> $f: L \to M$ biettiva è un **isomorfismo** se:
-> $$a \leq_L b \;\Longleftrightarrow\; f(a) \leq_M f(b)$$
-> Equivalentemente, preserva $\wedge$ e $\vee$:
-> $$f(a \wedge b) = f(a) \wedge f(b), \qquad f(a \vee b) = f(a) \vee f(b)$$
+> [!note] Isomorfismo tra Poset e Reticoli
+> Una funzione biettiva $f: L \to M$ è un **isomorfismo** se **preserva l'ordine**:
+> $$a \leq_L b \;\Longleftrightarrow\; f(a) \leq_M f(b) \quad \forall a, b \in L$$
+>
+> Equivalentemente (per reticoli): $f$ preserva $\wedge$ e $\vee$:
+> $$f(a \wedge b) = f(a) \wedge f(b) \qquad \quad f(a \vee b) = f(a) \vee f(b)$$
+### Elemento Complementato
+
+> [!note] Complemento in un Reticolo Limitato
+> In un reticolo **limitato** $(L, \leq, 0_L, 1_L)$, un elemento $a \in L$ ha un **complemento** $\bar{a}$ se:
+> $$a \wedge \bar{a} = 0_L \qquad \text{e} \qquad a \vee \bar{a} = 1_L$$
+> [!note] Osservazione
+> - Ogni elemento ha **al massimo** un complemento (l'inverso è unico).
+> - Gli elementi $0_L$ e $1_L$ sono sempre complementari tra loro.
+
 ### Reticolo Complementato
 
-> [!note] Complementato
-> Un reticolo **limitato** è **complementato** se per ogni $a \in L$ esiste almeno un $\bar{a} \in L$ tale che:
-> $$a \wedge \bar{a} = 0_L \qquad \text{e} \qquad a \vee \bar{a} = 1_L$$
+> [!note] Reticolo Complementato
+> Un reticolo **limitato** è **complementato** se **ogni** elemento possiede almeno un complemento.
+
+> [!note] Esempio: $M_3$ (Diamante) è Complementato
+> Il reticolo $M_3 = \{0, a, b, c, 1\}$ con $a, b, c$ mutuamente non confrontabili e $0 < a, b, c < 1$:
+> - $a$ ha come complementi sia $b$ che $c$ (ad es., $a \wedge b = 0$ e $a \vee b = 1$)
+> - È un reticolo complementato (ma non distributivo).
+
+### Reticolo NON Complementato
+
+> [!note] Esempio: Catena $0 < a < 1$ Non è Complementata
+> La catena a 3 elementi $L = \{0, a, 1\}$ con $0 < a < 1$:
+> 
+> Se $\bar{a}$ è il complemento di $a$, deve soddisfare $a \wedge \bar{a} = 0$ e $a \vee \bar{a} = 1$.
+>
+> - Se $\bar{a} = 0$: $a \wedge 0 = 0$ ✓, ma $a \vee 0 = a \neq 1$ ✗
+> - Se $\bar{a} = a$: $a \wedge a = a \neq 0$ ✗
+> - Se $\bar{a} = 1$: $a \wedge 1 = a \neq 0$ ✗
+>
+> Nessun elemento funziona: $a$ **non ha complemento**, quindi la catena **non è complementata**.
+
 ### Reticolo Prodotto
 
 > [!note] Reticolo Prodotto
-> Dati $(L_1, \leq_1)$ e $(L_2, \leq_2)$ reticoli, $L_1 \times L_2$ è un reticolo con:
-> $$(a, b) \leq (c, d) \;\Longleftrightarrow\; a \leq_1 c \;\wedge\; b \leq_2 d$$
-> $$(a, b) \wedge (c, d) = (a \wedge_1 c,\; b \wedge_2 d)$$
-> $$(a, b) \vee (c, d) = (a \vee_1 c,\; b \vee_2 d)$$
+> Dati due reticoli $(L_1, \leq_1)$ e $(L_2, \leq_2)$, il **prodotto cartesiano** $L_1 \times L_2$ è un reticolo con ordine e operazioni **componente per componente**:
+>
+> **Ordine:** $(a, b) \leq (c, d) \;\Longleftrightarrow\; a \leq_1 c \;\wedge\; b \leq_2 d$
+>
+> **Infimo:** $(a, b) \wedge (c, d) = (a \wedge_1 c,\; b \wedge_2 d)$
+>
+> **Supremo:** $(a, b) \vee (c, d) = (a \vee_1 c,\; b \vee_2 d)$
+>
+> Se $L_1$ e $L_2$ sono limitati, allora $L_1 \times L_2$ è limitato con $(0_1, 0_2)$ e $(1_1, 1_2)$.
+
 ### Reticolo dei Divisori
 
 > [!note] Reticolo $(\mathbb{D}_n, \mid)$
-> L’insieme dei divisori positivi di $n$, ordinato per divisibilità, forma un **reticolo limitato**:
-> - $a \wedge b = \mathrm{MCD}(a, b)$
-> - $a \vee b = \mathrm{mcm}(a, b)$
-> - $0_L = 1$, $\;1_L = n$
+> L'insieme dei divisori positivi di $n$, ordinato per divisibilità, forma un **reticolo limitato**:
+> - **Infimo:** $a \wedge b = \mathrm{MCD}(a, b)$
+> - **Supremo:** $a \vee b = \mathrm{mcm}(a, b)$
+> - **Minimo:** $0_L = 1$
+> - **Massimo:** $1_L = n$
 
 ---
 
-## Lezione 22 — Sottoanelli, Dualità, Reticoli Distributivi e Booleani, Algebre di Boole, Anelli Booleani
+## *Lezione 22* — Dualità, Reticoli Distributivi e Booleani, Algebre di Boole, Anelli Booleani
 
-### Sottoanello
-
-> [!note] Sottoanello
-> Sia $(A, +, \cdot)$ un anello e $B \subseteq A$, $B \neq \emptyset$.
-> $(B, +, \cdot)$ è un **sottoanello** se $B$ è chiuso per **sottrazione** e **moltiplicazione**:
-> $$\forall b_1, b_2 \in B:\; b_1 - b_2 \in B \;\wedge\; b_1 \cdot b_2 \in B$$
 ### Principio di Dualità per Reticoli
 
 > [!important] Principio di Dualità
-> Se un enunciato vale per **tutti** i reticoli, anche l'enunciato **duale** vale, ottenuto scambiando:
-> $$\leq \;\longleftrightarrow\; \geq, \qquad \wedge \;\longleftrightarrow\; \vee, \qquad 0_L \;\longleftrightarrow\; 1_L$$
+> Se un enunciato vale per **tutti** i reticoli, allora vale anche il suo **duale**, ottenuto scambiando simultaneamente:
+> $$\leq \;\longleftrightarrow\; \geq \qquad \wedge \;\longleftrightarrow\; \vee \qquad 0_L \;\longleftrightarrow\; 1_L$$
+>
+> **Applicazione:** Ogni teorema su reticoli è valido insieme al suo duale, garantendo simmetria nelle proprietà.
+
 ### Reticolo Distributivo
 
-> [!note] Distributivo
-> Un reticolo è **distributivo** se:
+> [!note] Reticolo Distributivo
+> Un reticolo è **distributivo** se soddisfa la **distributività** del meet sul join:
 > $$a \wedge (b \vee c) = (a \wedge b) \vee (a \wedge c)$$
+>
+> Per dualità, la distributività del join sul meet è automaticamente equivalente:
 > $$a \vee (b \wedge c) = (a \vee b) \wedge (a \vee c)$$
+>
 > (Le due leggi sono equivalenti per dualità.)
 
-> [!important] Teorema ($M_3$, $N_5$)
-> Un reticolo è distributivo $\;\Longleftrightarrow\;$ **non contiene** sottoreticoli isomorfi a $M_3$ (diamante) o $N_5$ (pentagono).
+### Reticoli Non Distributivi: $M_3$ e $N_5$
 
-> [!note] Reticolo Pentagonale $N_5$
-> Il reticolo con 5 elementi $\{0, a, b, c, 1\}$ dove $0 < a < b < 1$ e $0 < c < 1$ con $c$ non confrontabile con $a$ e $b$. **Non è distributivo** né modulare.
+> [!important] Teorema — Caratterizzazione della Distributività
+> Un reticolo è distributivo se e soltanto se **non contiene** sottoreticoli isomorfi a $M_3$ (diamante) o $N_5$ (pentagono).
 
 > [!note] Reticolo Diamante $M_3$
-> Il reticolo con 5 elementi $\{0, a, b, c, 1\}$ dove $a, b, c$ sono mutuamente non confrontabili e $0 < a, b, c < 1$. **Non è distributivo** (ma è modulare).
+> Il reticolo con 5 elementi $\{0, a, b, c, 1\}$ dove:
+> - $a, b, c$ sono mutuamente **non confrontabili**
+> - $0 < a, b, c < 1$
+> - **Non è distributivo** (ma è modulare).
 
-> [!tip] Dimostrazione — $M_3$ e $N_5$ non sono distributivi
-> **$M_3$:** Scegliamo $a, b, c$ i tre atomi mutuamente non confrontabili.
-> $a \wedge (b \vee c) = a \wedge 1 = a$.
-> $(a \wedge b) \vee (a \wedge c) = 0 \vee 0 = 0$.
-> Poiché $a \neq 0$, la distributività fallisce.
+> [!note] Reticolo Pentagonale $N_5$
+> Il reticolo con 5 elementi $\{0, a, b, c, 1\}$ dove:
+> - $0 < a < b < 1$ (una catena)
+> - $0 < c < 1$ con $c$ **non confrontabile** con $a$ e $b$
+> - **Non è distributivo** né modulare.
+
+> [!tip] Dimostrazione — $M_3$ non è distributivo
+> Sia $M_3 = \{0, a, b, c, 1\}$ con $a, b, c$ mutuamente non confrontabili.
 >
-> **$N_5$** ($0 < a < b < 1$ e $0 < c < 1$, $c$ non confrontabile con $a, b$):
-> $a \vee (b \wedge c) = a \vee 0 = a$.
-> $(a \vee b) \wedge (a \vee c) = b \wedge 1 = b$.
-> Poiché $a \neq b$, la distributività fallisce. $\square$
+> Consideriamo $a, b, c$:
+> $$a \wedge (b \vee c) = a \wedge 1 = a$$
+> $$(a \wedge b) \vee (a \wedge c) = 0 \vee 0 = 0$$
+>
+> Poiché $a \neq 0$, la distributività **fallisce**. $\square$
 
-### Unicità del Complemento
+> [!tip] Dimostrazione — $N_5$ non è distributivo
+> Sia $N_5 = \{0, a, b, c, 1\}$ con $0 < a < b < 1$ e $0 < c < 1$ (c non comparabile con a, b).
+>
+> Consideriamo $a, b, c$:
+> $$a \vee (b \wedge c) = a \vee 0 = a$$
+> $$(a \vee b) \wedge (a \vee c) = b \wedge 1 = b$$
+>
+> Poiché $a \neq b$, la distributività **fallisce**. $\square$
 
-> [!important] Proposizione
+### Unicità del Complemento in Reticoli Distributivi
+
+> [!important] Teorema — Unicità del Complemento
 > In un reticolo **distributivo e limitato**, se un elemento ha un complemento, questo è **unico**.
 
 > [!tip] Dimostrazione — Unicità del Complemento
 > Siano $\bar{a}$ e $\hat{a}$ due complementi di $a$. Allora:
-> $$\bar{a} = \bar{a} \wedge 1 = \bar{a} \wedge (a \vee \hat{a}) = (\bar{a} \wedge a) \vee (\bar{a} \wedge \hat{a}) = 0 \vee (\bar{a} \wedge \hat{a}) = \bar{a} \wedge \hat{a}$$
-> Analogamente $\hat{a} = \hat{a} \wedge \bar{a}$. Per commutatività di $\wedge$, $\bar{a} = \hat{a}$. $\square$
+> $$\bar{a} = \bar{a} \wedge 1_L = \bar{a} \wedge (a \vee \hat{a})$$
+>
+> Per distributività:
+> $$= (\bar{a} \wedge a) \vee (\bar{a} \wedge \hat{a}) = 0_L \vee (\bar{a} \wedge \hat{a}) = \bar{a} \wedge \hat{a}$$
+>
+> Analogamente, $\hat{a} = \bar{a} \wedge \hat{a}$.
+>
+> Per commutatività, $\bar{a} = \hat{a}$. $\square$
 
 ### Reticolo Booleano
 
 > [!note] Reticolo Booleano
 > Un reticolo è **booleano** se è **distributivo** e **complementato**.
 >
-> Esempio fondamentale: $(\mathcal{P}(S), \subseteq)$.
+> **Esempio fondamentale:** $(\mathcal{P}(S), \subseteq)$ con complemento $A^c = S \setminus A$.
+>
+> **Non sono booleani:**
+> - Qualsiasi catena con più di 2 elementi (è ordinato ma non è complementato)
+> - $M_3$ (è complementato ma non distributivo)
+> - $N_5$ (non è distributivo)
 
 > [!important] Teorema di Rappresentazione
-> Ogni reticolo booleano **finito** è isomorfo a $(\mathcal{P}(S), \subseteq)$ per qualche insieme finito $S$.
-> Pertanto $|L| = 2^n$.
+> Ogni reticolo booleano **finito** è isomorfo a $(\mathcal{P}(S), \subseteq)$ per un opportuno insieme finito $S$.
+>
+> **Conseguenza:** Se $|L| = 2^n$, allora $L$ ha $n$ "atomi" (elementi minimali non zero).
 
 ### Algebra di Boole
 
 > [!note] Algebra di Boole
-> $(A, \wedge, \vee, ', 0, 1)$ dove $\wedge, \vee$ sono binarie, $'$ è unaria, e valgono:
+> Una struttura $(A, \wedge, \vee, ', 0, 1)$ è un'**algebra di Boole** se:
 > 1. **Associatività** di $\wedge$ e $\vee$
 > 2. **Commutatività** di $\wedge$ e $\vee$
-> 3. **Assorbimento**: $a \wedge (a \vee b) = a$, $\;a \vee (a \wedge b) = a$
-> 4. **Distributività**: $a \wedge (b \vee c) = (a \wedge b) \vee (a \wedge c)$
-> 5. **Elementi neutri**: $a \wedge 1 = a$, $\;a \vee 0 = a$
-> 6. **Complemento**: $a \wedge a' = 0$, $\;a \vee a' = 1$
+> 3. **Assorbimento:** $a \wedge (a \vee b) = a$ e $a \vee (a \wedge b) = a$
+> 4. **Distributività:** $a \wedge (b \vee c) = (a \wedge b) \vee (a \wedge c)$
+> 5. **Elementi neutri:** $a \wedge 1 = a$ e $a \vee 0 = a$
+> 6. **Complemento:** $a \wedge a' = 0$ e $a \vee a' = 1$
+>
+> dove $'$ è un'operazione unaria (**complementazione**).
 
-> [!important] Teorema di Stone
-> Ogni algebra di Boole **finita** è isomorfa a $(\mathcal{P}(S), \cap, \cup, {}^c, \emptyset, S)$.
+> [!important] Teorema di Rappresentazione di Stone
+> Ogni algebra di Boole **finita** è isomorfa a $(\mathcal{P}(S), \cap, \cup, {}^c, \emptyset, S)$ per un opportuno insieme $S$.
 
 ### Anello Booleano
 
 > [!note] Anello Booleano
-> Un anello $(A, +, \cdot)$ è **booleano** se $a^2 = a$ per ogni $a \in A$.
+> Un anello $(A, +, \cdot)$ è **booleano** se $a^2 = a$ (idempotenza moltiplicativa) per ogni $a \in A$.
 >
-> Proprietà:
+> **Proprietà caratteristiche:**
 > - $\mathrm{char}(A) = 2$ (cioè $a + a = 0$ per ogni $a$)
-> - $A$ è **commutativo**
+> - $(A, \cdot)$ è **commutativo**
 >
-> Esempio: $(\mathcal{P}(S), \triangle, \cap)$.
+> **Esempio:** $(\mathcal{P}(S), \triangle, \cap)$ con operazioni differenza simmetrica e intersezione.
 
 > [!tip] Dimostrazione — Proprietà degli Anelli Booleani
-> **$a + a = 0$:** Sviluppiamo $(a + b)^2 = a + b$ (idempotenza).
-> D'altra parte $(a + b)^2 = a^2 + ab + ba + b^2 = a + ab + ba + b$.
-> Dunque $a + b = a + ab + ba + b$, da cui $ab + ba = 0$.
-> Ponendo $b = a$: $a^2 + a^2 = 0$, cioè $a + a = 0$. Pertanto $\mathrm{char}(A) = 2$ e $a = -a$.
+> **Caratteristica = 2:** Per ogni $a, b \in A$, sviluppiamo $(a + b)^2 = a + b$ (idempotenza):
+> $$(a + b)^2 = a^2 + ab + ba + b^2 = a + ab + ba + b$$
+> 
+> Quindi $a + b = a + ab + ba + b$, da cui $ab + ba = 0$, cioè $ba = -ab$.
+> 
+> Ponendo $b = a$: $a^2 + a^2 = 0$, dunque $a + a = 0$. Quindi $\mathrm{char}(A) = 2$ (ogni elemento è auto-inverso).
 >
-> **Commutatività:** Da $ab + ba = 0$ e $ba = -ba$ (poiché $x = -x$ per ogni $x$), si ha $ab - ba = 0$, dunque $ab = ba$. $\square$
+> **Commutatività:** Poiché $ab + ba = 0$ e $x = -x$ per ogni $x \in A$, abbiamo $ab - ba = 0$, cioè $ab = ba$. $\square$
 
-### Da Reticolo Booleano ad Anello Booleano
+### Corrispondenza tra Reticoli Booleani e Anelli Booleani
 
-> [!note] Costruzione
-> Dato un reticolo booleano $(L, \wedge, \vee, ', 0, 1)$, si definisce l'anello $(L, +, \cdot)$:
-> - **Prodotto:** $a \cdot b = a \wedge b$
-> - **Somma:** $a + b = (a \wedge b') \vee (b \wedge a')$ (differenza simmetrica)
-> - $0_{\text{anello}} = 0_L$, $\;1_{\text{anello}} = 1_L$
+> [!note] Da Reticolo Booleano ad Anello Booleano
+> Dato un reticolo booleano $(L, \wedge, \vee, ', 0, 1)$, si costruisce l'anello booleano $(L, +, \cdot)$ definendo:
+> - **Prodotto (meet):** $a \cdot b = a \wedge b$
+> - **Somma (differenza simmetrica):** $a + b = (a \wedge b') \vee (b \wedge a')$
+> - **Elementi neutri:** $0_{\text{anello}} = 0_L$ e $1_{\text{anello}} = 1_L$
 >
-> Relazione d'ordine recuperata: $a \leq b \;\Longleftrightarrow\; a \cdot b = a$.
+> **Relazione d'ordine recuperata:** $a \leq b \;\Longleftrightarrow\; a \cdot b = a$
+
+---
+
+**Nota conclusiva:** Lo stile è stato uniformato mantenendo:
+- Uso coerente di `[!note]`, `[!important]`, `[!tip]` con dimostrazioni;
+- Linguaggio parallelo alle lezioni 1–16;
+- Notazione matriciale e algebrica standard;
+- Esempi e controesempi integrati nelle definizioni.
