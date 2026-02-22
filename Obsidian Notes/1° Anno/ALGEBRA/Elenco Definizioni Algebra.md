@@ -1216,14 +1216,25 @@ $\mathbb{Z}_n$ equivale a $\mathbb{Z}_m$ ma con $n \not= m$
 > [!important] Fermat-Eulero
 > Se $\mathrm{MCD}(a, n) = 1$, allora:
 > $$a^{\varphi(n)} \equiv 1 \pmod{n}$$
-> [!important] Piccolo Teorema di Fermat
-> Se $p$ è primo e $p \nmid a$:
-> $$a^{p-1} \equiv 1 \pmod{p}$$
+>> [!important] Piccolo Teorema di Fermat
+>> Se $p$ è primo e $p \nmid a$:
+>> $$a^{p-1} \equiv 1 \pmod{p}$$
 ### Coefficiente Binomiale
-
-> [!note] Coefficiente Binomiale
-> $$\binom{n}{k} = \frac{n!}{k!\,(n-k)!} \qquad \text{per } 0 \leq k \leq n$$
-> Simmetria: $\binom{n}{k} = \binom{n}{n-k}$.
+Rappresenta il numero di modi in cui si possono scegliere elementi da un insieme di oggetti, senza considerare l'ordine e senza ripetizioni.
+> [!note] **Fattoriale e Coefficiente Binomiale**
+> 
+> >[!info] **Fattoriale:** $n! = n \cdot (n-1) \cdot \ldots \cdot 2 \cdot 1$ per $n \geq 1$; $0! = 1$
+> 
+> **Coefficiente Binomiale:** $\binom{n}{k} = \frac{n!}{k!(n-k)!} = \frac{n(n-1)\cdots(n-k+1)}{k!}$ per $0 \leq k \leq n$
+> 
+> **Proprietà:**
+> - $\binom{n}{0} = 1$, $\binom{n}{n} = 1$
+> - $\binom{n}{1} = n$, $\binom{n}{n-1} = n$
+> - $\binom{n}{k} = \binom{n}{n-k}$ (Simmetria)
+> - $\binom{n}{k} = \binom{n-1}{k-1} + \binom{n-1}{k}$ (Pascal)
+> - $\sum_{k=0}^{n} \binom{n}{k} = 2^n$
+> 
+> **Esempi:** $\binom{5}{2} = 10$, $\binom{6}{3} = 20$, $\binom{4}{2} = 6$
 
 ### Identità di Pascal
 
@@ -1780,6 +1791,9 @@ $\mathbb{Z}_n$ equivale a $\mathbb{Z}_m$ ma con $n \not= m$
 
 
 ---
+
+---
+
 # Proprietà dell'Anello delle Classi di Resto $(\mathbb{Z}_m, +, \cdot)$
 
 ## Introduzione
