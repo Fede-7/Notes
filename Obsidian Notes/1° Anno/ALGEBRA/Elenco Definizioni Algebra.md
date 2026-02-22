@@ -1063,15 +1063,19 @@ Il Lemma di Euclide è cruciale per dimostrare l'unicità della fattorizzazione:
 > [!important] Teorema
 > $(\mathbb{Z}_m, +, \cdot)$ è un **campo** se e solo se $m$ è un numero **primo**.
 
-> [!tip] Dimostrazione — $\mathbb{Z}_m$ campo $\Longleftrightarrow$ $m$ primo
-> $\mathbb{Z}_m$ è un campo $\iff$ ogni $[a] \neq [0]$ è invertibile
+> [!tip] Dimostrazione — $\mathbb{Z}_m$ campo: $\Longleftrightarrow$ $m$ primo
+> $\mathbb{Z}_m$ è un campo 
+> $\iff$ ogni $[a] \neq [0]$ è invertibile
 > $\iff$ $\forall a \in \{1, \ldots, m-1\}:\; \mathrm{MCD}(a, m) = 1$
-> $\iff$ $m$ non ha divisori propri $\iff$ $m$ è primo. $\square$
+> $\iff$ $m$ non ha divisori propri 
+> $\iff$ $m$ è primo. $\square$
 
 ### Caratteristica di $\mathbb{Z}_m$
 
 > [!note] Caratteristica
 > $$\mathrm{char}(\mathbb{Z}_m) = m$$
+
+
 > [!tip] Dimostrazione — $\mathrm{char}(\mathbb{Z}_m) = m$
 > $\underbrace{[1] + [1] + \cdots + [1]}_{k \text{ volte}} = [k] = [0] \iff m \mid k$.
 > Il più piccolo $k > 0$ tale che $m \mid k$ è $k = m$. $\square$
@@ -1090,10 +1094,13 @@ Il Lemma di Euclide è cruciale per dimostrare l'unicità della fattorizzazione:
 > [!tip] Dimostrazione — Invertibili e Divisori dello Zero in $\mathbb{Z}_m$
 > Sia $d = \mathrm{MCD}(a, m)$.
 >
-> **Invertibile $\Longleftarrow$ $d = 1$:** Per Bézout, $\exists\, h, k \in \mathbb{Z}$ con $ah + mk = 1$.
+> # **Invertibile 
+>  - "$\Longleftarrow$": 
+>  $d = 1$:** Per Bézout, $\exists\, h, k \in \mathbb{Z}$ con $ah + mk = 1$.
 > In $\mathbb{Z}_m$: $\bar{a} \cdot \bar{h} = \overline{ah} = \overline{1 - mk} = \bar{1}$.
 >
-> **Invertibile $\Longrightarrow$ $d = 1$:** Se $\bar{a} \cdot \bar{b} = \bar{1}$, allora $ab - mk = 1$ per qualche $k$.
+> - $\Longrightarrow$ 
+> $d = 1$:** Se $\bar{a} \cdot \bar{b} = \bar{1}$, allora $ab - mk = 1$ per qualche $k$.
 > Questa è un'identità di Bézout, dunque $\mathrm{MCD}(a, m) = 1$.
 >
 > **Div. zero $\Longleftarrow$ $d > 1$:** Poniamo $a = da_1$ e $m = dm_1$.
