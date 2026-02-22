@@ -1149,11 +1149,26 @@ Il Lemma di Euclide è cruciale per dimostrare l'unicità della fattorizzazione:
 ## *Lezione 15* — Dominio, Anello Prodotto, Caratteristica del Prodotto
 
 ### Corollario: $\mathbb{Z}_n$ Dominio d'Integrità
-
+$\mathbb{Z}_n$ equivale a $\mathbb{Z}_m$ ma con $n \not= m$
 > [!note] Dominio
 > $\mathbb{Z}_n$ è un **dominio d'integrità** $\;\Longleftrightarrow\;$ $n$ è primo $\;\Longleftrightarrow\;$ $\mathbb{Z}_n$ è un campo.
 
 ### Anello Prodotto
+- ***Tabella Riassuntiva: Proprietà dell'Anello Prodotto***
+
+| **Proprietà**                      | **Descrizione**            | **Formula/Condizione**                                                         |
+| ---------------------------------- | -------------------------- | ------------------------------------------------------------------------------ |
+| **Insieme**                        | Prodotto cartesiano        | $R \times S = \{(r, s) \mid r \in R, s \in S\}$                                |
+| **Operazioni**                     | Componente per componente  | $(r_1, s_1) + (r_2, s_2) = (r_1 + r_2, s_1 + s_2)$                             |
+| **Zero**                           | Coppia di zeri             | $\mathbf{0} = (0_R, 0_S)$                                                      |
+| **Unità**                          | Coppia di unità            | $\mathbf{1} = (1_R, 1_S)$ (se $R, S$ unitari)                                  |
+| **Commutatività**                  | Dipende da $R$ e $S$       | Commutativo ⟺ $R$ e $S$ commutativi                                            |
+| **Invertibilità**                  | Per ogni componente        | $(r, s)$ invertibile ⟺ $r \in U(R)$ e $s \in U(S)$                             |
+| **Cardinalità di $U(R \times S)$** | Prodotto di cardinalità    | $\|U(R \times S)\| = \|U(R)\| \cdot \|U(S)\|$                                  |
+| **Divisori dello Zero**            | **Sempre presenti**        | Esempio: $(1_R, 0_S) \cdot (0_R, 1_S) = \mathbf{0}$                            |
+| **Caratteristica**                 | mcm delle caratteristiche  | $\mathrm{char}(R \times S) = \mathrm{mcm}(\mathrm{char}(R), \mathrm{char}(S))$ |
+| **Campo**                          | Non è mai un campo         | $R, S$ campi ⟹ $R \times S$ **non** è un campo                                 |
+| **TCR**                            | Isomorfismo (caso coprimi) | $\mathbb{Z}_{mn} \cong \mathbb{Z}_m \times \mathbb{Z}_n$ ⟺ $\gcd(m,n) = 1$     |
 
 > [!note] Anello Prodotto $\mathbb{Z}_m \times \mathbb{Z}_n$
 > Operazioni **componente per componente**:
