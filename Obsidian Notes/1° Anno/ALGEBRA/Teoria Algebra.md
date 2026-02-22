@@ -130,15 +130,15 @@ banner: "[[Banner_n2.jpg]]"
 - [x] Congruenza Modulo m come Relazione di Congruenza ✅ 2026-02-21
 
 ### 06-05-2025
-- [ ] <mark style="background:#D4AF37; color:black; padding:0 6px; border-radius:6px;">13.1</mark> $\mathbb{Z}_m$ CAMPO $\Leftrightarrow m$ È PRIMO $(a, m)=1$
-- [ ] <mark style="background:#C0C0C0; color:black; padding:0 6px; border-radius:6px;">13.2</mark> GLI ELEMENTI $\mathbb{Z}_m \neq 0$ SONO DIVISORI DELLO 0 $(a, m) \neq 1$ O INV.  
-- [ ] <mark style="background:#C0C0C0; color:black; padding:0 6px; border-radius:6px;">13.3</mark> PROPOSIZIONI CLASSI DI EQUIVALENZA NILPOTENTI  
-- [ ] <mark style="background:#D4AF37; color:black; padding:0 6px; border-radius:6px;">13.4</mark> EQUAZIONI CONGRUENZIALI  
+- [x] <mark style="background:#D4AF37; color:black; padding:0 6px; border-radius:6px;">13.1</mark> $\mathbb{Z}_m$ CAMPO $\Leftrightarrow m$ È PRIMO $(a, m)=1$ ✅ 2026-02-22
+- [x] <mark style="background:#C0C0C0; color:black; padding:0 6px; border-radius:6px;">13.2</mark> GLI ELEMENTI $\mathbb{Z}_m \neq 0$ SONO DIVISORI DELLO 0 $(a, m) \neq 1$ O INV. ✅ 2026-02-22
+- [x] <mark style="background:#C0C0C0; color:black; padding:0 6px; border-radius:6px;">13.3</mark> PROPOSIZIONI CLASSI DI EQUIVALENZA NILPOTENTI ✅ 2026-02-22
+- [x] <mark style="background:#D4AF37; color:black; padding:0 6px; border-radius:6px;">13.4</mark> EQUAZIONI CONGRUENZIALI ✅ 2026-02-22
 
 ### 09-05-2025
-- [ ] 14.1 IDEMPOTENTI IN $\mathbb{Z}_m$  
-- [ ] 14.2 CRITERI DI DIVISIBILITÀ  
-- [ ] <mark style="background:#D4AF37; color:black; padding:0 6px; border-radius:6px;">14.3</mark> TEOREMA ESISTENZA SOLUZIONI EQUAZIONI CONGRUENZIALI  
+- [x] 14.1 IDEMPOTENTI IN $\mathbb{Z}_m$ ✅ 2026-02-22
+- [x] 14.2 CRITERI DI DIVISIBILITÀ ✅ 2026-02-22
+- [x] <mark style="background:#D4AF37; color:black; padding:0 6px; border-radius:6px;">14.3</mark> TEOREMA ESISTENZA SOLUZIONI EQUAZIONI CONGRUENZIALI ✅ 2026-02-22
 
 ### 16-05-2025
 - [ ] 15.1 FUNZIONE DI EULERO  

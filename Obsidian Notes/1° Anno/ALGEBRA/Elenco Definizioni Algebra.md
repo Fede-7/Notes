@@ -1154,30 +1154,40 @@ $\mathbb{Z}_n$ equivale a $\mathbb{Z}_m$ ma con $n \not= m$
 > $\mathbb{Z}_n$ è un **dominio d'integrità** $\;\Longleftrightarrow\;$ $n$ è primo $\;\Longleftrightarrow\;$ $\mathbb{Z}_n$ è un campo.
 
 ### Anello Prodotto
-- ***Tabella Riassuntiva: Proprietà dell'Anello Prodotto***
 
-| **Proprietà**                      | **Descrizione**            | **Formula/Condizione**                                                         |
-| ---------------------------------- | -------------------------- | ------------------------------------------------------------------------------ |
-| **Insieme**                        | Prodotto cartesiano        | $R \times S = \{(r, s) \mid r \in R, s \in S\}$                                |
-| **Operazioni**                     | Componente per componente  | $(r_1, s_1) + (r_2, s_2) = (r_1 + r_2, s_1 + s_2)$                             |
-| **Zero**                           | Coppia di zeri             | $\mathbf{0} = (0_R, 0_S)$                                                      |
-| **Unità**                          | Coppia di unità            | $\mathbf{1} = (1_R, 1_S)$ (se $R, S$ unitari)                                  |
-| **Commutatività**                  | Dipende da $R$ e $S$       | Commutativo ⟺ $R$ e $S$ commutativi                                            |
-| **Invertibilità**                  | Per ogni componente        | $(r, s)$ invertibile ⟺ $r \in U(R)$ e $s \in U(S)$                             |
-| **Cardinalità di $U(R \times S)$** | Prodotto di cardinalità    | $\|U(R \times S)\| = \|U(R)\| \cdot \|U(S)\|$                                  |
-| **Divisori dello Zero**            | **Sempre presenti**        | Esempio: $(1_R, 0_S) \cdot (0_R, 1_S) = \mathbf{0}$                            |
-| **Caratteristica**                 | mcm delle caratteristiche  | $\mathrm{char}(R \times S) = \mathrm{mcm}(\mathrm{char}(R), \mathrm{char}(S))$ |
-| **Campo**                          | Non è mai un campo         | $R, S$ campi ⟹ $R \times S$ **non** è un campo                                 |
-| **TCR**                            | Isomorfismo (caso coprimi) | $\mathbb{Z}_{mn} \cong \mathbb{Z}_m \times \mathbb{Z}_n$ ⟺ $\gcd(m,n) = 1$     |
+> [!note] **Definizione**
+> L'anello prodotto $R \times S = \{(r,s) \mid r \in R, s \in S\}$ con operazioni componente per componente:
+> - $(r_1,s_1) + (r_2,s_2) = (r_1+r_2, s_1+s_2)$
+> - $(r_1,s_1) \cdot (r_2,s_2) = (r_1 \cdot r_2, s_1 \cdot s_2)$
+> - Zero: $\mathbf{0} = (0_R, 0_S)$
+> - Unità: $\mathbf{1} = (1_R, 1_S)$ (se $R,S$ unitari)
 
-> [!note] Anello Prodotto $\mathbb{Z}_m \times \mathbb{Z}_n$
-> Operazioni **componente per componente**:
-> $$(\bar{a}, \tilde{b}) + (\bar{c}, \tilde{d}) = (\overline{a+c},\, \widetilde{b+d})$$
-> $$(\bar{a}, \tilde{b}) \cdot (\bar{c}, \tilde{d}) = (\overline{a \cdot c},\, \widetilde{b \cdot d})$$
-> - $0_R = ([0]_m, [0]_n)$, $\;1_R = ([1]_m, [1]_n)$
-> - $(\bar{a}, \tilde{b}) \in U(R) \;\Longleftrightarrow\; \bar{a} \in U(\mathbb{Z}_m) \;\wedge\; \tilde{b} \in U(\mathbb{Z}_n)$
+> [!note] **Proprietà Fondamentali**
+> 
+> | Proprietà | Risultato |
+> |---|---|
+> | **Commutatività** | $R \times S$ comm. ⟺ $R$ e $S$ comm. |
+> | **Invertibili** | $(r,s) \in U(R \times S)$ ⟺ $r \in U(R)$ e $s \in U(S)$ |
+> | **Cardinalità invertibili** | $\|U(\mathbb{Z}_m \times \mathbb{Z}_n)\| = \varphi(m) \cdot \varphi(n)$ |
+> | **Divisori dello zero** | **Sempre presenti** (anche se $R,S$ domini): $(1_R,0_S) \cdot (0_R,1_S) = \mathbf{0}$ |
+> | **Caratteristica** | $\mathrm{char}(R \times S) = \mathrm{mcm}(\mathrm{char}(R), \mathrm{char}(S))$ |
+> | **Campo** | Se $F,K$ campi ⟹ $F \times K$ **NON è campo** (ha divisori dello zero) |
 
-### Caratteristica del Prodotto
+> [!note] **Teorema Cinese dei Resti (TCR)**
+> $$\mathbb{Z}_{mn} \cong \mathbb{Z}_m \times \mathbb{Z}_n \quad \Longleftrightarrow \quad \mathrm{MCD}(m,n) = 1$$
+> 
+> **Isomorfismo:** $\phi([a]_{mn}) = ([a]_m, [a]_n)$
+> 
+> **Utilità:** Spezzare calcoli modulo $mn$ (grande) in calcoli modulo $m$ e $n$ (piccoli).
+> 
+> **Esempio:** $\mathbb{Z}_{15} \cong \mathbb{Z}_3 \times \mathbb{Z}_5$ (poiché $\gcd(3,5)=1$)
+
+> [!note] **Riassunto Critico**
+> - ✓ Operazioni componente per componente funzionano perfettamente
+> - ✗ Divisori dello zero sempre presenti (perdita proprietà integralità)
+> - ✗ Non è mai un campo anche se fattori sono campi
+> - ✓ TCR consente di fattorizzare calcoli complessi quando fattori sono coprimi
+> - ✓ Invertibili sono il prodotto cartesiano di invertibili
 
 > [!note] Caratteristica dell'Anello Prodotto
 > $$\mathrm{char}(\mathbb{Z}_m \times \mathbb{Z}_n) = \mathrm{mcm}(\mathrm{char}(\mathbb{Z}_m),\, \mathrm{char}(\mathbb{Z}_n)) = \mathrm{mcm}(m, n)$$
