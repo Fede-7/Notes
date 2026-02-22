@@ -805,6 +805,14 @@ come accennato...
 > [!note] Algoritmo Esteso
 > Risalendo le divisioni dell'Algoritmo di Euclide, si trovano i **coefficienti di Bézout** $x, y$ tali che $ax + by = \mathrm{MCD}(a, b)$.
 
+### Lemma D'Euclide
+
+> [!important] Lemma di Euclide
+> Se $p$ è un numero primo e $p \mid ab$, allora $p \mid a$ oppure $p \mid b$.
+> 
+> **Dimostrazione (Idea):** Se $p \nmid a$, allora MCD$(p, a) = 1$. Per Bézout,
+> $$\exists\, x, y \in \mathbb{Z} : px + ay = 1.$$
+> Moltiplichiamo per $b$: $pxb + ayb = b$. Poiché $p \mid pxb$ e $p \mid ayb$ (dato che $p \mid ab$), allora $p$ divide la loro somma, cioè $p \mid b$.
 ### Teorema Fondamentale dell'Aritmetica
 
 > [!important] FTA
@@ -860,52 +868,6 @@ Il Lemma di Euclide è cruciale per dimostrare l'unicità della fattorizzazione:
 > Per il **Lemma di Euclide**, $p_1$ divide uno dei $q_j$ (con $j \geq 2$). Ma i $q_j$ sono primi distinti dai $p_i$, contraddizione. $\times$
 >
 > Quindi gli esponenti devono essere uguali: $a_i = b_i$ per ogni $i$. $\checkmark$
-
-> [!tip] 11.4 — Dimostrazione: Teorema Fondamentale dell'Aritmetica
->
-> **Enunciato:** Ogni $n > 1$ si scrive **unicamente** come $n = p_1^{a_1} \cdot p_2^{a_2} \cdots p_k^{a_k}$ con $p_i$ primi distinti.
->
-> ---
->
-> ### Parte 1: Esistenza (Induzione Forte)
->
-> **Base:** $n = 2$ è primo. ✓
->
-> **Ipotesi:** Vera per ogni $m < n$.
->
-> **Tesi:** Vera per $n$.
->
-> **Dimostrazione:**
-> - Se $n$ è primo: ✓
-> - Se $n$ composto: $\exists p \mid n$ con $n = p \cdot m$, $m < n$
-> - Per ipotesi: $m = p_2^{a_2} \cdots p_k^{a_k}$
-> - Dunque: $n = p \cdot p_2^{a_2} \cdots p_k^{a_k}$ ✓
->
-> ---
->
-> ### Parte 2: Unicità (Assurdo)
->
-> Siano due rappresentazioni: $n = p_1^{a_1} \cdots p_k^{a_k} = q_1^{b_1} \cdots q_r^{b_r}$
->
-> #### **Caso A:** Insiemi di primi distinti $\{p_i\} \neq \{q_j\}$
->
-> 1. $\exists p_i$ presente in prima ma non in seconda
-> 2. $p_i \mid n = q_1^{b_1} \cdots q_r^{b_r}$
-> 3. Lemma di Euclide: $p_i \mid q_j$ per qualche $j$
-> 4. Poiché $q_j$ è primo: $p_i = q_j$
-> 5. **Contraddizione** ✗
->
-> #### **Caso B:** Esponenti distinti $\exists a_i \neq b_i$
->
-> 6. Siano i primi identici. Supponi $a_1 > b_1$
-> 7. Dividi per $p_1^{b_1}$: $p_1^{a_1-b_1} \cdot p_2^{a_2} \cdots = q_2^{b_2} \cdots q_r^{b_r}$
-> 8. $p_1$ divide membro sinistro
-> 9. $p_1$ non divide membro destro (nessun fattore $p_1$)
-> 10. **Assurdo** per Lemma di Euclide ✗
->
-> ---
->
-> **Conclusione:** La rappresentazione è unica a meno dell'ordine dei fattori. $\square$
 
 ### Classi di Equivalenza
 
