@@ -1,9 +1,7 @@
 ---
 banner: "[[Banner_n4.jpg]]"
 ---
- ---
- ## *Indice*
-
+## Indice
 > [!abstract] Indice
 > Raccolta completa di tutte le definizioni testuali e algebriche, ordinate per lezione (1–22, esclusa la 18).
 >
@@ -1094,25 +1092,28 @@ Il Lemma di Euclide è cruciale per dimostrare l'unicità della fattorizzazione:
 > [!tip] Dimostrazione — Invertibili e Divisori dello Zero in $\mathbb{Z}_m$
 > Sia $d = \mathrm{MCD}(a, m)$.
 >
-> # **Invertibile 
->  - "$\Longleftarrow$": 
->  $d = 1$:** Per Bézout, $\exists\, h, k \in \mathbb{Z}$ con $ah + mk = 1$.
+> # **Invertibile** 
+>  - "$\Longleftarrow$ $d = 1$":
+>  Per Bézout, $\exists\, h, k \in \mathbb{Z}$ con $ah + mk = 1$.
 > In $\mathbb{Z}_m$: $\bar{a} \cdot \bar{h} = \overline{ah} = \overline{1 - mk} = \bar{1}$.
 >
-> - $\Longrightarrow$ 
-> $d = 1$:** Se $\bar{a} \cdot \bar{b} = \bar{1}$, allora $ab - mk = 1$ per qualche $k$.
+> - "$\Longrightarrow$ $d = 1$":
+>  Se $\bar{a} \cdot \bar{b} = \bar{1}$, allora $ab - mk = 1$ per qualche $k$.
 > Questa è un'identità di Bézout, dunque $\mathrm{MCD}(a, m) = 1$.
 >
-> **Div. zero $\Longleftarrow$ $d > 1$:** Poniamo $a = da_1$ e $m = dm_1$.
+> # **Div. zero** 
+> - "$\Longleftarrow$ $d > 1$": 
+> Poniamo $a = da_1$ e $m = dm_1$.
 > Allora $\bar{a} \cdot \overline{m_1} = \overline{a_1 m} = \bar{0}$ con $\overline{m_1} \neq \bar{0}$ (poiché $m_1 < m$).
 >
-> **Div. zero $\Longrightarrow$ $d > 1$:** Se $\bar{a} \cdot \bar{b} = \bar{0}$ con $\bar{b} \neq \bar{0}$, allora $m \mid ab$.
+> - "$\Longrightarrow$ $d > 1$":
+> Se $\bar{a} \cdot \bar{b} = \bar{0}$ con $\bar{b} \neq \bar{0}$, allora $m \mid ab$.
 > Se fosse $d = 1$, per il Lemma di Euclide $m \mid b$, cioè $\bar{b} = \bar{0}$: contraddizione. $\square$
 
 ### Elementi Nilpotenti in $\mathbb{Z}_m$
 
 > [!note] Nilpotenti in $\mathbb{Z}_m$
-> Sia $m = p_1^{\alpha_1} \cdots p_t^{\alpha_t}$. Allora $[a]_m$ è nilpotente se e solo se $a$ è multiplo di $\mathrm{rad}(m) = p_1 \cdot p_2 \cdots p_t$.
+> Sia $m = p_1^{\alpha_1} \cdots p_t^{\alpha_t}$. Allora $[a]_m$ è nilpotente $\iff$ ogni divisore primo di $m$ divide anche $a$.
 
 ### Equazioni Congruenziali
 
@@ -1750,8 +1751,479 @@ Il Lemma di Euclide è cruciale per dimostrare l'unicità della fattorizzazione:
 
 ---
 
-**Nota conclusiva:** Lo stile è stato uniformato mantenendo:
-- Uso coerente di `[!note]`, `[!important]`, `[!tip]` con dimostrazioni;
-- Linguaggio parallelo alle lezioni 1–16;
-- Notazione matriciale e algebrica standard;
-- Esempi e controesempi integrati nelle definizioni.
+
+
+
+---
+# Proprietà dell'Anello delle Classi di Resto $(\mathbb{Z}_m, +, \cdot)$
+
+## Introduzione
+
+> [!note] Struttura Fondamentale
+> $(\mathbb{Z}_m, +, \cdot)$ è un **anello commutativo unitario** per ogni $m > 1$:
+> - **Unità moltiplicativa:** $\bar{1}$
+> - **Elemento nullo (zero additivo):** $\bar{0}$
+> - **Operazione addittiva:** $[a]_m + [b]_m = [a + b]_m$
+> - **Operazione moltiplicativa:** $[a]_m \cdot [b]_m = [ab]_m$
+
+---
+
+## 1. Divisori dello Zero in $\mathbb{Z}_m$
+
+### Definizione
+
+> [!note] Divisore dello Zero
+> Un elemento $\bar{a} \in \mathbb{Z}_m$ con $\bar{a} \neq \bar{0}$ è un **divisore dello zero** se esiste $\bar{b} \in \mathbb{Z}_m$ con $\bar{b} \neq \bar{0}$ tale che:
+> $$\bar{a} \cdot \bar{b} = \bar{0}$$
+### Teorema Caratterizzante
+
+> [!important] **TEOREMA — Caratterizzazione dei Divisori dello Zero**
+> Un elemento $\bar{a} \in \mathbb{Z}_m$ (con $\bar{a} \neq \bar{0}$) è un divisore dello zero **se e solo se**:
+> $$\mathrm{MCD}(a, m) \neq 1$$
+> 
+> Equivalentemente: $\mathrm{MCD}(a, m) > 1$
+
+### Dimostrazione Completa
+
+### Verso (⟹): Divisore dello Zero ⟹ MCD(a,m) ≠ 1
+
+> [!tip] **Prova per Contrapposizione**
+> 
+> Supponiamo $\bar{a}$ sia divisore dello zero. Allora:
+> - Esiste $\bar{b} \neq \bar{0}$ tale che $\bar{a} \cdot \bar{b} = \bar{0}$
+> - Questo significa: $ab \equiv 0 \pmod{m}$, cioè $m \mid ab$
+>
+> **Contrapposizione:** Mostriamo che se $\mathrm{MCD}(a, m) = 1$, allora $\bar{a}$ **non** è divisore dello zero.
+>
+> Se $\mathrm{MCD}(a, m) = 1$ e $m \mid ab$:
+> - Per il **Lemma di Euclide Generalizzato**: $m \mid b$
+> - Questo implica $b \equiv 0 \pmod{m}$
+> - Quindi $\bar{b} = \bar{0}$, **contraddizione**
+>
+> Dunque, se $\bar{a}$ è divisore dello zero, necessariamente $\mathrm{MCD}(a, m) \neq 1$. $\square$
+
+### Verso (⟸): MCD(a,m) ≠ 1 ⟹ Divisore dello Zero
+
+> [!tip] **Costruzione Esplicita**
+> 
+> Dato che $d = \mathrm{MCD}(a, m) \neq 1$, per definizione di MCD:
+> $$a = d \cdot a' \quad \text{e} \quad m = d \cdot m' \quad \text{(con $d > 1$)}$$
+>
+> dove $a'$ e $m'$ sono interi positivi con:
+> $$m' = \frac{m}{d} < m \quad \text{(divisore proprio)}$$
+>
+> **Definiamo** $\bar{b} = [\overline{m'}]_m$.
+>
+> **Affermazione 1:** $\bar{b} \neq \bar{0}$
+> - Se fosse $\bar{b} = \bar{0}$, allora $m \mid m'$
+> - Ma $1 \leq m' < m$, quindi $m \nmid m'$ ✗
+> - Perciò $\bar{b} \neq \bar{0}$ ✓
+>
+> **Affermazione 2:** $\bar{a} \cdot \bar{b} = \bar{0}$
+> $$\bar{a} \cdot \bar{b} = [\overline{a}]_m \cdot [\overline{m'}]_m = [\overline{a \cdot m'}]_m$$
+>
+> Sostituendo $a = d \cdot a'$:
+> $$= [\overline{(d \cdot a') \cdot m'}]_m = [\overline{a' \cdot (d \cdot m')}]_m$$
+>
+> Sostituendo $d \cdot m' = m$:
+> $$= [\overline{a' \cdot m}]_m = [\overline{0}]_m = \bar{0}$$ ✓
+>
+> Abbiamo trovato $\bar{b} \neq \bar{0}$ con $\bar{a} \cdot \bar{b} = \bar{0}$: **$\bar{a}$ è divisore dello zero**. $\square$
+
+#### Esempio Concreto
+
+> [!note] **Esempio: $\bar{6} \in \mathbb{Z}_{15}$**
+>
+> **Dati:** $a = 6$, $m = 15$, $\mathrm{MCD}(6, 15) = 3 > 1$ ✓
+>
+> **Fattorizzazione:**
+> - $d = 3$
+> - $6 = 3 \cdot 2$ ⟹ $a' = 2$
+> - $15 = 3 \cdot 5$ ⟹ $m' = 5$
+>
+> **Elemento divisore dello zero:**
+> - $\bar{b} = \bar{5} \neq \bar{0}$ ✓
+> - $\bar{6} \cdot \bar{5} = [\overline{30}]_{15} = [\overline{0}]_{15} = \bar{0}$ ✓
+
+---
+
+## 2. Elementi Invertibili in $\mathbb{Z}_m$
+
+### Definizione
+
+> [!note] Elemento Invertibile
+> Un elemento $\bar{a} \in \mathbb{Z}_m$ è **invertibile** (o **simmetrizzabile** rispetto al prodotto) se esiste $\bar{b} \in \mathbb{Z}_m$ tale che:
+> $$\bar{a} \cdot \bar{b} = \bar{1}$$
+> 
+> L'elemento $\bar{b}$ si chiama **inverso moltiplicativo** di $\bar{a}$ e si denota $\bar{a}^{-1}$.
+
+### Teorema Caratterizzante
+
+> [!important] **TEOREMA — Caratterizzazione degli Elementi Invertibili**
+> Un elemento $\bar{a} \in \mathbb{Z}_m$ è invertibile **se e solo se**:
+> $$\mathrm{MCD}(a, m) = 1$$
+> 
+> Cioè, $a$ e $m$ sono **coprimi** (primi tra loro).
+
+#### Dimostrazione Completa
+
+##### Verso (⟸): MCD(a,m) = 1 ⟹ [a]_m Invertibile
+
+> [!tip] **Teorema di Bézout**
+> 
+> Se $\mathrm{MCD}(a, m) = 1$, allora per il **Teorema di Bézout Esteso**, esistono interi $h, k$ tali che:
+> $$a \cdot h + m \cdot k = 1$$
+>
+> **Riduciamo modulo $m$:**
+> $$a \cdot h + m \cdot k \equiv 1 \pmod{m}$$
+>
+> Poiché $m \cdot k \equiv 0 \pmod{m}$:
+> $$a \cdot h \equiv 1 \pmod{m}$$
+>
+> **In notazione di classi:**
+> $$\bar{a} \cdot \bar{h} = \bar{1}$$
+>
+> Quindi **$\bar{h}$ è l'inverso moltiplicativo di $\bar{a}$**, e $\bar{a}$ è **invertibile**. $\square$
+
+### Verso (⟹): [a]_m Invertibile ⟹ MCD(a,m) = 1
+
+> [!tip] **Identità di Bézout Inversa**
+> 
+> Se $\bar{a}$ è invertibile, esiste $\bar{b}$ tale che:
+> $$\bar{a} \cdot \bar{b} = \bar{1}$$
+>
+> Questo significa:
+> $$ab \equiv 1 \pmod{m}$$
+>
+> Per definizione di congruenza, esiste intero $k$ tale che:
+> $$ab = 1 + km$$
+>
+> Riarrangiando:
+> $$ab - km = 1$$
+>
+> Questa è un'**identità di Bézout**. Per il **Teorema di Bézout (Contrapositivo)**, se esiste combinazione lineare di $a$ e $m$ che produce 1:
+> $$\mathrm{MCD}(a, m) = 1$$ $\square$
+
+### L'Insieme degli Invertibili: $U(\mathbb{Z}_m)$
+
+> [!note] Gruppo Moltiplicativo degli Invertibili
+> L'insieme:
+> $$U(\mathbb{Z}_m) = \{\bar{a} \in \mathbb{Z}_m \mid \mathrm{MCD}(a, m) = 1\}$$
+> 
+> forma un **gruppo abeliano** rispetto alla moltiplicazione in $\mathbb{Z}_m$.
+>
+> **Proprietà:**
+> - **Chiuso:** Se $\mathrm{MCD}(a, m) = 1$ e $\mathrm{MCD}(b, m) = 1$, allora $\mathrm{MCD}(ab, m) = 1$
+> - **Associatività:** Ereditata dall'anello
+> - **Identità:** $\bar{1} \in U(\mathbb{Z}_m)$ (poiché $\mathrm{MCD}(1, m) = 1$)
+> - **Inversi:** Ogni elemento ha inverso (per definizione di $U(\mathbb{Z}_m)$)
+> - **Commutatività:** $\mathbb{Z}_m$ è commutativo
+
+#### La Funzione Toziente di Eulero
+
+> [!note] Cardinalità di $U(\mathbb{Z}_m)$ — Funzione toziente
+> Il numero di elementi invertibili in $\mathbb{Z}_m$ è dato dalla **funzione toziente di Eulero**:
+> $$|U(\mathbb{Z}_m)| = \varphi(m)$$
+> 
+> dove $\varphi(m)$ è il numero di interi in $\{1, 2, \ldots, m-1\}$ coprimi con $m$.
+
+#### Formula Esplicita per $\varphi(m)$
+
+> [!note] Formula Moltiplicativa
+> Se $m = p_1^{\alpha_1} p_2^{\alpha_2} \cdots p_k^{\alpha_k}$, allora:
+> $$\varphi(m) = m \prod_{p \mid m} \left(1 - \frac{1}{p}\right) = \prod_{i=1}^{k} p_i^{\alpha_i-1}(p_i - 1)$$
+#### Esempi di $\varphi(m)$
+
+| $m$ | Fattorizzazione | $\varphi(m)$ | Calcolo |
+|---|---|---|---|
+| 6 | $2 \cdot 3$ | 2 | $6(1 - 1/2)(1 - 1/3) = 6 \cdot 1/2 \cdot 2/3 = 2$ |
+| 12 | $2^2 \cdot 3$ | 4 | $12(1 - 1/2)(1 - 1/3) = 12 \cdot 1/2 \cdot 2/3 = 4$ |
+| 15 | $3 \cdot 5$ | 8 | $15(1 - 1/3)(1 - 1/5) = 15 \cdot 2/3 \cdot 4/5 = 8$ |
+| 20 | $2^2 \cdot 5$ | 8 | $20(1 - 1/2)(1 - 1/5) = 20 \cdot 1/2 \cdot 4/5 = 8$ |
+
+#### Esempio Concreto
+
+> [!note] **Esempio: Elementi Invertibili in $\mathbb{Z}_{15}$**
+>
+> $15 = 3 \cdot 5$, quindi $\varphi(15) = 15 \cdot (1 - 1/3)(1 - 1/5) = 15 \cdot 2/3 \cdot 4/5 = 8$
+>
+> **Elementi coprimi con 15:**
+> - $\mathrm{MCD}(1, 15) = 1$ ✓
+> - $\mathrm{MCD}(2, 15) = 1$ ✓
+> - $\mathrm{MCD}(4, 15) = 1$ ✓
+> - $\mathrm{MCD}(7, 15) = 1$ ✓
+> - $\mathrm{MCD}(8, 15) = 1$ ✓
+> - $\mathrm{MCD}(11, 15) = 1$ ✓
+> - $\mathrm{MCD}(13, 15) = 1$ ✓
+> - $\mathrm{MCD}(14, 15) = 1$ ✓
+>
+> $$U(\mathbb{Z}_{15}) = \{\bar{1}, \bar{2}, \bar{4}, \bar{7}, \bar{8}, \bar{11}, \bar{13}, \bar{14}\}$$
+> $$|U(\mathbb{Z}_{15})| = 8 = \varphi(15)$$ ✓
+
+---
+
+## 3. Corollario: $\mathbb{Z}_p$ è un Campo (quando $p$ è primo)
+
+### Teorema
+
+> [!important] **TEOREMA — $\mathbb{Z}_p$ è un Campo**
+> Se $p$ è un numero **primo**, allora $(\mathbb{Z}_p, +, \cdot)$ è un **campo**.
+
+#### Dimostrazione
+
+> [!tip] **Passo 1: Ricordiamo la Definizione di Campo**
+> 
+> Un anello commutativo unitario $(F, +, \cdot)$ è un **campo** se:
+> - Ogni elemento **non nullo** è **invertibile**
+
+> [!tip] **Passo 2: Elementi di $\mathbb{Z}_p$**
+> 
+> Gli elementi non nulli di $\mathbb{Z}_p$ sono:
+> $$\mathbb{Z}_p^* = \{\bar{1}, \bar{2}, \ldots, \overline{p-1}\}$$
+>
+> Ogni $\bar{a}$ corrisponde a un intero $a \in \{1, 2, \ldots, p-1\}$.
+
+> [!tip] **Passo 3: Proprietà dei Primi**
+> 
+> Poiché $p$ è **primo**:
+> - $p$ ha come unici divisori positivi: 1 e $p$ stesso
+> - Per ogni $a \in \{1, 2, \ldots, p-1\}$: $a < p$
+> - Quindi $a$ **non è un multiplo di $p$**
+> - L'unico divisore comune di $a$ e $p$ è 1
+> - Dunque: $\mathrm{MCD}(a, p) = 1$ ✓
+
+> [!tip] **Passo 4: Invertibilità di Ogni Elemento Non Nullo**
+> 
+> Per il **Teorema Caratterizzante degli Elementi Invertibili**:
+> $$\mathrm{MCD}(a, p) = 1 \quad \Rightarrow \quad \bar{a} \text{ è invertibile}$$
+>
+> Quindi **ogni $\bar{a} \in \mathbb{Z}_p^*$ è invertibile**.
+
+> [!tip] **Passo 5: Conclusione**
+> 
+> Poiché $(\mathbb{Z}_p, +, \cdot)$ è:
+> - **Anello commutativo unitario** (per qualsiasi $p$)
+> - **Ogni elemento non nullo è invertibile** (quando $p$ è primo)
+>
+> Per definizione, $\boxed{\mathbb{Z}_p \text{ è un campo}}$. $\square$
+
+#### Esempi
+
+> [!note] **Esempi di Campi**
+> 
+> - $\mathbb{Z}_2 = \{\bar{0}, \bar{1}\}$ è un campo (campo finito con 2 elementi, $\mathbb{F}_2$)
+> - $\mathbb{Z}_3 = \{\bar{0}, \bar{1}, \bar{2}\}$ è un campo
+> - $\mathbb{Z}_5 = \{\bar{0}, \bar{1}, \bar{2}, \bar{3}, \bar{4}\}$ è un campo
+> - $\mathbb{Z}_{11}, \mathbb{Z}_{13}, \mathbb{Z}_{17}, \ldots$ sono tutti campi
+
+> [!note] **Contro-Esempi: Non-Campi**
+> 
+> - $\mathbb{Z}_4$: $\bar{2} \neq \bar{0}$ ma $\mathrm{MCD}(2, 4) = 2 \neq 1$, quindi $\bar{2}$ **non è invertibile**
+> - $\mathbb{Z}_6$: $\bar{2}, \bar{3}, \bar{4}$ non sono invertibili (hanno MCD > 1 con 6)
+> - $\mathbb{Z}_{15}$: $\bar{3}, \bar{5}, \bar{6}, \ldots$ non sono invertibili
+
+---
+
+## 4. Elementi Nilpotenti in $\mathbb{Z}_m$
+
+### Definizione
+
+> [!note] Elemento Nilpotente
+> Un elemento $\bar{a} \in \mathbb{Z}_m$ è **nilpotente** se esiste un intero positivo $N$ tale che:
+> $$\bar{a}^N = \bar{0}$$
+> 
+> In altri termini: $a^N \equiv 0 \pmod{m}$
+
+### Teorema Caratterizzante
+
+> [!important] **TEOREMA — Caratterizzazione degli Elementi Nilpotenti**
+> Sia $m = p_1^{\alpha_1} p_2^{\alpha_2} \cdots p_k^{\alpha_k}$ la fattorizzazione in primi distinti di $m$.
+> 
+> Un elemento $\bar{a} \in \mathbb{Z}_m$ è nilpotente **se e solo se**:
+> $$p_i \mid a \quad \text{per ogni fattore primo } p_i \text{ di } m$$
+> 
+> Equivalentemente: $a$ è un multiplo del **radicale di $m$**:
+> $$\mathrm{rad}(m) = p_1 p_2 \cdots p_k \mid a$$
+### Radicale di un Numero
+
+> [!note] Radicale
+> Il **radicale** di $m$ è il prodotto di tutti i fattori primi distinti di $m$:
+> $$\mathrm{rad}(m) = \prod_{p \mid m, \, p \text{ primo}} p$$
+>
+> **Esempi:**
+> - $\mathrm{rad}(12) = \mathrm{rad}(2^2 \cdot 3) = 2 \cdot 3 = 6$
+> - $\mathrm{rad}(20) = \mathrm{rad}(2^2 \cdot 5) = 2 \cdot 5 = 10$
+> - $\mathrm{rad}(100) = \mathrm{rad}(2^2 \cdot 5^2) = 2 \cdot 5 = 10$
+
+#### Dimostrazione Completa
+
+##### Verso (⟹): Nilpotente ⟹ rad(m) | a
+
+> [!tip] **Ipotesi: $\bar{a}$ è Nilpotente**
+> 
+> Allora esiste $N \geq 1$ tale che $\bar{a}^N = \bar{0}$.
+>
+> Per definizione di congruenza:
+> $$a^N \equiv 0 \pmod{m} \quad \Rightarrow \quad m \mid a^N$$
+>
+> **Per ogni fattore primo $p_i$ di $m$:**
+> - Poiché $m = p_1^{\alpha_1} \cdots p_k^{\alpha_k}$ e $m \mid a^N$
+> - Ogni $p_i^{\alpha_i} \mid a^N$
+> - Per il Lemma di Euclide: se $p_i \mid a^N$, allora $p_i \mid a$
+>
+> Quindi **ogni primo che divide $m$ divide anche $a$**, cioè:
+> $$\mathrm{rad}(m) = p_1 \cdots p_k \mid a$$ $\square$
+
+##### Verso (⟸): rad(m) | a ⟹ Nilpotente
+
+> [!tip] **Ipotesi: $\mathrm{rad}(m) | a$**
+> 
+> Se $\mathrm{rad}(m) \mid a$, allora ogni primo $p_i$ divide $a$.
+> 
+> Possiamo scrivere: $a = \mathrm{rad}(m) \cdot b$ per qualche intero $b$.
+>
+> **Scegliamo** $N = \max(\alpha_1, \alpha_2, \ldots, \alpha_k)$ (l'esponente massimo nella fattorizzazione di $m$).
+>
+> Allora:
+> $$a^N = (\mathrm{rad}(m) \cdot b)^N = \mathrm{rad}(m)^N \cdot b^N = (p_1 \cdots p_k)^N \cdot b^N$$
+>
+> Poiché ogni $p_i$ appare con esponente $\geq N$ in $a^N$:
+> $$p_i^{\alpha_i} \mid a^N \quad \text{per ogni } i$$
+>
+> Quindi:
+> $$m = p_1^{\alpha_1} \cdots p_k^{\alpha_k} \mid a^N$$
+>
+> Cioè $\bar{a}^N = \bar{0}$ in $\mathbb{Z}_m$: **$\bar{a}$ è nilpotente**. $\square$
+
+#### Esempio Concreto
+
+> [!note] **Esempio: Elementi Nilpotenti in $\mathbb{Z}_{12}$**
+>
+> $12 = 2^2 \cdot 3$, quindi $\mathrm{rad}(12) = 2 \cdot 3 = 6$
+>
+> **Elementi nilpotenti:** Multipli di 6 in $\{0, 1, \ldots, 11\}$ (escludendo 0):
+> - $\bar{6}$: $6 = 6 \cdot 1$ ✓
+>
+> **Verifica:** $\bar{6}^2 = [\overline{36}]_{12} = [\overline{0}]_{12} = \bar{0}$ ✓
+>
+> È il **solo elemento nilpotente non nullo** di $\mathbb{Z}_{12}$.
+
+### Numero di Elementi Nilpotenti
+
+> [!note] Cardinalità dell'Insieme dei Nilpotenti
+> Il numero di elementi nilpotenti in $\mathbb{Z}_m$ è:
+> $$\#\{\bar{a} \in \mathbb{Z}_m \mid \bar{a} \text{ nilpotente}\} = \frac{m}{\mathrm{rad}(m)}$$
+>
+> (Incluso $\bar{0}$, che è sempre nilpotente.)
+
+---
+
+## 5. Elementi Idempotenti in $\mathbb{Z}_m$
+
+### Definizione
+
+> [!note] Elemento Idempotente
+> Un elemento $\bar{a} \in \mathbb{Z}_m$ è **idempotente** se:
+> $$\bar{a}^2 = \bar{a}$$
+> 
+> In termini di congruenza: $a^2 \equiv a \pmod{m}$
+
+### Caratterizzazione Algebrica
+
+> [!note] Equivalenza Algebrica
+> $\bar{a}$ è idempotente se e solo se:
+> $$a^2 \equiv a \pmod{m} \quad \Longleftrightarrow \quad m \mid (a^2 - a) \quad \Longleftrightarrow \quad m \mid a(a-1)$$
+### Elementi Idempotenti Banali
+
+> [!note] Idempotenti Banali
+> **Sempre** $\bar{0}$ e $\bar{1}$ sono idempotenti:
+> - $\bar{0}^2 = \bar{0} \cdot \bar{0} = \bar{0}$ ✓
+> - $\bar{1}^2 = \bar{1} \cdot \bar{1} = \bar{1}$ ✓
+
+### Caratterizzazione Completa (Teorema Cinese dei Resti)
+
+> [!important] **TEOREMA — Elementi Idempotenti**
+> Un elemento $\bar{a} \in \mathbb{Z}_m$ è idempotente se e solo se:
+> $$a \equiv 0 \pmod{p^k} \quad \text{oppure} \quad a \equiv 1 \pmod{p^k}$$
+> 
+> **per ogni potenza primo** $p^{\alpha_p}$ nella fattorizzazione di $m$.
+>
+> Equivalentemente, usando il **Teorema Cinese dei Resti**, gli idempotenti di $\mathbb{Z}_m$ corrispondono a scelte indipendenti in ogni componente $\mathbb{Z}_{p_i^{\alpha_i}}$.
+
+### Numero di Elementi Idempotenti
+
+> [!note] Cardinalità dell'Insieme degli Idempotenti
+> Se $m = p_1^{\alpha_1} \cdots p_k^{\alpha_k}$, il numero di elementi idempotenti è:
+> $$\#\{\bar{a} \in \mathbb{Z}_m \mid \bar{a}^2 = \bar{a}\} = 2^k$$
+> 
+> dove $k$ è il numero di **fattori primi distinti** di $m$.
+
+#### Esempi Concreti
+
+##### Esempio 1: $\mathbb{Z}_6$
+
+> [!note] **Elementi Idempotenti in $\mathbb{Z}_6$**
+>
+> $6 = 2 \cdot 3$ (2 fattori primi distinti), quindi ci sono $2^2 = 4$ idempotenti.
+>
+> **Verifichiamo ogni elemento:**
+> - $\bar{0}^2 = \bar{0}$ ✓ (idempotente banale)
+> - $\bar{1}^2 = \bar{1}$ ✓ (idempotente banale)
+> - $\bar{2}^2 = \bar{4} \neq \bar{2}$ ✗
+> - $\bar{3}^2 = \bar{9} = \bar{3}$ ✓ (idempotente: $9 \equiv 3 \pmod{6}$)
+> - $\bar{4}^2 = \bar{16} = \bar{4}$ ✓ (idempotente: $16 \equiv 4 \pmod{6}$)
+> - $\bar{5}^2 = \bar{25} = \bar{1} \neq \bar{5}$ ✗
+>
+> **Idempotenti:** $\{\bar{0}, \bar{1}, \bar{3}, \bar{4}\}$ — totale: 4 ✓
+
+##### Esempio 2: $\mathbb{Z}_{12}$
+
+> [!note] **Elementi Idempotenti in $\mathbb{Z}_{12}$**
+>
+> $12 = 2^2 \cdot 3$ (2 fattori primi distinti), quindi ci sono $2^2 = 4$ idempotenti.
+>
+> **Calcoli modulo 12:**
+> - $\bar{0}^2 = \bar{0}$ ✓
+> - $\bar{1}^2 = \bar{1}$ ✓
+> - $\bar{3}^2 = \bar{9}$ ✗ (perché $9 \not\equiv 3 \pmod{12}$)
+> - $\bar{4}^2 = \bar{16} = \bar{4}$ ✓
+> - $\bar{9}^2 = \bar{81} = \bar{9}$ ✓
+>
+> **Idempotenti:** $\{\bar{0}, \bar{1}, \bar{4}, \bar{9}\}$ — totale: 4 ✓
+
+### Interpretazione Geometrica: Anello Prodotto
+
+> [!note] Teorema Cinese dei Resti e Idempotenti
+> Se $m = p_1^{\alpha_1} \cdots p_k^{\alpha_k}$, allora:
+> $$\mathbb{Z}_m \cong \mathbb{Z}_{p_1^{\alpha_1}} \times \cdots \times \mathbb{Z}_{p_k^{\alpha_k}}$$
+>
+> Gli idempotenti di $\mathbb{Z}_m$ corrispondono alle **proiezioni** $(e_1, \ldots, e_k)$ dove ogni $e_i \in \{\bar{0}, \bar{1}\}$ in $\mathbb{Z}_{p_i^{\alpha_i}}$.
+>
+> Con $2^k$ scelte indipendenti, otteniamo $2^k$ idempotenti totali.
+
+---
+
+---
+## Tabella Riassuntiva: Proprietà Confrontate
+
+| **Proprietà** | **Condizione** | **Numero** | **Esempi** |
+|---|---|---|---|
+| **Divisori dello Zero** | $\mathrm{MCD}(a, m) > 1$ | $m - \varphi(m) - 1$ | In $\mathbb{Z}_{12}$: $\bar{2}, \bar{3}, \bar{4}, \bar{6}, \bar{8}, \bar{9}, \bar{10}$ |
+| **Invertibili** | $\mathrm{MCD}(a, m) = 1$ | $\varphi(m)$ | In $\mathbb{Z}_{12}$: $\bar{1}, \bar{5}, \bar{7}, \bar{11}$ ($\varphi(12) = 4$) |
+| **Nilpotenti** | Multipli di $\mathrm{rad}(m)$ | $m / \mathrm{rad}(m)$ | In $\mathbb{Z}_{12}$: $\bar{0}, \bar{6}$ (2 elementi) |
+| **Idempotenti** | $a^2 \equiv a \pmod{m}$ | $2^k$ ($k$ = fattori primi) | In $\mathbb{Z}_{12}$: $\bar{0}, \bar{1}, \bar{4}, \bar{9}$ (4 elementi) |
+
+---
+
+## Osservazione Finale: Relazioni tra le Proprietà
+
+> [!important] **Implicazioni tra Proprietà**
+> 
+> 1. **Nilpotente ⟹ Divisore dello Zero** (eccetto lo zero)
+>    - Se $\bar{a}^N = \bar{0}$, allora $\bar{a} \cdot \bar{a}^{N-1} = \bar{0}$ con $\bar{a}^{N-1} \neq \bar{0}$ (in genere)
+>
+> 2. **Invertibile ⟹ Non Divisore dello Zero**
+>    - Se $\bar{a}$ è invertibile e $\bar{a} \cdot \bar{b} = \bar{0}$, allora $\bar{b} = \bar{a}^{-1} \cdot \bar{0} = \bar{0}$
+>
+> 3. **Idempotente ⟹ Non Nilpotente** (eccetto $\bar{0}$)
+>    - Se $\bar{a}^2 = \bar{a}$, allora $\bar{a}^N = \bar{a}$ per ogni $N \geq 1$, quindi mai $\bar{a}^N = \bar{0}$ (a meno che $\bar{a} = \bar{0}$)
