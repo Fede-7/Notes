@@ -115,14 +115,14 @@ banner: "[[Banner_n2.jpg]]"
 ### 15-04-2025
 - [x] 11.1 ALGORITMO DI EUCLIDE ✅ 2026-02-21
 - [x] 11.2 ALGORITMO ESTESO DI EUCLIDE ✅ 2026-02-21
-- [ ] <mark style="background:#C0C0C0; color:black; padding:0 6px; border-radius:6px;">11.3</mark> LEMMA DI EUCLIDE
-- [ ] <mark style="background:#D4AF37; color:black; padding:0 6px; border-radius:6px;">11.4</mark> TEOREMA FONDAMENTALE DELL'ARITMETICA
+- [x] <mark style="background:#C0C0C0; color:black; padding:0 6px; border-radius:6px;">11.3</mark> LEMMA DI EUCLIDE ✅ 2026-02-22
+- [x] <mark style="background:#D4AF37; color:black; padding:0 6px; border-radius:6px;">11.4</mark> TEOREMA FONDAMENTALE DELL'ARITMETICA ✅ 2026-02-22
 - [x] 11.5 CLASSI DI EQUIVALENZA ✅ 2026-02-21
 - [x] 11.6 INSIEME QUOZIENTE ✅ 2026-02-21
 
 ### 29-04-2025
-- [ ] <mark style="background:#D4AF37; color:black; padding:0 6px; border-radius:6px;">12.1</mark> TEOREMA FONDAMENTALE SULLE RELAZIONI DI EQUIVALENZA  
-- [ ] <mark style="background:#D4AF37; color:black; padding:0 6px; border-radius:6px;">12.2</mark> TEOREMA SU RELAZIONI DI EQUIVALENZA E PARTIZIONI
+- [x] <mark style="background:#D4AF37; color:black; padding:0 6px; border-radius:6px;">12.1</mark> TEOREMA FONDAMENTALE SULLE RELAZIONI DI EQUIVALENZA ✅ 2026-02-22
+- [x] <mark style="background:#D4AF37; color:black; padding:0 6px; border-radius:6px;">12.2</mark> TEOREMA SU RELAZIONI DI EQUIVALENZA E PARTIZIONI ✅ 2026-02-22
 - [x] <mark style="background:#C0C0C0; color:black; padding:0 6px; border-radius:6px;">12.3</mark> APPLICAZIONE QUOZIENTE ✅ 2026-02-21
 - [x] 12.4 DEF. CONGRUENZA ✅ 2026-02-21
 - [x] 12.5 CONGRUENZA IN $\mathbb{Z}$ ✅ 2026-02-21
