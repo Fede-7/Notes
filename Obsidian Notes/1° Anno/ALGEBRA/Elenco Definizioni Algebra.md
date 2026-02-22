@@ -1,4 +1,4 @@
-## Indice
+ ## Indice
 
 > [!abstract] Indice
 > Raccolta completa di tutte le definizioni testuali e algebriche, ordinate per lezione (1–22, esclusa la 18).
@@ -1002,9 +1002,16 @@ Il Lemma di Euclide è cruciale per dimostrare l'unicità della fattorizzazione:
 
 ### Relazione di Equivalenza Indotta da Funzione
 
-> [!note] Equivalenza indotta
-> Data $f: S \to T$, si definisce $x \mathrel{R_f} y \;\Longleftrightarrow\; f(x) = f(y)$.
-> Questa è una relazione di equivalenza su $S$.
+> [!note] Relazione di Equivalenza indotta da una Funzione
+>
+> Siano $S, T$ insiemi non vuoti e $f : S \to T$ una funzione.
+>
+> La relazione $R_f$ su $S$ definita da:
+> $$x R_f y \Leftrightarrow f(x) = f(y)$$
+>
+> è una **relazione di equivalenza** su $S$.
+>
+> Le classi di equivalenza sono le **fibre** di $f$: $[a]_{R_f} = f^{-1}(\{f(a)\})$
 
 > [!tip] Dimostrazione — $R_f$ è di equivalenza
 > - *Riflessiva:* $f(x) = f(x)$.
@@ -1018,18 +1025,44 @@ Il Lemma di Euclide è cruciale per dimostrare l'unicità della fattorizzazione:
 > $$\bar{f}: S/R_f \to T, \qquad \bar{f}([a]) = f(a)$$
 > È **ben definita** e **iniettiva**. Vale $f = \bar{f} \circ \pi$ (dove $\pi$ è la proiezione canonica).
 
-> [!tip] Dimostrazione — Fattorizzazione
+> [!tip] Dimostrazione — Fattorizzazione (forse non necessaria)
 > **Ben definita:** Se $[a] = [b]$, allora $a \mathrel{R_f} b$, cioè $f(a) = f(b)$, dunque $\bar{f}([a]) = \bar{f}([b])$.
 >
 > **Iniettiva:** Se $\bar{f}([a]) = \bar{f}([b])$, allora $f(a) = f(b)$, dunque $a \mathrel{R_f} b$, cioè $[a] = [b]$. $\square$
 
 ### Congruenza (Compatibilità)
 
-> [!note] Congruenza
-> Una relazione di equivalenza $R$ su $(S, \perp)$ è una **congruenza** se:
-> $$a \mathrel{R} c \;\wedge\; b \mathrel{R} d \;\Longrightarrow\; (a \perp b) \mathrel{R} (c \perp d)$$
-> Questo rende l'operazione quoziente **ben definita**.
+> [!note] Congruenza (Relazione di Equivalenza Compatibile)
+>
+> Sia $(S, \bot)$ una struttura con un'operazione binaria $\bot$. Una relazione di equivalenza $R$ su $S$ si dice **congruenza** (o **compatibile**) rispetto a $\bot$ se:
+>
+> $$\forall a, b, c, d \in S: \quad (a R c \land b R d) \Rightarrow (a \bot b) R (c \bot d)$$
+>
+> - Interpretazione
+> Se $a \sim c$ e $b \sim d$, allora $a \bot b \sim c \bot d$. L'equivalenza **rispetta l'operazione**.
+>
+> ---
+>
+>  **Operazione Quoziente**
+>
+> Se $R$ è una congruenza su $(S, \bot)$, allora è possibile definire un'operazione $\bot_R$ sull'insieme quoziente $S/R$ in modo **ben definito**:
+>
+> $$[a]_R \bot_R [b]_R = [a \bot b]_R$$
+>
+> La struttura quoziente $(S/R, \bot_R)$ eredita le proprietà algebriche di $(S, \bot)$.
 
+> [!attention] Operazione "Ben definita"
+>
+> Se scegliamo altri rappresentanti $[a]_R = [c]_R$ (cioè $aRc$) e $[b]_R = [d]_R$ (cioè $bRd$), il risultato non deve cambiare:
+> $$[a \bot b]_R \text{ deve essere uguale a } [c \bot d]_R$$
+>
+> Questo è **garantito dalla definizione di congruenza**:
+> $$aRc \land bRd \Rightarrow (a \bot b)R(c \bot d)$$
+>
+> che significa proprio:
+> $$[a \bot b]_R = [c \bot d]_R$$
+>
+> Quindi l'operazione $\bot_R$ su $S/R$ è **ben definita**.
 ### Congruenza Modulo $m$
 
 > [!note] Congruenza Modulo $m$
@@ -1043,12 +1076,12 @@ Il Lemma di Euclide è cruciale per dimostrare l'unicità della fattorizzazione:
 > [!note] Compatibilità con $+$ e $\cdot$
 > Se $a \equiv c$ e $b \equiv d$ $\pmod{m}$, allora:
 > $$a + b \equiv c + d \pmod{m} \qquad a \cdot b \equiv c \cdot d \pmod{m}$$
-> [!tip] Dimostrazione — Compatibilità
-> Sia $a - c = mh$ e $b - d = mk$.
->
-> **Somma:** $(a + b) - (c + d) = (a - c) + (b - d) = mh + mk = m(h + k)$, dunque $m \mid (a + b) - (c + d)$.
->
-> **Prodotto:** $ab = (c + mh)(d + mk) = cd + m(ck + hd + mhk)$, dunque $ab - cd = m(ck + hd + mhk)$ e $m \mid (ab - cd)$. $\square$
+> >[!tip] Dimostrazione — Compatibilità
+> >Sia $a - c = mh$ e $b - d = mk$.
+>>
+>> **Somma:** $(a + b) - (c + d) = (a - c) + (b - d) = mh + mk = m(h + k)$, dunque $m \mid (a + b) - (c + d)$.
+>>
+>> **Prodotto:** $ab = (c + mh)(d + mk) = cd + m(ck + hd + mhk)$, dunque $ab - cd = m(ck + hd + mhk)$ e $m \mid (ab - cd)$. $\square$
 
 > [!note] Anello $\mathbb{Z}_m$
 > L'insieme quoziente $\mathbb{Z}_m = \{[0]_m, [1]_m, \ldots, [m-1]_m\}$ con:

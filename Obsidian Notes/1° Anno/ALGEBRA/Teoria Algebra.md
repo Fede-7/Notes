@@ -123,8 +123,11 @@ banner: "[[Banner_n2.jpg]]"
 ### 29-04-2025
 - [ ] <mark style="background:#D4AF37; color:black; padding:0 6px; border-radius:6px;">12.1</mark> TEOREMA FONDAMENTALE SULLE RELAZIONI DI EQUIVALENZA  
 - [ ] <mark style="background:#D4AF37; color:black; padding:0 6px; border-radius:6px;">12.2</mark> TEOREMA SU RELAZIONI DI EQUIVALENZA E PARTIZIONI
-- [ ] 12.3 DEF. CONGRUENZA  
-- [ ] 12.4 CONGRUENZA IN $\mathbb{Z}$  
+- [x] <mark style="background:#C0C0C0; color:black; padding:0 6px; border-radius:6px;">12.3</mark> APPLICAZIONE QUOZIENTE ✅ 2026-02-21
+- [x] 12.4 DEF. CONGRUENZA ✅ 2026-02-21
+- [x] 12.5 CONGRUENZA IN $\mathbb{Z}$ ✅ 2026-02-21
+- [x] Equivalenza tra Congruenza Modulo m e Uguaglianza dei Rest ✅ 2026-02-21
+- [x] Congruenza Modulo m come Relazione di Congruenza ✅ 2026-02-21
 
 ### 06-05-2025
 - [ ] <mark style="background:#D4AF37; color:black; padding:0 6px; border-radius:6px;">13.1</mark> $\mathbb{Z}_m$ CAMPO $\Leftrightarrow m$ È PRIMO $(a, m)=1$
