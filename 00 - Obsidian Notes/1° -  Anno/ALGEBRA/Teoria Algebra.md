@@ -169,23 +169,23 @@ banner: "[[Banner_n2.jpg]]"
 ### 30-05-2025
 - [x] 18.1 $(S, \le)$ TOTALMENTE ORDINATO $\Rightarrow$ S RETICOLO ✅ 2026-02-23
 - [x] 18.2 L RETICOLO FINITO $\Rightarrow$ LIMITATO ✅ 2026-02-23
-- [ ] 18.3 RETICOLO PENTAGONALE
-- [ ] 18.4 RETICOLO TRIRETTANGOLO
+- [x] 18.3 RETICOLO PENTAGONALE ✅ 2026-02-23
+- [x] 18.4 RETICOLO TRIRETTANGOLO ✅ 2026-02-23
 - [x] 18.5 DEF. SOTTO RETICOLO ✅ 2026-02-23
 - [x] 18.6 ISOMORFISMO INSIEME ORDINATO ✅ 2026-02-23
 - [x] 18.7 ISOMORFISMO RETICOLARE ✅ 2026-02-23
 - [x] 18.8 ISOMORFISMO COMPLEMENTATO ✅ 2026-02-23
 
 ### 03-06-2025
-- [ ] 19.1 DEF. SOTTO ANELLO
-- [ ] 19.2 PRINCIPIO DI DUALITÀ  
-- [ ] <mark style="background:#D4AF37; color:black; padding:0 6px; border-radius:6px;">19.3</mark> TEOREMA $(L, \vee, \wedge)$ DISTRIBUTIVO  
-- [ ] <mark style="background:#C0C0C0; color:black; padding:0 6px; border-radius:6px;">19.4</mark> PROPOSIZIONE  
-- [ ] <mark style="background:#D4AF37; color:black; padding:0 6px; border-radius:6px;">19.5</mark> DEF. RETICOLO BOOLEANO  
-- [ ] 19.6 DEF. ALGEBRA DI BOOLE  
-- [ ] <mark style="background:#D4AF37; color:black; padding:0 6px; border-radius:6px;">19.7</mark> TEOREMA $(A, \wedge, \vee, ')$  
-- [ ] 19.8 DEF. ANELLO BOOLEANO  
-- [ ] <mark style="background:#D4AF37; color:black; padding:0 6px; border-radius:6px;">19.9</mark> TEOREMA $(A, +, \cdot)$ ANELLO BOOLEANO (TEOREMA DI STONE)
+- [x] 19.1 DEF. SOTTO ANELLO ✅ 2026-02-23
+- [x] 19.2 PRINCIPIO DI DUALITÀ ✅ 2026-02-23
+- [x] <mark style="background:#D4AF37; color:black; padding:0 6px; border-radius:6px;">19.3</mark> TEOREMA $(L, \vee, \wedge)$ DISTRIBUTIVO ✅ 2026-02-23
+- [x] <mark style="background:#C0C0C0; color:black; padding:0 6px; border-radius:6px;">19.4</mark> PROPOSIZIONE ✅ 2026-02-23
+- [x] <mark style="background:#D4AF37; color:black; padding:0 6px; border-radius:6px;">19.5</mark> DEF. RETICOLO BOOLEANO ✅ 2026-02-23
+- [x] 19.6 DEF. ALGEBRA DI BOOLE ✅ 2026-02-23
+- [x] <mark style="background:#D4AF37; color:black; padding:0 6px; border-radius:6px;">19.7</mark> TEOREMA $(A, \wedge, \vee, ')$ ✅ 2026-02-23
+- [x] 19.8 DEF. ANELLO BOOLEANO ✅ 2026-02-23
+- [x] <mark style="background:#D4AF37; color:black; padding:0 6px; border-radius:6px;">19.9</mark> TEOREMA $(A, +, \cdot)$ ANELLO BOOLEANO (TEOREMA DI STONE) ✅ 2026-02-23
 
 ---
 

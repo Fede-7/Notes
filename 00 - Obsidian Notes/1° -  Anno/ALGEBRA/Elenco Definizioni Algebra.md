@@ -1722,11 +1722,30 @@ graph TD
 > - $0 < a, b, c < 1$
 > - **Non è distributivo** (ma è modulare).
 
+```mermaid
+graph TD
+    1((1)) --- a((a))
+    1 --- b((b))
+    1 --- c((c))
+    a --- 0((0))
+    b --- 0((0))
+    c --- 0((0))
+```
+
 > [!note] Reticolo Pentagonale $N_5$
 > Il reticolo con 5 elementi $\{0, a, b, c, 1\}$ dove:
 > - $0 < a < b < 1$ (una catena)
 > - $0 < c < 1$ con $c$ **non confrontabile** con $a$ e $b$
 > - **Non è distributivo** né modulare.
+
+```mermaid
+graph TD
+    1((1)) --- b((b))
+    1 --- c((c))
+    b --- a((a))
+    a --- 0((0))
+    c --- 0((0))
+```
 
 > [!tip] Dimostrazione — $M_3$ non è distributivo
 > Sia $M_3 = \{0, a, b, c, 1\}$ con $a, b, c$ mutuamente non confrontabili.
@@ -1779,6 +1798,22 @@ graph TD
 >
 > **Conseguenza:** Se $|L| = 2^n$, allora $L$ ha $n$ "atomi" (elementi minimali non zero).
 
+```mermaid
+graph TD
+    30((30)) --- 6((6))
+    30 --- 10((10))
+    30 --- 15((15))
+    6 --- 2((2))
+    6 --- 3((3))
+    10 --- 2((2))
+    10 --- 5((5))
+    15 --- 3((3))
+    15 --- 5((5))
+    2 --- 1((1))
+    3 --- 1((1))
+    5 --- 1((1))
+```
+
 ### Algebra di Boole
 
 > [!note] Algebra di Boole
@@ -1826,12 +1861,7 @@ graph TD
 >
 > **Relazione d'ordine recuperata:** $a \leq b \;\Longleftrightarrow\; a \cdot b = a$
 
----
 
-
-
-
----
 
 ---
 
