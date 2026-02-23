@@ -1,4 +1,4 @@
-#flashcards/Algebra
+#flashcards/Algebra/Definizioni
 # Flashcard Algebra — Elenco Definizioni
 
 ## Lezione 1 — Logica, Insiemi, Funzioni
@@ -38,6 +38,7 @@ Immagine di un Sottoinsieme :: f→(X) = {f(x) | x ∈ X} ⊆ B — insieme degl
 Controimmagine (Preimmagine) :: f←(Y) = {x ∈ A | f(x) ∈ Y} ⊆ A — insieme degli elementi del dominio le cui immagini cadono in Y.
 Iniettività :: f : A → B è iniettiva se: ∀x₁, x₂ ∈ A : f(x₁) = f(x₂) ⟹ x₁ = x₂
 Caratterizzazione Iniettività tramite Controimmagine :: f è iniettiva ⟺ ∀b ∈ B, |f⁻¹({b})| ≤ 1
+<!--SR:!2026-02-26,3,250-->
 Partizione :: Una famiglia F ⊆ P(S) è una partizione di S se: (1) ∀X ∈ F, X ≠ ∅; (2) pezzi disgiunti; (3) ⋃F = S.
 
 ## Lezione 3 — Suriettività, Funzione Caratteristica, Restrizione, Identità
@@ -103,6 +104,7 @@ Dominio d'Integrità :: Un anello (A, +, ·) è un dominio d'integrità se: è c
 Corpo :: Un anello (K, +, ·) è un corpo se: è unitario (con 1_K ≠ 0_K) e (K*, ·) è un gruppo, dove K* = K \ {0_K}.
 Campo :: Un campo è un **corpo commutativo**. Esempi: ℚ, ℝ, ℂ, ℤ_p (con p primo).
 Teorema di Wedderburn :: Ogni corpo finito è anche un **campo**.
+<!--SR:!2026-02-24,1,230-->
 Spazio Vettoriale :: Sia K un campo. Un K-spazio vettoriale (V, +, ·_ext) dove (V,+) è gruppo abeliano, con moltiplicazione esterna K×V→V soddisfacente associatività mista, distributività e elemento neutro 1_K.
 Gruppo Simmetrico Sₙ :: B(S) = insieme delle permutazioni di S. (B(S), ∘) è un gruppo detto Sₙ. |Sₙ| = n!. Non abeliano per n ≥ 3.
 
@@ -182,6 +184,7 @@ Criterio per 11 :: Dipende dalla somma a segni alterni (10 ≡ −1).
 
 Zₙ Dominio d'Integrità :: Zₙ è un dominio d'integrità ⟺ n è primo ⟺ Zₙ è un campo.
 Anello Prodotto — Definizione :: R × S = {(r,s) | r ∈ R, s ∈ S} con operazioni componente per componente. Zero: (0_R, 0_S). Unità: (1_R, 1_S).
+<!--SR:!2026-02-26,3,250-->
 Invertibili nell'Anello Prodotto :: (r,s) ∈ U(R×S) ⟺ r ∈ U(R) e s ∈ U(S).
 Divisori dello Zero nell'Anello Prodotto :: Sempre presenti anche se R, S sono domini: (1_R, 0_S)·(0_R, 1_S) = (0_R, 0_S).
 Caratteristica dell'Anello Prodotto :: char(R × S) = mcm(char(R), char(S)).
@@ -225,6 +228,7 @@ Supremo e mcm :: In (ℕ*, |): sup{a,b} = mcm(a,b).
 ## Lezione 19 — Divisibilità come Ordine, Ordine Indotto
 
 Divisibilità su ℕ* come Ordine :: La relazione "|" su ℕ* è un ordine parziale largo (riflessiva, antisimmetrica, transitiva). Non è totale.
+<!--SR:!2026-02-26,3,250-->
 Divisibilità su ℤ — Non è Ordine :: La relazione "|" su ℤ non è d'ordine perché non è antisimmetrica. Controesempio: 2|(−2) e (−2)|2 ma 2 ≠ −2.
 Ordine Indotto da Funzione :: Sia f : S → T e (T, ≤_T) ordinato. Su S: a ≤_f b ⟺ (a = b) ∨ (f(a) <_T f(b)). Questa è una relazione d'ordine su S.
 
@@ -246,6 +250,7 @@ Corollario — Totalmente Ordinato è Reticolo :: Se (S, ≤) è totalmente ordi
 Sottoreticolo :: A ⊆ L è un sottoreticolo se è chiuso per ∧ e ∨: ∀x,y ∈ A : x ∧ y ∈ A ∧ x ∨ y ∈ A.
 Isomorfismo di Reticoli :: f : L → M biettiva è un isomorfismo se preserva l'ordine: a ≤_L b ⟺ f(a) ≤_M f(b). Equivalentemente: f(a∧b) = f(a)∧f(b) e f(a∨b) = f(a)∨f(b).
 Complemento in un Reticolo Limitato :: a ∈ L ha un **complemento** ā se: a ∧ ā = 0_L e a ∨ ā = 1_L.
+<!--SR:!2026-02-26,3,250-->
 Reticolo Complementato :: Un reticolo limitato è complementato se ogni elemento possiede almeno un complemento.
 Reticolo Prodotto :: Dati (L₁, ≤₁) e (L₂, ≤₂): L₁ × L₂ è un reticolo con ordine e operazioni componente per componente. Se limitati, con (0₁,0₂) e (1₁,1₂).
 Reticolo dei Divisori (Dₙ, |) :: Infimo: a ∧ b = MCD(a,b); Supremo: a ∨ b = mcm(a,b); Minimo: 1; Massimo: n.
@@ -261,13 +266,240 @@ Unicità del Complemento in Reticoli Distributivi :: In un reticolo **distributi
 Reticolo Booleano :: Un reticolo è **booleano** se è distributivo e complementato. Esempio: (P(S), ⊆) con complemento Aᶜ = S \ A.
 Teorema di Rappresentazione dei Reticoli Booleani :: Ogni reticolo booleano **finito** è isomorfo a (P(S), ⊆) per un opportuno insieme finito S. Se |L| = 2ⁿ, L ha n "atomi".
 Algebra di Boole :: (A, ∧, ∨, ', 0, 1) è un'algebra di Boole se soddisfa: associatività, commutatività, assorbimento, distributività, elementi neutri (a∧1=a, a∨0=a), complemento (a∧a'=0, a∨a'=1).
+<!--SR:!2026-02-26,3,250-->
 Teorema di Stone :: Ogni algebra di Boole finita è isomorfa a (P(S), ∩, ∪, ᶜ, ∅, S) per un opportuno S.
 Anello Booleano :: Un anello (A, +, ·) è **booleano** se a² = a per ogni a ∈ A. Proprietà: char(A) = 2, (A,·) è commutativo. Esempio: (P(S), △, ∩).
 Da Reticolo Booleano ad Anello Booleano :: Dato un reticolo booleano (L, ∧, ∨, ', 0, 1), si costruisce l'anello booleano con: a·b = a∧b (meet); a+b = (a∧b') ∨ (b∧a') (differenza simmetrica). Relazione d'ordine recuperata: a ≤ b ⟺ a·b = a.
 
-## Dimostrazioni da sapere
-Teorema Fondamentale dell'Aritmetica ::
-Teorema Divisione euclidea ::
-Teorema di Bezout :: 
-Teorema sulle relazioni di equivalenza e partizioni ::
-Teorema fondamentale sulle relazioni d'equivalenza ::
+
+
+
+#flashcards/Algebra/Dimostrazioni
+# Dimostrazioni da sapere
+
+Teorema Fondamentale dell'Aritmetica(TFA) 
+?
+> [!important] **Teorema Fondamentale dell'Aritmetica (TFA)**
+>
+> **Enunciato:**
+> Ogni intero $n \geq 2$ si scrive in modo **unico** (a meno dell'ordine) come prodotto di numeri primi:
+> $$n = p_1^{\alpha_1} \cdot p_2^{\alpha_2} \cdots p_k^{\alpha_k}$$
+> dove i $p_i$ sono primi distinti e gli $\alpha_i$ sono interi positivi.
+>
+>> [!attention] **Dimostrazione (Idea Generale)**
+>> 
+>> ### Parte 1: Esistenza della fattorizzazione
+>>
+>> **Per induzione su $n$:**
+>>
+>> **Base:** $n = 2$ è primo. ✓
+>>
+>> **Ipotesi induttiva:** Per ogni $m < n$, la fattorizzazione esiste.
+>>
+>> **Tesi:** La fattorizzazione esiste per $n$.
+>>
+>> **Dimostrazione:**
+>> - Se $n$ è primo, banale.
+>> - Altrimenti, per il **Lemma di Euclide**, esiste un primo $p \mid n$ con $n = p \cdot m$ dove $m < n$.
+>> - Per ipotesi induttiva, $m$ ha una fattorizzazione.
+>> - Dunque $n = p \cdot m$ ha una fattorizzazione. ✓
+>>
+>> ### Parte 2: Unicità della fattorizzazione
+>>
+>> Supponiamo $n$ abbia due rappresentazioni:
+>> $$n = p_1^{a_1} \cdots p_k^{a_k} = q_1^{b_1} \cdots q_r^{b_r}$$
+>>
+>> dove i $p_i$ e i $q_j$ sono primi distinti.
+>>
+>> **Caso 1:** Un primo $p_i$ compare nella prima rappresentazione ma non nella seconda.
+>>
+>> Allora $p_i \mid n = q_1^{b_1} \cdots q_r^{b_r}$.
+>>
+>> Per il **Lemma di Euclide**, $p_i$ divide uno dei $q_j$. Ma i $q_j$ sono primi, quindi $p_i = q_j$, contraddizione. ✗
+>>
+>> **Caso 2:** Le rappresentazioni hanno gli stessi primi, ma esponenti diversi.
+>>
+>> Supponiamo $a_1 > b_1$ (senza perdita di generalità). Dividendo per $p_1^{b_1}$:
+>> $$p_1^{a_1 - b_1} \cdot p_2^{a_2} \cdots p_k^{a_k} = q_2^{b_2} \cdots q_r^{b_r}$$
+>>
+>> Allora $p_1 \mid q_2^{b_2} \cdots q_r^{b_r}$.
+>>
+>> Per il **Lemma di Euclide**, $p_1$ divide uno dei $q_j$ (con $j \geq 2$). Ma i $q_j$ sono primi distinti dai $p_i$, contraddizione. ✗
+>>
+>> Quindi gli esponenti devono essere uguali: $a_i = b_i$ per ogni $i$. ✓
+
+...
+
+Teorema Divisione euclidea
+?
+> [!important] **Teorema della Divisione Euclidea**
+>
+> **Enunciato:**
+> $\forall\, m, n \in \mathbb{Z},\; n \neq 0,\; \exists!\, q, r \in \mathbb{Z}:$
+> $$m = n \cdot q + r, \qquad 0 \leq r < |n|$$
+>
+>> [!attention] **Dimostrazione**
+>>
+>> **Esistenza** (per induzione forte su $m$):
+>> - *Base:* Se $0 \leq m < |n|$, basta prendere $q = 0$ e $r = m$.
+>> - *Passo:* Se $m \geq |n|$, poniamo $\bar{m} = m - |n| \geq 0$. Poiché $\bar{m} < m$, per ipotesi induttiva $\bar{m} = |n| \cdot \bar{q} + \bar{r}$ con $0 \leq \bar{r} < |n|$.
+>>   Allora $m = \bar{m} + |n| = |n|(\bar{q} + 1) + \bar{r}$, con $q = \bar{q} + 1$ e $r = \bar{r}$.
+>>
+>> **Unicità:** Supponiamo $m = nq_1 + r_1 = nq_2 + r_2$ con $0 \leq r_1, r_2 < |n|$.
+>> Sottraendo: $n(q_1 - q_2) = r_2 - r_1$.
+>> Poiché $|r_2 - r_1| < |n|$, l'unico multiplo di $n$ in quell'intervallo è $0$.
+>> Quindi $r_1 = r_2$ e $q_1 = q_2$. ✓
+
+...
+
+Teorema di Bezout 
+?
+> [!important] **Identità di Bézout**
+>
+> **Enunciato:**
+> Per ogni coppia di interi $a, b$, esistono interi $x, y$ tali che:
+> $$\mathrm{MCD}(a, b) = a \cdot x + b \cdot y$$
+>
+>> [!attention] **Dimostrazione**
+>>
+>> Sia $S = \{as + bt \mid s, t \in \mathbb{Z}, \, as + bt > 0\}$.
+>>
+>> **1) $S \neq \varnothing$:**
+>> - Se $a \neq 0$, scegliendo $s = \pm 1$ si ha $|a| = a \cdot (\pm 1) + b \cdot 0 \in S$
+>> - Analogamente se $b \neq 0$
+>>
+>> **2) Esistenza del minimo:**
+>> Per il **principio del buon ordinamento**, $S$ ammette un minimo $d$. Per definizione di $S$, esistono $x, y \in \mathbb{Z}$ tali che:
+>> $$d = ax + by$$
+>>
+>> **3) $d \mid a$:**
+>> Dividiamo $a = dq + r$ con $0 \leq r < d$. Allora:
+>> $$r = a - dq = a - (ax + by)q = a(1 - xq) + b(-yq)$$
+>> 
+>> Poiché $1 - xq$ e $-yq$ sono interi, $r$ è una combinazione lineare di $a$ e $b$.
+>> 
+>> Se $r > 0$, allora $r \in S$ con $r < d$, contro la minimalità di $d$. Dunque $r = 0$, quindi $d \mid a$.
+>>
+>> **4) $d \mid b$:** Analogamente.
+>>
+>> **5) $d = \gcd(a, b)$:**
+>> Se $c \mid a$ e $c \mid b$, allora $c \mid (ax + by) = d$, dunque $d$ è il massimo comune divisore di $a$ e $b$. ✓
+
+...
+
+Teorema sulle relazioni di equivalenza e partizioni 
+?
+> [!important] **Teorema Fondamentale sulle Relazioni di Equivalenza**
+>
+> **Enunciato:**
+> Sia $S \neq \varnothing$. Esiste una corrispondenza biunivoca tra:
+> - L'insieme di tutte le **relazioni di equivalenza** su $S$
+> - L'insieme di tutte le **partizioni** di $S$
+>
+>> [!attention] **Dimostrazione**
+>>
+>> ### Parte 1: Relazione $\Rightarrow$ Partizione
+>>
+>> Se $R$ è una relazione di equivalenza su $S$, allora $S/R = \{[a]_R \mid a \in S\}$ è una partizione di $S$.
+>>
+>> **Dimostrazione:** Le classi di equivalenza sono:
+>> - Non vuote (perché $a \in [a]_R$ per riflessività)
+>> - Disgiunte o coincidenti (per transitività e simmetria)
+>> - Unione uguale a $S$ (ogni elemento appartiene alla sua classe)
+>>
+>> Quindi $S/R$ è una partizione. ✓
+>>
+>> ### Parte 2: Partizione $\Rightarrow$ Relazione
+>>
+>> Se $\mathcal{F}$ è una partizione di $S$, definiamo:
+>> $$x R_{\mathcal{F}} y \Leftrightarrow \exists A \in \mathcal{F}: \, x \in A \land y \in A$$
+>>
+>> Allora $R_{\mathcal{F}}$ è una relazione di equivalenza.
+>>
+>> **Dimostrazione:**
+>>
+>> **Riflessiva:** $\forall x \in S$. Poiché $\mathcal{F}$ è partizione: $\bigcup_{A \in \mathcal{F}} A = S$.
+>> Quindi $x \in A$ per qualche $A \in \mathcal{F}$. Per definizione: $x R_{\mathcal{F}} x$. ✓
+>>
+>> **Simmetrica:** Se $x R_{\mathcal{F}} y$, allora $\exists A \in \mathcal{F}: x \in A \land y \in A$.
+>> Ma allora $y \in A \land x \in A$, quindi $y R_{\mathcal{F}} x$. ✓
+>>
+>> **Transitiva:** Se $x R_{\mathcal{F}} y$ e $y R_{\mathcal{F}} z$, allora:
+>> - $\exists A \in \mathcal{F}: x, y \in A$
+>> - $\exists B \in \mathcal{F}: y, z \in B$
+>>
+>> Poiché $y \in A \cap B$ e i pezzi di una partizione sono **disgiunti o coincidenti**, deve essere $A = B$.
+>>
+>> Quindi $x, z \in A$, cioè $x R_{\mathcal{F}} z$. ✓
+>>
+>> ### Parte 3: Corrispondenza Inversa
+>>
+>> Verifichiamo che $S/R_{\mathcal{F}} = \mathcal{F}$.
+>>
+>> Consideriamo una classe di equivalenza:
+>> $$[a]_{R_{\mathcal{F}}} = \{x \in S \mid x R_{\mathcal{F}} a\}$$
+>>
+>> Per definizione di $R_{\mathcal{F}}$:
+>> $$[a]_{R_{\mathcal{F}}} = \{x \in S \mid \exists A \in \mathcal{F}: x \in A \land a \in A\}$$
+>>
+>> Poiché $\mathcal{F}$ è una partizione, $\exists! A_a \in \mathcal{F}$ tale che $a \in A_a$.
+>>
+>> Quindi:
+>> $$[a]_{R_{\mathcal{F}}} = \{x \in S \mid x \in A_a\} = A_a$$
+>>
+>> Le classi di equivalenza di $R_{\mathcal{F}}$ sono esattamente gli insiemi della partizione originale $\mathcal{F}$. ✓
+
+...
+
+Teorema fondamentale sulle relazioni d'equivalenza 
+?
+> [!important] **Teorema Fondamentale sulle Relazioni di Equivalenza (Versione Ristretta)**
+>
+> **Enunciato:**
+> Sia $R$ una relazione di equivalenza su un insieme non vuoto $S$. Allora l'insieme quoziente $S/R$ è una **partizione** di $S$. 
+> 
+> Viceversa, ogni partizione di $S$ definisce una relazione di equivalenza.
+>
+>> [!attention] **Dimostrazione**
+>>
+>> ### Verso 1: Equivalenza $\Rightarrow$ Partizione
+>>
+>> Sia $R$ una relazione di equivalenza. Definiamo $\mathcal{P} = S/R = \{[a]_R \mid a \in S\}$.
+>>
+>> **Proprietà 1: Non vuotezza**
+>> Ogni classe $[a]_R$ contiene almeno $a$ (per riflessività). ✓
+>>
+>> **Proprietà 2: Disgiunzione o coincidenza**
+>> Supponiamo $[a]_R \cap [b]_R \neq \varnothing$. Allora esiste $c$ con $c \in [a]_R$ e $c \in [b]_R$.
+>> - Da $c \in [a]_R$: $c R a$
+>> - Da $c \in [b]_R$: $c R b$
+>> - Per simmetria: $a R c$ e $c R b$
+>> - Per transitività: $a R b$
+>>
+>> Quindi $[a]_R = [b]_R$ (perché se $x \in [a]_R$, allora $x R a$ e $a R b$, dunque $x R b$, cioè $x \in [b]_R$).
+>> ✓
+>>
+>> **Proprietà 3: Unione = $S$**
+>> Ovvio: ogni $a \in S$ appartiene a $[a]_R$. ✓
+>>
+>> Quindi $\mathcal{P}$ è una partizione.
+>>
+>> ### Verso 2: Partizione $\Rightarrow$ Equivalenza
+>>
+>> Sia $\mathcal{P} = \{A_i \mid i \in I\}$ una partizione di $S$. Definiamo:
+>> $$a R b \Leftrightarrow \exists i \in I : a, b \in A_i$$
+>>
+>> **Riflessiva:** $\forall a \in S$, esiste $i$ con $a \in A_i$ (per copertura). Quindi $a R a$. ✓
+>>
+>> **Simmetrica:** Se $a R b$, allora $\exists i$ con $a, b \in A_i$. Dunque $b, a \in A_i$, cioè $b R a$. ✓
+>>
+>> **Transitiva:** Se $a R b$ e $b R c$, allora:
+>> - $\exists i$ con $a, b \in A_i$
+>> - $\exists j$ con $b, c \in A_j$
+>>
+>> Poiché $b \in A_i \cap A_j$ e gli elementi di $\mathcal{P}$ sono disgiunti, $A_i = A_j$.
+>> Quindi $a, c \in A_i$, cioè $a R c$. ✓
+>>
+>> Quindi $R$ è una relazione di equivalenza. ✓
+
+...
