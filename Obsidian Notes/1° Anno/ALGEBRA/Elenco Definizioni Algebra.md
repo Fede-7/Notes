@@ -1512,33 +1512,33 @@ Rappresenta il numero di modi in cui si possono scegliere elementi da un insieme
 > [!note] Idempotenza
 > Dalle leggi di assorbimento derivano le **proprietà di idempotenza**:
 > $$a \wedge a = a \qquad \qquad a \vee a = a$$
-> [!tip] Dimostrazione — Idempotenza
-> Applicando assorbimento con $b = a$:
-> $$a \wedge (a \vee a) = a$$
-> Sviluppiamo il lato sinistro usando idempotenza di $\vee$ (che assumiamo): $a \wedge a = a$. $\square$
+>> [!tip] Dimostrazione — Idempotenza
+>> Applicando assorbimento con $b = a$:
+>> $$a \wedge (a \vee a) = a$$
+>> Sviluppiamo il lato sinistro usando idempotenza di $\vee$ (che assumiamo): $a \wedge a = a$. $\square$
 
 ### Equivalenza tra le Due Definizioni
 
 > [!important] Teorema — Equivalenza Ordine ↔ Algebrica
 > Le due definizioni di reticolo sono **equivalenti**. La relazione d'ordine si recupera da:
 > $$a \leq b \;\Longleftrightarrow\; a \wedge b = a \;\Longleftrightarrow\; a \vee b = b$$
-> [!tip] Dimostrazione — Algebrico ⟹ Ordine
-> Data $(L, \wedge, \vee)$ con le proprietà algebriche, definiamo $a \leq b \iff a \wedge b = a$.
->
-> **Riflessiva:** $a \wedge a = a$ (per idempotenza).
->
-> **Antisimmetrica:** Se $a \wedge b = a$ e $b \wedge a = b$, per commutatività di $\wedge$ abbiamo $a = b$.
->
-> **Transitiva:** Se $a \wedge b = a$ (cioè $a \leq b$) e $b \wedge c = b$ (cioè $b \leq c$), allora:
-> $$a \wedge c = (a \wedge b) \wedge c = a \wedge (b \wedge c) = a \wedge b = a$$
-> Dunque $a \leq c$.
->
-> **Infimo:** Mostriamo che $\inf\{a, b\} = a \wedge b$.
-> - Da $(a \wedge b) \wedge a = a \wedge b$ e $(a \wedge b) \wedge b = a \wedge b$, derivano $a \wedge b \leq a$ e $a \wedge b \leq b$.
-> - Se $c \leq a$ e $c \leq b$, allora $c \wedge a = c$ e $c \wedge b = c$. 
->   Per assorbimento: $c \wedge (a \wedge b) = (c \wedge a) \wedge b = c \wedge b = c$, dunque $c \leq a \wedge b$.
->
-> Pertanto $a \wedge b$ è il massimo dei minoranti di $\{a, b\}$. $\square$
+>> [!tip] Dimostrazione — Algebrico ⟹ Ordine
+>> Data $(L, \wedge, \vee)$ con le proprietà algebriche, definiamo $a \leq b \iff a \wedge b = a$.
+>>
+>> **Riflessiva:** $a \wedge a = a$ (per idempotenza).
+>>
+>> **Antisimmetrica:** Se $a \wedge b = a$ e $b \wedge a = b$, per commutatività di $\wedge$ abbiamo $a = b$.
+>>
+>> **Transitiva:** Se $a \wedge b = a$ (cioè $a \leq b$) e $b \wedge c = b$ (cioè $b \leq c$), allora:
+>> $$a \wedge c = (a \wedge b) \wedge c = a \wedge (b \wedge c) = a \wedge b = a$$
+>> Dunque $a \leq c$.
+>>
+>> **Infimo:** Mostriamo che $\inf\{a, b\} = a \wedge b$.
+>> - Da $(a \wedge b) \wedge a = a \wedge b$ e $(a \wedge b) \wedge b = a \wedge b$, derivano $a \wedge b \leq a$ e $a \wedge b \leq b$.
+>> - Se $c \leq a$ e $c \leq b$, allora $c \wedge a = c$ e $c \wedge b = c$. 
+>>   Per assorbimento: $c \wedge (a \wedge b) = (c \wedge a) \wedge b = c \wedge b = c$, dunque $c \leq a \wedge b$.
+>>
+>> Pertanto $a \wedge b$ è il massimo dei minoranti di $\{a, b\}$. $\square$
 
 ### Esempio Fondamentale
 
@@ -1554,8 +1554,8 @@ Rappresenta il numero di modi in cui si possono scegliere elementi da un insieme
 > [!note] Catena
 > Un sottoinsieme $C \subseteq S$ di un insieme ordinato $(S, \leq)$ è una **catena** se è **totalmente ordinato**:
 > $$\forall x, y \in C:\; x \leq y \;\vee\; y \leq x$$
-> [!note] Catena Massimale
-> Una catena $C$ in $(S, \leq)$ è **massimale** se **non può essere estesa**: non esiste alcun elemento $s \in S \setminus C$ tale che $C \cup \{s\}$ sia ancora una catena.
+>> [!note] Catena Massimale
+>> Una catena $C$ in $(S, \leq)$ è **massimale** se **non può essere estesa**: non esiste alcun elemento $s \in S \setminus C$ tale che $C \cup \{s\}$ sia ancora una catena.
 
 ### Poset che Non è un Reticolo
 
