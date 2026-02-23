@@ -1261,12 +1261,12 @@ Rappresenta il numero di modi in cui si possono scegliere elementi da un insieme
 > [!note] Conteggio
 > Il numero di applicazioni iniettive $f: S \to T$ con $|S| = n$, $|T| = m$, $n \leq m$:
 > $$\frac{m!}{(m-n)!}$$
-> [!tip] Dimostrazione — Conteggio applicazioni iniettive (per induzione su $n$)
-> *Base:* $n = 1$: $f$ sceglie l'immagine di $a_1$ tra $m$ elementi: $m = \frac{m!}{(m-1)!}$.
->
-> *Passo:* Per l'elemento $a_{n+1}$, l'immagine può essere uno qualsiasi degli $m$ elementi di $T$, ma per iniettività deve essere diverso dalle immagini di $a_1, \ldots, a_n$.
-> Scelta l'immagine $b_i$ di $a_{n+1}$ ($m$ scelte), le restanti $n$ variabili definiscono un'applicazione iniettiva da $S$ a $T \setminus \{b_i\}$ ($m-1$ elementi). Per ipotesi induttiva, queste sono $\frac{(m-1)!}{(m-1-n)!}$.
-> Totale: $m \cdot \frac{(m-1)!}{(m-1-n)!} = \frac{m!}{(m-n-1)!} = \frac{m!}{(m-(n+1))!}$. $\square$
+>> [!tip] Dimostrazione — Conteggio applicazioni iniettive (per induzione su $n$)
+>> *Base:* $n = 1$: $f$ sceglie l'immagine di $a_1$ tra $m$ elementi: $m = \frac{m!}{(m-1)!}$.
+>>
+>> *Passo:* Per l'elemento $a_{n+1}$, l'immagine può essere uno qualsiasi degli $m$ elementi di $T$, ma per iniettività deve essere diverso dalle immagini di $a_1, \ldots, a_n$.
+>> Scelta l'immagine $b_i$ di $a_{n+1}$ ($m$ scelte), le restanti $n$ variabili definiscono un'applicazione iniettiva da $S$ a $T \setminus \{b_i\}$ ($m-1$ elementi). Per ipotesi induttiva, queste sono $\frac{(m-1)!}{(m-1-n)!}$.
+>> Totale: $m \cdot \frac{(m-1)!}{(m-1-n)!} = \frac{m!}{(m-n-1)!} = \frac{m!}{(m-(n+1))!}$. $\square$
 
 ### Binomio di Newton
 
