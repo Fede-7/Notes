@@ -264,3 +264,10 @@ Algebra di Boole :: (A, ∧, ∨, ', 0, 1) è un'algebra di Boole se soddisfa: a
 Teorema di Stone :: Ogni algebra di Boole finita è isomorfa a (P(S), ∩, ∪, ᶜ, ∅, S) per un opportuno S.
 Anello Booleano :: Un anello (A, +, ·) è **booleano** se a² = a per ogni a ∈ A. Proprietà: char(A) = 2, (A,·) è commutativo. Esempio: (P(S), △, ∩).
 Da Reticolo Booleano ad Anello Booleano :: Dato un reticolo booleano (L, ∧, ∨, ', 0, 1), si costruisce l'anello booleano con: a·b = a∧b (meet); a+b = (a∧b') ∨ (b∧a') (differenza simmetrica). Relazione d'ordine recuperata: a ≤ b ⟺ a·b = a.
+
+## Dimostrazioni da sapere
+Teorema Fondamentale dell'Aritmetica ::
+Teorema Divisione euclidea ::
+Teorema di Bezout :: 
+Teorema sulle relazioni di equivalenza e partizioni ::
+Teorema fondamentale sulle relazioni d'equivalenza ::
