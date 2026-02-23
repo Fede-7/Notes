@@ -5,17 +5,17 @@
 ---
 
 ### Indice della Lezione
-1.  [[#Definizioni di Base sui Polinomi]]
-2.  [[#Operazioni tra Polinomi]]
-3.  [[#Grado di un Polinomio e Teorema dei Gradi]]
-4.  [[#Elementi Speciali: Unità, Associati e Polinomi Monici]]
-5.  [[#Divisione tra Polinomi: L'Algoritmo Euclideo]]
-6.  [[#Radici di un Polinomio e Teorema di Ruffini]]
-7.  [[#Polinomi e Funzioni Polinomiali]]
-8.  [[#Divisibilità e Irriducibilità]]
-9.  [[#Teorema di Fattorizzazione Unica]]
-10. [[#Punti Chiave della Lezione]]
-11. [[#Domande per la Riflessione]]
+1.  [[Lezione 23 (Polinomi)#Definizioni di Base sui Polinomi]]
+2.  [[Lezione 23 (Polinomi)#Operazioni tra Polinomi]]
+3.  [[Lezione 23 (Polinomi)#Grado di un Polinomio e Teorema dei Gradi]]
+4.  [[Lezione 23 (Polinomi)#Elementi Speciali: Unità, Associati e Polinomi Monici]]
+5.  [[Lezione 23 (Polinomi)#Divisione tra Polinomi: L'Algoritmo Euclideo]]
+6.  [[Lezione 23 (Polinomi)#Radici di un Polinomio e Teorema di Ruffini]]
+7.  [[Lezione 23 (Polinomi)#Polinomi e Funzioni Polinomiali]]
+8.  [[Lezione 23 (Polinomi)#Divisibilità e Irriducibilità]]
+9.  [[Lezione 23 (Polinomi)#Teorema di Fattorizzazione Unica]]
+10. [[Lezione 23 (Polinomi)#Punti Chiave della Lezione]]
+11. [[Lezione 23 (Polinomi)#Domande per la Riflessione]]
 
 ---
 

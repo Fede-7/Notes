@@ -158,26 +158,26 @@ banner: "[[Banner_n2.jpg]]"
 - [x] 16.7 ELEMENTI INFERIORI - SUPERIORI ✅ 2026-02-23
 
 ### 27-05-2025
-- [ ] 17.1 CATENA  
-- [ ] 17.2 CATENA MASSIMALE  
-- [ ] 17.3 DEFINIZIONE RETICOLO $(L, \wedge, \vee)$  
-  - [ ] PROP. ASSOCIATIVA  
-  - [ ] PROP. COMMUTATIVA  
-  - [ ] LEGGE DI ASSORBIMENTO  
-  - [ ] IDEMPOTENZA $a \vee a = a \wedge a = a$  
+- [x] 17.1 CATENA ✅ 2026-02-23
+- [x] 17.2 CATENA MASSIMALE ✅ 2026-02-23
+- [x] 17.3 DEFINIZIONE RETICOLO $(L, \wedge, \vee)$ ✅ 2026-02-23
+  - [x] PROP. ASSOCIATIVA ✅ 2026-02-23
+  - [x] PROP. COMMUTATIVA ✅ 2026-02-23
+  - [x] LEGGE DI ASSORBIMENTO ✅ 2026-02-23
+  - [x] IDEMPOTENZA $a \vee a = a \wedge a = a$ ✅ 2026-02-23
 
 ### 30-05-2025
-- [ ] 18.1 $(S, \le)$ TOTALMENTE ORDINATO $\Rightarrow$ S RETICOLO  
-- [ ] 18.2 L RETICOLO FINITO $\Rightarrow$ LIMITATO  
-- [ ] 18.3 RETICOLO PENTAGONALE  
-- [ ] 18.4 RETICOLO TRIRETTANGOLO  
-- [ ] 18.5 DEF. SOTTO RETICOLO  
-- [ ] 18.6 ISOMORFISMO INSIEME ORDINATO  
-- [ ] 18.7 ISOMORFISMO RETICOLARE  
-- [ ] 18.8 ISOMORFISMO COMPLEMENTATO  
+- [x] 18.1 $(S, \le)$ TOTALMENTE ORDINATO $\Rightarrow$ S RETICOLO ✅ 2026-02-23
+- [x] 18.2 L RETICOLO FINITO $\Rightarrow$ LIMITATO ✅ 2026-02-23
+- [ ] 18.3 RETICOLO PENTAGONALE
+- [ ] 18.4 RETICOLO TRIRETTANGOLO
+- [x] 18.5 DEF. SOTTO RETICOLO ✅ 2026-02-23
+- [x] 18.6 ISOMORFISMO INSIEME ORDINATO ✅ 2026-02-23
+- [x] 18.7 ISOMORFISMO RETICOLARE ✅ 2026-02-23
+- [x] 18.8 ISOMORFISMO COMPLEMENTATO ✅ 2026-02-23
 
 ### 03-06-2025
-- [ ] 19.1 DEF. SOTTO ANELLO  
+- [ ] 19.1 DEF. SOTTO ANELLO
 - [ ] 19.2 PRINCIPIO DI DUALITÀ  
 - [ ] <mark style="background:#D4AF37; color:black; padding:0 6px; border-radius:6px;">19.3</mark> TEOREMA $(L, \vee, \wedge)$ DISTRIBUTIVO  
 - [ ] <mark style="background:#C0C0C0; color:black; padding:0 6px; border-radius:6px;">19.4</mark> PROPOSIZIONE  

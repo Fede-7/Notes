@@ -1586,12 +1586,21 @@ Rappresenta il numero di modi in cui si possono scegliere elementi da un insieme
 > [!important] Corollario — Insieme Totalmente Ordinato è un Reticolo
 > Se $(S, \leq)$ è un insieme **totalmente ordinato**, allora è un **reticolo**. Per ogni $a, b \in S$:
 > $$a \wedge b = \min\{a, b\} \qquad \quad a \vee b = \max\{a, b\}$$
-### Esempi di Reticoli Limitati
+#### Esempi di Reticoli Limitati
 
 > [!note] Esempi Comuni
 > - $(\mathcal{P}(S), \subseteq)$: elemento minimo $0_L = \emptyset$, massimo $1_L = S$
 > - $(\mathbb{D}_n, \mid)$ (divisori di $n$): elemento minimo $0_L = 1$, massimo $1_L = n$
 > - $(\mathbb{N}^*, \mid)$: limitato **inferiormente** (minimo = 1), ma **non** limitato superiormente. Non è un reticolo limitato.
+
+
+```mermaid
+graph TD
+    1((1)) --> a((a))
+    1 --> b((b))
+    a --> 0((0))
+    b --> 0((0))
+```
 
 ### Sottoreticolo
 
@@ -1619,9 +1628,11 @@ Rappresenta il numero di modi in cui si possono scegliere elementi da un insieme
 > [!note] Complemento in un Reticolo Limitato
 > In un reticolo **limitato** $(L, \leq, 0_L, 1_L)$, un elemento $a \in L$ ha un **complemento** $\bar{a}$ se:
 > $$a \wedge \bar{a} = 0_L \qquad \text{e} \qquad a \vee \bar{a} = 1_L$$
-> [!note] Osservazione
-> - Ogni elemento ha **al massimo** un complemento (l'inverso è unico).
-> - Gli elementi $0_L$ e $1_L$ sono sempre complementari tra loro.
+>> [!note] Osservazione
+>> - Ogni elemento ha **al massimo** un complemento (l'inverso è unico).
+>> - Gli elementi $0_L$ e $1_L$ sono sempre complementari tra loro.
+
+
 
 ### Reticolo Complementato
 
@@ -1633,6 +1644,15 @@ Rappresenta il numero di modi in cui si possono scegliere elementi da un insieme
 > - $a$ ha come complementi sia $b$ che $c$ (ad es., $a \wedge b = 0$ e $a \vee b = 1$)
 > - È un reticolo complementato (ma non distributivo).
 
+```mermaid
+graph TD
+    1((1)) --> a((a))
+    1 --> b((b))
+    1 --> c((c))
+    a --> 0((0))
+    b --> 0((0))
+    c --> 0((0))
+```
 ### Reticolo NON Complementato
 
 > [!note] Esempio: Catena $0 < a < 1$ Non è Complementata
@@ -1661,7 +1681,7 @@ Rappresenta il numero di modi in cui si possono scegliere elementi da un insieme
 
 ### Reticolo dei Divisori
 
-> [!note] Reticolo $(\mathbb{D}_n, \mid)$
+> [!note] Reticolo $(\mathbb{D}_n, \mid \space)$
 > L'insieme dei divisori positivi di $n$, ordinato per divisibilità, forma un **reticolo limitato**:
 > - **Infimo:** $a \wedge b = \mathrm{MCD}(a, b)$
 > - **Supremo:** $a \vee b = \mathrm{mcm}(a, b)$

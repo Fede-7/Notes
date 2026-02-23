@@ -52,7 +52,7 @@ I connettivi logici sono come la "colla" che unisce le proposizioni semplici per
 | F | V | V |
 | F | F | F |
 
-> [!NOTE] Nota Bene: Questa è la "o" inclusiva, significa che va bene anche se entrambe sono vere. Nelle tue note c'era scritto "non disgiuntiva", ma in realtà $\lor$ *è* la disgiunzione standard (inclusiva). Forse intendevi la disgiunzione *esclusiva*? Ne parliamo tra poco! [[#1.5 Disgiunzione Esclusiva (XOR)]]
+> [!NOTE] Nota Bene: Questa è la "o" inclusiva, significa che va bene anche se entrambe sono vere. Nelle tue note c'era scritto "non disgiuntiva", ma in realtà $\lor$ *è* la disgiunzione standard (inclusiva). Forse intendevi la disgiunzione *esclusiva*? Ne parliamo tra poco! [[Lezione 1#1.5 Disgiunzione Esclusiva (XOR)]]
 
 *   **Implicazione Materiale (SE... ALLORA):** È falsa solo se la prima proposizione (antecedente) è vera e la seconda (conseguente) è falsa.
     *   Simbolo: $\implies$ (o $\rightarrow$, si legge "implica" o "se... allora")
