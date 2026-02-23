@@ -1250,12 +1250,12 @@ Rappresenta il numero di modi in cui si possono scegliere elementi da un insieme
 
 > [!note] Somma
 > $$\sum_{k=0}^{n} \binom{n}{k} = 2^n$$
-> [!tip] Dimostrazione — $|\mathcal{P}(S)| = 2^{|S|}$ (per induzione)
-> *Base:* $n = 0$: $|\mathcal{P}(\emptyset)| = |\{\emptyset\}| = 1 = 2^0$.
->
-> *Passo:* Sia $|S| = n$ e $T = S \cup \{a\}$ con $a \notin S$.
-> I sottoinsiemi di $T$ si dividono in quelli che **non contengono** $a$ (sono i sottoinsiemi di $S$, cioè $2^n$) e quelli che **contengono** $a$ (sono $X \cup \{a\}$ al variare di $X \subseteq S$, cioè ancora $2^n$).
-> Totale: $2^n + 2^n = 2^{n+1}$. $\square$
+>> [!tip] Dimostrazione — $|\mathcal{P}(S)| = 2^{|S|}$ (per induzione)
+>> *Base:* $n = 0$: $|\mathcal{P}(\emptyset)| = |\{\emptyset\}| = 1 = 2^0$.
+>>
+>> *Passo:* Sia $|S| = n$ e $T = S \cup \{a\}$ con $a \notin S$.
+>> I sottoinsiemi di $T$ si dividono in quelli che **non contengono** $a$ (sono i sottoinsiemi di $S$, cioè $2^n$) e quelli che **contengono** $a$ (sono $X \cup \{a\}$ al variare di $X \subseteq S$, cioè ancora $2^n$).
+>> Totale: $2^n + 2^n = 2^{n+1}$. $\square$
 
 ### Applicazioni Iniettive
 

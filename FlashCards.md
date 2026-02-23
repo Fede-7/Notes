@@ -15,7 +15,6 @@ NAND / NOR :: Sono **funzionalmente completi**: ogni connettivo logico può esse
 Legge di De Morgan :: ¬(P ∧ Q) ⇔ ¬P ∨ ¬Q ; ¬(P ∨ Q) ⇔ ¬P ∧ ¬Q
 Predicato :: Proprietà o relazione con variabili; una formula ben formata (FBF) diventa proposizione quando le variabili vengono sostituite.
 Quantificatore Universale :: ∀x P(x): «per ogni x, vale P(x)».
-<!--SR:!2026-02-26,3,268-->
 Quantificatore Esistenziale :: ∃x P(x): «esiste almeno un x tale che P(x)».
 Quantificatore Esistenziale Unico :: ∃!x P(x) ⟺ ∃x P(x) ∧ ∀x∀y(P(x) ∧ P(y) ⇒ x = y)
 Variabile Vincolata :: Una variabile che compare nel raggio d'azione di un quantificatore. Altrimenti è **libera**. Una formula senza variabili libere è detta **chiusa**.
@@ -39,7 +38,6 @@ Immagine di un Sottoinsieme :: f→(X) = {f(x) | x ∈ X} ⊆ B — insieme degl
 Controimmagine (Preimmagine) :: f←(Y) = {x ∈ A | f(x) ∈ Y} ⊆ A — insieme degli elementi del dominio le cui immagini cadono in Y.
 Iniettività :: f : A → B è iniettiva se: ∀x₁, x₂ ∈ A : f(x₁) = f(x₂) ⟹ x₁ = x₂
 Caratterizzazione Iniettività tramite Controimmagine :: f è iniettiva ⟺ ∀b ∈ B, |f⁻¹({b})| ≤ 1
-<!--SR:!2026-02-26,3,250-->
 Partizione :: Una famiglia F ⊆ P(S) è una partizione di S se: (1) ∀X ∈ F, X ≠ ∅; (2) pezzi disgiunti; (3) ⋃F = S.
 Partizioni Banali :: F₁ = {{S}} (un solo pezzo: l'insieme intero); F₂ = {{a},{b},{c},…} (ogni pezzo è un singolo elemento).
 
@@ -47,7 +45,6 @@ Partizioni Banali :: F₁ = {{S}} (un solo pezzo: l'insieme intero); F₂ = {{a}
 
 Suriettività :: f : A → B è suriettiva se: ∀b ∈ B, ∃a ∈ A : f(a) = b
 Caratterizzazione Suriettività tramite Controimmagine :: f è suriettiva ⟺ ∀b ∈ B, |f⁻¹({b})| ≥ 1
-<!--SR:!2026-02-25,2,247-->
 Applicazioni immagine e anti-immagine banali :: f(∅) = ∅ ; f⁻¹(∅) = ∅ ; f⁻¹(B) = A ; f(A) = Im(f) ⊆ B (e f(A) = B sse f è suriettiva).
 Funzione Caratteristica :: Sia A ⊆ S. χ_A : S → {0,1} con χ_A(x) = 1 se x ∈ A, 0 se x ∉ A.
 Uguaglianza di Funzioni :: f = g sse hanno lo stesso dominio, lo stesso codominio e f(x) = g(x) per ogni x.
@@ -58,7 +55,6 @@ Identità :: id_A : A → A definita da id_A(a) = a. È sempre **biettiva**.
 ## Lezione 4 — Biettività, Composizione, Invertibilità, Operazioni
 
 Biettività :: f : A → B è biettiva se è **iniettiva e suriettiva**: ∀b ∈ B, |f←({b})| = 1
-<!--SR:!2026-02-25,2,247-->
 Caratterizzazione Biettività :: f è biettiva ⟺ per ogni b ∈ B, la controimmagine f⁻¹({b}) è un singleton.
 Equipotenza :: |A| = |B| ⟺ ∃f biettiva tra A e B.
 Composizione :: Date f : A → B e g : B → C: (g ∘ f)(x) = g(f(x)), (g ∘ f) : A → C.
@@ -88,7 +84,6 @@ Elemento Invertibile (Simmetrizzabile) :: In un monoide (S, ∗, u), a ∈ S è 
 U(S) — Gruppo degli Invertibili :: L'insieme degli elementi invertibili di un monoide forma un gruppo (U(S), ∗).
 Parte Stabile (Chiusa) :: H ⊆ S è stabile per ∗ se: ∀h, k ∈ H : h ∗ k ∈ H.
 Gruppo :: (G, ∗) è un gruppo se: (1) ∗ è associativa; (2) esiste elemento neutro u; (3) ogni elemento ha un inverso.
-<!--SR:!2026-02-25,2,247-->
 Gruppo Abeliano :: Gruppo in cui ∗ è **commutativa**: a ∗ b = b ∗ a.
 
 ## Lezione 7 — Anelli, Caratteristica, Cancellabilità, Divisori dello Zero
@@ -107,10 +102,8 @@ Divisore dello Zero :: a ≠ 0_A è divisore dello zero se ∃b ≠ 0_A : a · b
 Omomorfismo :: f : (S, ∗) → (T, ·) è un omomorfismo se: f(a ∗ b) = f(a) · f(b) ∀a, b ∈ S.
 Dominio d'Integrità :: Un anello (A, +, ·) è un dominio d'integrità se: è commutativo, è unitario (con 1_A ≠ 0_A), è privo di divisori dello zero. Esempi: ℤ, ℚ, ℝ, ℂ.
 Corpo :: Un anello (K, +, ·) è un corpo se: è unitario (con 1_K ≠ 0_K) e (K*, ·) è un gruppo, dove K* = K \ {0_K}.
-<!--SR:!2026-02-24,1,227-->
 Campo :: Un campo è un **corpo commutativo**. Esempi: ℚ, ℝ, ℂ, ℤ_p (con p primo).
 Teorema di Wedderburn :: Ogni corpo finito è anche un **campo**.
-<!--SR:!2026-02-24,1,230-->
 Che cos'è un K-Spazio Vettoriale?
 ?
 Sia K un campo. (V, +, ·_ext) è un **K-spazio vettoriale** se:
@@ -162,6 +155,7 @@ Principio di Induzione (Forma II — Forte) :: Se P(n̄) è vera e ∀n > n̄ : 
 Teorema della Divisione Euclidea :: ∀m, n ∈ ℤ, n ≠ 0, ∃!q, r ∈ ℤ : m = n·q + r, 0 ≤ r < |n|.
 Identità di Bézout :: MCD(a, b) = a·x + b·y per opportuni x, y ∈ ℤ. Corollario: a, b coprimi ⟺ ∃x,y : ax + by = 1.
 Relazione d'Equivalenza :: Una relazione binaria R su A è di equivalenza se è: riflessiva, simmetrica, transitiva.
+<!--SR:!2026-02-26,3,250-->
 Ordine (Parziale) :: Una relazione su A è d'ordine se è: riflessiva, antisimmetrica, transitiva. È totale se ∀x,y : xRy ∨ yRx.
 
 ## Lezione 11 — Algoritmo di Euclide, FTA, Classi di Equivalenza
@@ -170,7 +164,6 @@ Algoritmo di Euclide :: Calcola MCD(a,b) tramite divisioni successive: MCD(a,b) 
 Algoritmo Esteso di Euclide :: Risalendo le divisioni si trovano i coefficienti di Bézout x, y tali che ax + by = MCD(a,b).
 Teorema Fondamentale dell'Aritmetica (FTA) :: Ogni intero n ≥ 2 si scrive in modo **unico** (a meno dell'ordine) come prodotto di numeri primi.
 Definizione di Grafo :: Una relazione su A è un grafo se è: antiriflessiva e simmetrica.
-<!--SR:!2026-02-24,1,228-->
 Classe di Equivalenza :: aR = {x ∈ S | x R a}. Proprietà: non vuota, due classi sono uguali o disgiunte, la loro unione è S.
 Insieme Quoziente :: S/R = {aR | a ∈ S} — l'insieme di tutte le classi di equivalenza disgiunte.
 
@@ -181,7 +174,6 @@ Relazione di Equivalenza Indotta da Funzione :: xRf y ⟺ f(x) = f(y). Le classi
 Fattorizzazione (Applicazione Quoziente) :: Data f : S → T e Rf, l'applicazione quoziente f̄ : S/Rf → T è ben definita e iniettiva.
 Congruenza (Compatibilità) :: R è una congruenza rispetto a ∗ se: ∀a,b,c,d ∈ S : (aRc ∧ bRd) ⇒ (a∗b)R(c∗d).
 Operazione Quoziente :: Se R è congruenza su (S,∗), si definisce aR ∗R bR = (a∗b)R. La struttura quoziente eredita le proprietà algebriche.
-<!--SR:!2026-02-24,1,228-->
 Congruenza Modulo m :: a ≡ b (mod m) ⟺ m | (a − b). Equivalentemente: a e b hanno lo stesso resto nella divisione per m.
 Anello Zₘ :: L'insieme quoziente Zₘ = {0̄, 1̄, …, m−1̄} con ā + b̄ = (a+b)̄ e ā·b̄ = (ab)̄ è un anello commutativo unitario.
 
@@ -191,6 +183,7 @@ Compatibilità della Congruenza con + e · :: Se a ≡ c e b ≡ d (mod m), allo
 Zₘ è un Campo :: (Zₘ, +, ·) è un **campo** se e solo se m è un numero **primo**.
 Caratteristica di Zₘ :: char(Zₘ) = m.
 Invertibili in Zₘ :: āₘ è invertibile in Zₘ ⟺ MCD(a, m) = 1.
+<!--SR:!2026-02-26,3,250-->
 Divisori dello Zero in Zₘ :: āₘ ≠ 0̄ₘ è divisore dello zero in Zₘ ⟺ MCD(a, m) > 1.
 Dicotomia in Zₘ :: In Zₘ, ogni a ≠ 0 è **o invertibile o divisore dello zero**.
 Nilpotenti in Zₘ :: Sia $m = p₁^α₁⋯pₜ^αₜ$.  Allora āₘ è nilpotente ⟺ ogni divisore primo di m divide anche a. Equivalentemente: rad(m) | a.
@@ -211,7 +204,6 @@ Criterio per 11 :: Dipende dalla somma a segni alterni (10 ≡ −1).
 ## Lezione 15 — Dominio, Anello Prodotto, Caratteristica Prodotto
 
 Zₙ Dominio d'Integrità :: Zₙ è un dominio d'integrità ⟺ n è primo ⟺ Zₙ è un campo.
-<!--SR:!2026-02-25,2,247-->
 Anello Prodotto — Definizione :: R × S = {(r,s) | r ∈ R, s ∈ S} con operazioni componente per componente. Zero: (0_R, 0_S). Unità: (1_R, 1_S).
 Invertibili nell'Anello Prodotto :: (r,s) ∈ U(R×S) ⟺ r ∈ U(R) e s ∈ U(S).
 Divisori dello Zero nell'Anello Prodotto :: Sempre presenti anche se R, S sono domini: (1_R, 0_S)·(0_R, 1_S) = (0_R, 0_S).
@@ -222,6 +214,7 @@ Teorema Cinese dei Resti (TCR) :: Zₘₙ ≅ Zₘ × Zₙ ⟺ MCD(m,n) = 1. Iso
 
 Equazione Diofantea Lineare :: ax + by = c con a,b,c ∈ ℤ, soluzioni x,y ∈ ℤ. Ha soluzione ⟺ MCD(a,b)|c.
 Funzione Totiente di Eulero :: φ(n) = |U(Zₙ)| = |{k ∈ {0,…,n−1} | MCD(k,n) = 1}|.
+<!--SR:!2026-02-26,3,250-->
 Proprietà di φ :: φ(p) = p−1 (p primo); φ(pᵏ) = pᵏ⁻¹(p−1); φ(ab) = φ(a)φ(b) se MCD(a,b) = 1.
 Teorema di Fermat-Eulero :: Se MCD(a,n) = 1, allora: a^φ(n) ≡ 1 (mod n).
 Piccolo Teorema di Fermat :: Se p è primo e p∤a: aᵖ⁻¹ ≡ 1 (mod p).
@@ -237,6 +230,7 @@ Numero di Applicazioni Iniettive :: Il numero di f iniettive da S a T con |S|=n,
 Relazione d'Ordine Largo (Parziale) :: ≤ è d'ordine se: riflessiva, antisimmetrica, transitiva.
 Ordine Stretto :: < è d'ordine stretto se: antiriflessiva, transitiva. Implica automaticamente l'asimmetria.
 Relazione tra Ordine Largo e Stretto :: x < y ⟺ (x ≤ y ∧ x ≠ y) ; x ≤ y ⟺ (x < y ∨ x = y).
+<!--SR:!2026-02-26,3,250-->
 Ordine Totale (o Lineare) :: Ordine ≤ su S è **totale** se ogni coppia è confrontabile: ∀x,y ∈ S : x ≤ y ∨ y ≤ x.
 Minimo :: a è minimo se a ≤ x per ogni x ∈ S. Se esiste, è **unico**.
 Massimo :: a è massimo se x ≤ a per ogni x ∈ S. Se esiste, è **unico**.
@@ -256,7 +250,8 @@ Rappresentazione grafica di un poset finito (S, ≤):
 Minorante :: a ∈ S è un minorante di X se a ≤ x per ogni x ∈ X.
 Maggiorante :: a ∈ S è un maggiorante di X se x ≤ a per ogni x ∈ X.
 Infimo :: inf(X) = max(minoranti di X) — il più grande tra i minoranti di X (se esiste).
-Supremo :: sup(X) = min(maggioranti di X) — il più piccolo tra i maggioranti di X (se esiste).
+Supremo (Sup(X)) :: sup(X) = min(maggioranti di X) — il più piccolo tra i maggioranti di X (se esiste).
+<!--SR:!2026-02-26,3,250-->
 Infimo e MCD :: In (ℕ*, |): inf{a,b} = MCD(a,b).
 Supremo e mcm :: In (ℕ*, |): sup{a,b} = mcm(a,b).
 
@@ -269,6 +264,7 @@ Ordine Indotto da Funzione :: Sia f : S → T e (T, ≤_T) ordinato. Su S: a ≤
 ## Lezione 20 — Reticoli
 
 Reticolo (Definizione tramite Ordine) :: Un poset (L, ≤) è un **reticolo** se per ogni coppia a,b ∈ L esistono: inf{a,b} = a ∧ b (meet) e sup{a,b} = a ∨ b (join).
+<!--SR:!2026-02-26,3,250-->
 Reticolo (Definizione Algebrica) :: Una struttura (L, ∧, ∨) è un reticolo se ∧ e ∨ soddisfano: associatività, commutatività, assorbimento (a ∧ (a ∨ b) = a; a ∨ (a ∧ b) = a).
 Idempotenza nel Reticolo :: Dalle leggi di assorbimento: a ∧ a = a e a ∨ a = a.
 Equivalenza Ordine ↔ Algebrica :: Le due definizioni di reticolo sono equivalenti. La relazione d'ordine si recupera da: a ≤ b ⟺ a ∧ b = a ⟺ a ∨ b = b.
@@ -280,7 +276,6 @@ Catena Massimale :: Una catena C in (S, ≤) è massimale se non può essere est
 
 Reticolo Limitato :: Un reticolo (L, ≤) è **limitato** se possiede un elemento minimo 0_L e un elemento massimo 1_L.
 Teorema — Reticoli Finiti Sono Limitati :: Ogni reticolo **finito** è limitato.
-<!--SR:!2026-02-25,2,248-->
 Corollario — Totalmente Ordinato è Reticolo :: Se (S, ≤) è totalmente ordinato, è un reticolo con a ∧ b = min{a,b} e a ∨ b = max{a,b}.
 Sottoreticolo :: A ⊆ L è un sottoreticolo se è chiuso per ∧ e ∨: ∀x,y ∈ A : x ∧ y ∈ A ∧ x ∨ y ∈ A.
 Isomorfismo di Reticoli :: f : L → M biettiva è un isomorfismo se preserva l'ordine: a ≤_L b ⟺ f(a) ≤_M f(b). Equivalentemente: f(a∧b) = f(a)∧f(b) e f(a∨b) = f(a)∨f(b).
@@ -296,7 +291,6 @@ Reticolo Distributivo :: Un reticolo è distributivo se: a ∧ (b ∨ c) = (a �
 Teorema — Caratterizzazione Distributività :: Un reticolo è distributivo ⟺ **non** contiene sottoreticoli isomorfi a M₃ (diamante) o N₅ (pentagono).
 Reticolo Diamante M₃ :: Reticolo con 5 elementi {0,a,b,c,1} dove a,b,c sono mutuamente non confrontabili e 0 < a,b,c < 1. Non è distributivo (ma è modulare).
 Reticolo Pentagonale N₅ :: Reticolo con 5 elementi {0,a,b,c,1} dove 0 < a < b < 1 e 0 < c < 1 con c non confrontabile con a e b. Non è distributivo né modulare.
-<!--SR:!2026-02-24,1,227-->
 Unicità del Complemento in Reticoli Distributivi :: In un reticolo **distributivo e limitato**, se un elemento ha un complemento, questo è **unico**.
 Reticolo Booleano :: Un reticolo è **booleano** se è distributivo e complementato. Esempio: (P(S), ⊆) con complemento Aᶜ = S \ A.
 Teorema di Rappresentazione dei Reticoli Booleani :: Ogni reticolo booleano **finito** è isomorfo a (P(S), ⊆) per un opportuno insieme finito S. Se |L| = 2ⁿ, L ha n "atomi".
@@ -437,71 +431,21 @@ Teorema di Bézout
 
 ...
 
-Teorema sulle relazioni di equivalenza e partizioni
+Applicazione Quoziente
 ?
-> [!important] **Teorema Fondamentale sulle Relazioni di Equivalenza**
+>[!important] Fattorizzazione
+> Data $f: S \to T$ e la relazione $R_f$, l'**applicazione quoziente** è:
+> $$\bar{f}: S/R_f \to T, \qquad \bar{f}([a]) = f(a)$$
+> È **ben definita** e **iniettiva**. Vale $f = \bar{f} \circ \pi$ (dove $\pi$ è la proiezione canonica).
 >
-> **Enunciato:**
-> Sia $S \neq \varnothing$. Esiste una corrispondenza biunivoca tra:
-> - L'insieme di tutte le **relazioni di equivalenza** su $S$
-> - L'insieme di tutte le **partizioni** di $S$
->
->> [!attention] **Dimostrazione**
+>> [!attention] Dimostrazione — Fattorizzazione (forse non necessaria)
+>> **Ben definita:** Se $[a] = [b]$, allora $a \mathrel{R_f} b$, cioè $f(a) = f(b)$, dunque $\bar{f}([a]) = \bar{f}([b])$.
 >>
->> ### Parte 1: Relazione $\Rightarrow$ Partizione
->>
->> Se $R$ è una relazione di equivalenza su $S$, allora $S/R = \{[a]_R \mid a \in S\}$ è una partizione di $S$.
->>
->> **Dimostrazione:** Le classi di equivalenza sono:
->> - Non vuote (perché $a \in [a]_R$ per riflessività)
->> - Disgiunte o coincidenti (per transitività e simmetria)
->> - Unione uguale a $S$ (ogni elemento appartiene alla sua classe)
->>
->> Quindi $S/R$ è una partizione. ✓
->>
->> ### Parte 2: Partizione $\Rightarrow$ Relazione
->>
->> Se $\mathcal{F}$ è una partizione di $S$, definiamo:
->> $$x R_{\mathcal{F}} y \Leftrightarrow \exists A \in \mathcal{F}: \, x \in A \land y \in A$$
->>
->> Allora $R_{\mathcal{F}}$ è una relazione di equivalenza.
->>
->> **Dimostrazione:**
->>
->> **Riflessiva:** $\forall x \in S$. Poiché $\mathcal{F}$ è partizione: $\bigcup_{A \in \mathcal{F}} A = S$.
->> Quindi $x \in A$ per qualche $A \in \mathcal{F}$. Per definizione: $x R_{\mathcal{F}} x$. ✓
->>
->> **Simmetrica:** Se $x R_{\mathcal{F}} y$, allora $\exists A \in \mathcal{F}: x \in A \land y \in A$.
->> Ma allora $y \in A \land x \in A$, quindi $y R_{\mathcal{F}} x$. ✓
->>
->> **Transitiva:** Se $x R_{\mathcal{F}} y$ e $y R_{\mathcal{F}} z$, allora:
->> - $\exists A \in \mathcal{F}: x, y \in A$
->> - $\exists B \in \mathcal{F}: y, z \in B$
->>
->> Poiché $y \in A \cap B$ e i pezzi di una partizione sono **disgiunti o coincidenti**, deve essere $A = B$.
->>
->> Quindi $x, z \in A$, cioè $x R_{\mathcal{F}} z$. ✓
->>
->> ### Parte 3: Corrispondenza Inversa
->>
->> Verifichiamo che $S/R_{\mathcal{F}} = \mathcal{F}$.
->>
->> Consideriamo una classe di equivalenza:
->> $$[a]_{R_{\mathcal{F}}} = \{x \in S \mid x R_{\mathcal{F}} a\}$$
->>
->> Per definizione di $R_{\mathcal{F}}$:
->> $$[a]_{R_{\mathcal{F}}} = \{x \in S \mid \exists A \in \mathcal{F}: x \in A \land a \in A\}$$
->>
->> Poiché $\mathcal{F}$ è una partizione, $\exists! A_a \in \mathcal{F}$ tale che $a \in A_a$.
->>
->> Quindi:
->> $$[a]_{R_{\mathcal{F}}} = \{x \in S \mid x \in A_a\} = A_a$$
->>
->> Le classi di equivalenza di $R_{\mathcal{F}}$ sono esattamente gli insiemi della partizione originale $\mathcal{F}$. ✓
+>> **Iniettiva:** Se $\bar{f}([a]) = \bar{f}([b])$, allora $f(a) = f(b)$, dunque $a \mathrel{R_f} b$, cioè $[a] = [b]$. $\square$
 
 ...
 
-Teorema fondamentale sulle relazioni d'equivalenza
+Teorema fondamentale sulle relazioni d'equivalenza (Equivalenza $\iff$ Partizione)
 ?
 > [!important] **Teorema Fondamentale sulle Relazioni di Equivalenza (Versione Ristretta)**
 >
