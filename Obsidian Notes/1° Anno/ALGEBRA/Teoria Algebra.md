@@ -141,21 +141,21 @@ banner: "[[Banner_n2.jpg]]"
 - [x] <mark style="background:#D4AF37; color:black; padding:0 6px; border-radius:6px;">14.3</mark> TEOREMA ESISTENZA SOLUZIONI EQUAZIONI CONGRUENZIALI ✅ 2026-02-22
 
 ### 16-05-2025
-- [ ] 15.1 FUNZIONE DI EULERO  
-- [ ] <mark style="background:#D4AF37; color:black; padding:0 6px; border-radius:6px;">15.2</mark> TEOREMA DI FERMAT EULERO  
-- [ ] 15.3 CALCOLO COMBINATORIO  
-- [ ] <mark style="background:#C0C0C0; color:black; padding:0 6px; border-radius:6px;">15.4</mark> COEFFICIENTE BINOMIALE  
-- [ ] 15.5 APPLICAZIONI INIETTIVE DA $S \to T$  
-- [ ] 15.6 BINOMIO DI NEWTON  
+- [x] 15.1 FUNZIONE DI EULERO ✅ 2026-02-23
+- [x] <mark style="background:#D4AF37; color:black; padding:0 6px; border-radius:6px;">15.2</mark> TEOREMA DI FERMAT EULERO ✅ 2026-02-23
+- [x] 15.3 CALCOLO COMBINATORIO ✅ 2026-02-23
+- [x] <mark style="background:#C0C0C0; color:black; padding:0 6px; border-radius:6px;">15.4</mark> COEFFICIENTE BINOMIALE ✅ 2026-02-23
+- [x] 15.5 APPLICAZIONI INIETTIVE DA $S \to T$ ✅ 2026-02-23
+- [x] 15.6 BINOMIO DI NEWTON ✅ 2026-02-23
 
 ### 20-05-2025
-- [ ] 16.1 RELAZIONE D'ORDINE  
-- [ ] 16.2 RELAZIONE D'ORDINE STRETTO  
-- [ ] 16.3 DIAGRAMMA DI HASSE  
-- [ ] 16.4 ELEMENTI MINIMALI - MASSIMALI  
-- [ ] 16.5 ELEMENTI MINIMO - MASSIMO  
-- [ ] 16.6 ELEMENTI MINORANTI - MAGGIORANTI  
-- [ ] 16.7 ELEMENTI INFERIORI - SUPERIORI  
+- [x] 16.1 RELAZIONE D'ORDINE ✅ 2026-02-23
+- [x] 16.2 RELAZIONE D'ORDINE STRETTO ✅ 2026-02-23
+- [x] 16.3 DIAGRAMMA DI HASSE ✅ 2026-02-23
+- [x] 16.4 ELEMENTI MINIMALI - MASSIMALI ✅ 2026-02-23
+- [x] 16.5 ELEMENTI MINIMO - MASSIMO ✅ 2026-02-23
+- [x] 16.6 ELEMENTI MINORANTI - MAGGIORANTI ✅ 2026-02-23
+- [x] 16.7 ELEMENTI INFERIORI - SUPERIORI ✅ 2026-02-23
 
 ### 27-05-2025
 - [ ] 17.1 CATENA  

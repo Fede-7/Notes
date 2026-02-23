@@ -1418,13 +1418,12 @@ Rappresenta il numero di modi in cui si possono scegliere elementi da un insieme
 > - **Maggioranti** = multipli comuni
 > - **Supremo** = minimo dei maggioranti = $540 = \mathrm{mcm}(60, 54)$
 
----
 
-$\textcolor{FFFFFF}{ciao}$
-## Tabella visiva delle proprietà (aiuto allo studio)
-> [!paper-fold]
+
+### Tabella visiva delle proprietà (aiuto allo studio)
+> [!paper-fold] Tabella delle prioprietà
 > 
-| Proprietà | Ordine Stretto | Ordine Largo / Poset | Ordine Totale | Insieme Ben Ordinato |
+| $\textcolor{#000000}{Proprietà}$ | $\textcolor{#000000}{Ordine Stretto}$ | $\textcolor{#000000}{Ordine Largo / Poset}$ | $\textcolor{#000000}{Ordine Totale}$ | $\textcolor{#000000}{Insieme Ben Ordinato}$ |
 | :--- | :---: | :---: | :---: | :---: |
 | **Riflessiva** | No | Sì | Sì | Sì |
 | **Antiriflessiva** | Sì | No | No | No |
@@ -1436,19 +1435,14 @@ $\textcolor{FFFFFF}{ciao}$
 >
 \* In un ordine stretto, l'asimmetria implica l'antisimmetria in modo "vuoto".
 \** La proprietà distintiva del **ben ordinato** è che ogni suo sottoinsieme non vuoto ammette un elemento minimo.
->
-Come puoi notare, queste strutture funzionano come una "scatola cinese": ogni colonna verso destra aggiunge una proprietà restrittiva a quella precedente. 
->
->
->
->
 
+---
 ## *Lezione 19* — Divisibilità come Ordine, Ordine Indotto
 
 ### Divisibilità come Relazione d'Ordine
 
 > [!note] Divisibilità su $\mathbb{N}^*$
-> La relazione di divisibilità "$\mid$" su $\mathbb{N}^*$ è una **relazione d'ordine parziale**:
+> La relazione di divisibilità "$\mid$" su $\mathbb{N}^*$ è una **relazione d'ordine parziale(Largo)**:
 > 1. **Riflessiva:** $a \mid a$ per ogni $a \in \mathbb{N}^*$
 > 2. **Antisimmetrica:** Se $a \mid b$ e $b \mid a$ con $a, b > 0$, allora $a = b$
 > 3. **Transitiva:** Se $a \mid b$ e $b \mid c$, allora $a \mid c$
@@ -1465,6 +1459,7 @@ Come puoi notare, queste strutture funzionano come una "scatola cinese": ogni co
 > **Controesempio:** $2 \mid (-2)$ e $(-2) \mid 2$, ma $2 \neq -2$.
 
 ### Ordine Indotto da una Funzione
+
 
 > [!note] Ordine Indotto
 > Sia $f: S \to T$ una funzione e $(T, \leq_T)$ un insieme ordinato. Su $S$ definiamo la relazione:
@@ -1484,6 +1479,9 @@ Come puoi notare, queste strutture funzionano come una "scatola cinese": ogni co
 > - Se $a \neq b$ e $b \neq c$: allora $f(a) <_T f(b) <_T f(c)$, da cui $f(a) <_T f(c)$ e $a \leq_f c$.
 > $\square$
 
+> [!attention] TIPS:
+> Nota come l'ordine indotto definisce la relazione nello stesso modo come la:
+> $$\text{ordine Largo} \implies (a=b) \lor \text{ordine stretto}$$
 ---
 
 ## *Lezione 20* — Reticoli
