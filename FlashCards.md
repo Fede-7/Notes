@@ -15,6 +15,7 @@ NAND / NOR :: Sono **funzionalmente completi**: ogni connettivo logico può esse
 Legge di De Morgan :: ¬(P ∧ Q) ⇔ ¬P ∨ ¬Q ; ¬(P ∨ Q) ⇔ ¬P ∧ ¬Q
 Predicato :: Proprietà o relazione con variabili; una formula ben formata (FBF) diventa proposizione quando le variabili vengono sostituite.
 Quantificatore Universale :: ∀x P(x): «per ogni x, vale P(x)».
+<!--SR:!2026-02-26,3,268-->
 Quantificatore Esistenziale :: ∃x P(x): «esiste almeno un x tale che P(x)».
 Quantificatore Esistenziale Unico :: ∃!x P(x) ⟺ ∃x P(x) ∧ ∀x∀y(P(x) ∧ P(y) ⇒ x = y)
 Variabile Vincolata :: Una variabile che compare nel raggio d'azione di un quantificatore. Altrimenti è **libera**. Una formula senza variabili libere è detta **chiusa**.
@@ -40,11 +41,13 @@ Iniettività :: f : A → B è iniettiva se: ∀x₁, x₂ ∈ A : f(x₁) = f(x
 Caratterizzazione Iniettività tramite Controimmagine :: f è iniettiva ⟺ ∀b ∈ B, |f⁻¹({b})| ≤ 1
 <!--SR:!2026-02-26,3,250-->
 Partizione :: Una famiglia F ⊆ P(S) è una partizione di S se: (1) ∀X ∈ F, X ≠ ∅; (2) pezzi disgiunti; (3) ⋃F = S.
+Partizioni Banali :: F₁ = {{S}} (un solo pezzo: l'insieme intero); F₂ = {{a},{b},{c},…} (ogni pezzo è un singolo elemento).
 
 ## Lezione 3 — Suriettività, Funzione Caratteristica, Restrizione, Identità
 
 Suriettività :: f : A → B è suriettiva se: ∀b ∈ B, ∃a ∈ A : f(a) = b
 Caratterizzazione Suriettività tramite Controimmagine :: f è suriettiva ⟺ ∀b ∈ B, |f⁻¹({b})| ≥ 1
+<!--SR:!2026-02-25,2,247-->
 Applicazioni immagine e anti-immagine banali :: f(∅) = ∅ ; f⁻¹(∅) = ∅ ; f⁻¹(B) = A ; f(A) = Im(f) ⊆ B (e f(A) = B sse f è suriettiva).
 Funzione Caratteristica :: Sia A ⊆ S. χ_A : S → {0,1} con χ_A(x) = 1 se x ∈ A, 0 se x ∉ A.
 Uguaglianza di Funzioni :: f = g sse hanno lo stesso dominio, lo stesso codominio e f(x) = g(x) per ogni x.
@@ -55,6 +58,7 @@ Identità :: id_A : A → A definita da id_A(a) = a. È sempre **biettiva**.
 ## Lezione 4 — Biettività, Composizione, Invertibilità, Operazioni
 
 Biettività :: f : A → B è biettiva se è **iniettiva e suriettiva**: ∀b ∈ B, |f←({b})| = 1
+<!--SR:!2026-02-25,2,247-->
 Caratterizzazione Biettività :: f è biettiva ⟺ per ogni b ∈ B, la controimmagine f⁻¹({b}) è un singleton.
 Equipotenza :: |A| = |B| ⟺ ∃f biettiva tra A e B.
 Composizione :: Date f : A → B e g : B → C: (g ∘ f)(x) = g(f(x)), (g ∘ f) : A → C.
@@ -84,6 +88,7 @@ Elemento Invertibile (Simmetrizzabile) :: In un monoide (S, ∗, u), a ∈ S è 
 U(S) — Gruppo degli Invertibili :: L'insieme degli elementi invertibili di un monoide forma un gruppo (U(S), ∗).
 Parte Stabile (Chiusa) :: H ⊆ S è stabile per ∗ se: ∀h, k ∈ H : h ∗ k ∈ H.
 Gruppo :: (G, ∗) è un gruppo se: (1) ∗ è associativa; (2) esiste elemento neutro u; (3) ogni elemento ha un inverso.
+<!--SR:!2026-02-25,2,247-->
 Gruppo Abeliano :: Gruppo in cui ∗ è **commutativa**: a ∗ b = b ∗ a.
 
 ## Lezione 7 — Anelli, Caratteristica, Cancellabilità, Divisori dello Zero
@@ -102,10 +107,20 @@ Divisore dello Zero :: a ≠ 0_A è divisore dello zero se ∃b ≠ 0_A : a · b
 Omomorfismo :: f : (S, ∗) → (T, ·) è un omomorfismo se: f(a ∗ b) = f(a) · f(b) ∀a, b ∈ S.
 Dominio d'Integrità :: Un anello (A, +, ·) è un dominio d'integrità se: è commutativo, è unitario (con 1_A ≠ 0_A), è privo di divisori dello zero. Esempi: ℤ, ℚ, ℝ, ℂ.
 Corpo :: Un anello (K, +, ·) è un corpo se: è unitario (con 1_K ≠ 0_K) e (K*, ·) è un gruppo, dove K* = K \ {0_K}.
+<!--SR:!2026-02-24,1,227-->
 Campo :: Un campo è un **corpo commutativo**. Esempi: ℚ, ℝ, ℂ, ℤ_p (con p primo).
 Teorema di Wedderburn :: Ogni corpo finito è anche un **campo**.
 <!--SR:!2026-02-24,1,230-->
-Spazio Vettoriale :: Sia K un campo. Un K-spazio vettoriale (V, +, ·_ext) dove (V,+) è gruppo abeliano, con moltiplicazione esterna K×V→V soddisfacente associatività mista, distributività e elemento neutro 1_K.
+Che cos'è un K-Spazio Vettoriale?
+?
+Sia K un campo. (V, +, ·_ext) è un **K-spazio vettoriale** se:
+1. (V,+) è **gruppo abeliano**
+2. ·_ext : K × V → V soddisfa:
+   - **Associatività mista:** α·(β·v) = (α·β)·v
+   - **Distributività scalari:** (α+β)·v = α·v + β·v
+   - **Distributività vettori:** α·(u+v) = α·u + α·v
+   - **Elemento neutro:** 1_K · v = v
+...
 Gruppo Simmetrico Sₙ :: B(S) = insieme delle permutazioni di S. (B(S), ∘) è un gruppo detto Sₙ. |Sₙ| = n!. Non abeliano per n ≥ 3.
 
 ## Lezione 9 — Cayley, Nilpotenti, Divisibilità, MCD, mcm, Primi
@@ -113,11 +128,18 @@ Gruppo Simmetrico Sₙ :: B(S) = insieme delle permutazioni di S. (B(S), ∘) è
 Notazione Ciclica (Permutazioni) :: Un ciclo (c₁c₂⋯cₖ): σ(cᵢ) = cᵢ₊₁, σ(cₖ) = c₁, σ(x) = x altrimenti.
 Teorema di Scomposizione Canonica :: Ogni permutazione σ ∈ Sₙ diversa dall'identità si scrive come prodotto di cicli disgiunti. La scomposizione è unica a meno dell'ordine.
 Inversa di un Ciclo :: (c₁c₂⋯cₖ)⁻¹ = (c₁cₖcₖ₋₁⋯c₂)
-Proprietà visibili dalle Tavole di Cayley :: Commutatività ⟺ tabella simmetrica; Cancellabilità ⟺ no ripetizioni in righe/colonne; Elemento Neutro ⟺ riga/colonna uguale agli indici; Simmetrizzabili ⟺ ∗ restituisce l'elemento neutro.
+Quali proprietà sono visibili dalle Tavole di Cayley?
+?
+- **Commutatività** ⟺ tabella simmetrica rispetto alla diagonale
+- **Cancellabilità** ⟺ nessuna ripetizione nelle righe/colonne
+- **Elemento Neutro** ⟺ riga/colonna con elementi uguali agli indici
+- **Simmetrizzabili** ⟺ ∗ restituisce l'elemento neutro
+...
+Cancellabilità in Strutture Finite :: In un magma **finito** (S, ∗), a è cancellabile ⟺ la funzione x ↦ a ∗ x è **iniettiva** (e quindi biettiva, essendo S finito).
 Nilpotente :: a ∈ A è nilpotente se ∃n ≥ 1 : aⁿ = 0_A. Nilpotente non nullo ⟹ Divisore dello zero.
 Divisibilità :: b | a ⟺ ∃c : a = b · c. div(a): insieme dei divisori di a. mult(b): insieme dei multipli di b.
 Associati :: Sia x, y ∈ A anello commutativo unitario. x ∼ y ⟺ ∃u ∈ U(A) : x = u · y. È una relazione di equivalenza.
-Divisori Banali e Propri :: I divisori banali di a sono gli invertibili U(A) e gli associati ad a stesso. Un divisore proprio non è né banale né invertibile.
+Divisori Banali e Propri :: I **divisori banali** di a sono: gli associati a 1 (cioè gli invertibili U(A)) e gli associati ad a stesso. Un **divisore proprio** è un divisore di a che non è né invertibile né associato ad a.
 Massimo Comun Divisore :: e = MCD(a, b) se: (1) e|a e e|b; (2) ∀x : (x|a ∧ x|b) ⇒ x|e.
 Minimo Comune Multiplo :: m = mcm(a, b) se: (1) a|m e b|m; (2) ∀x : (a|x ∧ b|x) ⇒ m|x.
 Numero Primo :: p è primo se p ∉ U(ℤ) e div(p) = {1, −1, p, −p}.
@@ -126,6 +148,7 @@ Lemma di Euclide :: Se p è primo e p|ab, allora p|a oppure p|b.
 ## Lezione 10 — Buon Ordinamento, Induzione, Divisione Euclidea, Equivalenza, Ordine
 
 Proprietà Riflessiva :: ∀x ∈ A, xRx
+<!--SR:!2026-02-25,2,248-->
 Proprietà Antiriflessiva :: ∀x ∈ A, ¬(xRx)
 Proprietà Simmetrica :: xRy ⇒ yRx
 Proprietà Asimmetrica :: xRy ⇒ ¬(yRx); implica antiriflessività.
@@ -147,6 +170,7 @@ Algoritmo di Euclide :: Calcola MCD(a,b) tramite divisioni successive: MCD(a,b) 
 Algoritmo Esteso di Euclide :: Risalendo le divisioni si trovano i coefficienti di Bézout x, y tali che ax + by = MCD(a,b).
 Teorema Fondamentale dell'Aritmetica (FTA) :: Ogni intero n ≥ 2 si scrive in modo **unico** (a meno dell'ordine) come prodotto di numeri primi.
 Definizione di Grafo :: Una relazione su A è un grafo se è: antiriflessiva e simmetrica.
+<!--SR:!2026-02-24,1,228-->
 Classe di Equivalenza :: aR = {x ∈ S | x R a}. Proprietà: non vuota, due classi sono uguali o disgiunte, la loro unione è S.
 Insieme Quoziente :: S/R = {aR | a ∈ S} — l'insieme di tutte le classi di equivalenza disgiunte.
 
@@ -157,6 +181,7 @@ Relazione di Equivalenza Indotta da Funzione :: xRf y ⟺ f(x) = f(y). Le classi
 Fattorizzazione (Applicazione Quoziente) :: Data f : S → T e Rf, l'applicazione quoziente f̄ : S/Rf → T è ben definita e iniettiva.
 Congruenza (Compatibilità) :: R è una congruenza rispetto a ∗ se: ∀a,b,c,d ∈ S : (aRc ∧ bRd) ⇒ (a∗b)R(c∗d).
 Operazione Quoziente :: Se R è congruenza su (S,∗), si definisce aR ∗R bR = (a∗b)R. La struttura quoziente eredita le proprietà algebriche.
+<!--SR:!2026-02-24,1,228-->
 Congruenza Modulo m :: a ≡ b (mod m) ⟺ m | (a − b). Equivalentemente: a e b hanno lo stesso resto nella divisione per m.
 Anello Zₘ :: L'insieme quoziente Zₘ = {0̄, 1̄, …, m−1̄} con ā + b̄ = (a+b)̄ e ā·b̄ = (ab)̄ è un anello commutativo unitario.
 
@@ -168,12 +193,15 @@ Caratteristica di Zₘ :: char(Zₘ) = m.
 Invertibili in Zₘ :: āₘ è invertibile in Zₘ ⟺ MCD(a, m) = 1.
 Divisori dello Zero in Zₘ :: āₘ ≠ 0̄ₘ è divisore dello zero in Zₘ ⟺ MCD(a, m) > 1.
 Dicotomia in Zₘ :: In Zₘ, ogni a ≠ 0 è **o invertibile o divisore dello zero**.
-Nilpotenti in Zₘ :: Sia m = p₁^α₁⋯pₜ^αₜ. Allora āₘ è nilpotente ⟺ ogni divisore primo di m divide anche a.
-Teorema di Risolubilità (Eq. Congruenziali) :: ax ≡ b (mod m) ha soluzione ⟺ d|b, dove d = MCD(a,m). Se ha soluzione, ci sono esattamente d soluzioni distinte mod m.
+Nilpotenti in Zₘ :: Sia $m = p₁^α₁⋯pₜ^αₜ$.  Allora āₘ è nilpotente ⟺ ogni divisore primo di m divide anche a. Equivalentemente: rad(m) | a.
+Radicale di m :: rad(m) = prodotto dei fattori primi distinti di m. Es: rad(12) = rad(2²·3) = 2·3 = 6.
+Numero di Nilpotenti in Zₘ :: |{ā ∈ Zₘ | ā nilpotente}| = m / rad(m) (incluso 0̄).
+Teorema di Risolubilità (Eq. Congruenziali) :: ax ≡ b (mod m) ha soluzione ⟺ d | b, dove d = MCD(a,m). Se ha soluzione, ci sono esattamente **d soluzioni distinte** mod m. Se d = 1, la soluzione unica è x ≡ a⁻¹·b (mod m).
 
 ## Lezione 14 — Idempotenti, Criteri di Divisibilità
 
 Idempotente in Zₘ :: āₘ è idempotente se a² ≡ a (mod m), cioè m | a(a−1). Sempre idempotenti: 0 e 1.
+Numero di Idempotenti in Zₘ :: Se m = p₁^α₁⋯pₖ^αₖ, il numero di idempotenti è 2ᵏ, dove k è il numero di fattori primi distinti di m.
 Formula Generale Criteri di Divisibilità :: Sia n = cₖ·10ᵏ + ⋯ + c₁·10 + c₀. Allora n ≡ Σ cᵢ·(10ⁱ mod m) (mod m).
 Criterio per 2, 5, 10 :: Dipende dall'ultima cifra (10 ≡ 0).
 Criterio per 4, 25, 100 :: Dipende dalle ultime due cifre (100 ≡ 0).
@@ -183,8 +211,8 @@ Criterio per 11 :: Dipende dalla somma a segni alterni (10 ≡ −1).
 ## Lezione 15 — Dominio, Anello Prodotto, Caratteristica Prodotto
 
 Zₙ Dominio d'Integrità :: Zₙ è un dominio d'integrità ⟺ n è primo ⟺ Zₙ è un campo.
+<!--SR:!2026-02-25,2,247-->
 Anello Prodotto — Definizione :: R × S = {(r,s) | r ∈ R, s ∈ S} con operazioni componente per componente. Zero: (0_R, 0_S). Unità: (1_R, 1_S).
-<!--SR:!2026-02-26,3,250-->
 Invertibili nell'Anello Prodotto :: (r,s) ∈ U(R×S) ⟺ r ∈ U(R) e s ∈ U(S).
 Divisori dello Zero nell'Anello Prodotto :: Sempre presenti anche se R, S sono domini: (1_R, 0_S)·(0_R, 1_S) = (0_R, 0_S).
 Caratteristica dell'Anello Prodotto :: char(R × S) = mcm(char(R), char(S)).
@@ -217,7 +245,14 @@ Massimale :: a è massimale se non esiste x ∈ S con a < x. Equivalentemente: �
 Relazione Minimo–Minimale :: Minimo ⟹ unico elemento minimale. In un ordine totale: minimale ⟺ minimo.
 Teorema — Poset Finiti :: Ogni insieme finito non vuoto parzialmente ordinato possiede almeno un minimale e almeno un massimale.
 Copertura (Successore Immediato) :: b **copre** a se: a < b ∧ ¬∃c ∈ S : a < c < b.
-Diagramma di Hasse :: Rappresentazione grafica di un poset finito. Vertici: elementi; Archi: solo relazioni di copertura; elementi maggiori più in alto. No loop, no archi transitivi, no frecce.
+Che cos'è il Diagramma di Hasse?
+?
+Rappresentazione grafica di un poset finito (S, ≤):
+- **Vertici:** elementi di S
+- **Archi:** solo relazioni di **copertura** (successore immediato)
+- **Disposizione:** elementi maggiori più in alto
+- No loop, no archi transitivi, no frecce
+...
 Minorante :: a ∈ S è un minorante di X se a ≤ x per ogni x ∈ X.
 Maggiorante :: a ∈ S è un maggiorante di X se x ≤ a per ogni x ∈ X.
 Infimo :: inf(X) = max(minoranti di X) — il più grande tra i minoranti di X (se esiste).
@@ -228,7 +263,6 @@ Supremo e mcm :: In (ℕ*, |): sup{a,b} = mcm(a,b).
 ## Lezione 19 — Divisibilità come Ordine, Ordine Indotto
 
 Divisibilità su ℕ* come Ordine :: La relazione "|" su ℕ* è un ordine parziale largo (riflessiva, antisimmetrica, transitiva). Non è totale.
-<!--SR:!2026-02-26,3,250-->
 Divisibilità su ℤ — Non è Ordine :: La relazione "|" su ℤ non è d'ordine perché non è antisimmetrica. Controesempio: 2|(−2) e (−2)|2 ma 2 ≠ −2.
 Ordine Indotto da Funzione :: Sia f : S → T e (T, ≤_T) ordinato. Su S: a ≤_f b ⟺ (a = b) ∨ (f(a) <_T f(b)). Questa è una relazione d'ordine su S.
 
@@ -246,11 +280,11 @@ Catena Massimale :: Una catena C in (S, ≤) è massimale se non può essere est
 
 Reticolo Limitato :: Un reticolo (L, ≤) è **limitato** se possiede un elemento minimo 0_L e un elemento massimo 1_L.
 Teorema — Reticoli Finiti Sono Limitati :: Ogni reticolo **finito** è limitato.
+<!--SR:!2026-02-25,2,248-->
 Corollario — Totalmente Ordinato è Reticolo :: Se (S, ≤) è totalmente ordinato, è un reticolo con a ∧ b = min{a,b} e a ∨ b = max{a,b}.
 Sottoreticolo :: A ⊆ L è un sottoreticolo se è chiuso per ∧ e ∨: ∀x,y ∈ A : x ∧ y ∈ A ∧ x ∨ y ∈ A.
 Isomorfismo di Reticoli :: f : L → M biettiva è un isomorfismo se preserva l'ordine: a ≤_L b ⟺ f(a) ≤_M f(b). Equivalentemente: f(a∧b) = f(a)∧f(b) e f(a∨b) = f(a)∨f(b).
 Complemento in un Reticolo Limitato :: a ∈ L ha un **complemento** ā se: a ∧ ā = 0_L e a ∨ ā = 1_L.
-<!--SR:!2026-02-26,3,250-->
 Reticolo Complementato :: Un reticolo limitato è complementato se ogni elemento possiede almeno un complemento.
 Reticolo Prodotto :: Dati (L₁, ≤₁) e (L₂, ≤₂): L₁ × L₂ è un reticolo con ordine e operazioni componente per componente. Se limitati, con (0₁,0₂) e (1₁,1₂).
 Reticolo dei Divisori (Dₙ, |) :: Infimo: a ∧ b = MCD(a,b); Supremo: a ∨ b = mcm(a,b); Minimo: 1; Massimo: n.
@@ -262,14 +296,30 @@ Reticolo Distributivo :: Un reticolo è distributivo se: a ∧ (b ∨ c) = (a �
 Teorema — Caratterizzazione Distributività :: Un reticolo è distributivo ⟺ **non** contiene sottoreticoli isomorfi a M₃ (diamante) o N₅ (pentagono).
 Reticolo Diamante M₃ :: Reticolo con 5 elementi {0,a,b,c,1} dove a,b,c sono mutuamente non confrontabili e 0 < a,b,c < 1. Non è distributivo (ma è modulare).
 Reticolo Pentagonale N₅ :: Reticolo con 5 elementi {0,a,b,c,1} dove 0 < a < b < 1 e 0 < c < 1 con c non confrontabile con a e b. Non è distributivo né modulare.
+<!--SR:!2026-02-24,1,227-->
 Unicità del Complemento in Reticoli Distributivi :: In un reticolo **distributivo e limitato**, se un elemento ha un complemento, questo è **unico**.
 Reticolo Booleano :: Un reticolo è **booleano** se è distributivo e complementato. Esempio: (P(S), ⊆) con complemento Aᶜ = S \ A.
 Teorema di Rappresentazione dei Reticoli Booleani :: Ogni reticolo booleano **finito** è isomorfo a (P(S), ⊆) per un opportuno insieme finito S. Se |L| = 2ⁿ, L ha n "atomi".
-Algebra di Boole :: (A, ∧, ∨, ', 0, 1) è un'algebra di Boole se soddisfa: associatività, commutatività, assorbimento, distributività, elementi neutri (a∧1=a, a∨0=a), complemento (a∧a'=0, a∨a'=1).
-<!--SR:!2026-02-26,3,250-->
+Cos'è un'Algebra di Boole?
+?
+(A, ∧, ∨, ', 0, 1) è un'algebra di Boole se soddisfa:
+1. **Associatività** di ∧ e ∨
+2. **Commutatività** di ∧ e ∨
+3. **Assorbimento:** a ∧ (a ∨ b) = a; a ∨ (a ∧ b) = a
+4. **Distributività:** a ∧ (b ∨ c) = (a ∧ b) ∨ (a ∧ c)
+5. **Elementi neutri:** a ∧ 1 = a; a ∨ 0 = a
+6. **Complemento:** a ∧ a' = 0; a ∨ a' = 1
+...
+
 Teorema di Stone :: Ogni algebra di Boole finita è isomorfa a (P(S), ∩, ∪, ᶜ, ∅, S) per un opportuno S.
 Anello Booleano :: Un anello (A, +, ·) è **booleano** se a² = a per ogni a ∈ A. Proprietà: char(A) = 2, (A,·) è commutativo. Esempio: (P(S), △, ∩).
-Da Reticolo Booleano ad Anello Booleano :: Dato un reticolo booleano (L, ∧, ∨, ', 0, 1), si costruisce l'anello booleano con: a·b = a∧b (meet); a+b = (a∧b') ∨ (b∧a') (differenza simmetrica). Relazione d'ordine recuperata: a ≤ b ⟺ a·b = a.
+Come si passa da Reticolo Booleano ad Anello Booleano?
+?
+Dato un reticolo booleano (L, ∧, ∨, ', 0, 1), si definisce (L, +, ·):
+- **Prodotto (meet):** a · b = a ∧ b
+- **Somma (diff. simmetrica):** a + b = (a ∧ b') ∨ (b ∧ a')
+- **Relazione d'ordine recuperata:** a ≤ b ⟺ a · b = a
+...
 
 
 
@@ -277,7 +327,7 @@ Da Reticolo Booleano ad Anello Booleano :: Dato un reticolo booleano (L, ∧, �
 #flashcards/Algebra/Dimostrazioni
 # Dimostrazioni da sapere
 
-Teorema Fondamentale dell'Aritmetica(TFA) 
+Teorema Fondamentale dell'Aritmetica (TFA)
 ?
 > [!important] **Teorema Fondamentale dell'Aritmetica (TFA)**
 >
@@ -352,7 +402,7 @@ Teorema Divisione euclidea
 
 ...
 
-Teorema di Bezout 
+Teorema di Bézout
 ?
 > [!important] **Identità di Bézout**
 >
@@ -387,7 +437,7 @@ Teorema di Bezout
 
 ...
 
-Teorema sulle relazioni di equivalenza e partizioni 
+Teorema sulle relazioni di equivalenza e partizioni
 ?
 > [!important] **Teorema Fondamentale sulle Relazioni di Equivalenza**
 >
@@ -451,7 +501,7 @@ Teorema sulle relazioni di equivalenza e partizioni
 
 ...
 
-Teorema fondamentale sulle relazioni d'equivalenza 
+Teorema fondamentale sulle relazioni d'equivalenza
 ?
 > [!important] **Teorema Fondamentale sulle Relazioni di Equivalenza (Versione Ristretta)**
 >
