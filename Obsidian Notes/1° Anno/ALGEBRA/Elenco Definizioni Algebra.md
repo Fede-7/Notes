@@ -1420,6 +1420,29 @@ Rappresenta il numero di modi in cui si possono scegliere elementi da un insieme
 
 ---
 
+$\textcolor{FFFFFF}{ciao}$
+## Tabella visiva delle proprietà (aiuto allo studio)
+> [!paper-fold]
+> 
+| Proprietà | Ordine Stretto | Ordine Largo / Poset | Ordine Totale | Insieme Ben Ordinato |
+| :--- | :---: | :---: | :---: | :---: |
+| **Riflessiva** | No | Sì | Sì | Sì |
+| **Antiriflessiva** | Sì | No | No | No |
+| **Antisimmetrica** | Sì* | Sì | Sì | Sì |
+| **Asimmetrica** | Sì | No | No | No |
+| **Transitiva** | Sì | Sì | Sì | Sì |
+| **Confrontabilità** | No | No | Sì | Sì |
+| **Elemento Minimo** | No | No | No | Sì** |
+>
+\* In un ordine stretto, l'asimmetria implica l'antisimmetria in modo "vuoto".
+\** La proprietà distintiva del **ben ordinato** è che ogni suo sottoinsieme non vuoto ammette un elemento minimo.
+>
+Come puoi notare, queste strutture funzionano come una "scatola cinese": ogni colonna verso destra aggiunge una proprietà restrittiva a quella precedente. 
+>
+>
+>
+>
+
 ## *Lezione 19* — Divisibilità come Ordine, Ordine Indotto
 
 ### Divisibilità come Relazione d'Ordine
