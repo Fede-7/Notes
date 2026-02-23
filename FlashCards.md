@@ -1,3 +1,4 @@
+#flashcards/Algebra
 # Flashcard Algebra — Elenco Definizioni
 
 ## Lezione 1 — Logica, Insiemi, Funzioni

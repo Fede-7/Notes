@@ -1,5 +1,6 @@
 ---
 banner: "[[Banner_n4.jpg]]"
+cssclasses:
 ---
 ## Indice
 > [!abstract] Indice
