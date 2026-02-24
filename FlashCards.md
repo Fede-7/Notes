@@ -5,10 +5,12 @@
 
 Negazione :: ¬P è vera quando P è falsa, e viceversa.
 Congiunzione :: P ∧ Q è vera solo quando **entrambe** P e Q sono vere.
+<!--SR:!2026-02-25,1,221-->
 Disgiunzione Inclusiva :: P ∨ Q è falsa solo quando **entrambe** P e Q sono false.
 Implicazione :: P ⇒ Q è falsa solo quando P è vera e Q è falsa.
 Bicondizionale :: P ⇔ Q è vera quando P e Q hanno lo **stesso valore di verità**.
 Tautologia :: Proposizione composta **sempre vera**, qualunque siano i valori di verità delle componenti. Esempio: P ∨ ¬P.
+<!--SR:!2026-02-26,2,241-->
 Contraddizione :: Proposizione composta **sempre falsa**. Esempio: P ∧ ¬P.
 XOR (Disgiunzione Esclusiva) :: a ⊕ b ⟺ (¬a ∧ b) ∨ (a ∧ ¬b)
 NAND / NOR :: Sono **funzionalmente completi**: ogni connettivo logico può essere espresso usando solo NAND (o solo NOR).
@@ -53,9 +55,11 @@ Caratterizzazione Suriettività tramite Controimmagine :: f è suriettiva ⟺ �
 Applicazioni immagine e anti-immagine banali :: f(∅) = ∅ ; f⁻¹(∅) = ∅ ; f⁻¹(B) = A ; f(A) = Im(f) ⊆ B (e f(A) = B sse f è suriettiva).
 Funzione Caratteristica :: Sia A ⊆ S. χ_A : S → {0,1} con χ_A(x) = 1 se x ∈ A, 0 se x ∉ A.
 Uguaglianza di Funzioni :: f = g sse hanno lo stesso dominio, lo stesso codominio e f(x) = g(x) per ogni x.
+<!--SR:!2026-02-25,1,221-->
 Restrizione :: Sia C ⊆ A. La restrizione di f : A → B a C è f|_C : C → B con f|_C(x) = f(x).
 Prolungamento (Estensione) :: f : A → B estende g : C → B se C ⊆ A e f(x) = g(x) per ogni x ∈ C.
 Identità :: id_A : A → A definita da id_A(a) = a. È sempre **biettiva**.
+<!--SR:!2026-02-25,1,221-->
 
 ## Lezione 4 — Biettività, Composizione, Invertibilità, Operazioni
 
@@ -77,6 +81,7 @@ Operazione n-aria :: Una funzione f : Aⁿ → A. n=1 → unaria interna; n=2 �
 ## Lezione 5 — Matrici, Semigruppo, Monoide
 
 Struttura Algebrica :: (S, O) dove S è un insieme non vuoto e O è una famiglia di operazioni su S.
+<!--SR:!2026-02-26,2,241-->
 Matrice m×n :: Tabella rettangolare di m righe e n colonne di elementi di un anello. Trasposta: (Aᵀ)ᵢⱼ = Aⱼᵢ.
 Magma :: (S, ∗), con ∗ operazione binaria interna.
 Associatività :: ∀a, b, c ∈ S : (a ∗ b) ∗ c = a ∗ (b ∗ c)
@@ -94,6 +99,7 @@ Parte Stabile (Chiusa) :: H ⊆ S è stabile per ∗ se: ∀h, k ∈ H : h ∗ k
 Gruppo :: (G, ∗) è un gruppo se: (1) ∗ è associativa; (2) esiste elemento neutro u; (3) ogni elemento ha un inverso.
 <!--SR:!2026-02-26,2,243-->
 Gruppo Abeliano :: Gruppo in cui ∗ è **commutativa**: a ∗ b = b ∗ a.
+<!--SR:!2026-02-26,2,241-->
 
 ## Lezione 7 — Anelli, Caratteristica, Cancellabilità, Divisori dello Zero
 
@@ -162,6 +168,7 @@ Proprietà Asimmetrica :: xRy ⇒ ¬(yRx); implica antiriflessività.
 Proprietà Antisimmetrica :: (xRy ∧ yRx) ⇒ x = y
 Proprietà Transitiva :: (xRy ∧ yRz) ⇒ xRz
 Insieme Parzialmente Ordinato (POSet) :: (S, ≤) dove ≤ è riflessiva, antisimmetrica, transitiva.
+<!--SR:!2026-02-26,2,241-->
 Insieme Totalmente Ordinato :: Ordine parziale con confrontabilità: ∀a, b ∈ S ⟹ a ≤ b ∨ b ≤ a.
 Ben Ordinato :: (S, ≤) è ben ordinato se ogni sottoinsieme non vuoto ammette un **minimo**. Ben ordinato ⟹ totalmente ordinato. Esempio: (ℕ, ≤).
 Principio di Induzione (Forma I) :: Se P(n̄) è vera e ∀n ≥ n̄ : P(n) ⇒ P(n+1), allora P(n) è vera ∀n ≥ n̄.
@@ -188,6 +195,7 @@ Teorema Fondamentale sulle Relazioni di Equivalenza :: Esiste una biiezione tra:
 Relazione di Equivalenza Indotta da Funzione :: xRf y ⟺ f(x) = f(y). Le classi sono le **fibre** di f: aRf = f⁻¹({f(a)}).
 Fattorizzazione (Applicazione Quoziente) :: Data f : S → T e Rf, l'applicazione quoziente f̄ : S/Rf → T è ben definita e iniettiva.
 Congruenza (Compatibilità) :: R è una congruenza rispetto a ∗ se: ∀a,b,c,d ∈ S : (aRc ∧ bRd) ⇒ (a∗b)R(c∗d).
+<!--SR:!2026-02-25,1,221-->
 Operazione Quoziente :: Se R è congruenza su (S,∗), si definisce aR ∗R bR = (a∗b)R. La struttura quoziente eredita le proprietà algebriche.
 Congruenza Modulo m :: a ≡ b (mod m) ⟺ m | (a − b). Equivalentemente: a e b hanno lo stesso resto nella divisione per m.
 Anello Zₘ :: L'insieme quoziente Zₘ = {0̄, 1̄, …, m−1̄} con ā + b̄ = (a+b)̄ e ā·b̄ = (ab)̄ è un anello commutativo unitario.
@@ -204,6 +212,7 @@ Dicotomia in Zₘ :: In Zₘ, ogni a ≠ 0 è **o invertibile o divisore dello z
 Nilpotenti in Zₘ :: Sia $m = p₁^α₁⋯pₜ^αₜ$.  Allora āₘ è nilpotente ⟺ ogni divisore primo di m divide anche a. Equivalentemente: rad(m) | a.
 <!--SR:!2026-02-25,1,230-->
 Radicale di m :: rad(m) = prodotto dei fattori primi distinti di m. Es: rad(12) = rad(2²·3) = 2·3 = 6.
+<!--SR:!2026-02-25,1,221-->
 Numero di Nilpotenti in Zₘ :: |{ā ∈ Zₘ | ā nilpotente}| = m / rad(m) (incluso 0̄).
 Teorema di Risolubilità (Eq. Congruenziali) :: ax ≡ b (mod m) ha soluzione ⟺ d | b, dove d = MCD(a,m). Se ha soluzione, ci sono esattamente **d soluzioni distinte** mod m. Se d = 1, la soluzione unica è x ≡ a⁻¹·b (mod m).
 
@@ -222,6 +231,7 @@ Criterio per 11 :: Dipende dalla somma a segni alterni (10 ≡ −1).
 
 Zₙ Dominio d'Integrità :: Zₙ è un dominio d'integrità ⟺ n è primo ⟺ Zₙ è un campo.
 Anello Prodotto — Definizione :: R × S = {(r,s) | r ∈ R, s ∈ S} con operazioni componente per componente. Zero: (0_R, 0_S). Unità: (1_R, 1_S).
+<!--SR:!2026-02-26,2,241-->
 Invertibili nell'Anello Prodotto :: (r,s) ∈ U(R×S) ⟺ r ∈ U(R) e s ∈ U(S).
 Divisori dello Zero nell'Anello Prodotto :: Sempre presenti anche se R, S sono domini: (1_R, 0_S)·(0_R, 1_S) = (0_R, 0_S).
 Caratteristica dell'Anello Prodotto :: char(R × S) = mcm(char(R), char(S)).
@@ -234,9 +244,10 @@ Funzione Totiente di Eulero :: φ(n) = |U(Zₙ)| = |{k ∈ {0,…,n−1} | MCD(k
 <!--SR:!2026-02-26,3,250-->
 Proprietà di φ (n)
 ?
- φ(p) = p−1 (p primo); 
-φ(pᵏ) = pᵏ⁻¹(p−1); 
+ φ(p) = p−1 (p primo);
+φ(pᵏ) = pᵏ⁻¹(p−1);
 φ(ab) = φ(a)φ(b) se MCD(a,b) = 1.
+<!--SR:!2026-02-26,2,241-->
 
 ...
 <!--SR:!2026-02-25,1,210-->
@@ -249,6 +260,7 @@ Identità di Pascal :: C(n,k) + C(n,k−1) = C(n+1,k).
 Somma dei Coefficienti Binomiali :: Σₖ₌₀ⁿ C(n,k) = 2ⁿ.
 Binomio di Newton :: (a+b)ⁿ = Σₖ₌₀ⁿ C(n,k) aⁿ⁻ᵏ bᵏ.
 Numero di Applicazioni Iniettive :: Il numero di f iniettive da S a T con |S|=n, |T|=m, n≤m: m!/(m−n)!.
+<!--SR:!2026-02-26,2,241-->
 
 ## Lezione 17 — Relazioni d'Ordine, Hasse, Estremi
 
@@ -259,6 +271,7 @@ Relazione tra Ordine Largo e Stretto :: x < y ⟺ (x ≤ y ∧ x ≠ y) ; x ≤ 
 Ordine Totale (o Lineare) :: Ordine ≤ su S è **totale** se ogni coppia è confrontabile: ∀x,y ∈ S : x ≤ y ∨ y ≤ x.
 Minimo :: a è minimo se a ≤ x per ogni x ∈ S. Se esiste, è **unico**.
 Massimo :: a è massimo se x ≤ a per ogni x ∈ S. Se esiste, è **unico**.
+<!--SR:!2026-02-26,2,241-->
 Minimale :: a è minimale se non esiste x ∈ S con x < a. Equivalentemente: ∀x ∈ S, (x ≤ a ⇒ x = a).
 <!--SR:!2026-02-27,3,250-->
 Massimale :: a è massimale se non esiste x ∈ S con a < x. Equivalentemente: ∀x ∈ S, (a ≤ x ⇒ x = a).
@@ -287,6 +300,7 @@ Supremo e mcm :: In (ℕ*, |): sup{a,b} = mcm(a,b).
 
 Divisibilità su ℕ* come Ordine :: La relazione "|" su ℕ* è un ordine parziale largo (riflessiva, antisimmetrica, transitiva). Non è totale.
 Divisibilità su ℤ — Non è Ordine :: La relazione "|" su ℤ non è d'ordine perché non è antisimmetrica. Controesempio: 2|(−2) e (−2)|2 ma 2 ≠ −2.
+<!--SR:!2026-02-26,2,241-->
 Ordine Indotto da Funzione :: Sia f : S → T e (T, ≤_T) ordinato. Su S: a ≤_f b ⟺ (a = b) ∨ (f(a) <_T f(b)). Questa è una relazione d'ordine su S.
 
 ## Lezione 20 — Reticoli
@@ -326,6 +340,7 @@ Reticolo Pentagonale N₅ :: Reticolo con 5 elementi {0,a,b,c,1} dove 0 < a < b 
 <!--SR:!2026-02-26,2,243-->
 Unicità del Complemento in Reticoli Distributivi :: In un reticolo **distributivo e limitato**, se un elemento ha un complemento, questo è **unico**.
 Reticolo Booleano :: Un reticolo è **booleano** se è distributivo e complementato. Esempio: (P(S), ⊆) con complemento Aᶜ = S \ A.
+<!--SR:!2026-02-25,1,221-->
 Teorema di Rappresentazione dei Reticoli Booleani :: Ogni reticolo booleano **finito** è isomorfo a (P(S), ⊆) per un opportuno insieme finito S. Se |L| = 2ⁿ, L ha n "atomi".
 Cos'è un'Algebra di Boole?
 ?
