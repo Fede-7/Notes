@@ -45,6 +45,7 @@ Iniettività :: f : A → B è iniettiva se: ∀x₁, x₂ ∈ A : f(x₁) = f(x
 <!--SR:!2026-02-26,2,243-->
 Caratterizzazione Iniettività tramite Controimmagine :: f è iniettiva ⟺ ∀b ∈ B, |f⁻¹({b})| ≤ 1
 Partizione :: Una famiglia F ⊆ P(S) è una partizione di S se: (1) ∀X ∈ F, X ≠ ∅; (2) pezzi disgiunti; (3) ⋃F = S.
+<!--SR:!2026-02-25,1,216-->
 Partizioni Banali :: F₁ = {{S}} (un solo pezzo: l'insieme intero); F₂ = {{a},{b},{c},…} (ogni pezzo è un singolo elemento).
 <!--SR:!2026-02-26,2,243-->
 
@@ -59,6 +60,7 @@ Funzione Caratteristica :: Sia A ⊆ S. χ_A : S → {0,1} con χ_A(x) = 1 se x 
 Uguaglianza di Funzioni :: f = g sse hanno lo stesso dominio, lo stesso codominio e f(x) = g(x) per ogni x.
 <!--SR:!2026-02-25,1,221-->
 Restrizione :: Sia C ⊆ A. La restrizione di f : A → B a C è f|_C : C → B con f|_C(x) = f(x).
+<!--SR:!2026-02-26,2,236-->
 Prolungamento (Estensione) :: f : A → B estende g : C → B se C ⊆ A e f(x) = g(x) per ogni x ∈ C.
 <!--SR:!2026-02-26,2,241-->
 Identità :: id_A : A → A definita da id_A(a) = a. È sempre **biettiva**.
@@ -88,6 +90,7 @@ Struttura Algebrica :: (S, O) dove S è un insieme non vuoto e O è una famiglia
 Matrice m×n :: Tabella rettangolare di m righe e n colonne di elementi di un anello. Trasposta: (Aᵀ)ᵢⱼ = Aⱼᵢ.
 Magma :: (S, ∗), con ∗ operazione binaria interna.
 Associatività :: ∀a, b, c ∈ S : (a ∗ b) ∗ c = a ∗ (b ∗ c)
+<!--SR:!2026-02-27,3,256-->
 Semigruppo :: (S, ∗) dove ∗ è un'operazione binaria **associativa**.
 Elemento Neutro :: u ∈ S tale che ∀a ∈ S : a ∗ u = u ∗ a = a. Se esiste, è **unico**.
 Monoide :: Semigruppo con elemento neutro: (S, ∗, u). Esempi: (ℕ, +, 0), (ℕ, ·, 1), (P(S), ∩, S), (P(S), ∪, ∅).
@@ -126,6 +129,7 @@ Dominio d'Integrità :: Un anello (A, +, ·) è un dominio d'integrità se: è c
 Corpo :: Un anello (K, +, ·) è un corpo se: è unitario (con 1_K ≠ 0_K) e (K*, ·) è un gruppo, dove K* = K \ {0_K}.
 Campo :: Un campo è un **corpo commutativo**. Esempi: ℚ, ℝ, ℂ, ℤ_p (con p primo).
 Teorema di Wedderburn :: Ogni corpo finito è anche un **campo**.
+<!--SR:!2026-02-25,1,216-->
 Che cos'è un K-Spazio Vettoriale?
 ?
 Sia K un campo. (V, +, ·_ext) è un **K-spazio vettoriale** se:
@@ -161,6 +165,7 @@ Divisori Banali e Propri :: I **divisori banali** di a sono: gli associati a 1 (
 <!--SR:!2026-02-25,1,221-->
 Massimo Comun Divisore :: e = MCD(a, b) se: (1) e|a e e|b; (2) ∀x : (x|a ∧ x|b) ⇒ x|e.
 Minimo Comune Multiplo :: m = mcm(a, b) se: (1) a|m e b|m; (2) ∀x : (a|x ∧ b|x) ⇒ m|x.
+<!--SR:!2026-02-26,2,236-->
 Numero Primo :: p è primo se p ∉ U(ℤ) e div(p) = {1, −1, p, −p}.
 Lemma di Euclide :: Se p è primo e p|ab, allora p|a oppure p|b.
 
@@ -343,6 +348,7 @@ Reticolo dei Divisori (Dₙ, |) :: Infimo: a ∧ b = MCD(a,b); Supremo: a ∨ b 
 Principio di Dualità :: Se un enunciato vale per tutti i reticoli, vale anche il suo **duale**, ottenuto scambiando: ≤ ↔ ≥, ∧ ↔ ∨, 0_L ↔ 1_L.
 Reticolo Distributivo :: Un reticolo è distributivo se: a ∧ (b ∨ c) = (a ∧ b) ∨ (a ∧ c). Per dualità, equivale anche a: a ∨ (b ∧ c) = (a ∨ b) ∧ (a ∨ c).
 Teorema — Caratterizzazione Distributività :: Un reticolo è distributivo ⟺ **non** contiene sottoreticoli isomorfi a M₃ (diamante) o N₅ (pentagono).
+<!--SR:!2026-02-25,1,216-->
 Reticolo Diamante M₃ :: Reticolo con 5 elementi {0,a,b,c,1} dove a,b,c sono mutuamente non confrontabili e 0 < a,b,c < 1. Non è distributivo (ma è modulare).
 Reticolo Pentagonale N₅ :: Reticolo con 5 elementi {0,a,b,c,1} dove 0 < a < b < 1 e 0 < c < 1 con c non confrontabile con a e b. Non è distributivo né modulare.
 <!--SR:!2026-02-26,2,243-->
@@ -350,6 +356,7 @@ Unicità del Complemento in Reticoli Distributivi :: In un reticolo **distributi
 Reticolo Booleano :: Un reticolo è **booleano** se è distributivo e complementato. Esempio: (P(S), ⊆) con complemento Aᶜ = S \ A.
 <!--SR:!2026-02-25,1,221-->
 Teorema di Rappresentazione dei Reticoli Booleani :: Ogni reticolo booleano **finito** è isomorfo a (P(S), ⊆) per un opportuno insieme finito S. Se |L| = 2ⁿ, L ha n "atomi".
+<!--SR:!2026-02-25,1,216-->
 Cos'è un'Algebra di Boole?
 ?
 (A, ∧, ∨, ', 0, 1) è un'algebra di Boole se soddisfa:
