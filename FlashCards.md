@@ -39,6 +39,7 @@ Ordine dei Quantificatori :: ∃y∀x φ(x,y) ⟹ ∀x∃y φ(x,y) — il viceve
 Immagine di un Sottoinsieme :: f→(X) = {f(x) | x ∈ X} ⊆ B — insieme degli elementi del codominio raggiunti da X.
 Controimmagine (Preimmagine) :: f←(Y) = {x ∈ A | f(x) ∈ Y} ⊆ A — insieme degli elementi del dominio le cui immagini cadono in Y.
 Iniettività :: f : A → B è iniettiva se: ∀x₁, x₂ ∈ A : f(x₁) = f(x₂) ⟹ x₁ = x₂
+<!--SR:!2026-02-26,2,243-->
 Caratterizzazione Iniettività tramite Controimmagine :: f è iniettiva ⟺ ∀b ∈ B, |f⁻¹({b})| ≤ 1
 Partizione :: Una famiglia F ⊆ P(S) è una partizione di S se: (1) ∀X ∈ F, X ≠ ∅; (2) pezzi disgiunti; (3) ⋃F = S.
 Partizioni Banali :: F₁ = {{S}} (un solo pezzo: l'insieme intero); F₂ = {{a},{b},{c},…} (ogni pezzo è un singolo elemento).
@@ -89,7 +90,9 @@ Prodotto Matriciale :: Date A ∈ M_{m×p} e B ∈ M_{p×n}: cᵢⱼ = Σₖ a�
 Elemento Invertibile (Simmetrizzabile) :: In un monoide (S, ∗, u), a ∈ S è invertibile se: ∃a' ∈ S : a ∗ a' = a' ∗ a = u. L'inverso è **unico**.
 U(S) — Gruppo degli Invertibili :: L'insieme degli elementi invertibili di un monoide forma un gruppo (U(S), ∗).
 Parte Stabile (Chiusa) :: H ⊆ S è stabile per ∗ se: ∀h, k ∈ H : h ∗ k ∈ H.
+<!--SR:!2026-02-26,2,243-->
 Gruppo :: (G, ∗) è un gruppo se: (1) ∗ è associativa; (2) esiste elemento neutro u; (3) ogni elemento ha un inverso.
+<!--SR:!2026-02-26,2,243-->
 Gruppo Abeliano :: Gruppo in cui ∗ è **commutativa**: a ∗ b = b ∗ a.
 
 ## Lezione 7 — Anelli, Caratteristica, Cancellabilità, Divisori dello Zero
@@ -173,6 +176,7 @@ Ordine (Parziale) :: Una relazione su A è d'ordine se è: riflessiva, antisimme
 
 Algoritmo di Euclide :: Calcola MCD(a,b) tramite divisioni successive: MCD(a,b) = MCD(b,r), finché r = 0. L'ultimo resto non nullo è il MCD.
 Algoritmo Esteso di Euclide :: Risalendo le divisioni si trovano i coefficienti di Bézout x, y tali che ax + by = MCD(a,b).
+<!--SR:!2026-02-25,1,223-->
 Teorema Fondamentale dell'Aritmetica (FTA) :: Ogni intero n ≥ 2 si scrive in modo **unico** (a meno dell'ordine) come prodotto di numeri primi.
 Definizione di Grafo :: Una relazione su A è un grafo se è: antiriflessiva e simmetrica.
 Classe di Equivalenza :: aR = {x ∈ S | x R a}. Proprietà: non vuota, due classi sono uguali o disgiunte, la loro unione è S.
@@ -296,6 +300,7 @@ Idempotenza nel Reticolo :: Dalle leggi di assorbimento: a ∧ a = a e a ∨ a =
 Equivalenza Ordine ↔ Algebrica :: Le due definizioni di reticolo sono equivalenti. La relazione d'ordine si recupera da: a ≤ b ⟺ a ∧ b = a ⟺ a ∨ b = b.
 L'Insieme delle Parti è un Reticolo :: (P(S), ⊆) è un reticolo con A ∧ B = A ∩ B e A ∨ B = A ∪ B.
 Catena :: Un sottoinsieme C ⊆ S di un insieme ordinato (S, ≤) è una catena se è totalmente ordinato: ∀x,y ∈ C : x ≤ y ∨ y ≤ x.
+<!--SR:!2026-02-26,2,243-->
 Catena Massimale :: Una catena C in (S, ≤) è massimale se non può essere estesa: non esiste s ∈ S \ C tale che C ∪ {s} sia ancora una catena.
 
 ## Lezione 21 — Reticoli Limitati, Sottoreticoli, Isomorfismi, Complementati, Prodotto
@@ -303,6 +308,7 @@ Catena Massimale :: Una catena C in (S, ≤) è massimale se non può essere est
 Reticolo Limitato :: Un reticolo (L, ≤) è **limitato** se possiede un elemento minimo 0_L e un elemento massimo 1_L.
 Teorema — Reticoli Finiti Sono Limitati :: Ogni reticolo **finito** è limitato.
 Corollario — Totalmente Ordinato è Reticolo :: Se (S, ≤) è totalmente ordinato, è un reticolo con a ∧ b = min{a,b} e a ∨ b = max{a,b}.
+<!--SR:!2026-02-26,2,243-->
 Sottoreticolo :: A ⊆ L è un sottoreticolo se è chiuso per ∧ e ∨: ∀x,y ∈ A : x ∧ y ∈ A ∧ x ∨ y ∈ A.
 Isomorfismo di Reticoli :: f : L → M biettiva è un isomorfismo se preserva l'ordine: a ≤_L b ⟺ f(a) ≤_M f(b). Equivalentemente: f(a∧b) = f(a)∧f(b) e f(a∨b) = f(a)∨f(b).
 Complemento in un Reticolo Limitato :: a ∈ L ha un **complemento** ā se: a ∧ ā = 0_L e a ∨ ā = 1_L.
