@@ -14,11 +14,12 @@ XOR (Disgiunzione Esclusiva) :: a ⊕ b ⟺ (¬a ∧ b) ∨ (a ∧ ¬b)
 NAND / NOR :: Sono **funzionalmente completi**: ogni connettivo logico può essere espresso usando solo NAND (o solo NOR).
 Legge di De Morgan :: ¬(P ∧ Q) ⇔ ¬P ∨ ¬Q ; ¬(P ∨ Q) ⇔ ¬P ∧ ¬Q
 Predicato :: Proprietà o relazione con variabili; una formula ben formata (FBF) diventa proposizione quando le variabili vengono sostituite.
+<!--SR:!2026-02-25,1,210-->
 Quantificatore Universale :: ∀x P(x): «per ogni x, vale P(x)».
 Quantificatore Esistenziale :: ∃x P(x): «esiste almeno un x tale che P(x)».
 Quantificatore Esistenziale Unico :: ∃!x P(x) ⟺ ∃x P(x) ∧ ∀x∀y(P(x) ∧ P(y) ⇒ x = y)
 Variabile Vincolata :: Una variabile che compare nel raggio d'azione di un quantificatore. Altrimenti è **libera**. Una formula senza variabili libere è detta **chiusa**.
-Insieme :: Collezione di oggetti distinti, detti **elementi**. Si scrive a ∈ A se a appartiene ad A.
+C'os è un Insieme? :: Collezione di oggetti distinti, detti **elementi**. Si scrive a ∈ A se a appartiene ad A.
 Insieme Vuoto :: ∅ — l'insieme privo di elementi.
 Sottoinsieme :: A ⊆ B ⟺ ∀x (x ∈ A ⇒ x ∈ B).
 Prodotto Cartesiano :: A × B = {(a, b) | a ∈ A ∧ b ∈ B}
@@ -29,6 +30,7 @@ Complemento :: Aᶜ = {x ∈ U | x ∉ A}
 Differenza Simmetrica :: A △ B = (A \ B) ∪ (B \ A)
 Relazione (Corrispondenza) :: ρ ⊆ A × B — un sottoinsieme del prodotto cartesiano.
 Funzione :: f : A → B è una relazione tale che ∀a ∈ A, ∃!b ∈ B con (a, b) ∈ Gf. A è il **dominio**, B il **codominio**.
+<!--SR:!2026-02-26,2,243-->
 
 ## Lezione 2 — Quantificatori, Immagini, Iniettività, Partizioni
 
@@ -40,10 +42,12 @@ Iniettività :: f : A → B è iniettiva se: ∀x₁, x₂ ∈ A : f(x₁) = f(x
 Caratterizzazione Iniettività tramite Controimmagine :: f è iniettiva ⟺ ∀b ∈ B, |f⁻¹({b})| ≤ 1
 Partizione :: Una famiglia F ⊆ P(S) è una partizione di S se: (1) ∀X ∈ F, X ≠ ∅; (2) pezzi disgiunti; (3) ⋃F = S.
 Partizioni Banali :: F₁ = {{S}} (un solo pezzo: l'insieme intero); F₂ = {{a},{b},{c},…} (ogni pezzo è un singolo elemento).
+<!--SR:!2026-02-26,2,243-->
 
 ## Lezione 3 — Suriettività, Funzione Caratteristica, Restrizione, Identità
 
 Suriettività :: f : A → B è suriettiva se: ∀b ∈ B, ∃a ∈ A : f(a) = b
+<!--SR:!2026-02-26,2,243-->
 Caratterizzazione Suriettività tramite Controimmagine :: f è suriettiva ⟺ ∀b ∈ B, |f⁻¹({b})| ≥ 1
 Applicazioni immagine e anti-immagine banali :: f(∅) = ∅ ; f⁻¹(∅) = ∅ ; f⁻¹(B) = A ; f(A) = Im(f) ⊆ B (e f(A) = B sse f è suriettiva).
 Funzione Caratteristica :: Sia A ⊆ S. χ_A : S → {0,1} con χ_A(x) = 1 se x ∈ A, 0 se x ∉ A.
@@ -58,10 +62,12 @@ Biettività :: f : A → B è biettiva se è **iniettiva e suriettiva**: ∀b �
 Caratterizzazione Biettività :: f è biettiva ⟺ per ogni b ∈ B, la controimmagine f⁻¹({b}) è un singleton.
 Equipotenza :: |A| = |B| ⟺ ∃f biettiva tra A e B.
 Composizione :: Date f : A → B e g : B → C: (g ∘ f)(x) = g(f(x)), (g ∘ f) : A → C.
+<!--SR:!2026-02-26,2,243-->
 Proprietà della Composizione :: Associativa: (h ∘ g) ∘ f = h ∘ (g ∘ f). Non commutativa: g ∘ f ≠ f ∘ g.
 Corrispondenza Complementare :: Data φ ⊆ A × B: φ' = (A × B) \ φ.
 Corrispondenza Inversa :: Data φ ⊆ A × B: φ⁻¹ = {(b, a) ∈ B × A : (a, b) ∈ φ}.
 Funzione Invertibile :: f : A → B è invertibile ⟺ ∃f⁻¹ : B → A t.c. f⁻¹ ∘ f = id_A e f ∘ f⁻¹ = id_B.
+<!--SR:!2026-02-25,1,230-->
 Teorema Fondamentale — Invertibilità :: Una funzione f è completamente invertibile ⟺ **biettiva**.
 Inversa Sinistra :: g ∘ f = id_A. Esiste ⟺ f è **iniettiva**.
 Inversa Destra :: f ∘ h = id_B. Esiste ⟺ f è **suriettiva**.
@@ -92,6 +98,7 @@ Inversa 2×2 :: Sia A = [[a,b],[c,d]] con det(A) = ad − bc ≠ 0: A⁻¹ = 1/(
 Anello :: (A, +, ·) è un anello se: (1) (A,+) è gruppo abeliano; (2) (A,·) è semigruppo; (3) valgono le proprietà distributive.
 Anello Commutativo :: (S, ·) commutativo: a · b = b · a per ogni a, b.
 Anello Unitario :: (S, ·) monoide: esiste un'unità 1_A tale che a · 1_A = 1_A · a = a.
+<!--SR:!2026-02-26,2,230-->
 Anello Booleano :: Anello con a · a = a per ogni a. Esempio: (P(S), △, ∩).
 Caratteristica di un Anello Unitario :: char(A) = min{m > 0 | 1_A + ⋯ + 1_A (m volte) = 0_A}. Se non esiste, char(A) = 0.
 Cancellabilità :: a è cancellabile a sinistra se a·b = a·c ⇒ b = c. A destra se b·a = c·a ⇒ b = c. Invertibile ⟹ Cancellabile.
@@ -100,7 +107,9 @@ Divisore dello Zero :: a ≠ 0_A è divisore dello zero se ∃b ≠ 0_A : a · b
 ## Lezione 8 — Omomorfismo, Dominio, Campo, Spazio Vettoriale, Sn
 
 Omomorfismo :: f : (S, ∗) → (T, ·) è un omomorfismo se: f(a ∗ b) = f(a) · f(b) ∀a, b ∈ S.
+<!--SR:!2026-02-26,2,230-->
 Dominio d'Integrità :: Un anello (A, +, ·) è un dominio d'integrità se: è commutativo, è unitario (con 1_A ≠ 0_A), è privo di divisori dello zero. Esempi: ℤ, ℚ, ℝ, ℂ.
+<!--SR:!2026-02-26,3,250-->
 Corpo :: Un anello (K, +, ·) è un corpo se: è unitario (con 1_K ≠ 0_K) e (K*, ·) è un gruppo, dove K* = K \ {0_K}.
 Campo :: Un campo è un **corpo commutativo**. Esempi: ℚ, ℝ, ℂ, ℤ_p (con p primo).
 Teorema di Wedderburn :: Ogni corpo finito è anche un **campo**.
@@ -119,6 +128,7 @@ Gruppo Simmetrico Sₙ :: B(S) = insieme delle permutazioni di S. (B(S), ∘) è
 ## Lezione 9 — Cayley, Nilpotenti, Divisibilità, MCD, mcm, Primi
 
 Notazione Ciclica (Permutazioni) :: Un ciclo (c₁c₂⋯cₖ): σ(cᵢ) = cᵢ₊₁, σ(cₖ) = c₁, σ(x) = x altrimenti.
+<!--SR:!2026-02-26,2,230-->
 Teorema di Scomposizione Canonica :: Ogni permutazione σ ∈ Sₙ diversa dall'identità si scrive come prodotto di cicli disgiunti. La scomposizione è unica a meno dell'ordine.
 Inversa di un Ciclo :: (c₁c₂⋯cₖ)⁻¹ = (c₁cₖcₖ₋₁⋯c₂)
 Quali proprietà sono visibili dalle Tavole di Cayley?
@@ -127,6 +137,7 @@ Quali proprietà sono visibili dalle Tavole di Cayley?
 - **Cancellabilità** ⟺ nessuna ripetizione nelle righe/colonne
 - **Elemento Neutro** ⟺ riga/colonna con elementi uguali agli indici
 - **Simmetrizzabili** ⟺ ∗ restituisce l'elemento neutro
+<!--SR:!2026-02-26,3,250-->
 ...
 Cancellabilità in Strutture Finite :: In un magma **finito** (S, ∗), a è cancellabile ⟺ la funzione x ↦ a ∗ x è **iniettiva** (e quindi biettiva, essendo S finito).
 Nilpotente :: a ∈ A è nilpotente se ∃n ≥ 1 : aⁿ = 0_A. Nilpotente non nullo ⟹ Divisore dello zero.
@@ -187,6 +198,7 @@ Invertibili in Zₘ :: āₘ è invertibile in Zₘ ⟺ MCD(a, m) = 1.
 Divisori dello Zero in Zₘ :: āₘ ≠ 0̄ₘ è divisore dello zero in Zₘ ⟺ MCD(a, m) > 1.
 Dicotomia in Zₘ :: In Zₘ, ogni a ≠ 0 è **o invertibile o divisore dello zero**.
 Nilpotenti in Zₘ :: Sia $m = p₁^α₁⋯pₜ^αₜ$.  Allora āₘ è nilpotente ⟺ ogni divisore primo di m divide anche a. Equivalentemente: rad(m) | a.
+<!--SR:!2026-02-25,1,230-->
 Radicale di m :: rad(m) = prodotto dei fattori primi distinti di m. Es: rad(12) = rad(2²·3) = 2·3 = 6.
 Numero di Nilpotenti in Zₘ :: |{ā ∈ Zₘ | ā nilpotente}| = m / rad(m) (incluso 0̄).
 Teorema di Risolubilità (Eq. Congruenziali) :: ax ≡ b (mod m) ha soluzione ⟺ d | b, dove d = MCD(a,m). Se ha soluzione, ci sono esattamente **d soluzioni distinte** mod m. Se d = 1, la soluzione unica è x ≡ a⁻¹·b (mod m).
@@ -198,6 +210,7 @@ Numero di Idempotenti in Zₘ :: Se m = p₁^α₁⋯pₖ^αₖ, il numero di id
 Formula Generale Criteri di Divisibilità :: Sia n = cₖ·10ᵏ + ⋯ + c₁·10 + c₀. Allora n ≡ Σ cᵢ·(10ⁱ mod m) (mod m).
 Criterio per 2, 5, 10 :: Dipende dall'ultima cifra (10 ≡ 0).
 Criterio per 4, 25, 100 :: Dipende dalle ultime due cifre (100 ≡ 0).
+<!--SR:!2026-02-26,2,243-->
 Criterio per 3 e 9 :: Dipende dalla somma delle cifre (10 ≡ 1).
 Criterio per 11 :: Dipende dalla somma a segni alterni (10 ≡ −1).
 
@@ -215,12 +228,20 @@ Teorema Cinese dei Resti (TCR) :: Zₘₙ ≅ Zₘ × Zₙ ⟺ MCD(m,n) = 1. Iso
 Equazione Diofantea Lineare :: ax + by = c con a,b,c ∈ ℤ, soluzioni x,y ∈ ℤ. Ha soluzione ⟺ MCD(a,b)|c.
 Funzione Totiente di Eulero :: φ(n) = |U(Zₙ)| = |{k ∈ {0,…,n−1} | MCD(k,n) = 1}|.
 <!--SR:!2026-02-26,3,250-->
-Proprietà di φ :: φ(p) = p−1 (p primo); φ(pᵏ) = pᵏ⁻¹(p−1); φ(ab) = φ(a)φ(b) se MCD(a,b) = 1.
+Proprietà di φ (n)
+?
+ φ(p) = p−1 (p primo); 
+φ(pᵏ) = pᵏ⁻¹(p−1); 
+φ(ab) = φ(a)φ(b) se MCD(a,b) = 1.
+
+...
+<!--SR:!2026-02-25,1,210-->
 Teorema di Fermat-Eulero :: Se MCD(a,n) = 1, allora: a^φ(n) ≡ 1 (mod n).
 Piccolo Teorema di Fermat :: Se p è primo e p∤a: aᵖ⁻¹ ≡ 1 (mod p).
 Fattoriale :: n! = n·(n−1)·…·2·1 per n ≥ 1; 0! = 1.
 Coefficiente Binomiale :: C(n,k) = n! / (k!(n−k)!) per 0 ≤ k ≤ n. Rappresenta il numero di modi di scegliere k elementi da n senza ordine e senza ripetizioni.
 Identità di Pascal :: C(n,k) + C(n,k−1) = C(n+1,k).
+<!--SR:!2026-02-26,2,230-->
 Somma dei Coefficienti Binomiali :: Σₖ₌₀ⁿ C(n,k) = 2ⁿ.
 Binomio di Newton :: (a+b)ⁿ = Σₖ₌₀ⁿ C(n,k) aⁿ⁻ᵏ bᵏ.
 Numero di Applicazioni Iniettive :: Il numero di f iniettive da S a T con |S|=n, |T|=m, n≤m: m!/(m−n)!.
@@ -235,6 +256,7 @@ Ordine Totale (o Lineare) :: Ordine ≤ su S è **totale** se ogni coppia è con
 Minimo :: a è minimo se a ≤ x per ogni x ∈ S. Se esiste, è **unico**.
 Massimo :: a è massimo se x ≤ a per ogni x ∈ S. Se esiste, è **unico**.
 Minimale :: a è minimale se non esiste x ∈ S con x < a. Equivalentemente: ∀x ∈ S, (x ≤ a ⇒ x = a).
+<!--SR:!2026-02-27,3,250-->
 Massimale :: a è massimale se non esiste x ∈ S con a < x. Equivalentemente: ∀x ∈ S, (a ≤ x ⇒ x = a).
 Relazione Minimo–Minimale :: Minimo ⟹ unico elemento minimale. In un ordine totale: minimale ⟺ minimo.
 Teorema — Poset Finiti :: Ogni insieme finito non vuoto parzialmente ordinato possiede almeno un minimale e almeno un massimale.
@@ -246,6 +268,7 @@ Rappresentazione grafica di un poset finito (S, ≤):
 - **Archi:** solo relazioni di **copertura** (successore immediato)
 - **Disposizione:** elementi maggiori più in alto
 - No loop, no archi transitivi, no frecce
+<!--SR:!2026-02-26,2,243-->
 ...
 Minorante :: a ∈ S è un minorante di X se a ≤ x per ogni x ∈ X.
 Maggiorante :: a ∈ S è un maggiorante di X se x ≤ a per ogni x ∈ X.
@@ -254,6 +277,7 @@ Supremo (Sup(X)) :: sup(X) = min(maggioranti di X) — il più piccolo tra i mag
 <!--SR:!2026-02-26,3,250-->
 Infimo e MCD :: In (ℕ*, |): inf{a,b} = MCD(a,b).
 Supremo e mcm :: In (ℕ*, |): sup{a,b} = mcm(a,b).
+<!--SR:!2026-02-26,2,243-->
 
 ## Lezione 19 — Divisibilità come Ordine, Ordine Indotto
 
@@ -266,7 +290,9 @@ Ordine Indotto da Funzione :: Sia f : S → T e (T, ≤_T) ordinato. Su S: a ≤
 Reticolo (Definizione tramite Ordine) :: Un poset (L, ≤) è un **reticolo** se per ogni coppia a,b ∈ L esistono: inf{a,b} = a ∧ b (meet) e sup{a,b} = a ∨ b (join).
 <!--SR:!2026-02-26,3,250-->
 Reticolo (Definizione Algebrica) :: Una struttura (L, ∧, ∨) è un reticolo se ∧ e ∨ soddisfano: associatività, commutatività, assorbimento (a ∧ (a ∨ b) = a; a ∨ (a ∧ b) = a).
+<!--SR:!2026-02-25,1,223-->
 Idempotenza nel Reticolo :: Dalle leggi di assorbimento: a ∧ a = a e a ∨ a = a.
+<!--SR:!2026-02-25,1,223-->
 Equivalenza Ordine ↔ Algebrica :: Le due definizioni di reticolo sono equivalenti. La relazione d'ordine si recupera da: a ≤ b ⟺ a ∧ b = a ⟺ a ∨ b = b.
 L'Insieme delle Parti è un Reticolo :: (P(S), ⊆) è un reticolo con A ∧ B = A ∩ B e A ∨ B = A ∪ B.
 Catena :: Un sottoinsieme C ⊆ S di un insieme ordinato (S, ≤) è una catena se è totalmente ordinato: ∀x,y ∈ C : x ≤ y ∨ y ≤ x.
@@ -291,6 +317,7 @@ Reticolo Distributivo :: Un reticolo è distributivo se: a ∧ (b ∨ c) = (a �
 Teorema — Caratterizzazione Distributività :: Un reticolo è distributivo ⟺ **non** contiene sottoreticoli isomorfi a M₃ (diamante) o N₅ (pentagono).
 Reticolo Diamante M₃ :: Reticolo con 5 elementi {0,a,b,c,1} dove a,b,c sono mutuamente non confrontabili e 0 < a,b,c < 1. Non è distributivo (ma è modulare).
 Reticolo Pentagonale N₅ :: Reticolo con 5 elementi {0,a,b,c,1} dove 0 < a < b < 1 e 0 < c < 1 con c non confrontabile con a e b. Non è distributivo né modulare.
+<!--SR:!2026-02-26,2,243-->
 Unicità del Complemento in Reticoli Distributivi :: In un reticolo **distributivo e limitato**, se un elemento ha un complemento, questo è **unico**.
 Reticolo Booleano :: Un reticolo è **booleano** se è distributivo e complementato. Esempio: (P(S), ⊆) con complemento Aᶜ = S \ A.
 Teorema di Rappresentazione dei Reticoli Booleani :: Ogni reticolo booleano **finito** è isomorfo a (P(S), ⊆) per un opportuno insieme finito S. Se |L| = 2ⁿ, L ha n "atomi".
@@ -313,6 +340,7 @@ Dato un reticolo booleano (L, ∧, ∨, ', 0, 1), si definisce (L, +, ·):
 - **Prodotto (meet):** a · b = a ∧ b
 - **Somma (diff. simmetrica):** a + b = (a ∧ b') ∨ (b ∧ a')
 - **Relazione d'ordine recuperata:** a ≤ b ⟺ a · b = a
+<!--SR:!2026-02-25,1,230-->
 ...
 
 
