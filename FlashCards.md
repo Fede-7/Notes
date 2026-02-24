@@ -99,6 +99,7 @@ Monoide :: Semigruppo con elemento neutro: (S, ∗, u). Esempi: (ℕ, +, 0), (�
 
 Prodotto Matriciale :: Date A ∈ M_{m×p} e B ∈ M_{p×n}: cᵢⱼ = Σₖ aᵢₖ · bₖⱼ. Non commutativo; associativo; Iₙ è elemento neutro.
 Elemento Invertibile (Simmetrizzabile) :: In un monoide (S, ∗, u), a ∈ S è invertibile se: ∃a' ∈ S : a ∗ a' = a' ∗ a = u. L'inverso è **unico**.
+<!--SR:!2026-02-26,2,236-->
 U(S) — Gruppo degli Invertibili :: L'insieme degli elementi invertibili di un monoide forma un gruppo (U(S), ∗).
 Parte Stabile (Chiusa) :: H ⊆ S è stabile per ∗ se: ∀h, k ∈ H : h ∗ k ∈ H.
 <!--SR:!2026-02-26,2,243-->
@@ -127,6 +128,7 @@ Omomorfismo :: f : (S, ∗) → (T, ·) è un omomorfismo se: f(a ∗ b) = f(a) 
 Dominio d'Integrità :: Un anello (A, +, ·) è un dominio d'integrità se: è commutativo, è unitario (con 1_A ≠ 0_A), è privo di divisori dello zero. Esempi: ℤ, ℚ, ℝ, ℂ.
 <!--SR:!2026-02-26,3,250-->
 Corpo :: Un anello (K, +, ·) è un corpo se: è unitario (con 1_K ≠ 0_K) e (K*, ·) è un gruppo, dove K* = K \ {0_K}.
+<!--SR:!2026-02-26,2,236-->
 Campo :: Un campo è un **corpo commutativo**. Esempi: ℚ, ℝ, ℂ, ℤ_p (con p primo).
 Teorema di Wedderburn :: Ogni corpo finito è anche un **campo**.
 <!--SR:!2026-02-25,1,216-->
@@ -168,6 +170,7 @@ Minimo Comune Multiplo :: m = mcm(a, b) se: (1) a|m e b|m; (2) ∀x : (a|x ∧ b
 <!--SR:!2026-02-26,2,236-->
 Numero Primo :: p è primo se p ∉ U(ℤ) e div(p) = {1, −1, p, −p}.
 Lemma di Euclide :: Se p è primo e p|ab, allora p|a oppure p|b.
+<!--SR:!2026-02-26,2,236-->
 
 ## Lezione 10 — Buon Ordinamento, Induzione, Divisione Euclidea, Equivalenza, Ordine
 
@@ -182,10 +185,12 @@ Insieme Parzialmente Ordinato (POSet) :: (S, ≤) dove ≤ è riflessiva, antisi
 <!--SR:!2026-02-26,2,241-->
 Insieme Totalmente Ordinato :: Ordine parziale con confrontabilità: ∀a, b ∈ S ⟹ a ≤ b ∨ b ≤ a.
 Ben Ordinato :: (S, ≤) è ben ordinato se ogni sottoinsieme non vuoto ammette un **minimo**. Ben ordinato ⟹ totalmente ordinato. Esempio: (ℕ, ≤).
+<!--SR:!2026-02-26,2,236-->
 Principio di Induzione (Forma I) :: Se P(n̄) è vera e ∀n ≥ n̄ : P(n) ⇒ P(n+1), allora P(n) è vera ∀n ≥ n̄.
 Principio di Induzione (Forma II — Forte) :: Se P(n̄) è vera e ∀n > n̄ : (∀i : n̄ ≤ i < n ⇒ P(i)) ⇒ P(n), allora P(n) è vera ∀n ≥ n̄.
 Teorema della Divisione Euclidea :: ∀m, n ∈ ℤ, n ≠ 0, ∃!q, r ∈ ℤ : m = n·q + r, 0 ≤ r < |n|.
 Identità di Bézout :: MCD(a, b) = a·x + b·y per opportuni x, y ∈ ℤ. Corollario: a, b coprimi ⟺ ∃x,y : ax + by = 1.
+<!--SR:!2026-02-26,2,236-->
 Relazione d'Equivalenza :: Una relazione binaria R su A è di equivalenza se è: riflessiva, simmetrica, transitiva.
 <!--SR:!2026-02-26,3,250-->
 Ordine (Parziale) :: Una relazione su A è d'ordine se è: riflessiva, antisimmetrica, transitiva. È totale se ∀x,y : xRy ∨ yRx.
@@ -231,6 +236,7 @@ Teorema di Risolubilità (Eq. Congruenziali) :: ax ≡ b (mod m) ha soluzione �
 
 Idempotente in Zₘ :: āₘ è idempotente se a² ≡ a (mod m), cioè m | a(a−1). Sempre idempotenti: 0 e 1.
 Numero di Idempotenti in Zₘ :: Se m = p₁^α₁⋯pₖ^αₖ, il numero di idempotenti è 2ᵏ, dove k è il numero di fattori primi distinti di m.
+<!--SR:!2026-02-26,2,236-->
 Formula Generale Criteri di Divisibilità :: Sia n = cₖ·10ᵏ + ⋯ + c₁·10 + c₀. Allora n ≡ Σ cᵢ·(10ⁱ mod m) (mod m).
 Criterio per 2, 5, 10 :: Dipende dall'ultima cifra (10 ≡ 0).
 Criterio per 4, 25, 100 :: Dipende dalle ultime due cifre (100 ≡ 0).
