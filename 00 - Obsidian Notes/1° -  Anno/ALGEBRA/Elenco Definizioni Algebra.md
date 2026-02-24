@@ -928,7 +928,7 @@ Il Lemma di Euclide è cruciale per dimostrare l'unicità della fattorizzazione:
 >
 > **Dimostrazione:**
 >
-> **Riflessiva:** $\forall x \in S$. Poiché $\mathcal{F}$ è partizione: $\bigcup_{A \in \mathcal{F}} A = S$.
+> **Riflessiva:** $\forall x \in S$. Poiché $\mathcal{F}$ è partizione: $\bigcup_{A \in \space \mathcal{F}} A = S$.
 > Quindi $x \in A$ per qualche $A \in \mathcal{F}$. Per definizione: $x R_{\mathcal{F}} x$. ✓
 >
 > **Simmetrica:** Se $x R_{\mathcal{F}} y$, allora $\exists A \in \mathcal{F}: x \in A \land y \in A$.
