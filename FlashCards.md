@@ -39,6 +39,7 @@ Funzione :: f : A → B è una relazione tale che ∀a ∈ A, ∃!b ∈ B con (a
 Negazione dei Quantificatori :: ¬(∀x P(x)) ⟺ ∃x(¬P(x)) ; ¬(∃x P(x)) ⟺ ∀x(¬P(x))
 Ordine dei Quantificatori :: ∃y∀x φ(x,y) ⟹ ∀x∃y φ(x,y) — il viceversa non vale in generale.
 Immagine di un Sottoinsieme :: f→(X) = {f(x) | x ∈ X} ⊆ B — insieme degli elementi del codominio raggiunti da X.
+<!--SR:!2026-02-25,1,221-->
 Controimmagine (Preimmagine) :: f←(Y) = {x ∈ A | f(x) ∈ Y} ⊆ A — insieme degli elementi del dominio le cui immagini cadono in Y.
 Iniettività :: f : A → B è iniettiva se: ∀x₁, x₂ ∈ A : f(x₁) = f(x₂) ⟹ x₁ = x₂
 <!--SR:!2026-02-26,2,243-->
@@ -54,10 +55,12 @@ Suriettività :: f : A → B è suriettiva se: ∀b ∈ B, ∃a ∈ A : f(a) = b
 Caratterizzazione Suriettività tramite Controimmagine :: f è suriettiva ⟺ ∀b ∈ B, |f⁻¹({b})| ≥ 1
 Applicazioni immagine e anti-immagine banali :: f(∅) = ∅ ; f⁻¹(∅) = ∅ ; f⁻¹(B) = A ; f(A) = Im(f) ⊆ B (e f(A) = B sse f è suriettiva).
 Funzione Caratteristica :: Sia A ⊆ S. χ_A : S → {0,1} con χ_A(x) = 1 se x ∈ A, 0 se x ∉ A.
+<!--SR:!2026-02-25,1,221-->
 Uguaglianza di Funzioni :: f = g sse hanno lo stesso dominio, lo stesso codominio e f(x) = g(x) per ogni x.
 <!--SR:!2026-02-25,1,221-->
 Restrizione :: Sia C ⊆ A. La restrizione di f : A → B a C è f|_C : C → B con f|_C(x) = f(x).
 Prolungamento (Estensione) :: f : A → B estende g : C → B se C ⊆ A e f(x) = g(x) per ogni x ∈ C.
+<!--SR:!2026-02-26,2,241-->
 Identità :: id_A : A → A definita da id_A(a) = a. È sempre **biettiva**.
 <!--SR:!2026-02-25,1,221-->
 
@@ -105,6 +108,7 @@ Gruppo Abeliano :: Gruppo in cui ∗ è **commutativa**: a ∗ b = b ∗ a.
 
 Inversa 2×2 :: Sia A = [[a,b],[c,d]] con det(A) = ad − bc ≠ 0: A⁻¹ = 1/(ad−bc) · [[d,−b],[−c,a]]
 Anello :: (A, +, ·) è un anello se: (1) (A,+) è gruppo abeliano; (2) (A,·) è semigruppo; (3) valgono le proprietà distributive.
+<!--SR:!2026-02-25,1,221-->
 Anello Commutativo :: (S, ·) commutativo: a · b = b · a per ogni a, b.
 Anello Unitario :: (S, ·) monoide: esiste un'unità 1_A tale che a · 1_A = 1_A · a = a.
 <!--SR:!2026-02-26,2,230-->
@@ -152,7 +156,9 @@ Cancellabilità in Strutture Finite :: In un magma **finito** (S, ∗), a è can
 Nilpotente :: a ∈ A è nilpotente se ∃n ≥ 1 : aⁿ = 0_A. Nilpotente non nullo ⟹ Divisore dello zero.
 Divisibilità :: b | a ⟺ ∃c : a = b · c. div(a): insieme dei divisori di a. mult(b): insieme dei multipli di b.
 Associati :: Sia x, y ∈ A anello commutativo unitario. x ∼ y ⟺ ∃u ∈ U(A) : x = u · y. È una relazione di equivalenza.
+<!--SR:!2026-02-25,1,221-->
 Divisori Banali e Propri :: I **divisori banali** di a sono: gli associati a 1 (cioè gli invertibili U(A)) e gli associati ad a stesso. Un **divisore proprio** è un divisore di a che non è né invertibile né associato ad a.
+<!--SR:!2026-02-25,1,221-->
 Massimo Comun Divisore :: e = MCD(a, b) se: (1) e|a e e|b; (2) ∀x : (x|a ∧ x|b) ⇒ x|e.
 Minimo Comune Multiplo :: m = mcm(a, b) se: (1) a|m e b|m; (2) ∀x : (a|x ∧ b|x) ⇒ m|x.
 Numero Primo :: p è primo se p ∉ U(ℤ) e div(p) = {1, −1, p, −p}.
@@ -226,6 +232,7 @@ Criterio per 4, 25, 100 :: Dipende dalle ultime due cifre (100 ≡ 0).
 <!--SR:!2026-02-26,2,243-->
 Criterio per 3 e 9 :: Dipende dalla somma delle cifre (10 ≡ 1).
 Criterio per 11 :: Dipende dalla somma a segni alterni (10 ≡ −1).
+<!--SR:!2026-02-26,2,241-->
 
 ## Lezione 15 — Dominio, Anello Prodotto, Caratteristica Prodotto
 
@@ -259,6 +266,7 @@ Identità di Pascal :: C(n,k) + C(n,k−1) = C(n+1,k).
 <!--SR:!2026-02-26,2,230-->
 Somma dei Coefficienti Binomiali :: Σₖ₌₀ⁿ C(n,k) = 2ⁿ.
 Binomio di Newton :: (a+b)ⁿ = Σₖ₌₀ⁿ C(n,k) aⁿ⁻ᵏ bᵏ.
+<!--SR:!2026-02-26,2,241-->
 Numero di Applicazioni Iniettive :: Il numero di f iniettive da S a T con |S|=n, |T|=m, n≤m: m!/(m−n)!.
 <!--SR:!2026-02-26,2,241-->
 
