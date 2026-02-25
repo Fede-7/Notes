@@ -7,6 +7,7 @@ Negazione :: ¬P è vera quando P è falsa, e viceversa.
 Congiunzione :: P ∧ Q è vera solo quando **entrambe** P e Q sono vere.
 <!--SR:!2026-02-28,3,241-->
 Disgiunzione Inclusiva :: P ∨ Q è falsa solo quando **entrambe** P e Q sono false.
+<!--SR:!2026-02-26,1,215-->
 Implicazione :: P ⇒ Q è falsa solo quando P è vera e Q è falsa.
 Bicondizionale :: P ⇔ Q è vera quando P e Q hanno lo **stesso valore di verità**.
 <!--SR:!2026-02-26,1,215-->
@@ -54,7 +55,7 @@ Iniettività :: f : A → B è iniettiva se: ∀x₁, x₂ ∈ A : f(x₁) = f(x
 Caratterizzazione Iniettività tramite Controimmagine :: f è iniettiva ⟺ ∀b ∈ B, |f⁻¹({b})| ≤ 1
 <!--SR:!2026-02-27,2,235-->
 Partizione :: Una famiglia F ⊆ P(S) è una partizione di S se: (1) ∀X ∈ F, X ≠ ∅; (2) pezzi disgiunti; (3) ⋃F = S.
-<!--SR:!2026-02-25,1,216-->
+<!--SR:!2026-02-28,3,236-->
 Partizioni Banali :: F₁ = {{S}} (un solo pezzo: l'insieme intero); F₂ = {{a},{b},{c},…} (ogni pezzo è un singolo elemento).
 <!--SR:!2026-02-26,2,243-->
 
@@ -68,7 +69,7 @@ Applicazioni immagine e anti-immagine banali :: f(∅) = ∅ ; f⁻¹(∅) = ∅
 Funzione Caratteristica :: Sia A ⊆ S. χ_A : S → {0,1} con χ_A(x) = 1 se x ∈ A, 0 se x ∉ A.
 <!--SR:!2026-02-28,3,241-->
 Uguaglianza di Funzioni :: f = g sse hanno lo stesso dominio, lo stesso codominio e f(x) = g(x) per ogni x.
-<!--SR:!2026-02-25,1,221-->
+<!--SR:!2026-02-28,3,241-->
 Restrizione :: Sia C ⊆ A. La restrizione di f : A → B a C è f|_C : C → B con f|_C(x) = f(x).
 <!--SR:!2026-02-26,2,236-->
 Prolungamento (Estensione) :: f : A → B estende g : C → B se C ⊆ A e f(x) = g(x) per ogni x ∈ C.
@@ -90,7 +91,7 @@ Corrispondenza Inversa :: Data φ ⊆ A × B: φ⁻¹ = {(b, a) ∈ B × A : (a,
 Funzione Invertibile :: f : A → B è invertibile ⟺ ∃f⁻¹ : B → A t.c. f⁻¹ ∘ f = id_A e f ∘ f⁻¹ = id_B.
 <!--SR:!2026-02-28,3,250-->
 Teorema Fondamentale — Invertibilità :: Una funzione f è completamente invertibile ⟺ **biettiva**.
-<!--SR:!2026-02-25,1,215-->
+<!--SR:!2026-02-28,3,235-->
 Inversa Sinistra :: g ∘ f = id_A. Esiste ⟺ f è **iniettiva**.
 <!--SR:!2026-02-26,2,235-->
 Inversa Destra :: f ∘ h = id_B. Esiste ⟺ f è **suriettiva**.
@@ -129,7 +130,7 @@ Gruppo Abeliano :: Gruppo in cui ∗ è **commutativa**: a ∗ b = b ∗ a.
 
 Inversa 2×2 :: Sia A = [[a,b],[c,d]] con det(A) = ad − bc ≠ 0: A⁻¹ = 1/(ad−bc) · [[d,−b],[−c,a]]
 Anello :: (A, +, ·) è un anello se: (1) (A,+) è gruppo abeliano; (2) (A,·) è semigruppo; (3) valgono le proprietà distributive.
-<!--SR:!2026-02-25,1,221-->
+<!--SR:!2026-02-28,3,241-->
 Anello Commutativo :: (S, ·) commutativo: a · b = b · a per ogni a, b.
 <!--SR:!2026-02-27,2,235-->
 Anello Unitario :: (S, ·) monoide: esiste un'unità 1_A tale che a · 1_A = 1_A · a = a.
@@ -137,6 +138,7 @@ Anello Unitario :: (S, ·) monoide: esiste un'unità 1_A tale che a · 1_A = 1_A
 Anello Booleano :: Anello con a · a = a per ogni a. Esempio: (P(S), △, ∩).
 Caratteristica di un Anello Unitario :: char(A) = min{m > 0 | 1_A + ⋯ + 1_A (m volte) = 0_A}. Se non esiste, char(A) = 0.
 Cancellabilità :: a è cancellabile a sinistra se a·b = a·c ⇒ b = c. A destra se b·a = c·a ⇒ b = c. Invertibile ⟹ Cancellabile.
+<!--SR:!2026-02-28,3,255-->
 Divisore dello Zero :: a ≠ 0_A è divisore dello zero se ∃b ≠ 0_A : a · b = 0_A. Equivalentemente: a ≠ 0 è divisore dello zero ⟺ a non è cancellabile.
 
 ## Lezione 8 — Omomorfismo, Dominio, Campo, Spazio Vettoriale, Sn
@@ -150,7 +152,7 @@ Corpo :: Un anello (K, +, ·) è un corpo se: è unitario (con 1_K ≠ 0_K) e (K
 Campo :: Un campo è un **corpo commutativo**. Esempi: ℚ, ℝ, ℂ, ℤ_p (con p primo).
 <!--SR:!2026-02-27,2,235-->
 Teorema di Wedderburn :: Ogni corpo finito è anche un **campo**.
-<!--SR:!2026-02-25,1,216-->
+<!--SR:!2026-02-26,1,196-->
 Che cos'è un K-Spazio Vettoriale?
 ?
 Sia K un campo. (V, +, ·_ext) è un **K-spazio vettoriale** se:
@@ -198,7 +200,7 @@ Lemma di Euclide :: Se p è primo e p|ab, allora p|a oppure p|b.
 ## Lezione 10 — Buon Ordinamento, Induzione, Divisione Euclidea, Equivalenza, Ordine
 
 Proprietà Riflessiva :: ∀x ∈ A, xRx
-<!--SR:!2026-02-25,2,248-->
+<!--SR:!2026-03-04,7,268-->
 Proprietà Antiriflessiva :: ∀x ∈ A, ¬(xRx)
 <!--SR:!2026-02-28,3,255-->
 Proprietà Simmetrica :: xRy ⇒ yRx
@@ -224,7 +226,7 @@ Ordine (Parziale) :: Una relazione su A è d'ordine se è: riflessiva, antisimme
 
 Algoritmo di Euclide :: Calcola MCD(a,b) tramite divisioni successive: MCD(a,b) = MCD(b,r), finché r = 0. L'ultimo resto non nullo è il MCD.
 Algoritmo Esteso di Euclide :: Risalendo le divisioni si trovano i coefficienti di Bézout x, y tali che ax + by = MCD(a,b).
-<!--SR:!2026-02-25,1,223-->
+<!--SR:!2026-02-28,3,243-->
 Teorema Fondamentale dell'Aritmetica (FTA) :: Ogni intero n ≥ 2 si scrive in modo **unico** (a meno dell'ordine) come prodotto di numeri primi.
 <!--SR:!2026-02-27,2,235-->
 Definizione di Grafo :: Una relazione su A è un grafo se è: antiriflessiva e simmetrica.
@@ -238,7 +240,7 @@ Teorema Fondamentale sulle Relazioni di Equivalenza :: Esiste una biiezione tra:
 Relazione di Equivalenza Indotta da Funzione :: xRf y ⟺ f(x) = f(y). Le classi sono le **fibre** di f: aRf = f⁻¹({f(a)}).
 Fattorizzazione (Applicazione Quoziente) :: Data f : S → T e Rf, l'applicazione quoziente f̄ : S/Rf → T è ben definita e iniettiva.
 Congruenza (Compatibilità) :: R è una congruenza rispetto a ∗ se: ∀a,b,c,d ∈ S : (aRc ∧ bRd) ⇒ (a∗b)R(c∗d).
-<!--SR:!2026-02-25,1,221-->
+<!--SR:!2026-02-28,3,241-->
 Operazione Quoziente :: Se R è congruenza su (S,∗), si definisce aR ∗R bR = (a∗b)R. La struttura quoziente eredita le proprietà algebriche.
 Congruenza Modulo m :: a ≡ b (mod m) ⟺ m | (a − b). Equivalentemente: a e b hanno lo stesso resto nella divisione per m.
 <!--SR:!2026-02-27,2,235-->
@@ -362,7 +364,7 @@ Ordine Indotto da Funzione :: Sia f : S → T e (T, ≤_T) ordinato. Su S: a ≤
 Reticolo (Definizione tramite Ordine) :: Un poset (L, ≤) è un **reticolo** se per ogni coppia a,b ∈ L esistono: inf{a,b} = a ∧ b (meet) e sup{a,b} = a ∨ b (join).
 <!--SR:!2026-02-26,3,250-->
 Reticolo (Definizione Algebrica) :: Una struttura (L, ∧, ∨) è un reticolo se ∧ e ∨ soddisfano: associatività, commutatività, assorbimento (a ∧ (a ∨ b) = a; a ∨ (a ∧ b) = a).
-<!--SR:!2026-02-25,1,223-->
+<!--SR:!2026-02-28,3,243-->
 Idempotenza nel Reticolo :: Dalle leggi di assorbimento: a ∧ a = a e a ∨ a = a.
 <!--SR:!2026-02-26,1,203-->
 Equivalenza Ordine ↔ Algebrica :: Le due definizioni di reticolo sono equivalenti. La relazione d'ordine si recupera da: a ≤ b ⟺ a ∧ b = a ⟺ a ∨ b = b.
@@ -400,9 +402,9 @@ Reticolo Pentagonale N₅ :: Reticolo con 5 elementi {0,a,b,c,1} dove 0 < a < b 
 <!--SR:!2026-02-26,2,243-->
 Unicità del Complemento in Reticoli Distributivi :: In un reticolo **distributivo e limitato**, se un elemento ha un complemento, questo è **unico**.
 Reticolo Booleano :: Un reticolo è **booleano** se è distributivo e complementato. Esempio: (P(S), ⊆) con complemento Aᶜ = S \ A.
-<!--SR:!2026-02-25,1,221-->
+<!--SR:!2026-02-28,3,241-->
 Teorema di Rappresentazione dei Reticoli Booleani :: Ogni reticolo booleano **finito** è isomorfo a (P(S), ⊆) per un opportuno insieme finito S. Se |L| = 2ⁿ, L ha n "atomi".
-<!--SR:!2026-02-25,1,216-->
+<!--SR:!2026-02-26,1,196-->
 Cos'è un'Algebra di Boole?
 ?
 (A, ∧, ∨, ', 0, 1) è un'algebra di Boole se soddisfa:
@@ -424,8 +426,9 @@ Dato un reticolo booleano (L, ∧, ∨, ', 0, 1), si definisce (L, +, ·):
 - **Prodotto (meet):** a · b = a ∧ b
 - **Somma (diff. simmetrica):** a + b = (a ∧ b') ∨ (b ∧ a')
 - **Relazione d'ordine recuperata:** a ≤ b ⟺ a · b = a
-<!--SR:!2026-02-25,1,230-->
+
 ...
+<!--SR:!2026-02-26,1,210-->
 
 
 
