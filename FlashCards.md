@@ -215,6 +215,7 @@ Associati :: Sia x, y ∈ A anello commutativo unitario. x ∼ y ⟺ ∃u ∈ U(
 Divisori Banali e Propri :: I **divisori banali** di a sono: gli associati a 1 (cioè gli invertibili U(A)) e gli associati ad a stesso. Un **divisore proprio** è un divisore di a che non è né invertibile né associato ad a.
 <!--SR:!2026-02-26,1,201-->
 Massimo Comun Divisore :: e = MCD(a, b) se: (1) e|a e e|b; (2) ∀x : (x|a ∧ x|b) ⇒ x|e.
+<!--SR:!2026-02-28,3,263-->
 Minimo Comune Multiplo :: m = mcm(a, b) se: (1) a|m e b|m; (2) ∀x : (a|x ∧ b|x) ⇒ m|x.
 <!--SR:!2026-02-26,2,236-->
 Numero Primo :: p è primo se p ∉ U(ℤ) e div(p) = {1, −1, p, −p}.
@@ -353,6 +354,7 @@ Teorema di Fermat-Eulero :: Se MCD(a,n) = 1, allora: a^φ(n) ≡ 1 (mod n).
 Piccolo Teorema di Fermat :: Se p è primo e p∤a: aᵖ⁻¹ ≡ 1 (mod p).
 <!--SR:!2026-02-26,1,215-->
 Fattoriale :: n! = n·(n−1)·…·2·1 per n ≥ 1; 0! = 1.
+<!--SR:!2026-02-28,3,263-->
 Coefficiente Binomiale :: C(n,k) = n! / (k!(n−k)!) per 0 ≤ k ≤ n. Rappresenta il numero di modi di scegliere k elementi da n senza ordine e senza ripetizioni.
 <!--SR:!2026-02-28,3,255-->
 Identità di Pascal :: C(n,k) + C(n,k−1) = C(n+1,k).
