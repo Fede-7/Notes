@@ -9,6 +9,7 @@ Congiunzione :: P ∧ Q è vera solo quando **entrambe** P e Q sono vere.
 Disgiunzione Inclusiva :: P ∨ Q è falsa solo quando **entrambe** P e Q sono false.
 <!--SR:!2026-02-26,1,215-->
 Implicazione :: P ⇒ Q è falsa solo quando P è vera e Q è falsa.
+<!--SR:!2026-02-28,3,255-->
 Bicondizionale :: P ⇔ Q è vera quando P e Q hanno lo **stesso valore di verità**.
 <!--SR:!2026-02-26,1,215-->
 Tautologia :: Proposizione composta **sempre vera**, qualunque siano i valori di verità delle componenti. Esempio: P ∨ ¬P.
@@ -50,6 +51,7 @@ Ordine dei Quantificatori :: ∃y∀x φ(x,y) ⟹ ∀x∃y φ(x,y) — il viceve
 Immagine di un Sottoinsieme :: f→(X) = {f(x) | x ∈ X} ⊆ B — insieme degli elementi del codominio raggiunti da X.
 <!--SR:!2026-02-28,3,241-->
 Controimmagine (Preimmagine) :: f←(Y) = {x ∈ A | f(x) ∈ Y} ⊆ A — insieme degli elementi del dominio le cui immagini cadono in Y.
+<!--SR:!2026-02-28,3,255-->
 Iniettività :: f : A → B è iniettiva se: ∀x₁, x₂ ∈ A : f(x₁) = f(x₂) ⟹ x₁ = x₂
 <!--SR:!2026-02-26,2,243-->
 Caratterizzazione Iniettività tramite Controimmagine :: f è iniettiva ⟺ ∀b ∈ B, |f⁻¹({b})| ≤ 1
@@ -85,6 +87,7 @@ Equipotenza :: |A| = |B| ⟺ ∃f biettiva tra A e B.
 Composizione :: Date f : A → B e g : B → C: (g ∘ f)(x) = g(f(x)), (g ∘ f) : A → C.
 <!--SR:!2026-02-26,2,243-->
 Proprietà della Composizione :: Associativa: (h ∘ g) ∘ f = h ∘ (g ∘ f). Non commutativa: g ∘ f ≠ f ∘ g.
+<!--SR:!2026-02-28,3,255-->
 Corrispondenza Complementare :: Data φ ⊆ A × B: φ' = (A × B) \ φ.
 <!--SR:!2026-02-26,1,215-->
 Corrispondenza Inversa :: Data φ ⊆ A × B: φ⁻¹ = {(b, a) ∈ B × A : (a, b) ∈ φ}.
@@ -165,6 +168,7 @@ Sia K un campo. (V, +, ·_ext) è un **K-spazio vettoriale** se:
 <!--SR:!2026-02-27,2,235-->
 ...
 Gruppo Simmetrico Sₙ :: B(S) = insieme delle permutazioni di S. (B(S), ∘) è un gruppo detto Sₙ. |Sₙ| = n!. Non abeliano per n ≥ 3.
+<!--SR:!2026-02-28,3,255-->
 
 ## Lezione 9 — Cayley, Nilpotenti, Divisibilità, MCD, mcm, Primi
 
@@ -182,6 +186,7 @@ Quali proprietà sono visibili dalle Tavole di Cayley?
 <!--SR:!2026-02-26,3,250-->
 ...
 Cancellabilità in Strutture Finite :: In un magma **finito** (S, ∗), a è cancellabile ⟺ la funzione x ↦ a ∗ x è **iniettiva** (e quindi biettiva, essendo S finito).
+<!--SR:!2026-02-28,3,255-->
 Nilpotente :: a ∈ A è nilpotente se ∃n ≥ 1 : aⁿ = 0_A. Nilpotente non nullo ⟹ Divisore dello zero.
 <!--SR:!2026-02-27,2,235-->
 Divisibilità :: b | a ⟺ ∃c : a = b · c. div(a): insieme dei divisori di a. mult(b): insieme dei multipli di b.
@@ -207,7 +212,9 @@ Proprietà Simmetrica :: xRy ⇒ yRx
 <!--SR:!2026-02-27,2,235-->
 Proprietà Asimmetrica :: xRy ⇒ ¬(yRx); implica antiriflessività.
 Proprietà Antisimmetrica :: (xRy ∧ yRx) ⇒ x = y
+<!--SR:!2026-02-28,3,255-->
 Proprietà Transitiva :: (xRy ∧ yRz) ⇒ xRz
+<!--SR:!2026-02-28,3,255-->
 Insieme Parzialmente Ordinato (POSet) :: (S, ≤) dove ≤ è riflessiva, antisimmetrica, transitiva.
 <!--SR:!2026-02-26,2,241-->
 Insieme Totalmente Ordinato :: Ordine parziale con confrontabilità: ∀a, b ∈ S ⟹ a ≤ b ∨ b ≤ a.
@@ -221,6 +228,7 @@ Identità di Bézout :: MCD(a, b) = a·x + b·y per opportuni x, y ∈ ℤ. Coro
 Relazione d'Equivalenza :: Una relazione binaria R su A è di equivalenza se è: riflessiva, simmetrica, transitiva.
 <!--SR:!2026-02-26,3,250-->
 Ordine (Parziale) :: Una relazione su A è d'ordine se è: riflessiva, antisimmetrica, transitiva. È totale se ∀x,y : xRy ∨ yRx.
+<!--SR:!2026-02-28,3,255-->
 
 ## Lezione 11 — Algoritmo di Euclide, FTA, Classi di Equivalenza
 
@@ -261,6 +269,7 @@ Nilpotenti in Zₘ :: Sia $m = p₁^α₁⋯pₜ^αₜ$.  Allora āₘ è nilpot
 Radicale di m :: rad(m) = prodotto dei fattori primi distinti di m. Es: rad(12) = rad(2²·3) = 2·3 = 6.
 <!--SR:!2026-02-28,3,241-->
 Numero di Nilpotenti in Zₘ :: |{ā ∈ Zₘ | ā nilpotente}| = m / rad(m) (incluso 0̄).
+<!--SR:!2026-02-28,3,255-->
 Teorema di Risolubilità (Eq. Congruenziali) :: ax ≡ b (mod m) ha soluzione ⟺ d | b, dove d = MCD(a,m). Se ha soluzione, ci sono esattamente **d soluzioni distinte** mod m. Se d = 1, la soluzione unica è x ≡ a⁻¹·b (mod m).
 <!--SR:!2026-02-26,1,215-->
 
@@ -318,10 +327,12 @@ Numero di Applicazioni Iniettive :: Il numero di f iniettive da S a T con |S|=n,
 ## Lezione 17 — Relazioni d'Ordine, Hasse, Estremi
 
 Relazione d'Ordine Largo (Parziale) :: ≤ è d'ordine se: riflessiva, antisimmetrica, transitiva.
+<!--SR:!2026-02-28,3,255-->
 Ordine Stretto :: < è d'ordine stretto se: antiriflessiva, transitiva. Implica automaticamente l'asimmetria.
 Relazione tra Ordine Largo e Stretto :: x < y ⟺ (x ≤ y ∧ x ≠ y) ; x ≤ y ⟺ (x < y ∨ x = y).
 <!--SR:!2026-02-26,3,250-->
 Ordine Totale (o Lineare) :: Ordine ≤ su S è **totale** se ogni coppia è confrontabile: ∀x,y ∈ S : x ≤ y ∨ y ≤ x.
+<!--SR:!2026-02-28,3,255-->
 Minimo :: a è minimo se a ≤ x per ogni x ∈ S. Se esiste, è **unico**.
 <!--SR:!2026-02-27,2,235-->
 Massimo :: a è massimo se x ≤ a per ogni x ∈ S. Se esiste, è **unico**.
@@ -368,6 +379,7 @@ Reticolo (Definizione Algebrica) :: Una struttura (L, ∧, ∨) è un reticolo s
 Idempotenza nel Reticolo :: Dalle leggi di assorbimento: a ∧ a = a e a ∨ a = a.
 <!--SR:!2026-02-26,1,203-->
 Equivalenza Ordine ↔ Algebrica :: Le due definizioni di reticolo sono equivalenti. La relazione d'ordine si recupera da: a ≤ b ⟺ a ∧ b = a ⟺ a ∨ b = b.
+<!--SR:!2026-02-28,3,255-->
 L'Insieme delle Parti è un Reticolo :: (P(S), ⊆) è un reticolo con A ∧ B = A ∩ B e A ∨ B = A ∪ B.
 <!--SR:!2026-02-27,2,235-->
 Catena :: Un sottoinsieme C ⊆ S di un insieme ordinato (S, ≤) è una catena se è totalmente ordinato: ∀x,y ∈ C : x ≤ y ∨ y ≤ x.
@@ -382,8 +394,10 @@ Teorema — Reticoli Finiti Sono Limitati :: Ogni reticolo **finito** è limitat
 Corollario — Totalmente Ordinato è Reticolo :: Se (S, ≤) è totalmente ordinato, è un reticolo con a ∧ b = min{a,b} e a ∨ b = max{a,b}.
 <!--SR:!2026-02-26,2,243-->
 Sottoreticolo :: A ⊆ L è un sottoreticolo se è chiuso per ∧ e ∨: ∀x,y ∈ A : x ∧ y ∈ A ∧ x ∨ y ∈ A.
+<!--SR:!2026-02-28,3,255-->
 Isomorfismo di Reticoli :: f : L → M biettiva è un isomorfismo se preserva l'ordine: a ≤_L b ⟺ f(a) ≤_M f(b). Equivalentemente: f(a∧b) = f(a)∧f(b) e f(a∨b) = f(a)∨f(b).
 Complemento in un Reticolo Limitato :: a ∈ L ha un **complemento** ā se: a ∧ ā = 0_L e a ∨ ā = 1_L.
+<!--SR:!2026-02-28,3,255-->
 Reticolo Complementato :: Un reticolo limitato è complementato se ogni elemento possiede almeno un complemento.
 Reticolo Prodotto :: Dati (L₁, ≤₁) e (L₂, ≤₂): L₁ × L₂ è un reticolo con ordine e operazioni componente per componente. Se limitati, con (0₁,0₂) e (1₁,1₂).
 <!--SR:!2026-02-27,2,235-->
@@ -394,6 +408,7 @@ Reticolo dei Divisori (Dₙ, |) :: Infimo: a ∧ b = MCD(a,b); Supremo: a ∨ b 
 
 Principio di Dualità :: Se un enunciato vale per tutti i reticoli, vale anche il suo **duale**, ottenuto scambiando: ≤ ↔ ≥, ∧ ↔ ∨, 0_L ↔ 1_L.
 Reticolo Distributivo :: Un reticolo è distributivo se: a ∧ (b ∨ c) = (a ∧ b) ∨ (a ∧ c). Per dualità, equivale anche a: a ∨ (b ∧ c) = (a ∨ b) ∧ (a ∨ c).
+<!--SR:!2026-02-28,3,255-->
 Teorema — Caratterizzazione Distributività :: Un reticolo è distributivo ⟺ **non** contiene sottoreticoli isomorfi a M₃ (diamante) o N₅ (pentagono).
 <!--SR:!2026-02-26,1,196-->
 Reticolo Diamante M₃ :: Reticolo con 5 elementi {0,a,b,c,1} dove a,b,c sono mutuamente non confrontabili e 0 < a,b,c < 1. Non è distributivo (ma è modulare).
@@ -401,6 +416,7 @@ Reticolo Diamante M₃ :: Reticolo con 5 elementi {0,a,b,c,1} dove a,b,c sono mu
 Reticolo Pentagonale N₅ :: Reticolo con 5 elementi {0,a,b,c,1} dove 0 < a < b < 1 e 0 < c < 1 con c non confrontabile con a e b. Non è distributivo né modulare.
 <!--SR:!2026-02-26,2,243-->
 Unicità del Complemento in Reticoli Distributivi :: In un reticolo **distributivo e limitato**, se un elemento ha un complemento, questo è **unico**.
+<!--SR:!2026-02-28,3,255-->
 Reticolo Booleano :: Un reticolo è **booleano** se è distributivo e complementato. Esempio: (P(S), ⊆) con complemento Aᶜ = S \ A.
 <!--SR:!2026-02-28,3,241-->
 Teorema di Rappresentazione dei Reticoli Booleani :: Ogni reticolo booleano **finito** è isomorfo a (P(S), ⊆) per un opportuno insieme finito S. Se |L| = 2ⁿ, L ha n "atomi".
