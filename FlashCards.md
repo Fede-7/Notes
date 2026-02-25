@@ -5,7 +5,7 @@
 
 Negazione :: ¬P è vera quando P è falsa, e viceversa.
 Congiunzione :: P ∧ Q è vera solo quando **entrambe** P e Q sono vere.
-<!--SR:!2026-02-25,1,221-->
+<!--SR:!2026-02-28,3,241-->
 Disgiunzione Inclusiva :: P ∨ Q è falsa solo quando **entrambe** P e Q sono false.
 Implicazione :: P ⇒ Q è falsa solo quando P è vera e Q è falsa.
 Bicondizionale :: P ⇔ Q è vera quando P e Q hanno lo **stesso valore di verità**.
@@ -20,7 +20,7 @@ NAND / NOR :: Sono **funzionalmente completi**: ogni connettivo logico può esse
 Legge di De Morgan :: ¬(P ∧ Q) ⇔ ¬P ∨ ¬Q ; ¬(P ∨ Q) ⇔ ¬P ∧ ¬Q
 <!--SR:!2026-02-27,2,235-->
 Predicato :: Proprietà o relazione con variabili; una formula ben formata (FBF) diventa proposizione quando le variabili vengono sostituite.
-<!--SR:!2026-02-25,1,210-->
+<!--SR:!2026-02-26,1,190-->
 Quantificatore Universale :: ∀x P(x): «per ogni x, vale P(x)».
 Quantificatore Esistenziale :: ∃x P(x): «esiste almeno un x tale che P(x)».
 <!--SR:!2026-02-27,2,235-->
@@ -47,7 +47,7 @@ Negazione dei Quantificatori :: ¬(∀x P(x)) ⟺ ∃x(¬P(x)) ; ¬(∃x P(x)) �
 Ordine dei Quantificatori :: ∃y∀x φ(x,y) ⟹ ∀x∃y φ(x,y) — il viceversa non vale in generale.
 <!--SR:!2026-02-28,3,255-->
 Immagine di un Sottoinsieme :: f→(X) = {f(x) | x ∈ X} ⊆ B — insieme degli elementi del codominio raggiunti da X.
-<!--SR:!2026-02-25,1,221-->
+<!--SR:!2026-02-28,3,241-->
 Controimmagine (Preimmagine) :: f←(Y) = {x ∈ A | f(x) ∈ Y} ⊆ A — insieme degli elementi del dominio le cui immagini cadono in Y.
 Iniettività :: f : A → B è iniettiva se: ∀x₁, x₂ ∈ A : f(x₁) = f(x₂) ⟹ x₁ = x₂
 <!--SR:!2026-02-26,2,243-->
@@ -66,7 +66,7 @@ Caratterizzazione Suriettività tramite Controimmagine :: f è suriettiva ⟺ �
 <!--SR:!2026-02-27,2,235-->
 Applicazioni immagine e anti-immagine banali :: f(∅) = ∅ ; f⁻¹(∅) = ∅ ; f⁻¹(B) = A ; f(A) = Im(f) ⊆ B (e f(A) = B sse f è suriettiva).
 Funzione Caratteristica :: Sia A ⊆ S. χ_A : S → {0,1} con χ_A(x) = 1 se x ∈ A, 0 se x ∉ A.
-<!--SR:!2026-02-25,1,221-->
+<!--SR:!2026-02-28,3,241-->
 Uguaglianza di Funzioni :: f = g sse hanno lo stesso dominio, lo stesso codominio e f(x) = g(x) per ogni x.
 <!--SR:!2026-02-25,1,221-->
 Restrizione :: Sia C ⊆ A. La restrizione di f : A → B a C è f|_C : C → B con f|_C(x) = f(x).
@@ -74,7 +74,7 @@ Restrizione :: Sia C ⊆ A. La restrizione di f : A → B a C è f|_C : C → B 
 Prolungamento (Estensione) :: f : A → B estende g : C → B se C ⊆ A e f(x) = g(x) per ogni x ∈ C.
 <!--SR:!2026-02-26,2,241-->
 Identità :: id_A : A → A definita da id_A(a) = a. È sempre **biettiva**.
-<!--SR:!2026-02-25,1,221-->
+<!--SR:!2026-02-28,3,241-->
 
 ## Lezione 4 — Biettività, Composizione, Invertibilità, Operazioni
 
@@ -88,7 +88,7 @@ Corrispondenza Complementare :: Data φ ⊆ A × B: φ' = (A × B) \ φ.
 <!--SR:!2026-02-26,1,215-->
 Corrispondenza Inversa :: Data φ ⊆ A × B: φ⁻¹ = {(b, a) ∈ B × A : (a, b) ∈ φ}.
 Funzione Invertibile :: f : A → B è invertibile ⟺ ∃f⁻¹ : B → A t.c. f⁻¹ ∘ f = id_A e f ∘ f⁻¹ = id_B.
-<!--SR:!2026-02-25,1,230-->
+<!--SR:!2026-02-28,3,250-->
 Teorema Fondamentale — Invertibilità :: Una funzione f è completamente invertibile ⟺ **biettiva**.
 <!--SR:!2026-02-25,1,215-->
 Inversa Sinistra :: g ∘ f = id_A. Esiste ⟺ f è **iniettiva**.
@@ -185,9 +185,9 @@ Nilpotente :: a ∈ A è nilpotente se ∃n ≥ 1 : aⁿ = 0_A. Nilpotente non n
 Divisibilità :: b | a ⟺ ∃c : a = b · c. div(a): insieme dei divisori di a. mult(b): insieme dei multipli di b.
 <!--SR:!2026-02-26,1,215-->
 Associati :: Sia x, y ∈ A anello commutativo unitario. x ∼ y ⟺ ∃u ∈ U(A) : x = u · y. È una relazione di equivalenza.
-<!--SR:!2026-02-25,1,221-->
+<!--SR:!2026-02-28,3,241-->
 Divisori Banali e Propri :: I **divisori banali** di a sono: gli associati a 1 (cioè gli invertibili U(A)) e gli associati ad a stesso. Un **divisore proprio** è un divisore di a che non è né invertibile né associato ad a.
-<!--SR:!2026-02-25,1,221-->
+<!--SR:!2026-02-26,1,201-->
 Massimo Comun Divisore :: e = MCD(a, b) se: (1) e|a e e|b; (2) ∀x : (x|a ∧ x|b) ⇒ x|e.
 Minimo Comune Multiplo :: m = mcm(a, b) se: (1) a|m e b|m; (2) ∀x : (a|x ∧ b|x) ⇒ m|x.
 <!--SR:!2026-02-26,2,236-->
@@ -255,9 +255,9 @@ Invertibili in Zₘ :: āₘ è invertibile in Zₘ ⟺ MCD(a, m) = 1.
 Divisori dello Zero in Zₘ :: āₘ ≠ 0̄ₘ è divisore dello zero in Zₘ ⟺ MCD(a, m) > 1.
 Dicotomia in Zₘ :: In Zₘ, ogni a ≠ 0 è **o invertibile o divisore dello zero**.
 Nilpotenti in Zₘ :: Sia $m = p₁^α₁⋯pₜ^αₜ$.  Allora āₘ è nilpotente ⟺ ogni divisore primo di m divide anche a. Equivalentemente: rad(m) | a.
-<!--SR:!2026-02-25,1,230-->
+<!--SR:!2026-02-28,3,250-->
 Radicale di m :: rad(m) = prodotto dei fattori primi distinti di m. Es: rad(12) = rad(2²·3) = 2·3 = 6.
-<!--SR:!2026-02-25,1,221-->
+<!--SR:!2026-02-28,3,241-->
 Numero di Nilpotenti in Zₘ :: |{ā ∈ Zₘ | ā nilpotente}| = m / rad(m) (incluso 0̄).
 Teorema di Risolubilità (Eq. Congruenziali) :: ax ≡ b (mod m) ha soluzione ⟺ d | b, dove d = MCD(a,m). Se ha soluzione, ci sono esattamente **d soluzioni distinte** mod m. Se d = 1, la soluzione unica è x ≡ a⁻¹·b (mod m).
 <!--SR:!2026-02-26,1,215-->
@@ -364,7 +364,7 @@ Reticolo (Definizione tramite Ordine) :: Un poset (L, ≤) è un **reticolo** se
 Reticolo (Definizione Algebrica) :: Una struttura (L, ∧, ∨) è un reticolo se ∧ e ∨ soddisfano: associatività, commutatività, assorbimento (a ∧ (a ∨ b) = a; a ∨ (a ∧ b) = a).
 <!--SR:!2026-02-25,1,223-->
 Idempotenza nel Reticolo :: Dalle leggi di assorbimento: a ∧ a = a e a ∨ a = a.
-<!--SR:!2026-02-25,1,223-->
+<!--SR:!2026-02-26,1,203-->
 Equivalenza Ordine ↔ Algebrica :: Le due definizioni di reticolo sono equivalenti. La relazione d'ordine si recupera da: a ≤ b ⟺ a ∧ b = a ⟺ a ∨ b = b.
 L'Insieme delle Parti è un Reticolo :: (P(S), ⊆) è un reticolo con A ∧ B = A ∩ B e A ∨ B = A ∪ B.
 <!--SR:!2026-02-27,2,235-->
@@ -393,7 +393,7 @@ Reticolo dei Divisori (Dₙ, |) :: Infimo: a ∧ b = MCD(a,b); Supremo: a ∨ b 
 Principio di Dualità :: Se un enunciato vale per tutti i reticoli, vale anche il suo **duale**, ottenuto scambiando: ≤ ↔ ≥, ∧ ↔ ∨, 0_L ↔ 1_L.
 Reticolo Distributivo :: Un reticolo è distributivo se: a ∧ (b ∨ c) = (a ∧ b) ∨ (a ∧ c). Per dualità, equivale anche a: a ∨ (b ∧ c) = (a ∨ b) ∧ (a ∨ c).
 Teorema — Caratterizzazione Distributività :: Un reticolo è distributivo ⟺ **non** contiene sottoreticoli isomorfi a M₃ (diamante) o N₅ (pentagono).
-<!--SR:!2026-02-25,1,216-->
+<!--SR:!2026-02-26,1,196-->
 Reticolo Diamante M₃ :: Reticolo con 5 elementi {0,a,b,c,1} dove a,b,c sono mutuamente non confrontabili e 0 < a,b,c < 1. Non è distributivo (ma è modulare).
 <!--SR:!2026-02-26,1,215-->
 Reticolo Pentagonale N₅ :: Reticolo con 5 elementi {0,a,b,c,1} dove 0 < a < b < 1 e 0 < c < 1 con c non confrontabile con a e b. Non è distributivo né modulare.
@@ -506,6 +506,7 @@ Teorema Divisione euclidea
 >> Sottraendo: $n(q_1 - q_2) = r_2 - r_1$.
 >> Poiché $|r_2 - r_1| < |n|$, l'unico multiplo di $n$ in quell'intervallo è $0$.
 >> Quindi $r_1 = r_2$ e $q_1 = q_2$. ✓
+<!--SR:!2026-02-28,3,254-->
 
 ...
 
@@ -556,6 +557,7 @@ Applicazione Quoziente
 >> **Ben definita:** Se $[a] = [b]$, allora $a \mathrel{R_f} b$, cioè $f(a) = f(b)$, dunque $\bar{f}([a]) = \bar{f}([b])$.
 >>
 >> **Iniettiva:** Se $\bar{f}([a]) = \bar{f}([b])$, allora $f(a) = f(b)$, dunque $a \mathrel{R_f} b$, cioè $[a] = [b]$. $\square$
+<!--SR:!2026-02-28,3,254-->
 
 ...
 
@@ -564,8 +566,8 @@ Teorema fondamentale sulle relazioni d'equivalenza (Equivalenza $\iff$ Partizion
 > [!important] **Teorema Fondamentale sulle Relazioni di Equivalenza (Versione Ristretta)**
 >
 > **Enunciato:**
-> Sia $R$ una relazione di equivalenza su un insieme non vuoto $S$. Allora l'insieme quoziente $S/R$ è una **partizione** di $S$. 
-> 
+> Sia $R$ una relazione di equivalenza su un insieme non vuoto $S$. Allora l'insieme quoziente $S/R$ è una **partizione** di $S$.
+>
 > Viceversa, ogni partizione di $S$ definisce una relazione di equivalenza.
 >
 >> [!attention] **Dimostrazione**
@@ -609,5 +611,6 @@ Teorema fondamentale sulle relazioni d'equivalenza (Equivalenza $\iff$ Partizion
 >> Quindi $a, c \in A_i$, cioè $a R c$. ✓
 >>
 >> Quindi $R$ è una relazione di equivalenza. ✓
+<!--SR:!2026-02-28,3,254-->
 
 ...
