@@ -1,0 +1,781 @@
+\chapter{Esercizi d'esame}
+
+In questo capitolo sono riportati alcuni esercizi d'esame, con le relative soluzioni, che possono essere utili per la preparazione dell'esame di \documentname{} tenuto dal professore A. De Luca per l'anno\documentyear.
+
+Il capitolo sarà suddiviso in due sezioni: la prima conterrà gli esercizi d'esame relativi alla prima parte del corso, argomento di intercorso, mentre la seconda conterrà gli esercizi d'esame relativi alla seconda parte del corso, argomento di fine corso.
+
+\section{Esercizi d'esame di intercorso}
+
+\subsection{2 Luglio 2018}
+
+\subsubsection{Esercizio 4}
+
+Sia \(g(x)\) la somma di tutti i numeri naturali \(n\leq x\) tali che \(n\) è un numero primo o \(n\) è un numero pari. Mostrare che \(g\) è una \textbf{funzione ricorsiva primitiva}.
+
+\textbf{Soluzione:} Possiamo definire \(g(x)\) come segue:
+
+\begin{equation}
+  g(x) = \sum_{n=0}^{x} n(Primo(n) \lor 2\vert n)
+\end{equation}
+
+Essendo \(g\) composizione di \textbf{funzioni ricorsive primitive} con \textbf{l'operatore di sommatoria}, \(g\) è \textbf{ricorsiva primitiva}.
+
+\subsubsection{Esercizio 5}
+
+Sia \(B=\cbrakets{(x_1, \cdots, x_m) \in \mbN^m \vert g(x_1, \cdots, x_m)\downarrow}\), dove \(g\) è una funzione \textbf{parzialmente calcolabile}.
+
+Mostrare che \(B'=\cbrakets{[x_1, \cdots, x_m] \in \mbN\vert (x_1, \cdots, x_m) \in B}\) è ricorsivamente enumerabile.
+
+\textbf{Soluzione:} \(B'\) è ricorsivamente enumerabile \(\iff \exists g'\) parzialmente calcolabile \(: g'(x) \downarrow \iff x \in B'\).
+
+Consideriamo allora il seguente programma \(\mcP\):
+
+\begin{lstlisting}[language=ini, caption={ }]
+[A] IF (*\((X=0 \lor Lt(x) > m)\)*) GOTO A
+    Z1 <- (*\((X)_1\)*)
+    (*\(\vdots\)*)
+    Zm <- (*\((X)_m\)*)
+    Y <- g(Z1, \(\cdots\), Zm)
+\end{lstlisting}
+
+Questo programma termina \(\iff x \in B'\). Dunque con \(g'=\Psi_{\mcP}^{(1)}\) abbiamo la tesi.
+
+\subsubsection{Esercizio 6}
+
+Mostrare che non esiste nessuna funzione calcolabile \(f(x)\) tale che \(f(x)=0 \iff x \in W_x\).
+
+\textbf{Soluzione:} \(x \in W_x \iff \Phi(x,x) \downarrow \iff \textit{HALT}(x,x)\). Supponiamo per assurdo che esista una \(f(x)\) calcolabile. Allora potremmo usarla come macro in un programma.
+
+Ma il seguente programma calcolerebbe \(\textit{HALT}(x,x)\), che porta ad assurdo:
+
+\begin{lstlisting}[language=ini, caption={ }]
+IF (*\(f(X)\)*)!=0 GOTO E
+Y <- Y + 1
+\end{lstlisting}
+
+\subsection{20 Giugno 2019}
+
+\subsubsection{Esercizio 4}
+
+Sia:
+\begin{equation}
+  P(x,y)=\begin{cases}
+    1 & x \text{esistono almeno } y \text{ numeri naturali } n \text{ tali che } n\leq x \text{ e } n \text { è quadrato perfetto}\\
+    0 & \text{altrimenti}
+  \end{cases}
+\end{equation}
+
+Mostrare che \(P(x,y)\) è una predicato ricorsiva primitiva.
+
+\textbf{Soluzione:} Possiamo definire \(P(x,y)\) come segue:
+
+\begin{equation}
+  P(x,y) = y \geq \sum_{n=0}^{x} \exists t \leq n (t^2=n)
+\end{equation}
+
+Essendo \(g\) composizione di \textbf{funzioni ricorsive primitive} con \textbf{l'operatore di sommatoria} e di \textbf{quantificazione esistenziale limitata}, \(g\) è \textbf{ricorsiva primitiva}.
+
+\subsubsection{Esercizio 5}
+
+Sia \(f(x)>x^2 \iff x \nin \overline{K}\). Mostrare che \(f\) non è calcoalbile.
+
+\textbf{Soluzione:} \(f(x)>x^2 \iff x \nin \overline{K} \iff x \in K \iff Phi(x,x) \downarrow \iff \textit{HALT}(x,x)\). Supponiamo ora per assurdo che \(f\) sia calcolabile. Allora potremmo usarla come macro in un programma.
+
+Ma il seguente programma calcolerebbe \(\textit{HALT}(x,x)\), che porta a assurdo:
+
+\begin{lstlisting}[language=ini, caption={ }]
+IF (*\(f(X) \leq X^2\)*) GOTO E
+Y <- Y + 1
+\end{lstlisting}
+
+\subsubsection{Esercizio 6}
+
+Sia \(R=\cbrakets{<r_1,r_2> \vert r_1 \in W_{(r_1+r_2)}}\). Mostrare che \(R\) è ricorsivamente enumerabile.
+
+\textbf{Soluzione:} Dalla definizione di \(W_n\) abbiamo che
+
+\begin{equation}
+  R=\cbrakets{<r_1,r_2> \vert r_1 \in W_{(r_1+r_2)} \iff \Phi(r_1,r_1+r_2) \downarrow}={n \in \mbN \vert \Phi(l(n), l(n) + r(n)) \downarrow}
+\end{equation}
+
+Essendo composizione di parizalmente calcolabili, \(R\) è ricorsivmane enumerabile
+
+\subsection{17 Luglio 2019}
+
+\subsubsection{Esercizio 4}
+
+Sia \(A = \cbrakets{(x_1, x_2) \vert f(x_1, x_2) \downarrow}\) con \(f\) funzione parzialmente calcolabile. Mostrare che \(B=\cbrakets{<x_1, x_2> \vert (x_1, x_2) \in A}\) è ricorsivamente enumerabile.
+
+\textbf{Soluzione:} \(B\) è ricorsivamente enumerabile \(\iff \exists g\) parzialmente calcolabile \(: g(x) \downarrow \iff x \in B\).
+
+Consideriamo allora il seguente programma \(\mcP\):
+
+\begin{lstlisting}[language=ini, caption={ }]
+Z1 <- (*\(l(X)\)*)
+Z2 <- (*\(r(X)\)*)
+Y <- f(Z1, Z2)
+\end{lstlisting}
+
+Questo programma termina \(\iff x \in B\). Dunque con \(g=\Psi_{\mcP}^{(1)}\) abbiamo la tesi.
+
+\subsubsection{Esercizio 5}
+
+Sia \(c\) una costante e sia \(f(x)\) il più grande numero naturale \(y \leq x\) che è multiplo di \(c\). Mostrare che \(f\) è ricorsiva primitiva.
+
+\textbf{Soluzione:} Possiamo definire \(f(x)\) come segue:
+
+\begin{equation}
+  f(x) =\begin{cases}
+    x \dotminus \min_{t \leq x} (c \vert (x\dotminus t)), & \exists t \leq x: c\vert (x\cdot t)\\
+    0, \text{altrimenti}
+    \end{cases}
+\end{equation}
+
+Essendo che \(0\) è multiplo di ogni numero, in caso non venga trovato alcun multiplo di \(c\) è corretto che la minimalizzazione restituisca \(0\).
+
+\subsubsection{Esercizio 6}
+
+Sia \(f(x)\) una funzione che soddisfa la condizione:
+\begin{equation}
+  f(x) \downarrow \iff l(x) \nin W_{r(x)}
+\end{equation}
+
+\(f\) è parzialmente calcolabile? Dimostrare o confutare.
+
+\textbf{Soluzione: } Sia \(f(x)\) parizlamente calcoalbile, allora \(\exists p \in \mbN: \forall x \in \mbN :\Psi_{\mcP_p}^{(1)}(x)=f(x)\).
+
+Sapendo che anche la funzione \(\Phi(l(x), r(x))\) è parzialmente calcolabile sia \(q\) il numero del programma che la calcola.
+
+Vediamo ora che il seguente programma calcola \(\textit{HALT}(x,q)\):
+
+\begin{lstlisting}[language=ini, caption={ }]
+[B] IF STP(X,p,Z) GOTO E
+    IF STP(X,q,Z) GOTO A
+    Z <- Z + 1
+    GOTO B
+[A] Y <- Y + 1
+\end{lstlisting}
+
+Il programma termina necessariamente poichè, \(\forall x \in \mbN, l(x) \in W_{r(x)} \lor l(x) \nin W_{r(x)}\).
+
+\subsection{20 Gennaio 2020}
+
+\subsubsection{Esercizio 4}
+
+Sia \(\omega(n)\) il numero di fattori primi distinti di un numero naturale \(n\) con \(\omega(1)=0\) e \(\omega(0)=0\). Mostrare che \(\omega\) è ricorsiva primitiva.
+
+\textbf{Soluzione:} Possiamo definire \(\omega(n)\) come segue:
+
+\begin{equation}
+  \omega(n) = \sum_{i=0}^{n} Primo(i) \land i\vert n
+\end{equation}
+
+Essendo \(g\) composizione di \textbf{funzioni ricorsive primitive} con \textbf{l'operatore di sommatoria} \(g\) è ricorsivamente enumerabile.
+
+\subsubsection{Esercizio 5}
+
+Sia \(f\) una funzione ricorsiva primitiva, e
+
+\begin{equation}
+  B=\cbrakets{1+\sum_{i=0}^{x} f(i) \vert x \in \mbN}
+\end{equation}
+
+Dimostrare che \(B\) è ricorsivamente enumerabile.
+
+\textbf{Soluzione: } \(B\) è ricorsivamente enumerabile \(\iff \exists f'\) ricorsiva primitiva \(: B=\cbrakets{f'(x) \vert x \in \mbN}\).
+
+Ma essendo \(f'(x)=1+\sum_{i=0}^{x} f(i)\) composizione di funzioni ricorsive primitive con l'operatore di sommatoria è anch'essa ricorsiva primitiva.
+
+\subsubsection{Esercizio 6}
+
+Sia \(H=\cbrakets{<x,y> \vert x \in W_{2y}}\). L'insieme H è ricorsivamente enumerabile? Dimostrare o Confutare.
+
+\textbf{Soluzione: } \(H=\cbrakets{z \in \mbN \vert l(z) \in W_{2r(z)} \iff \Phi(l(z), 2r(z)) \downarrow}\). Essendo composizione di parzialmente calcolabili, \(H\) è ricorsivamente enumerabile.
+
+\newpage
+
+\subsection{18 Febbraio 2020}
+
+\subsubsection{Esercizio 2}
+
+Sia \(A\) un insieme ricorsivo primitivo e sia \(B=\cbrakets{<z_1,z_2> \vert z_1 \in A \land z_2 \nin A}\). Mostrare che \(B\) è un insieme ricorsivo.
+
+\textbf{Soluzione 1: } Scriviamo \(B\) come segue:
+
+\begin{equation}
+  B=\cbrakets{x \in \mbN \vert f_A(l(x)) \land \neq f_A(r(x))}
+\end{equation}
+
+Essendo \(A\) ricorsivo primitivo, \(f_A\) è ricorsiva primitiva. Ma allora \(B\) è ricorsivo primitivo, poichè composizione di funzioni ricorsive primitive con l'operatore di congiunzione.
+
+\textbf{Soluzione 2: } \(B\) è ricorsivo \(\iff B \land \overline{B}\) sono ricorsivamente enumerabili.
+
+\begin{itemize}
+  \item[\(B\):] Possiamo riscrivere \(B\) come:
+  \begin{equation}
+    B=\cbrakets{x \in \mbN \vert l(x) \in A \land r(x) \in \overline{A}}
+  \end{equation}
+  Essendo \(A\) ricorsivo, \(A\) e \(\overline{A}\) sono ricorsivamente enumerabili, dunque esistono due funzioni parzialmente calcolabili \(f\) e \(f'\) a loro associate. Possiamo dunque riscrivere \(B\) come:
+  \begin{equation}
+    B=\cbrakets{x \in \mbN \vert f(l(x)) \land f'(r(x))}
+  \end{equation}
+  Questa funzione è parzialmente calcolabile, poichè calcolata dal seguente programma:
+  \begin{lstlisting}[language=ini, caption={ }]
+    Z1 <- (*\(l(X)\)*)
+    Z2 <- (*\(r(X)\)*)
+    Z3 <- (*\(f(Z1)\)*)
+    Z4 <- (*\(f'(Z2)\)*)
+  \end{lstlisting}
+  \item[\(\overline{B}\):] Possiamo riscrivere \(\overline{B}\) usando le leggi di De Morgan come:
+  \begin{equation}
+    B=\cbrakets{x \in \mbN \vert l(x) \nin A \lor r(x) \nin \overline{A}}=\cbrakets{x \in \mbN \vert l(x) \in \overline{A} \lor r(x) \in A}
+  \end{equation}
+  Essendo \(A\) ricorsivo, \(A\) e \(\overline{A}\) sono ricorsivamente enumerabili, dunque esistono due funzioni parzialmente calcolabili \(f\) e \(f'\) a loro associate. Possiamo dunque riscrivere \(B\) come:
+  \begin{equation}
+    B=\cbrakets{x \in \mbN \vert f'(l(x)) \lor f(r(x))}
+  \end{equation}
+  Siano \(p,q\) rispettivamente i numeri dei programmi che calcolano \(f,f'\). Questa funzione è parzialmente calcolabile, poichè calcolata dal seguente programma:
+  \begin{lstlisting}[language=ini, caption={ }]
+    Z1 <- (*\(l(X)\)*)
+    Z2 <- (*\(r(X)\)*)
+[B] IF STP(Z1,q,Z3) GOTO E
+    IF STP(Z2,p,Z3) GOTO E
+    Z3 <- Z3 + 1
+    GOTO B
+  \end{lstlisting}
+\end{itemize}
+
+\subsubsection{Esercizio 3}
+
+Sia:
+\begin{equation}
+  f(x) = \begin{cases}
+    1, & x \text{ è dispari e } x \in \overline{K}\\
+    x, & x \text{ è pari e } x \in \overline{K}\\
+    \uparrow, \text{altrimenti}
+  \end{cases}
+\end{equation}
+
+La funzione \(f\) è calcolabile? Dimostrare o confutare.
+
+\textbf{Soluzione: } sia \(f\) calcolabile e \(p\) il numero di programma che la calcola. Allora abbiamo:
+
+\begin{equation}
+  \begin{split}
+    \forall x &\in \mbN:\\
+    &\Psi_{\mcP_p}^{(1)}(x) = f(x) \uparrow \iff x \in K \iff \Phi(x,x) \downarrow \iff \Psi_{\mcP_x}^{(1)}(x) \downarrow
+  \end{split}
+\end{equation}
+
+In particolare però per \(x=p\) abbiamo che \(\Psi_{\mcP_p}^{(1)}(p) \uparrow \iff \Psi_{\mcP_p}^{(1)}(p)  \downarrow\), che porta a contraddizione.
+
+\subsubsection{Esercizio 6}
+
+Sia \(M_n=2^n -1\) per ogni \(n \in \mbN\), e sia \(g(x)\) la somma di tutti gli \(M_n\) che siano numeri primi tali che \(n \leq x\). Mostrare che \(g\) è ricorsiva primitiva.
+
+\textbf{Soluzione: } Essendo che \(M_n=<n,0>\) è ricorsivamente primitiva. Possiamo definire \(g(x)\) come segue:
+
+\begin{equation}
+  g(x) = \sum_{n=0}^{x} M_n \cdot Primo(M_n)
+\end{equation}
+
+Essendo \(g\) composizione di \textbf{funzioni ricorsive primitive} con \textbf{l'operatore di sommatoria}, \(g\) è \textbf{ricorsiva primitiva}.
+
+\subsection{23 Giugno 2020}
+
+\subsubsection{Esercizio Moodle 1}
+
+Dimostrare che l'insieme \(S=\cbrakets{<x,y> \vert \textit{HALT}(y,x)}\) è ricorsivamente enumerabile.
+
+\textbf{Soluzione: } \(S=\cbrakets{<x,y> \vert \textit{HALT}(y,x)}=\cbrakets{<x,y> \vert \Phi(y,x) \downarrow}= \cbrakets{z \in \mbN \vert \Phi(r(z), l(z)) \downarrow}\). Essendo composizione di parzialmente calcolabili, \(S\) è ricorsivamente enumerabile.
+
+\subsection{16 Ottobre 2020}
+
+\subsubsection{Esercizio Moodle (?)}
+
+Qual è il predicato \(p(x,z)\) che rende l'insieme \(B=\cbrakets{x \vert \exists z \in \mbN: p(x,z)}\) ricorsivamente enumerabile ma non ricorsivo?
+
+\textbf{Soluzione: } \(p=STP(x,x,z)\)
+
+\subsection{22 Giugno 2021}
+
+\subsubsection{Esercizio 4}
+
+Per ogni \(n \in \mbN\) sia \(f(n)\) il numero di coppie di numeri primi \((p,q)\) tali che \(p\leq q \land n=p+q\). Ad esempio \(f(3)=0\) e \(f(10)=2\) poichè \(10=3+7=5+5\). Mostrare che \(f\) è ricorsiva primitiva.
+
+\textbf{Soluzione: } Possiamo definire \(f(n)\) come segue:
+
+\begin{equation}
+  f(n) = \sum_{q=0}^{n} Primo(q) \cdot \exists p \leq q (Primo(p) \land n=p+q)
+\end{equation}
+
+Essendo \(f\) composizione di \textbf{funzioni ricorsive primitive} con \textbf{l'operatore di sommatoria} e di \textbf{quantificazione esistenziale limitata}, \(f\) è \textbf{ricorsiva primitiva}.
+
+Un modo alternativo per scrivere \(f(n)\) è:
+
+\begin{equation}
+  f(n) = \sum_{q=0}^{n} \rbrakets{Primo(q) \cdot \sum_{p=0}^q (Primo(p) \land n=p+q)}
+\end{equation}
+
+\subsubsection{Esercizio 5}
+
+Sia \(g\) la funzione parziale binaria definita come segue:
+\begin{equation}
+  g(x_1, x_2) = \begin{cases}
+    \abrakets{x_1,x_2}, & \exists z \in \mbN: STP(x_1,x_2,z)\\
+    \uparrow, & \text{altrimenti}
+  \end{cases}
+\end{equation}
+
+La funzione \(g\) è parzialmente calcolabile? Dimostrare o confutare.
+
+\textbf{Soluzione: } Possiamo riscrivere \(\exists z \in \mbN: STP(x_1,x_2,z) \iff \Phi(x_1,x_2)\downarrow\). Quindi la funzione \(f\) è calcolata dal seguente programma:
+
+\begin{lstlisting}[language=ini, caption={ }]
+  Z <- (*\(\Phi(X_1,X_2)\)*)
+  Y <- (*\(\abrakets{X_1,X_2}\)*)
+\end{lstlisting}
+
+
+\subsubsection{Esercizio 6}
+
+Mostrare che l'insieme \(K_p=\cbrakets{p \in \mbN \vert Primo(p) \land \textit{HALT}(p,p) }\) è ricorsivamente enumerabile.
+
+\textbf{Soluzione: } \(K_p=\cbrakets{p \in \mbN \vert Primo(p) \land \textit{HALT}(p,p) }=\cbrakets{p \in \mbN \vert Primo(p) \land \Phi(p,p) \downarrow}\). Tale funzione è calcolata dal seguente programma:
+
+\begin{lstlisting}[language=ini, caption={ }]
+[A] IF (*\(\neg Primo(X)\)*) GOTO A
+  Z <- (*\(\Phi(X,X)\)*)
+\end{lstlisting}
+
+\textbf{Soluzione 2: } \(K_p=K \cap P\) dove \(P\) è l'insieme dei numeri primi, ricorsivamente enumerabile essendo \(Primo\) ricorsivamente enumerabile.
+
+\subsection{20 Luglio 2021}
+
+\subsubsection{Esercizio 4}
+
+Sia \(B\subseteq \mbN\) ricorsivo primitivo e \(C=\cbrakets{(x,y) \vert f(x,y) \in B}\) dove \(f\) è una funzione ricorsiva primitiva. Mostrare che \(C\) è ricorsivo primitivo.
+
+\textbf{Soluzione: } Essendo \(B\) ricorsivo primitivo, \(f_B\) è ricorsiva primitiva. Allora possiamo dire che:
+\begin{equation}
+  f_C=f_B(f(x,y))
+\end{equation}
+
+Essendo \(f_C\) composizione di funzioni ricorsive primitive, \(f_C\) è ricorsiva primitiva, dunque \(C\) è ricorsivo primitivo.
+
+\subsubsection{Esercizio 5}
+
+Sia \(D\subseteq \mbN\) un insieme non ricorsivo, e sia \(g\) una funzione totale unaria tale che \(x \vert g(x) \iff x \in D\). Mostrare che \(g\) non è calcolabile.
+
+\textbf{Soluzione: } Supponiamo per assurdo che \(g\) sia calcolabile. Allora \(f_D=x\vert g(x)\) è calcolabile, ma \(D\) non è ricorsivo, ciò porta a contraddizione.
+
+\subsubsection{Esercizio 6}
+
+Sia \(h\) una funzione unaria parzialmente calcolabile. Dimostrare che è ricorsivamente enumerabile l'insieme:
+\begin{equation}
+  H=\cbrakets{x \in \mbN \vert h(x) \downarrow \land h(x) \in W_x}
+\end{equation}
+
+\textbf{Soluzione: } \(H=\cbrakets{x \in \mbN \vert h(x) \downarrow \land h(x) \in W_x}=\cbrakets{x \in \mbN \vert \Phi(h(x),x) \downarrow}\). Essendo composizione di parzialmente calcolabili, \(H\) è ricorsivamente enumerabile.
+
+\subsection{19 Gennaio 2021}
+
+\subsubsection{Esercizio Moodle 2}
+
+Sia \(f(x,y)\) il più piccolo intero \(n>x\) che sia multiplo di \(y+1\). Mostrare che \(f\) è ricorsiva primitiva.
+
+\textbf{Soluzione: } Possiamo definire \(f(x,y)\) come segue:
+
+\begin{equation}
+  f(x,y)= \min_{n\leq x(y+1)} ( (y+1) \vert n \land n > x)
+\end{equation}
+
+\subsection{16 Marzo 2022}
+
+\subsubsection{Esercizio 4}
+
+Sia \(B\subseteq \mbN\) un insieme ricorsivo primitivo, e \(Q\) il predicato definito da
+
+\begin{equation}
+  Q(x) \iff \text{ tutti i divisori di } x+1 \text{ appartengono a } B
+\end{equation}
+
+Mostrare che \(Q\) è ricorsivo primitivo.
+
+\textbf{Soluzione: } Possiamo definire \(Q(x)\) come segue:
+
+\begin{equation}
+  Q(x) = \forall n \leq x+1 (\neg (n \vert (x+1)) \lor f_B(n))
+\end{equation}
+
+Essendo \(Q\) composizione di \textbf{funzioni ricorsive primitive} con \textbf{l'operatore di quantificazione universale limitata} e di \textbf{congiunzione}, \(Q\) è \textbf{ricorsiva primitiva}.
+
+\subsubsection{Esercizio 5}
+
+La funzione \(f\) definita da
+\begin{equation}
+  f(x) = \begin{cases}
+    x+1, & \neg(\exists z : STP(x,x,z))\\
+    \uparrow, & \text{altrimenti}
+  \end{cases}
+\end{equation}
+
+è parzilmente calcolabile? Dimostrare o confutare.
+
+\textbf{Soluzione: } Possiamo riscrivere \(\neg(\exists z : STP(x,x,z)) \iff \Phi(x,x) \uparrow\).
+
+Sia per assurdo \(f\) parzialmente calcolabile. Sia \(p\) il numero del programma che la calcola. Allora abbiamo:
+
+\begin{equation}
+  \begin{split}
+    \forall x &\in \mbN:\\
+    &\Psi_{\mcP_p}^{(1)}(x) = f(x) \uparrow \iff \Phi(x,x) \downarrow \iff \Psi_{\mcP_x}^{(1)}(x) \downarrow
+  \end{split}
+\end{equation}
+
+Per \(x=p\) andiamo a contraddizione.
+
+\subsubsection{Esercizio 6}
+
+Mostrare che l'insieme \(S=\cbrakets{[i,j,k] \vert \textit{HALT}(i,k) \land \textit{HALT}(j,k)}\) è ricorsivamente enumerabile.
+
+\textbf{Soluzione: } Riscriviamo l'insieme come segue:
+
+\begin{equation}
+  S=\cbrakets{z \in \mbN \vert HALT({(z)}_1, {(z)}_3) \land HALT({(z)}_2, {(z)}_3)}=\cbrakets{z \in \mbN \vert \Phi({(z)}_1, {(z)}_3) \downarrow \land \Phi({(z)}_2, {(z)}_3) \downarrow}
+\end{equation}
+
+La funzione che descrive \(S\) non è automaticamente parzialmente calcolabile poichè le funzioni parzialmente calcolabili non sono chiuse rispetto a \(\land\).
+Consideriamo dunque il programma seguente:
+
+\begin{lstlisting}[language=ini, caption={ }]
+[A] IF (X == 0 (*\(\lor Lt(x) > 3\)*)) GOTO A
+    Z1 <- (*\(\Phi((X)_1, (X)_3)\)*)
+    Z2 <- (*\(\Phi((X)_2, (X)_3)\)*)
+\end{lstlisting}
+
+Questo programma termina se e solo se \(x \in S\). Dunque \(S\) è ricorsivamente enumerabile.
+
+\subsection{07 Aprile 2022}
+
+\subsubsection{Esercizio 4}
+
+Per \(x,y \in \mbN\), sia \(f(x,y)\) il più piccolo multiplo di \(y+1\) che sia maggiore di \(x\). Mostrare che la funzione \(f\) è ricorsiva primitiva.
+
+\textbf{Soluzione: } Possiamo definire \(f(x,y)\) come segue:
+
+\begin{equation}
+  f(x,y) = \min_{n\leq x(y+1)} ( ((y+1) \vert n) \land n > x)
+\end{equation}
+
+Essendo \(f\) composizione di \textbf{funzioni ricorsive primitive} con \textbf{l'operatore di quantificazione universale limitata} e di \textbf{congiunzione}, \(f\) è \textbf{ricorsiva primitiva}.
+
+\subsubsection{Esercizio 5}
+
+Dimostrare o confutare: la funzione \(g\) definita da
+
+\begin{equation}
+  g(x_1,x_2) = \begin{cases}
+    0, \textit{HALT}(x_1,x_2) \lor x_1 \in K\\
+    \uparrow, \text{altrimenti}
+  \end{cases}
+\end{equation}
+
+è parzialmente calcolabile?
+
+\textbf{Soluzione: } Possiamo riscrivere \(g(x_1,x_2)\) come segue:
+
+\begin{equation}
+  g(x_1,x_2) = \begin{cases}
+    0, \Phi(x_1,x_2) \downarrow \lor \Phi(x_1,x_1) \downarrow\\
+    \uparrow, \text{altrimenti}
+  \end{cases}
+\end{equation}
+
+Allora \(g\) è calcolata dal seguente programma:
+
+\begin{lstlisting}[language=ini, caption={ }]
+[A] IF STP(X1,X2,Z) GOTO E
+    IF STP(X1,X1,Z) GOTO E
+    Z <- Z + 1
+    GOTO A
+\end{lstlisting}
+
+\subsubsection{Esercizio 6}
+
+Sia \(B \subseteq \mbN\) un insieme ricorsivo. Mostrare che l'insieme
+
+\begin{equation}
+  C = \cbrakets{\abrakets{m,n} \vert \Phi(m,n) \downarrow \land \Phi(m,n) \nin B}
+\end{equation}
+
+è ricorsivamente enumerabile?
+
+\textbf{Soluzione: } \(C=\cbrakets{\abrakets{m,n} \vert \Phi(m,n) \downarrow \land \Phi(m,n) \nin B}=\cbrakets{ z \in \mbN \vert \Phi(l(z),r(z)) \downarrow \land \Phi(l(z),r(z)) \nin B}\).
+
+Allora il seguente programma termina solo su input appartenti a \(C\):
+
+\begin{lstlisting}[language=ini, caption={ }]
+    Z <- (*\(\Phi(l(X),r(X))\)*)
+[A] IF (*\(f_B(Z)\)*) GOTO A
+\end{lstlisting}
+
+\subsection{20 Luglio 2022}
+
+\subsubsection{Esercizio 4}
+
+Per \(x,y \in \mbN\), sia \(P(x,y)\) vero se e solo se \(x\) è maggiore del più grande divisore primo di \(y+1\). Mostrare che \(P\) è ricorsivo primitivo.
+
+\textbf{Soluzione: } Possiamo definire \(P(x,y)\) come segue:
+
+\begin{equation}
+  P(x,y) = \max_{n \leq y+1} (Primo(n) \land n \vert (y+1)) < x
+\end{equation}
+oppure come:
+\begin{equation}
+  P(x,y) = P_{Lt(y+1)}< x
+\end{equation}
+
+Essendo \(P\) composizione di \textbf{funzioni ricorsive primitive} con \textbf{l'operatore di quantificazione universale limitata} e di \textbf{congiunzione}, \(P\) è \textbf{ricorsiva primitiva}.
+
+\subsubsection{Esercizio 5}
+
+Dimostrare o confutare: la funzione \(g\) definita da
+
+\begin{equation}
+  g(x_1,x_2) = \begin{cases}
+    0, &x_2 \in K \lor \Phi(x_1, x_2) \downarrow\\
+    \uparrow, &\text{altrimenti}
+  \end{cases}
+\end{equation}
+
+è parzialmente calcolabile?
+
+\textbf{Soluzione: } Possiamo riscrivere \(g(x_1,x_2)\) come segue:
+
+\begin{equation}
+  g(x_1,x_2) = \begin{cases}
+    0, &\Phi(x_2,x_2) \downarrow \lor \Phi(x_1, x_2) \downarrow\\
+    \uparrow, &\text{altrimenti}
+  \end{cases}
+\end{equation}
+
+Allora \(g\) è calcolata dal seguente programma:
+
+\begin{lstlisting}[language=ini, caption={ }]
+[A] IF STP(X2,X2,Z) GOTO E
+    IF STP(X1,X2,Z) GOTO E
+    Z <- Z + 1
+    GOTO A
+\end{lstlisting}
+
+\newpage
+\subsubsection{Esercizio 6}
+
+Mostrare che l'insieme \(C=\cbrakets{\abrakets{m,n} \vert \Phi(m,n) \uparrow}\) non è ricorsivamente enumerabile.
+
+\textbf{Soluzione: } Supponiamo per assurdo che \(C\) sia ricorsivamente enumerabile.
+
+Riscriviamo dunque \(C\) come segue:
+
+\begin{equation}
+  C=\cbrakets{\abrakets{m,n} \vert \Phi(m,n) \uparrow}=\cbrakets{z \in \mbN \vert \Phi(l(z),r(z)) \uparrow}
+\end{equation}
+
+Ma allora la funzione \(f\) che termina solo su input \(z \in C\) termina se e solo se \(\Phi(l(z),r(z)) \uparrow\). Sia \(p\) il numero del programma che calcola \(f\). Allora abbiamo:
+
+\begin{lstlisting}[language=ini, caption={ }]
+[A] IF STP(X,p,Z) GOTO E
+    IF STP(l(X),r(X),Z) GOTO B
+    Z <- Z + 1
+    GOTO A
+[B] Y <- Y + 1
+\end{lstlisting}
+
+questo programma calcola \(HALT(l(x), r(x))\). Il che porta a contraddizione.
+
+\textbf{Soluzione 2: } Sia \(C\) ricorsivamente enumerabile. Consideriamo l'isieme \(B=\cbrakets{z \in \mbN \vert l(z) = r(z)}\). Questo insieme è chiaramente ricorsivo primitivo.
+
+Ma allora \(C \cap B\) è ricorsivamente enumerabile. Ma se vediamo che \(C=\cbrakets{z \vert l(z) \in \overline{W_{r(z)}}}\) abbiamo che:
+
+\begin{equation}
+  A = C \cap B = \cbrakets{z \vert l(z) \in \overline{W_{r(z)}} \land l(z) = r(z)} = \cbrakets{z \vert l(z) \in \overline{K} \land r(z) \in \overline{K}}
+\end{equation}
+
+Se questo fosse ricorsicamente enumerabile, potrei trovare una funzione parziale che termina solo su input \(x \in K\). Questo porta ad assurdo.
+
+\subsection{13 Settembre 2022}
+
+\subsubsection{Esercizio 4}
+
+Sia \(A = \cbrakets{\abrakets{x,y} \vert Primo(x) \land Primo (y) \land \abs{x-y}=2}\). Dimostrare che \(A\) è un insieme ricorsivo primitivo.
+
+\textbf{Soluzione: } Se riscriviamo \(A\) come segue:
+
+\begin{equation}
+  A = \cbrakets{\abrakets{x,y} \vert Primo(x) \land Primo (y) \land \abs{x-y}=2} = \cbrakets{z \vert Primo(l(z)) \land Primo (r(z)) \land \abs{l(z)-r(z)}=2}
+\end{equation}
+
+Abbiamo che la funzione caratteristica di \(A\) è composta di funzioni ricorsive primitive, dunque \(A\) è ricorsivo primitivo.
+
+\subsubsection{Esercizio 5}
+
+Sia \(f\) una funzione ricorsiva primitiva, e \(B=\cbrakets{x \vert f(x) \in K}\). Mostrare che \(B\) è ricorsivamente enumerabile.
+
+\textbf{Soluzione: } \(B=\cbrakets{x \vert f(x) \in K}=\cbrakets{x \vert \Phi(f(x),f(x)) \downarrow}\). Essendo composizione di parzialmente calcolabili, \(B\) è ricorsivamente enumerabile.
+
+\subsubsection{Esercizio 6}
+
+Sia
+\begin{equation}
+  g(x)=\begin{cases}
+    x+1, & \exists z \in \mbN: STP(x,x,z)\\
+    0, &\text{altrimenti}
+  \end{cases}
+\end{equation}
+
+\(g\) è una funzione calcolabile? Dimostrare o confutare.
+
+\textbf{Soluzione: } Supponiamo per assurdo che \(g\) sia calcolabile. Allora il seguente programma calcola \(HALT(x,x)\):
+
+\begin{lstlisting}[language=ini, caption={ }]
+  IF (g(x) != x + 1) GOTO E
+  Y <- Y + 1
+\end{lstlisting}
+
+Alternativamente si può vedere come \(HALT(x,x) = \alpha\alpha(g(x))\). Altra contraddizione.
+
+\subsection{20 Gennaio 2023}
+
+\subsubsection{Esercizio 4}
+
+Per \(n\in \mbN\), sia \(f(n)\) il prodotto dei numeri primi minori o uguali a \(n\) (con \(f(0)=f(1)=0\)). Mostrare che \(f\) è ricorsiva primitiva.
+
+\textbf{Soluzione: } Possiamo definire \(f(n)\) come segue:
+
+\begin{equation}
+  f(n) = \prod_{i=0}^{n} (i \cdot Primo(i) +  (\neg Primo(i)))
+\end{equation}
+
+\subsubsection{Esercizio 5}
+
+Dimostrare che se \(S \subseteq \mbN\) è un insieme finito, allora \(\overline{K} \cup S\) non è ricorsivamente enumerabile.
+
+\textbf{Soluzione: } Supponiamo per assurdo che \(\overline{K} \cup S\) sia ricorsivamente enumerabile. Inoltre possiamo notare che \(S \setminus K\) è un insieme finito, dunque è ricorsivo. Ma allora si ha che:
+
+\begin{equation}
+  ((\overline{K} \cup S) \cap \overline{S} )\cup (S \setminus K) = \overline{K}
+\end{equation}
+
+Ciò porta a contraddizione.
+
+\subsubsection{Esercizio 6}
+
+Sia \(g\) la funzione unaria tale che
+
+\begin{equation}
+  g(\abrakets{x,y}) = \begin{cases}
+    m+1, & \text{HALT}(x,y)\\
+    \uparrow, & \text{altrimenti}
+  \end{cases}
+\end{equation}
+
+per ogni \(m,n \in \mbN\). Mostrare che \(g\) è parzialmente calcolabile.
+
+\textbf{Soluzione: } Possiamo riscrivere \(g\) come:
+
+\begin{equation}
+  g(z)= \begin{cases}
+    l(z)+1, & \Phi(l(z),r(z)) \downarrow\\
+    \uparrow, & \text{altrimenti}
+  \end{cases}
+\end{equation}
+
+Possiamo dunque vedere che il seguente programma calcola \(g\):
+
+\begin{lstlisting}[language=ini, caption={ }]
+  Z <- (*\(\Phi(l(X),r(X))\)*)
+  Y <- l(X) + 1
+\end{lstlisting}
+
+\subsection{03 Marzo 2023}
+
+\subsubsection{Esercizio 4}
+
+Sia \(f(n)\) la somma di tutti i numeri naturali con la stessa parità di \(n\) fino a \(n\) incluso. Mostrare che la funzione \(f\) è ricorsiva primitiva.
+
+\textbf{Soluzione: } Possiamo definire \(f(n)\) come segue:
+
+\begin{equation}
+  f(n) = \sum_{i=0}^{n} (i \cdot (n \bmod 2 = i \bmod 2))
+\end{equation}
+
+\subsubsection{Esercizio 5}
+
+Sia \(P(x)\) un predicato calcolabile. Dimostrare che l'insieme \(S_p=\cbrakets{x \in \mbN \vert \exists y : y>x \land P(y)}\) è ricorsivamente enumerabile.
+
+\textbf{Soluzione: } \(S_p\) è ricorsivamente enumerabile \(\iff \exists g\) parzialmente calcolabile \(: g(x) \downarrow \iff x \in S_p\).
+
+Tale funzione è calcolata dal seguente programma:
+
+\begin{lstlisting}[language=ini, caption={ }]
+[A] IF (P(Z) (*\(\land \)*) Z>X) GOTO E
+    Z <- Z + 1
+    GOTO A
+\end{lstlisting}
+
+\subsubsection{Esercizio 6}
+
+Mostrare che non esiste una funzione calcolabile \(g(x_1,x_2)\) tale che:
+
+\begin{equation}
+  g(x_1,x_2) = 0 \iff \Phi(x_1,x_2) \downarrow
+\end{equation}
+
+\textbf{Soluzione: }
+
+\begin{equation}
+  g(x_1,x_2) = 0 \iff \Phi(x_1,x_2) \downarrow \iff HALT(x_1,x_2)
+\end{equation}
+
+Ma allora \(\alpha(g)=HALT\), dunque non calcolabile.
+
+\subsection{13 Giugno 2023}
+
+\subsubsection{Esercizio 4}
+
+Per \(n \geq 0\), sia \(f(n)\) il più piccolo numero primo che non divide \(n+1\). Dimostrare che \(f\) è una funzione ricorsiva primitiva.
+
+\textbf{Soluzione: } Possiamo definire \(f(n)\) come segue:
+
+\begin{equation}
+  f(n) = \min_{i \leq P_{(n+1)}} (Primo(i) \land \neg (i \vert (n+1)))
+\end{equation}
+
+\subsubsection{Esercizio 5}
+
+Per \(m,n \in \mbN\), sia
+
+\begin{equation}
+  g(m,n)=\begin{cases}
+    \Phi(m,n), & m>n \land HALT(m,n)\\
+    \uparrow, & \text{altrimenti}
+  \end{cases}
+\end{equation}
+
+La funzione \(g\) è parzialmente calcolabile? Dimostrare o confutare.
+
+\textbf{Soluzione: } Consideriamo il seguente programma:
+
+\begin{lstlisting}[language=ini, caption={ }]
+    Y <- (*\(\Phi(X_1,X_2)\)*)
+[A] IF (X1 <= X2) GOTO A
+\end{lstlisting}
+
+Questo programma calcola \(g\).
+
+\subsubsection{Esercizio 6}
+
+Sia \(C \subseteq \mbN\) un insieme ricorsivo, e sia \(D=\cbrakets{x \in \mbN \vert x \in W_x \setminus C}\). Mostrare che \(D\) è ricorsivamente enumerabile.
+
+\textbf{Soluzione: } \(D=\cbrakets{x \in \mbN \vert x \in W_x \cap \overline{C}}\). In oltre \(C\) ricorsivo \(\iff \overline{C}\) ricorsivamente enumerabile. Allora possiamo riscrivere \(D=K \cap \overline{C}\), che è ricorsivamente enumerabile.
