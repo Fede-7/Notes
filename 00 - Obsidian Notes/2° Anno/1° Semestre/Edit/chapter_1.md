@@ -11,20 +11,16 @@ Importante distinzione che va effettuata dunque è tra **funzioni totali**  e **
 
 - Una funzione associata a un problema è detta **totale** se ha un valore di output definito $\forall a_k \in \mathbb{N}^k$, ovvero è definibile come:
 $$
-    \begin{split}
     f: \mathbb{N}^k\rightarrow\mathbb{N},\; k\in\mathbb{N}\\
     (x_1,x_2,\cdots,x_k)\mapsto y
-    \end{split}
     
 $$
 
 
 - Una funzione associata a un problema è detta **parziale** se ha un valore di output definito $\forall a_k \in D\subseteq \mathbb{N}^k$, ovvero è definibile come:
 $$
-    \begin{split}
     f: D\subseteq\mathbb{N}^k\rightarrow\mathbb{N},\; k\in\mathbb{N}\\
     (x_1,x_2,\cdots,x_k)\mapsto y
-    \end{split}
     
 $$
 
@@ -34,8 +30,6 @@ Il ricorso a quest'ultime è fondamentale poiché, al prezzo della perdita di *g
 
 Per definire dunque il concetto di calcolabilità di una funzione, è necessario enunciare la **tesi di Church-Turing**[^2].
 > [!definition] Tesi di Church-Turing (Versione S)
-> \label{Tesi di Church-Turing Def
-
 > Qualsiasi funzione che si possa determinare tramite qualche procedura algoritmica è parzialmente calcolabile.
 
 
@@ -47,10 +41,8 @@ Diremo dunque che:
 
 Definiamo infine come **predicato** una particolare funzione totale il cui codominio è l'insieme $\{0,1\}\in\mathbb{N}$. Codificando il valore di $0$ come `FALSO` e di $1$ come `VERO`, è possibile valutare la calcolabilità di predicati logici a valori booleani.
 $$
-    \begin{split}
     p: \mathbb{N}^k\rightarrow\{0,1\}\subset\mathbb{N},\; k\in\mathbb{N}\\
     (x_1,x_2,\cdots,x_k)\mapsto y\in\{0,1\}
-    \end{split}
     
 $$
 
@@ -98,20 +90,21 @@ Solitamente questo meccanismo è effettuato con l'etichetta `E`, che viene riser
 
 > [!example] Esempio: S-Programma
 > Un primo esempio di **S-Programma** può dunque essere il seguente:
-```ini
-    [A] X <- X - 1
-        Y <- Y + 1
-        IF X!=0 GOTO A
-```
+> ```ini
+>     [A] X <- X - 1
+>         Y <- Y + 1
+>         IF X!=0 GOTO A
+> ```
+
 >
 > Nello specifico, questo **S-Programma** rappresenta la funzione:
-$$
-    f(x)=\begin{cases}
-    1, & x=0\\
-    x, & x\neq0
-    \end{cases}
-    
-$$
+> $$
+>     f(x)=\begin{cases}
+>     1, & x=0\\
+>     x, & x\neq0
+>     \end{cases}
+>     
+> $$
 
 >
 > Poiché il programma ripete l'operazione d'incremento della variabile `Y` un numero `X` di volte, per $x\neq0$, mentre una volta sola per $x=0$. Il programma termina infine, dopo l'esecuzione dell'ultima linea.
@@ -132,10 +125,10 @@ Consideriamo invece adesso un **S-Programma** che implementi proprio la *funzion
     IF Z != 0 GOTO A
 ```
 
+
 Possiamo notare come le righe `6--7` effettuano un *salto incondizionato*. È possibile isolarle sfruttando il concetto di **macro**.
 > [!definition] Macro
 > Ogni programma associato a una **funzione *(parzialmente)* calcolabile**, con **stato** corrente **iniziale**, può essere
-
 > riutilizzato per il calcolo di un'altra **funzione**, sostituito da un *alias*. Quest'ultimo viene detto **macro**.
 
 
@@ -148,24 +141,26 @@ Nello specifico definiamo la **macro di salto incondizionato** `GOTO L` come[^5]
     IF V != 0 GOTO L
 ```
 
+
 > [!example] Esempi
 > - Definiamo innanzitutto la **macro di azzeramento** `V<-0`:
 >   - []
-```ini
-  [A] V <- V - 1
-      IF V != 0 GOTO A
-```
+> ```ini
+>   [A] V <- V - 1
+>       IF V != 0 GOTO A
+> ```
+
 >   - [] Questa **macro** corrisponde alla **funzione costante** $f(x)=0$, ed è di fondamentale importanza per il corretto funzionamento di altre macro.
 >   - [] Ogni **macro** che d'ora in avanti andremo a definire, conterrà implicitamente la **macro di azzeramento** per garantire lo stato iniziale delle variabili.
 > - Definiamo infine un'altra importante **macro**, ovvero la **macro di assegnazione** `V<-V1`:
 >   - []
-```ini
-  [C] IF V1 != 0 GOTO A
-      GOTO E
-  [A] V <- V + 1
-      V1 <- V1 - 1
-      GOTO C
-```
+> ```ini
+>   [C] IF V1 != 0 GOTO A
+>       GOTO E
+>   [A] V <- V + 1
+>       V1 <- V1 - 1
+>       GOTO C
+> ```
 
 
 #### Predicati
@@ -181,6 +176,7 @@ V <- P(x1,x2, ... , xk)
 IF V != 0 GOTO L
 ```
 
+
 Nel caso infatti che il predicato $p$ sia `VERO`, avremo che la variabile `V` sarà pari a `1`, la condizione dello statement di salto sarà verificata, e avverrà il salto. In caso contrario,
 si avrà che la variabile `V` sarà pari a `0`, la condizione dello statement di salto non sarà verificata, e il programma procederà all'istruzione successiva.
 ---
@@ -189,31 +185,31 @@ si avrà che la variabile `V` sarà pari a `0`, la condizione dello statement di
 >
 > Prendiamo ad esempio il predicato d'uguaglianza fra due numeri $p(x_1,x_2)\iff x_1=x_2$. Possiamo esprimere questo **predicato** usando la **funzione totale**:
 >
-$$
-    f(x_1,x_2)= \begin{cases}
-    1, \;\; x_1=x_2\\
-    0, \;\; x_1\neq x_2
-    \end{cases}
-    
-$$
+> $$
+>     f(x_1,x_2)= \begin{cases}
+>     1, \;\; x_1=x_2\\
+>     0, \;\; x_1\neq x_2
+>     \end{cases}
+>     
+> $$
 
 >
 >
 > Un **programma** che implementa questo predicato è:
 >
-```ini
-    Z1 <- X1
-    Z2 <- X2
-[A] IF Z1 != 0 GOTO B
-    IF Z2 != 0 GOTO E
-    Y <- Y + 1
-    GOTO E
-[B] Z1 <- Z1 - 1
-    IF Z2 != 0 GOTO C
-    GOTO E
-[C] Z2 <- Z2 - 1
-    GOTO A
-```
+> ```ini
+>     Z1 <- X1
+>     Z2 <- X2
+> [A] IF Z1 != 0 GOTO B
+>     IF Z2 != 0 GOTO E
+>     Y <- Y + 1
+>     GOTO E
+> [B] Z1 <- Z1 - 1
+>     IF Z2 != 0 GOTO C
+>     GOTO E
+> [C] Z2 <- Z2 - 1
+>     GOTO A
+> ```
 
 
 #### Funzioni parzialmente calcolabili
@@ -232,6 +228,7 @@ Possiamo anche scrivere programmi per le **funzioni parzialmente calcolabili**, 
     Z <- Z - 1
     GOTO C
 ```
+
 
 Nello specifico, questo **S-programma** rappresenta:
 $$
@@ -264,8 +261,6 @@ Innanzitutto, per descrivere un **S-Programma** è importante tenere traccia del
 **Stato di un Programma**.
 
 > [!definition] Stato di un Programma
-> \label{Stato Programa Def
-
 > Per **Stato** di un **Programma** $\mathcal{P}$ si intende un insieme finito di **equazioni** della forma
 > $ V=n $, dove $V$ è una *variabile* del **linguaggio S** e $n\in\mathbb{N}$, contenente **una e una sola equazione** per ogni variabile che *compare* in $\mathcal{P}$.
 
@@ -275,12 +270,13 @@ Per avere una descrizione puntuale di un **programma** di *'l' istruzioni*[^8], 
 Per fare questo ci avvaliamo del concetto d'**istantanea**, o *snapshot*.
 
 > [!definition] Istantanea
-> \label{Istantanea Def
-
+>
 > Definiamo **istantanea** di un **programma** $\mathcal{P}$ di *lunghezza* $l$ una qualsiasi coppia ordinata del tipo:
+>
 > \begin{center}
 > $(i, \sigma)$ con  $i\in\{1,\cdots,l+1\}$ e $\sigma\in\Sigma$ insieme degli stati.
 > \end{center}
+>
 
 
 Dove con $l+1$ codifichiamo la terminazione del programma, essendo un'istruzione con tale indice non esistente. Chiamiamo l'**istantanea** con questo indice **terminale**.
@@ -309,8 +305,6 @@ In ultimo chiamiamo **istantanea iniziale** una qualunque coppia $(i,\sigma)$ co
 
 Avvalendoci di queste definizioni e caratterizzazioni, possiamo in definitiva definire[^9] formalmente cosa si intende per **calcolo terminante di $\mathcal{P}$**.
 > [!definition] Calcolo Terminante di P
-> \label{Calcolo Terminante Def
-
 > Sequenza finita d'istantanee $S_1,S_2,S_3\cdots,S_k$, con $S_k$ terminale, $S_1,S_2,S_3\cdots,S_{k-1}$ non terminale e,
 > se $1<i\leq k$, allora $S_i$ è successiva di $S_{i-1}$.
 
@@ -324,7 +318,7 @@ mentre l'**istantanea iniziale** sarà rappresentata dalla coppia $(1,\sigma_1)$
 ---
 
 > [!example] Esempo: Calcolo Terminante di $\mathcal{P}$
-> - [] Prendiamo come esempio il programma~*(ref: Primo Esempio S-Programma)* e andiamo ad analizzare l'andamento del programma per input pari a **$2$**:
+> - [] Prendiamo come esempio il programma*(ref: Primo Esempio S-Programma)* e andiamo ad analizzare l'andamento del programma per input pari a **$2$**:
 > - **] \begin{enumerate}[start=0**
 > - **Stato Iniziale**: $\sigma_1 = \{X=2,Y=0\}$
 > - **Istantanea 1**: $(1,\sigma_1)$;
@@ -356,12 +350,10 @@ $$
 Possiamo finalmente dare una definizione formale del concetto di **funzione parzialmente calcolabile** accennato all'inizio di questo capitolo:
 
 > [!definition] Funzione (Parzialmente) Calcolabile
-> \label{Funzione Parzialmente Calcolabile Def
-
 > Una **funzione** $f: D\subseteq\mathbb{N}^k\rightarrow\mathbb{N},\; k\in\mathbb{N}$ è detta ***parzialmente* calcolabile** se esiste un **S-Programma** $\mathcal{P}$ tale che:
-$$
-    \forall (x_1,x_2,\cdots,x_k)\in \mathbb{N}^k, f(x_1,x_2,\cdots,x_k)=\Psi_{\mathcal{P}}^{(k)}(x_1,x_2,\cdots,x_k)
-$$
+> $$
+>     \forall (x_1,x_2,\cdots,x_k)\in \mathbb{N}^k, f(x_1,x_2,\cdots,x_k)=\Psi_{\mathcal{P}}^{(k)}(x_1,x_2,\cdots,x_k)
+> $$
 
 
 È necessario, logicamente, che la funzione $f$ sia definita per *tutte e sole* le n-uple per cui $\Psi_{\mathcal{P}}^{(k)}$ termina.
@@ -381,6 +373,7 @@ Sia $f$ funzione n-aria calcolata da $\mathcal{P}=\mathcal{P}(y,x_1,x_2,\cdots,x
 [Em] V'<- Zm
 ```
 
+
 Dove per la linea `9` si intende aver sostituito in $\mathcal{P}_2$ le istruzioni del programma $\mathcal{P}$, e $m$ è sufficientemente grande da non creare conflitti con le variabili di $\mathcal{P}_2$. È importante inoltre notare la presenza della **label** `[Em]` che permette la corretta assegnazione del valore di output nella variabile `V'` anche in caso la macro termini per *salto* a etichetta `[E]`[^10].
 
 
@@ -390,10 +383,10 @@ Dove per la linea `9` si intende aver sostituito in $\mathcal{P}_2$ le istruzion
 [^1]: Essendo il dominio di una funzione parziale $D\subseteq\mathbb{N}^k$, ne fanno parte anche i casi particolari di $D=\mathbb{N}^k$, ovvero le funzioni totali.
 [^2]: La versione enunciata è quella relativa al **Modello S**, che utilizzeremo per la valutazione della calcolabilità di una funzione. Ogni modello di calcolo però è dimostrabile come equivalente.
 [^3]: Il numero è potenzialmente infinito per non inserire limitazione di numero, ma chiaramente ogni programma ne utilizzerà un numero finito.
-[^4]: Implementazione~alternativa~*(ref: Funzione Identica AltVer)*.
-[^5]: Approfondimento~*(ref: Funzione Somma)*. Esercizi~*(ref: Funzione Prodotto)*~*(ref: Funzione Prodotto con Costante)*
-[^6]: Esercizio~*(ref: Predicato Pari Dispari)*
+[^4]: Implementazione~alternativa*(ref: Funzione Identica AltVer)*.
+[^5]: Approfondimento*(ref: Funzione Somma)*. Esercizi*(ref: Funzione Prodotto)**(ref: Funzione Prodotto con Costante)*
+[^6]: Esercizio*(ref: Predicato Pari Dispari)*
 [^7]: Importante sottolineare che anche la *lista vuota* è contemplata
 [^8]: Dove *l* è detta di norma *lunghezza del programma*.
 [^9]: A chiunque turbi l'accoppiata delle parole ``definitiva'' e ``definire'' si ricorda la figura retorica di suono della [consonanza](https://en.wikipedia.org/wiki/Literary_consonance), ampiamente utilizzata e apprezzata nella poesia da secoli.
-[^10]: Esercizi da~*(ref: Programma P)* a~*(ref: Predicato Minore Uguale)*
+[^10]: Esercizi da*(ref: Programma P)* a*(ref: Predicato Minore Uguale)*
