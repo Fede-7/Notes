@@ -1,0 +1,22 @@
+summaries:
+  Empty: values.filter(value.isType("null")).length
+  Filled: values.filter(!value.isType("null")).length
+views:
+  - type: table
+    name: Tabella
+    filters:
+      and:
+        - file.inFolder("00 - Obsidian Notes/2° Anno/2° Semestre")
+    order:
+      - file.name
+      - Date
+      - Professore
+      - tags
+    sort:
+      - property: file.ctime
+        direction: DESC
+    summaries: {}
+    columnSize:
+      note.Date: 166
+  - type: table
+    name: Last notes

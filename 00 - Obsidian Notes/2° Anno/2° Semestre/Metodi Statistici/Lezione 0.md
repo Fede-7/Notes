@@ -1,6 +1,6 @@
 ---
 Professore: Marco Lops
 tags:
-  - "#MetodiStatisticiLinformazione"
+  - "#MSI"
 Date: 2026-03-03
 ---
