@@ -3,7 +3,7 @@ Date: 2026-03-03
 Professore: Finzi
 tags:
   - "#SO"
-  - "#6CFU"
+  - "#9-CFU"
 ---
 # Sistemi Operativi — Lezione 0
 ## Informazioni sul corso
@@ -13,217 +13,334 @@ tags:
 - **Studio:** Via Claudio 25
 - **Email:** oggetto sempre `SO1 - <argomento>`
 - **Propedeuticità in ingresso:** Architetture degli Elaboratori
+---
+## 📚 Riferimenti
 
-### Libro di testo
-- **Principale:** Silberschatz, *Operating System Concepts*
-- **Consultazione:** Tanenbaum, *Modern Operating Systems*
+| Tipo          | Libro                                     |
+| ------------- | ----------------------------------------- |
+| Principale    | Silberschatz, *Operating System Concepts* |
+| Consultazione | Tanenbaum, *Modern Operating Systems*     |
 
-### Modalità d'esame
-- **Prova scritta:** domande aperte + esercizi (interpretazione di codice, analisi di comportamento)
-- **Prova orale:** discussione (accessibile solo dopo aver superato lo scritto)
-- Non è previsto un progetto pratico; il focus è sui concetti teorici fondamentali
-- Possibile **pre-appello** al posto di una prova intercorso
+---
+## 📝 Esame
 
-### Strumenti e piattaforme
-- Riferimento principale: sistema **Linux/Unix**
-- **Windows:** usare WSL (Windows Subsystem for Linux) oppure una VM (es. VMware)
-- **macOS:** già basato su un kernel Unix (XNU/Darwin) — nessuna installazione aggiuntiva necessaria
+> [!important] Modalità d'esame
+> 1. **Prova scritta** — domande aperte + esercizi (lettura e interpretazione di codice, non scrittura)
+> 2. **Prova orale** — accessibile solo dopo aver superato lo scritto
+> 
+> Non è previsto un progetto. Focus sui **concetti teorici fondamentali**.
+> Possibile **pre-appello** al posto di una prova intercorso.
+
+---
+## 🖥️ Strumenti e Piattaforme
+
+> [!tip] Quale sistema usare?
+> - **Windows** → abilitare **WSL** (Windows Subsystem for Linux); in alternativa VM con VMware
+> - **macOS** → già basato su kernel Unix (**XNU/Darwin**), nessuna installazione necessaria
+> - **Linux** → pronto all'uso
+
 
 ---
 
-## Cos'è un Sistema Operativo
+## Cos'è un Sistema Operativo?
 
-Un Sistema Operativo (SO) è il **primo strato software** che gestisce le risorse hardware di un calcolatore, facendo da intermediario tra utente e macchina.
+> [!quote] Definizione
+> Un Sistema Operativo è un **programma** che gestisce le risorse hardware di un calcolatore, facendo da intermediario tra utente e macchina. È il **primo strato software** che si pone tra l'hardware e le applicazioni.
 
 ### Obiettivi principali
-- Gestire l'esecuzione dei programmi
-- Semplificare l'interazione utente-calcolatore
-- Utilizzare l'hardware in modo efficiente
-- Risolvere i conflitti tra richieste di più processi/utenti
 
-### Punti di vista sul SO
-| Prospettiva                   | Descrizione                                                     |
-| ----------------------------- | --------------------------------------------------------------- |
-| **Allocatore di risorse**     | Gestisce CPU, memoria, periferiche e risolve i conflitti        |
-| **Programma di controllo**    | Primo programma avviato; evita usi impropri dell'hardware       |
-| **Astrazione della macchina** | Fornisce un modello semplificato e standardizzato dell'hardware |
+- Gestire l'esecuzione dei programmi
+- Semplificare l'interazione utente–calcolatore
+- Risolvere i conflitti tra richieste di più processi/utenti
+- Utilizzare l'hardware in modo efficiente
 
 ### Struttura a strati
 
-```mermaid
-graph TB
-    subgraph User["Livello Utente"]
-        A[Applicazioni utente]
-    end
-    
-    subgraph OS["Livello Sistema Operativo"]
-        B1[Kernel]
-        B2[Programmi di sistema]
-    end
-    
-    subgraph HW["Livello Hardware"]
-        C1[CPU]
-        C2[RAM]
-        C3[Periferiche]
-    end
-    
-    A <--> B1
-    A <--> B2
-    B1 <--> C1
-    B1 <--> C2
-    B1 <--> C3
-    B2 <--> C1
-    
-    style User fill:#e1f5ff
-    style OS fill:#fff4e1
-    style HW fill:#ffe1e1
 ```
+┌─────────────────────────────┐
+│      Applicazioni utente    │
+├─────────────────────────────┤
+│  Programmi di sistema       │
+├─────────────────────────────┤
+│         K E R N E L         │
+├─────────────────────────────┤
+│  Hardware (CPU, RAM, I/O)   │
+└─────────────────────────────┘
+```
+
+### Punti di vista sul SO
+
+| Prospettiva                   | Descrizione                                                     |
+$$
+| ----------------------------- | --------------------------------------------------------------- |
+$$
+| **Allocatore di risorse**     | Gestisce CPU, memoria, periferiche; risolve i conflitti         |
+| **Programma di controllo**    | Primo programma avviato; controlla l'esecuzione degli altri     |
+| **Astrazione della macchina** | Fornisce un modello semplificato e standardizzato dell'hardware |
+
+> [!example] Esempio intuitivo
+> Il file system gerarchico (cartelle/file), la memoria come spazio contiguo, l'avvio e la terminazione di processi: sono tutte **illusioni di semplicità** costruite dal SO sopra un hardware molto più complesso.
+
+---
 
 ## Kernel vs Programmi di sistema
 
-- **Kernel (nucleo):** la parte più interna del SO; unico programma con accesso completo all'hardware, opera in *modalità privilegiata* (Kernel Mode)
-- **Programmi di sistema:** estendono le funzionalità del kernel (shell, utilità, ecc.)
-- **Applicazioni:** tutto ciò che non è kernel né programma di sistema
-
-> Il SO = Kernel + Programmi di sistema. Tutto il resto è applicazione.
-
+> [!note] Distinzione fondamentale
+> - **Kernel (nucleo):** parte più interna; unico programma con accesso completo all'hardware; opera in *Kernel Mode* (modalità privilegiata)
+> - **Programmi di sistema:** estendono le funzionalità del kernel (shell, utilità di sistema, ecc.)
+> - **Applicazioni:** tutto ciò che non è né kernel né programma di sistema
+> 
+> $$\text{SO} = \text{Kernel} + \text{Programmi di sistema}$$
 ---
 
-## Breve storia dei sistemi operativi
+## 🕰️ Storia dei Sistemi Operativi
+
+```mermaid
+timeline
+    title Evoluzione dei Sistemi Operativi
+    1940-1950 : Prima generazione
+              : Valvole termoioniche
+              : Nessun SO, operatore = programmatore
+    1950-1960 : Seconda generazione
+              : Transistor
+              : Batch processing, spooling, primo monitor residente
+    1960-1970 : Terza generazione
+              : Circuiti integrati
+              : Multiprogrammazione, time sharing, MULTICS, Unix, linguaggio C
+    1980      : Quarta generazione
+              : Personal Computer
+              : MS-DOS, GUI (Xerox PARC → Apple → Windows)
+    Oggi      : Quinta generazione
+              : Sistemi mobile (iOS, Android)
+```
 
 ### Prima generazione (anni '40–'50) — Valvole
-- Nessun SO; operatore = programmatore
-- Un programma alla volta, configurato direttamente a livello macchina
-- Prime librerie, compilatori (es. **FORTRAN**, Backus 1957), linker, loader
+- Nessun SO; un programma alla volta, configurato a livello macchina
+- Operatore = programmatore
+- Nascono: librerie di supporto, compilatori (**FORTRAN**, Backus 1957), linker, loader
 
 ### Seconda generazione (anni '50–'60) — Transistor
-- Separazione tra operatore e programmatore
-- Programmi raggruppati in **batch (lotti/job)**
-- Nasce un primo **monitor residente** (embrione del SO)
-- Introduzione dello **spooling** (*Simultaneous Peripheral Operations Online*): gestione di una coda di operazioni su periferiche lente tramite disco
-- Il **disco** (accesso random) vs nastro (accesso sequenziale) rende possibile caricare più job contemporaneamente
+- Separazione operatore/programmatore; programmi organizzati in **batch (lotti)**
+- Nasce il **monitor residente** (primo embrione del SO)
+- Introduzione dello **spooling** *(Simultaneous Peripheral Operations Online)*: gestione tramite coda delle operazioni su periferiche lente
+
+> [!info] Disco vs Nastro
+> Il disco, a differenza del nastro (accesso sequenziale), ha **accesso random**: si può scrivere/leggere in qualsiasi posizione. Questo rende possibile caricare più job contemporaneamente e switchare tra loro.
 
 ### Terza generazione (anni '60–'70) — Circuiti integrati
-- **Multiprogrammazione:** più processi in esecuzione "contemporanea", alternati dalla CPU
-- **Time sharing:** il tempo CPU viene suddiviso tra più processi/utenti
-- Introduzione della **dual mode** (Kernel Mode / User Mode)
-- Protezione della memoria, protezione temporale (timer)
-- Progetto **MULTICS** (Bell Labs): primo tentativo sistematico di SO multiutente e multiprogrammato
-- Da MULTICS nasce **Unix** (1969, Ken Thompson & Dennis Ritchie) — e con esso il linguaggio **C**
-  - Multiutente, multiprogrammato, file system gerarchico, shell testuale
-  - Da Unix derivano: varie famiglie Unix, **Minix** (Tanenbaum), infine **Linux** (Linus Torvalds)
+
+- **Multiprogrammazione:** più processi alternati sulla CPU
+- **Time sharing:** il tempo CPU è suddiviso tra processi/utenti tramite timer
+- Introduzione della **dual mode** (Kernel Mode / User Mode) e protezione della memoria
+
+#### MULTICS → UNIX
+
+```mermaid
+flowchart LR
+    A[MULTICS $$\space$$ Bell Labs, ~1965] -->|troppo complesso| B[UNIX $$\space$$ Thompson & Ritchie, 1969]
+    B --> C[Linguaggio C $$\space$$ Ritchie]
+    B --> D[Famiglie Unix $$\space$$ BSD, System V...]
+    D --> E[Minix Tanenbaum]
+    E --> F[Linux Torvalds, 1991]
+    B --> G[macOS XNU/Darwin]
+```
+
+> [!tip] Curiosità
+> **Unix** nasce come gioco di parole su **MULTICS**: "MULTiplexed" → "UNiplexed", a sottolineare la semplificazione del design.
+> Dennis Ritchie, co-creatore di Unix, è anche il creatore del **linguaggio C**.
 
 ### Quarta generazione (anni '80) — Personal Computer
-- **MS-DOS** (IBM/Microsoft): semplificato, senza protezione hardware (nessun bit di modalità)
-- **GUI** (Graphic User Interface): sviluppata a Xerox PARC, adottata da Apple (Lisa, Macintosh) e poi da Windows
+- **MS-DOS:** sistema semplificato, **senza bit di modalità** → nessuna protezione hardware
+- **GUI:** sviluppata a Xerox PARC, adottata da Apple (Lisa, Macintosh), poi da Windows
 
 ### Quinta generazione — Mobile
-- Sistemi operativi per dispositivi mobili (iOS, Android, ecc.)
+Sistemi operativi per dispositivi mobili (iOS, Android, ecc.)
 
 ---
 
-## Architettura di base del calcolatore
+## Architettura di Base del Calcolatore
 
 ### Componenti principali
-- **CPU** = Control Unit + ALU; esegue il ciclo *Fetch → Decode → Execute → (Check Interrupt)*
-- **Memoria principale (RAM):** i programmi devono essere caricati qui per essere eseguiti
-- **Periferiche:** comunicate tramite controller e buffer locali
+
+```
+CPU
+├── Control Unit (CU)
+├── Arithmetic Logic Unit (ALU)
+└── Registri: MAR, MDR, PC, IR...
+
+RAM (memoria principale)
+└── I programmi devono essere caricati qui per essere eseguiti
+
+Periferiche
+└── Comunicate tramite controller e buffer locali
+```
 
 ### Terminologia
-| Termine         | Significato                             |
-| --------------- | --------------------------------------- |
-| CPU             | Unità hardware che esegue le istruzioni |
-| Processore      | Chip fisico (contiene una o più CPU)    |
-| Core            | Singola unità di calcolo                |
-| Multicore       | Più core nello stesso processore        |
-| Multiprocessore | Sistema con più processori              |
+
+| Termine             | Significato                             |
+$$
+| ------------------- | --------------------------------------- |
+$$
+| **CPU**             | Unità hardware che esegue le istruzioni |
+| **Processore**      | Chip fisico (contiene una o più CPU)    |
+| **Core**            | Singola unità di calcolo                |
+| **Multicore**       | Più core nello stesso processore        |
+| **Multiprocessore** | Sistema con più processori fisici       |
 
 ---
 
-## Meccanismo delle interruzioni
+## Meccanismo delle Interruzioni
 
-Le interruzioni sono il meccanismo fondamentale con cui il SO reagisce agli eventi in modo **asincrono**.
+> [!abstract] Perché le interruzioni?
+> Alternativa al **polling** (interrogazione ciclica della periferica da parte della CPU), che spreca cicli preziosi. Con le interruzioni la CPU può fare altro mentre aspetta la periferica.
 
-### Perché le interruzioni?
-Alternativa al **polling** (interrogazione ciclica della periferica da parte della CPU), che spreca cicli CPU. Con le interruzioni:
-1. La CPU avvia un'operazione sulla periferica
-2. Nel frattempo esegue altri processi
-3. Quando la periferica ha finito, invia un **interrupt**
-4. La CPU interrompe il processo corrente, esegue la **routine di servizio**, poi riprende
+### Flusso di gestione di un interrupt
+
+```mermaid
+sequenceDiagram
+    participant P1 as Processo 1
+    participant CPU
+    participant P2 as Processo 2
+    participant PER as Periferica
+    participant ISR as Routine di Servizio
+
+    P1->>PER: Richiede operazione I/O
+    CPU->>P2: Scheduler manda in esecuzione P2
+    PER-->>CPU: Interrupt (operazione completata)
+    CPU->>ISR: Esegue routine di servizio
+    ISR-->>CPU: Fine servizio
+    CPU->>P1: Ripristina e riprende P1
+```
 
 ### Interrupt vettorizzato
-- Ogni interrupt ha un **numero** univoco
-- Esiste un **vettore di interruzioni**: all'indice corrispondente al numero si trova l'indirizzo della routine di servizio
-- Il vettore è protetto dal kernel (se modificabile da utenti, la macchina potrebbe essere dirottata)
+
+Ogni interrupt ha un **numero** univoco. Esiste un **vettore di interruzioni** dove:
+$$\text{vettore}[\,n_{\text{interrupt}}\,] = \text{indirizzo della routine di servizio}$$
+> [!warning] Protezione del vettore
+> Il vettore degli interrupt **deve essere protetto dal kernel**. Un utente malizioso che potesse sovrascriverlo potrebbe dirottare l'intera macchina verso codice arbitrario.
 
 ### Tipi di interruzione
 
-| Tipo                      | Origine                              | Sincronicità | Esempio                                                |
-| ------------------------- | ------------------------------------ | ------------ | ------------------------------------------------------ |
-| **Hardware interrupt**    | Periferica esterna                   | Asincrono    | Pressione di un tasto, fine trasferimento dati         |
-| **Eccezione (Exception)** | CPU stessa, errore                   | Sincrono     | Division by zero, Segmentation Fault, accesso illegale |
-| **Trap**                  | Programma, richiesta esplicita al SO | Sincrono     | Chiamata di sistema (`syscall`)                        |
+| Tipo                      | Origine                              | Sincronia | Esempi                                                 |
+$$
+| ------------------------- | ------------------------------------ | --------- | ------------------------------------------------------ |
+$$
+| **Hardware interrupt**    | Periferica esterna                   | Asincrono | Tasto premuto, fine trasferimento dati di rete         |
+| **Eccezione (Exception)** | CPU, errore durante esecuzione       | Sincrono  | Division by zero, Segmentation Fault, accesso illegale |
+| **Trap**                  | Programma, richiesta esplicita al SO | Sincrono  | Chiamate di sistema (`syscall`)                        |
 
-> Su x86, i vettori 0–31 sono per eccezioni CPU (non mascherabili e mascherabili); i numeri più alti per interrupt hardware da periferiche.
+> [!example] Esempio concreto — pressione di un tasto
+> 1. Il controller della tastiera rileva il tasto
+> 2. Manda un **hardware interrupt** alla CPU
+> 3. La CPU sospende il processo corrente
+> 4. Viene eseguita la **routine di servizio**: il codice del tasto viene messo in un buffer
+> 5. Il processo interrotto viene ripristinato
 
-### Frequenza reale
-Su macOS, in 10 secondi si possono registrare fino a **~23.000 interruzioni**. Il SO moderno è essenzialmente **event-driven** (guidato dagli eventi).
+> [!info] Frequenza reale
+> Su macOS, in **10 secondi** si possono registrare fino a **~23.000 interruzioni**. Il SO moderno è essenzialmente **event-driven**.
 
 ---
 
-## Caratteristiche fondamentali del SO moderno
+## Caratteristiche Fondamentali del SO Moderno
 
 ### Multiprogrammazione e Time Sharing
+
+```mermaid
+gantt
+    title Time Sharing — alternanza dei processi sulla CPU
+    dateFormat X
+    axisFormat %s
+
+    section CPU
+    Processo A :a1, 0, 2
+    Processo B :b1, 2, 4
+    Processo A :a2, 4, 6
+    Processo C :c1, 6, 8
+    Processo B :b2, 8, 10
+```
+
 - **Multiprogrammazione:** più programmi caricati in RAM, la CPU passa da uno all'altro
-- **Time Sharing:** ogni processo riceve un **quanto di tempo** (TIC), poi il controllo passa allo scheduler
-- Lo **scheduler** decide quale processo mandare in esecuzione
+- **Time Sharing:** ogni processo riceve un **quanto di tempo (TIC)**, poi lo scheduler decide il prossimo
 
-### Dual Mode (modalità duale)
-- **Kernel Mode:** accesso completo all'hardware, operazioni privilegiate
-- **User Mode:** operazioni limitate; per accedere all'hardware si richiede il kernel tramite *system call*
-- Un **bit di modalità** (implementato in hardware) distingue le due modalità
-- È sempre il kernel a controllare il bit: concede la User Mode e se la riprende
+### Dual Mode — Modalità Duale
 
-### Protezione temporale
-- Un **timer hardware** invia periodicamente un interrupt alla CPU
-- Impedisce che un processo utente occupi la CPU indefinitamente
-- Il controllo torna regolarmente al kernel
+> [!important] Principio fondamentale
+> Il sistema opera sempre in una di due modalità, distinte da un **bit hardware**:
+> - **Kernel Mode:** accesso completo all'hardware, operazioni privilegiate
+> - **User Mode:** operazioni limitate; per accedere all'hardware si deve richiedere al kernel tramite *system call*
+> 
+> È **sempre il kernel** a controllare questo bit: concede la User Mode e se la riprende.
 
-### Protezione della memoria
-- Il SO assegna ad ogni processo uno **spazio di indirizzamento** (con registro base + registro limite)
-- La CPU lavora con **indirizzi logici** (disaccoppiati dagli indirizzi fisici in RAM)
-- I controlli di accesso sono fatti in hardware per motivi di velocità
-- Il SO "apparecchia la tavola" e poi l'hardware esegue i controlli
+> [!warning] MS-DOS — un controesempio
+> MS-DOS sull'Intel 8088 **non aveva il bit di modalità**: qualsiasi programma poteva accedere direttamente all'hardware, rendendo il sistema facilmente "dirottabile".
+
+### Protezione Temporale
+
+Per evitare che un processo utente occupi la CPU indefinitamente:
+
+> [!note]
+> Un **timer hardware** invia periodicamente un interrupt alla CPU, riportando il controllo al kernel. Questo garantisce che nessun processo possa monopolizzare la CPU.
+
+### Protezione della Memoria
+
+Il kernel assegna ad ogni processo uno **spazio di indirizzamento** con registro base e registro limite:
+$$\text{indirizzo fisico} = \text{base} + \text{indirizzo logico} \quad \text{se} \quad \text{indirizzo logico} \leq \text{limite}$$
+> [!tip]
+> La CPU lavora con **indirizzi logici** (disaccoppiati dalla RAM fisica). I controlli di accesso sono eseguiti in **hardware** per motivi di velocità. Il SO "apparecchia la tavola", poi l'hardware fa i controlli.
 
 ---
 
-## Gestione dei processi (introduzione)
+## Gestione dei Processi — Introduzione
 
-- Un **processo** è un programma in esecuzione; ha bisogno di risorse (CPU, memoria, I/O)
-- Alla terminazione, le risorse vengono liberate
-- **Processo single-thread:** un unico Program Counter, esecuzione sequenziale
-- **Processo multi-thread:** più sotto-unità di esecuzione (thread), ognuno con il proprio PC, che condividono lo stesso spazio di indirizzamento → problemi di **sincronizzazione**
+> [!abstract] Cos'è un processo?
+> Un **processo** è un programma in esecuzione. Ha bisogno di risorse (CPU, memoria, I/O) e le rilascia alla terminazione.
+
+### Single-thread vs Multi-thread
+$$
+| | Single-thread | Multi-thread |
+$$
+$$
+|---|---|---|
+$$
+| Program Counter | Uno solo | Uno per thread |
+| Spazio di indirizzamento | Dedicato | Condiviso tra i thread |
+| Parallelismo | No | Sì (con problemi di sincronizzazione) |
 
 ### Ciclo di vita di un processo
-Creazione → Esecuzione → Sospensione → Ripresa → Terminazione
 
-### Argomenti che verranno approfonditi
-- Schedulazione dei processi
-- Sincronizzazione e comunicazione tra processi
-- Programmazione concorrente (fork, thread, IPC)
-- Memoria: gestione e virtualizzazione
-- File system
-- Gestione I/O
-- Virtualizzazione
+```mermaid
+stateDiagram-v2
+    [*] --> Creato
+    Creato --> Pronto
+    Pronto --> In_esecuzione : scheduler lo seleziona
+    In_esecuzione --> Pronto : quanto di tempo scaduto
+    In_esecuzione --> In_attesa : richiesta I/O
+    In_attesa --> Pronto : I/O completato (interrupt)
+    In_esecuzione --> Terminato
+    Terminato --> [*]
+```
 
 ---
 
-## Programma del corso (panoramica)
+## Programma del Corso
 
-1. Introduzione ai sistemi operativi *(questa lezione)*
-2. Struttura e architettura del SO
-3. Processi: concetto, schedulazione, sincronizzazione
-4. Gestione della memoria principale
-5. Sistemi di I/O
-6. File system
-7. Esercitazioni pratiche su Linux (shell scripting, programmazione di sistema in C)
+```mermaid
+flowchart TD
+    A[Introduzione ai SO] --> B[Struttura e architettura del SO]
+    B --> C[Processi: concetto, scheduling, sincronizzazione]
+    C --> D[Gestione della memoria principale]
+    D --> E[Sistemi di I/O]
+    E --> F[File system]
+    F --> G[Virtualizzazione]
+    
+    style A fill:#4a9eff,color:#fff
+    style C fill:#f0a500,color:#fff
+    style D fill:#f0a500,color:#fff
+    style E fill:#f0a500,color:#fff
+    style F fill:#f0a500,color:#fff
+```
+
+---
+
+## Tags
+#sistemi-operativi #SO1 #kernel #interrupt #processo #dual-mode
