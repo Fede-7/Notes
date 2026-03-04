@@ -2,8 +2,8 @@
 Date: 2026-03-03
 Professore: Finzi
 tags:
-  - "#SO"
-  - "#9-CFU"
+  - "#SO1"
+  - 9-CFU
 ---
 # Sistemi Operativi — Lezione 0
 ## Informazioni sul corso

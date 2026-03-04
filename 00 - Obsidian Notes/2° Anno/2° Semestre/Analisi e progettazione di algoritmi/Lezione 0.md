@@ -3,7 +3,7 @@ Date: 2026-03-03
 Professore: Benerecetti
 tags:
   - "#APA"
-  - "#6CFU"
+  - 6-CFU
 ---
 # APA — Lezione 1: Analisi della Complessità e Notazione Asintotica
 **Corso:** Analisi e Progettazione di Algoritmi | **CFU:** 6

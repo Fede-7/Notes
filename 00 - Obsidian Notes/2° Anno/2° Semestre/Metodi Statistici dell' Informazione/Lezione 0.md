@@ -3,7 +3,7 @@ Date: 2026-03-03
 Professore: Marco Lops
 tags:
   - "#MSI"
-  - "#6CFU"
+  - 6-CFU
 ---
 # MSI — Lezione 1: Introduzione, Spazio dei Campioni e Analisi Combinatoria
 **Docente:** Prof. Marco Lops (Telecomunicazioni) | **CFU:** 6 | **Corso:** Metodi Statistici per l'Informazione
