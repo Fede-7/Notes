@@ -4,3 +4,5 @@ Professore: Finzi
 tags:
   - "#SO"
 ---
+Email: alberto.finzi@unina.it
+Chiede di usare come object
