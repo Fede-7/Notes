@@ -55,25 +55,39 @@ tags:
 - Utilizzare l'hardware in modo efficiente
 
 ### Struttura a strati
-
-```
-┌─────────────────────────────┐
-│      Applicazioni utente    │
-├─────────────────────────────┤
-│  Programmi di sistema       │
-├─────────────────────────────┤
-│         K E R N E L         │
-├─────────────────────────────┤
-│  Hardware (CPU, RAM, I/O)   │
-└─────────────────────────────┘
+```mermaid
+graph TB
+    subgraph User["Livello Utente"]
+        A[Applicazioni utente]
+    end
+    
+    subgraph OS["Livello Sistema Operativo"]
+        B1[Kernel]
+        B2[Programmi di sistema]
+    end
+    
+    subgraph HW["Livello Hardware"]
+        C1[CPU]
+        C2[RAM]
+        C3[Periferiche]
+    end
+    
+    A <--> B1
+    A <--> B2
+    B1 <--> C1
+    B1 <--> C2
+    B1 <--> C3
+    B2 <--> C1
+    
+    style User fill:#e1f5ff
+    style OS fill:#fff4e1
+    style HW fill:#ffe1e1
 ```
 
 ### Punti di vista sul SO
 
 | Prospettiva                   | Descrizione                                                     |
-$$
 | ----------------------------- | --------------------------------------------------------------- |
-$$
 | **Allocatore di risorse**     | Gestisce CPU, memoria, periferiche; risolve i conflitti         |
 | **Programma di controllo**    | Primo programma avviato; controlla l'esecuzione degli altri     |
 | **Astrazione della macchina** | Fornisce un modello semplificato e standardizzato dell'hardware |
@@ -178,9 +192,7 @@ Periferiche
 ### Terminologia
 
 | Termine             | Significato                             |
-$$
 | ------------------- | --------------------------------------- |
-$$
 | **CPU**             | Unità hardware che esegue le istruzioni |
 | **Processore**      | Chip fisico (contiene una o più CPU)    |
 | **Core**            | Singola unità di calcolo                |
@@ -222,9 +234,7 @@ $$\text{vettore}[\,n_{\text{interrupt}}\,] = \text{indirizzo della routine di se
 ### Tipi di interruzione
 
 | Tipo                      | Origine                              | Sincronia | Esempi                                                 |
-$$
 | ------------------------- | ------------------------------------ | --------- | ------------------------------------------------------ |
-$$
 | **Hardware interrupt**    | Periferica esterna                   | Asincrono | Tasto premuto, fine trasferimento dati di rete         |
 | **Eccezione (Exception)** | CPU, errore durante esecuzione       | Sincrono  | Division by zero, Segmentation Fault, accesso illegale |
 | **Trap**                  | Programma, richiesta esplicita al SO | Sincrono  | Chiamate di sistema (`syscall`)                        |
@@ -296,12 +306,9 @@ $$\text{indirizzo fisico} = \text{base} + \text{indirizzo logico} \quad \text{se
 > Un **processo** è un programma in esecuzione. Ha bisogno di risorse (CPU, memoria, I/O) e le rilascia alla terminazione.
 
 ### Single-thread vs Multi-thread
-$$
+
 | | Single-thread | Multi-thread |
-$$
-$$
 |---|---|---|
-$$
 | Program Counter | Uno solo | Uno per thread |
 | Spazio di indirizzamento | Dedicato | Condiviso tra i thread |
 | Parallelismo | No | Sì (con problemi di sincronizzazione) |
