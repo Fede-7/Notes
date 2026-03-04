@@ -184,8 +184,8 @@ def convert_tex_to_md(tex_content: str) -> str:
         eq = line_text
         eq = re.sub(r'\\label\{[^}]*\}', '', eq)
         eq = expand_custom_commands(eq)
-        eq = replace_command_math(eq, r'\textit', r'\text{', '}')
-        eq = replace_command_math(eq, r'\textbf', r'\textbf{', '}')
+        eq = replace_command_math(eq, r'\textit', r'\mathit{', '}')
+        eq = replace_command_math(eq, r'\textbf', r'\mathbf{', '}')
         return eq
 
     i = 0
