@@ -3,7 +3,7 @@ summaries:
   Filled: values.filter(!value.isType("null")).length
 views:
   - type: table
-    name: Tabella
+    name: Tabella Semestre
     filters:
       and:
         - file.inFolder("00 - Obsidian Notes/2° Anno/2° Semestre")
@@ -13,6 +13,8 @@ views:
       - Professore
       - tags
     sort:
+      - property: Professore
+        direction: ASC
       - property: file.ctime
         direction: DESC
     summaries: {}
@@ -20,3 +22,14 @@ views:
       note.Date: 166
   - type: table
     name: Last notes
+  - type: cards
+    name: Esami Incompleti
+    filters:
+      and:
+        - file.inFolder("00 - Obsidian Notes/2° Anno/1° Semestre/Edit")
+        - file.ext == "pdf"
+    order:
+      - file.name
+    cardSize: 670
+    imageAspectRatio: 1
+    indentProperties: false
