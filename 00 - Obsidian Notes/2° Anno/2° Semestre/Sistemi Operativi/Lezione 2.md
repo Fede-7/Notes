@@ -2,7 +2,7 @@
 date: 2026-03-06
 corso: Sistemi Operativi
 docente: Alberto Finzi
-lezione: 3
+lezione: 2
 tags:
   - SO1
   - virtualizzazione
@@ -14,7 +14,6 @@ tags:
   - fork
   - ring
 ---
-
 # SO — Lezione 3: Virtualizzazione, Struttura del Kernel e Processi
 
 **Docente:** Prof. Alberto Finzi | **Corso:** Sistemi Operativi | **CFU:** 9

@@ -2,7 +2,7 @@
 date: 2026-03-05
 corso: Sistemi Operativi
 docente: Alberto Finzi
-lezione: 2
+lezione: 1
 tags:
   - system-call
   - API
