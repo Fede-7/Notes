@@ -13,6 +13,8 @@ views:
       - Professore
       - tags
     sort:
+      - property: Date
+        direction: DESC
       - property: Professore
         direction: ASC
       - property: file.ctime

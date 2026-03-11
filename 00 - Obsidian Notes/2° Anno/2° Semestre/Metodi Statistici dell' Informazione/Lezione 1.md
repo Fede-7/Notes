@@ -2,8 +2,16 @@
 date: 2026-03-07
 corso: Metodi Statistici per l'Informazione
 docente: Marco Lops
-lezione: 2
-tags: [MSI, probabilità, combinatoria, frequenza, probabilità-condizionata, indipendenza, misura, poker]
+lezione: 1
+tags:
+  - MSI
+  - probabilità
+  - combinatoria
+  - frequenza
+  - probabilità-condizionata
+  - indipendenza
+  - misura
+  - poker
 ---
 
 # MSI — Lezione 2: Probabilità Frequentistica e Proprietà Fondamentali
