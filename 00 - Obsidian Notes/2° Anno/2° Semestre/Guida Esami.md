@@ -1009,13 +1009,10 @@ $$
 ## F. $T_R = \{x: \exists t: R(x,t)\}$ è r.e. (con $R$ predicato r.p. binario)
 
 (Esame aprile 2024)
+## Risultato:
 
-**Dimostrazione**: $T_R$ è r.e. perché:
-$$T_R = \{x: \exists t: R(x,t)\} = \text{dominio della funzione } g(x) = \mu_t R(x,t)$$
-$g$ è parzialmente calcolabile (minimalizzazione illimitata di un predicato calcolabile). Dunque $T_R = \{x: g(x)\downarrow\}$ è r.e.
-
-**Alternativa**: $T_R = \{l(\langle x,t\rangle): R(l(\langle x,t\rangle), r(\langle x,t\rangle))\}$ è l'immagine di una funzione r.p., dunque r.e. per il teorema di caratterizzazione.
-
----
-
-> 💡 **Consiglio finale aggiornato**: Quando vedi "dimostrare o confutare", la risposta è quasi sempre "SÌ, è r.e." se il set è definito con $\exists$ su STP, e "NO, non è r.e." se è definito con $\forall$ (il $\forall$ è il segnale del complemento di qualcosa di r.e. non ricorsivo). Eccezioni: se il $\forall$ è limitato, allora è r.p.
+$\{\text{\#b pari}\} \cup \{\text{\#a dispari}\}$:
+$$
+\alpha = \underbrace{a^*(ba^*ba^*)^*}_{\text{\#b pari}} \cup \underbrace{b^*(ab^*ab^*)^*ab^*}_{\text{\#a dispari}}
+$$
+La formula è ora sintatticamente corretta e dovrebbe renderizzare correttamente in Obsidian! ✨
