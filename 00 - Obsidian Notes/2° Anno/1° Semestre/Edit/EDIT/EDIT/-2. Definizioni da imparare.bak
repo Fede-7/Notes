@@ -1,0 +1,118 @@
+🟩 - So bene
+🟨 - Qualche incertezza
+🟧 - Molte incertezze
+🟥 - Non l'ho proprio ricordato
+
+Ultima ripetizione completa: 01/01/2025, escludendo quello che c'è dopo le macchine a stati finiti
+# Calcolabilità
+
+1. 🟩 Problema calcolabile, funzione totale, funzione parziale, funzione parzialmente calcolabile, funzione totalmente calcolabile 
+2. 🟩 Tesi di church turing
+3. 🟩 Definizione della funzione k-aria
+
+# Operazioni sulle funzioni e paradigma funzionale
+
+1. 🟨 Definizione della composizione tra funzione. Molta attenzione a come dichiari le funzioni
+2. (E: 🟩 | D: 🟩) Dimostrazione Teorema di Composizione 
+
+# Ricorsione primitiva
+
+1. 🟩 Che tipologie di funzioni sono usate nella generalizzazione di funzione ricorsiva primitiva? (tot/parz?)
+2. 🟩 Definizione GENERALIZZATA di funzione ricorsiva primitiva (e di come dimostrare che una funzione lo è in entrambe le maniere)
+3. (E: 🟧 | D: 🟩) Dimostrazione Teorema di Ricorsione primitiva - La dimostrazione si fa dall'enunciato
+
+# Classi PRC
+1. 🟨 Definizione di PRC
+2. 🟩 Funzioni PRC fondamentali - Devi stare attento alla proiezione 
+3. 🟩 Elencare le funzioni ricorsive primitive note - pag 15, non la dimostrazione solo ciò che fanno. Funzione di addizione, moltiplicazione, fattoriale, precedente, sottrazione, "beta, uguaglianza" e "alpha, se è 0"
+4. (E: 🟩 | D: 🟧) Teorema di Chiusura per congiunzione, disgiunzione e negazione - Per la dimostrazioni devi usare prodotto, De Morgan e la funzione isZero
+5. (E: 🟩) Corollario al Teorema di Definizione per Casi
+6. 🟨 Definizioni di tutti gli Operatori di Sommatoria e Produttoria - Non ti ricordi perché la i è lì nella definizione
+7. (E: 🟩 | D: 🟩) Teorema di chiusura per Sommatoria e Produttoria delle classi PRC - Addirittura la dimostrazione te la sei creata tu lol
+8. 🟨 Definizione dei Quantificatori Limitati.
+9. (E: 🟨 | D: 🟨 ) Teorema di chiusura per quantificatori limitati delle classi PRC - Devi usare semplicemente la sommatoria per definire l'esistenza e la produttoria per il "per ogni", la dimostrazione è facilissima
+10. 🟩 Definizione minimalizzazione limitata + a cosa serve.
+11. (E: 🟩 ) Teorema di chiusura per minimalizzazione limitata delle classi PRC - Lo usavi già senza accorgertene
+12. 🟩 Elencare le funzioni ricorsive primitive note - pag 19 (divisione PREDICATO, primo, FUNZIONE divisione con resto (restituisce un numero), operatore di resto, N-esimo primo)
+
+# Problema della Fermata e Funzione Universale
+
+1. 🟩 Definizione funzione di pairing ( o angoletto ) - inverti il segno degli uno
+2. 🟩 Proprietà della funzione di pairing 
+3. 🟨 Qual è l'inversa parziale a sinistra della funzione di pairing
+4. 🟩 Definizione del numero di Gödel
+5. 🟩 A cosa servono le funzioni inverse del numero di Gödel (x)_i e 🟩 Lt(x)
+6. 🟥 Definisci le inverse parziali del numero di Gödel: (x)\_i
+7. 🟥 Definisci Lt(x)
+8. 🟥 Definizione della Codifica Istruzioni Linguaggio S e programmi
+9. (E: 🟥 | D: 🟥) Esistenza di funzioni non parzialmente calcolabili - Non mi ricordavo niente alla ripetizione
+10. (E: 🟩 | D: 🟩) Problema della fermata - Implica la Definizione di HALT
+11. 🟩 Definizione STP
+12. 🟧 Definizione funzione universale
+13. 🟩 Come si classificano HALT, STP e la funzione universale?
+14. 🟩 Come posso scrivere HALT con STP?
+
+# Insiemi Ricorsivi e Ricorsivamente Enumerabili
+
+1. 🟩 Definizione della funzione caratteristica e a cosa serve
+2. 🟩 Qual è la relazione tra un insieme S ricorsivo / ric. prim e la funzione caratteristica?
+3. (E: 🟩 | D: 🟩) Chiusura per operazioni insiemistiche su insiemi ricorsivi
+4. 🟩 Definizione di insiemi ricorsivamente enumerabili - cosa deve fare g precisamente? Spiega meglio il concetto di ric. enum. 
+5. 🟩 Definizione di insiemi ricorsivi
+6. (E: 🟩 | D: 🟩) Insiemi ricorsivi contenuti nei ricorsivamente enumerabili
+7. 🟩 Definisci il complemento dell'insieme S
+8. (E: 🟥 | D: 🟥) TEOREMA Relazione tra ricorsività e ricorsivo enumerabilità
+9. (E: 🟩 | D: 🟥) Teorema di intersezione e unione di S e S ′ insiemi ricorsivamente enumerabili
+10. 🟩 Definizione operatore di complemento
+11. 🟩 Definizione insieme diagonale ed utilizzo
+12. (E: 🟩 | D: 🟥) Teorema di Enumerazione - Insieme K com'è? ric enum, ric?
+13.  (E: 🟥) Teorema Insiemi ricorsivamente enumerabili e predicati binari ricorsivi primitivi
+14. (E: 🟥) Teorema di caratterizzazione degli insiemi ricorsivamente enumerabili - Cosa significa che i punti sono equivalenti? - Fai riferimento a "photo_2023-09-21_08-17-36" per capire meglio
+
+# Macchine di Turing e Automi a Stati Finiti
+
+1. 🟩 Definizione Automi Finiti Deterministici
+2. 🟧 Definizione funzione di transizione iterata - Nella parte di induzione l'idea è quella di prima arrivare con la funzione iterata a "w" e poi fare un passo in più per arrivare ad "a"
+3. 🟧 Definizione di quando un linguaggio L è accettato da una DFA - L'idea è che la funzione iterata deve appartenere agli stati finali
+4. 🟩 Definizione linguaggi regolari
+5. (E: 🟥) Indipendenza dei Linguaggi Regolari dall’alfabeto di supporto
+6. (E: 🟥) Linguaggi regolari e ricorsivo enumerabilità
+7. (E: 🟥) Regolarità del Complemento
+8. 🟨 Definizione Automi Finiti Non Deterministici - E' identico al DFA solo che la funzione iterata mi dà LE PARTI di Q e non solo 1 stato 
+9. 🟧 Definizione funzione iterata di automi non deterministici: L'idea è che quella "base" all'inizio che sta con epsilon dà se stessa mentre quella iterata dà l'unione unaria di tutto ciò che viene dopo "w" e poi fa un ultimo passo per arrivare ad "a"
+10. 🟩 Definizione di quando un linguaggio L è accettato da un NFA - L'idea è che w appartenente ad A* è accettata se la funzione δ* è definita per q1 e w, da ripetere un pò
+11. (E: 🟧) Corrispondenza tra DFA e NFA
+
+Le definizioni sono tutte molto simili tra loro.
+
+# Operazioni sui Linguaggi regolari
+
+1. 🟩 Definizione DFA Non-restarting
+2. (E: 🟧) DFA Non-Restarting
+3. (E: 🟨 | D: 🟨) Regolarità dell’Unione - Sorprendentemente me la sono cavata bene, ha molto senso
+4. (E: 🟩) Regolarità dell’Intersezione
+5. (E: 🟩) Corollario: Regolarità dei linguaggi finiti - Questo lo usiamo sempre negli esercizi per capire "ad occhio" il linguaggio com'è
+6. 🟩 Definizione Prodotto per Concatenazione - Se voglio concatenare 2 linguaggi devo concatenare tutto l'alfabeto dei linguaggi
+7. (E: 🟩 | D: 🟧) Chiusura dei Linguaggi regolari per Prodotto - Praticamente IDENTICO all'unione
+8. 🟨 Definizione Iterazione (Star) - Nulla di troppo complicato, è l'unione UNARIA (ovvero la concatenazione delle parole) di tutti gli n linguaggi possibili
+9. (E: 🟧) Chiusura dei Linguaggi regolari per Iterazione
+10. (E: 🟧 | D: 🟥) Teorema di Kleene - Skippato
+11. (E: 🟧) Pumping Lemma per linguaggi regolari rafforzato - Non troppo difficile
+
+# Grammatiche context-free e Automi Pushdown
+
+1. 🟧 Definizione grammatiche context-free
+2. 🟩 Definizione di Ambiguità e non ambiguità
+3. (E: 🟥 | D: 🟥) Chiusura per unione dei linguaggi context-free
+4. (E: 🟥) Chiusura per concatenazione dei linguaggi context-free
+5. (E: 🟥) Chiusura per iterazione dei linguaggi context-free
+6. (E: 🟥) Proposizione: Tutti i linguaggi finiti sono context-free
+7. (E: 🟥 | D: 🟥) Teorema: Tutti i linguaggi regolari sono context-free
+8. Definizione Grammatiche Regolari
+9. Definizione Automi Pushdown (o PDA)
+10. (E: 🟥 | D: 🟥) Teorema: Tutti i linguaggi regolari sono context-free
+# Forme Normali di Chomsky e Pumping Lemma
+
+1. Definizione Grammatiche Context-Free in forma Normale di Chomsky
+2. (E: 🟥 | D: 🟥) Normalizzazione di una grammatica CF
+3. (E: 🟥 | D: 🟥) Pumping Lemma per i linguaggi context-free

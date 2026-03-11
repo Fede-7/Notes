@@ -1,0 +1,726 @@
+\chapter{Grammatiche context-free e Automi Pushdown}
+
+Dopo aver esplorato a fondo il concetto di automa, analizziamo ora un altro modello di calcolo, le grammatiche context-free.
+
+Il concetto di \textbf{grammatica context-free} nasce in ambito linguistico per descrivere i linguaggi naturali, e solo successivamente venne formalizzato per essere utilizzato con i linguaggi formali.
+
+Le \textbf{grammatiche context-free} forniscono descrizioni del linguaggio più ad alto livello sulla struttura delle stringhe rispetto a quanto visto coi linguaggi regolari, che, ricordando l'origine di questo concetto, è assimilabile a un analisi logica di un periodo.
+
+\section{Grammatiche context-free}
+
+Innanzitutto per utilizzare le \textbf{grammatica context-free} con linguaggi formali, dobbiamo darne una definizione formale.
+
+\dfn{Grammatiche context-free}{
+  Una \textbf{grammatica context-free} è una quadrupla $G = (V, \Sigma, R, S)$ dove:
+  \begin{itemize}
+  \item $V$ è un insieme finito di simboli detto \textbf{alfabeto delle variabili};
+  \item $\Sigma$ è un insieme finito di simboli detti \textbf{alfabeto dei terminali};
+  \item $S \in V$ è detta \textbf{variabile iniziale} o \textbf{assioma};
+  \item $R \subseteq V \times {(V \cup \Sigma)}^*$ è un insieme finito di \textbf{regole} o \textbf{produzioni}
+  \end{itemize}
+
+  Le coppie $(X,u) \in R $ si indicano con $X \to u$ e si leggono \textit{$X$ produce $u$}.
+}
+
+Similmente a quanto visto per i DFA con la funzione di transizione e la funzione di transizione iterata, per definire i linguaggi generati da una \textbf{grammatica context-free} dobbiamo definire la relazione di derivazione elementare e la relazione di derivazione.
+
+Data la definizione formale di \textbf{grammatica context-free}, dobbiamo definire il concetto di derivazione.
+
+\dfn{Derivazione e derivazione elementare}{
+  Date $w,w' \in \rbrakets{V \cup \Sigma}^* $ diremo che $w'$ si ottiene da $w $ per \textbf{derivazione elementare} $\rbrakets{w \xRightarrow[G]{} w'} $ se:
+
+  \begin{equation}
+    w = v_1Xv_2 \land w' = v_1uv_2, \text{ con } v_1,v_2 \in \rbrakets{V \cup \Sigma}^*, X \to u \in R
+  \end{equation}
+
+  Diremo inoltre che $w'$ si ottiene da $w $ per \textbf{derivazione} $\rbrakets{w \xRightarrow[G]{*} w'}$ se:
+  \begin{equation}
+    \exists w_1, \dots , w_n = w' \in \rbrakets{V \cup \Sigma}^*: w \xRightarrow[G]{} w_1 \xRightarrow[G]{} \dots \xRightarrow[G]{} w_n = w', \text{ con } n \geq 0
+  \end{equation}
+}
+
+Possiamo finalmente definire i linguaggi generati da una \textbf{grammatica context-free} come $ L(G) = \cbrakets{w \in \Sigma^* \vert S \xRightarrow[G]{*} w} $, ovvero stringhe di soli \textbf{terminali} derivabili dall'\textbf{assioma}.
+
+\newpage
+\begin{generalbox}[colframe=azure-gradient-3!90!black]{Esempi: Grammatiche context-free}
+  Un primo esempio di \textbf{grammatica context-free} è la seguente:
+
+  \begin{equation}
+    \begin{split}
+      S &\to \varepsilon\\
+      S &\to aSb
+    \end{split}
+  \end{equation}
+
+  Per leggibilità, nella scrittura delle regole di una grammatica context-free, si utilizzano alcune convenzioni, come ad esempio scrivere per prime le regole che sostituiscono l'assioma, o raggruppare tutte le regole che sostituiscono la stessa variabile separando le possibili sostituzioni col simbolo \(\mid\).
+
+  Possiamo quindi riscrivere le regole della grammatica precedente come:
+
+  \begin{equation}
+    S \to \varepsilon \mid aSb
+  \end{equation}
+
+  Per questa grammatica, possiamo dire che $L(G) = \cbrakets{a^{n}b^n \vert n \geq 0} $. Infatti, a ogni derivazione da $S$ avremo o la terminazione della sequenza di derivazioni o l'aggiunta di un'$a$ e di una $b$ alla stringa, che quindi avrà sempre la forma $a^{n}b^n$.
+
+  \medskip
+
+  Si avrà infatti $S \xRightarrow[G]{} aSb \xRightarrow[G]{} aaSbb \xRightarrow[G]{} \dots \xRightarrow[G]{} a^{n}b^n \xRightarrow[G]{} $ utilizzando la regola $S \to \varepsilon $ come ultima.
+
+  \medskip
+
+  Avendo dimostrato nel capitolo precedente che questo linguaggio non è regolare, possiamo affermare che esistono linguaggi che non sono regolari ma sono generabili da una \textbf{grammatica context-free}.
+
+  \bigskip
+
+  Un altro esempio di linguaggio non regolare che abbiamo visto nello scorso capitolo è $ L= \cbrakets{a^{m}b^{n} \vert m \geq n > 0} $. Anche in questo caso il linguaggio è generabile da una \textbf{grammatica context-free}.
+
+  \medskip
+
+  Innanzitutto possiamo scomporre la generica parola del linguaggio come $a^{m}b^{n}\ =\ a^{m-n}a^{n}b^{n}$.
+
+  Avremo dunque che per ottenere una parola di $L$ basta concatenare una parola di $a^{m-n}$ con una parola di $a^{n}b^{n}$.
+
+  \medskip
+
+  Possiamo quindi scrivere la seguente grammatica:
+  \begin{equation}
+    \begin{split}
+      S &\to AX\\
+      A &\to aA \mid \varepsilon \\
+      X &\to aXb \mid ab
+    \end{split}
+  \end{equation}
+
+  La prima regola di questa grammatica divide la parola generata sempre in due parti, che saranno poi competenza di altre due variabili. La seconda regola genera la parte di $a^{m-n}$ e la terza regola genera la parte di $a^{n}b^{n}$.
+
+  \bigskip
+
+  Vediamo infine un esempio di grammatica context-free che permette di descrivere una sintassi per le espressioni aritmetiche, ovvero $G=\rbrakets{V,\Sigma,R,E}, V=\cbrakets{E,T,F}, \Sigma=\cbrakets{a,+,\cdot,(,)} \text{ con } R \text{ così definito:}$
+
+  \begin{equation}
+    \begin{split}
+      E &\to E + T \mid T\\
+      T &\to T \cdot F \mid F\\
+      F &\to (E) \mid a
+    \end{split}
+  \end{equation}
+
+  Si può facilmente vedere infatti che $)(( a \cdot\ \nin L(G)$ mentre $a + a \cdot a \in L(G)$, infatti:
+  \begin{equation}
+      E \xRightarrow[G]{} E + T \xRightarrow[G]{} T + T \xRightarrow[G]{} F + T \xRightarrow[G]{} a + T \xRightarrow[G]{} a + T \cdot F \xRightarrow[G]{} a + F \cdot F \xRightarrow[G]{} a + a \cdot F \xRightarrow[G]{} a + a \cdot a
+  \end{equation}
+
+  Possiamo tra l'altro notare come questa grammatica segua le regole di precedenza delle operazioni aritmetiche, ovvero che la moltiplicazione ha precedenza sulla somma.
+
+  Infatti la stringa $a \cdot a\ +\ a\ \nin L$
+\end{generalbox}
+
+
+\subsection{Albero di derivazione e ambiguità}
+
+Definite le \textbf{grammatiche context-free} e i linguaggi da esse generate, andiamo ora ad analizzare il funzionamento di queste grammatiche.
+
+Un primo aspetto interessante da affrontare è il concetto di ambiguità.
+
+Con una rapida analisi degli esempi appena visti, possiamo notare che una stessa stringa può essere derivata in più modi diversi.
+
+Nel caso di $a + a \cdot a$ ad esempio, si è scelta sempre la variabile più a sinistra da sostituire, ovvero si è fatta una \textbf{derivazione estrema a sinistra},  ma si poteva anche scegliere di sostituire prima la variabile più a destra.
+
+\newpage
+
+Queste due derivazioni però non utilizzano regole diverse, ma semplicemente le applicano in ordine diverso.
+
+Per rendere questa equivalenza è possibile costruire un particolare albero, detto \textbf{albero di derivazione} o \textbf{parse tree}, ovvero un albero che segue le seguenti regole:
+
+\begin{itemize}
+  \item La radice dell'albero è l'assioma della grammatica
+  \item Ogni foglia è un terminale
+  \item Ogni nodo interno è una variabile
+  \item Ogni nodo ha per figli la sotto stringa derivata da quel nodo da destra a sinistra
+  \item Le foglie, lette da sinistra a destra, formano la stringa derivata
+\end{itemize}
+
+Ad esempio, l'\textbf{albero di derivazione} per la stringa $a\ +\ a\ \cdot\ a$ è il seguente:
+
+\begin{center}
+  \begin{forest}
+      for tree={
+          circle,
+          draw,
+          blue,
+          minimum size=1cm,
+          fill=white,
+          text=black,
+      }
+      [$E$, s sep=10mm
+        [$E$
+          [$T$
+            [$F$
+              [$a$, fill=blue!25!white]
+            ]
+          ]
+        ]
+        [$+$, fill=blue!25!white]
+        [$T$
+          [$T$
+            [$F$
+              [$a$, fill=blue!25!white]
+            ]
+          ]
+          [$ \cdot $, fill=blue!25!white]
+          [$F$
+            [$a$, fill=blue!25!white]
+          ]
+        ]
+      ]
+  \end{forest}
+\end{center}
+
+Consideriamo ora la stringa $a\ +\ a\ \cdot a$ \textbf{derivata estremamente a destra}. Si avrà:
+
+\begin{equation}
+    E \xRightarrow[G]{} E + T \xRightarrow[G]{} E + T \cdot F \xRightarrow[G]{} E + T \cdot a \xRightarrow[G]{} E + F \cdot a \xRightarrow[G]{} E + a \cdot a \xRightarrow[G]{} T + a \cdot a \xRightarrow[G]{} F + a \cdot a \xRightarrow[G]{} a + a \cdot a
+\end{equation}
+
+Possiamo facilmente vedere che anche questa derivazione porta allo stesso \textbf{albero di derivazione}.
+
+Diremo dunque che due derivazioni sono \textbf{equivalenti} se portano allo stesso \textbf{albero di derivazione}.
+
+Possiamo infine definire formalmente il concetto di ambiguità e non ambiguità.
+
+\dfn{Ambiguità e non ambiguità}{
+  Una \textbf{grammatica context-free} è \textbf{non ambigua} se per ogni stringa generata esiste un unico albero di derivazione distinto.
+
+  Una \textbf{grammatica context-free} è \textbf{ambigua} se esiste almeno una stringa generata da più alberi di derivazione distinti.
+}
+
+Avendo visto che derivazioni equivalenti portano a un unico \textbf{albero di derivazione}, possiamo anche riformulare la definizione di ambiguità e non ambiguità in termini di \textbf{derivazioni estreme a sinistra}.
+
+Diremo infatti che una \textbf{grammatica context-free} è \textbf{non ambigua} se per ogni stringa è generata da un unica derivazione estrema a sinistra.
+
+Per vedere un esempio di grammatica ambigua, è sufficiente considerare un insieme di regole che generano lo stesso linguaggio analizzato fino a ora, nello specifico $E\ \to (E) \mid E\ +\ E\ \mid\ E\ \cdot E\ \mid\ a$.
+
+Considerando ora la solita stringa $a\ +\ a\ \cdot\ a$, possiamo derivarla in più modi diversi non equivalenti, senza \textit{rispettare l'ordine aritmetico delle operazioni}:
+
+\begin{enumerate}
+  \item $E \xRightarrow[G]{} E \cdot E \xRightarrow[G]{} E + E \cdot E \xRightarrow[G]{} a + E \cdot E \xRightarrow[G]{} a + a \cdot E \xRightarrow[G]{} a + a \cdot a $
+  \item $E \xRightarrow[G]{} E + E \xRightarrow[G]{} E + E \cdot E \xRightarrow[G]{} a + E \cdot E \xRightarrow[G]{} a + a \cdot E \xRightarrow[G]{} a + a \cdot a $
+\end{enumerate}
+
+Possiamo facilmente notare che queste due derivazioni sono diverse poiché entrambe estreme a sinistra, ma che portano entrambe alla stessa stringa.
+
+\newpage
+
+Per maggiore chiarezza possiamo costruire i due alberi di derivazione:
+
+\begin{figure}[ht]
+  \centering
+  \begin{forest}
+      for tree={
+          circle,
+          draw,
+          blue,
+          minimum size=1cm,
+          fill=white,
+          text=black,
+      }
+      [, phantom, s sep=20mm
+        [$E$, s sep=15mm
+          [$E$
+            [$E$
+              [$a$, fill=blue!25!white]
+            ]
+            [$+$, fill=blue!25!white]
+            [$E$
+              [$a$, fill=blue!25!white]
+            ]
+          ]
+          [$\cdot$, fill=blue!25!white]
+          [$E$
+              [$a$, fill=blue!25!white]
+          ]
+        ]
+        [$E$, s sep=15mm
+          [$E$
+            [$a$, fill=blue!25!white]
+          ]
+          [$+$, fill=blue!25!white]
+          [$E$
+          [$E$
+          [$a$, fill=blue!25!white]
+        ]
+        [$\cdot$, fill=blue!25!white]
+        [$E$
+          [$a$, fill=blue!25!white]
+        ]
+          ]
+        ]
+      ]
+  \end{forest}
+\end{figure}
+
+Per questo esempio, possiamo dire che la grammatica è ambigua poiché esistono due alberi di derivazione distinti per la stringa \( a+a\cdot a \), ma ciò dipende esclusivamente dalla grammatica utilizzata e non dal linguaggio, che infatti siamo stati in grado di derivare anche da una grammatica non ambigua.
+
+Esistono però linguaggi che non possono essere generati da grammatiche non ambigue, detti \textbf{inerentemente ambigui}\footnote{ L'utilizzo della parola \textbf{inerentemente} è fatto in maniera desueta, nonostante tecnicamente corretto. Il termine infatti deriva dalla traduzione dall'inglese del termine \textbf{inherently}, presente anche nel testo consigliato di Sipser, che si traduce in maniera più puntuale in \textbf{intrinsecamente}. Si è scelto di utilizzare comunque il termine \textbf{inerentemente} poiché più diffuso nella letteratura riguardo questo argomento, e presente anche nella traduzione ufficiale del testo di Sipser, nonostante sia meno calzante. Per dubbi si veda la \href{https://www.treccani.it/vocabolario/inerente/}{\textit{\underline{definizione di inerente}}} e la \href{https://www.wordreference.com/enit/inherently}{\textit{\underline{traduzione di inherently}}}.}.
+
+Un esempio di linguaggio \textbf{inerentemente ambiguo} è $L = \cbrakets{a^{i}b^{j}c^{k} \vert i,j,k \geq 0 \land (i=j \lor i=k)}$.
+
+È facile vedere che questo linguaggio è generato necessariamente da una grammatica ambigua, poiché conterrà anche le parole della forma $a^{i}b^{i}c^{i}$ che possono essere derivate sia come parole della forma $a^{i}b^{i}c^{k}$ che della forma $a^{i}b^{j}c^{i}$.
+
+\section{Proprietà di chiusura dei linguaggi context-free}
+
+Come di consueto, una volta analizzato il funzionamento di un modello di calcolo, andiamo ora ad analizzare le proprietà di chiusura dei linguaggi generati da esso.
+
+Andiamo innanzitutto a verificare che la classe dei linguaggi context-free sia chiusa per le operazioni regolari, ovvero unione, concatenazione e iterazione.
+
+\begin{halfframedbox}{red!75!black}{Chiusura per unione dei linguaggi context-free}
+  \textbf{Enunciato.} Se $L_1$ e $L_2$ sono linguaggi context-free, allora lo è anche $L_1 \cup L_2$.
+
+  \begin{center}
+    \textcolor{red!75!black}{\hdashrule[0.5ex]{18cm}{1pt}{3mm 3pt 1mm 2pt}}
+  \end{center}
+
+  \textbf{Dimostrazione.} Sia $L_1 = L(G_1)$ con $G_1 = (V_1, \Sigma, R_1, S_1)$ e $L_2 = L(G_2)$ con $G_2 = (V_2, \Sigma, R_2, S_2)$\footnote{La dimostrazione è analoga per linguaggi definiti su insiemi di terminali diversi considerando come $\Sigma$ l'unione degli insiemi dei terminali}.
+
+  Con $V_1 \cap V_2 = \varnothing$. Allora la grammatica $ G = \rbrakets{V_1 \cup V_2 \cup \cbrakets{S}, \Sigma, R_1 \cup R_2 \cup \cbrakets{S \to S_1 \mid S_2}, S}, S \nin V_1\cup V_2 $ genera $L_1 \cup L_2$.
+\end{halfframedbox}
+
+\begin{halfframedbox}{red!75!black}{Chiusura per concatenazione dei linguaggi context-free}
+  \textbf{Enunciato.} Se $L_1$ e $L_2$ sono linguaggi context-free, allora lo è anche $L_{1}L_{2}$.
+
+  \begin{center}
+    \textcolor{red!75!black}{\hdashrule[0.5ex]{18cm}{1pt}{3mm 3pt 1mm 2pt}}
+  \end{center}
+
+  \textbf{Dimostrazione.} Siano $L_1 = L(G_1)$ e $L_2=L(G_2) $ con $G_1 = (V_1, \Sigma, R_1, S_1)$ e $G_2 = (V_2, \Sigma, R_2, S_2)$ e $V_1 \cap V_2 = \varnothing $.
+
+  Allora la grammatica $G' = \rbrakets{V_1 \cup V_2 \cup \cbrakets{S}, \Sigma, R_1 \cup R_2 \cup \cbrakets{S \to S_1S_2}, S}, S \nin V_1\cup V_2$ genera $L_1 \cup L_2$.
+\end{halfframedbox}
+
+\begin{halfframedbox}{red!75!black}{Chiusura per iterazione dei linguaggi context-free}
+  \textbf{Enunciato.} Se $L_1$ è un linguaggio context-free, allora lo è anche $L_1^*$.
+
+  \begin{center}
+    \textcolor{red!75!black}{\hdashrule[0.5ex]{18cm}{1pt}{3mm 3pt 1mm 2pt}}
+  \end{center}
+
+  \textbf{Dimostrazione.} Sia $L_1 = L(G_1)$ con $G_1 = (V_1, \Sigma, R_1, S_1)$.
+
+  Allora la grammatica $\widehat{G} = \rbrakets{V_1 \cup \cbrakets{S}, \Sigma, R_1 \cup \cbrakets{S \to SS_1 \mid \varepsilon}, S}, S \nin V_1$ genera $L_1^*$.
+
+  Infatti possiamo osservare che se $L \subseteq \Sigma^*$ è un linguaggio qualsiasi, allora $L^* = L^*L \cup \cbrakets{\varepsilon} $. Infatti conterrà la stringa vuota, ovvero una concatenazione di zero parole di $L$ unito alle concatenazioni di almeno una parola di $L$.
+
+  La tesi è facilmente evincibile dal fatto che le uniche due regole della grammatica da noi costruita si comportano in maniera analoga a questa osservazione.
+\end{halfframedbox}
+
+ssendo dunque che la classe dei linguaggi context-free è chiusa per unione, concatenazione e iterazione, possiamo dire che è chiusa per tutte le operazioni regolari.\footnote{A titolo di notizia si può notare come queste proprietà di chiusura risultino quasi immediate dal momento che si considerano le regole di una grammatica context-free come operazioni fra linguaggi. Infatti, considerando il simbolo $\mid$ come $\cup$, il simbolo $\cdot$ come $\cdot$ e usando regole costruite in maniera analoga a quelle della chiusura per iterazione per simulare quest'ultima, abbiamo che ogni regola di una grammatica context-free si può interpretare come una operazione fra linguaggi e viceversa}
+
+Dal teorema di Kleene quindi, se dimostrassimo che tutti i linguaggi finiti sono context-free avremmo una prima dimostrazione che tutti i linguaggi regolari sono context-free.
+
+\begin{halfframedbox} {red!75!black}{Proposizione: Tutti i linguaggi finiti sono context-free}
+  \textbf{Enunciato.} Se $ L \subseteq \Sigma^*$ è finito, allora è context-free.
+
+  \begin{center}
+    \textcolor{red!75!black}{\hdashrule[0.5ex]{18cm}{1pt}{3mm 3pt 1mm 2pt}}
+  \end{center}
+
+  \textbf{Dimostrazione.} Se $L= \varnothing$ è generato dalla grammatica con $R=\cbrakets{S\to S}$.
+
+  Se $L = \cbrakets{w_1, \ldots, w_n \vert w_1, \ldots w_n \in \Sigma^*}$, allora $L=L(G)$ dove $G$ ha come regole $R = \cbrakets{S \to w_1 \mid \ldots \mid w_n}$.
+
+\end{halfframedbox}
+
+Possiamo quindi concludere formalmente che tutti i linguaggi regolari sono context-free.
+
+\begin{halfframedbox}{red!75!black}{Teorema: Tutti i linguaggi regolari sono context-free}\label{Teorema Linguaggi regolari sono context-free}
+  \textbf{Enunciato.} Se $L \subseteq \Sigma^*$ è regolare, allora è context-free.
+
+  \begin{center}
+    \textcolor{red!75!black}{\hdashrule[0.5ex]{18cm}{1pt}{3mm 3pt 1mm 2pt}}
+  \end{center}
+
+  \textbf{Prima Dimostrazione}
+    Dal teorema di Kleene, $L$ regolare $\implies L$ si ottiene da linguaggi finiti applicando $\cup, \cdot, *$. Dai teoremi precedenti si ha banalmente la tesi.
+\end{halfframedbox}
+
+\subsection{Grammatiche regolari}
+
+Per dare un ulteriore dimostrazione del fatto che tutti i linguaggi regolari sono context-free, possiamo definire un particolare tipo di grammatiche, dette \textbf{grammatiche regolari}, che generano esattamente i linguaggi regolari.
+
+\dfn{Grammatiche Regolari}{
+  Una grammatica context-free $G = (V, \Sigma, R, S)$ si dice \textbf{regolare} se $ R \subseteq V \times \Sigma \cup V \times \cbrakets{\varepsilon} \cup V \times \Sigma V$.
+
+  Cioè se ogni regola ha una tra le seguenti forme: $X \to a$, $X \to \varepsilon$ o $X \to aY$.
+}
+
+Si può dimostrare, anche se non lo faremo, che un linguaggio accettato da una grammatica regolare è regolare.
+
+Da questo possiamo ottenere un altra dimostrazione del teorema precedente
+
+\begin{halfframedbox}{red!75!black}{Teorema: Tutti i linguaggi regolari sono context-free}
+  \textbf{Enunciato.} Se $L \subseteq \Sigma^*$ è regolare, allora è context-free.
+
+  \begin{center}
+    \textcolor{red!75!black}{\hdashrule[0.5ex]{18cm}{1pt}{3mm 3pt 1mm 2pt}}
+  \end{center}
+
+  \textbf{Seconda Dimostrazione}
+    Sia $L = L(\mcM) $ con $\mcM=\rbrakets{Q,\Sigma, \delta, q_1,F}$ DFA\@.
+
+    Consideriamo un insieme $V$ equipotente a $Q$, cioè per ogni stato $q_i \in Q$ sia definita una variabile $X_i \in V$.
+
+    Definiamo allora una grammatica come segue:
+    \begin{itemize}
+      \item Se $\delta(q_i,a)=q_j$, con $q_i,q_j \in Q$ e $a \in \Sigma$, allora $G$ avrà la regola $X_i \to aX_j$
+      \item Se $q_i \in F$, allora $G$ avrà la regola $X_i \to \varepsilon$
+    \end{itemize}
+
+    Si può facilmente vedere che la grammatica così definita, oltre a essere regolare e dunque context-free, se si sceglie come assioma $X_1$ genera $L(\mcM)$, da cui la tesi.
+\end{halfframedbox}
+
+\newpage
+
+\section{Automi Pushdown}
+
+Riprendiamo il concetto di automi per proporre un ulteriore modello di calcolo che, come vedremo, va di pari passo con \textbf{grammatiche e linguaggi context-free}.
+
+Se abbiamo definito informalmente un DFA una particolare macchina di Turing con caratteristiche computazionali minime, ovvero una memoria finita e la capacità di funzionare esclusivamente come \textbf{accettori}, possiamo, sempre informalmente, definire un automa pushdown estendendo le caratteristiche computazionali di un DFA dandogli memoria non limitata.
+
+In particolar modo la memoria di un automa pushdown si comporterà come una pila, ovvero seguirà il paradigma LIFO\@.
+
+Definiamo quindi formalmente un automa pushdown.
+
+\dfn{Automi Pushdown}{
+  Un \textbf{automa pushdown} o PDA è una sestupla $\mcM = (Q, \Sigma, \Gamma, \delta, q_1, F)$ dove:
+  \begin{itemize}
+    \item $Q$ è un insieme finito di stati;
+    \item $\Sigma$ è un insieme finito di simboli, detto alfabeto del \textbf{nastro};
+    \item $\Gamma$ è un insieme finito di simboli, detti alfabeto della \textbf{pila};
+    \item $\delta$ è la funzione di transizione $\delta: Q \times \Sigma_\varepsilon \times \Gamma_\varepsilon \to \mcP(Q \times \Gamma_\varepsilon)$;
+    \item $q_1 \in Q$ è lo stato iniziale;
+    \item $F \subseteq Q$ è l'insieme degli stati terminali.
+  \end{itemize}
+
+  Dove $\Sigma_\varepsilon = \Sigma \cup \cbrakets{\varepsilon}$ e $\Gamma_\varepsilon\ =\ \Gamma \cup \cbrakets{\varepsilon}$.
+}
+
+È da notare che a differenza degli automi a stati finiti, in questo caso si è data direttamente una definizione non deterministica e che consente le transizioni spontanee\footnote{Una transizione spontanea o \textbf{$\varepsilon$-transizione} è una transizione che avviene senza necessità di leggere nessun carattere.}. Ciò è però poco rilevante poiché, le due definizioni sono equivalenti.
+
+Se per $\Sigma$ non troviamo nulla di nuovo rispetto ai precedenti $A$  dei DFA o $\Sigma$ delle grammatiche context-free, per $\Gamma$ il discorso è un po' diverso.
+
+Infatti, $\Gamma$ non rappresenta la memoria in se, che vederemo in seguito da cosa sarà espressa matematicamente, bensì l'insieme di possibili simboli che possono essere inseriti nella memoria, il quale può come non può coincidere con $\Sigma$.
+
+In particolare nel nostro caso, per praticità d'uso, considereremo $\Gamma\ =\ \Sigma \cup \cbrakets{\$}, \$ \nin \Sigma$, dove $\$$ è un simbolo speciale generico che ci aiuterà a rappresentare il fondo della pila in modo da poter correttamente contare gli elementi al suo interno.
+
+Come di consueto per un nuovo modello di calcolo dobbiamo definire i linguaggi accettati da esso.
+
+A differenza degli automi a stati finiti e delle grammatiche context-free, in cui è stato relativamente agevole descrivere la funzione di transizione iterata e la derivazione di una parola, per gli automi pushdown non è così immediato, dovendo tenere conto anche della coda.
+
+\dfn{Parole accettate da un PDA}{
+  Una parola $w\ =\ a_1\ \ldots\ a_n,\ a_i\ \in \Sigma_\varepsilon\ \forall\ i\ \in\ \cbrakets{1, \ldots, n}$, è accettata da un PDA se:
+  \begin{equation}
+    \exists q_1, \ldots, q_{n+1} \in Q,  q_{n+1} \in F, s_1=\varepsilon, s_2, \ldots, s_{n+1} \in \Gamma^* : (q_{i+1}, \beta_i) \in \delta(q_i, a_i, \alpha_i) \forall i \in \cbrakets{1, \ldots, n}
+  \end{equation}
+
+  Dove $s_1, \ldots s_{n+1}$ è una sequenza di parole formate da simboli di pila, che andranno a rappresentare l'evoluzione della nostra memoria, che dovrà partire vuota ($s_1 = \varepsilon$), e $\alpha_i, \beta_i \in \Gamma_\varepsilon$ sono due generici simboli di pila tali che $s_i = \alpha_{i}t, s_{i+1} = \beta_i t$ che rappresenteranno l'aggiunta in testa alla nostra memoria.
+
+  In definitiva una parola sarà accettata da un PDA se, dopo una sequenza finita di applicazioni della funzione $\delta$, tenendo conto dell'aggiornamento della memoria, si potrà raggiungere uno stato terminale.
+}
+
+\subsubsection{Diagramma di transizione}
+
+Come per gli automi a stati finiti, possiamo rappresentare un PDA con un diagramma di transizione.
+Andremo a rappresentare infatti la singola transizione che va da un $q_i \in Q$ a un $q_j \in Q$ con l'input $a$ rimuovendo dalla testa della pila $\alpha$  e inserendoci $\beta$, ovvero una transizione del tipo $\rbrakets{q_j, \beta } \in \delta(q_i, a, \alpha)$, come
+
+\begin{center}
+  \begin{tikzpicture}[initial text=, every state/.style={draw=blue!50,very thick,fill=blue!20}]
+    \node[state, initial] (q_1) {$q_i$};
+    \node[state, right = 1.75 of q_1] (q_2) {$q_j$};
+
+    \path [-latex, every loop/.style = {-latex}]
+    (q_1) edge [right] node [above] {$a, \alpha \to \beta$} (q_2);
+  \end{tikzpicture}
+  \captionof{figure}{Diagramma di transizione di un PDA di uno stato}
+\end{center}
+
+\newpage
+
+\begin{generalbox}[colframe=azure-gradient-3!90!black]{Esempio: Diagramma di transizione di un PDA}
+  Consideriamo il seguente PDA\@:
+
+  \medskip
+
+  \begin{center}
+    \begin{tikzpicture}[initial text=, every state/.style={draw=blue!50,very thick,fill=blue!20}]
+      \node [state, initial] (q_1) {$q_1$};
+      \node [state, right = 1.75 of q_1] (q_2) {$q_2$};
+      \node [state, below = 1.75 of q_2] (q_3) {$q_3$};
+      \node [state, left = 1.75 of q_3] (q_4) {$q_4$};
+
+      \path [-latex, every loop/.style = {-latex}]
+      (q_1) edge [right] node [above] {$\varepsilon, \varepsilon \to \$$} (q_2)
+      (q_2) edge [loop above] node [above] {$a, \varepsilon \to a$} (q_2)
+      (q_2) edge [right] node [right] {$\varepsilon, \varepsilon \to \varepsilon$} (q_3)
+      (q_3) edge [loop right] node [right] {$b, a \to \varepsilon$} (q_3)
+      (q_3) edge [right] node [below] {$\varepsilon, \$ \to \varepsilon$} (q_4);
+    \end{tikzpicture}
+  \end{center}
+
+  Avremo proprio che $L(\mcM) = \cbrakets{a^{n}b^{n} \vert n \geq 0} $.
+
+  Un altro linguaggio di cui possiamo scrivere un diagramma di un PDA è $ L = \cbrakets{a^{m}b^{n}c^{k} \vert m,n,k > 0 \land (m=n \lor n=k)} $.
+
+  \medskip
+
+  \begin{center}
+    \begin{tikzpicture}[initial text=, every state/.style={draw=blue!50,very thick,fill=blue!20}]
+      \node [state, initial] (q_1) {$q_1$};
+      \node [state, right = 1.75 of q_1] (q_2) {$q_2$};
+      \node [state, right = 1.75 of q_2] (q_3) {$q_3$};
+      \node [state, right = 1.75 of q_3] (q_4) {$q_4$};
+      \node [state, right = 1.75 of q_4] (q_5) {$q_5$};
+      \node [state, below = 1.75 of q_3] (q_6) {$q_6$};
+      \node [state, right = 1.75 of q_6] (q_7) {$q_7$};
+      \node [state, accepting, right = 1.75 of q_7] (q_8) {$q_8$};
+
+      \path [-latex, every loop/.style = {-latex}]
+      (q_1) edge [right] node [above] {$\varepsilon, \varepsilon \to \$$} (q_2)
+      (q_2) edge [loop above] node [above] {$a, \varepsilon \to a$} (q_2)
+      (q_2) edge [right] node [above] {$a, \varepsilon \to a$} (q_3)
+      (q_3) edge [right] node [above] {$b, a \to \varepsilon$} (q_4)
+      (q_3) edge [below] node [right] {$b, \varepsilon \to \varepsilon$} (q_6)
+      (q_4) edge [right] node [above] {$c, \varepsilon \to \varepsilon$} (q_5)
+      (q_4) edge [loop above] node [above] {$b, a \to \varepsilon$} (q_4)
+      (q_5) edge [loop above] node [above] {$c, \varepsilon \to \varepsilon$} (q_5)
+      (q_5) edge [below] node [right] {$\varepsilon, \$ \to \varepsilon$} (q_8)
+      (q_6) edge [loop left] node [left] {$b, \varepsilon \to \varepsilon$} (q_6)
+      (q_6) edge [right] node [above] {$c, a \to \varepsilon$} (q_7)
+      (q_7) edge [loop below] node [below] {$c, a \to \varepsilon$} (q_7)
+      (q_7) edge [right] node [above] {$\varepsilon, \$ \to \varepsilon$} (q_8);
+    \end{tikzpicture}
+  \end{center}
+
+  \medskip
+
+  Consideriamo ora il linguaggio $L = \cbrakets{a^{i}b^{j}c^{k} \vert i,j,k \geq 0 \land (i=j \lor j=k)}$. Andiamo a determinare una grammatica e un PDA che accettino questo
+
+  \begin{enumerate}
+    \item \textbf{Grammatica}: Possiamo vedere il linguaggio come $L\ =\ \cbrakets{a^{i}b^{i}c^{k} \vert i,k \geq 0} \cup \cbrakets{a^{i}b^{k}c^{k} \vert i,k \geq 0}$. Definiamo dunque la grammatica con le seguenti regole:
+    \begin{equation}
+      \begin{split}
+        S &\to X \mid Y \\
+        X &\to ZC \\
+        Y &\to AT \\
+        Z &\to aZb \mid \varepsilon \\
+        A &\to aA \mid \varepsilon \\
+        T &\to bTc \mid \varepsilon \\
+        C &\to cC \mid \varepsilon
+      \end{split}
+    \end{equation}
+    \item \textbf{PDA}: Possiamo definire il PDA come segue:
+
+    \medskip
+
+    \begin{center}
+      \begin{tikzpicture}[initial text=, every state/.style={draw=blue!50,very thick,fill=blue!20}]
+        \node [state, initial] (q_1) {$q_1$};
+        \node [state, right = 1.75 of q_1] (q_2) {$q_2$};
+        \node [state, right = 1.75 of q_2] (q_3) {$q_3$};
+        \node [state, right = 1.75 of q_3] (q_4) {$q_4$};
+        \node [state, right = 1.75 of q_4] (q_5) {$q_5$};
+        \node [state, below = 1.75 of q_2] (q_6) {$q_6$};
+        \node [state, right = 1.75 of q_6] (q_7) {$q_7$};
+        \node [state, right = 1.75 of q_7] (q_8) {$q_8$};
+        \node [state, accepting, right = 1.75 of q_8] (q_9) {$q_9$};
+
+        \path [-latex, every loop/.style = {-latex}]
+        (q_1) edge [right] node [above] {$\varepsilon, \varepsilon \to \$$} (q_2)
+        (q_2) edge [right] node [above] {$\varepsilon, \varepsilon \to \varepsilon$} (q_3)
+        (q_2) edge [below] node [right] {$\varepsilon, \varepsilon \to \varepsilon$} (q_6)
+        (q_3) edge [right] node [above] {$\varepsilon, \varepsilon \to \varepsilon$} (q_4)
+        (q_3) edge [loop above] node [above] {$a, \varepsilon \to a$} (q_3)
+        (q_4) edge [right] node [above] {$\varepsilon, \varepsilon \to \varepsilon$} (q_5)
+        (q_4) edge [loop above] node [above] {$b, a \to \varepsilon$} (q_4)
+        (q_5) edge [below] node [right] {$\varepsilon, \$ \to \varepsilon$} (q_9)
+        (q_5) edge [loop above] node [above] {$c, \varepsilon \to \varepsilon$} (q_5)
+        (q_6) edge [right] node [above] {$\varepsilon, \varepsilon \to \varepsilon$} (q_7)
+        (q_6) edge [loop left] node [left] {$a, \varepsilon \to \varepsilon$} (q_6)
+        (q_7) edge [right] node [above] {$\varepsilon, \varepsilon \to \varepsilon$} (q_8)
+        (q_7) edge [loop below] node [below] {$b, \varepsilon \to b$} (q_7)
+        (q_8) edge [right] node [above] {$\varepsilon, \$ \to \varepsilon$} (q_9)
+        (q_8) edge [loop below] node [below] {$c, b \to \varepsilon$} (q_8);
+      \end{tikzpicture}
+    \end{center}
+
+    È importante notare che, essendo $i,j,k \geq 0$ tutte le transizioni che fanno cambiare stato devono essere spontanee, poiché $i=j=k=0 \implies \epsilon \in L$.
+  \end{enumerate}
+\end{generalbox}
+
+\newpage
+
+Per dimostrare il prossimo risultato importante, è necessario definire un analogo della funzione di transizione iterata per la pila.
+
+In particolare dunque andremo a definire una funzione, e di conseguenza una notazione nei diagrammi, che dato uno stato $q$, un carattere del nastro $a$ e un carattere della pila da leggere $\beta$, restituisca l'insieme delle coppie stato-parola $(q_1', w)$ tali che $q_1'$ è raggiungibile inserendo in pila la parola $w \in \Gamma^*$ alla rovescia, in modo da averla in ordine corretto in lettura.
+
+Formalmente dunque, dato $\mcM = \rbrakets{Q,\Sigma,\Gamma,\delta,q_1,F}$ PDA, $a \in \Sigma_\varepsilon, \beta \in \Gamma_\varepsilon, w=\alpha_1 \ldots \alpha_n \in \Gamma^*, \alpha_i \in \Gamma_\varepsilon \forall i \in \cbrakets{1, \ldots, n}$ diremo che
+
+\begin{equation}
+  \rbrakets{q_1',w} \in \delta^*(q,a,\beta) \text{ se } \exists q_1', \ldots, q_{n}' \in Q: (q_n,\alpha_n) \in \delta(q,a,\beta), (q_{n-1}',\alpha) \in \delta(q_n',\varepsilon), \ldots (q_1', \alpha_1) \in \delta(q_2', \varepsilon, \varepsilon)
+\end{equation}
+
+Diremo quindi che posso aggiungere la parola $w$ in pila dallo stato $q$, leggendo $a$ dal nastro e $\beta$ dalla pila \textit{ se e solo se } nell'automa sono presenti degli stati del tipo:
+
+\begin{center}
+  \begin{tikzpicture}[initial text=, every state/.style={draw=blue!50,very thick,fill=blue!20}]]
+    \tikzset{dotsstyle/.style={draw=none,fill=none}}
+
+    \node [state, initial] (q_1) {$q$};
+    \node [state, right = 1.75 of q_1] (q_2) {$q_n'$};
+    \node [state, right = 1.75 of q_2] (q_3) {$q_{n-1}'$};
+    \node [state, dotsstyle, right = 1.75 of q_3] (q_4) {$\ldots\ldots$};
+    \node [state, right = 1.75 of q_4] (q_5) {$q_2'$};
+    \node [state, right = 1.75 of q_5] (q_6) {$q'$};
+
+    \path [-latex, every loop/.style = {-latex}]
+    (q_1) edge [right] node [above] {$a, \beta \to \alpha_n$} (q_2)
+    (q_2) edge [right] node [above] {$\varepsilon, \varepsilon \to \alpha_{n-1}$} (q_3)
+    (q_3) edge [right] node [above] {\(\)} (q_4)
+    (q_4) edge [right] node [above] {\(\)} (q_5)
+    (q_5) edge [right] node [above] {$\varepsilon, \varepsilon \to \alpha_1$} (q_6);
+  \end{tikzpicture}
+\end{center}
+
+Per praticità di rappresentazione, andremo a esprimere questa sequenza di stati con la seguente notazione:
+
+\begin{center}
+  \begin{tikzpicture}[initial text=, every state/.style={draw=blue!50,very thick,fill=blue!20}]]
+    \node [state, initial] (q_1) {$q$};
+    \node [state, right = 1.75 of q_1] (q_2) {$q'$};
+
+    \path [-latex, every loop/.style = {-latex}]
+    (q_1) edge [right] node [above] {$a, \beta \to w$} (q_2);
+  \end{tikzpicture}
+\end{center}
+
+Introdotta questa nuova notazione, possiamo con molta più praticità andare a dimostrare la corrispondenza tra grammatiche context-free e PDA\@.
+
+\begin{halfframedbox}{red!75!black}{Teorema: PDA e Grammatiche context-free}\label{Teorema PDA CFG}
+  \textbf{Enunciato.} $L \subseteq \Sigma^*$ context-free $ \iff \exists \mcM $ PDA tale che $ L = L(\mcM) $.
+
+  \begin{center}
+    \textcolor{red!75!black}{\hdashrule[0.5ex]{18cm}{1pt}{3mm 3pt 1mm 2pt}}
+  \end{center}
+
+  \textbf{Dimostrazione.} Dimostriamo per semplicità solo l'implicazione ``$\implies$''.
+
+  Sia $G=(V,\Sigma,R,S)$ una grammatica context-free tale che $L = L(G)$. Possiamo dunque costruire un PDA $\mcM = (Q, \Sigma, \Gamma, \delta, q_1, F)$ tale che $L = L(\mcM)$ come segue:
+
+  \medskip
+
+  \begin{center}
+    \begin{tikzpicture}[initial text=, every state/.style={draw=blue!50,very thick,fill=blue!20}]
+      \node [state, initial] (q_1) {$q_1$};
+      \node [state, right = 1.75 of q_1] (q_2) {$q_{loop}$};
+      \node [state, accepting, right = 1.75 of q_2] (q_3) {$q'$};
+
+      \path [-latex, every loop/.style = {-latex}]
+      (q_1) edge [right] node [above] {$\varepsilon, \varepsilon \to S\$$} (q_2)
+      (q_2) edge [loop above] node [above] {$\varepsilon, X \to u$} (q_2)
+      (q_2) edge [loop below] node [below] {$a, a \to \varepsilon$} (q_2)
+      (q_2) edge [right] node [above] {$\varepsilon, \$ \to \varepsilon$} (q_3);
+    \end{tikzpicture}
+  \end{center}
+
+  Dove con la transizione $\varepsilon, X\ \to u$ si denota una transizione \textbf{per ogni regola $X \to u \in R, X \in V, u \in \rbrakets{V \cup \Sigma}^*$}, ovvero per ogni regola della grammatica, mentre con la transizione $a, a \to \varepsilon$ si procede alla lettura dei simboli in pila rimuovendoli.
+
+  In particolare un automa così costruito inizializzerà la pila a $S\$$ per poi procedere a sostituire $S$ con una regola della grammatica che coinvolga $S$  e continuando ad applicare regole fino a che non venga inserita in pila come carattere in testa il primo carattere sul nastro. A quel punto il carattere verrà letto dall'altra transizione, rimuovendolo dalla pila, per poi ricominciare ad applicare regole o a leggere i caratteri.
+
+  Chiaramente una parola verrà accettata da questo PDA \textit{se e solo se} è generata dalla grammatica, poiché l'automa non fa altro che simulare la derivazione di una parola.
+
+\end{halfframedbox}
+
+\newpage
+
+\begin{generalbox}[colframe=azure-gradient-3!90!black]{Esempio: Derivazione PDA da grammatica context-free}
+  Prendiamo per esempio la classica grammatica context-free:
+  \begin{equation}
+    S \to aSb \mid \varepsilon
+  \end{equation}
+
+  Possiamo disegnare il seguente PDA\@:
+
+  \medskip
+
+  \begin{center}
+    \begin{tikzpicture}[initial text=, every state/.style={draw=blue!50,very thick,fill=blue!20}]
+      \definecolor{coralred}{rgb}{1.0, 0.25, 0.25}
+      \tikzset{midstate/.style={draw=coralred,very thick,fill=coralred!50}}
+
+      \node [state, initial] (q_1) {$q_1$};
+      \node [state, midstate, right = 1.75 of q_1] (q_2) {\(\)};
+      \node [state, below = 1.75 of q_2] (q_3) {$q_{loop}$};
+      \node [state, midstate, right = 1.75 of q_3] (q_4) {\(\)};
+      \node [state, midstate, below = 1.75 of q_4] (q_5) {\(\)};
+      \node [state, accepting, left = 4.5 of q_5] (q_6) {$q'$};
+
+      \path [-latex, every loop/.style = {-latex}]
+      (q_1) edge [right] node [above] {$\varepsilon, \varepsilon \to \$$} (q_2)
+      (q_2) edge [below] node [above right] {$\varepsilon, \varepsilon \to S$} (q_3)
+      (q_3) edge [in=120,out=150,loop] node [above] {$a, a \to \varepsilon$} (q_3)
+      (q_3) edge [in=30,out=60,loop] node [above] {$\varepsilon, S \to \varepsilon$} (q_3)
+      (q_3) edge [loop below] node [below] {$b, b \to \varepsilon$} (q_3)
+      (q_3) edge [right] node [above] {$\varepsilon, S \to b$} (q_4)
+      (q_3) edge [below] node [above, rotate=45] {$\varepsilon, \$ \to \varepsilon$} (q_6)
+      (q_4) edge [below] node [right] {$\varepsilon, \varepsilon \to S$} (q_5)
+      (q_5) edge [right] node [above, rotate=-45] {$\varepsilon, \varepsilon \to a$} (q_3);
+
+    \end{tikzpicture}
+  \end{center}
+
+  In questo automa sono stati esplicitati gli stati intermedi dell'inserimento delle parole in pila visto precedentemente e denotati di \textcolor{red}{rosso}, è possibile dunque per una rappresentazione più compatta eliminare tali nodi e utilizzare la notazione vista poc'anzi.
+
+  Vediamo in ultimo l'esecuzione di questo PDA sulla parola $aabb \in L$, tenendo traccia del contenuto del nastro e della pila:
+
+  \medskip
+
+  \begin{center}
+    \begin{minipage}{0.45\textwidth}
+      \centering
+      \begin{tblr}{hlines, vlines, rows ={6mm}, columns = {14mm,c},}
+        Nastro & Pila \\
+        $\varepsilon$ & $S\$$ \\
+        $\varepsilon$ & $aSb\$$ \\
+        $a$ & $Sb\$$ \\
+        $a$ & $aSbb\$$ \\
+        $aa$ & $Sbb\$$ \\
+      \end{tblr}
+    \end{minipage}
+    \hspace{0.25cm}
+    \begin{minipage}{0.45\textwidth}
+      \centering
+      \begin{tblr}{hlines, vlines, rows ={6mm}, columns = {14mm,c},}
+        Nastro & Pila \\
+        $aa$ & $bb\$$ \\
+        $aab$ & $b\$$ \\
+        $aabb$ & $\$$ \\
+        $aabb$ & $\varepsilon$ \\
+        $aabb$ & $\checkmark$ \\
+      \end{tblr}
+    \end{minipage}
+  \end{center}
+\end{generalbox}
+
+Dal risultato dimostrato nel teorema {\ref{Teorema PDA CFG}} possiamo dare la terza e ultima dimostrazione del teorema {\ref{Teorema Linguaggi regolari sono context-free}}.
+
+
+\begin{halfframedbox}{red!75!black}{Teorema: Tutti i linguaggi regolari sono context-free}
+  \textbf{Enunciato.} Se $L \subseteq \Sigma^*$ è regolare, allora è context-free.
+
+  \begin{center}
+    \textcolor{red!75!black}{\hdashrule[0.5ex]{18cm}{1pt}{3mm 3pt 1mm 2pt}}
+  \end{center}
+
+  \textbf{Terza Dimostrazione}
+    Se $L$ regolare $\implies \exists \mcM $ DFA tale che $L = L(\mcM)$. Essendo che i DFA sono un caso particolare di PDA, ovvero con $\Gamma = \cbrakets{\varepsilon}$, allora $\exists \mcM'$ PDA ottenuto da $\mcM$ tale che $L = L(\mcM')$, ovvero è context-free dal linguaggio precedente.
+
+\end{halfframedbox}

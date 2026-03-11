@@ -1,0 +1,609 @@
+\chapter{Calcolabilità e Linguaggio S}\label{chapter 1}
+
+\section{Concetto di calcolabilità}
+
+Un problema è detto \textbf{calcolabile} se è possibile risolverlo algoritmicamente.
+Questa misura può essere effettuata in maniera rigorosa formalizzando il problema in esame usando una funzione matematica. L'insieme degli input possibili per tale problema ne costituirà il dominio, mentre quello degli output il codominio.
+Nel nostro caso ci limiteremo a prendere in considerazione i problemi, e dunque le funzioni, che abbiano come input e output numeri naturali.
+
+Importante distinzione che va effettuata dunque è tra \textbf{funzioni totali}  e \textbf{funzioni parziali}:
+
+\begin{itemize}
+  \item Una funzione associata a un problema è detta \textbf{totale} se ha un valore di output definito \(\forall a_k \in \mbN^k\), ovvero è definibile come:
+  \begin{equation}
+    \begin{split}
+    f: \mbN^k\rightarrow\mbN,\; k\in\mbN\\
+    (x_1,x_2,\cdots,x_k)\mapsto y
+    \end{split}
+    \label{Funzione totale Eq}
+  \end{equation}
+
+  \item Una funzione associata a un problema è detta \textbf{parziale} se ha un valore di output definito \(\forall a_k \in D\subseteq \mbN^k\), ovvero è definibile come:
+  \begin{equation}
+    \begin{split}
+    f: D\subseteq\mbN^k\rightarrow\mbN,\; k\in\mbN\\
+    (x_1,x_2,\cdots,x_k)\mapsto y
+    \end{split}
+    \label{Funzione parziale Eq}
+  \end{equation}
+\end{itemize}
+
+Le \textbf{funzioni totali} rappresentano dunque un \textit{sottoinsieme}\footnote{Essendo il dominio di una funzione parziale \(D\subseteq\mbN^k\), ne fanno parte anche i casi particolari di \(D=\mbN^k\), ovvero le funzioni totali.} di quelle \textbf{parziali}.
+Il ricorso a quest'ultime è fondamentale poiché, al prezzo della perdita di \textit{generalità} del problema, possiamo alle volte garantirne la \textbf{calcolabilità} altrimenti dimostrabile come falsa.
+
+Per definire dunque il concetto di calcolabilità di una funzione, è necessario enunciare la \textbf{tesi di Church-Turing}\footnote{La versione enunciata è quella relativa al \textbf{Modello S}, che utilizzeremo per la valutazione della calcolabilità di una funzione. Ogni modello di calcolo però è dimostrabile come equivalente.}.
+\dfn{Tesi di Church-Turing (Versione S)}{\label{Tesi di Church-Turing Def}
+  Qualsiasi funzione che si possa determinare tramite qualche procedura algoritmica è parzialmente calcolabile.
+}
+
+Questo enunciato è appunto una \textbf{tesi} poiché non è dimostrabile, essendo definito in modo non preciso, ma è comunque accettato come vero poiché rappresenta l'idea intuitiva che ogni funzione valutabile in una sequenza finita di passi sia esprimibile tramite un programma.
+Diremo dunque che:
+
+\begin{itemize}
+  \item Una \textbf{funzione} \(f: D\subseteq\mbN^k\rightarrow\mbN,\; k\in\mbN\) è \textbf{\textit{parzialmente} calcolabile} se esiste un algoritmo che la rappresenta.
+  \item Una \textbf{funzione} è \textbf{calcolabile} se essa è \textbf{totale \textit{e} parzialmente calcolabile}
+\end{itemize}
+
+Definiamo infine come \textbf{predicato} una particolare funzione totale il cui codominio è l'insieme \(\cbrakets{0,1}\in\mbN\). Codificando il valore di \(0\) come \lstinline[language=ini]{FALSO} e di \(1\) come \lstinline[language=ini]{VERO}, è possibile valutare la calcolabilità di predicati logici a valori booleani.
+\begin{equation}
+  \begin{split}
+    p: \mbN^k\rightarrow\cbrakets{0,1}\subset\mbN,\; k\in\mbN\\
+    (x_1,x_2,\cdots,x_k)\mapsto y\in\cbrakets{0,1}
+    \end{split}
+    \label{Predicato Eq}
+\end{equation}
+
+\newpage
+
+\section{Linguaggio S}
+
+Il \textbf{linguaggio S} è un linguaggio formale per la scrittura di algoritmi utilizzabile per la verifica della \textbf{calcolabilità} di un problema.
+
+Questo linguaggio infatti è \textit{minimale} nelle istruzioni, possedendo solo quelle eseguibili da qualsiasi compilatore e con le quali è possibile, per quanto in molte più linee, ricostruire un qualsiasi algoritmo.
+
+\subsection{Sintassi}
+
+\paragraph*{Variabili.} Nel \textbf{linguaggio S} le variabili si dividono in tre gruppi:
+
+\begin{enumerate}
+  \item Variabili d'\textit{Input} \lstinline[language=ini]{(X1,X2,...)}, di numero potenzialmente infinito\footnote{Il numero è potenzialmente infinito per non inserire limitazione di numero, ma chiaramente ogni programma ne utilizzerà un numero finito.} inizializzate con i valori dell'input di una data istanza;
+  \item Variabile di \textit{Output} \lstinline[language=ini]{(Y)}, unica e inizializzata al valore \lstinline[language=ini]{0};
+  \item Variabili \textit{Temporanee} \lstinline[language=ini]{(Z1,Z2,...)}, di numero potenzialmente infinito inizializzate col valore \lstinline[language=ini]{0}.
+\end{enumerate}
+
+\paragraph*{Etichette.} Il \textbf{linguaggio S} permette di utilizzare delle
+etichette alfabetiche, \textit{label}, per demarcare specifiche linee su cui
+poter effettuare dei salti, \textit{jump}.
+
+
+Vengono utilizzate le lettere dell'alfabeto dalla \lstinline[language=ini]{A} alla \lstinline[language=ini]{D} numerate, con il caso
+speciale dell'etichetta \lstinline[language=ini]{E}, usata per la terminazione del programma, che spiegheremo meglio in seguito.
+
+\paragraph*{Statement.} Il \textbf{linguaggio S} contempla solo \(4\) tipi di \textbf{statement}, o \textit{asserzioni}, che possono essere combinate o meno a \textbf{etichette} per formare
+\textbf{istruzioni}.
+Nello specifico questi statement sono:
+
+\begin{itemize}
+  \item \textbf{Pigra}: \lstinline[language=ini]{V<-V}, asserzione nulla;
+  \item \textbf{Incremento}: \lstinline[language=ini]{V<-V+1}, incrementa una variabile qualsiasi \lstinline[language=ini]{V} di \lstinline[language=ini]{1};
+  \item \textbf{Decremento}: \lstinline[language=ini]{V<-V-1}, decrementa una variabile qualsiasi \lstinline[language=ini]{V} di \lstinline[language=ini]{1}, se essa contiene il valore \lstinline[language=ini]{0} l'istruzione viene ignorata;
+  \item \textbf{Salto}: \lstinline[language=ini]{IF V!=0 GOTO L}, passa alla prima linea etichettata dall'etichetta generica \lstinline[language=ini]{L} se la variabile generica \lstinline[language=ini]{V} è diversa da \lstinline[language=ini]{0}, altrimenti l'istruzione viene ignorata.
+  Nel caso l'etichetta \lstinline{L} non esista, il programma termina. \\
+  Solitamente questo meccanismo è effettuato con l'etichetta \lstinline[language=ini]{E}, che viene riservata allo scopo di terminazione.
+\end{itemize}
+
+\begin{generalbox}[colframe=azure-gradient-3!90!black]{Esempio: S-Programma}
+  Un primo esempio di \textbf{S-Programma} può dunque essere il seguente:
+  \begin{lstlisting}[language=ini, label={Primo Esempio S-Programma}, caption=Esempio di S-Programma]
+    [A] X <- X - 1
+        Y <- Y + 1
+        IF X!=0 GOTO A
+    \end{lstlisting}
+
+    Nello specifico, questo \textbf{S-Programma} rappresenta la funzione:
+    \begin{equation}
+      f(x)=\begin{cases}
+        1, & x=0\\
+        x, & x\neq0
+      \end{cases}
+      \label{Funzione quasi Identica Eq}
+    \end{equation}
+
+    Poiché il programma ripete l'operazione d'incremento della variabile \lstinline[language=ini]{Y} un numero \lstinline[language=ini]{X} di volte, per \(x\neq0\), mentre una volta sola per \(x=0\). Il programma termina infine, dopo l'esecuzione dell'ultima linea.
+\end{generalbox}
+
+\subsection{Esempi di S-Programmi e Macro}
+
+Consideriamo invece adesso un \textbf{S-Programma} che implementi proprio la \textit{funzione identica}\footnote{Implementazione~alternativa~\ref{Funzione Identica AltVer}.} \(f(x) = x\):
+
+\begin{lstlisting}[language=ini, label={Funzione Identica}, caption=Funzione identica]
+[A] IF X!=0 GOTO B
+    Z <- Z + 1
+    IF Z != 0 GOTO E
+[B] X <- X - 1
+    Y <- Y + 1
+    Z <- Z + 1
+    IF Z != 0 GOTO A
+\end{lstlisting}
+
+Possiamo notare come le righe \lstinline[language=ini]{6--7} effettuano un \textit{salto incondizionato}. È possibile isolarle sfruttando il concetto di \textbf{macro}.
+\dfn{Macro}{Ogni programma associato a una \textbf{funzione \textit{(parzialmente)} calcolabile}, con \textbf{stato} corrente \textbf{iniziale}, può essere
+riutilizzato per il calcolo di un'altra \textbf{funzione}, sostituito da un \textit{alias}. Quest'ultimo viene detto \textbf{macro}.\label{Macro Def}
+}
+
+Nello specifico definiamo la \textbf{macro di salto incondizionato} \lstinline[language=ini]{GOTO L} come\footnote{Approfondimento~\ref{Funzione Somma}. Esercizi~\ref{Funzione Prodotto}~\ref{Funzione Prodotto con Costante}}:
+
+\begin{lstlisting}[language=ini, label={Salto Incondizionato},  caption=Macro di salto incondizionato]
+[L]...
+   ...
+    V <- V + 1
+    IF V != 0 GOTO L
+\end{lstlisting}
+
+\begin{generalbox}[colframe=azure-gradient-3!90!black]{Esempi}
+  \begin{itemize}
+    \item Definiamo innanzitutto la \textbf{macro di azzeramento} \lstinline[language=ini]{V<-0}:
+    \begin{itemize}
+      \item []
+  \begin{lstlisting}[language=ini, label={Aggiornamento},  caption=Macro di azzeramento]
+  [A] V <- V - 1
+      IF V != 0 GOTO A
+  \end{lstlisting}
+    \item [] Questa \textbf{macro} corrisponde alla \textbf{funzione costante} \(f(x)=0\), ed è di fondamentale importanza per il corretto funzionamento di altre macro.
+    \item [] Ogni \textbf{macro} che d'ora in avanti andremo a definire, conterrà implicitamente la \textbf{macro di azzeramento} per garantire lo stato iniziale delle variabili.
+    \end{itemize}
+    \item Definiamo infine un'altra importante \textbf{macro}, ovvero la \textbf{macro di assegnazione} \lstinline[language=ini]{V<-V1}:
+  \begin{itemize}
+    \item []
+  \begin{lstlisting}[language=ini, label={Assegnazione},  caption=Macro di assegnazione]
+  [C] IF V1 != 0 GOTO A
+      GOTO E
+  [A] V <- V + 1
+      V1 <- V1 - 1
+      GOTO C
+    \end{lstlisting}
+  \end{itemize}
+\end{itemize}
+\end{generalbox}
+
+\subsubsection{Predicati}
+
+La codifica di \textbf{predicati} invece può essere utilizzata per la definizione di \textbf{macro} di \textit{salto} con condizione diversa da \lstinline[language=ini]{!=0}.
+
+Potendo infatti conservare in una variabile generica \lstinline[language=ini]{V} l'output di una qualsiasi \textbf{funzione k-aria (parzialmente) calcolabile} grazie alla macro di assegnazione, è possibile definire la \textbf{macro} di
+\textbf{salto generalizzato}:
+
+\begin{lstlisting}[language=ini, label={Salto generalizzato},  caption= Macro di salto generalizzato]
+V <- P(x1,x2, ... , xk)
+IF V != 0 GOTO L
+\end{lstlisting}
+
+Nel caso infatti che il predicato \(p\) sia \lstinline[language=ini]{VERO}, avremo che la variabile \lstinline[language=ini]{V} sarà pari a \lstinline[language=ini]{1}, la condizione dello statement di salto sarà verificata, e avverrà il salto. In caso contrario,
+si avrà che la variabile \lstinline[language=ini]{V} sarà pari a \lstinline[language=ini]{0}, la condizione dello statement di salto non sarà verificata, e il programma procederà all'istruzione successiva.
+\newpage
+\begin{generalbox}[colframe=azure-gradient-3!90!black]{Esempo: Funzione totale predicato}
+
+Prendiamo ad esempio il predicato d'uguaglianza fra due numeri \(p(x_1,x_2)\iff x_1=x_2\). Possiamo esprimere questo \textbf{predicato} usando la \textbf{funzione totale}:
+
+\begin{equation}
+  f(x_1,x_2)= \begin{cases}
+                1, \;\; x_1=x_2\\
+                0, \;\; x_1\neq x_2
+              \end{cases}
+  \label{Predicato Uguaglianza Eq}
+\end{equation}
+
+
+Un \textbf{programma} che implementa questo predicato è:
+
+\begin{lstlisting}[language=ini, label={Predicato Uguaglianza},  caption=Predicato logico (uguaglianza)]
+    Z1 <- X1
+    Z2 <- X2
+[A] IF Z1 != 0 GOTO B
+    IF Z2 != 0 GOTO E
+    Y <- Y + 1
+    GOTO E
+[B] Z1 <- Z1 - 1
+    IF Z2 != 0 GOTO C
+    GOTO E
+[C] Z2 <- Z2 - 1
+    GOTO A
+\end{lstlisting}
+\end{generalbox}
+
+\subsubsection{Funzioni parzialmente calcolabili}
+
+Possiamo anche scrivere programmi per le \textbf{funzioni parzialmente calcolabili}, come per esempio:
+
+\begin{lstlisting}[language=ini, label={Funzione Sottrazione},  caption=Funzione parzialmente calcolabile (sottrazione)]
+    Y <- X1
+    Z <- X2
+[C] IF Z != 0 GOTO A
+    GOTO E
+[A] IF Y != 0 GOTO B
+    GOTO A
+[B] Y <- Y - 1
+    Z <- Z - 1
+    GOTO C
+\end{lstlisting}
+
+Nello specifico, questo \textbf{S-programma} rappresenta:
+\begin{equation}
+  f(x_1, x_2)=\begin{cases}
+    x_1-x_2, \;\; \text{se}\; x_1\geqslant x_2\\
+    \uparrow, \;\;\text{altrimenti}
+  \end{cases}
+  \label{Funzione Sottrazione Eq}
+\end{equation}
+
+Dove il simbolo \(\uparrow\) indica \textit{l'inesistenza di output}, normalmente chiamata \textbf{divergenza} della funzione.\\
+Questa funzione è quindi parzialmente calcolabile dato che può eseguire la sottrazione \textit{se e solo se} il primo numero è maggiore o uguale del secondo\footnote{Esercizio~\ref{Predicato Pari Dispari}}.
+
+In \textbf{linguaggio S} l'inesistenza di output è codificata con l'impossibilità di terminazione del programma. Nel caso specifico possiamo infatti notare che, se verificato il caso \(x_1 < x_2\), l'esecuzione rimane bloccata tra le righe \lstinline[language=ini]{5--6} non giungendo mai alla fine del programma.
+
+\section{Caratterizzazione di un S-programma}
+
+Una volta afferrate così le basi del \textbf{linguaggio S} e visti alcuni esempi notevoli, andiamo a formalizzare il concetto di \textbf{S-Programma}.
+Chiamiamo \textbf{S-Programma} una qualsiasi \textit{lista finita}\footnote{Importante sottolineare che anche la \textit{lista vuota} è contemplata,
+rappresentata infatti dal \textit{programma vuoto}.} d'\textbf{istruzioni}.
+
+
+Una volta definito formalmente il concetto di \textbf{S-Programma} possiamo, usando le proprietà che derivano da questa definizione,
+andarlo a caratterizzare fino a cogliere il parallelismo suddetto tra \textbf{S-Programmi} e \textbf{funzioni calcolabili}.
+
+Innanzitutto, per descrivere un \textbf{S-Programma} è importante tenere traccia dell'aggiornamento delle sue variabili. Per fare ciò ci avvaliamo del concetto di
+\textbf{Stato di un Programma}.
+
+\dfn{Stato di un Programma}{\label{Stato Programa Def}
+  Per \textbf{Stato} di un \textbf{Programma} \(\mcP\) si intende un insieme finito di \textbf{equazioni} della forma
+\( V=n \), dove \(V\) è una \textit{variabile} del \textbf{linguaggio S} e \(n\in\mbN\), contenente \textbf{una e una sola equazione} per ogni variabile che \textit{compare} in \(\mcP\).
+}
+
+Lo \textbf{stato} però non è sufficiente a descrivere un \textbf{programma}, in quanto non tiene traccia dell'ordine di esecuzione delle istruzioni.
+Per avere una descrizione puntuale di un \textbf{programma} di \textit{'l' istruzioni}\footnote{Dove \textit{l} è detta di norma \textit{lunghezza del programma}.}, è però necessario contestualizzare il suo \textbf{stato} in un determinato momento dell'esecuzione.
+Per fare questo ci avvaliamo del concetto d'\textbf{istantanea}, o \textit{snapshot}.
+
+\dfn{Istantanea}{\label{Istantanea Def}
+
+  Definiamo \textbf{istantanea} di un \textbf{programma} \(\mcP\) di \textit{lunghezza} \(l\) una qualsiasi coppia ordinata del tipo:
+
+  \begin{center}
+  \((i, \sigma)\) con  \(i\in\cbrakets{1,\cdots,l+1}\) e \(\sigma\in\Sigma\) insieme degli stati.
+  \end{center}
+
+}
+
+Dove con \(l+1\) codifichiamo la terminazione del programma, essendo un'istruzione con tale indice non esistente. Chiamiamo l'\textbf{istantanea} con questo indice \textbf{terminale}.
+
+Le \textbf{istantanee} permettono in oltre di descrivere consequenzialmente le \textbf{istantanee successive}
+di un \textbf{programma} se abbinate alla istruzione indicizzata da \(i\), a patto
+che essa non sia un'\textbf{istantanea terminale}.
+
+
+In particolare, partendo da una qualsiasi \textbf{istantanea} \((i,\sigma)\) esistono \(4\) diverse configurazioni di possibili \textbf{istantanee successive} \((j,\tau)\) in base all'istruzione in questione.
+\begin{enumerate}
+  \item \(j=i+1\) e \(\tau = \sigma\), se l'i-esima istruzione è:
+  \begin{itemize}
+    \item \underline{pigra} (\lstinline[language=ini]{V<-V});
+    \item \underline{decremento} (\lstinline[language=ini]{V<-V-1}) con \(V=0\);
+    \item \underline{salto} (\lstinline[language=ini]{IF V!=0 GOTO L}) con \(V=0\).
+  \end{itemize}
+  \item \(j=i+1\) e \(\tau\) ottenuta da \(\sigma\) sostituendo l'equazione \(V=n\) con \(V=n+1\), se l'i-esima istruzione è:
+  \begin{itemize}
+    \item \underline{incremento} (\lstinline[language=ini]{V<-V+1});
+  \end{itemize}
+  \item \(j=i+1\) e \(\tau\) ottenuta da \(\sigma\) sostituendo l'equazione \(V=n\) con \(V=n-1\), se l'i-esima istruzione è:
+  \begin{itemize}
+    \item \underline{decremento} (\lstinline[language=ini]{V<-V-1}) e \(V>0\);
+  \end{itemize}
+  \item \begin{enumerate}
+          \item \(j=l+1\) e \(\tau = \sigma\), se l'i-esima istruzione è:
+          \begin{itemize}
+            \item \underline{salto} (\lstinline[language=ini]{IF V!=0 GOTO L}), con \(\mcP\) non contenente istruzioni etichettate con \lstinline[language=ini]{L} e \(V>0\);
+          \end{itemize}
+          \item \(j=k\) e \(\tau = \sigma\), se l'i-esima istruzione è:
+          \begin{itemize}
+            \item \underline{salto} (\lstinline[language=ini]{IF V!=0 GOTO L}), con \(k\) indice della prima istruzione di \(\mcP\) etichettata con \lstinline[language=ini]{L} e \(V>0\);
+          \end{itemize}
+        \end{enumerate}
+\end{enumerate}
+
+In ultimo chiamiamo \textbf{istantanea iniziale} una qualunque coppia \((i,\sigma)\) con \(i=1\) e \(\sigma\) contenente equazione \(V=0\) per ogni \(V\) locale o di output.
+
+Avvalendoci di queste definizioni e caratterizzazioni, possiamo in definitiva definire\footnote{A chiunque turbi l'accoppiata delle parole ``definitiva'' e ``definire'' si ricorda la figura retorica di suono della \href{https://en.wikipedia.org/wiki/Literary_consonance}{consonanza}, ampiamente utilizzata e apprezzata nella poesia da secoli.} formalmente cosa si intende per \textbf{calcolo terminante di \(\mcP\)}.
+\dfn{Calcolo Terminante di P}{\label{Calcolo Terminante Def}
+  Sequenza finita d'istantanee \(S_1,S_2,S_3\cdots,S_k\), con \(S_k\) terminale, \(S_1,S_2,S_3\cdots,S_{k-1}\) non terminale e,
+  se \(1<i\leq k\), allora \(S_i\) è successiva di \(S_{i-1}\).
+}
+
+Date queste definizioni formali, è possibile trarre dei parallelismi tra la vista del programma come funzione e la vista del programma come sequenza d'istruzioni.
+
+Infatti, dato \((r_1,\cdots,r_k)\in\mbN\) come n-upla d'input di una funzione \(f\), lo \textbf{Stato Iniziale} dell'\textbf{S-Programma} \(\mcP\) corrispondente sarà
+\(\sigma_1 = \cbrakets{x_1=r_1,\cdots,x_k=r_k,y=0,z_1=0,\cdots,z_n=0}\), con \(n\) numero di variabili temporanee, %
+mentre l'\textbf{istantanea iniziale} sarà rappresentata dalla coppia \((1,\sigma_1)\).
+
+\newpage
+\begin{generalbox}[colframe=azure-gradient-3!90!black]{Esempo: Calcolo Terminante di \(\mcP\)}
+\begin{itemize}
+  \item [] Prendiamo come esempio il programma~\ref{Primo Esempio S-Programma} e andiamo ad analizzare l'andamento del programma per input pari a \textbf{\(2\)}:
+  \item [] \begin{enumerate}[start=0]
+    \item \textbf{Stato Iniziale}: \(\sigma_1 = \cbrakets{X=2,Y=0}\)
+    \item \textbf{Istantanea 1}: \((1,\sigma_1)\);
+    \item \textbf{Istantanea 2}: \((2,\sigma_2)\) con \(\sigma_2 = \cbrakets{X=1,Y=0}\);
+    \item \textbf{Istantanea 3}: \((3,\sigma_3)\) con \(\sigma_3 = \cbrakets{X=1,Y=1}\);
+    \item \textbf{Istantanea 4}: \((1,\sigma_3)\);
+    \item \textbf{Istantanea 5}: \((2,\sigma_4)\) con \(\sigma_4 = \cbrakets{X=0,Y=1}\);
+    \item \textbf{Istantanea 6}: \((3,\sigma_5)\) con \(\sigma_5 = \cbrakets{X=0,Y=2}\);
+    \item \textbf{Istantanea 7}: \((4,\sigma_5)\) \textbf{terminale};
+    \item \textbf{Stato Finale}: \(\sigma_4 = \cbrakets{X=0,Y=2}\);
+  \end{enumerate}
+  \item [] È possibile notare che se venissero forniti più input di quelli necessari, la successione d'istantanee rimarrebbe invariata, ignorando gli input in eccesso.
+  \item [] Se ad esempio prendiamo come input la n-upla \((2,3,4)\), lo \textbf{stato iniziale} sarà \(\sigma_1 \cup \cbrakets{X_1=3,X_2=4}\), ma si comporterà come se fosse stato fornito solo \(2\) come input.
+  \item [] Inoltre è possibile generalizzare il calcolo ulteriormente, contemplando anche la possibilità d'input sottodimensionati rispetto al numero di variabili richieste.
+  \item [] Considerando infatti le variabili d'input senza inizializzazione esplicita come poste a \lstinline[language=ini]{0}, l'avanzamento delle istantanee procederà normalmente fino alla terminazione in maniera analoga a quelle appena viste.
+\end{itemize}
+
+\end{generalbox}
+
+Formalizziamo dunque la \textbf{funzione k-aria} calcolata da \(\mcP\) come:
+
+\begin{equation}
+  \Psi_{\mcP}^{(k)}(x_1,x_2,\cdots,x_k)=\begin{cases}
+    y \text{ nello stato terminale}, \;\; \text{se esiste un calcolo terminante di } \mcP \text{ con input } x_1,x_2,\cdots,x_k\\
+    \uparrow, \text{ altrimenti}
+  \end{cases}
+  \label{Funzione k-aria di P Eq}
+\end{equation}
+
+Possiamo finalmente dare una definizione formale del concetto di \textbf{funzione parzialmente calcolabile} accennato all'inizio di questo capitolo:
+
+\dfn{Funzione (Parzialmente) Calcolabile}{\label{Funzione Parzialmente Calcolabile Def}
+  Una \textbf{funzione} \(f: D\subseteq\mbN^k\rightarrow\mbN,\; k\in\mbN\) è detta \textbf{\textit{parzialmente} calcolabile} se esiste un \textbf{S-Programma} \(\mcP\) tale che:
+  \begin{equation}
+    \forall (x_1,x_2,\cdots,x_k)\in \mbN^k, f(x_1,x_2,\cdots,x_k)=\Psi_{\mcP}^{(k)}(x_1,x_2,\cdots,x_k)
+  \end{equation}
+}
+
+È necessario, logicamente, che la funzione \(f\) sia definita per \textit{tutte e sole} le n-uple per cui \(\Psi_{\mcP}^{(k)}\) termina.
+
+Formalizziamo dunque anche il processo di \textit{sostituzione di macro} vista in precedenza.
+Sia \(f\) funzione n-aria calcolata da \(\mcP=\mcP(y,x_1,x_2,\cdots,x_n,z_1,z_2,\cdots,z_k,E,A_1,\cdots,A_l)\). Allora la macro \(V'\leftarrow f(V_1,V_2,\cdots,V_n)\) all'interno di un altro programma \(\mcP_2\) va sostituita con:
+\begin{lstlisting}[language=ini, label={Macro Formalizzata}, caption=Macro]
+     Zm <- 0
+     Zm+1 <- V1
+     (*\(\vdots\)*)
+     Zm+n <- Vn
+     Zm+n+1 <- 0
+     Zm+n+2 <- 0
+     (*\(\vdots\)*)
+     Zm+n+k <- 0
+     (*\(\mcQ=\mcP(Z_m,Z_{m+1},Z_{m+2},...,Z_{m+n+k},E_m,A_{m+1},A_{m+l})\)*)
+[Em] V'<- Zm
+\end{lstlisting}
+
+Dove per la linea \lstinline[language=ini]{9} si intende aver sostituito in \(\mcP_2\) le istruzioni del programma \(\mcP\), e \(m\) è sufficientemente grande da non creare conflitti con le variabili di \(\mcP_2\). È importante inoltre notare la presenza della \textbf{label} \lstinline[language=ini]{[Em]} che permette la corretta assegnazione del valore di output nella variabile \lstinline[language=ini]{V'} anche in caso la macro termini per \textit{salto} a etichetta \lstinline[language=ini]{[E]}\footnote{Esercizi da~\ref{Programma P} a~\ref{Predicato Minore Uguale}}.
+
+% ---- TODO
+
+\section{Esercizi svolti e approfondimenti}
+
+\subsubsection*{Approfondimento.} Programma alternativo per l'implementazione della funzione identica \(f(x)=x\) con utilizzo di \textbf{macro} di \textbf{salto incondizionato}.
+
+\begin{lstlisting}[language=ini, label={Funzione Identica AltVer},  caption=Funzione identica]
+[A] IF X != 0 GOTO B
+    GOTO C
+[B] X <- X - 1
+    Y <- Y + 1
+    Z <- Z + 1
+    GOTO A
+[C] IF Z != 0 GOTO D
+    GOTO E
+[D] X <- X + 1
+    Z <- Z - 1
+    GOTO C
+\end{lstlisting}
+
+Questa implementazione della funzione identica ha il vantaggio di \textbf{preservare} il valore delle variabili d'input, buona pratica generale per l'implementazione di qualsiasi funzione.
+
+\subsubsection*{Approfondimento.} Programma per l'implementazione della funzione somma \(f(x_1,x_2)=x_1+x_2\).
+
+\begin{lstlisting}[language=ini, label={Funzione Somma},  caption=Funzione somma]
+    Y <- X1
+    Z <- X2
+[A] IF Z != 0 GOTO B
+    GOTO E
+[B] Z <- Z - 1
+    Y <- Y + 1
+    GOTO A
+\end{lstlisting}
+
+Faremo riferimento a questo programma da ora in poi con la macro \lstinline[language=ini]{V <- V1 + V2}
+
+\newpage
+
+\subsubsection*{Esercizio.} \textit{Si scriva un S-Programma che implementi la funzione \(f(x_1,x_2)=x_1x_2\)}
+
+\begin{lstlisting}[language=ini, label={Funzione Prodotto},  caption=Funzione prodotto]
+    Z <- X1
+[A] Y <- Y + X2
+    Z <- Z - 1
+    IF Z != 0 GOTO A
+\end{lstlisting}
+
+Faremo riferimento a questo programma da ora in poi con la macro \lstinline[language=ini]{V <- V1 * V2}
+
+\subsubsection*{Esercizio.} \textit{Si scriva un S-Programma che implementi la funzione \(f(x_1)=3x_2\)}
+
+\begin{lstlisting}[language=ini, label={Funzione Prodotto con Costante},  caption=Funzione prodotto con costante]
+Z <- Z + 1
+Z <- Z + 1
+Z <- Z + 1
+Y <- X1 * Z
+\end{lstlisting}
+
+\subsubsection*{Esercizio.} \textit{Si scriva un S-Programma che implementi il predicato di parità}
+
+\begin{equation}
+  p(x)= \begin{cases}
+        1, \;\; x\equiv_{2}0\\
+        \uparrow, \;\; altrimenti
+        \end{cases}
+\end{equation}
+
+\begin{lstlisting}[language=ini, label={Predicato Pari Dispari},  caption=Predicato di Parità]
+    Z1 <- Z1 + 1
+    Z2 <- Z2 + 1
+    Z2 <- Z2 + 1
+[A] IF X != 0 GOTO B
+    Y <- Y + 1
+    GOTO E
+[B] IF X == Z1 GOTO B
+    X <- X - Z2
+    GOTO A
+\end{lstlisting}
+
+\subsubsection*{Esercizio.} \textit{Si calcoli la successione delle istantanee relative al programma~\ref{Predicato Uguaglianza} per gli input \((x_1,x_2,x_3)=(2,1,3)\) e \(x_1=5\).}
+
+Programma~\ref{Predicato Uguaglianza} in \textbf{linguaggio S} \textit{``puro''}.
+
+\begin{lstlisting}[language=ini, caption=Predicato di Uguaglianza senza Macro, label={Predicato Uguaglianza noMacro}]
+[A] IF X1 != 0 GOTO B
+    IF X2 != 0 GOTO E
+    Y <- Y + 1
+    IF Y != 0 GOTO E
+[B] X1 <- X1 - 1
+    IF X2 != 0 GOTO C
+    Z <- Z + 1
+    IF Z != 0 GOTO E
+[C] X2 <- X2 - 1
+    Z <- Z + 1
+    IF Z != 0 GOTO A
+\end{lstlisting}
+
+Input: \((x_1,x_2,x_3)=(2,1,3)\);
+
+\begin{enumerate}
+    \item \textbf{Stato Iniziale} \(\sigma_1=\cbrakets{x_1=2,x_2=1,x_3=3,y=0,z=0}\);
+    \item \textbf{Istantanea 1} \((1,\sigma_1)\);
+    \item \textbf{Istantanea 2} \((5,\sigma_1)\);
+    \item \textbf{Istantanea 3} \((6,\sigma_2)\), con \(\sigma_2=\cbrakets{x_1=1,x_2=1,x_3=3,y=0,z=0}\);
+    \item \textbf{Istantanea 4} \((9,\sigma_2)\);
+    \item \textbf{Istantanea 5} \((10,\sigma_3)\), con \(\sigma_3=\cbrakets{x_1=1,x_2=0,x_3=3,y=0,z=0}\);
+    \item \textbf{Istantanea 6} \((11,\sigma_4)\), con \(\sigma_4=\cbrakets{x_1=1,x_2=0,x_3=3,y=0,z=1}\);
+    \item \textbf{Istantanea 7} \((1,\sigma_4)\);
+    \item \textbf{Istantanea 8} \((5,\sigma_4)\);
+    \item \textbf{Istantanea 9} \((6,\sigma_5)\), con \(\sigma_5=\cbrakets{x_1=0,x_2=0,x_3=3,y=0,z=1}\);
+    \item \textbf{Istantanea 10} \((7,\sigma_5)\);
+    \item \textbf{Istantanea 11} \((8,\sigma_6)\), con \(\sigma_6=\cbrakets{x_1=0,x_2=0,x_3=3,y=0,z=2}\);
+    \item \textbf{Istantanea 12} \((12,\sigma_6)\), \textbf{terminale};
+    \item \textbf{Stato Finale} \(\sigma_6=\cbrakets{x_1=0,x_2=0,x_3=3,y=0,z=2}\).
+\end{enumerate}
+
+Input: \(x_1=5\);
+
+\begin{enumerate}
+    \item \textbf{Stato Iniziale} \(\sigma_1=\cbrakets{x_1=5, x_2=0,y=0,z=0}\);
+    \item \textbf{Istantanea 1} \((1,\sigma_1)\);
+    \item \textbf{Istantanea 2} \((5,\sigma_1)\);
+    \item \textbf{Istantanea 3} \((6,\sigma_2)\), con \(\sigma_2=\cbrakets{x_1=4,x_2=0,y=0,z=0}\);
+    \item \textbf{Istantanea 4} \((7,\sigma_2)\);
+    \item \textbf{Istantanea 5} \((8,\sigma_3)\), con \(\sigma_3=\cbrakets{x_1=4,x_2=0,y=0,z=1}\);
+    \item \textbf{Istantanea 6} \((12,\sigma_3)\), \textbf{terminale};
+    \item \textbf{Stato Finale} \(\sigma_3=\cbrakets{x_1=4,x_2=0,y=0,z=1}\).
+\end{enumerate}
+
+\subsubsection*{Esercizio} \textit{Si scriva un S-Programma che implementi la funzione potenza \(f(x_1,x_2)=x_1^{x_2}\)}.
+
+\begin{lstlisting}[language=ini, label={Funzione Potenza},  caption=Funzione potenza]
+    Y <- Y + 1
+[A] IF X2 != 0 GOTO B
+    GOTO E
+[B] X2 <- X2 - 1
+    Y <- Y * X1
+    GOTO A
+\end{lstlisting}
+
+\subsubsection*{Esercizio.} \textit{Considerando il seguente programma \(\mcP\), determinare \(\Psi_{\mcP}^{(1)}(r_1), \Psi_{\mcP}^{(2)}(r_1,r_2), \Psi_{\mcP}^{(3)}(r_1,r_2,r_3)\)}.
+
+\begin{lstlisting}[language=ini, label={Programma P},  caption=Programma P]
+    Y <- X1
+[A] IF X2 == 0 GOTO E
+    Y <- Y + 1
+    Y <- Y + 1
+    X2 <- X2 - 1
+    GOTO A
+\end{lstlisting}
+
+\begin{itemize}
+    \item \(\Psi_{\mcP}^{(1)}(r_1)=r_1\);
+    \item \(\Psi_{\mcP}^{(2)}(r_1,r_2)=r_1+2r_2\);
+    \item \(\Psi_{\mcP}^{(3)}(r_1,r_2,r_3)=r_1+2r_2\).
+\end{itemize}
+
+\newpage
+\subsubsection*{Esercizio.}
+
+\begin{enumerate}
+    \item \textit{\(\forall k\geq0\), sia \(f_k(x)=k\). Dimostrare che \(f_k\) è calcolabile\footnote{Da ora in avanti le funzioni costanti saranno considerate tutte calcolabili, e dunque usate in S-Programmi}.}
+
+    \item \textit{Un programma è \textbf{straightline} se non contiene istruzioni di salto. Mostrare per induzione su \(k\) che se \(\mcP\) è \textbf{straightline} e ha lunghezza \(k\) allora \(\Psi_{\mcP}^{(1)}(x)\leq k, \forall x \in \mathbb{N}\).}
+
+    \item \textit{Mostrare che se \(\mcP\) è straightline e calcola \(f_k\), allora \(\mcP\) ha lunghezza \(\geq k\).}
+
+    \item \textit{Mostrare che nessun programma straightline calcola la funzione \(f(x)=x+1\), e quindi dedurne che la classe delle funzioni calcolate dai programmi straightline è \textbf{propriamente} contenuta nella classe delle funzioni calcolabili.}
+\end{enumerate}
+
+\paragraph*{\(1\).} Dimostriamo per induzione.\label{Esercizio f_k(x)=k}
+
+\textbf{Base induttiva} \(k=0\). Vero poiché \(f_0(x)=0\) è calcolata dal \textbf{programma vuoto}. \\
+\textbf{Passo induttivo} \(k\to k+1\). Vero poiché \(f_{k+1}(x)=k+1\) è calcolata aggiungendo al programma che calcola \(f_k\), esistente per ipotesi d'induzione, l'istruzione \lstinline[language=ini]{Y <- Y + 1}.
+
+\paragraph*{\(2\).} Dimostriamo per induzione.\label{Esercizio Straightline P lunghezza <= k}
+
+\textbf{Base induttiva} \(k=0\). Vero avremo il \textbf{programma vuoto}, dunque con output \(0\leq k\)
+
+\textbf{Passo induttivo} \(k\to k+1\). Vero poiché avendo per ipotesi di induzione che \(\Psi_{\mcP}^{(1)}(x)\leq k\), il programma di lunghezza \(k+1\), dovendo essere \textbf{straightline} dovrà avere come istruzione in più necessariamente una di queste \(3\) istruzioni:
+\begin{itemize}
+    \item \textbf{Pigra.} Porta a un output uguale al programma precedente, dunque \(y_{k+1}=y_k\leq k \leq k+1\);
+    \item \textbf{Decremento.} Porta a un output minore di quello precedente di \(1\), dunque \(y_{k+1}=y_k-1\leq y_k \leq k \leq k+1\);
+    \item \textbf{Incremento.} Porta a un output maggiore di quello precedente di \(1\), ma essendo \(y_k\leq k\) allora \(y_{k+1}=y_k+1\leq k+1\).
+\end{itemize}
+
+\paragraph*{\(3\).} Dimostriamo per costruzione.\label{Esercizio Straightline P lunghezza > k}
+
+Essendo il programma \textbf{straightline} potrà avere solo istruzioni \textbf{pigre}, di \textbf{incremento} o di \textbf{decremento}. \\
+Essendo la variabile di output \lstinline[language=ini]{Y} inizializzata a \(0\), per calcolare \(f_k\) sono necessario come minimo \(k\) istruzioni di incremento, dunque la lunghezza del programma sarà almeno \(k\).
+In caso ci siano istruzioni non di incremento la lunghezza sarà maggiore di \(k\) avendo bisogno di al meno \(k\) istruzioni di incremento.
+
+\paragraph*{\(4\).} Dimostriamo per costruzione.\label{Esercizio Straightline f(x)=x+1}
+
+Preso un programma \(\mcP\) di \(k\) istruzioni, se questo è \textbf{straightline} avrà come output \(y\leq k\), come visto nel punto \(2\). Ma la funzione \(f(x)=x+1\) ha \(y>k, \forall x \geq k\).
+Dunque nessun programma \textbf{straightline} può calcolare la funzione \(f(x)=x+1\).
+
+\subsubsection*{Esercizio.} \textit{Mostrare che il predicato \(P(x_1, x_2)\iff x_1\leq x_2\) è calcolabile costruendo un S-Programma}.
+
+\begin{lstlisting}[language=ini, label={Predicato Minore Uguale},  caption=Predicato Minore Uguale]
+    IF X1 != X2 GOTO A
+    Y <- Y + 1
+    GOTO E
+[A] IF X1 != 0 GOTO B
+    Y <- Y + 1
+    GOTO E
+[B] IF X2 != 0 GOTO C
+    GOTO E
+[C] X1 <- X1 - 1
+    X2 <- X2 - 1
+    GOTO A
+\end{lstlisting}
+
+Implementazione alternativa:
+
+\begin{lstlisting}[language=ini, label={Predicato Minore Uguale AltVer},  caption=Predicato Minore Uguale]
+[C] IF X2 != 0 GOTO A
+    IF X1 != 0 GOTO B
+    Y <- Y + 1
+[B] GOTO E
+[A] X2 <- X2 - 1
+    X1 <- X1 - 1
+    GOTO C
+\end{lstlisting}

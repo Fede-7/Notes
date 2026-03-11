@@ -1,0 +1,707 @@
+\chapter{Operazioni sulle funzioni e Paradigma Funzionale}
+\section{Paradigma Funzionale}
+Fino a ora abbiamo utilizzato un approccio \textit{diretto} per la valutazione della calcolabilità di una funzione. Questo approccio presenta
+svariati limiti, primo dei quali è la necessità di dimostrare come calcolabile una singola funzione alla volta, senza poter
+trarre conclusioni  di carattere generale o di caratterizzare insiemi o classi di funzioni.
+
+Per avere un approccio più generale e sistematico alla valutazione della calcolabilità delle funzioni è necessario dunque
+approcciare il problema in maniera diversa, utilizzando un paradigma diverso che sfrutti\footnote{Il passaggio dall'approccio diretto a uno di carattere più generale per la valutazione della calcolabilità di una funzione è assimilabile al passaggio dal paradigma imperativo a quello funzionale.}
+le proprietà e le operazioni delle funzioni stesse per valutarne la calcolabilità.
+
+\section{Operazioni fondamentali e Classi PRC}
+
+Con \textbf{operazioni sulle funzioni} facciamo riferimento a operazioni algebriche definite nell'insieme delle funzioni, ovvero operazioni che hanno sia come operando che come risultato delle funzioni.
+Definiamo dunque le due operazioni fondamentali sulle funzioni: la \textbf{composizione} e la \textbf{ricorsione primitiva}.
+
+\subsection{Composizione}
+
+\dfn{Composizione di Funzioni}{\label{Composizione di funzioni Def}
+  Sia \(f\) una funzione \(k\text{-aria}\) e \( g_1, g_2, \cdots,g_k\) funzioni \(n\text{-arie}\). Allora la funzione \(h\) \(n\text{-aria}\) è \textbf{composizione} di \(f, g_1, g_2, \cdots,g_k\) se:
+  \begin{equation}
+    h(x_1,\cdots,x_n)=f(g_1(x_1,\cdots,x_n),\cdots,g_k(x_1,\cdots,x_n))
+  \end{equation}
+}
+
+È importante notare che la composizione di funzioni è ben definita anche per \textit{funzioni parziali}. \\
+Infatti si avrà che, data \((x_1,\cdots,x_n) \in \mbN\):
+
+\begin{equation}
+  h(x_1,\cdots,x_n)\uparrow \iff \exists i \in \cbrakets{1,\cdots,k}: g_i(x_1,\cdots,x_n)\uparrow \vee f(g_1(x_1,\cdots,x_n),\cdots,g_k(x_1,\cdots,x_n))\uparrow
+\end{equation}
+
+Con ragionamento simile è anche possibile dimostrare che la composizione di \textbf{funzioni parzialmente calcolabili} è necessariamente \textbf{parzialmente calcolabile}.
+
+\newpage
+
+\begin{halfframedbox}{red!75!black}{Teorema di Composizione}\label{Composizione Teorema}
+  \textbf{Enunciato.} Sia \(h\) ricavata per composizione di \(f, g_1, g_2, \cdots,g_k\) \textbf{parzialmente calcolabili}, allora \(h\) è \textbf{parzialmente calcolabile}.
+
+  \begin{center}
+    \textcolor{red!75!black}{\hdashrule[0.5ex]{18cm}{1pt}{3mm 3pt 1mm 2pt}}
+  \end{center}
+
+  \textbf{Dimostrazione.} Per definizione di \textbf{composizione} si ha \(h=\Psi_{\mcP}^{(n)}\), dove \(\mcP\) è:
+  \begin{lstlisting}[language=ini, label={Teorema compozione},  caption=Dimostrazione Teorema di Composizione]
+    Z1 <- (*\(g_1(x_1,\cdots,x_n)\)*)
+    (*\(\vdots\)*)
+    Zk <- (*\(g_k(x_1,\cdots,x_n)\)*)
+    Y <- (*\(f(Z_1,\cdots,Z_k)\)*)
+  \end{lstlisting}
+\end{halfframedbox}
+
+Inoltre come notato in precedenza il programma non arriva a terminazione \textit{se e solo se} uno dei programmi \(g_i\) o \(f\) non termina, dunque:
+\begin{equation}
+   h \text{ non totale } \implies \exists i \in \cbrakets{1,\cdots,k}: g_i \text{ non totale} \lor f \text{ non totale}
+\end{equation}
+Non è necessariamente vero il viceversa però. Infatti se il codominio di una funzione totale \(f\) che compone \(h\) è un sottoinsieme del dominio di un'altra parziale \(g\) che compone a sinistra\footnote{In notazione algebrica \(f \circ g\) equivale a \(f(g(x))\), dunque è l'operando sinistro a poter essere parziale, non essendo la composizione commutativa.},
+la funzione composta sarà totale, poiché quella totale escluderà i casi gli input di non terminazione dalla prima.
+Vediamo qualche esempio al riguardo per chiarire il concetto.
+
+\begin{generalbox}[colframe=azure-gradient-3!90!black]{Esempi}
+  \begin{itemize}
+    \item Sia \(h_1(x)=2x\). Possiamo considerare \(h\) come funzione composta da \(f_1(x_1, x_2)=x_1 \cdot x_2\), \(g_1(x)=2\) e \(g_2(x)=x\), o alternativamente, notando che \(h_1(x)=2x=x+x\) ovvero composizione di \(f_2(x_1,x_2)=x_1+x_2\) e \(g_2(x)=x\), dunque \(h_1\) è calcolabile.
+    \item Sia \(h_2(x)=4x^2\). Possiamo considerare \(h_2\) come funzione composta dalle funzioni \(f_1\) e \(h_1\) sopracitate, infatti \(h_2(x)=4x^2=2x\cdot 2x\), dunque \(h_2\) è calcolabile.
+    \item Sia \(h_3(x)=4x^2-2x\). Si ha \(h_3(x)\downarrow \forall x \in \mbN\), dato che \(\forall x \in \mbN, 4x^2 \geq 2x\). Abbiamo dunque che la funzione \(h_3\) è totale. Ma \(h_3(x)=f_3(h_2(x),h_1(x))\), dove \(f_3(x_1,x_2)=x_1-x_2\) \textbf{non è totale}\footnote{In caso di dubbi controllare qui~\ref{Funzione Sottrazione}}. Abbiamo dunque che l'implicazione non vale in entrambi i sensi come precedentemente detto.
+  \end{itemize}
+\end{generalbox}
+
+\subsection{Ricorsione Primitiva}
+
+L'operazione di \textbf{ricorsione primitiva} è un'operazione che permette di definire una funzione in maniera ricorsiva, ovvero definendo un caso base e un passo ricorsivo, formalizzando matematicamente il concetto di algoritmo ricorsivo.
+Nonostante sia definibile anche per le \textbf{funzioni parziali}, noi tratteremo solo il caso delle \textbf{funzioni totali}.
+
+Per una funzione \(h\) unaria diremo che è ricavata per \textbf{ricorsione primitiva} da \(k\in\mbN\) e \(g\) funzione binaria \textbf{totale} se:
+\begin{equation}
+  \begin{cases}
+    h(0)=k\\
+    h(t+1)=g(t,h(t)), & \forall t\in\mbN^*
+  \end{cases}
+\end{equation}
+
+Nonostante affronteremo prevalentemente funzioni unarie, è importante dare una definizione generale per qualsiasi funzione.
+
+\dfn{Ricorsione Primitiva}{\label{Ricorsione Primitiva Def}
+Una funzione \(h\) \(n-aria\) si ricava per ricorsione primitiva da \(f\) \((n-1)\text{-aria}\) e da \(g\) \((n+1)\text{-aria}\), se \(\forall x_1,\cdots,x_{n-1} \in \mbN\) vale:
+\begin{equation}
+  \begin{cases}
+    h(x_1,\cdots,x_{n-1}, 0)=f(x_1,\cdots,x_{n-1})\\
+    h(x_1,\cdots,x_{n-1}, t+1)=g(x_1,\cdots,x_{n-1},t,h(x_1,\cdots,x_{n-1}, t)), & \forall t\in \mbN^*
+  \end{cases}
+\end{equation}
+}
+
+\newpage
+
+\begin{halfframedbox}{red!75!black}{Teorema di Ricorsione primitiva}\label{Ricorsione Primitiva Teorema}
+  \textbf{Enunciato.} Sia \(h\) ricavata per ricorsione primitiva da \(f\) e \(g\) calcolabili, allora \(h\) è calcolabile.
+
+  \begin{center}
+    \textcolor{red!75!black}{\hdashrule[0.5ex]{18cm}{1pt}{3mm 3pt 1mm 2pt}}
+  \end{center}
+
+  \textbf{Dimostrazione.} Per definizione di \textbf{ricorsione primitiva} si ha \(h=\Psi_{\mcP}^{(n)}\), dove \(\mcP\) è:
+  \begin{lstlisting}[language=ini, autogobble=false, label={Teorema ricorsione primitiva},  caption=Dimostrazione Teorema di Ricorsione Primitiva]
+      Y <- (*\(f(X_1,\cdots,X_{n-1})\)*)
+  [A] IF Xn == 0 GOTO E
+      Y <- (*\(g(X_1,\cdots,X_{n-1},Y,Z)\)*)
+      Z <- Z + 1
+      Xn <- Xn - 1
+      GOTO A
+  \end{lstlisting}
+\end{halfframedbox}
+
+Questo programma calcola esattamente la funzione \(h\) poiché, se ci trovassimo nel primo caso della definizione~\ref{Ricorsione Primitiva Def} l'output sarebbe dato dalle linee \lstinline[language=ini]{1--2}, altrimenti, se ci trovassimo nel secondo caso, le linee \lstinline[language=ini]{3--6} calcolerebbero ricorsivamente l'output di \(h\), dimostrata così calcolabile.
+
+\subsection{Classi PRC e Funzioni Ricorsive Primitive}
+
+Le due operazioni appena definite sono alla base del paradigma funzionale e definiscono, insieme ad alcune specifiche funzioni, una classe di funzioni chiamate \textbf{PRC}.
+
+\dfn{Classi PRC di funzioni}{\label{Classi PRC di funzioni Def}
+  Un insieme di funzioni totali \(\mcC\) è detto \textbf{PRC} se è chiuso rispetto alle operazioni di composizione e ricorsione primitiva e contiene:
+  \begin{itemize}
+    \item La funzione nulla \(n(x)=0\);
+    \item La funzione successore \(s(x)=x+1\);
+    \item Le funzioni proiezione \(u_i^{(n)}(x_1,\cdots,x_n)=x_i, \forall (n\geq 1 \land 1\leq i \leq n )\).
+  \end{itemize}
+}
+
+Dato che le funzioni iniziali\footnote{Si noti che le funzioni proiezioni sono un \textbf{insieme infinito} e non \textbf{una sola funzione}. Infatti ne esiste una \(\forall (n,i)\) con \( n \in \mbN\) e \( i \in \cbrakets{1,\cdots,n}\).} sono facilmente calcolabili e visti i risultati dei teoremi~\ref{Teorema compozione} e~\ref{Teorema ricorsione primitiva}, possiamo notare che l'insieme delle \textbf{funzioni calcolabili} è una \textbf{classe PRC}.
+
+\dfn{Funzioni Ricorsive Primitive}{\label{Funzioni Ricorsive Primitive Def}
+  Una funzione è detta \textbf{ricorsiva primitiva} se è ottenibile dalle funzioni iniziali mediante un numero finito di applicazioni di composizione e ricorsione primitiva.
+}
+
+È importante notare che, dalla definizione di \textbf{classe PRC} e dalle proprietà degli \textbf{insiemi chiusi}, l'insieme delle \textbf{funzioni ricorsive primitive} è contenuto in tutte le \textbf{classi PRC}, ed è dunque in particolare la più piccola \textbf{classe PRC}.
+
+In particolare, essendo \textbf{l'insieme delle funzioni calcolabili} una \textbf{classe PRC}, si ha che \textbf{ogni funzione ricorsiva primitiva è calcolabile}.
+
+\newpage
+Andiamo ora a elencare una serie di esempi significativi di funzioni ricorsive primitive, che verranno poi usate sia per definire nuove funzioni che per dimostrare l'appartenenza di altre funzioni alla stessa classe.
+
+\begin{generalbox}[colframe=azure-gradient-3!90!black]{Esempi}
+  \begin{enumerate}
+    \item Consideriamo la funzione \(a(x_1,x_2) = x_1+x_2\). Possiamo vedere che questa è \textbf{ricorsiva primitiva} da:
+    \begin{itemize}
+      \item []
+      \begin{equation}
+        \begin{cases}
+          a(x_1,0)=x_1=u_1^{(1)}(x)\\
+          a(x_1,t+1)=x+t+1=a(x_1,t)+1=s(a(x_1,t))=g(t, a(x,t),x), & \forall t \in \mbN^*
+        \end{cases}
+      \end{equation}
+      Dove \(g(x,y,z)=s(y)=s(u_2^{(3)}(x,y,z))\) è ottenuta per composizione di funzioni iniziali, ed è dunque \textbf{ricorsiva primitiva}.
+    \end{itemize}
+    \item Consideriamo la funzione \(m(x,y)=x\cdot y\). Possiamo vedere che questa è \textbf{ricorsiva primitiva} da:
+    \begin{itemize}
+     \item []
+      \begin{equation}
+        \begin{cases}
+          m(x,0)=0=n(x)\\
+          m(x, t+1)=m(x, t)+x=a(m(x,t),x)=g'(t, m(x, t),x), & \forall t \in \mbN^*
+        \end{cases}
+      \end{equation}
+      Dove \(g'(x,y,z)=a(u_2^{(3)}(x,y,z),u_3^{(3)}(x,y,z))\) è ottenuta per composizione di funzioni iniziali, ed è dunque \textbf{ricorsiva primitiva}.
+    \end{itemize}
+    \item Consideriamo la funzione \textbf{fattoriale \(x!\)}, definita come: % chkTeX 40
+    \begin{itemize}
+      \item []
+      \begin{equation}
+        x! =\begin{cases}
+              1, & x=0\\
+              x\cdot (x-1)!,&  x>0
+            \end{cases}
+      \end{equation}
+      Possiamo vedere che questa è \textbf{ricorsiva primitiva} da:
+      \begin{equation}
+        \begin{cases}
+          0! =1=s(0)\\
+          (t+1)! =(t+1)\cdot t! =m(t+1, t!)=g(t+1,t!), & \forall t \in \mbN^*
+        \end{cases}
+      \end{equation}
+    \end{itemize}
+    \item Consideriamo la funzione \textbf{precedente}:
+    \begin{itemize}
+     \item []
+     \begin{equation}
+        p(x)=\begin{cases}
+              0, &  x=0\\
+              x-1, & x>0
+            \end{cases}
+      \end{equation}
+      Possiamo vedere che questa è \textbf{ricorsiva primitiva} da:
+      \begin{equation}
+        \begin{cases}
+          p(0)=0=n(x)\\
+          p(t+1)=t=u_1^{(2)}(t,p(t))=g(t, p(t)), & \forall t \in \mbN^*
+        \end{cases}
+      \end{equation}
+    \end{itemize}
+    \item Consideriamo ora un'alternativa alla funzione Sottrazione:
+    \begin{itemize}
+     \item []
+      \begin{equation}
+        x\dotminus y =  \begin{cases}
+                          0, & x<y \\
+                          x-y, & x\geq y
+                        \end{cases}
+      \end{equation}
+      Possiamo vedere che questa è \textbf{ricorsiva primitiva} da:
+      \begin{equation}
+        \begin{cases}
+          x\dotminus 0=x=u_1^{(1)}(x)\\
+          x\dotminus (t+1)=p(x\dotminus t)=g(x, x\dotminus t,t), & \forall t \in \mbN^*
+        \end{cases}
+      \end{equation}
+      Dove \(g(x,y,z)=p(u_2^{(3)}(x,y,z))\) è ottenuta per composizione di funzioni iniziali, ed è \textbf{ricorsiva primitiva}\footnote{Per dimostrare che una funzione è \textbf{ricorsiva primitiva} è sufficiente dimostrare che è ottenuta da \textbf{funzioni ricorsive primitive}. Da ora in avanti non ci si ricondurrà più a funzioni iniziali per le dimostrazioni.}.
+    \end{itemize}
+    \item Consideriamo ora il predicato\footnote{Questo predicato è detto \textit{rilevatore di zeri}, è applicato a un predicato può svolgere il ruolo della \textit{negazione logica}} \(\alpha(x)\iff x=0\), esprimibile anche come:
+    \begin{itemize}
+     \item []
+     \begin{equation}
+        \alpha(x)=\begin{cases}
+                    1, & x=0\\
+                    0, & x>0
+                  \end{cases} = 1\dotminus x
+      \end{equation}
+      Questo predicato è \textbf{ricorsivo primitivo}, essendo composizione di funzioni dimostrate come tali.
+    \end{itemize}
+    \item Consideriamo ora il predicato \(\beta(x,y)\iff x=y\), esprimibile anche come\footnote{Funzione \textit{Sottrazione in Valore Assoluto}:~\ref{Funzione Sottrazione Valore Assoluto Eq}}:
+    \begin{itemize}
+     \item []
+     \begin{equation}
+        \beta(x,y)=\begin{cases}
+                    1, & x=y\\
+                    0, & x\neq y
+                  \end{cases} = \alpha(\abs{x-y})
+      \end{equation}
+      Questo predicato è ricorsivo primitivo, essendo composizione di funzioni dimostrate come tali\footnote{La funzione \(f(x,y)=\abs{x-y}\) è definita e dimostrata come ricorsiva primitiva nell'esercizio~\ref{Funzione Sottrazione Valore Assoluto Eq}. Esercizi consigliati:~\ref{Funzione Sottrazione Valore Assoluto Eq},~\ref{Predicato Minore Uguale Eq}}.
+    \end{itemize}
+  \end{enumerate}
+\end{generalbox}
+
+\newpage
+\section{Proprietà di chiusura delle Classi PRC}
+
+Definite le classi PRC e, notato che l'insieme delle funzioni calcolabili ne è un esempio, è naturale chiedersi se esse siano chiuse rispetto ad altre operazioni oltre a quelle che le definiscono.
+
+Proprietà di chiusura di questo tipo sono importanti per poter caratterizzare le classi PRC e per poter dimostrare l'appartenenza di una funzione a una di esse, e dunque la sua calcolabilità.
+
+Andiamo dunque a elencare e dimostrare le proprietà di chiusura delle classi PRC. % chktex 13
+
+\subsection{Chiusura per congiunzione, disgiunzione e negazione}
+
+\begin{halfframedbox}{red!75!black}{Teorema di Chiusura per congiunzione\(\text{,}\) disgiunzione e negazione}\label{Chiusure per congiunzione, disgiunzione e negazione Teorema}
+  \textbf{Enunciato.} Siano \(p\) e \(q\) predicati n-ari appartenenti a \(\mcC\) \textbf{classe PRC}, allora anche i predicati \(p \land q\), \(p \lor q\), \(\neg p\), \(\neg q\) appartengono a \(\mcC\).
+
+  \begin{center}
+    \textcolor{red!75!black}{\hdashrule[0.5ex]{18cm}{1pt}{3mm 3pt 1mm 2pt}}
+  \end{center}
+
+  \textbf{Dimostrazione. }
+  \begin{itemize}
+    \item \((p \land q)(x_1,\cdots,x_n) = p(x_1,\cdots,x_n) \cdot q(x_1,\cdots,x_n)\), è dunque \textbf{ricorsivo primitivo} da composizione di funzioni ricorsive primitive.
+    \item \((\neg p)(x_1,\cdots,x_n)=\alpha(p(x_1,\cdots,x_n))\), è dunque \textbf{ricorsivo primitivo} da composizione di funzioni ricorsive primitive, vale il ragionamento analogo per \(\neg q\).
+    \item \((p \lor q)(x_1,\cdots,x_n) \iff \neg(\neg p(x_1,\cdots,x_n) \land \neg q(x_1,\cdots,x_n))\), è dunque \textbf{ricorsivo primitivo} dalle leggi di De Morgan e dal ragionamento precedente.
+   \end{itemize}
+\end{halfframedbox}
+
+Avendo dimostrato che i predicati \(x \leq y\) e \(x=y\) sono \textbf{ricorsivi primitivi} e utilizzando il teorema appena dimostrato, sappiamo che sono ricorsivi primitivi anche i \textbf{predicati} \(x<y\iff x\leq y \land \neg (y= x)\), \(x\geq y\iff\neg(x<y)\) e \(x>y\), dalle precedenti.
+
+\subsection{Definizione per Casi}
+
+Andiamo ora a individuare un ulteriore metodo per definire funzioni che, come vedremo, è una proprietà di chiusura per le classi PRC, ovvero la \textbf{definizione per casi}.
+
+\dfn{Definizione per Casi}{
+  Siano \(g\) e \(h\) funzioni \(n\text{-arie}\) e \(p\) predicato \(n\text{-ario}\) allora la funzione \(n\text{-aria}\) \(f\) è \textbf{definita per composizione} se definita come:
+  \begin{equation}
+    f(x_1,\cdots,x_n)=\begin{cases}
+                    g(x_1,\cdots,x_n), & p(x_1,\cdots,x_n)\\
+                    h(x_1,\cdots,x_n), & \neg p(x_1,\cdots,x_n)
+                  \end{cases}
+                  \label{Definizione per Casi Def}
+  \end{equation}
+}
+
+In altre parole una funzione \textbf{definita per casi} è una funzione la cui immagine dipende da un predicato, ovvero da una condizione che può essere vera o falsa riguardante le incognite della funzione stessa.
+Possiamo trovare una proprietà di chiusura per le \textbf{Classi PRC} per la \textbf{definizione per casi} simile a quelle viste per composizione e ricorsione primitiva.
+
+\begin{halfframedbox}{red!75!black}{Teorema di Definizione per Casi}\label{Definizione per Casi Teorema}
+  \textbf{Enunciato.} Siano g e h funzioni \(n\text{-arie}\) in \(\mcC\) \textbf{classe PRC} e \(p\) predicato \(n\text{-ario}\) in \(\mcC\), allora a \(\mcC\) appartiene anche la funzione \(n\text{-aria}\) \(f\) \textbf{definita per casi} da \(g,h\) e \(p\).
+
+  \begin{center}
+    \textcolor{red!75!black}{\hdashrule[0.5ex]{18cm}{1pt}{3mm 3pt 1mm 2pt}}
+  \end{center}
+
+  \textbf{Dimostrazione.} Si ha:
+  \begin{equation}
+    f(x_1,\cdots,x_n)=g(x_1,\cdots,x_n)p(x_1,\cdots,x_n)+h(x_1,\cdots,x_n)(\neg p)(x_1,\cdots,x_n)
+  \end{equation}
+  Per la proprietà di chiusura per \textbf{composizione} e \textbf{ricorsione primitiva} dimostrata in precedenza, \(f\in\mcC\)
+\end{halfframedbox}
+
+È possibile generalizzare la definizione di \textbf{definizione per casi} a più casi, ovvero a più funzioni e più predicati, la cui proprietà di chiusura è  a sua volta dimostrabile\footnote{Dimostrazione alternativa:~\ref{Corollario al Teorema di Definizione per Casi AltDim}. Esercizi consigliati:~\ref{Funzione iterata n-esima di f Eq}.}.
+
+\newpage
+
+\begin{halfframedbox}{red!75!black}{Corollario al Teorema di Definizione per Casi}\label{Corollario al Teorema di Definizione per Casi}
+  \textbf{Enunciato.} Se \(g_1,\cdots,g_k,h,p_1,\cdots,p_k\) sono funzioni e predicati n-ari in \(\mcC\) \textbf{classe PRC}, allora a \(\mcC\) appartiene anche la funzione \(n\text{-aria}\) \(f\) definita come:
+  \begin{equation}
+    f(x_1,\cdots,x_n)=\begin{cases}
+                    g_1(x_1,\cdots,x_n), & p_1(x_1,\cdots,x_n)\\
+                    \vdots \\
+                    g_k(x_1,\cdots,x_n), & p_k(x_1,\cdots,x_n)\\
+                    h(x_1,\cdots,x_n), & \text{altrimenti}
+                    \end{cases}
+  \end{equation}
+
+  \begin{center}
+    \textcolor{red!75!black}{\hdashrule[0.5ex]{18cm}{1pt}{3mm 3pt 1mm 2pt}}
+  \end{center}
+
+  \textbf{Dimostrazione.} Si può dimostrare che \(f\) è \textbf{ricorsiva primitiva} per \textbf{induzione} su \(k\). Il \textbf{caso base} è rappresentato dal teorema precedente.
+  Per quando riguarda il \textbf{passo induttivo} \(k\implies k+1\), consideriamo la funzione \(f'\) definita come:
+    \begin{equation}
+      f'(x_1,\cdots,x_n)=\begin{cases}
+                      g_k(x_1,\cdots,x_n), & p_k(x_1,\cdots,x_n)\\
+                      h(x_1,\cdots,x_n), & \text{altrimenti}
+                      \end{cases}
+    \end{equation}
+    Per il teorema precedente \(f' \in \mcC\).
+    A questo punto possiamo riscrivere \(f\) come:
+    \begin{equation}
+      f(x_1,\cdots,x_n)=\begin{cases}
+                      g_1(x_1,\cdots,x_n), & p_1(x_1,\cdots,x_n)\\
+                      \vdots\\
+                      g_{k-1}(x_1,\cdots,x_n), & p_{k-1}(x_1,\cdots,x_n)\\
+                      f'(x_1,\cdots,x_n), & \text{altrimenti}
+                      \end{cases}
+    \end{equation}
+    Per ipotesi di induzione, essendo ora \(f\) definita da \(k\) funzioni appartenenti a \(\mcC\) e \(k\) predicati appartenenti a \(\mcC\), \(f \in \mcC\).
+  \end{halfframedbox}
+
+\subsection{Operatori di Sommatoria e Produttoria e Quantificatori Limitati}
+
+Come abbiamo già visto, la combinazione di funzioni \(f\in\mcC\) \textbf{classe PRC}, mediante somma e prodotto appartiene ancora \(\mcC\).
+Possiamo generalizzare questo processo di composizione mediante gli operatori di \textbf{sommatoria e produttoria}.
+
+\dfn{Sommatoria e Produttoria di funzioni}{\label{Sommatoria e Produttoria di funzioni Def}
+  Sia \(f\) una funzione \((n+1)\text{-aria}\), allora definiamo come \textbf{operatori di sommatoria e produttoria} le funzioni:
+  \begin{equation}
+    \begin{split}
+      \sigma_f(x_1,\cdots,x_n,y)=\sum_{i=0}^{y}f(x_1,\cdots,x_n,i)\\
+      \pi_f(x_1,\cdots,x_n,y)=\prod_{i=0}^{y}f(x_1,\cdots,x_n,i)
+    \end{split}
+  \end{equation}
+}
+
+Come le operazioni precedenti, anche per gli \textbf{operatori di sommatoria e produttoria} è possibile dimostrare una proprietà di chiusura per le \textbf{classi PRC}.
+
+\begin{halfframedbox}{red!75!black}{Teorema di chiusura per Sommatoria e Produttoria delle classi PRC}\label{Teorema di chiusura per Sommatoria e Produttoria delle classi PRC}
+  \textbf{Enunciato. } Sia \(f\) una funzione \((n+1)\text{-aria}\) in \(\mcC\) \textbf{classe PRC}, allora appartengono a \(\mcC\) anche le funzioni \(\sigma_f\) e \(\pi_f\).
+
+  \begin{center}
+    \textcolor{red!75!black}{\hdashrule[0.5ex]{18cm}{1pt}{3mm 3pt 1mm 2pt}}
+  \end{center}
+
+  \textbf{Dimostrazione. } Dimostriamo per \textbf{ricorsione primitiva}. Si ha:
+  \begin{equation}
+    \begin{cases}
+      \sigma_f(x_1,\cdots,x_n,0)=f(x_1,\cdots,x_n,0)\\
+      \sigma_f(x_1,\cdots,x_n,t+1)=\sigma_f(x_1,\cdots,x_n,t)+f(x_1,\cdots,x_n,t+1), \forall t \in \mbN^*
+    \end{cases}
+  \end{equation}
+  Si può dunque vedere che \(\sigma_f\) è \textbf{ricorsiva primitiva} da composizione di funzioni iniziali.
+  Per ragionamento analogo si dimostra anche che \(\pi_f\) è \textbf{ricorsiva primitiva}.
+\end{halfframedbox}
+
+Gli \textbf{operatori di sommatoria e produttoria} sono utili per dimostrare come appartenente a \textbf{classi PRC} ulteriori costrutti matematici.
+Un primo esempio sono i \textbf{quantificatori limitati esistenziale e universale}.
+
+\newpage
+
+\dfn{Quantificatori limitati}{\label{Quantificatori limitati Def}
+  Sia \(p\) un predicato \((n+1)\text{-ario}\), allora definiamo i \textbf{quantificatori limitati esistenziale e universale} \(E_p\) e \(U_p\) come:
+  \begin{equation}
+    \begin{split}
+    E_p(x_1,\cdots,x_n,y)\iff \exists t \leq y: p(x_1,\cdots,x_n,t)\\
+    U_p(x_1,\cdots,x_n,y)\iff \forall t \leq y: p(x_1,\cdots,x_n,t)
+    \end{split}
+  \end{equation}
+}
+
+È fondamentale definire questi quantificatori \textbf{limitati superiormente}, poiché altrimenti non sarebbe possibile dimostrare la proprietà di chiusura delle \textbf{classi PRC} a loro relativa.
+
+\begin{halfframedbox}{red!75!black}{Teorema di chiusura per quantificatori limitati delle classi PRC}\label{Teorema di chiusura per quantificatori limitati delle classi PRC}
+  \textbf{Enunciato. } Sia \(p\) una funzione \((n+1)\text{-ario}\) in \(\mcC\) \textbf{classe PRC}, allora appartengono a \(\mcC\) anche i predicati \(E_p\) e \(U_p\) \((n+1)\text{-ari}\) definiti come:
+  \begin{equation}
+    E_p(x_1,\cdots,x_n,y)\iff \exists t \leq y: p(x_1,\cdots,x_n,t)
+    U_p(x_1,\cdots,x_n,y)\iff \forall t \leq y: p(x_1,\cdots,x_n,t)
+  \end{equation}
+
+  \begin{center}
+    \textcolor{red!75!black}{\hdashrule[0.5ex]{18cm}{1pt}{3mm 3pt 1mm 2pt}}
+  \end{center}
+
+  \textbf{Dimostrazione. }  Per \(E_p\) si ha che:
+  \begin{equation}
+    E_p(x_1,\cdots,x_n,y)\iff\sum_{t=0}^y p(x_1,\cdots,x_n,y)> 0
+  \end{equation}
+  poiché la sommatoria darà \(0\) nel caso non esista un \(t\) tale che \(p(x_1,\cdots,x_n,t)\), e viceversa un valore positivo nel caso esista.
+  Per \(U_p\) si ha che:
+  \begin{equation}
+    U_p(x_1,\cdots,x_n,y)=\prod_{t=0}^y p(x_1,\cdots,x_n,y)
+  \end{equation}
+  poiché in caso esista un predicato che restituisce \(0\) la produttoria verrebbe annullata.
+\end{halfframedbox}
+
+\begin{generalbox}[colframe=azure-gradient-3!90!black]{Esempi}
+  Grazie a questi quantificatori, è possibile caratterizzare altri predicati aritmetici come \textbf{ricorsive primitive}.
+  \begin{enumerate}
+    \item Predicato di divisibilità:
+    \begin{itemize}
+      \item [] \begin{equation}
+        x|y \iff \exists z \leq y: x\cdot z = y
+      \end{equation}
+      È possibile in questo caso \textbf{limitare superiormente} la ricerca di \(z\) poiché per far si che \(x|y\) sia vero, \(z\) deve essere minore o uguale a \(y\).
+    \end{itemize}
+    \item Predicato numero primo:
+    \begin{itemize}
+      \item [] \begin{equation}
+        \text{Primo}(x) \iff x>1 \land \forall z \leq x: (\neg(z|x) \lor z=1 \lor z=x)
+      \end{equation}
+      In questo modo esprimiamo proprio che \(x\) è primo \textit{se e solo se} ha come divisori solo \(1\) e se stesso.
+      \end{itemize}
+  \end{enumerate}
+\end{generalbox}
+
+\subsection{Minimalizzazione limitata}
+Un ulteriore operazione per cui è dimostrabile una proprietà di chiusura delle \textbf{classi PRC} è la \textbf{minimalizzazione limitata}.
+\dfn{Minimalizzazione limitata}{\label{Minimalizzazione limitata Def}
+  Sia \(p\) un predicato \((n+1)\text{-ario}\), allora la funzione \((n+1)\text{-aria}\) \(\min_{t\leq y}\) è definita come:
+  \begin{equation}
+    \min_{t\leq y}(p(x_1,\cdots,x_n,y))=\begin{cases}
+                                  \min(Z_y)=\cbrakets{t\leq y| p(x_1,\cdots,x_n,t)}, & \exists t \leq y: p(x_1,\cdots,x_n,t)\\
+                                  0, & \text{altrimenti}
+                                \end{cases}
+  \end{equation}
+}
+
+Dove \(\min(Z_y)\) è il minimo elemento dell'insieme \(Z_y\), insieme dei valori \(t\leq\) y per cui \(p(x_1,\cdots,x_n,t)\) è vero.
+Questa funzione dunque, dato un predicato \(p\) e un \textbf{limite superiore} \(y\) restituisce, se esiste\footnote{È importante specificare nella definizione di minimalizzazione limitata i due casi possibili tramite il quantificatore esistenziale, poiché il \textbf{non esiste minimo dell'insieme vuoto}.}, il minimo \(t \in \cbrakets{0, \cdots, y}\) per cui il predicato \(p\) è vero, altrimenti restituisce \(0\).
+
+\newpage
+
+\begin{halfframedbox} {red!75!black}{Teorema di chiusura per minimalizzazione limitata delle classi PRC}\label{Teorema di chiusura minimalizzazione limitata delle classi PRC}
+  \textbf{Enunciato. } Sia \(p\) un predicato \((n+1)\text{-ario}\) in \(\mcC\) \textbf{classe PRC}, allora appartiene a \(\mcC\) anche la funzione \((n+1)\text{-aria}\) \(\min_{t\leq y}\) definita per minimalizzazione limitata da \(p\).
+
+  \begin{center}
+    \textcolor{red!75!black}{\hdashrule[0.5ex]{18cm}{1pt}{3mm 3pt 1mm 2pt}}
+  \end{center}
+
+  \textbf{Dimostrazione. } Consideriamo la seguente funzione \(g\):
+  \begin{equation}
+    g(x_1,\cdots,x_n,y)=\sum_{u=0}^y\prod_{t=0}^{u}\alpha(p(x_1,\cdots,x_n,t))
+  \end{equation}
+  Analizziamo \(g\) dall'interno. La funzione \(\alpha\) agisce sui predicati come negazione. Dunque si avrà:
+  \begin{equation}
+    \alpha(p(x_1,\cdots,x_n,t))= \begin{cases}
+                                1, & \neg p(x_1,\cdots,x_n,t)\\
+                                0, & p(x_1,\cdots,x_n,t)
+                              \end{cases}
+  \end{equation}
+  Inevitabilmente si avrà che la produttoria in \(g\) si annullerà nel caso in cui \(p(x_1,\cdots,x_n,t)\) sia vera per qualche \(t\leq u\), ovvero:
+  \begin{equation}
+    \prod_{t=0}^{u}\alpha(p(x_1,\cdots,x_n,t))=1\iff\forall t \leq u, \neg p(x_1,\cdots,x_n,t)
+  \end{equation}
+
+  Di conseguenza, iterando su \(u\), otterremo che le varie \textbf{produttorie} varranno \(1\) fino a quando non si avrà il primo \(u=t_0\) tale che \(p(x_1,\cdots,x_n,u)\) risulti vera, e sarà nulla da quel momento in poi, essendoci l'iterazione \(t_0\)-esima ad annullarla.
+
+  Dovendo infine la \textbf{sommatoria esterna} fare esattamente \(t_0\) passi prima di raggiungere tale \(u\) minimo, si avrà che \(g(x_1,\cdots,x_n,y)=t_0\), che abbiamo dimostrato essere il \textbf{minimo cercato}.
+
+  Si avrà dunque che la funzione \(g=\text{min} Z_y\in\mcC\) essendo composizione di funzioni appartenenti a \(\mcC\). Di conseguenza anche la funzione \(\min_{t\leq y}\in\mcC\), poiché \textbf{definita per casi}.
+\end{halfframedbox}
+
+\begin{generalbox}[colframe=azure-gradient-3!90!black]{Esempi}
+  Grazie alla minimalizzazione limitata è possibile definire altri predicati aritmetici come \textbf{ricorsive primitive}.
+  \begin{enumerate}
+    \item \textbf{Divisione con resto \(\left\lfloor \frac{x}{y} \right\rfloor\)}. Questo predicato è definibile come:
+    \begin{itemize}
+      \item []
+      \begin{equation}
+        \left\lfloor \frac{x}{y} \right\rfloor = \min_{t\leq x} ((t+1)y > x)
+      \end{equation}
+      Infatti il minimo \(t\) per cui \((t+1)y > x\) è proprio il quoziente cercato, poiché per \(t\) più piccoli il prodotto con \(y\) sarà minore di \(x\) e dunque non potrà essere risultato della divisione.
+    \end{itemize}
+    \item \textbf{Operatore di resto \(x \mod y\)}. Questo predicato è definibile come:
+    \begin{itemize}
+      \item []
+      \begin{equation}
+        x \mod y = x \dotminus \left\lfloor \frac{x}{y} \right\rfloor y
+      \end{equation}
+    \end{itemize}
+    \item \textbf{\(N\text{-esimo}\) primo.} Definiamo \(P_0=0\) e sia per \(n>0, P_n\) l'\(n\text{-esimo}\) numero primo. Dimostriamo che questa funzione è \textbf{ricorsiva primitiva}.
+    Consideriamo la funzione definita come:
+    \begin{itemize}
+     \item []
+     \begin{equation}\label{Definizione Ricorsiva Primitiva N-esimo Primo}
+        P_{n+1}=\min_{t\leq P_{n}!+1}(\text{Primo}(t) \land t>P_n)
+      \end{equation}
+      Questa restituisce il minimo numero primo maggiore di \(P_n\), ovvero il successivo numero primo. Infatti si ha:
+      \begin{equation}
+        \forall i\in\cbrakets{1,\cdots,n}, \neg(P_i|(P_n!+1))
+      \end{equation}
+      poiché\footnote{Si noti che \(P_n!+1=(1\cdot 2 \cdot \cdots \cdot P_i \cdot \cdots \cdot P_n)+1\), dunque \(\forall i\in\cbrakets{1,\cdots,n}: P_i|P_n!\), e dunque si ha che \((P_n!+1)\mod (P_i)=1\).}   \((P_n!+1)\mod (P_i)=1\), ovvero nessun primo \(\leq P_n\) divide \(P_n!+1\). Dunque qualsiasi fattore primo di \(P_n!+1\) sarà maggiore di \(P_n\), e in particolare\footnote{Questo limite superiore che imponiamo è molto più grande di quanto necessario, è dimostrabile che \(P_{n+1}\leq2P_n\). Si è scelto questo limite superiore essendo più facile da mostrare.}   si avrà \(P_n!+1\geq P_{n+1}\). % chktex 40
+
+      Definiamo dunque:
+      \begin{equation}
+        h(y,z) := \min_{t\leq y}(\text{Primo}(t) \land t>y)
+      \end{equation}
+      questa è ricorsiva primitiva per il teorema di minimalizzazione limitata.
+
+      Definiamo infine:
+      \begin{equation}
+        k(x):= h(x, x!+1)
+      \end{equation}
+      Questa è ricorsiva primitiva per composizione di funzioni ricorsive primitive. Possiamo infine definire per ricorsione primitiva \(P_n\) come:
+      \begin{equation}
+         \begin{cases}
+            P_0=0\\
+            P_{n+1}=k(P_n)
+          \end{cases}
+      \end{equation}
+    \end{itemize}
+  \end{enumerate}
+\end{generalbox}
+
+\newpage
+
+\section{Funzioni parzialmente calcolabili}
+
+Abbiamo analizzato le \textbf{classi PRC} nelle loro proprietà poiché abbiamo dimostrato che la classe delle \textbf{funzioni calcolabili è PRC}. \\
+Dal capitolo~\ref{chapter 1} però, sappiamo che le \textbf{funzioni calcolabili} non sono le uniche di cui si può valutare la calcolabilità, infatti esse sono un sotto insieme delle \textbf{funzioni parzialmente calcolabili}.\\
+Queste però sono escluse dalle caratterizzazioni delle \textbf{classi PRC} poiché definite solo per funzioni totali.\\
+Per ovviare a questa lacuna possiamo fornirci di un ulteriore operatore, quello di \textbf{minimalizzazione illimitata} che, come vedremo, ci permetterà di caratterizzare a pieno la classe delle \textbf{funzioni parzialmente calcolabili}.
+
+\subsection{Minimalizzazione illimitata}
+
+\dfn{Minimalizzazione illimitata}{\label{Minimalizzazione illimitata Def}
+  Sia \(p\) un predicato \((n+1)\text{-ario}\), allora chiamiamo \textbf{minimalizzazione illimitata} la funzione \((n+1)\text{-aria}\) \(\min_t\) definita come:
+  \begin{equation}
+      \min_t\; p(x_1,\cdots,x_n,t)= \begin{cases}
+      \min\cbrakets{t\in\mbN | p(x_1,\cdots,x_n,t)} , & \exists t \in \mbN: p(x_1,\cdots,x_n,t)\\
+      \uparrow, &\text{altrimenti}
+    \end{cases}
+  \end{equation}
+}
+
+Per far si che quest'operatore sia utile nella caratterizzazione delle \textbf{funzioni parzialmente calcolabili} è necessario dimostrare che esso stesso è \textbf{parzialmente calcolabile}.
+
+\begin{halfframedbox}{red!75!black}{Calcolabilità della Minimalizzazione illimitata}\label{Calcolabilità Minimalizzazione illimitata}
+  \textbf{Enunciato.} Se p un predicato calcolabile. Allora \(m\) \textbf{minimalizzazione illimitata} è parzialmente calcolabile.
+
+  \begin{center}
+    \textcolor{red!75!black}{\hdashrule[0.5ex]{18cm}{1pt}{3mm 3pt 1mm 2pt}}
+  \end{center}
+
+  \textbf{Dimostrazione.} Non potendo utilizzare le proprietà delle \textbf{classi PRC} ricorriamo al seguente S-programa:
+\begin{lstlisting}[language=ini, label={Minimalizzazione illimitata Dim}, caption={Minimalizzazione illimitata}]
+[A] IF (*\(p(X_1,\cdots,X_n,Y)\)*) GOTO E
+    Y <- Y + 1
+    GOTO A
+\end{lstlisting}
+
+  Si avrà infatti che se \(p(x_1,\cdots,x_n,t)\) è vera per qualche \(t\), il programma terminerà restituendo il minimo \(t\)  trovato, altrimenti il programma non terminerà mai.
+\end{halfframedbox}
+
+\subsection{Caratterizzazione delle funzioni parzialmente calcolabili}
+
+Grazie all'operatore appena definito, possiamo infine caratterizzare le \textbf{funzioni parzialmente calcolabili} grazie a un teorema che, come vedremo, è molto importante per la teoria della calcolabilità.
+
+\begin{halfframedbox}{red!75!black}{Caratterizzazione delle funzioni parzialmente calcolabili}\label{Caratterizzazione delle funzioni parzialmente calcolabili}
+  \textbf{Enunciato.} Una funzione è parzialmente calcolabile \textit{se e solo se} si può ottenere dalle funzioni iniziali mediante un numero finito di \textbf{composizioni}, \textbf{ricorsioni primitive} (applicata solo a eventuali funzioni totali ottenute) e \textbf{minimalizzazioni illimitate}.
+\end{halfframedbox}
+
+Questo teorema, che non dimostreremo, insieme alla tesi di \textbf{Church-Turing}\footnote{Enunciata nella definizione~\ref{Tesi di Church-Turing Def}}, che ci dice che ogni \textbf{funzione parzialmente calcolabile} è esprimibile mediante un \textbf{S-programma}, esprime un risultato teorico molto importante, ovvero che \textbf{ogni procedura algoritmica} può essere \textbf{ridotto alle funzioni iniziali} mediante questi \textbf{tre operatori}. \\
+Per analizzare meglio questi programmi però, e farli valutare da delle funzioni, sarà necessario che anch'essi possano essere associati univocamente con dei numeri\footnote{Esercizi Consigliati:~\ref{Funzione conta primi},~\ref{Funzione floor di sqrt2 x} e~\ref{Massimalizzazione limitata Eq}}.
+
+% -----
+
+\section{Esercizi e approfondimenti}
+
+\subsubsection*{Esercizio.} \textit{Consideriamo la funzione \(\abs{x-y}=x \dotminus y + y \dotminus x\). Dimostrare che questa è ricorsiva primitiva utilizzando le funzioni iniziali.}
+
+È possibile dimostrare che la funzione \(\abs{x-y}\) è ricorsiva primitiva mostrando che essa è composizione di funzioni iniziali. Si ha infatti che le funzioni \textbf{somma} e \textbf{differenza modificata} sono già state dimostrate essere ricorsive primitive. \\
+Per quanto riguarda la funzione \textbf{differenza modificata} con operandi invertiti è sufficiente comporla con le funzioni proiezioni in modo da ottenere il risultato voluto, ovvero:
+\begin{equation}
+    y\dotminus x = d_m(y,x) = d_m(u_2^{(2)}(x,y),u_1^{(2)}(x,y)) = u_2^{(2)}(x,y) \dotminus u_1^{(2)}(x,y)
+\end{equation}
+Si avrà in questo modo che la \textbf{differenza modificata} riceverà gli operandi nell'ordine per cui è stata dimostrata essere ricorsiva primitiva. \\
+Alternativamente possiamo dividere la funzione nei casi della definizione di funzione ottenuta per ricorsione primitiva:
+\begin{equation}
+    \begin{cases}
+        \abs{x-0}=x \dotminus 0 + 0 \dotminus x = x + 0 = x = u_1^{(1)}(x)\\
+        \abs{x-(t+1)}= p(\abs{x-t})=g(x,t,\abs{x-t}), \forall t \in \mathbb{N}^*
+    \end{cases}
+    \label{Funzione Sottrazione Valore Assoluto Eq}
+\end{equation}
+Dove \(g(x,y,z)=p(u_3^{(3)}(x,y,z))\) è composizione di funzioni iniziali.
+
+\subsubsection*{Esercizio.} \textit{Consideriamo il predicato \(p(x,y)\iff x\leq y\). Dimostrare che questo è ricorsivo primitivo.}
+Consideriamo il predicato dato come:
+\begin{equation}
+    p(x,y)=\begin{cases}
+        1, \;\; x\leq y\\
+        0, \;\; \text{altrimenti}
+    \end{cases} = \begin{cases}
+        1, \;\; x\dotminus y = 0\\
+        0, \;\; \text{altrimenti}
+    \end{cases} = \alpha(x\dotminus y)
+    \label{Predicato Minore Uguale Eq}
+\end{equation}
+Dunque il predicato \(p\) è ricorsivo primitivo in quanto composizione di funzioni ricorsive primitive.
+
+\subsubsection*{Approfondimento.} Dimostrazione alternativa del corollario~\ref{Corollario al Teorema di Definizione per Casi}.
+
+\begin{halfframedbox}{red!75!black}{Corollario al Teorema di Definizione per Casi}\label{Corollario al Teorema di Definizione per Casi AltDim}
+    \textbf{Dimostrazione. } Dal teorema~\ref{Chiusure per congiunzione, disgiunzione e negazione Teorema} sappiamo che tutti i \textit{predicati composti} a partire da \(p_1,\cdots,p_n\) usando i connettivi \(\land,\lor,\neg\) appartengono a \(\mcC\).
+  Per ogni caso \(i\in \cbrakets{1,\cdots,k}\) della definizione di \(f\) possiamo dunque definire un predicato \(p_i'\) come:
+  \begin{equation}
+    p_i'(x_1,\cdots,x_n)=\neg p_1 \land \cdots \land \neg p_{i-1} \land p_i
+  \end{equation}
+  In oltre possiamo definire il caso \((k+1)\text{-esimo}\) come:
+  \begin{equation}
+    p_{k+1}'(x_1,\cdots,x_n)=\neg p_1 \land \cdots \land \neg p_{n-1} \land \neg p_n
+  \end{equation}
+  Possiamo dunque definire la funzione \(f\) come:
+  \begin{equation}
+    f(x_1,\cdots,x_n)=g_1(x_1,\cdots,x_n)p_1'(x_1,\cdots,x_n)+\cdots+g_k(x_1,\cdots,x_n)p_k'(x_1,\cdots,x_n)+h(x_1,\cdots,x_n)p_{k+1}'(x_1,\cdots,x_n)
+  \end{equation}
+  Essendo dunque \(f\) composizione di \textbf{funzioni ricorsive primitive} e \textbf{funzioni appartenenti} a \(\mcC\) è \textbf{ricorsiva primitiva}.
+\end{halfframedbox}
+
+\subsubsection*{Esercizio} \textit{Sia \(f\) una funzione totale unaria. Definiamo le \textbf{iterate di \(f\)} come:}
+\begin{equation}
+    f^{(0)}(x)=x, f^{(1)}(x)=f(x),\cdots, f^{(n+1)}(x)=f(f^{(n)}(x)), \forall n \in \mathbb{N}
+    \label{Iterate di f Eq}
+\end{equation}
+\textit{Definiamo allora la funzione \(t_f\) binaria come:}
+\begin{equation}
+    t_f(x,n)=f^{(n)}(x)
+    \label{Funzione iterata n-esima di f Eq}
+\end{equation}
+\textit{Mostrare che se \(f \in \mcC\) \textbf{classe PRC}, allora anche \(t_f\in\mcC\)}
+
+\textbf{Dimostriamo per Ricorsione Primitiva}
+
+\begin{equation}
+    \begin{cases}
+        t_f(x,0)=x=u_1^{(2)}(x)\\
+        t_f(x,n+1)=f(t_f(x,n))=g(x,n,t_f(x,n)), \forall n \in \mathbb{N}
+    \end{cases}
+    \label{Funzione iterata n-esima di f Ricorsione Primitiva Eq}
+\end{equation}
+
+Dove \(g(x,y,z)=f(u_3^{(3)}(x,y,z))\) è composizione di funzioni iniziali e appartenenti a \(\mcC\) e dunque ricorsiva primitiva.
+
+\subsubsection*{Esercizio:} \textit{Sia \(\pi(x)\) il numero di primi \(\leq x\). Mostrare che \(\pi(x)\) è ricorsiva primitiva.}
+
+Consideriamo la funzione data come:
+\begin{equation}
+    \pi(x)=\sum_{i=0}^x Primo(i)
+    \label{Funzione conta primi}
+\end{equation}
+
+Essendo dunque la funzione \(\pi(x)\) ottenuta tramite \textbf{l'operatore sommatoria} applicato a un predicato ricorsivo primitivo, essa è ricorsiva primitiva. % TODO @DavideGargiulo *: come dimostrato nell'esempio \textbf{REF PREDICATO PRIMITÀ},
+
+\subsubsection*{Esercizio:} \textit{Sia \(h(x) =  \left\lfloor\sqrt{2}x\right\rfloor\), ovvero che restituisca \(n\in\mathbb{N}: n\leq\sqrt{2}x<n+1\). Mostrare che \(h(x)\) è ricorsiva primitiva.}
+
+Essendo \(\sqrt{2}\) un numero \textit{irrazionale} non è compreso nel dominio delle funzioni che stiamo contemplando. Dobbiamo dunque limitarlo superiormente.
+\begin{equation}
+    n\leq\sqrt{2}x<n+1 \iff n^2\leq 2x^2<{(n+1)}^2
+\end{equation}
+
+Possiamo dunque considerare la funzione data come:
+\begin{equation}
+    h(x)=\min_{t<2x}({(t+1)}^2> 2x^2)
+    \label{Funzione floor di sqrt2 x}
+\end{equation}
+
+La funzione è dunque ricorsiva primitiva poiché ottenuta per \textbf{minimizzazione limitata} del predicato ricorsivo primitivo \({(t+1)}^2> 2x^2\) composizione di funzioni ricorsive primitive.
+
+\subsubsection*{Esercizio:} \textit{Sia \(R(x,y)\) un predicato binario ricorsivo primitivo. Definiamo la massimalizzazione limitata \(\max_{t\leq y}R(x,t)\), ponendo \(g(x,y)=0\) se \(\neg\exists t\leq y: R(x,t)\). Dimostrare che \(\max_{t\leq y}R(x,t)\) è ricorsiva primitiva.}
+
+\textbf{Dimostrazione per Ricorsione Primitiva}
+
+Possiamo definire la funzione data per ricorsione primitiva come:
+
+\begin{equation}
+    \begin{cases}
+        \max_{t\leq 0}R(x,t)=g(x,0)=0\\
+        \max_{t\leq y+1}R(x,t)=\max_{t\leq y}R(x,t)\cdot(\neg R(x,y+1)) + (y+1)\cdot(R(x,y+1)) = g(x,y,\max_{t\leq y}R(x,y)), \forall y \in \mathbb{N}
+    \end{cases}
+    \label{Massimalizzazione limitata Eq}
+\end{equation}
+
+Dove \(g(x,y,\max_{t\leq y}R(x,y))\) è una funzione ricorsiva primitiva poiché composta di funzioni e predicati ricorsivi primitivi.
+
+\newpage

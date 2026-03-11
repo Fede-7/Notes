@@ -1,0 +1,510 @@
+\chapter{Insiemi Ricorsivi e Ricorsivamente Enumerabili}
+
+\section{Da funzioni a insiemi}
+
+Conclusa l'analisi relativa alla calcolabilità delle funzioni possiamo ora spostarci a quella relativa agli insiemi.\\
+Chiaramente, avendo considerato esclusivamente funzioni con dominio in \(\mbN^n\), ci occuperemo solo di sottoinsiemi di tale dominio.
+Per collegare le due analisi, consideriamo la funzione caratteristica di un insieme \(S\subseteq \mbN^n\):
+
+\dfn{Funzione Caratteristica}{
+Dato \(S\subseteq \mbN^n\), definiamo come \textbf{funzione caratteristica} il predicato:
+\begin{equation}
+  f_S(a_1,\cdots,a_n) = \begin{cases}
+    1, & (a_1, \cdots, a_n)\in S\\
+    0, & \text{altrimenti}
+  \end{cases}
+\end{equation}
+}
+
+È facile intuire\footnote{Questa dimostrazione non rientra nelle finalità di questo corso, quindi verrà tralasciata. È però trattata nel dettaglio nel corso di Algebra.} che esiste una corrispondenza biunivoca tra l'insieme delle funzioni caratteristiche e l'insieme delle parti di \(\mbN^n\), ovvero che esista esattamente una funzione per ogni sottoinsieme \(S\) considerato.\\
+
+Diremo dunque, con un leggero abuso di nomenclatura,  che S \textit{appartiene} a una certa \textbf{classe PRC} \(\mcC\) se vi appartiene \(f_s\).
+
+\textbf{Proprietà della funzione caratteristica}
+Diremo dunque che \(S\) è \textit{ricorsivo} \(\iff f_s\) è \textit{ricorsivo} ovvero \textit{calcolabile}, mentre \(S\) è \textit{ricorsivo primitivo} \(\iff f_s\) è \textit{ricorsivo primitivo}.
+
+\subsection{Analisi degli Insiemi Ricorsivi}
+
+Iniziamo l'analisi della \textit{ricorsività} degli insiemi semplificandone la trattazione.  Possiamo vedere infatti che, partendo da un sottoinsieme di \(\mbN^n\) con \(n\) arbitrario, è sempre possibile ricondurci allo studio di un sottoinsieme di \(\mbN\) analogo.
+
+\begin{halfframedbox}{red!75!black}{Riduzione a sottoinsiemi di \(\mbN\)}
+  \textbf{Enunciato. } \(S \subseteq \mbN^n\) appartiene alla classe PRC \(\mcC\) \textit{se e solo se} a \(\mcC\) appartiene anche:
+  \begin{equation}
+    S'=\cbrakets{[x_1,\cdots, x_n] \vert (x_1,\cdots, x_n) \in S}\subseteq \mbN
+  \end{equation}
+  \begin{center}
+    \textcolor{red!75!black}{\hdashrule[0.5ex]{18cm}{1pt}{3mm 3pt 1mm 2pt}}
+  \end{center}
+
+  \textbf{Dimostrazione. } Verifichiamo la doppia implicazione:
+  \begin{itemize}
+    \item [\(\implies\)] Sia \(f_S \in \mcC\). Allora:
+    \begin{equation}
+      f_{S'}(x) \iff Lt(x)\leq n \land x\neq 0 \land f_S({(x)}_1, \cdots, {(x)}_n)
+    \end{equation}
+    Dunque \(f_{S'} \in \mcC\) poiché composto di predicati ricorsivi primitivi o appartenenti a \(\mcC\).
+    \item[\(\Longleftarrow\)] Sia \(f_{S'} \in \mcC\). Allora:
+    \begin{equation}
+      f_S(x_1, \cdots, x_n) \iff f_{S'}([x_1, \cdots, x_n,])
+    \end{equation}
+    Dunque \(f_S \in \mcC\) poiché composto di predicati ricorsivi primitivi o appartenenti a \(\mcC\).
+  \end{itemize}
+\end{halfframedbox}
+\newpage
+
+Andiamo adesso, analogamente a quanto fatto per le funzioni, ad analizzare una \textbf{proprietà di chiusura} degli \textbf{insiemi ricorsivi}.
+\begin{halfframedbox}{red!75!black}{Chiusura per operazioni insiemistiche su insiemi ricorsivi}\label{Chiusura per operazioni insiemistiche su insiemi ricorsivi}
+  \textbf{Enunciato. } Siano \(S,T \subseteq \mbN^n\) appartenenti a \(\mcC\). Allora anche \(S\cup T\), \(S\cap T\) e \(\overline{S}=\mbN^n\smallsetminus S\) appartengono a \(\mcC\).
+  \begin{center}
+    \textcolor{red!75!black}{\hdashrule[0.5ex]{18cm}{1pt}{3mm 3pt 1mm 2pt}}
+  \end{center}
+  \textbf{Dimostrazione. } Basta osservare che:
+  \begin{equation}
+    \begin{split}
+      f_{S\cup T}(x_1, \cdots, x_n) &= f_S(x_1, \cdots, x_n) \lor f_T(x_1, \cdots, x_n)\\
+      f_{S\cap T}(x_1, \cdots, x_n) &= f_S(x_1, \cdots, x_n) \land f_T(x_1, \cdots, x_n)\\
+      f_{\overline{S}}(x_1, \cdots, x_n) &= \lnot f_S(x_1, \cdots, x_n)\\
+    \end{split}
+  \end{equation}
+  Abbiamo dunque che questi predicati sono composti di predicati ricorsivi primitivi o appartenenti a \(\mcC\).
+\end{halfframedbox}
+
+È possibile notare come da questa dimostrazione, è possibile ricavare tale proprietà di chiusura anche per altre operazioni insiemistiche come:
+\begin{equation}
+  \begin{split}
+    S \smallsetminus T &= S \cap \overline{T}\\
+    S \triangle  T &= (S \smallsetminus T) \cup (T \smallsetminus S)
+  \end{split}
+\end{equation}
+
+\begin{generalbox}[colframe=azure-gradient-3!90!black]{Esempi}
+  \begin{enumerate}
+    \item Qualsiasi \(S\subseteq \mbN\) finito è ricorsivo primitivo.
+    Infatti se \(S=\cbrakets{s_1, \cdots, s_k}\), allora \(f_S(x) \iff x=s_1 \lor \cdots \lor x=s_k\)
+    \item L'insieme \(\mathbf{P}\) dei numeri primi è ricorsivo primitivo poiché \(f_{\mathbf{P}}=Primo\).
+    \item L'insieme \(H=\cbrakets{(x_1, x_2) \in \mbN^2 \vert \textit{HALT}(x_1, x_2)}\) \textbf{non è ricorsivo}, dato che \(f_H=\textit{HALT}\). Abbiamo inoltre che \(H'=\cbrakets{[x_1,x_2] \in \mbN \vert (x_1, x_2) \in H \iff \textit{HALT}(x_1, x_2)}\) \textbf{non è ricorsivo}, dal teorema precedente.
+  \end{enumerate}
+\end{generalbox}
+
+\subsection{Insiemi Ricorsivamente Enumerabili}
+
+Abbiamo visto come partendo dai predicati, sottoinsieme delle funzioni totali, è possibile definire il concetto di insieme ricorsivo.\\
+Vediamo ora come sia possibile definire un concetto analogo per le funzioni parziali.
+
+\dfn{Insiemi Ricorsivamente Enumerabili}{
+  \(S \subseteq \mbN\) si dice \textbf{ricorsivamente enumerabile} se esiste una funzione \(g\) \textbf{unaria} e \textbf{parzialmente calcolabile} tale che:
+  \begin{equation}
+    S=\cbrakets{ x \in \mbN \vert g(x) \downarrow }
+  \end{equation}
+}
+
+Possiamo dunque dire che un insieme è \textbf{ricorsivamente enumerabile} se esiste per esso una \textbf{Procedure di Semi-Decisione}, ovvero una \textbf{procedura} che termina \textit{se e solo se} l'elemento appartiene all'insieme.
+Nel nostro caso specifico, se esiste un \textbf{S-Programma} che termina solo per gli input appartenenti a tale insieme.
+
+\textbf{Errore molto comune: } Nel S-Programma che usiamo per descrivere la funzione g NON possiamo usare $f_S$ per dimostrare che l'elemento x è nell'insieme S poiché sarebbe un \textbf{ragionamento circolare}. Dobbiamo semplicemente
+scrivere un programma-S per rappresentare g che termina SE E SOLO SE rispetta le condizioni di appartenenza a S.
+
+Un insieme è invece \textbf{ricorsivo} \textit{se e solo se} esiste per esso una \textbf{Procedura di Decisione}, cioè un programma che termina \textbf{sempre} e dà output diversi, come \(1\) o \(0\), a seconda che l'input appartenga all'insieme o meno.
+Un esempio di \textbf{Procedura di Decisione} per l'insieme \(S\) è il programma che calcola \(f_S\).
+
+È fondamentale sottolineare le differenze tra questi due tipi di \textbf{procedure}. Le \textbf{Procedura di Decisione} sono per definizione \textbf{funzioni totali}, poiché per ogni input dato devono valutare l'appartenenza o meno all'insieme.
+A differenza di quest'ultime le \textbf{Procedure di Semi-Decisione}, essendo \textbf{funzioni parziali}, mi garantiscono esclusivamente l'\textit{appartenenza} di un input a un dato insieme, ma non la \textit{non appartenenza}, poiché la procedura non terminerebbe.
+
+Sottolineata questa analogia tra \textbf{funzioni totali e parziali} e \textbf{insiemi ricorsivi e ricorsivamente enumerabili} è facile intuire che gli \textbf{insiemi ricorsivi} siano un sottoinsieme di quelli \textbf{ricorsivamente enumerabili}.
+\begin{halfframedbox}{red!75!black}{Insiemi ricorsivi contenuti nei ricorsivamente enumerabili}\label{Ricorsivi Contenuti in Enumerabili}
+  \textbf{Enunciato. } Se \(S \subseteq \mbN\) è ricorsivo, allora è anche ricorsivamente enumerabile.
+  \begin{center}
+    \textcolor{red!75!black}{\hdashrule[0.5ex]{18cm}{1pt}{3mm 3pt 1mm 2pt}}
+  \end{center}
+  \textbf{Dimostrazione. } È sufficiente considerare il programma:
+  \begin{lstlisting}[language=ini, caption={ }]
+  [A] IF (*\(\neg f_S(X)\)*) GOTO A
+  \end{lstlisting}
+  Questo programma termina \textit{se e solo se} \(X \in S\).
+\end{halfframedbox}
+\newpage
+
+Il legame tra insiemi ricorsivi e ricorsivamente enumerabili è però molto più stretto di quanto appena visto.
+
+\begin{halfframedbox}{red!75!black}{Relazione tra ricorsività e ricorsivo enumerabilità}\label{Relazione tra ricorsività e ricorsivo enumerabilità}
+  \textbf{Enunciato. } \(S \subseteq \mbN\) è ricorsivo \textit{se e solo se} \(S\) e \(\overline{S}\) sono ricorsivamente enumerabili.
+  \begin{center}
+    \textcolor{red!75!black}{\hdashrule[0.5ex]{18cm}{1pt}{3mm 3pt 1mm 2pt}}
+  \end{center}
+  \textbf{Dimostrazione. } Verifichiamo la doppia implicazione:
+  \begin{itemize}
+    \item [\(\Longrightarrow\)] Ovvia dai teoremi~\ref{Chiusura per operazioni insiemistiche su insiemi ricorsivi} e~\ref{Ricorsivi Contenuti in Enumerabili}.
+    \item [\(\Longleftarrow\)] Siano \(g,h\) funzioni parzialmente calcolabili tali che \(S=\cbrakets{x \in \mbN \vert g(x) \downarrow}\) e \(\overline{S}=\cbrakets{x \in \mbN \vert h(x) \downarrow}\). Siano inoltre \(p,q\in\mbN\) tali che \(g=\Psi_{\mcP_p}^{(1)}\) e \(h=\Psi_{\mcP_q}^{(1)}\). Allora \(f_s\) è calcolata dal programma:
+    \begin{lstlisting}[language=ini, caption={ }]
+      [A] IF (*\(STP(X,p,Z)\)*) GOTO B
+          IF (*\(STP(X,q,Z)\)*) GOTO E
+          Z <- Z + 1
+          GOTO A
+      [B] Y <- Y + 1
+    \end{lstlisting}
+  \end{itemize}
+  È importante notare che non sarebbe stato sufficiente utilizzare \(h\) e \(g\) come macro in un programma, poiché essendo funzioni parziali, la prima delle due incontrata su input che non la soddisfa avrebbe impedito la terminazione.
+
+  È necessario dunque procedere col predicato \(STP\) aumentando gradualmente il numero di \textit{step} concessi. In questo modo il programma non andrà mai in loop poiché \(S \cup \overline{S}=\mbN\), ovvero prima o poi il programma dovrà terminare.
+\end{halfframedbox}
+
+Caratterizzati a modo questa classe di insiemi, possiamo valutare la \textbf{proprietà di chiusura} per operazioni insiemistiche anche su di loro.
+
+\begin{halfframedbox}{red!75!black}{Teorema}
+  \textbf{Enunciato. } Siano \(S\) e \(S'\) insiemi ricorsivamente enumerabili. Allora lo sono anche \(S\cap S'\) e \(S\cup S'\).
+  \begin{center}
+    \textcolor{red!75!black}{\hdashrule[0.5ex]{18cm}{1pt}{3mm 3pt 1mm 2pt}}
+  \end{center}
+  \textbf{Dimostrazione. }
+  \begin{itemize}
+    \item[\(\cap \):] Siano \(g,h\) funzioni unarie  parzialmente calcolabili tali che \(S=\cbrakets{x \in \mbN \vert g(x) \downarrow}\) e \(S'=\cbrakets{x \in \mbN \vert h(x) \downarrow}\). Consideriamo allora il programma:
+    \begin{lstlisting}[language= ini, caption = { }, nolol]
+    Z <- (*\(g(X)\)*)
+    Z <- (*\(h(X)\)*)
+    \end{lstlisting}
+    Questo programma termina \textit{se e solo se} \(g(x)\downarrow\land \; h(x)\downarrow\), ovvero \textit{se e solo se} \(x\in S\cap S'\).
+    \item [\(\cup \):] Siano \(g,h\) funzioni unarie  1parzialmente calcolabili tali che \(S=\cbrakets{x \in \mbN \vert g(x) \downarrow}\) e \(S'=\cbrakets{x \in \mbN \vert h(x) \downarrow}\). Siano inoltre \(p,q\in\mbN\) tali che \(g=\Psi_{\mcP_p}^{(1)}\) e \(h=\Psi_{\mcP_q}^{(1)}\). Consideriamo allora il programma:
+    \begin{lstlisting}[language= ini, caption = { }, nolol]
+      [A] IF (*\(STP(X,p,Z)\)*) GOTO E
+          IF (*\(STP(X,q,Z)\)*) GOTO E
+          Z <- Z + 1
+          GOTO A
+    \end{lstlisting}
+    Analogamente al teorema~\ref{Relazione tra ricorsività e ricorsivo enumerabilità} è fondamentale l'utilizzo progressivo del predicato \(STP\) per valutare entrambe le funzioni. Avremo dunque che questo programma termina \textit{se e solo se} \(g(x)\downarrow \lor \; h(x)\downarrow\), ovvero \textit{se e solo se} \(x\in S\cup S'\).
+  \end{itemize}
+\end{halfframedbox}
+
+Per quanto riguarda l'\textbf{operatore di complemento} non è possibile dimostrare la proprietà di chiusura, e infatti in seguito vedremo un controesempio\footnote{Esercizi consigliati:~\ref{Riduzione a N per ricorsivamente enumerabili}}.
+
+Possiamo quindi definire un nuovo tipo di insieme:
+\begin{equation}
+  W_n=\cbrakets{x \in \mbN \vert \Phi(x, n) \downarrow}
+\end{equation}
+
+% NEED TO BE REVIEWED BY PROF
+%Questo nuovo insieme \(W_n\) contiene tutti gli insiemi ricorsivamente enumerabili.
+
+Grazie a questa nuova definizione possiamo osservare che:
+\begin{equation}
+    S \subseteq \mbN \text{ ricorsivamente enumerabile} \iff \exists n \in \mbN : S=W_n
+\end{equation}
+
+Infatti avremo che \(S \text{ ricorsivamente enumerabile} \iff \exists g \text{ parzialmente calcolabile}: S=\cbrakets{x\vert g(x)\downarrow} \iff S=\cbrakets{x\vert \Psi_{\mcP_n}^{(1)}(x)\downarrow}\) per qualche \(n \in \mbN\)
+
+Con la definizione di \(W_n\) abbiamo un nuovo modo per indicare che un programma termina su un dato input, infatti avremo che:
+\begin{equation}
+  \textit{HALT}(x,y) \iff \Psi_{\mcP_y}^{(1)}(x)\downarrow \iff \Phi(x,y)\downarrow \iff \exists t \in \mbN : STP(x,y,t) \iff x \in W_y
+\end{equation}
+
+\dfn{Insieme Diagonale}{
+  Definiamo quindi l'\textbf{insieme diagonale} come:
+  \begin{equation*}
+    K=\cbrakets{x\in \mbN \vert x \in W_x}=\cbrakets{x\in \mbN \vert \Phi(x,x)\downarrow}\subseteq \mbN
+  \end{equation*}
+  Avremo che il nuovo insieme \(K\) appena definito, conterrà tutti i numeri naturali \(n \in \mbN\) tali che, presi come input, facciano terminare il programma numero \(n\text{-esimo}\).\\
+  Di conseguenza possiamo definire il \textbf{complemento} di \(K\) come l'\textbf{insieme anti-diagonale} \(\overline{K}\).
+}
+
+Questo insieme ha questo nome poiché, nella matrice vista nel teorema~\ref{Esistenza funzioni non calcolabili}, considera esattamente gli elementi sulla sua diagonale.
+
+Questo insieme è particolarmente rilevante, poiché è esempio di insieme \textbf{ricorsivamente enumerabile} il cui complemento non è \textbf{ricorsivamente enumerabile}.
+
+\begin{halfframedbox}{red!75!black}{Teorema di Enumerazione}
+  \textbf{Enunciato. } \(K\) è ricorsivamente enumerabile ma non ricorsivo.
+  \begin{center}
+    \textcolor{red!75!black}{\hdashrule[0.5ex]{18cm}{1pt}{3mm 3pt 1mm 2pt}}
+  \end{center}
+  \textbf{Dimostrazione. } Dalla sua definizione sappiamo che, \(K\) è ricorsivamente enumerabile.
+
+  Vediamo ora due dimostrazioni per la sua non ricorsività:
+  \begin{enumerate}
+    \item Dal teorema~\ref{Relazione tra ricorsività e ricorsivo enumerabilità} sappiamo che \(K\) ricorsivamente enumerabile è \textbf{ricorsivo} \textit{se e solo se} anche \(\overline{K}\) è \textbf{ricorsivamente enumerabile}.\ \textbf{Per assurdo}, supponiamo \(\overline{K}\) ricorsivamente enumerabile.
+
+    Abbiamo allora da quanto visto prima che \(\exists i \in \mbN: \overline{K}=W_i=\cbrakets{ x \in \mbN \vert \Phi(x,i)\downarrow}\).
+
+    Si ha dunque che \(\forall x \in \mbN: x \in \overline{K} \iff x \in W_i \iff \Phi(x,i)\downarrow\).
+
+    In particolare per \(x = i\) abbiamo che \(i \in \overline{K} \iff i \in W_i \iff i \in K\). Questo porta chiaramente ad \textbf{assurdo} poiché un numero non può appartenere sia a un insieme che al suo complemento.
+
+    Questa dimostrazione oltre a mostrare che \(K\) non è \textbf{ricorsivo} ci mostra anche che \(\overline{K}\) non è \textbf{ricorsivamente enumerabile}.
+
+    \item K è ricorsivo \textit{se e solo se} \(f_k\) è calcolabile. Ma abbiamo che \(f_k(n) \iff n \in K \iff n \in W_n \iff \textit{HALT}(n,n)\)
+
+    E come visto dalla dimostrazione di non calcolabilità di \(\textit{HALT}\) abbiamo che \(\textit{HALT}(x,x)\) non è calcolabile.
+  \end{enumerate}
+\end{halfframedbox}
+
+Gli insiemi ricorsivamente enumerabili possono essere caratterizzati anche in un altro modo, ovvero come \textbf{codominio} di funzioni piuttosto che \textbf{dominio}.
+
+Prima di vedere ciò però, è necessario dimostrare prima un risultato intermedio che ci aiuterà nella dimostrazione, ovvero che per ogni insieme ricorsivamente enumerabile esiste un predicato binario ricorsivamente enumerabile che lo caratterizza.
+
+\begin{halfframedbox}{red!75!black}{Insiemi ricorsivamente enumerabili e predicati binari ricorsivi primitivi}
+\textbf{Enunciato. } Se \(S \subseteq \mbN\) è ricorsivamente enumerabile allora esiste \(R\) predicato binario ricorsivo primitivo tale che \(x \in S \iff \exists t \in \mbN : R(x,t)\), ovvero \(S=\cbrakets{x \in \mbN \vert \exists t \in \mbN : R(x,t)}\).
+\begin{center}
+  \textcolor{red!75!black}{\hdashrule[0.5ex]{18cm}{1pt}{3mm 3pt 1mm 2pt}}
+\end{center}
+\textbf{Dimostrazione. } Sia \(n\) tale che \(S=W_n\). Allora \(S=\cbrakets{x \in \mbN \vert \Phi(x,n)\downarrow} = \cbrakets{x \in \mbN \vert \exists t \in \mbN: STP_n(x,t)\downarrow}\), dove \(STP_n(x,t)\) è un predicato binario definito come \(STP_n(x,t) \iff STP(x,n,t)\). Questo è chiaramente ricorsivo primitivo poiché definibile per casi partendo da \(STP\). Abbiamo dunque che l'enunciato del teorema è vero per \(R(x,t)=STP_n(x,t)\).
+\end{halfframedbox}
+
+Ottenuto questo risultato possiamo dunque procedere con la dimostrazione di una prima versione del teorema accennato in precedenza, relativo alle funzioni \textbf{ricorsive primitive}.
+\begin{halfframedbox}{red!75!black}{Insiemi ricorsivamente enumerabili e funzioni ricorsive primitive}
+  \textbf{Enunciato. } Sia \(S \subseteq \mbN\) non vuoto ricorsivamente enumerabile. Allora esiste \(h\) funzione ricorsiva primitiva tale che \(S=\cbrakets{h(x) | x \in \mbN}\).
+  \begin{center}
+    \textcolor{red!75!black}{\hdashrule[0.5ex]{18cm}{1pt}{3mm 3pt 1mm 2pt}}
+  \end{center}
+  \textbf{Dimostrazione. } Sia \(R\) predicato binario ricorsivo primitivo tale che \(S=\cbrakets{ x \in \mbN \vert \exists t \in \mbN: R(x,t)}\). Essendo \(S \neq \varnothing \) è possibile fissare un \(x_0 \in S\). Definiamo dunque \(h\) come:
+  \begin{equation}
+    h(x) = \begin{cases}
+      l(x), & R(l(x),r(x))\\
+      x_0, & \text{altrimenti}
+    \end{cases}
+  \end{equation}
+
+  Essendo definita per casi da funzioni e predicati ricorsivi primitivi \(h\) è chiaramente ricorsiva primitiva. Verifichiamo ora che \(S= H \coloneq\cbrakets{h(x) | x \in \mbN}\).
+  Per vedere che \(S=H\) verifichiamo la doppia inclusione:
+  \begin{itemize}
+    \item[\(\subseteq\)] \(y \in H \implies y=x_0 \in S \lor \exists x \in \mbN: \left(y=l(x) \land R(l(x),r(x))\right)\). Abbiamo dunque in questo secondo caso \(R(y,r(x))\). Abbiamo dunque che \(y\in S\) dal teorema precedente poiché \(\exists t \in \mbN: R(y,t)\), ovvero \(t=r(x)\).
+    \item[\(\supseteq\)]  Viceversa \(x \in S \implies \exists t : R(x,t)\). Allora \(x=h(\abrakets{ x,t })\) poiché \(R(l(\abrakets{ x,t }),r(\abrakets{ x,t }))\) e dunque \(x \in H\).
+  \end{itemize}
+\end{halfframedbox}
+
+\newpage
+
+Vediamo ora un teorema più generale, che ci permette di caratterizzare gli insiemi ricorsivamente enumerabili come \textbf{codominio} di funzioni parzialmente calcolabili.
+\begin{halfframedbox}{red!75!black}{Teorema}
+  \textbf{Enunciato. } Sia \(S = \cbrakets{f(n) \vert f(n) \downarrow}\), con \(f\) parzialmente calcolabile. Allora \(S\) è ricorsivamente enumerabile.
+  \begin{center}
+    \textcolor{red!75!black}{\hdashrule[0.5ex]{18cm}{1pt}{3mm 3pt 1mm 2pt}}
+  \end{center}
+  \textbf{Dimostrazione. } Sia \(p\) il numero di programma che calcola \(f\). Consideriamo dunque il programma:
+  \begin{lstlisting}[language= ini, caption = { }, nolol]
+[A] IF (*\(\neg STP(Z_1,p,Z_2)\)*) GOTO B
+    Z3 <- (*\(f(Z_1)\)*)
+    IF X = Z3 GOTO E
+[B] Z1 <- Z1 + 1
+    IF Z1 <= Z2 GOTO A
+    Z1 <- 0
+    Z2 <- Z2 + 1
+    GOTO A
+  \end{lstlisting}
+  Questo programma termina solo su input \(x\) tali che \(\exists n \in \mbN: f(n)=x\). Abbiamo dunque che \(S\) è ricorsivamente enumerabile.
+
+  Nel programma viene eseguito un doppio controllo su i potenziali \(n\) e il numero di passi concessi per la computazione. Questo è necessario per assicurarsi che tutti i numeri vengano controllati, infatti per ogni valore del contapassi \(Z_2\) vengono controllati tutti i valori di \(Z_1\) compresi tra \(0\) e \(Z_2\).
+
+  Senza questa accortezza il programma proverebbe a calcolare \(f\) sullo stesso numero all'infinito se questo non facesse terminare \(f\).
+
+  Inoltre il programma può terminare solo effettuando il salto sulla terza istruzione, cioè se \(X=Z_3\), ovvero se \(f(Z_1)=X\).
+\end{halfframedbox}
+
+Sfruttando quest'ultimi risultati possiamo dunque dimostrare un teorema di carattere generale che caratterizza gli insiemi ricorsivamente enumerabili a pieno\footnote{Con questo teorema è conclusa la prima metà del corso, che sarà argomento della prova intercorso del 7/11/2023}.
+
+\begin{halfframedbox}{red!75!black}{Teorema di caratterizzazione degli insiemi ricorsivamente enumerabili}
+  \textbf{Enunciato. } Sia \(S \subseteq \mbN\) non vuoto. Allora sono equivalenti:
+  \begin{enumerate}
+    \item \(S\) è ricorsivamente enumerabile, cioè \(\exists f\) parzialmente calcolabile tale che \(S=\cbrakets{n \vert f(n) \downarrow}\).
+    \item Esiste \(f\) ricorsiva primitiva tale che \(S=\cbrakets{f(n) \vert n \in \mbN}\).
+    \item Esiste \(f\) calcolabile tale che \(S=\cbrakets{f(n) \vert n \in \mbN}\).
+    \item Esiste \(f\) parzialmente calcolabile tale che \(S=\cbrakets{f(n) \vert f(n) \downarrow}\).
+  \end{enumerate}
+\begin{center}
+  \textcolor{red!75!black}{\hdashrule[0.5ex]{18cm}{1pt}{3mm 3pt 1mm 2pt}}
+\end{center}
+
+\textbf{Dimostrazione. } Dimostriamo le varie implicazioni.
+
+Come abbiamo visto nei teoremi precedenti \(1 \implies 2\) e \(4 \implies 1\). Inoltre \(2 \implies 3 \implies 4\) sono ovvie.
+\end{halfframedbox}
+
+\begin{generalbox}[colframe=azure-gradient-3!90!black]{Esercizio d'esame}
+  Dato un insieme \(S \subseteq \mbN\), sia \(2S=\cbrakets{2x \vert x \in S}\). Mostrare che se \(S\) è ricorsivamente enumerabile, lo è anche \(2S\).
+
+  \textbf{Soluzione. } Se \(S= \varnothing, 2S\) è banalmente ricorsivamente enumerabile. Altrimenti essendo \(S\) ricorsivamente enumerabile, esiste \(f\) ricorsiva primitiva tale che \(S=\cbrakets{f(n) \vert n \in \mbN}\). Allora \(2S=\cbrakets{2f(n) \vert n \in \mbN}\) è ricorsivamente enumerabile poiché \(2f\) è ricorsiva primitiva.
+\end{generalbox}
+
+
+\section {Esercizi ricorsivamente enumerabili}
+
+\subsection{Esercizio 1}
+
+Sia $B \subseteq \mathbb{N}$ un insieme ricorsivo ed $f$ una funzione unaria calcolabile. Mostrare che l'insieme
+$$
+\{ x \in \mathbb{N} \mid x \notin B \lor \exists y : x = f(y) \}
+$$
+è ricorsivamente enumerabile.
+
+\textbf{Soluzione}
+
+Ok quindi dobbiamo ricondurci alla definizione di insieme ricorsivamente enumerabile, ovvero dobbiamo CREARE una funzione g che termini SE E SOLO SE $$  x \notin B \lor \exists y : x = f(y) $$.
+
+La nostra idea quindi è creare una funzione g unaria che prenda in input un numero x e che faccia:
+
+\begin{equation}
+  g(x) = \begin{cases}
+    x, & \text{se } x \notin B \lor \exists y : x = f(y) \\
+    \uparrow & \text{altrimenti}
+  \end{cases}
+\end{equation}
+
+\textbf{Osservazioni:} Sapendo che B è un insieme ricorsivo, dalla definizione della funzione caratteristica possiamo usare $f_B$ per decidere se un elemento appartiene o meno a B.
+Ora che abbiamo un'idea di come deve essere fatta g, possiamo procedere a scrivere il programma S che la calcola:
+
+\begin{lstlisting}[
+    language=ini, 
+    caption={S-Programma che calcola g(x)}, 
+    label={prog_g},
+    mathescape=true,       % Abilita la matematica nel codice
+    breaklines=true,       % A capo automatico per commenti lunghi
+    columns=fullflexible,  % Migliora la spaziatura
+    basicstyle=\small\ttfamily,
+    frame=single           % Aggiunge una cornice
+]
+# Capisco se x appartiene a B usando la funzione caratteristica di B. 
+# Non devo preoccuparmi di usare STP perché so che è calcolabile.
+Z1 <- $f_B(x)$
+
+# Se x non appartiene a B, allora abbiamo già finito. Sennò dobbiamo controllare la 2° condizione
+IF Z1 != 0 GOTO B
+GOTO A
+
+[B] Z2 <- 0
+
+[C] Z3 <- $f(Z_2)$
+    
+    # Confrontiamo f(y) con x (contenuto in X1) usando la funzione di uguaglianza calcolabile 
+    # e ricorsiva primitiva già nota che chiameremo L.
+    # Ovviamente non c'è bisogno di re-definirla poiché già trattata in precedenza.
+    Z4 <- L(Z3, X1)
+    
+    IF Z4 != 0 GOTO A
+    
+    # Altrimenti incrementiamo Z2 e riproviamo
+    Z2 <- Z2 + 1
+    GOTO C
+
+# La funzione g(x) deve restituire x se definita.
+[A] Y <- X1
+    
+\end{lstlisting}
+
+\subsection{Esercizio 2}
+
+Dimostrare che l'insieme $\{ [m, n, q] \mid m \in W_n \cup W_q \}$ è ricorsivamente enumerabile.
+
+\textbf{Soluzione}
+
+Come possiamo ben vedere stiamo codificando mediante il numero di Godel una tripla $[m, n, q]$, visto che vogliamo ricondurci alla definizione di insieme ricorsivamente enumerabile, dobbiamo creare una funzione g UNARIA.
+Ricordiamo che la funzione $[m, n, q]$ ci darà un unico numero che chiameremo $x$. Nella 2° parte del problema ci viene detto che dobbiamo capire se m appartiene a Wn OPPURE a Wq, come facciamo ad ottenere n, q e m se abbiamo codificato la tripla in un unico numero x? 
+Semplice, usiamo le funzioni di estrazione della codifica di Godel, ovvero:
+
+\begin{itemize}
+  \item $ (x)_1 $ per ottenere m
+  \item $ (x)_2 $ per ottenere n
+  \item $ (x)_3 $ per ottenere q
+\end{itemize} 
+
+$$
+g(x) = \begin{cases}
+x & \text{se } (x)_1 \in W_{(x)_2} \cup W_{(x)_3} \\
+\uparrow & \text{altrimenti}
+\end{cases}
+$$
+
+Ricordiamo che $m \in W_n \iff \Phi_n(m) \downarrow \iff \exists t : \mathrm{STP}(n, m, t)$.
+Poiché abbiamo un'unione ($\cup$), dobbiamo verificare se \textbf{almeno uno} dei due programmi ($n$ o $q$) termina su input $m$.
+
+\newpage
+
+Ecco l'S-programma derivato dagli appunti:
+
+\begin{lstlisting}[
+    language=ini, 
+    caption={S-Programma con tecnica Dovetail}, 
+    label={prog_dovetail},
+    mathescape=true,       
+    breaklines=true,       
+    columns=fullflexible,  
+    basicstyle=\small\ttfamily,
+    frame=single           
+]
+Z1 <- 1
+
+# Usando la definizione di prima, m appartenente a Wn significa che STP(n, m, t) termina per qualche t.
+[A] Z2 <- STP((X)_2, (X)_1, Z1)
+    
+    IF Z2 != 0 GOTO C
+
+    Z3 <- STP((X)_3, (X)_1, Z1)
+    
+    IF Z3 != 0 GOTO C
+
+    Z1 <- Z1 + 1
+    GOTO A
+
+# Restituiamo l'input x come richiesto dalla funzione semi-caratteristica    
+[C] Y <- X
+\end{lstlisting}
+
+% -----
+
+\section{Esercizi ed approfondimenti}
+
+\textbf{Esercizio. } \textit{Sia \(B \subseteq \mathbb{N}^m, m > 1\). Diciamo che \(B\) è \textbf{ricorsivamente enumerabile} se \(B=\cbrakets{(x_1,\cdots, x_m) \in \mathbb{N}^m \vert g(x_1, \cdots, x_m)\downarrow}\) per qualche funzione \(g\) parzialmente calcolabile. Mostrare che:}
+\begin{equation}
+    \label{Riduzione a N per ricorsivamente enumerabili}
+    B \text{ è ricorsivamente enumerabile} \iff B'=\cbrakets{[x_1, \cdots, x_m] \vert (x_1, \cdots, x_m) \in B } \text{ è ricorsivamente enumerabile}
+\end{equation}
+
+Dimostriamo la doppia implicazione.
+\begin{itemize}
+    \item[\(\Longleftarrow\)] Supponiamo che \(B'\) sia ricorsivamente enumerabile. Allora esiste una funzione \(g'\) parzialmente calcolabile tale che \\
+    \(B'=\cbrakets{y \in \mathbb{N} \vert g'(y)\downarrow}\). Sappiamo poi dalla definizione data in precedenza di \(B'\) che:
+    \begin{equation}
+        \forall y \in B': y=[x_1, \cdots, x_m], (x_1, \cdots, x_m) \in B
+    \end{equation}
+    Consideriamo dunque il seguente programma di \(m\) variabili:
+    \begin{lstlisting}[language=ini,  caption={ }]
+        Z <- [X1, X2, \cdots, Xm]
+        Z2 <- g'(Z)
+    \end{lstlisting}
+    Questo programma termina se e solo se \(y=[x_1, \cdots, x_m] \in B'\), ovvero se e solo se \((x_1, \cdots, x_m) \in B\). Dunque \(B\) è ricorsivamente enumerabile.
+    \item[\(\Longrightarrow\)] Sia \(B \in \mathbb{N}^m\) ricorsivamente enumerabile. Allora fissato tale \(m\) possiamo considerare il seguente programma unario:
+    \begin{lstlisting}[language=ini,  caption={ }]
+    [A] IF (*\(X=0\lor Lt(x)>m\)*) GOTO A
+        Z1 <- (*\((X)_1\)*)
+        Z2 <- (*\((X)_2\)*)
+        (*\(\vdots\)*)
+        Zm <- (*\((X)_m\)*)
+        Zm+1 <- g(Z1, Z2, \cdots, Zm)
+    \end{lstlisting}
+    Questo programma innanzitutto verifica che l'input sia un numero di Gödel, ovvero sia maggiore di \(0\), e che la lunghezza della sua fattorizzazione sia \(m\), ovvero sia numero di Gödel di una n-upla di \(\mathbb{N}^m\), altrimenti non terminerà. Negli altri casi il programma termina se e solo se \(({(x)}_1, \cdots, {(x)}_m) \in B\). Essendo che \(\forall (y_1, \cdots, y_m) \in B \exists x \in B' : x=[y_1, \cdots, y_m]\) questo programma termina se e solo se \(x \in B'\). Dunque \(B'\) è ricorsivamente enumerabile.
+    È importante notare che questo singolo programma è sufficiente a dimostrare l'enunciato per un singolo \(m\) fissato. Per dimostrare l'enunciato per ogni \(m\) è necessario considerare un numero infinito di programmi, uno per ogni \(m\).
+\end{itemize}
+
+\textbf{Esercizio. } \textit{Dimostrare che \(Z=\cbrakets{ \abrakets{ x,y } \vert x \in W_y}\) è ricorsivamente enumerabile}
+
+Possiamo sfruttare la definizione dell'insieme \(W\) per dimostrare che \(\cbrakets{ \abrakets{ x,y } \vert x \in W_y}\) è ricorsivamente enumerabile.\\
+Sappiamo infatti che \(W_y=\cbrakets{x \in \mathbb{N} \vert \Phi(x, y)\downarrow}\). Abbiamo dunque che \(Z=\cbrakets{z \vert \Phi(l(z),r(z))\downarrow}\). Essendo \(\Phi(l(z),r(z))\) composta di funzioni parzialmente calcolabili è anch'essa parzialmente calcolabile. Dunque \(Z\) è ricorsivamente enumerabile.
+
+\textbf{Esercizio. } \begin{enumerate}
+    \item Sia \(B\subseteq \mathbb{N}\) ricorsivamente enumerabile, e \(C \subseteq B\). È sempre vero che \(C\) è ricorsivamente enumerabile?\\
+    \textbf{NO.} Si consideri \(B=N\), chiaramente ricorsivamente enumerabile. Sia ora per assurdo vero che \(\forall C \subseteq \mathbb{N}, C\) è ricorsivamente enumerabile. Ma allora anche l'insieme \(\overline{K}\) o l'insieme \(H=\cbrakets{x \in \mathbb{N} \vert \textit{HALT}(x,x)}\) dovrebbero essere ricorsivamente enumerabile. Avendo già dimostrato che questo è falso abbiamo l'assurdo.
+    \item Siano \(B,C \in \mathbb{N}\) tali che \(B\cup C\) è ricorsivamente enumerabile. È sempre vero che \(B\) e \(C\) sono ricorsivamente enumerabili?\\
+    \textbf{NO.} Si consideri \(B=K\) e \(C=\overline{K}\). Avremo che \(B\cup C = \mathbb{N}\) è ricorsivamente enumerabile. Ma \(C\) non è ricorsivamente enumerabile come già dimostrato.\\
+    Si pensi alternativamente agli insiemi \(B=\cbrakets{x \vert \textit{HALT}(x,x)}\) e \(C=\cbrakets{x \vert \neg \textit{HALT}(x,x)}=\overline{B}\). Avremo che \(B\cup C = \mathbb{N}\) è ricorsivamente enumerabile. Ma \(B\) e \(C\) non sono ricorsivamente enumerabile come già dimostrato.
+\end{enumerate}
+
+\textbf{Esercizio. } \textit{Dimostrare che non esiste una funzione calcolabile \(f\) tale che \(f(x)=\Phi(x,x)+1\) se \(\Phi(x,x)\downarrow\)}
+
+Fissando un \(x_0 \in \mathbb{N}\) qualsiasi possiamo esprimere una tale funzione \(f\) qualsiasi come:
+\begin{equation}
+    f(x)=\begin{cases}
+        \Phi(x,x)+1, & \Phi(x,x)\downarrow\\
+        x_0, & \text{altrimenti}
+    \end{cases} = \begin{cases}
+        \Psi_{\mcP_x}^{(1)}(x)+1, & \Psi_{\mcP_x}^{(1)}(x)\downarrow\\
+        x_0, & \text{altrimenti}
+    \end{cases}
+\end{equation}
+Questo funzione è dunque analoga alla funzione definita nel teorema~\ref{Esistenza funzioni non calcolabili} e dunque non è calcolabile.
+
+\newpage

@@ -1,0 +1,56 @@
+% TeX root = main.tex
+\documentclass{unina_doc_class}
+%% Global variables definiton (NEEDED)
+\gdef\documentname{Elementi di Informatica Teorica}
+\gdef\documentyear{A.A\ 2025--2026}
+\gdef\documentlsttitle{Frammenti di Codice}
+\gdef\documentlstlabel{Codice}
+
+% Editorial authors
+\gdef\xauthors{\href{https://github.com/RiccardoElena}{\hi{\iuser Riccardo Elena}}, \href{https://github.com/DavideGargiulo}{\hi{\iuser Davide Gargiulo}}}
+
+% Collaborators authors
+\gdef\yauthors{Giuseppe Di Martino, Gianluca Fiorentino, Francesco Donnarumma, Mattia Perna}
+
+% Revision authors
+\gdef\zauthors{Gennaro De Gregorio, Benedetta Carandente Giarrusso, Vincenzo di Carluccio, Mattia Perna}
+
+\pagestyle{plain}
+
+\begin{document}
+  \coverpage{26}{\documentyear}{30}{\documentname}
+  \tableofcontents
+  \lstlistoflistings{}
+
+
+  % Chapter 0: Introduzione
+  \input{chapters/chapter_0.tex}
+
+  % Chapter 1: Calcolabilità e Linguaggio S
+  \input{chapters/chapter_1.tex}
+
+  % Chapter 2: Calcolabilità e Linguaggio S
+  \input{chapters/chapter_2.tex}
+
+  % Chapter 3: Codifica di Programmi in Numeri
+  \input{chapters/chapter_3.tex}
+
+  % Chapter 4: Insiemi Ricorsivi
+  \input{chapters/chapter_4.tex}
+
+  % Chapter 5: Macchine di Turing e Automi a Stati Finiti
+  \input{chapters/chapter_5.tex}
+
+  % Chapter 6: Operazioni sui Linguaggi Regolari
+  \input{chapters/chapter_6.tex}
+
+  % Chapter 7: Grammatiche context-free
+  \input{chapters/chapter_7.tex}
+
+  % Chapter 8: Forme Normali e Pumping Lemma
+  \input{chapters/chapter_8.tex}
+
+  % Chapter NN: Esercizi d'Esame
+  \input{chapters/half_chapter_exams.tex}
+
+\end{document}
