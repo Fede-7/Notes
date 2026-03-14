@@ -1008,11 +1008,3 @@ $$
 
 ## F. $T_R = \{x: \exists t: R(x,t)\}$ è r.e. (con $R$ predicato r.p. binario)
 
-(Esame aprile 2024)
-## Risultato:
-
-$\{\text{\#b pari}\} \cup \{\text{\#a dispari}\}$:
-$$
-\alpha = \underbrace{a^*(ba^*ba^*)^*}_{\text{\#b pari}} \cup \underbrace{b^*(ab^*ab^*)^*ab^*}_{\text{\#a dispari}}
-$$
-La formula è ora sintatticamente corretta e dovrebbe renderizzare correttamente in Obsidian! ✨
