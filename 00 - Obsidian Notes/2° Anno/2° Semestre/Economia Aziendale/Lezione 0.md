@@ -3,7 +3,16 @@ date: 2026-03-07
 corso: Economia e Organizzazione Aziendale
 docente: (da inserire)
 lezione: 1
-tags: [EOA, impresa, sistema, utile, bilancio, organizzazione, socio-tecnico, ambiente]
+tags:
+  - EOA
+  - impresa
+  - sistema
+  - utile
+  - bilancio
+  - organizzazione
+  - socio-tecnico
+  - ambiente
+Professore: Piccirillo Giuseppe
 ---
 
 # EOA — Lezione 1: Impresa, Sistema e Ambiente

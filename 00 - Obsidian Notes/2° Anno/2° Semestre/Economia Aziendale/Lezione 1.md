@@ -3,7 +3,27 @@ date: 2026-03-09
 corso: Economia e Organizzazione Aziendale
 docente: (da inserire)
 lezione: 2
-tags: [EOA, impresa, sistema, cognitivo, tangibile, intangibile, immobilizzazioni, mercato, produzione, lavoro, capitali, Apple, Nokia, Netflix, Amazon, finanziamento, partita-IVA, LinkedIn, leasing]
+tags:
+  - EOA
+  - impresa
+  - sistema
+  - cognitivo
+  - tangibile
+  - intangibile
+  - immobilizzazioni
+  - mercato
+  - produzione
+  - lavoro
+  - capitali
+  - Apple
+  - Nokia
+  - Netflix
+  - Amazon
+  - finanziamento
+  - partita-IVA
+  - LinkedIn
+  - leasing
+Professore: Piccirillo Giuseppe
 ---
 
 # EOA — Lezione 2: Mercati, Evoluzione e Fonti di Finanziamento

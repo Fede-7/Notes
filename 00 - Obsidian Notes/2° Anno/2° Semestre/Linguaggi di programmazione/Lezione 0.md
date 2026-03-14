@@ -3,7 +3,18 @@ date: 2026-03-06
 corso: Linguaggi di Programmazione
 docente: (da inserire)
 lezione: 2
-tags: [LP, storia, paradigmi, FORTRAN, LISP, Prolog, compilatori, interpreti, macchina-astratta, bytecode]
+tags:
+  - LP
+  - storia
+  - paradigmi
+  - FORTRAN
+  - LISP
+  - Prolog
+  - compilatori
+  - interpreti
+  - macchina-astratta
+  - bytecode
+Professore: Bonatti
 ---
 
 # LP — Lezione 2: Storia dei Linguaggi, Paradigmi e Implementazione

@@ -12,6 +12,7 @@ tags:
   - processi
   - interfacce
   - SO1
+Professore: Finzi
 ---
 
 # SO — Lezione 2: Servizi del SO, Chiamate di Sistema e Struttura del Kernel

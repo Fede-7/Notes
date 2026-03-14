@@ -16,6 +16,7 @@ tags:
   - POSIX
   - mailbox
   - pipe
+Professore: Finzi
 ---
 # SO — Lezione 4: Comunicazione tra Processi (IPC) e Memoria Condivisa
 

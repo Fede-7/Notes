@@ -2,7 +2,7 @@
 date: 2026-03-11
 corso: Metodi Statistici per l'Informazione
 docente: Marco Lops
-lezione: 4
+lezione: 3
 tags:
   - MSI
   - variabili-aleatorie
@@ -15,6 +15,7 @@ tags:
   - Bayes
   - PMF-condizionata
   - outlier
+Professore: Marco Lops
 ---
 
 # MSI — Lezione 4: Valore Atteso e Distribuzioni Notevoli

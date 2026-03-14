@@ -3,8 +3,6 @@ banner: "[[Banner_n1.jpg]]"
 aliases:
 ---
 
-Lezioni Semestre:
+# Lezioni Semestre:
 ![[DataView.base]]
 
-Esami da recuperare :
-![[DataView.base]]

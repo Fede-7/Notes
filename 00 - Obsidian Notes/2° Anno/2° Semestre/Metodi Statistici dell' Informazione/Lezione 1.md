@@ -12,6 +12,7 @@ tags:
   - indipendenza
   - misura
   - poker
+Professore: Marco Lops
 ---
 
 # MSI — Lezione 2: Probabilità Frequentistica e Proprietà Fondamentali

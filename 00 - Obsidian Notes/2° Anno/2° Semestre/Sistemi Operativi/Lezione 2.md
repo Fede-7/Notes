@@ -13,6 +13,7 @@ tags:
   - scheduling
   - fork
   - ring
+Professore: Finzi
 ---
 # SO — Lezione 3: Virtualizzazione, Struttura del Kernel e Processi
 
