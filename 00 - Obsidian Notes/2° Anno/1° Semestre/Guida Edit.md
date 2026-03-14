@@ -45,26 +45,18 @@ Una **funzione parziale** è definita solo per alcuni input:  $f: D \subseteq \m
 ### 1.2 Sintassi del Linguaggio S
 
 #### Variabili
-| Tipo | Notazione | Inizializzazione |
-$$
-|---|---|---|
-$$
-| Input | $X_1, $X_2$, \ldots$ | Valore dell'input |
-| Output | $Y$ | 0 |
-| Temporanee | $Z_1, $Z_2$, \ldots$ | 0 |
+| Tipo       | Notazione             | Inizializzazione  |
+| ---------- | --------------------- | ----------------- |
+| Input      | $X_1, X_2, \ldots$    | Valore dell'input |
+| Output     | $Y$                   | 0                 |
+| Temporanee | $Z_1, $Z_2$, $\ldots$ | 0                 |
 
 #### Istruzioni (solo 4!)
-| Istruzione | Effetto |
-$$
-|---|---|
-$$
-$$
-| `V <-- V` | Istruzione pigra (nulla) |
-$$
-$$
-| `V <-- V+1` | Incrementa V di 1 |
-$$
-$$
+| Istruzione  | Effetto                  |
+| ----------- | ------------------------ |
+| `V <-- V`   | Istruzione pigra (nulla) |
+| `V <-- V+1` | Incrementa V di 1        |
+
 | `V <-- V-1` | Decrementa V di 1 (se V=0, ignorata) |
 $$
 | `IF V != 0 GOTO L` | Salta all'etichetta L se V≠0 |
