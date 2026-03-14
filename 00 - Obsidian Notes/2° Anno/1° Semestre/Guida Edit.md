@@ -141,18 +141,16 @@ $$h(x_1,\ldots,x_{n-1}, t+1) = g(x_1,\ldots,x_{n-1}, t, h(x_1,\ldots,x_{n-1},t))
 
 ### 2.4 Funzioni Ricorsive Primitive — Esempi fondamentali
 
-| Funzione | Definizione | Come si dimostra |
-$$
-|---|---|---|
-$$
-| Addizione $x+y$ | $a(x,0)=x$;  $a(x,t+1)=s(a(x,t))$ | Ric. primitiva |
-| Moltiplicazione $x \cdot y$ | $m(x,0)=0$;  $m(x,t+1)=a(m(x,t),x)$ | Ric. primitiva |
-| Fattoriale $x!$ | $0!=1$;  $(t+1)!=m(t+1,t!)$ | Ric. primitiva |
-| Predecessore $p(x)$ | $p(0)=0$;  $p(t+1)=t$ | Ric. primitiva |
-| Sottrazione propria $x \dotminus y$ | $x\dotminus 0=x$;  $x\dotminus(t+1)=p(x\dotminus t)$ | Ric. primitiva |
-| Rilevatore di zeri $\alpha(x)=1\dotminus x$ | $\alpha(x)=1 \text{ se } x=0$ | Comp. di succ. e sott. |
-| Uguaglianza $\beta(x,y)$ | $\alpha(\|x-y\|)$ | Composizione |
-| Predicato Primo | $x>1 \wedge \forall z\leq x: (\neg(z|x) \vee z=1 \vee z=x)$ | Quantificatori limitati |
+| Funzione                                    | Definizione                                          | Come si dimostra       |                         |
+| ------------------------------------------- | ---------------------------------------------------- | ---------------------- | ----------------------- |
+| Addizione $x+y$                             | $a(x,0)=x$;  $a(x,t+1)=s(a(x,t))$                    | Ric. primitiva         |                         |
+| Moltiplicazione $x \cdot y$                 | $m(x,0)=0$;  $m(x,t+1)=a(m(x,t),x)$                  | Ric. primitiva         |                         |
+| Fattoriale $x!$                             | $0!=1$;  $(t+1)!=m(t+1,t!)$                          | Ric. primitiva         |                         |
+| Predecessore $p(x)$                         | $p(0)=0$;  $p(t+1)=t$                                | Ric. primitiva         |                         |
+| Sottrazione propria $x \dotminus y$         | $x\dotminus 0=x$;  $x\dotminus(t+1)=p(x\dotminus t)$ | Ric. primitiva         |                         |
+| Rilevatore di zeri $\alpha(x)=1\dotminus x$ | $\alpha(x)=1 \text{ se } x=0$                        | Comp. di succ. e sott. |                         |
+| Uguaglianza $\beta(x,y)$                    | $\alpha(\|x-y\|)$                                    | Composizione           |                         |
+| Predicato Primo                             | $x>1 \wedge \forall z\leq x: (\neg(z                 | x) \vee z=1 \vee z=x)$ | Quantificatori limitati |
 
 ---
 
@@ -191,7 +189,7 @@ $$
 $$
 - Divisione con resto: $\lfloor x/y \rfloor = \min_{t \leq x}\left((t+1)y > x\right)$
 - $x \mod y = x \dotminus \lfloor x/y \rfloor \cdot y$
-- $P_n$ (n-esimo primo): $P_0=0$, $P_{n+1} = \min_{t \leq P_n!+1}(\text{Primo}(t) \wedge t > $P_n$)$
+- $P_n$ (n-esimo primo): $P_0=0$, $P_{n+1} = \min_{t \leq P_n!+1}(\text{Primo}(t) \wedge t >$ $P_n$$)$
 
 ---
 
