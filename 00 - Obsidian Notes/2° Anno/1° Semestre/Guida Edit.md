@@ -564,9 +564,8 @@ Aggiunge: $|uv| \leq n$. Quindi $v$ deve stare nelle prime $n$ lettere di $x$.
 ---
 
 ### 10.3 Come usare il Pumping Lemma per dimostrare la non regolarità
-$$
+
 **Schema generale**:
-$$
 1. Supponi per assurdo che $L$ sia regolare, con un DFA di $p$ stati.
 2. Scegli $x \in L$ con $|x| \geq p$ (solitamente $x = a^p b^p$ o simili).
 3. Per ogni possibile decomposizione $x = uvw$ con $v \neq \varepsilon$ (e $|uv| \leq p$ se usi la versione rafforzata):
@@ -579,7 +578,7 @@ $$
 
 ### 10.4 Esempi canonici
 
-**1. $L = \{a^n $b^n$: n \geq 0\}$ non è regolare.**
+**1. $L = \{a^n b^n: n \geq 0\}$ non è regolare.**
 - Scegli $x = a^p b^p$.
 - Qualunque $v$ con $|uv| \leq p$ è della forma $v = a^j$ con $j > 0$.
 - $uv^0w = a^{p-j}b^p \notin L$.
