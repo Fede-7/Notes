@@ -577,7 +577,7 @@ Aggiunge: $|uv| \leq n$. Quindi $v$ deve stare nelle prime $n$ lettere di $x$.
 ---
 
 ### 10.4 Esempi canonici
-
+<sub></sub>
 **1. $L = \{a^n b^n: n \geq 0\}$ non è regolare.**
 - Scegli $x = a^p b^p$.
 - Qualunque $v$ con $|uv| \leq p$ è della forma $v = a^j$ con $j > 0$.
