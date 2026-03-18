@@ -16,7 +16,7 @@ views:
       - property: Date
         direction: DESC
       - property: Professore
-        direction: ASC
+        direction: DESC
       - property: file.ctime
         direction: DESC
     summaries: {}

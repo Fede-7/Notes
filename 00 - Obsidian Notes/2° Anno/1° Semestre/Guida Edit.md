@@ -109,11 +109,10 @@ $$\Psi_P^{(k)}(x_1,\ldots,x_k) = \begin{cases} y & \text{se esiste un calcolo te
 Un insieme di funzioni totali $\mathcal{C}$ è **PRC** se:
 1. Contiene le **funzioni iniziali**: $n(x)=0$,  $s(x)=x+1$,  $u_i^{(n)}($x_1$,\ldots,$x_n$)=x_i$
 $$
-2. È chiuso per **composizione**
-$$
-$$
-3. È chiuso per **ricorsione primitiva**
-$$
+## 2. È chiuso per **composizione**
+
+### 2.1. È chiuso per **ricorsione primitiva**
+
 > ⭐ **Fatto chiave**: le funzioni ricorsive primitive sono la **più piccola** classe PRC, e ogni funzione ricorsiva primitiva è calcolabile.
 
 ---
