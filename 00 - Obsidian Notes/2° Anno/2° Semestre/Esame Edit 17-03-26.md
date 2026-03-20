@@ -52,8 +52,8 @@ $$
 
 ## Esercizio 6:
 >Definito $P$ predicato binario calcolabile,  definire se $S$ è ricorsivo enumerabile 
->$$S = \{[x_1, x_2, x_3] \in \mathbb{N} \lvert  x_1 \in \mathbb{K} \land P(x_2, x_3) \}$$
+>$$S = \{[x_1, x_2, x_3] \in \mathbb{N} \lvert  x_1 \in \mathbb{K} \land P(x_2, x_3) \}$$>
 
 $$
-S = \{x\in \mathbb{N} \space | \space \phi(x_1, x_1) \downarrow \land P(x_2, x_3) \}
+S = \{[x_1, x_2, x_3] \in \mathbb{N} \space | \space \phi(x_1, x_1) \downarrow \land P(x_2, x_3) \}
 $$
