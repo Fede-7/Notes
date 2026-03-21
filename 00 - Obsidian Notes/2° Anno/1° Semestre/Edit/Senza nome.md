@@ -7,4 +7,11 @@
 ![[main.pdf#page=18&rect=15,26,584,274|main, p.18]]
 ![[main.pdf#page=20&rect=12,553,580,654|main, p.20]]
 ![[main.pdf#page=22&rect=15,492,585,683|main, p.22]]
-![[main.pdf#page=23&rect=4,275,589,559|main, p.23]]
+![[main.pdf#page=22&rect=12,121,583,493|main, p.22]]
+NO DiM
+![[main.pdf#page=23&rect=11,273,593,527|main, p.23]]![[main.pdf#page=26&rect=14,144,580,491|main, p.26]]
+![[main.pdf#page=27&rect=16,414,582,827|main, p.27]]
+![[main.pdf#page=27&rect=11,114,585,320|main, p.27]]
+![[main.pdf#page=29&rect=15,113,586,234|main, p.29]]
+![[main.pdf#page=32&rect=12,191,589,479|main, p.32]]
+![[main.pdf#page=34&rect=9,412,585,831|main, p.34]]![[main.pdf#page=38&rect=12,545,586,695|main, p.38]]![[main.pdf#page=39&rect=10,451,584,545|main, p.39]]![[main.pdf#page=41&rect=13,171,587,312|main, p.41]]
