@@ -6,6 +6,7 @@
 Cos'è un problema calcolabile?
 ?
 Un problema è **calcolabile** se è possibile risolverlo algoritmicamente. Si formalizza con una funzione matematica avente input e output in ℕ, per cui esiste un algoritmo che la calcola.
+<!--SR:!2026-03-24,3,250-->
 ...
 
 ---
@@ -88,6 +89,7 @@ Quali sono i 4 statement del linguaggio S?
 2. **Incremento**: `V ← V + 1`
 3. **Decremento**: `V ← V − 1` (se V=0, ignorata)
 4. **Salto condizionale**: `IF V ≠ 0 GOTO L` (salta a L se V≠0; se L non esiste, il programma termina)
+<!--SR:!2026-03-24,3,250-->
 ...
 
 ---
@@ -211,6 +213,7 @@ Funzioni ricorsive primitive note — pag. 15
 - **Sottrazione limitata**: x ∸ y = x−y se x≥y, 0 altrimenti
 - **β (uguaglianza)**: β(x,y) = 1 se x=y, 0 altrimenti
 - **α (se è zero)**: α(x) = 1 se x=0, 0 altrimenti
+<!--SR:!2026-03-22,1,230-->
 ...
 
 ---
@@ -254,6 +257,7 @@ Teorema di chiusura PRC per sommatoria e produttoria
 - Caso base: Σᵤ₌₀⁰ f(x̄,u) = f(x̄,0) → composizione di f con U, ∈C.
 - Passo: Σᵤ₌₀ʸ⁺¹ f(x̄,u) = (Σᵤ₌₀ʸ f(x̄,u)) + f(x̄,y+1) → composizione con addizione, ∈C.
 Definizione per ricorsione primitiva → ∈C. □
+<!--SR:!2026-03-22,1,226-->
 ...
 
 ---
@@ -326,6 +330,7 @@ Definizione del numero di Gödel
 ?
 **[a₁,...,aₖ] = p₁^a₁ · p₂^a₂ · ... · pₖ^aₖ** dove pᵢ è l'i-esimo numero primo.
 Codifica una k-pla di numeri naturali in un unico numero. Rappresenta una **classe** di funzioni (una per ogni k∈ℕ). Ogni [a₁,...,aₖ] è ricorsiva primitiva (produttoria di funzioni r.p.).
+<!--SR:!2026-03-22,1,226-->
 ...
 
 ---
@@ -507,6 +512,7 @@ Relazione tra ricorsività e ricorsiva enumerabilità
 S è **ricorsivo** ↔ **sia S che il complemento S̄ sono r.e.**
 **Dimostrazione (⇒)**: S ricorsivo → fₛ calcolabile → fₛ̄ calcolabile → S̄ ricorsivo → S̄ r.e.
 **Dimostrazione (⇐)**: Se S e S̄ sono r.e., esistono g (dominio S) e g̃ (dominio S̄). Si eseguono **in parallelo**: per ogni input x, si alternano i passi di g e g̃. Prima o poi uno dei due termina e decide l'appartenenza → procedura di decisione → S ricorsivo. □
+<!--SR:!2026-03-22,1,226-->
 ...
 
 ---
@@ -609,6 +615,7 @@ La funzione **δ*: Q × A* → 𝒫(Q)** per induzione:
 - **Caso base**: δ*(q, ε) = {q}
 - **Passo induttivo**: δ*(q, wa) = ⋃_{p ∈ δ*(q,w)} δ(p, a)
 L'idea del passo: si calcola prima l'insieme degli stati raggiungibili con **w** (δ*(q,w)), poi si fa un passo con **a** da ognuno di essi, e si unisce tutto.
+<!--SR:!2026-03-22,1,226-->
 ...
 
 ---
@@ -626,6 +633,7 @@ w è accettata se almeno uno degli stati raggiungibili leggendo w da q₁ è uno
 Definizione di DFA non-restarting
 ?
 Un **DFA non-restarting** è un DFA in cui lo stato iniziale q₁ **non ha transizioni entranti**: nessuna transizione porta a q₁. Una volta usciti dallo stato iniziale, non vi si ritorna mai. Semplifica la costruzione di automi composti (unione, concatenazione, star).
+<!--SR:!2026-03-22,1,226-->
 ...
 
 ---
@@ -778,6 +786,7 @@ Dimostrazione: tutti i linguaggi finiti sono context-free
 **Enunciato**: Ogni linguaggio finito L={w₁,...,wₖ} è CF.
 **Dimostrazione**: Si costruisce G con regole S→w₁ | w₂ | ... | wₖ. L(G)=L. □
 Alternativa: ogni linguaggio finito è regolare (DFA con percorsi finiti) e ogni regolare è CF.
+<!--SR:!2026-03-22,1,226-->
 ...
 
 ---
@@ -842,6 +851,7 @@ Dimostrazione: CFG ↔ PDA (equivalenza, direzione PDA→CFG)
 ?
 **Enunciato**: Se esiste un PDA che accetta L, allora L è CF.
 **Idea della dimostrazione**: Ogni transizione del PDA (q, a, β)→(p, w) corrisponde a una produzione della CFG. Si introduce una variabile per ogni coppia (stato, simbolo di pila) che codifica il "da q con β in pila si arriva a p svuotando β". La CFG risultante genera esattamente le stringhe accettate dal PDA. □
+<!--SR:!2026-03-22,1,230-->
 ...
 
 ---
@@ -904,6 +914,7 @@ Le **macro** sono alias a pezzi di codice riutilizzabili. Le più importanti son
 - **Assegnazione**: `V ← V1` (copia il valore di V1 in V)
 - **Goto incondizionato**: `GOTO L` (equivale a IF Z ≠ 0 GOTO L con Z sempre diversa da 0... ma Z=0, quindi si usa un trucco)
 Permettono di scrivere programmi più compatti senza dover ripetere ogni volta le istruzioni di base.
+<!--SR:!2026-03-22,1,226-->
 ...
 
 ---
@@ -931,6 +942,7 @@ Cos'è la minimalizzazione illimitata?
 **μt. R(x̄,t)** = il più piccolo t per cui R(x̄,t) = 1; ↑ se R non è mai vera.
 A differenza di quella limitata, **non ha un bound superiore** → può non terminare → produce funzioni **parzialmente calcolabili** (non totali).
 Permette di caratterizzare l'intera classe delle funzioni parzialmente calcolabili: ogni funzione p.c. si ottiene dalle funzioni ricorsive primitive tramite minimalizzazione illimitata.
+<!--SR:!2026-03-23,2,246-->
 ...
 
 ---
@@ -955,6 +967,7 @@ La macchina parte dallo stato q₁ con la testina su un nastro infinito. Ad ogni
 3. Esegue l'azione (scrive un simbolo o si sposta) e cambia stato
 4. Si ferma quando non esiste nessuna quadrupla applicabile
 L'**output** è ciò che rimane scritto sul nastro quando la macchina si ferma. Se non si ferma, l'output è indefinito.
+<!--SR:!2026-03-22,1,226-->
 ...
 
 ---
