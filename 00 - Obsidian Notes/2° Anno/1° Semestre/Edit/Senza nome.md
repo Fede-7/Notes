@@ -7,3 +7,4 @@
 ![[main.pdf#page=18&rect=15,26,584,274|main, p.18]]
 ![[main.pdf#page=20&rect=12,553,580,654|main, p.20]]
 ![[main.pdf#page=22&rect=15,492,585,683|main, p.22]]
+![[main.pdf#page=23&rect=4,275,589,559|main, p.23]]
