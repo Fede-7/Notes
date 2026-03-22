@@ -1,0 +1,1 @@
+$$S = \underbrace{\bar{B}}_{\text{r.e.}} \cup \underbrace{\{f(y): y \in \mathbb{N}\}}_{\text{r.e.}}$$
