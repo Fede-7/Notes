@@ -17,5 +17,10 @@
 ![[Orale Edit 3.0.pdf#page=27&rect=16,447,583,543|Orale Edit 3.0, p.27]]![[Orale Edit 3.0.pdf#page=28&rect=14,175,584,317|Orale Edit 3.0, p.28]]![[Orale Edit 3.0.pdf#page=29&rect=17,336,582,475|Orale Edit 3.0, p.29]]![[Orale Edit 3.0.pdf#page=30&rect=15,442,582,768|Orale Edit 3.0, p.30]]![[Orale Edit 3.0.pdf#page=31&rect=16,24,581,156|Orale Edit 3.0, p.31]]![[Orale Edit 3.0.pdf#page=32&rect=14,591,581,825|Orale Edit 3.0, p.32]]![[Orale Edit 3.0.pdf#page=33&rect=12,329,582,456|Orale Edit 3.0, p.33]]![[Orale Edit 3.0.pdf#page=34&rect=18,72,583,824|Orale Edit 3.0, p.34]]![[Orale Edit 3.0.pdf#page=35&rect=10,561,580,833|Orale Edit 3.0, p.35]]
 # Grammatiche context-free e Automi Pushdown
 ![[Orale Edit 3.0.pdf#page=38&rect=14,87,579,478|Orale Edit 3.0, p.38]]![[Orale Edit 3.0.pdf#page=39&rect=17,186,585,359|Orale Edit 3.0, p.39]]![[Orale Edit 3.0.pdf#page=40&rect=13,298,587,465|Orale Edit 3.0, p.40]]![[Orale Edit 3.0.pdf#page=41&rect=17,558,585,790|Orale Edit 3.0, p.41]]![[Orale Edit 3.0.pdf#page=41&rect=13,216,586,555|Orale Edit 3.0, p.41]]
+
+
 # Forme Normali di Chomsky e Pumping Lemma
 ![[Orale Edit 3.0.pdf#page=42&rect=12,24,587,568|Orale Edit 3.0, p.42]]![[Orale Edit 3.0.pdf#page=43&rect=15,202,586,832|Orale Edit 3.0, p.43]]
+
+![[Dispense De Luca 2025-2026.pdf#page=72&rect=14,308,588,828|Dispense De Luca 2025-2026, p.72]]![[Dispense De Luca 2025-2026.pdf#page=74&rect=13,638,588,828|Dispense De Luca 2025-2026, p.74]]
+![[Dispense De Luca 2025-2026.pdf#page=82&rect=14,51,590,834|Dispense De Luca 2025-2026, p.82]]![[Dispense De Luca 2025-2026.pdf#page=84&rect=13,214,597,826|Dispense De Luca 2025-2026, p.84]]![[Dispense De Luca 2025-2026.pdf#page=85&rect=16,220,579,325|Dispense De Luca 2025-2026, p.85]]
