@@ -6,8 +6,9 @@
 Cos'è un problema calcolabile?
 ?
 Un problema è **calcolabile** se è possibile risolverlo algoritmicamente. Si formalizza con una funzione matematica avente input e output in ℕ, per cui esiste un algoritmo che la calcola.
-<!--SR:!2026-03-24,3,250-->
+
 ...
+<!--SR:!2026-04-03,8,250-->
 
 ---
 
@@ -16,6 +17,7 @@ Cos'è una funzione totale?
 Una funzione **totale** è definita per **ogni** input possibile nel suo dominio: per qualsiasi x, esiste sempre un output f(x).
 Esempio: la somma x+y è definita per ogni coppia di naturali.
 ...
+<!--SR:!2026-03-27,1,229-->
 
 ---
 
@@ -42,6 +44,7 @@ Cos'è una funzione totalmente calcolabile?
 ?
 Una funzione è **totalmente calcolabile** se è sia **totale** (definita per ogni input) che **calcolabile** (esiste un programma S che termina sempre e restituisce il risultato corretto).
 ...
+<!--SR:!2026-03-27,1,229-->
 
 ---
 
@@ -68,6 +71,7 @@ Una funzione **k-aria** è una funzione con esattamente **k argomenti**.
 - k=2: binaria, es. f(x,y)
 Nel corso tutte le funzioni hanno dominio ℕᵏ e codominio ℕ.
 ...
+<!--SR:!2026-03-27,1,229-->
 
 ---
 
@@ -89,8 +93,9 @@ Quali sono i 4 statement del linguaggio S?
 2. **Incremento**: `V ← V + 1`
 3. **Decremento**: `V ← V − 1` (se V=0, ignorata)
 4. **Salto condizionale**: `IF V ≠ 0 GOTO L` (salta a L se V≠0; se L non esiste, il programma termina)
-<!--SR:!2026-03-24,3,250-->
+
 ...
+<!--SR:!2026-04-02,7,250-->
 
 ---
 
@@ -122,6 +127,7 @@ Cos'è il calcolo terminale?
 ?
 Il **calcolo terminale** è la sequenza di istantanee che porta dall'istantanea iniziale (1, σ₀) a quella terminale (l+1, σ_f). Il risultato del programma è il valore di Y nello stato finale σ_f. Se il programma non termina, il calcolo è infinito e la funzione è indefinita.
 ...
+<!--SR:!2026-03-27,1,229-->
 
 ---
 
@@ -271,6 +277,7 @@ Dato un predicato R(x̄, t):
 - **Universale limitato**: (∀t ≤ y) R(x̄,t) = 1 se per ogni t≤y vale R(x̄,t)=1
 Devono essere **limitati superiormente** da y per garantire la calcolabilità (la quantificazione illimitata porta fuori dalle classi PRC).
 ...
+<!--SR:!2026-03-27,1,229-->
 
 ---
 
@@ -344,6 +351,7 @@ Definizione delle inverse parziali del numero di Gödel: (x)ᵢ
 Esempio: (10)₂ = 0 perché 10 = 2¹·3⁰·5¹, l'esponente di p₂=3 è 0.
 È ricorsiva primitiva (per minimalizzazione limitata: il più grande e≤x tale che pᵢ^e divide x).
 ...
+<!--SR:!2026-03-27,1,229-->
 
 ---
 
@@ -424,6 +432,7 @@ Definizione della funzione universale Φ
 **Φ⁽ⁿ⁾(x₁,...,xₙ, y)** = risultato dell'esecuzione del programma con codice y sull'input (x₁,...,xₙ), se termina; ↑ altrimenti.
 È **parzialmente calcolabile** (non totale): termina ↔ il programma y termina su quell'input. Rappresenta una classe di funzioni (una per ogni n). Dimostra che un programma può simulare qualsiasi altro.
 ...
+<!--SR:!2026-03-27,1,229-->
 
 ---
 
@@ -498,7 +507,7 @@ Teorema: chiusura per operazioni insiemistiche su insiemi ricorsivi
 - **Unione**: fₛ∪ₛ'(x) = fₛ(x) ∨ fₛ'(x). Composizione → totale calcolabile.
 - **Intersezione**: fₛ∩ₛ'(x) = fₛ(x) ∧ fₛ'(x). Composizione → totale calcolabile. □
 ...
-<!--SR:!2026-03-24,2,239-->
+<!--SR:!2026-03-27,1,219-->
 
 ---
 
@@ -516,6 +525,7 @@ Relazione tra ricorsività e ricorsiva enumerabilità
 S è **ricorsivo** ↔ **sia S che il complemento S̄ sono r.e.**
 **Dimostrazione (⇒)**: S ricorsivo → fₛ calcolabile → fₛ̄ calcolabile → S̄ ricorsivo → S̄ r.e.
 **Dimostrazione (⇐)**: Se S e S̄ sono r.e., esistono g (dominio S) e g̃ (dominio S̄). Si eseguono **in parallelo**: per ogni input x, si alternano i passi di g e g̃. Prima o poi uno dei due termina e decide l'appartenenza → procedura di decisione → S ricorsivo. □
+<!--SR:!2026-03-27,1,229-->
 
 ...
 <!--SR:!2026-03-23,1,206-->
@@ -528,6 +538,7 @@ Teorema: unione e intersezione di insiemi r.e. sono r.e.
 **Dimostrazione per S∩S'**: Siano g (dominio S) e g' (dominio S'). Definisci h(x) = g(x)+g'(x). h↓ ↔ entrambe terminano ↔ x∈S∩S'. → S∩S' r.e.
 **Dimostrazione per S∪S'**: Si eseguono g e g' **in parallelo** (dovetailing, alternando i passi). h↓ ↔ almeno una termina ↔ x∈S∪S'. → S∪S' r.e. □
 ...
+<!--SR:!2026-03-27,1,229-->
 
 ---
 
@@ -611,6 +622,7 @@ Un **NFA** è una quintupla M = (Q, A, δ, q₁, F) identica al DFA tranne per l
 **δ: Q × A → 𝒫(Q)** — restituisce un **insieme** di stati (anche vuoto).
 Una stringa è accettata se almeno un percorso possibile termina in uno stato finale.
 ...
+<!--SR:!2026-03-27,1,229-->
 
 ---
 
@@ -639,6 +651,7 @@ w è accettata se almeno uno degli stati raggiungibili leggendo w da q₁ è uno
 Definizione di DFA non-restarting
 ?
 Un **DFA non-restarting** è un DFA in cui lo stato iniziale q₁ **non ha transizioni entranti**: nessuna transizione porta a q₁. Una volta usciti dallo stato iniziale, non vi si ritorna mai. Semplifica la costruzione di automi composti (unione, concatenazione, star).
+<!--SR:!2026-03-27,1,229-->
 
 ...
 <!--SR:!2026-03-24,2,226-->
@@ -815,6 +828,7 @@ Dimostrazione: tutti i linguaggi regolari sono context-free (via inclusione dell
 ?
 Le grammatiche regolari (regole A→aB, A→a, A→ε) sono un **caso speciale** di CFG: le regole A→aB e A→a rispettano il formato A→α con α∈(V∪Σ)*. Quindi ogni grammatica regolare è anche una CFG → ogni linguaggio regolare è CF. □
 ...
+<!--SR:!2026-03-27,1,229-->
 
 ---
 
@@ -952,8 +966,9 @@ Cos'è la minimalizzazione illimitata?
 **μt. R(x̄,t)** = il più piccolo t per cui R(x̄,t) = 1; ↑ se R non è mai vera.
 A differenza di quella limitata, **non ha un bound superiore** → può non terminare → produce funzioni **parzialmente calcolabili** (non totali).
 Permette di caratterizzare l'intera classe delle funzioni parzialmente calcolabili: ogni funzione p.c. si ottiene dalle funzioni ricorsive primitive tramite minimalizzazione illimitata.
-<!--SR:!2026-03-23,2,246-->
+
 ...
+<!--SR:!2026-03-27,1,226-->
 
 ---
 
