@@ -25,13 +25,14 @@ views:
   - type: table
     name: Last notes
   - type: cards
-    name: Esami Incompleti
+    name: Home-Corsi
     filters:
       and:
-        - file.inFolder("00 - Obsidian Notes/2° Anno/1° Semestre/Edit")
-        - file.ext == "pdf"
+        - file.inFolder("00 - Obsidian Notes/Home-Settings")
+        - and:
+            - file.name != "Home"
     order:
       - file.name
-    cardSize: 670
+    cardSize: 140
     imageAspectRatio: 1
     indentProperties: false
