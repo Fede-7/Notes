@@ -1,0 +1,182 @@
+## Introduzione al Shortest Job First (SJF)
+- **Definizione formale:** Il criterio di schedulazione basato sul shortest job first (SJF) seleziona il processo con burst time minore tra quelli in attesa.  
+- **Esempio presente:** Processi P1-P4, tempi di arrivo e burst time, esecuzione interrotta e riacodamento  
+- **Spiegazione del "perché":** Mostra come minimizzare il tempo medio di attesa dei processi.  
+
+---
+
+**Definizione formale:**  
+Il criterio di schedulazione basato sul shortest job first (SJF) seleziona il processo con burst time minore tra quelli in attesa. Questo algoritmo si basa sull'idea che i processi con un tempo di esecuzione più breve dovrebbero essere eseguiti per primo, al fine di ridurre il tempo medio di attesa.  
+
+**Esempio presente:**  
+Il prof presenta un esempio con quattro processi (P1-P4) con tempi di arrivo e burst time specifici. I processi arrivano al tempo 0, 1, 2 e 3 rispettivamente. Il burst time di ciascun processo è indicato come segue: P1 (7 unità), P2 (4 unità), P3 (9 unità), P4 (5 unità). L'algoritmo SJF preemptive (con prelazione) viene applicato, il che significa che il processo in esecuzione può essere interrotto se arriva un processo con un tempo rimanente di esecuzione più breve.  
+
+Nell'esempio, il processo P1 inizia a esecuzione al tempo 0, ma viene interrotto al tempo 1 quando arriva il processo P2 con un burst time più breve (4 unità). Il processo P2 viene eseguito fino al tempo 2, quando arriva il processo P3 con un burst time di 9 unità. Il processo P2 viene interrotto nuovamente al tempo 3 quando arriva il processo P4 con un burst time di 5 unità. Il processo P4 viene eseguito fino al tempo 5, quando termina. A questo punto, il processo P1 (con burst time rimanente di 7 unità) viene eseguito, seguito dal processo P3 (con burst time rimanente di 9 unità).  
+
+**Spiegazione del "perché":**  
+Il prof spiega che l'algoritmo SJF preemptive minimizza il tempo medio di attesa dei processi. Questo perché, selezionando sempre il processo con il tempo rimanente di esecuzione più breve, si riduce il tempo che i processi spendono in coda. Il prof confronta questo algoritmo con un esempio precedente in cui non era stato utilizzato il criterio SJF, mostrando come il tempo medio di attesa fosse maggiore.  
+
+Il prof sottolinea che il tempo medio di attesa si calcola come "tempo di fine meno tempo di arrivo meno burst time". Nell'esempio, il tempo medio di attesa per i processi P1, P2, P3 e P4 è calcolato rispettivamente come 17-0-8=9, 5-1-4=0, 17-3-9=5 e 17-3-5=9. La media di questi valori è (9+0+5+9)/4= 5.75 unità di misura.  
+
+Il prof conclude che l'algoritmo SJF preemptive è efficace nel ridurre il tempo medio di attesa dei processi, grazie alla sua capacità di selezionare sempre il processo con il tempo rimanente di esecuzione più breve.
+
+## Media esponenziale per previsione tempi futuri (Exponential Averaging)
+
+La media esponenziale combina un'ipotesi precedente e il tempo letto corrente con un fattore α (0-1). Il prof spiega che si parte da un'ipotesi iniziale, poi si confronta con il valore attuale e si calcola una media pesata tra l'ipotesi precedente e il tempo letto. Ad esempio, se α = 0.5, si fa la media tra l'ipotesi precedente e il tempo letto. Se α = 1, la previsione è basata solo sul tempo letto corrente, mentre se α = 0, si basa solo sull'ipotesi iniziale.
+
+Il prof presenta un esempio concreto: si parte con un'ipotesi di durata del CPU di 10 unità, poi si legge un tempo reale di 6 unità. La nuova previsione diventa (10 + 6)/2 = 8. Successivamente, leggendo un tempo reale di 4 unità, la previsione diventa (8 + 4)/2 = 6. Questo processo continua iterativamente, aggiornando la previsione in base al valore corrente e al fattore α.
+
+Il prof sottolinea che la media esponenziale tiene conto delle esperienze precedenti, ma le pesa in modo esponenziale, con un fattore di sconto del passato. Questo significa che i valori più recenti hanno un peso maggiore rispetto a quelli più vecchi. Il fattore α, compreso tra 0 e 1, determina quanto peso attribuire al tempo letto corrente rispetto all'ipotesi precedente. Il 1 - α, invece, si applica all'ipotesi precedente, ma con un esponente che cresce nel tempo, riducendo progressivamente il suo impatto.
+
+Il prof spiega che la formula della media esponenziale può essere espansa ricorsivamente, mostrando come la previsione al tempo Tn-1 dipende da α Tn e da 1 - α, che a sua volta dipende dall'ipotesi precedente. Questo processo continua fino a includere l'ipotesi iniziale, con un esponente che cresce in base al valore di α. Questo meccanismo crea un effetto di "fading", dove i valori più antichi vengono progressivamente ridimensionati.
+
+Il prof conclude che questa tecnica permette di fare previsioni sui tempi futuri, utilizzando una media esponenziale che bilancia il peso delle osservazioni passate e quelle correnti. Questo è un esempio concreto di come la media esponenziale viene applicata per stimare i tempi futuri in contesti di scheduling.
+
+## Esempio di SJF preemptivo  
+- **Definizione formale:** Processi P1-P4, tempi di arrivo e burst time.  
+  - P1: tempo di arrivo 0, burst time 10  
+  - P2: tempo di arrivo 1, burst time 4  
+  - P3: tempo di arrivo 2, burst time 9  
+  - P4: tempo di arrivo 3, burst time 5  
+  Il processo P1 viene eseguito da 0 a 1, P2 da 1 a 5, P3 da 5 a 14, P4 da 14 a 19. Il tempo di attesa medio si calcola come (17-0-8) per P1, (5-1-0) per P2, (14-3-5) per P3, (19-3-5) per P4.  
+
+- **Spiegazione del "perché":** Mostra come la prelazione riduce il tempo medio di attesa.  
+  - Il preemptive SJF seleziona il processo con il tempo rimanente di CPU minore, anche se non è il burst time iniziale.  
+  - Ad esempio, P2 (burst time 4) interrompe P1 (burst time 10) a tempo 1, poiché ha un tempo rimanente minore.  
+  - Il tempo medio di attesa si riduce rispetto al non preemptive SJF, poiché i processi brevi vengono eseguiti prima.  
+  - La formula per il tempo di attesa è: tempo di fine - tempo di arrivo - burst time.  
+  - Il tempo di turnaround (da quando il processo entra in coda a quando termina) varia con il quanto di tempo nel round-robin, ma il preemptive SJF minimizza il tempo di attesa medio.  
+
+- **Esempio numerico:**  
+  - P1: tempo di attesa 17-0-8 = 9  
+  - P2: tempo di attesa 5-1-0 = 4  
+  - P3: tempo di attesa 14-3-5 = 6  
+  - P4: tempo di attesa 19-3-5 = 11  
+  - Tempo medio di attesa: (9 + 4 + 6 + 11)/4 = 7.5  
+  - Con il non preemptive SJF, il tempo medio di attesa sarebbe maggiore.  
+
+- **Avvertenze:**  
+  - Il preemptive SJF può causare starvation se non si usano meccanismi di aging per aumentare la priorità dei processi in attesa.  
+  - Il tempo di attesa non include il tempo di CPU, ma solo il tempo in coda.  
+
+- **Affermazioni forti:**  
+  - "Il preemptive SJF è un algoritmo che permette di migliorare i tempi di attesa medi dei processi rispetto al non preemptive SJF."  
+  - "Il tempo di turnaround varia con la dimensione del quanto, ma non sempre aumenta con il quanto."
+
+## Calcolo tempo d'attesa e turnaround time  
+- **Esempio presente:** Formula per calcolare tempo d'attesa e turnaround time, esempio con tempi di arrivo e burst time.  
+  Il prof illustra un esempio dettagliato con processi P1, P2, P3, P4, con tempi di arrivo rispettivamente a 0, 1, 2, 3 e burst time di 6, 4, 9, 5. Il calcolo del tempo d'attesa e del turnaround time si basa sulla formula: **tempo di fine meno tempo di arrivo meno burst time**. Per esempio, il P1 ha un tempo di fine a 17, tempo di arrivo a 0 e burst time di 8, quindi il tempo d'attesa è 17 - 0 - 8 = 9. Il prof sottolinea che in caso di prelazione (round-robin), il calcolo diventa più complesso perché bisogna tenere conto del tempo in cui il processo è stato interrotto e riacodato.  
+
+- **Spiegazione del "perché":** Spiega come calcolare metriche chiave.  
+  Il prof spiega che il **shortest job first (SJF)** è scelto per minimizzare il tempo d'attesa medio, poiché seleziona il processo con il burst time minore. Inoltre, il prof introduce il concetto di **media esponenziale** per stimare i tempi futuri, pesando l'ultimo tempo letto con un coefficiente α (tra 0 e 1). Ad esempio, se α = 0.5, la previsione si calcola come:  
+  *previsione = (previsione precedente + tempo letto) / 2*.  
+  Questo metodo permette di adattarsi ai cambiamenti nel tempo di esecuzione dei processi.  
+
+  Il prof sottolinea che il **round-robin** è utilizzato per evitare la starvation (blocco di processi a bassa priorità), alternando i processi in coda con un "quantum" di tempo (es. 4 unità). Il tempo di attesa medio varia in base al quantum: se è troppo piccolo, si riduce il tempo di attesa ma si aumenta il sovraccarico dei conti e switch; se è troppo grande, si avvicina a un algoritmo non preemptive.  
+
+  Il prof mette in evidenza che il **calcolo del tempo di turnaround** (tempo totale di esecuzione da quando un processo entra in coda) dipende dal tempo di fine e dal tempo di arrivo, senza sottrarre il burst time. Ad esempio, il P2 ha un tempo di fine a 5 e un tempo di arrivo a 1, quindi il turnaround time è 5 - 1 = 4.  
+
+  Il prof avverte che in caso di prelazione, il calcolo del tempo d'attesa richiede di tenere traccia di quando un processo è stato interrotto e riacodato, come nel caso del P1 che è stato interrotto al tempo 1 e completato al tempo 17.
+
+## Priorità e starvation  
+- **Definizione formale:** Priorità assegnate numericamente, processi a bassa priorità rischiano di non essere mai eseguiti.  
+  *Il prof spiega che le priorità sono assegnate numericamente, e i processi con priorità bassa (numeriche elevate) rischiano di non essere mai eseguiti a causa della competizione con processi ad alta priorità. Questo fenomeno è noto come starvation.*  
+
+- **Spiegazione del "perché":** Introduce il problema della starvation e la sua soluzione con aging.  
+  *Il prof spiega che il problema della starvation si verifica quando processi ad alta priorità continuano ad arrivare, rendendo impossibile l'esecuzione di quelli a bassa priorità. La soluzione è l'aging, un meccanismo che aumenta progressivamente la priorità di un processo in attesa, evitando che rimanga bloccato indefinitamente. Il prof precisa che l'aging è un correttivo rispetto ai meccanismi di priorità, poiché senza di esso i processi a bassa priorità potrebbero mai essere eseguiti.*  
+
+  *Il prof sottolinea che il "first come first served" non ha problemi di starvation perché i processi vengono eseguiti in ordine di arrivo, mentre algoritmi come "shortest job first" possono causare starvation se processi brevi continuano ad arrivare e bypassano quelli a bassa priorità. L'aging è quindi necessario per garantire un equo accesso alla CPU.*  
+
+  *Il prof cita un esempio concreto di starvation: un processo in coda con priorità bassa potrebbe rimanere in attesa indefinitamente se processi ad alta priorità continuano ad arrivare. L'aging agisce aumentando la priorità del processo in attesa nel tempo, permettendogli di essere eseguito.*  
+
+  *Il prof spiega che l'aging è un meccanismo di "invecchiamento" che alza la priorità di un processo in attesa, anche se non ha quella priorità iniziale. Questo permette al processo di essere eseguito quando la coda di priorità più alta è vuota.*  
+
+  *Il prof confronta l'aging con il round-robin, sottolineando che il round-robin distribuisce le risorse più rapidamente e evita la starvation senza bisogno di invecchiamento, ma l'aging è un correttivo specifico per i sistemi con priorità fisse.*
+
+## Aging e meccanismi di migrazione tra code  
+- **Definizione formale:** Invecchiamento della priorità, migrazione di processi tra code per prevenire starvation.  
+  Il prof spiega che l'aging è un meccanismo che modifica la priorità dei processi nel tempo, alzandola gradualmente per evitare che processi con bassa priorità rimangano in attesa indefinita. Questo processo si basa sull'idea che un processo che attende da molto tempo dovrebbe essere privilegiato, anche se non ha una priorità iniziale elevata.  
+
+- **Spiegazione del "perché":**  
+  Il prof spiega che l'aging è necessario per risolvere il problema della starvation, un fenomeno in cui processi con bassa priorità non vengono mai eseguiti perché continuamente superati da processi ad alta priorità. Il meccanismo di aging alza la priorità di un processo nel tempo, garantendo che non rimanga bloccato in coda.  
+  Il prof sottolinea che senza meccanismi come l'aging o il round-robin, i processi con bassa priorità potrebbero mai essere eseguiti, causando un problema di starvation.  
+
+- **Esempi numerici e dettagli:**  
+  Il prof presenta un esempio con quattro processi (P1, P2, P3, P4) e spiega come l'aging influisce sulla loro priorità. Ad esempio, il processo P1, che inizialmente ha una priorità bassa, viene spostato in una coda con priorità più alta dopo un certo tempo di attesa. Questo processo viene eseguito solo quando la sua priorità è aumentata grazie all'aging.  
+  Il prof mostra anche come il tempo di attesa e il tempo di turnaround (tempo totale di esecuzione) vengono calcolati, sottraendo il tempo di burst (tempo di CPU) dal tempo di fine esecuzione. Ad esempio, per il processo P1, il tempo di turnaround è 17 unità di misura (tempo di fine) meno 8 unità di misura (tempo di burst), ottenendo 9 unità di misura di tempo di attesa.  
+
+- **Avvertenze e correttivi:**  
+  Il prof avverte che l'aging, da solo, non è sufficiente a risolvere il problema della starvation. È necessario combinare l'aging con altri meccanismi, come il round-robin, per garantire una distribuzione equa delle risorse. Inoltre, il prof sottolinea che il round-robin, se non calibrato correttamente, può introdurre un overhead elevato a causa dei context switch (cambi di contesto).  
+  Il prof mette in guardia anche sul fatto che l'aging non deve essere utilizzato senza un sistema di migrazione tra code, altrimenti i processi potrebbero rimanere bloccati in coda per molto tempo.  
+
+- **Affermazioni forti:**  
+  Il prof enfatizza che l'aging è un meccanismo di ultima istanza per evitare la starvation, mentre il round-robin è un metodo nativo per alternare i processi. Inoltre, il prof sottolinea che il sistema operativo deve gestire l'aging in modo flessibile, permettendo ai processi di spostarsi tra code in base al loro tempo di attesa e alla priorità.
+
+## Round Robin e time quantum  
+- **Definizione formale:** Algoritmo RR assegna un tempo quanti (time quantum) a ogni processo prima di passare al successivo.  
+- **Spiegazione del "perché":** Introduce Round Robin come soluzione equa e che riduce starvation.  
+
+Il Round Robin è un algoritmo di schedulazione che assegna a ogni processo un tempo quanti (time quantum) prima di passare al successivo. Questo approccio garantisce un'equa distribuzione del tempo di CPU tra i processi, evitando che alcuni siano privilegiati rispetto ad altri. Il tempo quanti è un valore calibrabile, solitamente tra 10 e 100 millisecondi, che determina quanto tempo un processo può eseguirsi prima di essere interrotto e spostato in coda.  
+
+Il motivo principale per cui Round Robin è utilizzato è per ridurre il problema della starvation, ovvero il rischio che alcuni processi non vengano mai eseguiti a causa della priorità di altri. Questo algoritmo permette a tutti i processi di ricevere un'opportunita di esecuzione regolare, anche se non completano il loro tempo quanti.  
+
+Nella trascrizione, il prof illustra un esempio concreti di come funziona Round Robin. Ad esempio, considerando un tempo quanti di 4 unità di misura, il processo P1 esegue per 4 unità, viene interrotto e spostato in coda. Successivamente, il processo P2 esegue per 3 unità, completando il suo tempo quanti, mentre il processo P3 esegue per 4 unità e viene interrotto. Questo processo di alternanza continua fino a quando tutti i processi non completano il loro tempo di esecuzione.  
+
+Il prof sottolinea che il tempo quanti deve essere calibrato con attenzione. Se il tempo quanti è troppo grande, l'algoritmo si comporta come FIFO, poiché i processi completano il loro tempo di esecuzione senza essere interrotti. Se invece il tempo quanti è troppo piccolo, si aumenta il numero di contest switch, che comportano un overhead significativo. Il prof afferma che il tempo quanti deve essere scelto in modo che il tempo di contest switch non superi il tempo quanti stesso, altrimenti l'efficienza dell'algoritmo si riduce.  
+
+Inoltre, il prof spiega che il Round Robin non richiede previsioni sui tempi futuri dei processi, a differenza di algoritmi come Shortest Job First. Questo rende l'algoritmo più semplice da implementare e meno soggetto a errori di previsione. Tuttavia, il prof avverte che il Round Robin non è sempre la soluzione ottimale, poiché in alcuni casi può aumentare il tempo di turnaround medio.  
+
+Nella trascrizione, il prof mostra un esempio dettagliato di come il Round Robin gestisce un insieme di processi con tempi di arrivo diversi. Ad esempio, con un tempo quanti di 4, il processo P1 esegue per 3 unità, viene interrotto e spostato in coda. Il processo P2 esegue per 3 unità, completando il suo tempo quanti, mentre il processo P3 esegue per 4 unità e viene interrotto. Questo processo di alternanza continua fino a quando tutti i processi non completano il loro tempo di esecuzione.  
+
+Il prof sottolinea che il Round Robin è un algoritmo che si basa su un'alternanza regolare dei processi, anche se non completano il loro tempo quanti. Questo approccio garantisce un'equa distribuzione del tempo di CPU, ma richiede una calibratura attenta del tempo quanti per evitare overhead eccessivo. Il prof conclude che il Round Robin è un algoritmo utile in molti contesti, ma non è sempre la soluzione migliore, a seconda delle esigenze specifiche del sistema.
+
+## Schedulazione su architetture multicore
+
+**Definizione formale:** Schedulazione considerando NUMA, multiprocessori eterogenei e bilanciamento carico.
+
+**Spiegazione del "perché":** Estende concetti di schedulazione a sistemi più complessi. Il prof spiega che la schedulazione su architetture multicore non si limita a gestire un singolo processore, ma deve tener conto di fattori come l'accesso alla memoria (NUMA), la diversità dei core (eterogeneità) e il bilanciamento del carico tra i core. Questo perché in architetture multicore, la gestione del tempo di attesa e la distribuzione delle risorse diventano più complessi, richiedendo algoritmi adatti a contesti con più unità di elaborazione parallele.
+
+---
+
+**Esempi numerici e dettagli tecnici:**  
+Il prof illustra l'importanza del bilanciamento del carico con un esempio di schedulazione preemptive basata su "shortest remaining time" (SRT). Nell'esempio, i processi P1, P2, P3 e P4 arrivano rispettivamente a tempi 0, 1, 2 e 3. I loro burst time sono 7, 4, 9 e 5. Il processo P1 inizia a tempo 0, ma viene interrotto a tempo 1 da P2 (che ha un burst time più breve). Il processo P2 viene eseguito fino a tempo 2, quando arriva P3, e così via. Il prof sottolinea che il tempo di attesa medio si riduce grazie all'interrompere i processi più lunghi e privilegiare quelli con burst time minore.  
+
+Un altro esempio riguarda il **round-robin (RR)**, dove il prof spiega che il quanto di tempo (time quantum) deve essere calibrato. Se il quanto è troppo grande, il RR si comporta come un algoritmo non preemptive, mentre se è piccolo, si riducono i tempi di attesa ma si aumentano i costi di contest switch. Il prof mostra un esempio con un quanto di 4 unità di tempo, dove il processo P1 (burst time 24) viene interrotto dopo 4 unità, riacodato, e così via.  
+
+---
+
+**Backtracking e correzioni:**  
+Il prof corregge un errore nel calcolo del tempo di attesa, spiegando che la formula corretta è:  
+**tempo di fine - tempo di arrivo - burst time**.  
+In un esempio specifico, il prof sottolinea che il tempo di attesa non deve includere il tempo di CPU effettivo, ma solo il tempo trascorso in coda. Questo è fondamentale per evitare errori nei calcoli del tempo di turnaround (tempo totale tra l'arrivo e la fine di un processo).  
+
+---
+
+**Avvertenze e problemi comuni:**  
+Il prof segnala il rischio di **starvation** (processi bloccati) nei sistemi con priorità fisse. Ad esempio, se continuano ad arrivare processi ad alta priorità, quelli a bassa priorità potrebbero mai essere eseguiti. Per risolvere questo, il prof introduce il concetto di **aging**, dove la priorità di un processo aumenta con il tempo di attesa.  
+
+Inoltre, il prof spiega che il **round-robin** non è gratuito: ogni contest switch (cambio di processo) introduce un overhead. Se il quanto è troppo piccolo, il tempo di attesa per il contest switch diventa significativo, riducendo l'efficienza.  
+
+---
+
+**Architetture multicore e NUMA:**  
+Il prof descrive le complessità della schedulazione su architetture multicore, dove ogni core ha una sua coda privata (coda RIDI). In sistemi NUMA (Non Uniform Memory Access), i core hanno accesso a memoria diversa, con velocità variabile. Il bilanciamento del carico diventa cruciale per evitare che un core sovraccarichi la memoria vicina.  
+
+In architetture eterogenee (multiprocessori eterogenei), i core possono differire per prestazioni, consumo energetico o funzionalità (es. big core vs. small core). La schedulazione deve considerare questi fattori, ad esempio privilegiando core a basso consumo per task non intensivi.  
+
+---
+
+**Conclusione:**  
+Il prof conclude che la schedulazione su architetture multicore richiede algoritmi adatti a contesti complessi, dove il bilanciamento del carico, la gestione della memoria e la distribuzione delle risorse sono fattori chiave. Gli esempi mostrati (SJF preemptive, RR, priorità con aging) illustrano come i sistemi operativi gestiscono la concorrenza e la distribuzione del lavoro in modo efficiente, anche se il problema diventa sempre più complesso al crescere del numero di core e della diversità delle risorse.
+
+## Esercizi e calcolo Gantt
+
+- **Esempio presente:** Costruzione di Gantt con tempi di arrivo e burst time, esercizio su round robin.  
+  Il prof illustra un esempio dettagliato di schedulazione con priorità e prelazione, utilizzando il criterio "shortest remaining time first" (SRTF). I processi P1, P2, P3, P4 e P5 hanno tempi di arrivo rispettivamente a 0, 1, 2, 3 e 4 millisecondi, con burst time di 7, 4, 9, 5 e 3 unità di misura. Il Gantt chart mostra la sequenza di esecuzione: P1 inizia a tempo 0, viene interrotto a tempo 1 da P2 (che ha burst time 4), poi a tempo 2 da P3 (burst time 9), e così via. Il prof spiega che il prelazione permette di selezionare il processo con il tempo rimanente minore, anche se non è finito, e che il tempo di attesa medio si calcola sottraendo il tempo di arrivo dal tempo di fine, poi sottraendo il burst time.  
+
+- **Spiegazione del "perché":** Applica concetti a casi concreti.  
+  Il prof sottolinea che il criterio SRTF è utile per minimizzare il tempo di attesa medio, ma richiede una stima del tempo futuro. Questa stima si basa su una media esponenziale (exponential averaging), dove il tempo predetto per un processo è calcolato con un coefficiente alfa (0 < alfa < 1) che pesa il tempo letto recente rispetto a quello precedente. Ad esempio, se alfa = 0.5, il tempo predetto per un processo con burst time 6 e 4 rispettivamente diventa 5, poi 5, e così via. Questo metodo permette di adattarsi ai cambiamenti nel comportamento dei processi.  
+
+  Nell'esercizio su round robin, il prof mostra come il tempo di attesa dipende dal quanto di tempo (time quantum) scelto. Se il quanto è troppo grande, il processo non viene interrotto e il Gantt chart mostra un'esecuzione continua. Se il quanto è piccolo, si alternano frequentemente i processi, ma si introduce un overhead dovuto ai conti e switch. Ad esempio, con un quanto di 4, il processo P1 (burst time 24) viene interrotto a 4, poi a 8, e così via, mentre il processo P2 (burst time 3) termina dopo 3 unità di tempo. Il prof calcola il tempo di attesa medio per ogni processo, sottolineando che il quanto deve essere bilanciato tra efficienza e overhead.  
+
+  Il prof conclude con un esempio di schedulazione con code multiple e priorità, dove i processi con priorità più alta vengono eseguiti per primi, e quelli con priorità uguale seguono un round robin. Questo modello evita la starvation grazie a meccanismi come l'aging, che aumenta la priorità dei processi in attesa. Il Gantt chart in questo caso mostra la sequenza di esecuzione dei processi P4 (priorità 1), P2 e P3 (priorità 2), e P1 e P5 (priorità 3), alternandoli in base al quanto assegnato a ciascuna coda.
