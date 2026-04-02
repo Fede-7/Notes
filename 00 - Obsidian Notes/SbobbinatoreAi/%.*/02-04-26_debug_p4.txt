@@ -1,0 +1,250 @@
+## Introduzione al problema di scheduling
+
+- **Definizione formale:** Il tempo di attesa è un aspetto critico nella gestione dei processi, migliorarlo è fondamentale per l'efficienza del sistema operativo.  
+  *Esempio tratto dalla trascrizione:* "effettivamente migliorare il tempo di attesa, quindi questo per come esempio è motivazionale per mostrare che un algoritmo banale a confronto già con una prima ottimizzazione già permette di migliorare i tempi di attesa medi dei processi."  
+
+- **Spiegazione del "perché":** Mostra l'importanza del ridurre il tempo di attesa medio attraverso ottimizzazioni.  
+  *Esempio tratto dalla trascrizione:* "Mostra l'importanza del ridurre il tempo di attesa medio attraverso ottimizzazioni."  
+  *Dettaglio aggiuntivo:* Il prof spiega che il miglioramento del tempo di attesa è motivato dal fatto che "se vogliamo minimizzare appunto il tempo di attesa medio possiamo appunto selezionare prima il processo che durerà di meno e così via".  
+
+---
+
+**Dimostrazioni formali:**  
+Il prof introduce un criterio di schedulazione basato sul *shortest job first* (SJF), spiegando che si seleziona il processo con il tempo di CPU minore.  
+*Esempio tratto dalla trascrizione:* "scegliamo n0 come massimo perché... selezionare il processo che si prevede che abbia il burst minore quindi che abbia un tempo di CPU minore".  
+
+**Esempi numerici:**  
+- Il prof presenta un esempio con un processo che ha un tempo di CPU stimato a 6 unità di misura (secondi, millisecondi, ecc.).  
+- Si descrive un algoritmo di previsione basato su una *media esponenziale*, con un esempio numerico: "se mettiamo alfa 1 vuol dire che la previsione sarà basata solo sul tempo passato appena letto, che è il futuro, se invece mettiamo qui è A, alfa qui è 0, ci basiamo solo sull'ipotesi iniziale".  
+- Si mostra un esempio concretizzato: "si parte per esempio con, per un processo, un'ipotesi di durata del CPU fast di questo processo di 10, ma poi si va a leggere 6, allora si fa diciamo 10 più 6, 16, diviso 2, 8, e questa sarà la mia guess per il tempo successivo".  
+
+**Avvertenze:**  
+- Il prof sottolinea che "bisogna avere una stima del tempo futuro" e che "se non si conoscono i tempi di computazione, bisogna appunto stimarli sulla base di una sorta di statistica".  
+- Viene menzionato un problema di *starvation* (processi bloccati a causa di priorità elevate): "Starvation significa che se continuano ad arrivare continuamente processi ad alta priorità, quello che è a bassa priorità non viene mai servito".  
+
+**Affermazioni forti:**  
+- Il prof enfatizza l'importanza del *shortest remaining time first* (SRTF) come metodo preemptivo: "questo significa fare la prelazione. Cioè nel momento in cui può sostituire, vuol dire che può sostituire il processo attualmente in CPU con un altro".  
+- Viene sottolineato il vantaggio del *round-robin* rispetto ad algoritmi non preemptivi: "round robin non è gratis, perché appunto così come ogni prelazione non è gratis, c'è il tempo di conto e switch".  
+
+**Backtracking e correzioni:**  
+Il prof corregge un calcolo iniziale, spiegando che "la formula generale per calcolarsi il tempo d'attesa nella coda libri è tempo di fine meno tempo di arrivo meno burst time".  
+
+**Conclusione:**  
+Il prof conclude con un esempio di *priority scheduling* con code multiple e meccanismi di *aging* per evitare la starvation: "questo è un esempio di code multiple dove uno può definire dei processi, per esempio, ad altissima priorità come quelli di sistema, poi possiamo avere i processi interattivi che vogliono avere soddisfazione immediata".
+
+---
+
+**Annotazioni visive:**  
+- `[FORMULA: new_estimate = alpha * actual_value + (1 - alpha) * old_estimate dove new_estimate è la stima aggiornata, alpha è il coefficiente di smoothing, actual_value è il valore effettivo misurato, old_estimate è la stima precedente]`  
+- `[FORMULA: tempo_di_attesa = tempo_di_fine - tempo_di_arrivo - burst_time dove tempo_di_attesa è il tempo di attesa, tempo_di_fine è il tempo in cui il processo termina, tempo_di_arrivo è il tempo in cui il processo arriva, burst_time è il tempo di CPU richiesto]`  
+- `[DIAGRAMMA flowchart: SRTF (Shortest Remaining Time First) con nodi "Processo in CPU", "Processo in coda", "Seleziona processo con burst minore", "Esegui burst", "Aggiorna tempo rimanente", "Ripeti"]`  
+- `[DIAGRAMMA timeline: Sequenza temporale di processi con tempi di arrivo, burst, e tempo di attesa, mostrando come il tempo di attesa si calcola]`  
+- `[DIAGRAMMA mindmap: Scheduling con radice "Scheduling", figli "SJF", "SRTF", "Round-Robin", "Priority Scheduling", e sottofigli "Starvation", "Aging", "Code multiple"]`
+
+## Shortest Job First (SJF)
+
+- **Esempio presente:** Seleziona il processo con burst time minore, esempio con tempi di attesa.  
+  Il prof illustra un esempio concreti di scheduling SJF, dove i processi P1, P2, P3, P4 hanno tempi di burst rispettivamente di 10, 6, 9, 5 unità di misura. Spiega che il criterio di SJF consiste nel selezionare il processo con il tempo di CPU minore, riducendo così il tempo di attesa medio. Ad esempio, il processo P2 (burst time 6) viene eseguito prima del P1 (burst time 10), e il P4 (burst time 5) viene eseguito dopo il P2. Il prof sottolinea che questa scelta ottimizza il tempo di attesa medio, come evidenziato dal calcolo del tempo di turnaround (tempo di fine meno tempo di arrivo) per ciascun processo.  
+  [FORMULA: "turnaround = (tempo di fine - tempo di arrivo) dove turnaround è il tempo totale trascorso dal momento dell'arrivo del processo al momento della sua terminazione"]  
+  [FORMULA: "waiting time medio = (waiting time P1 + waiting time P2 + waiting time P3 + waiting time P4) / 4 dove waiting time = tempo di attesa prima di iniziare l'esecuzione"]  
+
+- **Spiegazione del "perché":** Illustra vantaggi di SJF rispetto a scheduling FIFO.  
+  Il prof confronta SJF con FIFO, spiegando che SJF è più efficiente nel ridurre il tempo di attesa medio. Ad esempio, in un caso di FIFO, un processo lungo potrebbe attendere il completamento di processi più brevi, aumentando il tempo di attesa. Invece, SJF privilegia i processi brevi, minimizzando il tempo di attesa. Il prof sottolinea che SJF è particolarmente vantaggioso quando i tempi di burst sono noti in anticipo, ma richiede una stima accurata per processi futuri. Inoltre, il prof menziona che SJF non-preemptive può portare a un tempo di attesa maggiore se arrivano processi brevi dopo, mentre SJF preemptive (con prelazione) permette di interrompere processi in corso per eseguire quelli più brevi, ottimizzando ulteriormente il tempo di attesa.  
+  [TABELLA: "Confronto SJF vs FIFO: | Dimensione | SJF | FIFO | |---|---|---| | Tempo di attesa medio | Minore | Maggiore | | Preemption | SJF preemptive (ottimizza) | No | | Richiede conoscenza tempi di burst | Sì | No | | Adatto a scenari con tempi noti | Sì | No |"]
+
+## Estensione di SJF con exponential averaging
+
+- **Definizione formale:** Formula con α e 1-α per aggiornare previsioni su tempi futuri.  
+  Il prof spiega che per aggiornare le previsioni sui tempi futuri si utilizza una media esponenziale, dove α è un peso tra 0 e 1. Se α è 1, la previsione è basata solo sul tempo letto recentemente (il futuro), mentre se α è 0, si basa solo sull'ipotesi iniziale. La formula si applica confrontando l'ipotesi precedente con il valore attuale, e si calcola una media pesata tra l'ipotesi precedente e il tempo letto.  
+  [FORMULA: new_prediction = α * current_value + (1 - α) * previous_prediction dove new_prediction è la nuova previsione, α è il peso tra 0 e 1, current_value è il valore letto recentemente, previous_prediction è l'ipotesi precedente]
+
+- **Esempio presente:** Confronto tra ipotesi precedente, valore attuale e nuova previsione.  
+  Il prof presenta un esempio concreto: si parte con un'ipotesi iniziale di durata del CPU di 10 unità, ma si legge un valore attuale di 6. La nuova previsione si calcola come media tra 10 e 6, ottenendo 8. Successivamente, se si legge un valore attuale di 4, la nuova previsione diventa 6. Questo processo di aggiornamento delle previsioni è illustrato con numeri specifici e commenti dettagliati sulle fasi di calcolo.
+
+## Scheduling preemptivo (Shortest Remaining Time First)
+
+- **Esempio presente:** Esempio con interruzione di processo e priorità al tempo rimanente.  
+  Il prof illustra un esempio dettagliato in cui si applica l'algoritmo Shortest Remaining Time First (SRTF). I processi P1, P2, P3 e P4 arrivano rispettivamente al tempo 0, 1, 2 e 3. Al tempo 0, P1 è l'unico in coda e viene eseguito. Al tempo 1, P2 arriva e viene interrotto P1, che ha un tempo rimanente di 7 unità. P2, con tempo rimanente 4, viene eseguito. Al tempo 2, P3 arriva e viene interrotto P2, che ha tempo rimanente 3. P2 termina al tempo 5, mentre P3 ha tempo rimanente 9. Al tempo 3, P4 arriva con tempo rimanente 5. P4 viene eseguito fino al tempo 10, dove termina. P1, interrotto al tempo 1, riprende la sua esecuzione e termina al tempo 17. P3, interrotto al tempo 5, termina al tempo 26. Il prof calcola il tempo di attesa medio, sottolineando che il SRTF riduce il tempo di attesa rispetto a algoritmi non preemtivi.  
+
+- **Spiegazione del "perché":** Mostra come la prelazione migliora il tempo di attesa.  
+  Il prof spiega che il SRTF migliora il tempo di attesa medio perché seleziona il processo con il tempo rimanente minore, permettendo di terminare processi più brevi prima. Questo riduce il tempo di attesa per i processi che arrivano successivamente. Il prof sottolinea che il SRTF è un'ottimizzazione rispetto a algoritmi non preemtivi, come il Shortest Job First (SJF), poiché permette di interrompere processi in attesa di quelli con tempo rimanente minore. Il calcolo del tempo di attesa medio è illustrato con la formula: *tempo di fine meno tempo di arrivo meno burst time*. Il prof evidenzia che il SRTF è più efficiente nel ridurre il tempo di attesa rispetto a algoritmi non preemtivi, anche se presenta il problema della starvation.  
+
+[FORMULA: $ \text{Tempo di attesa} = (\text{Tempo di fine} - \text{Tempo di arrivo} - \text{Burst time}) $]  
+[TABELLA: Processo | Tempo di arrivo | Tempo di burst | Tempo di inizio | Tempo di fine | Tempo di attesa | Tempo di turnaround  
+--- | --- | --- | --- | --- | --- | ---  
+P1 | 0 | 10 | 0 | 17 | 7 | 17  
+P2 | 1 | 4 | 1 | 5 | 1 | 4  
+P3 | 2 | 9 | 5 | 26 | 14 | 24  
+P4 | 3 | 5 | 10 | 10 | 0 | 7]  
+[DIAGRAMMA flowchart: "SRTF" con nodi "Processo arriva", "Confronta tempo rimanente", "Esegui processo", "Processo termina", "Interrompi processo" e "Aggiorna coda"]
+
+## Calcolo tempo di attesa e turnaround time
+
+- **Spiegazione presente:** Formula tempo di fine - tempo di arrivo - burst time per calcolare tempo di attesa.  
+  Il prof spiega che il tempo di attesa si calcola come "tempo di fine meno tempo di arrivo meno burst time". Questa formula è specifica per il caso in cui non c'è prelazione. Quando c'è prelazione, la formula generale è diversa, come spiegato nel dettaglio: "la formula generale per calcolarsi il tempo d'attesa nella coda libri è tempo di fine meno tempo di arrivo meno burst time".  
+
+- **Avvertenza forte del prof:** La formula generale è diversa da quella semplificata quando c'è prelazione.  
+  Il prof sottolinea che "la formula generale è un'altra, cioè dovrebbe essere 17, perché meno 0, meno 8, ok?" e precisa che "la formula generale per calcolarsi il tempo d'attesa nella coda libri è tempo di fine meno tempo di arrivo meno burst time". Questo è un chiaro esempio di avvertenza forte, poiché il prof mette in evidenza la differenza tra il calcolo in presenza e in assenza di prelazione.  
+
+**Esempi numerici:**  
+- Il prof utilizza un esempio concreti di processi (P1, P2, P3, P4) con tempi di burst specifici (es. P1: 6, P2: 4, P3: 9, P4: 5) e spiega passo per passo come calcolare il tempo di attesa e turnaround time.  
+- Per il P1, il prof calcola "17-8" per ottenere il tempo di attesa, mentre per il P2, il tempo di attesa è "0" perché non è mai stato interrotto.  
+- Il prof sottolinea che "il P1 ha finito... praticamente, a 17, quindi quello che sarebbe il suo tempo, diciamo, di processamento, cioè da quando era pronto, ok, a quando ha finito, qui, è di 17 unità di misura".  
+
+**Dimostrazioni formali:**  
+- Il prof espone la formula generale per il tempo di attesa come "tempo di fine meno tempo di arrivo meno burst time" e la applica a diversi processi, spiegando ogni passaggio.  
+- Nell'esempio con il round-robin, il prof descrive come il tempo di attesa varia in base al quanto di tempo (es. 4 millisecondi) e spiega come il processo viene interrotto e riacodato.  
+
+**Il "perché" della scelta:**  
+- Il prof spiega che "si va a pesare qual è l'importanza da dare per l'ipotesi futura a quello che si è appena letto sul tempo di processamento di questo processo" quando si calcola la previsione del burst time.  
+- Nell'esempio del SRTF, il prof chiarisce che "si deve decidere... fare la prelazione" perché "il processo che ha il tempo rimanente minore va in esecuzione".  
+
+**Backtracking e versione finale:**  
+- Il prof corregge un calcolo iniziale e presenta la versione finale: "la formula generale per calcolarsi il tempo d'attesa nella coda libri è tempo di fine meno tempo di arrivo meno burst time".  
+- Nell'esempio del Gantt, il prof chiarisce che "il tempo di attesa è per ogni processo... si conta da quando arriva" e precisa che "il tempo di attesa non è il tempo di risposta, ma il tempo che il processo rimane in coda".  
+
+**Avvertenze:**  
+- Il prof avverte che "se il quanto di tempo è troppo piccolo rispetto al tempo di contest switch, il gioco non vale la candela".  
+- Sottolinea che "il quanto deve essere piccolo ma non troppo piccolo rispetto al tempo di contest switch" per evitare overhead.  
+
+**Affermazioni forti:**  
+- Il prof enfatizza che "la formula generale è un'altra" quando c'è prelazione.  
+- Sottolinea che "il tempo di turnaround varia con la dimensione del quanto" e che "non sempre aumentando il quanto si ha una diminuzione del turnaround medio".  
+- Il prof afferma che "il round robin è un algoritmo che permette di alternare i processi" e che "è un algoritmo che non è gratis, perché c'è il tempo di contest switch".
+
+---
+
+**ANNOTAZIONI VISIVE:**
+
+- **Spiegazione presente:** [FORMULA: "tempo_di_attesa = tempo_di_fine - tempo_di_arrivo - burst_time dove tempo_di_attesa è il tempo che il processo rimane in coda, tempo_di_fine è il momento in cui il processo termina, tempo_di_arrivo è il momento in cui il processo entra in coda, burst_time è la durata del processo in esecuzione"]  
+- **Esempi numerici:** [TABELLA: "Processo | Tempo di arrivo | Burst time | Tempo di attesa | Turnaround time" — "P1 | 0 | 6 | 17-0-6=11 | 17-0=17", "P2 | 0 | 4 | 0 | 4", "P3 | 0 | 9 | 17-0-9=8 | 17", "P4 | 0 | 5 | 17-0-5=12 | 17"]  
+- **Dimostrazioni formali:** [FORMULA: "tempo_di_attesa = tempo_di_fine - tempo_di_arrivo - burst_time"]  
+- **Dimostrazioni formali:** [DIAGRAMMA sequenceDiagram: "Processo P1 ->> CPU: richiede CPU (6 unità)\nCPU --> P1: esegue 6 unità\nP1 --> P1: interrotto (round-robin)\nP1 ->> CPU: richiede CPU (rimanenti 0 unità)\nCPU --> P1: esegue 0 unità"]  
+- **Il "perché" della scelta:** [FORMULA: "burst_time_previsto = peso_ipotesi * tempo_di_processamento"]  
+- **Il "perché" della scelta:** [DIAGRAMMA flowchart: "Inizio -> Calcola burst_time_previsto -> Confronta con tempo_di_processamento -> Se burst_time_previsto < tempo_di_processamento: seleziona SRTF -> Altrimenti: seleziona FIFO -> Fine"]  
+- **Backtracking e versione finale:** [FORMULA: "tempo_di_attesa = tempo_di_fine - tempo_di_arrivo - burst_time"]  
+- **Backtracking e versione finale:** [DIAGRAMMA gantt: "0-6: P1, 6-10: P2, 10-19: P3, 19-24: P4"]  
+- **Avvertenze:** [TABELLA: "Quantum | Tempo di contest switch | Overhead" — "4 ms | 1 ms | 0.25"]  
+- **Affermazioni forti:** [FORMULA: "turnaround_time = tempo_di_fine - tempo_di_arrivo"]  
+- **Affermazioni forti:** [DIAGRAMMA mindmap: "Round Robin -> Algoritmo -> Alternare processi -> Overhead -> Tempo di contest switch -> Quantum -> Dimensione del quanto"]
+
+## Priorità e starvation
+
+- **Definizione formale:** Priorità numeriche (Linux) e meccanismi di invecchiamento per risolvere starvation.  
+  Il prof spiega che in Linux le priorità sono numeriche, dove il numero più basso indica una priorità più alta. Ad esempio, un processo con priorità 1 ha maggiore priorità rispetto a uno con priorità 2. Questo sistema di priorità è utilizzato per gestire la schedulazione dei processi, assegnando la CPU al processo con la priorità più elevata. Tuttavia, questo approccio può portare a problemi di **starvation**, ovvero a processi a bassa priorità che non vengono mai eseguiti perché continuamente superati da processi ad alta priorità.  
+
+- **Esempio presente:** Esempio con processi a priorità diverse e gestione della starvation attraverso aging.  
+  Il prof presenta un esempio con cinque processi (P1-P5) con priorità diverse. Inizialmente, i processi sono schedulati in base alla loro priorità numerica. Tuttavia, il prof sottolinea che se continuano ad arrivare processi ad alta priorità, quelli a bassa priorità potrebbero rimanere in attesa indefinita. Per risolvere questo problema, viene introdotto il concetto di **aging**, un meccanismo che incrementa la priorità di un processo nel tempo, anche se non ha una priorità iniziale elevata.  
+
+  Nell'esempio, il processo P1 ha una priorità iniziale di 3, mentre P2 ha priorità 1, P3 priorità 2, P4 priorità 5, e P5 priorità 4. Il prof spiega che, senza meccanismi di aging, il processo P1 (priorità 3) potrebbe rimanere in attesa indefinita se continuano ad arrivare processi con priorità più bassa (come P2). Tuttavia, grazie all'aging, la priorità di P1 aumenta nel tempo, permettendogli di essere eseguito quando la coda è vuota.  
+
+  Il prof conclude che l'aging è un correttivo necessario per evitare la starvation, poiché permette ai processi a bassa priorità di essere eseguiti anche se non hanno una priorità iniziale elevata. Questo meccanismo è fondamentale per garantire un equo accesso alla CPU, anche in sistemi con priorità fisse.  
+
+  **Dettagli dell'esempio:**  
+  - I processi sono schedulati in base alla priorità numerica iniziale.  
+  - Il processo P2 (priorità 1) viene eseguito per primo, seguito da P3 (priorità 2), P1 (priorità 3), P5 (priorità 4), e infine P4 (priorità 5).  
+  - Senza aging, P1 potrebbe rimanere in attesa indefinita se continuano ad arrivare processi con priorità più bassa.  
+  - Grazie all'aging, la priorità di P1 aumenta nel tempo, permettendogli di essere eseguito quando la coda è vuota.  
+  - Il prof sottolinea che l'aging è un meccanismo di "invecchiamento" che incrementa la priorità di un processo in base al tempo di attesa, evitando così la starvation.  
+
+[FORMULA: Priorità numeriche in Linux: P1=3, P2=1, P3=2, P4=5, P5=4 dove P1-P5 rappresentano processi con priorità iniziale specifica]  
+[TABELLA: Priorità iniziale vs Priorità dopo aging — Processi P1-P5]  
+[DIAGRAMMA flowchart: Schedulazione dei processi in base alla priorità iniziale, con meccanismo di aging che incrementa la priorità nel tempo, evitando la starvation]
+
+## Round Robin e quantum
+
+- **Definizione formale:** Quantum calibrato per bilanciare efficienza e overhead di contest switch.  
+  Il quantum è un parametro calibrato per equilibrare l'efficienza del tempo di CPU con l'overhead introdotto dai contest switch. Il prof spiega che se il quantum è troppo largo, l'algoritmo si avvicina a un scheduler FIFO, mentre se è troppo piccolo, l'overhead dei contest switch diventa significativo. Il quantum deve essere scelto in modo che la sua dimensione sia paragonabile al tempo di contest switch, altrimenti si perde una parte significativa del tempo CPU per gestire i contest switch.  
+
+- **Spiegazione del "perché":** Spiega trade-off tra quantum e overhead di contest switch.  
+  Il prof sottolinea che il quantum deve essere calibrato in modo che non sia né troppo grande né troppo piccolo. Se il quantum è grande, il processo non richiede contest switch, ma potrebbe non completare il suo tempo di CPU in un'unica esecuzione, portando a un overhead complessivo. Se il quantum è piccolo, si riduce il tempo di CPU effettivo, ma si aumenta il numero di contest switch, che hanno un overhead. Il trade-off si manifesta nel fatto che un quantum troppo piccolo può portare a un overhead di contest switch che supera l'efficienza guadagnata. Il prof cita un esempio con un processo di 10 unità di tempo e un quantum di 4, che richiede un contest switch, mentre un quantum di 1 porta a 9 contest switch. Il prof conclude che il quantum deve essere scelto in modo che il tempo di contest switch non superi il 10% del quantum stesso.  
+
+  Il prof spiega inoltre che il tempo di turnaround varia con la dimensione del quantum, ma non sempre aumenta con il quantum. In alcuni esempi, un quantum più grande riduce il tempo di turnaround medio, mentre in altri non è così. La regola empirica è che se l'80% del tempo di CPU è più corto del quantum, il quantum è ben calibrato.  
+
+  Il prof conclude che il round robin non è gratis, poiché ogni contest switch costa tempo CPU, e quindi il quantum deve essere scelto in modo da minimizzare questo overhead.  
+
+[FORMULA: "context_switch_time ≤ 0.1 * quantum dove context_switch_time è il tempo richiesto per un contest switch e quantum è la dimensione del quantum"]  
+[FORMULA: "CPU_time < 0.8 * quantum dove CPU_time è il tempo di CPU richiesto dal processo e quantum è la dimensione del quantum"]  
+[TABELLA: "Quantum | Contest Switches | Overhead" — "Confronto tra quantum di 4 e 1"]
+
+## Scheduling con code multiple e feedback
+
+- **Esempio presente:** Esempi con processi in foreground e background, promozione/decadimento basato su tempi di attesa.  
+  Il prof presenta un esempio dettagliato di scheduling con code multiple, dove i processi vengono spostati tra code in base al loro tempo di attesa e alla priorità. Ad esempio, il processo P1 (foreground) viene promosso in coda di priorità 0, mentre i processi in background (P2, P3, P4, P5) vengono gestiti in code con priorità diverse. Il processo P1, dopo aver consumato parte del suo quanto, viene spostato in una coda a priorità inferiore (code multiple con feedback), mentre i processi in background vengono promossi in code di priorità più alta se il loro tempo di attesa diventa elevato. Il prof spiega che il meccanismo di aging (invecchiamento) aumenta la priorità dei processi in attesa per evitare la starvation, permettendogli di essere eseguiti anche se non hanno priorità iniziale.  
+
+- **Spiegazione del "perché":** Mostra come la gestione delle code multiple risolve problemi di starvation.  
+  Il prof spiega che le code multiple con feedback risolvono il problema della starvation grazie al meccanismo di aging e al round-robin. Quando un processo non viene eseguito per un lungo periodo, la sua priorità viene incrementata automaticamente (aging), permettendogli di essere schedulato. Inoltre, il round-robin garantisce che ogni processo riceva un'opportunita di esecuzione, anche se non ha priorità iniziale. Il prof sottolinea che senza questi meccanismi, i processi con bassa priorità potrebbero rimanere in attesa indefinitamente, causando starvation. La gestione delle code multiple permette quindi di bilanciare la priorità e il tempo di attesa, evitando che alcuni processi siano ignorati.
+
+[DIAGRAMMA flowchart: "Scheduling con code multiple e feedback" — nodi: "Coda di priorità 0", "Coda di priorità 1", "Coda di priorità 2", "Coda di priorità 3", "Coda di priorità 4"; relazioni: "Promozione" (da coda di priorità 1 a coda di priorità 0), "Decadimento" (da coda di priorità 0 a coda di priorità 1), "Aging" (da coda di priorità 2 a coda di priorità 3), "Round-robin" (da coda di priorità 3 a coda di priorità 4); etichette: "Tempo di attesa elevato", "Priorità incrementata", "Quanto consumato", "Esecuzione"]  
+[TABELLA: "Confronto tra processi in foreground e background" — colonne esplicite: "Processo", "Priorità iniziale", "Tempo di attesa", "Aging", "Coda di destinazione"; righe: "P1", "P2", "P3", "P4", "P5"]  
+[DIAGRAMMA stateDiagram-v2: "Meccanismo di aging" — stato iniziale: "Priorità bassa", stato finale: "Priorità elevata"; transizione: "Aging" (condizione: "Tempo di attesa > soglia"); etichette: "Incremento di priorità", "Esecuzione"]
+
+## Sistemi multi-core e NUMA
+
+- **Annuncio presente:** Introduzione a contesti avanzati di scheduling in sistemi multicore, affinità e load balancing.  
+  Il prof introduce il concetto di scheduling in contesti multi-core, enfatizzando l'importanza dell'affinità (la preferenza per un core specifico) e del load balancing (bilanciamento del carico tra core). Questi concetti sono fondamentali per gestire efficacemente i processi in architetture multicore, dove ogni core può eseguire più thread contemporaneamente. Il prof spiega come la gestione delle code multiple risolve problemi di starvation, ovvero la situazione in cui alcuni processi non vengono mai eseguiti a causa della priorità di altri. L'esempio fornito riguarda un algoritmo preemptive (con prelazione) basato sul "shortest remaining time", dove il processo con il tempo rimanente minore viene eseguito per primo. Questo approccio permette di minimizzare il tempo di attesa medio, ma richiede una gestione dinamica delle code e una previsione accurata dei tempi di esecuzione futuri.  
+  [FORMULA: "α = 1 - β dove α è il peso della previsione precedente e β è il peso della misura corrente (0 < β < 1)"]  
+  [DIAGRAMMA flowchart: "Scheduling preemptive con shortest remaining time: 1. Verifica tempo rimanente di tutti i processi in coda; 2. Se un processo ha tempo rimanente minore, eseguilo; 3. Se un nuovo processo arriva con tempo rimanente minore, preempe il processo corrente; 4. Aggiorna la previsione del tempo rimanente con exponential averaging"]  
+
+- **Spiegazione del "perché":** Spiega come la gestione delle code multiple risolve problemi di starvation.  
+  Il prof approfondisce il "perché" della gestione delle code multiple, collegandola al problema della starvation. Spiega che la starvation si verifica quando processi con bassa priorità non vengono mai eseguiti a causa di processi ad alta priorità che continuano ad arrivare. Per risolvere questo, vengono introdotti meccanismi come l'aging, che aumenta la priorità di un processo con il tempo di attesa, garantendo che non rimanga in attesa indefinitamente. Il prof illustra un esempio concreti di scheduling preemptive, dove un processo (P1) viene interrotto da un altro (P2) per permettere a quest'ultimo di eseguirsi. Questo esempio mostra come la prelazione (preemption) permetta di ottimizzare il tempo di attesa medio, ma richiede un calcolo dinamico dei tempi di esecuzione rimanenti. Inoltre, il prof spiega come il concetto di "exponential averaging" (media esponenziale) venga utilizzato per stimare i tempi futuri, pesando in modo diverso le previsioni passate e le misure correnti. Questo approccio è essenziale per rendere l'algoritmo di scheduling più reattivo e preciso.  
+  [FORMULA: "E_t = α * E_{t-1} + (1 - α) * M_t dove E_t è la previsione al tempo t, E_{t-1} è la previsione precedente, M_t è la misura corrente e α è il fattore di smoothing (0 < α < 1)"]  
+  [DIAGRAMMA flowchart: "Calcolo del tempo rimanente con exponential averaging: 1. Calcola la previsione precedente E_{t-1}; 2. Misura il tempo reale M_t; 3. Applica la formula E_t = α * E_{t-1} + (1 - α) * M_t; 4. Aggiorna la previsione per il prossimo ciclo"]
+
+## Esercizi e confronto algoritmi
+
+**Esempio presente:** Analisi di scenari con SJF, Round Robin e priorità (Gantt, tempi di attesa).  
+Il prof illustra un esempio dettagliato con quattro processi (P1, P2, P3, P4) e i loro tempi di burst. Si descrive come il scheduler seleziona il processo con il tempo di CPU minore (SJF preemptive), mostrando il Gantt chart e i tempi di attesa. Ad esempio, il P1 ha un burst time di 6, il P2 di 4, il P3 di 9 e il P4 di 5. Il processo P2 viene eseguito per primo, interrompendo il P1, e il P4 viene eseguito in seguito. Il prof calcola il tempo di attesa medio, sottolineando che il P1 ha un tempo di attesa di 17 unità di misura (da quando è pronto a quando termina), mentre il P2 ha un tempo di attesa di 0. Si spiega che il tempo di attesa medio è calcolato come (tempo di fine - tempo di arrivo - burst time).  
+
+**Spiegazione del "perché":** Applica concetti a casi concreti per valutare efficienza degli algoritmi.  
+Il prof sottolinea che l'analisi di scenari concreti permette di confrontare l'efficienza degli algoritmi di scheduling. Ad esempio, il SJF preemptive riduce i tempi di attesa medi rispetto al caso non preemptive. Si spiega che il Round Robin, con un quanto di tempo (es. 4 unità), alternando i processi, evita la starvation e distribuisce il tempo CPU in modo più equo. Il prof mette in evidenza che il tempo di attesa medio varia con la dimensione del quanto: un quanto troppo piccolo aumenta l'overhead dei context switch, mentre un quanto troppo grande riduce la risposta. Si cita un esempio con un quanto di 4, dove il tempo di turnaround medio si riduce, ma si avverte che non sempre un quanto maggiore riduce il tempo medio.  
+
+**Backtracking e correzioni:**  
+Il prof corregge un errore nella formula del tempo di attesa, precisando che la formula generale è (tempo di fine - tempo di arrivo - burst time), non (tempo di fine - tempo di arrivo). Si sottolinea che il tempo di turnaround è il tempo totale da quando un processo entra in coda fino al termine, mentre il tempo di attesa è il tempo trascorso in coda.  
+
+**Esempi numerici:**  
+- **SJF preemptive:**  
+  - P1: burst time 6, tempo di attesa 17.  
+  - P2: burst time 4, tempo di attesa 0.  
+  - P3: burst time 9, tempo di attesa 14.  
+  - P4: burst time 5, tempo di attesa 2.  
+  - Tempo di attesa medio: (17 + 0 + 14 + 2)/4 = 33/4 = 8.25.  
+
+- **Round Robin (quanto 4):**  
+  - Gantt chart: A (0-3), B (3-7), C (7-11), D (11-15), E (15-19).  
+  - Tempo di attesa per P1: 17 (da 0 a 17).  
+  - Tempo di attesa per P2: 15 (da 2 a 17).  
+  - Tempo di attesa per P3: 14 (da 3 a 17).  
+  - Tempo di attesa per P4: 19 (da 6 a 19).  
+  - Tempo di attesa medio: (17 + 15 + 14 + 19)/4 = 65/4 = 16.25.  
+
+**Avvertenze:**  
+- Il prof avverte che il Round Robin non è gratis: ogni context switch introduce un overhead.  
+- La starvation nei sistemi a priorità richiede meccanismi di aging per aumentare la priorità dei processi in attesa.  
+- Il tempo di turnaround dipende dal quanto: un quanto troppo piccolo aumenta l'overhead, mentre un quanto troppo grande riduce la risposta.  
+
+**Affermazioni forti:**  
+- Il prof enfatizza che il Round Robin è più efficiente per processi interattivi, mentre il SJF è adatto per processi CPU-bound.  
+- Si sottolinea che il tempo di attesa medio è un indicatore chiave per valutare l'efficienza degli algoritmi di scheduling.  
+- Il prof conclude che il confronto tra algoritmi richiede esempi concreti, come quelli mostrati, per valutare l'impatto delle scelte di scheduling.
+
+---
+
+**ANNOTAZIONI VISUALI:**
+
+- `[FORMULA: (tempo di fine - tempo di arrivo - burst time) dove "tempo di fine" è il momento in cui il processo termina, "tempo di arrivo" è il momento in cui il processo entra in coda, e "burst time" è il tempo necessario per eseguire il processo]`
+- `[DIAGRAMMA flowchart: selezione SJF preemptive con nodi "Calcola burst time", "Seleziona processo con burst time minore", "Esegui processo", "Interrompi se arriva un processo con burst time minore", "Aggiorna lista processi in coda"]`
+- `[DIAGRAMMA timeline: sequenza di esecuzione Round Robin con quante di 4 unità, mostrando i segmenti di esecuzione (0-3), (3-7), (7-11), (11-15), (15-19) e i momenti di context switch]`
+- `[TABELLA: Algoritmo | Tempo di attesa medio | Tempo di turnaround medio | Overhead context switch | Applicazione ideale]`
+
+## DIPENDENZE
+
+- Blocco 2 dipende da Blocco 1: [DIAGRAMMA flowchart: "Blocco 1 → Blocco 2"]  
+- Blocco 3 dipende da Blocco 2: [DIAGRAMMA flowchart: "Blocco 2 → Blocco 3"]  
+- Blocco 4 dipende da Blocco 2: [DIAGRAMMA flowchart: "Blocco 2 → Blocco 4"]  
+- Blocco 5 dipende da tutti i blocchi precedenti: [DIAGRAMMA flowchart: "Blocco 1 + Blocco 2 + Blocco 3 + Blocco 4 → Blocco 5"]  
+- Blocco 6 dipende da Blocco 4: [DIAGRAMMA flowchart: "Blocco 4 → Blocco 6"]  
+- Blocco 7 dipende da Blocco 6: [DIAGRAMMA flowchart: "Blocco 6 → Blocco 7"]  
+- Blocco 8 dipende da Blocco 7: [DIAGRAMMA flowchart: "Blocco 7 → Blocco 8"]  
+- Blocco 9 dipende da Blocco 7: [DIAGRAMMA flowchart: "Blocco 7 → Blocco 9"]  
+- Blocco 10 dipende da Blocco 7: [DIAGRAMMA flowchart: "Blocco 7 → Blocco 10"]
