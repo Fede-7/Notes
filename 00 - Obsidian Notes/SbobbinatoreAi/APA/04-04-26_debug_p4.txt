@@ -1,0 +1,242 @@
+## Albero di ricorrenza e relazione ricorsiva del caso peggiore
+
+- **Definizione**: Albero binario con nodi interni grado 2, altezza logaritmica nel caso migliore e quadratica nel peggiore.  
+  *La trascrizione menziona: "albero binario con nodi interni grado 2, altezza logaritmica nel caso migliore e quadratica nel peggiore".*  
+  [DIAGRAMMA mindmap: Albero binario con nodi interni grado 2, dove i nodi sono organizzati in livelli. Il livello radice ha un solo nodo, e ogni livello successivo ha due nodi. Nella migliore situazione, l'altezza è logaritmica (es. albero perfetto), mentre nel peggiore è quadratica (es. albero lineare).]
+
+- **Equazione di ricorrenza presente**: T(n) = T(n-1) + T(1) + O(n)  
+  *La trascrizione include: "equazione di ricorrenza a cui eravamo giunti era questa. Qui però, ovviamente, n... , qua mettiamo n. Quindi n è uguale a questo. , e questo è di max di 1 di... Quindi questa è l'equazione di ricorrenza che ha".*  
+  [FORMULA: T(n) = T(n-1) + T(1) + O(n) dove T(n) rappresenta il tempo di esecuzione per un input di dimensione n, T(n-1) è il tempo per un input di dimensione n-1, T(1) è il tempo per un input di dimensione 1, e O(n) rappresenta il costo lineare per le chiamate di partizione.]
+
+- **Spiegazioni del "perché"**: Introduzione del modello matematico per analizzare il tempo di esecuzione in caso peggiore.  
+  *La trascrizione afferma: "per analizzare il tempo di risoluzione, perché sostanzialmente ogni livello ha un costo, così, la maggior parte dei livelli questo albero, dell'albero indotto avrà un costo lineare dovuto a tutte le chiamate di partizione il tempo di esecuzione era essenzialmente indotto dall'altezza dell'albero".*
+
+## Analisi del caso medio e rango di un elemento
+
+- **Definizione**: Scelta casuale del pivot riduce la dipendenza dall'input, rango determina dimensione delle partizioni.  
+  *Esempio presente*: Alternanza tra partizioni bilanciate e sbilanciate (1/n vs 9/10n).  
+  *Dimostrazione presente*: T(n) = Θ(n log n) per il tempo medio — passo per passo con scelta di n0.  
+  *Esempio presente*: Partizione bilanciata e disomogenea, rango determinante la dimensione delle partizioni.  
+  *Avvertenza o affermazione forte del prof*: Caso peggiore non è frequente nel caso medio.  
+
+**Dettagli estratti dalla trascrizione**:  
+- Il prof spiega che la scelta casuale del pivot rende le dimensioni delle partizioni indipendenti dall'input, riducendo la dipendenza dall'input.  
+- Viene presentato un esempio con partizioni bilanciate (1/n) e sbilanciate (9/10n), alternando tra due scenari.  
+- La dimostrazione del tempo medio T(n) = Θ(n log n) è sviluppata passo per passo, con riferimento alla scelta di n0 e alla somma dei contributi dei livelli dell'albero di ricorrenza.  
+- Il prof sottolinea che il caso peggiore (sbilanciamento estremo) non è frequente nel caso medio, a differenza di algoritmi come il merge sort.  
+- Il rango di un elemento (numero di elementi minori o uguali a esso) determina la dimensione delle partizioni.  
+- Viene menzionato che il rango influisce sulle dimensioni delle partizioni, con esempi di partizioni disomogenee (es. 1/10n vs 9/10n) e il loro impatto sul tempo di esecuzione.  
+- Il prof afferma che il caso medio di quicksort si comporta bene quando le partizioni sono bilanciate, mentre il caso peggiore (sbilanciamento) è raro.  
+- Viene descritto un esempio di analisi del caso medio con scelta casuale del pivot, dove il rango dell'elemento scelto come pivot determina la dimensione delle partizioni.  
+- Il prof sottolinea che il tempo medio di quicksort è Θ(n log n), mentre il caso peggiore è Θ(n²), ma il primo è più frequente.  
+- Viene menzionato che il caso medio di quicksort è simile a quello del merge sort, ma il caso peggiore è peggiore.  
+- Il prof conclude che il caso medio di quicksort è buono, nonostante il caso peggiore non sia frequente.
+
+---
+
+**ANNOTAZIONI VISIVE**
+
+- **Definizione**: Scelta casuale del pivot riduce la dipendenza dall'input, rango determina dimensione delle partizioni.  
+  *Esempio presente*: Alternanza tra partizioni bilanciate e sbilanciate (1/n vs 9/10n).  
+  *Dimostrazione presente*: [FORMULA: T(n) = Θ(n log n) dove T(n) è il tempo medio, n è la dimensione dell'input, log n rappresenta il numero di livelli dell'albero di ricorrenza] — passo per passo con scelta di n0.  
+  *Esempio presente*: Partizione bilanciata e disomogenea, rango determinante la dimensione delle partizioni.  
+  *Avvertenza o affermazione forte del prof*: Caso peggiore non è frequente nel caso medio.  
+
+**Dettagli estratti dalla trascrizione**:  
+- Il prof spiega che la scelta casuale del pivot rende le dimensioni delle partizioni indipendenti dall'input, riducendo la dipendenza dall'input.  
+- Viene presentato un esempio con partizioni bilanciate (1/n) e sbilanciate (9/10n), alternando tra due scenari.  
+- La dimostrazione del tempo medio T(n) = Θ(n log n) è sviluppata passo per passo, con riferimento alla scelta di n0 e alla somma dei contributi dei livelli dell'albero di ricorrenza.  
+- Il prof sottolinea che il caso peggiore (sbilanciamento estremo) non è frequente nel caso medio, a differenza di algoritmi come il merge sort.  
+- Il rango di un elemento (numero di elementi minori o uguali a esso) determina la dimensione delle partizioni.  
+- Viene menzionato che il rango influisce sulle dimensioni delle partizioni, con esempi di partizioni disomogenee (es. 1/10n vs 9/10n) e il loro impatto sul tempo di esecuzione.  
+- Il prof afferma che il caso medio di quicksort si comporta bene quando le partizioni sono bilanciate, mentre il caso peggiore (sbilanciamento) è raro.  
+- Viene descritto un esempio di analisi del caso medio con scelta casuale del pivot, dove il rango dell'elemento scelto come pivot determina la dimensione delle partizioni.  
+- Il prof sottolinea che il tempo medio di quicksort è Θ(n log n), mentre il caso peggiore è Θ(n²), ma il primo è più frequente.  
+- Viene menzionato che il caso medio di quicksort è simile a quello del merge sort, ma il caso peggiore è peggiore.  
+- Il prof conclude che il caso medio di quicksort è buono, nonostante il caso peggiore non sia frequente.
+
+---
+
+**ANNOTAZIONI VISIVE**
+
+- **Definizione**: Scelta casuale del pivot riduce la dipendenza dall'input, rango determina dimensione delle partizioni.  
+  *Esempio presente*: Alternanza tra partizioni bilanciate e sbilanciate (1/n vs 9/10n).  
+  *Dimostrazione presente*: [FORMULA: T(n) = Θ(n log n) dove T(n) è il tempo medio, n è la dimensione dell'input, log n rappresenta il numero di livelli dell'albero di ricorrenza] — passo per passo con scelta di n0.  
+  *Esempio presente*: Partizione bilanciata e disomogenea, rango
+
+## Confronto con MergeSort nel caso peggiore
+
+- **Esempio presente**: Confronto tra QuickSort e MergeSort per il tempo di esecuzione (Θ(n log n) vs Θ(n²)).  
+  Il prof sottolinea che QuickSort, nel caso peggiore, ha un tempo di esecuzione Θ(n²), mentre MergeSort mantiene un tempo Θ(n log n). Questo è stato analizzato attraverso l'equazione di ricorrenza dell'albero di ricorrenza, dove il caso peggiore di QuickSort si verifica quando le partizioni sono sbilanciate (ad esempio, 1 e n-1), portando a un albero di altezza lineare su n. Il prof afferma che questa analisi conferma che QuickSort non è ottimale asintoticamente nel caso peggiore.  
+  [FORMULA: T(n) = Θ(n log n) per MergeSort]  
+  [FORMULA: T(n) = Θ(n²) per QuickSort nel caso peggiore]  
+  [FORMULA: T(n) = T(n-1) + Θ(n) per il caso peggiore di QuickSort]  
+
+- **Avvertenza o affermazione forte del prof**: MergeSort è ottimale asintoticamente, mentre QuickSort non lo è nel caso peggiore.  
+  Il prof precisa che MergeSort è ottimale asintoticamente, in quanto il suo tempo di esecuzione è Θ(n log n) in tutti i casi (migliore, medio, peggiore). Al contrario, QuickSort non è ottimale nel caso peggiore, dove il tempo diventa Θ(n²). Questo è un "avvertenza forte" del prof, che sottolinea la differenza fondamentale tra i due algoritmi in termini di prestazioni asintotiche.  
+  [FORMULA: T(n) = 2T(n/2) + Θ(n) per MergeSort]  
+  [DIAGRAMMA flowchart: Albero di ricorrenza di QuickSort nel caso peggiore con partizioni sbilanciate (1 e n-1), mostrando un'altezza lineare su n]
+
+## Limiti asintotici per algoritmi di ordinamento
+
+- **Affermazione forte del prof**: Nessun algoritmo di ordinamento per confronti può superare n log n.  
+  *Estratto*: "Nessun algoritmo di ordinamento per confronti, e quindi generale, riuscirà mai a calcolare l'ordinamento usando i confronti in tempo meno di che è in ordine."  
+  [FORMULA: "T(n) ≥ n log n dove T(n) è il tempo asintotico necessario per ordinare n elementi, n è il numero di elementi da ordinare, log n è il logaritmo in base 2 di n. Questa disuguaglianza rappresenta il limite inferiore per algoritmi di ordinamento basati su confronti"]  
+
+- **Spiegazioni del "perché"**: Teoria generale sugli algoritmi di ordinamento e limiti asintotici.  
+  *Estratto*: "Quando affermo questo enunciato in linguaggio naturale, in realtà sto implicitamente quantificando universalmente su tutti gli algoritmi possibili. Sto dicendo che per ogni algoritmo a, appartenente agli algoritmi di ordinamento, il tempo di a su n è minore o uguale di f di n. Voglio un limite superiore asintotico... n log n è il meglio che si può fare."  
+  [DIAGRAMMA flowchart: "Algoritmo di ordinamento per confronti → Confronto tra elementi → Se elemento1 < elemento2 → Scambia posizioni → Altrimenti → Non scambia → Ripeti fino a quando tutti gli elementi sono ordinati. Questo flowchart visualizza la struttura base di un algoritmo di ordinamento per confronti"]  
+
+  *Estratto*: "Asintomaticamente parlando, ovviamente, come MerSort. Quindi, asintomaticamente, MerSort è ottimale, in realtà, non è anche XSort, se è per questo, ma QuickSort, nonostante sia considerato... uno dei migliori algoritmi di ordinamento nel caso generale dove non ci sono vincoli sulle sequenze sui valori contenuti nelle sequenze non è ottimo nel caso peggiore quindi ci sono casi in cui si comporta asintoticamente come insertion sort o come selection sort ovviamente Questo non significa, in nessun senso, che in genere non si comporti molto bene, perché abbiamo consideratoci il caso peggiore."  
+  [TABELLA: "Algoritmo | Tempo Asintotico | Casi Peggiore | Casi Medio | Casi Migliore" "MergeSort | O(n log n) | O(n log n) | O(n log n) | O(n log n)" "QuickSort | O(n²) | O(n log n) | O(n log n) | O(n log n)" "Insertion Sort | O(n²) | O(n²) | O(n) | O(n)" "Selection Sort | O(n²) | O(n²) | O(n²) | O(n²)"]  
+
+  *Estratto*: "Il meglio che si può fare è nello gain sostanzialmente, quindi è un caso meglio in generale. E quindi... esatto, il social sort praticamente quasi sempre si comporta nel modo peggiore possibile o molto vicino al comportamento peggiore possibile e per quel che riguarda quick sort invece non abbiamo ancora un'analisi di caso medio e io proverò a farvene una che Però prima di farvi un'analisi del caso medio, volevo darvi un po' l'intuizione del perché questa situazione non è così frequente come succedeva per esempio in San Francisco."  
+  [DIAGRAMMA sequenceDiagram: "Partecipanti: Algoritmo, Analisi Caso Medio, Dati. Algoritmo->>Analisi Caso Medio: Richiedi analisi del caso medio. Analisi Caso Medio->>Dati: Calcola distribuzione dei dati. Dati->>Analisi Caso Medio: Restituisci statistiche. Analisi Caso Medio->>Algoritmo: Risultati analisi. Algoritmo->>Analisi Caso Medio: Applica ottimizzazioni. Analisi Caso Medio->>Algoritmo: Conferma ottimizzazione"]  
+
+  *Estratto*: "L'osservazione interessante sarà quella di trovare una sorta di modello astratto di algoritmi di ordinamento corposo. che è specifica per quello, ovviamente, perché non è che sarà una frazione universale per algoritmi. Ma, poiché questi algoritmi, tutti quelli che stiamo considerando, sono algoritmi di ordinamento che ordinano usando i confronti, vuol dire che l'ordinamento sarà determinato dai confronti che fanno."  
+  [DIAGRAMMA mindmap: "Radice: Algoritmi di ordinamento per confronti. Figli: Confronto tra elementi, Scambio di posizioni, Ripetizione fino all'ordinamento. Sottofigli: MergeSort (Confronto, Unione), QuickSort (Scelta pivot, Partizionamento), Insertion Sort (Confronto, Inserimento), Selection Sort (Confronto, Scelta minimo)."]
+
+## Introduzione al caso medio di QuickSort (esempio)
+
+- **Esempio presente**: Analisi del caso medio con partizioni bilanciate e disomogenee.  
+  Il prof illustra come il caso medio di QuickSort si ottiene quando le partizioni sono bilanciate, con un costo lineare per livello dell'albero di ricorrenza. Si sottolinea che il tempo di esecuzione dipende dall'altezza dell'albero, e nel caso medio questa altezza è logaritmica rispetto al numero di nodi. Si confronta il caso medio con il caso peggiore, dove l'altezza dell'albero diventa lineare, portando a un tempo quadratico.  
+
+- **Dipende da**: ## Albero di ricorrenza e relazione ricorsiva del caso peggiore  
+  L'analisi del caso medio si basa sull'osservazione che, nel caso peggiore, l'albero di ricorrenza ha un'altezza lineare, mentre nel caso medio è logaritmica. Il prof spiega che il caso medio si ottiene quando le partizioni sono quasi bilanciate, e si utilizza un'equazione di ricorrenza per modellare il tempo di esecuzione.  
+
+  Si discute un esempio specifico in cui una partizione divide l'input in un decimo e nove decimi, portando a un'equazione di ricorrenza con soluzione Θ(n log n). Il prof sottolinea che, anche in questo caso, il tempo medio rimane lineare rispetto al numero di nodi, grazie alla struttura dell'albero.  
+
+  Si analizza inoltre il caso in cui le partizioni sono alternativamente bilanciate e sbilanciate, ma si conclude che il comportamento asintotico rimane comunque Θ(n log n), grazie alla regolarità della struttura ricorsiva.  
+
+  Il prof introduce l'idea di utilizzare una scelta casuale del pivot per garantire un comportamento uniforme nel caso medio. Si spiega che, con una scelta casuale del pivot, tutti gli elementi hanno la stessa probabilità di essere scelti, e il rango dell'elemento pivot determina la dimensione delle partizioni.  
+
+  Si arriva all'equazione di ricorrenza del tempo medio, che si risolve dimostrando che T(n) è Θ(n log n). Il prof sottolinea che, purtroppo, il caso peggiore non è ottimale, ma il caso medio è comunque efficiente, rendendo QuickSort uno degli algoritmi più utilizzati nella pratica.  
+
+  Si conclude con un riferimento al limite teorico di n log n per gli algoritmi di ordinamento basati su confronti, e si accenna al fatto che il caso medio di QuickSort si comporta in modo simile a un algoritmo ottimale.
+
+---
+
+**ANNOTAZIONI VISIVE**
+
+- **Esempio presente**: Analisi del caso medio con partizioni bilanciate e disomogenee.  
+  Il prof illustra come il caso medio di QuickSort si ottiene quando le partizioni sono bilanciate, con un costo lineare per livello dell'albero di ricorrenza. Si sottolinea che il tempo di esecuzione dipende dall'altezza dell'albero, e nel caso medio questa altezza è logaritmica rispetto al numero di nodi. Si confronta il caso medio con il caso peggiore, dove l'altezza dell'albero diventa lineare, portando a un tempo quadratico.  
+
+- **Dipende da**: ## Albero di ricorrenza e relazione ricorsiva del caso peggiore  
+  L'analisi del caso medio si basa sull'osservazione che, nel caso peggiore, l'albero di ricorrenza ha un'altezza lineare, mentre nel caso medio è logaritmica. Il prof spiega che il caso medio si ottiene quando le partizioni sono quasi bilanciate, e si utilizza un'equazione di ricorrenza per modellare il tempo di esecuzione.  
+
+  Si discute un esempio specifico in cui una partizione divide l'input in un decimo e nove decimi, portando a un'equazione di ricorrenza con soluzione Θ(n log n). Il prof sottolinea che, anche in questo caso, il tempo medio rimane lineare rispetto al numero di nodi, grazie alla struttura dell'albero.  
+
+  Si analizza inoltre il caso in cui le partizioni sono alternativamente bilanciate e sbilanciate, ma si conclude che il comportamento asintotico rimane comunque Θ(n log n), grazie alla regolarità della struttura ricorsiva.  
+
+  Il prof introduce l'idea di utilizzare una scelta casuale del pivot per garantire un comportamento uniforme nel caso medio. Si spiega che, con una scelta casuale del pivot, tutti gli elementi hanno la stessa probabilità di essere scelti, e il rango dell'elemento pivot determina la dimensione delle partizioni.  
+
+  Si arriva all'equazione di ricorrenza del tempo medio, che si risolve dimostrando che T(n) è Θ(n log n). Il prof sottolinea che, purtroppo, il caso peggiore non è ottimale, ma il caso medio è comunque efficiente, rendendo QuickSort uno degli algoritmi più utilizzati nella pratica.  
+
+  Si conclude con un riferimento al limite teorico di n log n per gli algoritmi di ordinamento basati su confronti, e si accenna al fatto che il caso medio di QuickSort si comporta in modo simile a un algoritmo ottimale.
+
+---
+
+**ANNOTAZIONI VISIVE**
+
+- **Esempio presente**: Analisi del caso medio con partizioni bilanciate e disomogenee.  
+  Il prof illustra come il caso medio di QuickSort si ottiene quando le partizioni sono bilanciate, con un costo lineare per livello dell'albero di ricorrenza. Si sottolinea che il tempo di esecuzione dipende dall'altezza dell'albero, e nel caso medio questa altezza è logaritmica rispetto al numero di nodi. Si confronta il caso medio con il caso peggiore, dove l'altezza dell'albero diventa lineare, portando a un tempo quadratico.  
+
+- **Dipende da**: ## Albero di ricorrenza e relazione ricorsiva del caso peggiore  
+  L'analisi del caso medio si basa sull'osservazione che, nel caso peggiore, l'albero di ricorrenza ha un'altezza lineare, mentre nel caso medio è logaritmica. Il prof spiega che il caso medio si ottiene quando le partizioni sono quasi bilanciate, e si utilizza un'equazione di ricorrenza per modellare il tempo di esecuzione.  
+
+  Si discute un esempio specifico in cui una partizione divide l'input in un decimo e nove decimi, portando a un'equazione di ricorrenza con soluzione Θ(n log n). Il prof sottolinea che, anche in questo caso, il tempo medio rimane lineare rispetto al numero di nodi, grazie alla struttura dell'albero.  
+
+  Si analizza inoltre il caso in cui le partizioni sono alternativamente bilanciate e sbilanciate, ma si conclude che il comportamento asintotico rimane comunque Θ(n log n), grazie alla regolarità della struttura ricorsiva.  
+
+  Il prof introduce l'idea di utilizzare una scelta casuale del pivot per garantire un comportamento uniforme nel caso medio. Si spiega che, con una scelta casuale del pivot, tutti gli elementi hanno la stessa probabilità di essere scelti, e il rango dell'elemento pivot determina la dimensione delle partizioni.  
+
+  Si arriva all'equazione di ricorrenza del tempo medio, che si risolve dimostrando che T(n) è Θ(n log n). Il prof sottolinea che, purtro
+
+## Rango e partizioni bilanciate (esempio)
+
+Il professoore analizza il tempo di esecuzione di QuickSort, focalizzandosi sul ruolo del rango e del bilanciamento delle partizioni. Spiega che il rango di un elemento x in una sequenza è il numero di elementi minori o uguali a x. Questo concetto determina la dimensione delle partizioni generate dall'algoritmo. Quando il rango del pivot è 1 (elemento minimo), la partizione sinistra è vuota e quella destra contiene tutti gli elementi, portando a un albero di ricorrenza con altezza lineare su n. Al contrario, se il rango è 2, la partizione sinistra contiene due elementi e quella destra n-2, e così via.  
+
+[FORMULA: rango(x) = |{y ∈ S | y ≤ x}| dove rango(x) è il numero di elementi minori o uguali a x in una sequenza S]  
+
+Il professoore sottolinea che il tempo di esecuzione dipende dall'altezza dell'albero di ricorrenza. Nel caso peggiore, quando le partizioni sono sbilanciate (es. 1 e n-1), l'altezza è lineare su n, portando a un tempo quadratico. Nel caso migliore, quando le partizioni sono bilanciate (es. n/2 e n/2), l'altezza è logaritmica su n, portando a un tempo O(n log n).  
+
+[DIAGRAMMA flowchart: "Albero di ricorrenza" con nodi "Partizione sinistra", "Partizione destra", "Rango pivot" e "Altezza albero" collegati a "Tempo di esecuzione" con frecce che mostrano la relazione tra rango, bilanciamento e complessità]  
+
+Analizza un esempio specifico in cui le partizioni sono divise in 1/10 e 9/10 del totale. L'equazione di ricorrenza risultante è T(n) = T(n/10) + T(9n/10) + Θ(n), e il professoore dimostra che questa è Θ(n log n) grazie all'approssimazione dei termini.  
+
+[FORMULA: T(n) = T(n/10) + T(9n/10) + Θ(n) dove T(n) rappresenta il tempo di esecuzione per una sequenza di lunghezza n, e Θ(n) è il tempo per l'ordinamento delle partizioni]  
+
+Spiega che il caso medio di QuickSort si comporta bene grazie alla scelta casuale del pivot, che uniforma le probabilità di ogni elemento diventare pivot. Questo porta a un'analisi ricorsiva del tempo medio, dove si calcola la media dei tempi medi delle chiamate ricorsive. La somma dei contributi dei livelli dell'albero di ricorrenza è approssimata come n log n, confermando che il tempo medio è Θ(n log n).  
+
+[FORMULA: E[T(n)] = Θ(n log n) dove E[T(n)] rappresenta il tempo medio di esecuzione per una sequenza di lunghezza n]  
+
+Conclude che, nonostante il caso peggiore di QuickSort sia quadratico, il comportamento medio è ottimale, simile a MergeSort. Il rango e il bilanciamento delle partizioni sono chiave per comprendere le differenze tra i casi e per dimostrare la complessità asintotica.  
+
+[TABELLA: "Confronto tra casi di QuickSort" con colonne "Caso", "Bilanciamento partizioni", "Complessità tempo", "Equazione ricorrenza" e righe "Peggior caso", "Migliore caso", "Caso medio"]
+
+## Approssimazioni per sommatorie (esempio)
+
+- Esempio presente: Approssimazione di sommatorie con logaritmi.  
+  Il prof spiega che il tempo medio di QuickSort è Θ(n log n), analizzando l'altezza dell'albero di ricorrenza. L'altezza dell'albero è logaritmica sul numero di nodi, che a sua volta è logaritmica su n. Questo si ottiene quando l'albero è perfettamente bilanciato, con ogni livello che ha un costo lineare sulla dimensione dell'input. La somma dei contributi di tutti i livelli dell'albero, che sono lineari, porta a un totale di Θ(n log n).  
+  [FORMULA: T(n) = Θ(n log n) dove T(n) rappresenta il tempo medio, n è la dimensione dell'input, log n è il logaritmo in base 2 di n]  
+
+- Dipende da: ## Dimostrazione del tempo medio Θ(n log n)  
+  Il prof dimostra che, nel caso medio, l'algoritmo QuickSort si comporta come il caso migliore quando le partizioni sono bilanciate. Se ogni chiamata a partizione produce due sottosequenze di dimensioni n/10 e 9n/10, l'equazione di ricorrenza diventa T(n) = T(n/10) + T(9n/10) + Θ(n). L'analisi di questa equazione mostra che il tempo è Θ(n log n), grazie alla somma dei contributi lineari di ogni livello dell'albero.  
+  [DIAGRAMMA stateDiagram-v2: Stati "Radice" → "Livello 1" (costo Θ(n)) → "Livello 2" (costo Θ(n/10) + Θ(9n/10)) → ... → "Foglia" (costo Θ(1)), con transizioni che rappresentano la divisione in sottosequenze e somma dei costi lineari]  
+
+  Il prof sottolinea che, sebbene nel caso peggiore il tempo possa diventare quadratico (ad esempio quando le partizioni sono sbilanciate), nel caso medio e nel caso migliore l'algoritmo si comporta in modo ottimale. La dimostrazione include un'analisi dettagliata dell'altezza dell'albero e della somma dei contributi di ogni livello, che si riduce a Θ(n log n) grazie all'approssimazione logaritmica.  
+  [FORMULA: T(n) = T(n/10) + T(9n/10) + Θ(n) dove T(n) rappresenta il tempo ricorsivo, n è la dimensione dell'input, e Θ(n) è il costo della partizione]  
+
+  Il prof conclude che, sebbene il caso peggiore non sia ottimale, il comportamento medio di QuickSort è asintoticamente migliore di MergeSort, e che l'analisi delle sommatorie con logaritmi è fondamentale per comprendere il tempo medio dell'algoritmo.  
+  [TABELLA: Algoritmi | Tempo medio | Tempo pessimo | Spazio | Note  
+  QuickSort | Θ(n log n) | Θ(n²) | Θ(log n) | Media ottimale  
+  MergeSort | Θ(n log n) | Θ(n log n) | Θ(n) | Stabile e deterministico  
+  BubbleSort | Θ(n²) | Θ(n²) | Θ(1) | In-place]
+
+## Statistiche d'ordine e algoritmi di ordinamento (avvertenza)
+
+Il prof ha sottolineato che **algoritmi che usano statistiche d'ordine possono raggiungere n log n**, come nel caso di MergeSort e QuickSort in media. Questo è stato illustrato attraverso un'analisi delle equazioni di ricorrenzza e delle proprietà degli alberi di ricorrenza. Il prof ha spiegato che il tempo di esecuzione di QuickSort dipende dal bilanciamento delle partizioni: quando le partizioni sono quasi equilibrate, il tempo è O(n log n), mentre in caso di sbilanciamento estremo (come quando si ottiene una partizione di 1 e n-1), il tempo diventa O(n²).  
+
+[FORMULA: T(n) = 2T(n/2) + n dove T(n) rappresenta il tempo di esecuzione di MergeSort, n è la dimensione dell'input, e il termine 2T(n/2) rappresenta la ricorsione su due sottoproblemi di dimensione n/2]  
+[FORMULA: T(n) = T(k) + T(n-k-1) + n dove T(n) rappresenta il tempo di esecuzione di QuickSort, k è la dimensione di una partizione, n-k-1 è la dimensione dell'altra partizione, e il termine n rappresenta il tempo per la partizione]  
+
+Il prof ha anche sottolineato che **il caso peggiore di QuickSort è peggiore di MergeSort**, ma il caso medio è simile a MergeSort. Questo è stato dimostrato analizzando l'equazione di ricorrenza del tempo medio, assumendo una scelta casuale del pivot. La scelta casuale del pivot ha reso le dimensioni delle partizioni indipendenti dall'input, permettendo di derivare un'equazione di ricorrenza che, in media, porta a un tempo O(n log n).  
+
+[FORMULA: T(n) = T(k) + T(n-k-1) + n dove T(n) rappresenta il tempo di esecuzione di QuickSort in media, k è la dimensione di una partizione, n-k-1 è la dimensione dell'altra partizione, e il termine n rappresenta il tempo per la partizione]  
+[FORMULA: T(n) = n log n dove T(n) rappresenta il tempo medio di QuickSort con scelta casuale del pivot, n è la dimensione dell'input, e log n è il fattore di complessità logaritmica]  
+
+Il prof ha inoltre menzionato che **il limite asintotico per algoritmi di ordinamento che usano confronti è n log n**, come dimostrato da un'analisi teorica che considera l'albero di decisione. Questo limite è stato confrontato con il caso migliore (che può essere lineare in alcuni scenari vincolati) e con il caso peggiore (che è quadratico). Il prof ha sottolineato che **nessun algoritmo di ordinamento che usa confronti può superare n log n nel caso medio o peggiore**, a meno di vincoli specifici sugli input (come sequenze con valori limitati).  
+
+[FORMULA: log₂(n!) ≈ n log n dove log₂(n!) rappresenta il numero minimo di confronti necessari per ordinare n elementi, n è la dimensione dell'input, e log n è il fattore di complessità logaritmica]  
+[FORMULA: n log n - 1.44n dove n log n rappresenta il limite asintotico per algoritmi di ordinamento a confronti, e 1.44n è un termine correttivo derivato da approssimazioni come la formula di Stirling]  
+
+L'analisi ha incluso un'approfondita discussione sulle proprietà degli alberi di ricorrenza, sulle equazioni di ricorrenza, e sulle approssimazioni per calcolare il tempo medio. Il prof ha anche mostrato come la scelta del pivot e il bilanciamento delle partizioni influenzano direttamente la complessità asintotica, con esempi numerici e spiegazioni dettagliate su come le partizioni sbilanciate portano a un tempo quadratico, mentre quelle bilanciate mantengono il tempo logaritmico.  
+
+[DIAGRAMMA flowchart: "Processo di QuickSort" con nodi "Seleziona pivot", "Partiziona array", "Ricorsione su sottopartizioni", "Confronta dimensioni partizioni", "Se bilanciate → O(n log n)", "Se sbilanciate → O(n²)"]  
+[DIAGRAMMA timeline: "Casi di complessità di QuickSort" con date "Caso migliore (O(n log n))", "Caso medio (O(n log n))", "Caso peggiore (O(n²))"]  
+
+Il prof ha inoltre menzionato che **il limite asintotico per algoritmi di ordinamento che usano confronti è n log n**, come dimostrato da un'analisi teorica che considera l'albero di decisione. Questo limite è stato confrontato con il caso migliore (che può essere lineare in alcuni scenari vincolati) e con il caso peggiore (che è quadratico). Il prof ha sottolineato che **nessun algoritmo di ordinamento che usa confronti può superare n log n nel caso medio o peggiore**, a meno di vincoli specifici sugli input (come sequenze con valori limitati).  
+
+[TABELLA: "Confronto tra casi di complessità" — "Caso" | "Complessità" | "Fattori influenti"]  
+[TABELLA: "Algoritmi e vincoli per complessità lineare" — "Algoritmo" | "Vincolo" | "Complessità"]
+
+## Analisi asintotica universale (esempio)
+
+- Esempio presente: Tecnica per analizzare algoritmi di ordinamento in caso medio e peggiore.  
+  Il prof spiega che l'analisi del tempo di esecuzione di QuickSort si basa sull'altezza dell'albero di ricorrenza. Il caso migliore si verifica quando l'albero ha altezza minima (logaritmica su n), mentre il caso peggiore si ha quando l'albero è molto sbilanciato (altezza lineare su n). L'equazione di ricorrenza per il caso peggiore è descritta come $ T(n) = T(n-1) + \Theta(n) $, che porta a un tempo quadratico $ \Theta(n^2) $.  
+  Il prof sottolinea che QuickSort non è ottimale asintoticamente rispetto a MergeSort, che ha un tempo $ \Theta(n \log n) $ in tutti i casi. Tuttavia, nel caso medio, QuickSort si comporta bene grazie a una scelta casuale del pivot, che riduce il rischio di sbilanciamenti.  
+
+- Dipende da: ## Limiti asintotici per algoritmi di ordinamento  
+  Il prof analizza i limiti asintotici per algoritmi di ordinamento, sottolineando che nessun algoritmo di ordinamento basato su confronti può superare il tempo $ \Theta(n \log n) $ nel caso medio o peggiore. Questo è dimostrato attraverso l'analisi del numero di confronti necessari per ordinare una sequenza, che è legato al numero di foglie in un albero di decisione.  
+  Il prof spiega che il limite inferiore asintotico per il tempo di esecuzione di un algoritmo di ordinamento per confronti è $ \Omega(n \log n) $, mentre il limite superiore è $ O(n \log n) $. Questo dimostra che MergeSort e QuickSort (nel caso medio) raggiungono il limite ottimale, mentre algoritmi come Insertion Sort o Selection Sort hanno un tempo peggiore.  
+  Il prof conclude che il tempo medio di QuickSort è $ \Theta(n \log n) $ grazie alla scelta casuale del pivot, che riduce la probabilità di sbilanciamenti. Tuttavia, nel caso peggiore, QuickSort può degradare a $ \Theta(n^2) $, ma questo è raro se la scelta del pivot è randomizzata.
+
+---
+
+**ANNOTAZIONI VISIVE:**
+
+- `[FORMULA: T(n) = T(n-1) + \Theta(n) dove T(n) è il tempo di esecuzione, n è la dimensione dell'input, e \Theta(n) rappresenta il costo per l'ordinamento parziale]`
+- `[FORMULA: \Theta(n^2) dove n è la dimensione dell'input e rappresenta il tempo quadratico nel caso peggiore]`
+- `[FORMULA: \Theta(n \log n) dove n è la dimensione dell'input e rappresenta il tempo ottimale per algoritmi di ordinamento]`
+- `[FORMULA: \Omega(n \log n) dove n è la dimensione dell'input e rappresenta il limite inferiore asintotico per algoritmi di ordinamento]`
+- `[FORMULA: O(n \log n) dove n è la dimensione dell'input e rappresenta il limite superiore asintotico per algoritmi di ordinamento]`
