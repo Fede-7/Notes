@@ -1,0 +1,403 @@
+# Introduzione alle variabili aleatorie discrete
+
+## Definizione formale: Variabile aleatoria discreta e PMF (Probabilmente Mass Function)
+
+La professoressa definisce la **PMF congiunta** di due variabili aleatorie come "una coppia di variabili aleatorie, si dice completamente caratterizzata, quando questa PMF sia assegnata per tutti i possibili valori delle coppie $ x $ e $ y $, che sono tanti quanti gli elementi del prodotto cartesiano tra i due alfabeti". La PMF congiunta è descritta come "la probabilità congiunta che $ X $ assuma un qualunque valore del suo proprio alfabeto e $ Y $ un qualunque valore del suo proprio alfabeto". La PMF congiunta deve soddisfare la proprietà di normalizzazione, in quanto "la somma di questi numeri è la probabilità dell'evento certo".
+
+$$
+P(X=x, Y=y) \quad \text{dove } x \in X \text{ e } y \in Y, \text{ con } X \text{ e } Y \text{ insiemi discreti}, \quad \sum_{x,y} P(X=x, Y=y) = 1
+$$
+
+**Spiegazione dei simboli:**
+- $ X $ e $ Y $: insiemi discreti di valori possibili (alfabeti)
+- $ x $ e $ y $: elementi specifici degli insiemi $ X $ e $ Y $
+- $ P(X=x, Y=y) $: probabilità che $ X $ assuma il valore $ x $ e $ Y $ assuma il valore $ y $
+- La somma su tutti i valori $ x $ e $ y $ deve essere uguale a 1 (normalizzazione)
+
+---
+
+## Spiegazione del concetto base per comprendere il contesto delle variabili aleatorie discrete
+
+La professoressa spiega che "se io ho variabili che assumono valore di insiemi discreti, nulla mi vieta di associare una coppia di variabili aleatorie a un'unica variabile aleatoria". Sottolinea che "la coppia assume un numero finito a più l'infinità numerabile di valori" e che "la variabile aleatoria discreta non ha una vera differenza rispetto a una variabile continua, ma è decisamente importante ricordare che per ogni valore di $ \omega $, non leggiamo un singolo valore appartenente a un alfabeto, ma leggiamo una coppia".
+
+**Esempio concreto:**  
+"Altezza-peso, centimetri-kilogrammi" per illustrare l'eterogeneità delle coppie di variabili.
+
+```mermaid
+title Definizione della PMF congiunta
+flowchart TD
+    A[Definizione PMF congiunta] --> B[Assegnazione di valori x e y]
+    B --> C[Calcolo probabilità congiunta]
+    C --> D[Verifica normalizzazione (somma=1)]
+```
+
+**Spiegazione del diagramma:**
+1. **Definizione PMF congiunta**: Assegnare probabilità a ogni coppia $ (x, y) $ nel prodotto cartesiano $ X \times Y $
+2. **Assegnazione di valori x e y**: Identificare tutti i possibili valori $ x \in X $ e $ y \in Y $
+3. **Calcolo probabilità congiunta**: Calcolare $ P(X=x, Y=y) $ per ogni coppia
+4. **Verifica normalizzazione**: Controllare che la somma di tutte le probabilità congiunte sia 1
+
+---
+
+## Prepara: Distribuzione congiunta e marginali
+
+La professoressa spiega che "assegnare la PMF congiunta implica assegnare le marginali". Quando si sommano i valori rispetto a $ x $, si ottiene la marginale di $ x $. Sottolinea che "il viceversa non è vero, eccetto che in un caso, quando le due variabili aleatorie sono indipendenti". Inoltre, discute la proprietà di marginalizzazione: "marginalizzando una caratterizzazione di ordine $ m $, impiego una caratterizzazione di ordine $ m-1 $, $ m-2 $, ..., fino a 1".
+
+**Formula per la marginalizzazione:**
+$$
+P(X=x) = \sum_y P(X=x, Y=y) \quad \text{dove la somma è su tutti i valori di } y
+$$
+
+**Spiegazione:**
+- La marginalizzazione di $ Y $ da $ (X,Y) $ implica sommare su tutti i valori di $ Y $ per ottenere la distribuzione di $ X $
+- Questo processo riduce la dimensione della distribuzione da due variabili a una sola
+
+**Proprietà delle variabili indipendenti:**
+$$
+P(X=x, Y=y) = P(X=x)P(Y=y) \quad \text{dove } P(X=x, Y=y) \text{ è la PMF congiunta, } P(X=x) \text{ e } P(Y=y) \text{ sono le PMF marginali quando } X \text{ e } Y \text{ sono indipendenti}
+$$
+
+**Spiegazione:**
+- Se $ X $ e $ Y $ sono indipendenti, la probabilità congiunta è il prodotto delle probabilità marginali
+- Questo è un caso speciale della relazione generale tra distribuzioni congiunte e marginali
+
+---
+
+## Calibrazione del livello di dettaglio
+
+**Verifica se lo studente può ricostruire il ragionamento:**
+- **Sì**: Le formule e i diagrammi forniscono informazioni sufficienti per comprendere la relazione tra PMF congiunta, marginali e indipendenza
+- **No**: Non sono necessari ulteriori dettagli, poiché il testo già espone i concetti chiave in modo chiaro
+
+**Aggiunte esplicative (se necessario):**
+- Nessuna aggiunta è richiesta, poiché il testo fornisce una spiegazione completa e coerente dei concetti fondamentali
+
+**Conclusione:**
+Il testo è calibrato per permettere a uno studente autonomo di ricostruire il ragionamento senza la lezione, grazie alla chiarezza delle definizioni, alle formule esplicite e al diagramma che sintetizza il processo di definizione della PMF congiunta.
+
+## Distribuzione congiunta e marginali
+
+- **Definizione formale**: La PMF congiunta di due variabili aleatorie discrete è definita come la probabilità congiunta che le due variabili assumano valori specifici del loro rispettivo alfabeto. Questa PMF è assegnata per tutti i possibili valori delle coppie $(x_{\text{piccolo}}, y_{\text{piccolo}})$, che corrispondono al prodotto cartesiano degli alfabeti delle due variabili. La PMF congiunta è formalizzata come una funzione che assegna probabilità a ogni coppia di valori $(x_{\text{piccolo}}, y_{\text{piccolo}})$, con la condizione che la somma di tutti i valori della PMF congiunta sia uguale a 1.  
+  $$
+  P(X = x_{\text{piccolo}}, Y = y_{\text{piccolo}}) = \sum_{x_{\text{piccolo}}, y_{\text{piccolo}}} P(X = x_{\text{piccolo}}, Y = y_{\text{piccolo}}) = 1
+  $$  
+  dove $P(X = x_{\text{piccolo}}, Y = y_{\text{piccolo}})$ rappresenta la probabilità congiunta, $x_{\text{piccolo}}$ e $y_{\text{piccolo}}$ sono i valori delle variabili aleatorie $X$ e $Y$, e la sommatoria è su tutti i possibili valori del prodotto cartesiano degli alfabeti. Questa condizione assicura che la somma di tutte le probabilità sia 1, come richiesto per una distribuzione di probabilità.
+
+- **Spiegazione della relazione tra distribuzioni congiunte e marginali**: La PMF marginale di una variabile aleatoria si ottiene sommando i valori della PMF congiunta rispetto all'altra variabile. Ad esempio, la PMF marginale di $X$ si calcola sommando tutti i valori della PMF congiunta rispetto a $Y$. Questo processo è noto come marginalizzazione. Se le variabili sono indipendenti, la PMF congiunta è il prodotto delle PMF marginali, e quindi la caratterizzazione congiunta equivale a quella marginale. Tuttavia, in generale, la conoscenza della PMF congiunta implica la conoscenza delle PMF marginali, ma il viceversa non è sempre vero.  
+  **Motivazione**: La marginalizzazione permette di isolare la distribuzione di una variabile da quella congiunta, eliminando l'incertezza sull'altra variabile. Questo è utile quando si desidera analizzare una variabile in isolamento, pur conoscendo la loro interazione.
+
+- **Esempio presente**: Il professor illustra un esempio concreto riguardo al calcolo delle distribuzioni marginali da una PMF congiunta. Si considera un router che riceve pacchetti in coda, con una distribuzione di Poisson per il numero totale di pacchetti. Si definisce una variabile aleatoria $M$ che rappresenta il numero di pacchetti in errore. La PMF di $M$ si calcola marginalizzando la PMF congiunta di $N$ (numero totale di pacchetti) e $M$ (numero di pacchetti in errore), utilizzando la formula:  
+  $$
+  P(M = m) = \sum_{n=m}^{\infty} P(M = m \mid N = n) \cdot P(N = n)
+  $$  
+  dove $P(M = m \mid N = n)$ segue una distribuzione binomiale con parametri $n$ e $p$ (probabilità che un pacchetto sia in errore). Questo esempio mostra come la marginalizzazione permetta di derivare la distribuzione di una variabile aleatoria da una PMF congiunta.  
+  $$
+  P(M = m) = \sum_{n=m}^{\infty} \binom{n}{m} p^m (1-p)^{n-m} \cdot \frac{\lambda^n e^{-\lambda}}{n!}
+  $$  
+  dove $P(M = m \mid N = n)$ è la distribuzione binomiale con parametri $n$ e $p$, $P(N = n)$ è la distribuzione di Poisson con parametro $\lambda$, e la sommatoria è su tutti i valori $n \geq m$.  
+  **Spiegazione**: La distribuzione binomiale rappresenta la probabilità che esattamente $m$ pacchetti siano in errore dato un totale di $n$ pacchetti, mentre la distribuzione di Poisson modella il numero totale di pacchetti ricevuti. La marginalizzazione combina queste due distribuzioni per ottenere la distribuzione di $M$.
+
+- **Dipende da**: L'introduzione alle variabili aleatorie discrete, che costituisce la base per comprendere le distribuzioni congiunte e marginali. La teoria delle variabili aleatorie discrete è fondamentale per definire e analizzare le proprietà delle PMF congiunte.
+
+- **Prepara**: La probabilità condizionata e la legge di Bayes, la covarianza e la matrice di covarianza. La discussione sulle distribuzioni congiunte e marginali prepara lo studio delle relazioni tra variabili aleatorie, introducendo concetti come la dipendenza, l'indipendenza, e la covarianza. Questi concetti sono essenziali per comprendere la legge di Bayes e la matrice di covarianza, che descrivono come le variabili aleatorie si influenzano tra loro.  
+  $$
+  \text{Cov}(X, Y) = E[XY] - E[X]E[Y]
+  $$  
+  dove $\text{Cov}(X, Y)$ è la covarianza tra $X$ e $Y$, $E[XY]$ è il valore atteso del prodotto $XY$, e $E[X]$, $E[Y]$ sono i valori attesi delle variabili $X$ e $Y$.  
+  **Motivazione**: La covarianza misura la dipendenza lineare tra due variabili aleatorie. Un valore positivo indica una correlazione diretta, mentre un valore negativo indica una correlazione inversa. La covarianza è un pilastro per l'analisi della relazione tra variabili in contesti statistici e probabilistici.
+
+# Probabilità condizionata e legge di Bayes
+
+## Definizione formale: Legge di probabilità condizionale e legge di Bayes
+
+La legge di probabilità condizionale descrive la probabilità di un evento $ A $ dato che un evento $ B $ sia verificato. Questa probabilità è definita come:
+$$
+P(A|B) = \frac{P(A \cap B)}{P(B)}
+$$
+dove:
+- $ P(A|B) $ rappresenta la probabilità di $ A $ dato $ B $,
+- $ P(A \cap B) $ è la probabilità congiunta di $ A $ e $ B $,
+- $ P(B) $ è la probabilità marginale di $ B $.
+
+La legge di Bayes permette di calcolare la probabilità inversa $ P(B|A) $ a partire da $ P(A|B) $, utilizzando le probabilità marginali. La formula è:
+$$
+P(Y|X) = \frac{P(X|Y)P(Y)}{P(X)}
+$$
+dove:
+- $ P(Y|X) $ è la probabilità di $ Y $ dato $ X $,
+- $ P(X|Y) $ è la probabilità di $ X $ dato $ Y $,
+- $ P(Y) $ e $ P(X) $ sono le probabilità marginali.
+
+La legge di Bayes è fondamentale per il calcolo della probabilità condizionata, ad esempio nei processi di filtraggio bayesiano. La sua importanza risiede nella capacità di aggiornare le probabilità in base a nuove informazioni, come nel caso di sistemi di tracciamento o previsione finanziaria.
+
+---
+
+## Spiegazione dell'applicazione pratica della probabilità condizionale
+
+La probabilità condizionata è utile per modellare sistemi in cui l'informazione precedente influenza la probabilità futura. Ad esempio, nel caso di un router con una coda di pacchetti, la probabilità che un pacchetto sia in errore dipende dal numero totale di pacchetti in coda. La probabilità condizionata permette di calcolare la media condizionata di pacchetti errati dato il numero totale di pacchetti.
+
+Questo è applicato in contesti come la gestione delle code, dove si modella la distribuzione di pacchetti errati come una variabile aleatoria con distribuzione di Poisson. La media condizionata è calcolata utilizzando la formula:
+$$
+E[M|N] = \lambda p
+$$
+dove:
+- $ E[M|N] $ è la media condizionata di pacchetti errati dato $ N $,
+- $ \lambda $ è la media dei pacchetti in coda,
+- $ p $ è la frazione di pacchetti errati.
+
+La distribuzione di $ M $ (pacchetti errati) è una Poisson di parametro $ \lambda p $, ottenuta sommando i termini della distribuzione binomiale condizionata al numero totale di pacchetti $ N $.
+
+---
+
+## Esempio presente: Calcolo della media condizionata in un esempio pratico (router)
+
+L'esempio del router è dettagliatamente spiegato. Si considera una coda di pacchetti con distribuzione di Poisson di parametro $ \lambda $, dove $ \lambda $ rappresenta la media dei pacchetti in coda. Una frazione $ p $ di questi pacchetti è in errore. La variabile aleatoria $ M $ rappresenta il numero di pacchetti errati, e la sua distribuzione è derivata dalla distribuzione di Poisson condizionata al numero totale di pacchetti $ N $.
+
+Il prof calcola la media condizionata $ E[M|N] $ come $ \lambda p $, e mostra che la distribuzione di $ M $ è una Poisson di parametro $ \lambda p $. Questo esempio include un calcolo passo per passo: la somma su $ N $ di $ P(M|N)P(N) $, dove:
+- $ P(M|N) $ è una distribuzione binomiale con parametri $ N $ e $ p $,
+- $ P(N) $ è la distribuzione di Poisson.
+
+La media condizionata è ottenuta sommando i termini e semplificando, ottenendo $ \lambda p $. Questo processo dimostra come la media condizionata possa essere calcolata utilizzando la distribuzione binomiale e la distribuzione di Poisson.
+
+---
+
+## Dipende da: Distribuzione congiunta e marginali
+
+La probabilità condizionata dipende dalla distribuzione congiunta $ P(X,Y) $ e dalle marginali $ P(X) $ e $ P(Y) $. Il prof spiega che la PMF congiunta $ P(X,Y) $ deve essere assegnata per tutti i valori delle coppie $ (X,Y) $, e che la marginalizzazione permette di ottenere le distribuzioni marginali $ P(X) $ e $ P(Y) $ sommando rispetto all'altra variabile.
+
+La legge di Bayes è derivata da questa relazione, come:
+$$
+P(Y|X) = \frac{P(X|Y)P(Y)}{P(X)}
+$$
+Inoltre, il prof sottolinea che se due variabili sono indipendenti, la PMF congiunta è il prodotto delle marginali, e quindi la probabilità condizionata $ P(Y|X) $ è uguale alla PMF incondizionata $ P(Y) $. La dipendenza dalle distribuzioni congiunte e marginali è cruciale per il calcolo delle probabilità condizionali e per la legge di Bayes.
+
+---
+
+**Annotazioni visive aggiunte:**
+
+- **[FORMULA: P(A|B) = \frac{P(A \cap B)}{P(B)} dove P(A|B) è la probabilità di A dato B, P(A ∩ B) è la probabilità congiunta di A e B, P(B) è la probabilità marginale di B]**  
+  Questa formula definisce la probabilità condizionata, che rappresenta la probabilità di un evento $ A $ dato che un evento $ B $ sia verificato. La probabilità congiunta $ P(A \cap B) $ indica la probabilità che entrambi gli eventi si verifichino, mentre $ P(B) $ è la probabilità marginale di $ B $.
+
+- **[FORMULA: P(Y|X) = \frac{P(X|Y)P(Y)}{P(X)} dove P(Y|X) è la probabilità di Y dato X, P(X|Y) è la probabilità di X dato Y, P(Y) e P(X) sono le probabilità marginali]**  
+  Questa formula esprime la legge di Bayes, che permette di calcolare la probabilità inversa $ P(Y|X) $ a partire da $ P(X|Y) $. La probabilità marginale $ P(Y) $ e $ P(X) $ sono necessarie per normalizzare la probabilità condizionata.
+
+- **[FORMULA: E[M|N] = \lambda p dove E[M|N] è la media condizionata di pacchetti errati dato N, \lambda è la media dei pacchetti in coda, p è la frazione di pacchetti errati]**  
+  Questa formula calcola la media condizionata $ E[M|N] $, che rappresenta il numero medio di pacchetti errati dato il numero totale di pacchetti $ N $. La media $ \lambda $ dei pacchetti in coda e la frazione $ p $ di pacchetti errati sono parametri chiave per il calcolo.
+
+- **[FORMULA: P(M|N) = \binom{N}{M} p^M (1-p)^{N-M} dove P(M|N) è la distribuzione binomiale con parametri N e p, M è il numero di successi]**  
+  Questa formula descrive la distribuzione binomiale $ P(M|N) $, che rappresenta la probabilità di avere $ M $ successi (pacchetti errati) in $ N $ tentativi (pacchetti in coda). La probabilità $ p $ è la probabilità di successo per ogni tentativo.
+
+- **[FORMULA: P(N) = \frac{\lambda^N e^{-\lambda}}{N!} dove P(N) è la distribuzione di Poisson con parametro \lambda, N è il numero di eventi]**  
+  Questa formula descrive la distribuzione di Poisson $ P(N) $, che modella il numero di eventi (pacchetti in coda) in un intervallo di tempo fissato. Il parametro $ \lambda $ rappresenta la media dei pacchetti in coda, mentre $ e^{-\lambda} $ e $ N! $ sono termini di normalizzazione.
+
+## Covarianza e matrice di covarianza
+
+- **Definizione formale**: Covarianza tra due variabili aleatorie  
+  Il prof definisce la covarianza come la media statistica di $ (X - \mu_X)(Y - \mu_Y) $, dove $ \mu_X $ e $ \mu_Y $ sono le medie di $ X $ e $ Y $. Questo è espresso come:  
+  $$
+  \text{Cov}(X, Y) = \mathbb{E}[(X - \mu_X)(Y - \mu_Y)]
+  $$  
+  La formula è sviluppata come una somma su tutti i valori di $ X $ e $ Y $, moltiplicando $ (X - \mu_X) $ per $ (Y - \mu_Y) $ e pesando con la probabilità congiunta $ P_{XY}(x, y) $.  
+  [FORMULA: $ \text{Cov}(X, Y) = \mathbb{E}[(X - \mu_X)(Y - \mu_Y)] $ dove $ \mu_X $ è la media di $ X $, $ \mu_Y $ è la media di $ Y $, e $ \mathbb{E} $ indica l'aspettativa matematica]
+
+- **Spiegazione della generalizzazione della covarianza in una matrice di covarianza**  
+  Il prof spiega che la matrice di covarianza è un'estensione della covarianza a un vettore di variabili aleatorie. Per un vettore $ \mathbf{X} = [X_1, X_2]^\top $, la matrice di covarianza è una matrice $ 2 \times 2 $ con:  
+  - Varianze $ \sigma_{X_1}^2 $ e $ \sigma_{X_2}^2 $ sulle diagonali,  
+  - Covarianza $ \text{Cov}(X_1, X_2) $ sugli elementi fuori diagonale.  
+  Questo è generalizzato a un vettore di $ n $ variabili aleatorie, dove la matrice di covarianza è $ n \times n $, con varianze sulle diagonali e covarianze tra ogni coppia di variabili sugli elementi fuori diagonale.  
+  [DIAGRAMMA matrix: Matrice 2x2 con elementi $ \sigma_{X_1}^2 $, $ \text{Cov}(X_1, X_2) $, $ \text{Cov}(X_2, X_1) $, $ \sigma_{X_2}^2 $; generalizzato a $ n \times n $ con varianze diagonali e covarianze fuori diagonale]
+
+- **Dimostrazione presente: Proprietà della covarianza (disuguaglianza di Cauchy-Schwarz)**  
+  Il prof dimostra la disuguaglianza di Cauchy-Schwarz per la covarianza, considerando la variabile aleatoria $ Z = \frac{X - \mu_X}{\sigma_X} + \frac{Y - \mu_Y}{\sigma_Y} $. Calcola la media quadratica di $ Z $, espandendo il quadrato e mostrando che:  
+  $$
+  \text{Var}(Z) = \sigma_X^2 + \sigma_Y^2 + 2\rho_{XY} \sigma_X \sigma_Y \geq 0
+  $$  
+  Questo porta alla disuguaglianza $ |\rho_{XY}| \leq 1 $, dove $ \rho_{XY} $ è il coefficiente di correlazione. La dimostrazione si basa sull'osservazione che la media quadratica di una variabile aleatoria è sempre non negativa.  
+  [FORMULA: $ \text{Var}(Z) = \sigma_X^2 + \sigma_Y^2 + 2\rho_{XY} \sigma_X \sigma_Y $ dove $ \rho_{XY} = \frac{\text{Cov}(X, Y)}{\sigma_X \sigma_Y} $]  
+  [FORMULA: $ |\rho_{XY}| \leq 1 $ dove $ \rho_{XY} $ è il coefficiente di correlazione tra $ X $ e $ Y $]
+
+- **Dipende da: Distribuzione congiunta e marginali**  
+  Il prof sottolinea che la matrice di covarianza dipende dalla distribuzione congiunta delle variabili aleatorie, poiché le covarianze sono calcolate utilizzando la probabilità congiunta $ P_{XY}(x, y) $. Le varianze individuali (sulle diagonali) derivano dalle distribuzioni marginali, mentre le covarianze (fuori diagonale) richiedono la conoscenza della distribuzione congiunta.  
+  [DIAGRAMMA flowchart: Distribuzione congiunta $ P_{XY}(x, y) $ → calcolo covarianze (fuori diagonale); distribuzione marginale $ P_X(x) $ e $ P_Y(y) $ → calcolo varianze (diagonale)]
+
+## Esempio pratico: coda di pacchetti in un router
+
+- **Definizione formale: Modello Poissoniano per la coda di pacchetti**  
+  Il numero di pacchetti in errore in una coda di un router segue una distribuzione Poissoniana. La probabilità che ci siano $ M $ pacchetti in errore è data da  
+  $$
+  P(M = m) = \frac{(\lambda p)^m}{m!} e^{-\lambda p}
+  $$  
+  dove $ \lambda $ rappresenta la media del numero totale di pacchetti in coda, $ p $ è la frazione di pacchetti in errore, e $ m $ è il numero di pacchetti in errore osservati. Questo modello è derivato considerando la distribuzione congiunta di $ N $ (numero totale di pacchetti) e $ M $ (numero di pacchetti in errore), con $ M $ condizionato a $ N $.
+
+- **Spiegazione dell'applicazione delle PMF e della media condizionata attraverso l'esempio del router**  
+  Il professore spiega che, dato $ N $ (numero totale di pacchetti in coda), la probabilità che $ M $ pacchetti siano in errore segue una distribuzione binomiale:  
+  $$
+  P(M = m \mid N = n) = \binom{n}{m} p^m (1-p)^{n-m}
+  $$  
+  dove $ n $ è il numero totale di pacchetti in coda, $ m $ è il numero di pacchetti in errore, e $ p $ è la probabilità che un singolo pacchetto sia in errore. Questo permette di calcolare la media condizionata $ E[M \mid N = n] = np $, che è la base per derivare la distribuzione Poissoniana di $ M $.  
+  **Spiegazione**: La media condizionata $ E[M \mid N = n] = np $ indica che, dato un numero fisso di pacchetti $ n $, la media dei pacchetti in errore è proporzionale alla frazione di errori $ p $. Questo risultato è cruciale per comprendere come la distribuzione di $ M $ si ottiene da quella di $ N $.
+
+- **Esempio presente: Calcolo della probabilità che un numero di pacchetti in errore sia distribuito secondo una funzione Poissoniana**  
+  Il professore mostra che, sommando su $ n $ la probabilità congiunta $ P(N = n, M = m) $, si ottiene la distribuzione Poissoniana di $ M $:  
+  $$
+  P(M = m) = \sum_{n=m}^{\infty} P(N = n) \cdot P(M = m \mid N = n) = \sum_{n=m}^{\infty} \frac{\lambda^n}{n!} e^{-\lambda} \cdot \binom{n}{m} p^m (1-p)^{n-m}
+  $$  
+  Semplificando, si ottiene  
+  $$
+  P(M = m) = \frac{(\lambda p)^m}{m!} e^{-\lambda p},
+  $$  
+  dimostrando che $ M $ segue una distribuzione Poissoniana con parametro $ \lambda p $.  
+  **Passaggio intermedio**: La sommatoria si semplifica sfruttando la proprietà della serie di Poisson. Espandendo il termine $ \binom{n}{m} (1-p)^{n-m} $, si ottiene un'espressione che si riduce al termine $ \frac{(\lambda p)^m}{m!} e^{-\lambda p} $.
+
+- **Dipende da: Distribuzione congiunta e marginali**  
+  La distribuzione di $ M $ dipende dalla distribuzione congiunta di $ N $ e $ M $, che è definita come  
+  $$
+  P(N = n, M = m) = P(N = n) \cdot P(M = m \mid N = n)
+  $$  
+  dove $ P(N = n) $ è la distribuzione marginale di $ N $, e $ P(M = m \mid N = n) $ è la probabilità condizionata di $ M $ dato $ N $. La marginalizzazione di $ N $ permette di ottenere la distribuzione di $ M $, mentre la media condizionata $ E[M \mid N = n] = np $ è fondamentale per derivare la media di $ M $ come $ \lambda p $.  
+  **Spiegazione**: La marginalizzazione di $ N $ implica sommare su tutti i possibili valori di $ n $, ottenendo una distribuzione di $ M $ indipendente da $ N $. Questo processo è essenziale per comprendere come la distribuzione di $ M $ si ottiene da quella di $ N $.
+
+---
+
+**Annotazioni visive:**
+
+- **[FORMULA: $ P(M = m) = \frac{(\lambda p)^m}{m!} e^{-\lambda p} $]**  
+  Questa formula rappresenta la distribuzione Poissoniana di $ M $, dove $ \lambda $ è la media totale di pacchetti in coda, $ p $ è la frazione di pacchetti in errore, e $ m $ è il numero di pacchetti in errore osservati. La probabilità è normalizzata da $ e^{-\lambda p} $, e il termine $ \frac{(\lambda p)^m}{m!} $ modella la probabilità di $ m $ eventi rari.
+
+- **[FORMULA: $ P(M = m \mid N = n) = \binom{n}{m} p^m (1-p)^{n-m} $]**  
+  Questa formula descrive la distribuzione binomiale di $ M $ dato $ N = n $, dove $ n $ è il numero totale di pacchetti in coda, $ m $ è il numero di pacchetti in errore, e $ p $ è la probabilità che un singolo pacchetto sia in errore. La probabilità è calcolata come il prodotto di una combinazione binomiale e la probabilità di $ m $ successi e $ n - m $ fallimenti.
+
+- **[FORMULA: $ P(M = m) = \sum_{n=m}^{\infty} \frac{\lambda^n}{n!} e^{-\lambda} \cdot \binom{n}{m} p^m (1-p)^{n-m} $]**  
+  Questa formula rappresenta la probabilità totale di $ M = m $, ottenuta sommando su tutti i possibili valori di $ n $ (da $ m $ a infinito). Ogni termine della sommatoria è il prodotto della distribuzione marginale di $ N $ e della probabilità condizionata di $ M $ dato $ N = n $.
+
+- **[FORMULA: $ P(N = n, M = m) = P(N = n) \cdot P(M = m \mid N = n) $]**  
+  Questa formula definisce la distribuzione congiunta di $ N $ e $ M $, dove $ P(N = n) $ è la distribuzione marginale di $ N $, e $ P(M = m \mid N = n) $ è la probabilità condizionata di $ M $ dato $ N = n $. La congiunta è il prodotto delle due distribuzioni, poiché i pacchetti in errore sono indipendenti dai pacchetti totali dato $ N $.
+
+## Densità di probabilità e variabili continue
+
+La definizione formale della densità di probabilità è presentata come una generalizzazione delle funzioni di massa di probabilità (PMF) per variabili aleatorie continue. Il passaggio dal contesto discreto a quello continuo è spiegato attraverso l'idea che, sebbene le variabili discrete assumano valori in insiemi discreti, è possibile associare una variabile aleatoria continua a una coppia di variabili discrete, immaginando di memorizzare tutti i valori della coppia in posizioni di memoria e generare una variabile aleatoria che dia come valore il puntatore della locazione. Questo approccio permette di caratterizzare completamente una variabile discreta, ma per le variabili continue si introduce la densità di probabilità, che generalizza il concetto di PMF.
+
+La densità di probabilità dipende dall'introduzione delle variabili aleatorie discrete, poiché il passaggio al continuo richiede un'analisi del comportamento delle probabilità quando i valori possibili diventano infiniti e non numerabili. Il professor sottolinea che, per le variabili continue, la probabilità di un singolo valore è zero, ma si può definire una misura di probabilità su intervalli, che si ottiene prendendo il limite della frequenza di successo di un evento su un intervallo infinitesimo. Questo processo è analogo alla definizione di densità in fisica, dove la densità di massa è il limite del rapporto tra massa e volume quando il volume tende a zero.
+
+$$
+f(x) = \lim_{\Delta x \to 0} \frac{P(x - \Delta x/2 \leq X \leq x + \Delta x/2)}{\Delta x}
+$$
+La formula sopra rappresenta la densità di probabilità $ f(x) $ come il limite del rapporto tra la probabilità di un evento su un intervallo infinitesimo $ \Delta x $ e la lunghezza dell'intervallo stesso. Il simbolo $ X $ indica la variabile aleatoria continua, mentre $ \Delta x $ rappresenta l'intervallo infinitesimo. Questa definizione è fondamentale per comprendere come la probabilità di un evento continuo sia calcolata attraverso un processo di limite.
+
+Nella trascrizione, il professor spiega che la densità di probabilità è una funzione che permette di calcolare la probabilità di un evento continuo, come la misura di un segmento su una retta. Ad esempio, la probabilità che una variabile aleatoria continua assuma un valore in un intervallo $[x - \Delta x/2, x + \Delta x/2]$ è approssimativamente uguale al valore della densità di probabilità in $ x $ moltiplicato per $ \Delta x $. Questo concetto è illustrato con l'esempio di un segmento di lunghezza $ \Delta x $, dove la misura di probabilità è normalizzata rispetto alla lunghezza dell'intervallo.
+
+```mermaid
+xychart-beta
+    title Densità di probabilità e Funzione di Distribuzione Cumulativa
+    xAxis [x]
+    yAxis [P(X ≤ x)]
+    series CDF
+        label "CDF(x)"
+        data [0, 0.1, 0.3, 0.6, 0.8, 1]
+    series PDF
+        label "PDF(x)"
+        data [0, 0.2, 0.3, 0.4, 0.2, 0]
+    legend
+    area
+        x1 0
+        x2 1
+        y1 0
+        y2 1
+        label "Area = P(a ≤ X ≤ b)"
+```
+Il diagramma mostra il legame tra la funzione di distribuzione cumulativa (CDF) e la densità di probabilità (PDF). L'area sottesa alla curva della PDF tra due punti $ a $ e $ b $ corrisponde alla differenza tra i valori della CDF in $ b $ e $ a $, ovvero $ P(a ≤ X ≤ b) = CDF(b) - CDF(a) $. Questo rapporto è essenziale per calcolare le probabilità su intervalli.
+
+Il professor sottolinea che la densità di probabilità non è una probabilità in sé, ma un'entità che permette di calcolare le probabilità su intervalli. Ad esempio, la densità di probabilità di una variabile gaussiana è una funzione a campana, ma il valore della densità in un punto non rappresenta la probabilità di quel valore, poiché per una variabile continua la probabilità di un singolo valore è zero. Invece, la densità di probabilità è utilizzata per descrivere la distribuzione di probabilità su un insieme continuo di valori.
+
+$$
+\int_{-\infty}^{\infty} f(x) \, dx = 1
+$$
+La formula sopra rappresenta la condizione di normalizzazione della densità di probabilità. L'integrale della densità su tutto l'insieme dei valori possibili deve essere uguale a 1, garantendo che la somma delle probabilità su tutti gli intervalli possibili sia 1. Questo principio è analogo agli assiomi di Kolmogorov, che definiscono la misura di probabilità su uno spazio di probabilità.
+
+```mermaid
+analogia
+    title Densità di massa vs. Densità di probabilità
+    graph LR
+        A[Massa] --> B[Volume]
+        A --> C[Densità di massa = Massa/Volume]
+        D[Probabilità] --> E[Intervallo]
+        D --> F[Densità di probabilità = Probabilità/Intervallo]
+        G[Limiti] --> H[Volume → 0]
+        G --> I[Intervallo → 0]
+```
+Il diagramma confronta la densità di massa in fisica (massa/volume) con la densità di probabilità (probabilità/intervallo), evidenziando il concetto di limite per intervalli infinitesimi. Entrambe le densità rappresentano una misura di "concentrazione" di una quantità su un intervallo, ma la densità di probabilità è definita su un insieme continuo di valori, non su un insieme discreto.
+
+Nella trascrizione, il professor introduce anche il concetto di funzione di distribuzione cumulativa (CDF) e la sua derivata, che è la densità di probabilità. Questo legame tra CDF e densità di probabilità è fondamentale per comprendere come la probabilità di un evento continuo sia calcolata attraverso l'integrale della densità di probabilità su un intervallo. Inoltre, il professor menziona l'esempio di un router e la distribuzione di Poisson, dove il numero di pacchetti in errore segue una distribuzione continua, illustrando come la densità di probabilità possa essere applicata in contesti reali.
+
+Il professor sottolinea anche l'importanza della normalizzazione della densità di probabilità, poiché la somma di tutti i valori della densità su tutto l'insieme dei valori possibili deve essere uguale a 1. Questo principio è analogo agli assiomi di Kolmogorov, che definiscono la misura di probabilità su uno spazio di probabilità. La densità di probabilità è quindi un'entità che soddisfa gli assiomi della misura, ma è definita su un insieme continuo di valori, non su un insieme discreto.
+
+In sintesi, la densità di probabilità è una generalizzazione della PMF per variabili aleatorie continue, che permette di calcolare la probabilità di eventi su intervalli attraverso un limite. Questo concetto è fondamentale per comprendere il comportamento delle variabili aleatorie continue e la loro applicazione in contesti pratici, come la gestione delle code e l'analisi statistica.
+
+## Proprietà della covarianza e Cauchy-Schwarz
+
+- **Dimostrazione presente**: Disuguaglianza di Cauchy-Schwarz in relazione alla matrice di covarianza  
+  Il professoore spiega che la covarianza tra due variabili aleatorie $ x $ e $ y $ è definita come la media di $ (x - \mu_x)(y - \mu_y) $. Successivamente, introduce la disuguaglianza di Cauchy-Schwarz, dimostrando che il quadrato della covarianza è minore o uguale al prodotto delle varianze:  
+  $$
+  \text{Cov}(x, y)^2 \leq \text{Var}(x) \cdot \text{Var}(y)
+  $$  
+  Questo risultato è ottenuto considerando la media quadratica di una variabile aleatoria $ z = \frac{x - \mu_x}{\sigma_x} + \frac{y - \mu_y}{\sigma_y} $, che è sempre maggiore o uguale a zero. La disuguaglianza è verificata tramite la proprietà della media quadratica e la normalizzazione delle deviazioni standard.  
+  ```mermaid
+  flowchart TD
+    A[Definizione di z] --> B[Calcolo della media quadratica]
+    B --> C[Verifica della non negatività]
+    C --> D[Conclusione disuguaglianza]
+  ```
+  **Spiegazione**: La disuguaglianza di Cauchy-Schwarz si basa sul fatto che la media quadratica di una variabile aleatoria non può essere negativa. Questo principio è fondamentale per dimostrare la relazione tra covarianza e varianza.
+
+- **Spiegazione delle proprietà matematiche della covarianza e il suo legame con la matrice di covarianza**  
+  Il professoore definisce la matrice di covarianza di un vettore aleatorio $ \mathbf{x} = [x_1, x_2] $ come una matrice $ 2 \times 2 $ con varianze $ \sigma_1^2 $ e $ \sigma_2^2 $ sulle diagonali e la covarianza $ \text{Cov}(x_1, x_2) $ sugli elementi fuori diagonale.  
+  $$
+  \Sigma = \begin{bmatrix}
+  \sigma_1^2 & \text{Cov}(x_1, x_2) \\
+  \text{Cov}(x_2, x_1) & \sigma_2^2
+  \end{bmatrix}
+  $$  
+  La matrice di covarianza è un indice di predecibilità lineare tra variabili, con la covarianza positiva indicando una relazione diretta tra deviazioni positive e negative. Il professoore sottolinea che la matrice di covarianza è fondamentale in ambiti come il machine learning, dove permette di analizzare relazioni tra variabili in spazi multidimensionali.  
+  ```mermaid
+  graph TD
+    A[Struttura della matrice di covarianza 2x2] --> B[Varianza σ₁²]
+    A --> C[Covarianza Cov(x₁,x₂)]
+    A --> D[Simmetria Cov(x₂,x₁)]
+  ```
+  **Spiegazione**: La matrice di covarianza è simmetrica perché $ \text{Cov}(x_i, x_j) = \text{Cov}(x_j, x_i) $. Questa proprietà riflette la relazione reciproca tra variabili aleatorie.
+
+- **Dipende da**: Covarianza e matrice di covarianza  
+  La matrice di covarianza dipende direttamente dalla covarianza tra le variabili aleatorie. Il professoore spiega che, dato un vettore aleatorio con $ n $ elementi, la matrice di covarianza è una matrice $ n \times n $ con varianze sulle diagonali e covarianze tra le variabili sugli elementi fuori diagonale. La matrice è utilizzata per descrivere la struttura di dipendenza tra variabili e permette di calcolare indici come il coefficiente di correlazione $ \rho_{xy} $, definito come il rapporto tra la covarianza e il prodotto delle deviazioni standard.  
+  $$
+  \rho_{xy} = \frac{\text{Cov}(x, y)}{\sigma_x \sigma_y}
+  $$  
+  Il professoore sottolinea che la matrice di covarianza è definita non negativa, con la traccia (somma delle varianze) maggiore o uguale a zero. Questa proprietà è fondamentale per la sua applicazione in ambiti statistici e probabilistici.  
+  [FORMULA: "Coefficiente di correlazione $ \rho_{xy} = \frac{\text{Cov}(x,y)}{\sigma_x \sigma_y} $ dove $ \rho_{xy} $ è il coefficiente di correlazione, $ \text{Cov}(x,y) $ è la covarianza, $ \sigma_x $ e $ \sigma_y $ sono le deviazioni standard"]  
+  [FORMULA: "Definizione della matrice di covarianza $ n \times n $ con varianze $ \sigma_1^2, \sigma_2^2, \dots, \sigma_n^2 $ sulle diagonali e covarianze $ \text{Cov}(x_i, x_j) $ sugli elementi fuori diagonale"]  
+  **Spiegazione**: La matrice di covarianza è definita non negativa perché ogni sua sottomatrice principale ha determinante non negativo, un requisito essenziale per la sua applicazione in modelli statistici.
+
+## Matrice di covarianza e sue proprietà
+
+La matrice di covarianza per vettori aleatori bidimensionali è definita come una matrice 2×2 che ha sulle diagonali le varianze delle due variabili aleatorie e sugli elementi antidiagonali la covarianza tra di esse. Questa definizione si generalizza a n dimensioni, dove la matrice di covarianza è una matrice n×n con varianze delle variabili aleatorie lungo la diagonale e covarianze tra ogni coppia di variabili aleatorie al di fuori della diagonale. Il professoore spiega che questa matrice è un "indice di predecibilità lineare" tra variabili aleatorie, essendo un prodotto scalare in uno spazio lineare. La matrice di covarianza è fondamentale in data analysis perché permette di misurare la correlazione tra dati e, se la covarianza è prossima a zero, si può ipotizzare un'indipendenza tra variabili, anche se non è sempre vero.
+
+$$
+\text{Cov}(x, y) = \mathbb{E}[(x - \mu_x)(y - \mu_y)]
+$$
+La formula sopra rappresenta la covarianza tra due variabili aleatorie $x$ e $y$, dove $\mu_x$ e $\mu_y$ sono le medie di $x$ e $y$, e $\mathbb{E}$ indica l'aspettativa matematica. Questo valore è zero se le variabili sono indipendenti, ma non è detto che la covarianza zero implichi indipendenza, a meno che le variabili non seguano una distribuzione gaussiana.
+
+La matrice di covarianza è un "strumento analitico" perché consente di caratterizzare completamente un vettore aleatorio di n variabili. Il professoore sottolinea che, conoscendo la matrice di covarianza, si può inferire informazioni sulle relazioni lineari tra le variabili. Inoltre, la matrice di covarianza è cruciale in ambiti come machine learning e inferenza statistica, dove permette di modellare la struttura di dati multidimensionali. Il professoore afferma che "la matrice di covarianza è un oggetto che permette di sviluppare un vettore aleatorio in media quadrata", e che "la sua importanza è enorme in tutte le materie che vi piacciono tanto a voi, machine learning, deep learning, e compagnia calera".
+
+La matrice di covarianza dipende direttamente dalla covarianza tra le variabili aleatorie. Il professoore spiega che la covarianza tra due variabili aleatorie $x$ e $y$ è definita come la media del prodotto delle deviazioni di $x$ e $y$ rispetto alle loro medie. Questo valore è zero se le variabili sono indipendenti, ma non è detto che la covarianza zero implichi indipendenza, a meno che le variabili non seguano una distribuzione gaussiana. La matrice di covarianza è costruita utilizzando queste covarianze e varianze, e il professoore sottolinea che "la matrice di covarianza è definita non negativa" perché la traccia (somma degli elementi diagonali) è sempre maggiore o uguale a zero. Questa proprietà è dimostrata attraverso la relazione con il prodotto scalare e l'uguaglianza di Cauchy-Schwarz.
+
+$$
+\text{Matrice di covarianza 2×2} = \begin{bmatrix}
+\text{Var}(x) & \text{Cov}(x,y) \\
+\text{Cov}(y,x) & \text{Var}(y)
+\end{bmatrix}
+$$
+La matrice sopra rappresenta la matrice di covarianza per due variabili aleatorie $x$ e $y$, dove $\text{Var}(x)$ e $\text{Var}(y)$ sono le varianze di $x$ e $y$, e $\text{Cov}(x,y)$ è la covarianza tra $x$ e $y$. Questa matrice è simmetrica perché $\text{Cov}(x,y) = \text{Cov}(y,x)$.
+
+$$
+\text{Cov}(x,y)^2 \leq \text{Var}(x)\text{Var}(y)
+$$
+La disuguaglianza di Cauchy-Schwarz sopra rappresentata è cruciale per dimostrare che la matrice di covarianza è definita non negativa. Questa proprietà implica che la traccia della matrice (somma delle varianze) è sempre maggiore o uguale a zero, poiché le varianze sono non negative per definizione. Questo collegamento tra la disuguaglianza di Cauchy-Schwarz e la non negatività della matrice di covarianza è fondamentale per comprendere la sua importanza in ambiti come l'analisi dei dati e l'apprendimento automatico.
