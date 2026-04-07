@@ -15,7 +15,7 @@ tags:
 Professore: Marco Lops
 ---
 
-# MSI — Lezione 2: Probabilità Frequentistica e Proprietà Fondamentali
+# MSI — Lezione 1: Probabilità Frequentistica e Proprietà Fondamentali
 
 **Docente:** Prof. Marco Lops | **Corso:** Metodi Statistici per l'Informazione | **CFU:** 6
 

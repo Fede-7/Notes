@@ -15,7 +15,7 @@ tags:
 Professore: Marco Lops
 ---
 
-# MSI --- Lezione 3: Teoria Assiomatica della Probabilita, Bayes e Variabili Aleatorie
+# MSI --- Lezione 2: Teoria Assiomatica della Probabilita, Bayes e Variabili Aleatorie
 
 **Docente:** Prof. Marco Lops | **Corso:** Metodi Statistici per l'Informazione | **CFU:** 6
 

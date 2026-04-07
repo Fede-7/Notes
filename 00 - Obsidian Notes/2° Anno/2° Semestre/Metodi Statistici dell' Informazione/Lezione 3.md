@@ -18,7 +18,7 @@ tags:
 Professore: Marco Lops
 ---
 
-# MSI — Lezione 4: Valore Atteso e Distribuzioni Notevoli
+# MSI — Lezione 3: Valore Atteso e Distribuzioni Notevoli
 
 **Docente:** Prof. Marco Lops | **Corso:** Metodi Statistici per l'Informazione | **CFU:** 6
 

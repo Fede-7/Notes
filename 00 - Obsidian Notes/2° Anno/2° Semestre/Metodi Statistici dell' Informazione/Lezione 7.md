@@ -13,7 +13,7 @@ tags:
   - MSI
 ---
 
-# MSP — Lezione: Canale Binario Simmetrico, Entropia e Esercizi su PMF Congiunta
+# Lezione 7: Canale Binario Simmetrico, Entropia e Esercizi su PMF Congiunta
 
 **Corso:** Modelli Statistici e Probabilità
 

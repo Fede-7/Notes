@@ -6,7 +6,7 @@ lezione: 6
 tags: [MSI, varianza, deviazione-standard, Chebyshev, convergenza, frequenza, martingala, esercizi, media-condizionale]
 ---
 
-# MSI — Lezione 6: Varianza, Disuguaglianza di Chebyshev e Convergenza della Frequenza
+# MSI — Lezione 5: Varianza, Disuguaglianza di Chebyshev e Convergenza della Frequenza
 
 **Docente:** Prof. Marco Lops | **Corso:** Metodi Statistici per l'Informazione | **CFU:** 6 | **Data:** 19/03/2026
 

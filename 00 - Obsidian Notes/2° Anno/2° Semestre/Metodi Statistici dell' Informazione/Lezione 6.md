@@ -11,7 +11,7 @@ tags:
   - MSI
 ---
 
-# MSP — Lezione: PMF Congiunta, Variabili Aleatorie Multiple e Indipendenza
+# Lezione 6: PMF Congiunta, Variabili Aleatorie Multiple e Indipendenza
 
 **Corso:** Modelli Statistici e Probabilità
 
