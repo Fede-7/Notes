@@ -79,11 +79,9 @@ flowchart TD
 
 ### Statistica inferenziale vs descrittiva
 
-| Tipo | Cosa fa | Importanza |
-$$
-|---|---|---|
-$$
-| **Descrittiva** | Calcola statistiche globali su una popolazione data | Limitata ("giocare con Excel") |
+| Tipo             | Cosa fa                                                                                          | Importanza                       |
+| ---------------- | ------------------------------------------------------------------------------------------------ | -------------------------------- |
+| **Descrittiva**  | Calcola statistiche globali su una popolazione data                                              | Limitata ("giocare con Excel")   |
 | **Inferenziale** | Da un campione, inferisce le caratteristiche di tutti i campioni futuri statisticamente omogenei | Alta — base del machine learning |
 
 > [!example] Esempio di inferenza
@@ -140,15 +138,13 @@ $$
 
 ### Nomenclatura degli eventi
 
-| Nome | Definizione | Notazione |
-$$
-|---|---|---|
-$$
-| **Evento certo** | $\Omega$ stesso — ogni volta che compie l'esperimento si ottiene un elemento di $\Omega$ | $\Omega$ |
-| **Evento impossibile** | Insieme vuoto | $\emptyset$ |
-| **Evento complementare** | $A^c$ = elementi di $\Omega$ non in $A$ | $A^c$ o $\bar{A}$ |
-| **Eventi incompatibili** | $A \cap B = \emptyset$ | — |
-| **$A$ implica $B$** | $A \subseteq B$ — il verificarsi di $A$ implica il verificarsi di $B$ (non viceversa) | $A \subseteq B$ |
+| Nome                     | Definizione                                                                              | Notazione         |
+| ------------------------ | ---------------------------------------------------------------------------------------- | ----------------- |
+| **Evento certo**         | $\Omega$ stesso — ogni volta che compie l'esperimento si ottiene un elemento di $\Omega$ | $\Omega$          |
+| **Evento impossibile**   | Insieme vuoto                                                                            | $\emptyset$       |
+| **Evento complementare** | $A^c$ = elementi di $\Omega$ non in $A$                                                  | $A^c$ o $\bar{A}$ |
+| **Eventi incompatibili** | $A \cap B = \emptyset$                                                                   | —                 |
+| **$A$ implica $B$**      | $A \subseteq B$ — il verificarsi di $A$ implica il verificarsi di $B$ (non viceversa)    | $A \subseteq B$   |
 
 > [!example] Esempio — dado
 > $A$ = "esce 2", $B$ = "esce un numero pari"
@@ -165,15 +161,13 @@ $$A_1^c = \{\omega \in \Omega \mid \omega \notin A_1\}$$
 $$A_1 \setminus A_2 = A_1 \cap A_2^c$$
 ### Proprietà utili
 
-| Proprietà | Formula |
-$$
-|---|---|
-$$
-| Doppio complemento | $($A^c$)^c = A$ |
-| Complemento di $\Omega$ | $\Omega^c = \emptyset$ |
-| Unione con complementare | $A \cup $A^c$ = \Omega$ |
-| De Morgan | $(A \cup B)^c = A^c \cap B^c$ |
-| De Morgan | $(A \cap B)^c = A^c \cup B^c$ |
+| Proprietà                | Formula                       |
+| ------------------------ | ----------------------------- |
+| Doppio complemento       | $($A^c$)^c = A$               |
+| Complemento di $\Omega$  | $\Omega^c = \emptyset$        |
+| Unione con complementare | $A \cup $A^c$ = \Omega$       |
+| De Morgan                | $(A \cup B)^c = A^c \cap B^c$ |
+| De Morgan                | $(A \cap B)^c = A^c \cup B^c$ |
 
 ---
 
@@ -260,13 +254,11 @@ $$
 
 ### Riepilogo formule
 
-| Tipo | Formula | Nome |
-$$
-|---|---|---|
-$$
-| k-uple ordinate **con** ripetizione | $n^k$ | — |
-| k-uple ordinate **senza** ripetizione | $\dfrac{n!}{(n-k)!}$ | Disposizioni semplici |
-| k-uple ordinate, $k=n$, senza ripetizione | $n!$ | Permutazioni |
+| Tipo                                      | Formula                                  | Nome                            |
+| ----------------------------------------- | ---------------------------------------- | ------------------------------- |
+| k-uple ordinate **con** ripetizione       | $n^k$                                    | —                               |
+| k-uple ordinate **senza** ripetizione     | $\dfrac{n!}{(n-k)!}$                     | Disposizioni semplici           |
+| k-uple ordinate, $k=n$, senza ripetizione | $n!$                                     | Permutazioni                    |
 | k-uple **non** ordinate senza ripetizione | $\dbinom{n}{k} = \dfrac{n!}{k!\,(n-k)!}$ | Combinazioni / Coeff. binomiale |
 
 > [!tip] Trucco mnemonico
