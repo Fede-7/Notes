@@ -130,9 +130,7 @@ Può essere:
 > **Esempio:** ho in tasca 1, 2, 3, 4 o 5 euro. L'evento $\{1, 3, 5\}$ può essere descritto come:
 > - "ho un numero dispari di euro"
 > - "non ho un numero pari di euro"
-$$
 > - "ho 1 o 3 o 5 euro"
-$$
 >
 > → Saper **riformulare** la proposizione in modo conveniente è spesso la chiave per risolvere un esercizio.
 
