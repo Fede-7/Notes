@@ -1,300 +1,208 @@
 ---
-date: 2026-03-26
-corso: Sistemi Operativi
-docente: N/D
-lezione: Signal handling, cancellazione thread e introduzione allo scheduling
-tags: [SO, signal-handling, thread-cancellation, scheduling, CPU-burst, FCFS, SJF]
+Date: 2026-03-25
+Professore:
+tags:
+  - SO
+  - NoAudio
 ---
+- [ ] Signal Handling.
+- [ ] Segnali e handler.
+- [ ] Cancellazione threads.
+- [ ] Thread-Specific data.
+- [ ] Linux si riferisce a tasks piuttosto che a threads.
+- [ ] Windows threads.
 
-# SO — Lezione: Signal Handling, Cancellazione Thread e Introduzione allo Scheduling
+## CPU Scheduler e Dispatcher
+La gestione di questi scambi è affidata a due componenti fondamentali:
 
-**Corso:** Sistemi Operativi
+### Lo Short-term Scheduler (CPU Scheduler)
+È il decisore. Seleziona quale tra i processi attualmente presenti nella **Coda Ready** (pronti per l'esecuzione) debba ottenere l'uso della CPU.
+Le decisioni di scheduling avvengono in 4 situazioni:
+1. Un processo passa da *Running* a *Waiting* (es. richiede I/O).
+2. Un processo passa da *Running* a *Ready* (es. scade il suo tempo o c'è un interrupt).
+3. Un processo passa da *Waiting* a *Ready* (es. l'I/O è completato).
+4. Un processo termina.
 
----
+Le decisioni nei casi 1 e 4 sono **Senza Prelazione (Non-preemptive)**: il processo cede volontariamente la CPU. Le decisioni nei casi 2 e 3 sono **Con Prelazione (Preemptive)**: il SO strappa la CPU al processo in esecuzione.
 
-## Argomenti trattati
+### Il Dispatcher
+È l'esecutore materiale. Dà fisicamente il controllo della CPU al processo selezionato dallo Scheduler. Il suo lavoro richiede:
+* Effettuare il **Context Switch** (salvataggio stato vecchio, caricamento stato nuovo).
+* Passare alla modalità utente (*User Mode*).
+* Saltare alla corretta riga di codice (Program Counter) per riavviare il programma.
+Essendo un'operazione che si ripete costantemente, la **Latenza di Dispatch** (il tempo necessario per fermare un processo e farne partire un altro) deve essere il più breve possibile, altrimenti si crea troppo *overhead*.
 
-- Ripresa dell'esempio di signal handling con `pthread_kill` e maschere di segnali
-- Comportamento dei segnali pending e non-accodamento dei segnali ordinari
-- Cancellazione dei thread: asincrona, deferred e cancellation point
-- TID user-level vs. TID kernel-level: come distinguerli
-- Ispezione dei thread tramite `ps`, `/proc` e `sys_gettid`
-- Introduzione allo scheduling della CPU
-- Criteri di scheduling
-- Algoritmo FCFS (First Come First Served)
-- Algoritmo SJF (Shortest Job First) e stima tramite media esponenziale
+## Criteri di Scheduling
+Per valutare la bontà di un algoritmo di scheduling, si utilizzano diversi parametri:
+* **Utilizzo CPU:** Percentuale di tempo in cui la CPU è occupata (da massimizzare).
+* **Throughput:** Numero di processi completati nell'unità di tempo (da massimizzare).
+* **Turnaround time (Tempo di completamento):** Quanto tempo ci mette un processo dalla sua creazione alla sua terminazione (include attese, esecuzione e I/O). (da minimizzare).
+* **Waiting time (Tempo di attesa):** È la somma dei tempi che il processo passa **fermamente bloccato nella Coda Ready** aspettando il suo turno (da minimizzare).
+* **Response time (Tempo di risposta):** Tempo che intercorre tra l'invio di una richiesta e la primissima risposta prodotta (fondamentale minimizzarne non solo la media, ma soprattutto la **varianza** nei sistemi interattivi/desktop, per evitare scatti o lag visivi all'utente).
 
----
+## Algoritmi di Scheduling Tradizionali
+Gli algoritmi di scheduling tradizionali si occupano di ottimizzare metriche il tempo medio di attesa o la reattività. Ne esistono di vari tipi, tra cui:
+### 1. First-Come, First-Served (FCFS)
+Il processo che richiede la CPU per primo la ottiene. È gestito con una semplice coda FIFO.
+* **Pro:** Facilissimo da implementare.
+* **Contro (Effetto Convoglio):** Se un processo lunghissimo (CPU-bound) arriva per primo, tutti i processi brevi (I/O-bound) dietro di lui dovranno aspettare tantissimo. Il tempo di attesa medio varia enormemente in base all'ordine di arrivo. È un algoritmo *Non-preemptive*.
 
-## 1. Ripresa: signal handling in contesto multi-thread
+### 2. Shortest-Job-First (SJF)
+Associa a ogni processo la lunghezza del suo **prossimo CPU Burst**. La CPU viene assegnata al processo col burst più breve.
+* **Pro:** È **matematicamente ottimale**. Garantisce il tempo di attesa medio più basso in assoluto per un dato set di processi.
+* **Il Problema:** Il SO non può sapere a priori quanto durerà la prossima elaborazione di un processo prima che questo chieda un I/O. Deve quindi fare delle stime (che hanno un costo e possono anche essere sbagliate).
 
-### Il programma di esempio (caso 1 — mask1)
+Esiste anche la variante *Preemptive* di questo algoritmo, chiamata **Shortest-Remaining-Time-First (SRTF)**: se arriva un nuovo processo nella coda ready con un tempo stimato inferiore al tempo *rimanente* del processo attualmente in esecuzione, quest'ultimo viene prelazionato (interrotto istantaneamente).
 
-Il thread principale:
-1. Crea tre thread secondari (`tid1`, `tid2`, `tid3`), ciascuno esegue una funzione che stampa periodicamente di essere attivo.
-2. Invia un segnale `SIGUSR1` individualmente a ciascun thread con `pthread_kill(tidN, SIGUSR1)`.
-3. Imposta una maschera che blocca `SIGUSR1` **solo per se stesso** (dopo che i thread secondari sono già stati lanciati).
-4. Dopo un breve sleep, invia `SIGUSR1` all'**intero processo** con `kill(getpid(), SIGUSR1)`.
+#### Stima del CPU Burst: Exponential Averaging
+Poiché con l'algoritmo SJF non possiamo conoscere il futuro, possiamo solo fare una **stima** basandoci sul comportamento passato del processo (l'assunto è che i prossimi burst saranno simili a quelli recenti).
 
-**Risultato**: i primi tre `pthread_kill` vengono gestiti ciascuno dal thread destinatario (il kernel mette il segnale in pending per quel thread specifico). Il quarto `kill` al processo intero viene gestito da uno dei thread secondari — il thread principale non lo gestisce perché ha una maschera che lo blocca.
+Si utilizza una tecnica chiamata **Media Esponenziale (Exponential Averaging)**, la cui formula è:
+$\tau_{n+1} = \alpha $t_n$ + (1 - \alpha)\tau_n$.
 
-> [!warning] L'ordine della maschera è fondamentale
-> La maschera impostata con `pthread_sigmask` vale **solo per il thread che la chiama**. Se la maschera fosse impostata **prima** della creazione dei thread, verrebbe **ereditata** da tutti i thread figli, bloccando il segnale per tutti.
+Dove:
+* $\tau_{n+1}$ = È la nostra predizione per il *prossimo* CPU burst.
+* $\alpha$ = È un "peso" compreso tra 0 e 1 (di solito impostato a $\frac{1}{2}$). Determina quanto conta la storia recente rispetto a quella passata.
+* $t_n$ = È la lunghezza *reale* dell'ultimissimo CPU burst appena concluso.
+* $\tau_n$ = Era la nostra vecchia predizione.
+$$
+**Perché "Esponenziale"?**
+$$
+Espandendo la formula matematicamente, si nota che **il peso della storia passata decade in modo esponenziale**: al SO interessa molto di più cosa ha fatto il processo 2 millisecondi fa, rispetto a cosa ha fatto un'ora fa.
 
-### Caso 2 — mask2: maschera impostata prima del lancio dei thread
+### 3. Shortest-Remaining-Time-First (SRTF)
+È la **versione con prelazione (preemptive)** dell'algoritmo SJF. 
+Se nella Coda Ready arriva un nuovo processo il cui tempo stimato di completamento è *inferiore* al tempo rimanente del processo attualmente in esecuzione, il SO esegue un Context Switch immediato (prelazione), mettendo in pausa il processo corrente per far partire quello nuovo più breve.
 
-```c
-// Prima si imposta la maschera nel thread principale
-sigemptyset(&set);
-sigaddset(&set, SIGUSR1);
-pthread_sigmask(SIG_BLOCK, &set, NULL);
+### 4. Scheduling con Priorità
+A ogni processo viene associato un numero intero che rappresenta la sua **priorità** (generalmente, un numero più basso indica una priorità più alta, es. 0 = massima priorità). La CPU viene allocata al processo con la priorità più alta.
+L'algoritmo SJF non è altro che un caso particolare di scheduling con priorità, dove la priorità è l'inverso della lunghezza stimata del prossimo CPU burst.
+Può essere implementato con o senza prelazione.
 
-// Poi si lanciano i thread (che ereditano la maschera)
-pthread_create(&tid1, NULL, start_fn, "thread1");
-// ...
+*   **Il Problema: Starvation**
+    I processi a bassissima priorità potrebbero non essere mai eseguiti se il sistema continua a ricevere un flusso costante di processi ad alta priorità.
 
-// Si invia il segnale all'intero processo
-kill(getpid(), SIGUSR1);
-```
+*   **La Soluzione: Aging**
+    Tecnica che consiste nell'aumentare gradualmente (col passare del tempo) la priorità dei processi che rimangono per troppo tempo in attesa nella Coda Ready, garantendo che prima o poi vengano eseguiti.
 
-**Risultato**: nessun thread gestisce il segnale. Tutti lo hanno in pending (il kernel lo conserva, non lo perde), ma nessuno lo sblocca. Il segnale rimane "in sospeso".
+### 5. Round Robin (RR)
+È l'algoritmo progettato specificamente per i sistemi in *time-sharing*. 
+A ogni processo viene assegnata una piccola quantità fissa di tempo di CPU, chiamata **Time Quantum (q)** (di solito tra 10 e 100 millisecondi).
 
-### Caso 3 — mask3: maschera ereditata, poi sblocco esplicito
+*   **Come funziona:**
+	La Coda Ready è trattata come una coda circolare (FIFO). Il SO assegna la CPU al primo processo; se questo non termina entro il suo quanto di tempo $q$, scatta un timer, il processo viene **prelazionato** (interrotto forzatamente) e rimesso in fondo alla coda ready.
 
-```c
-// Maschera impostata prima → ereditata dai thread
-// Si inviano 3 SIGUSR1 al processo
-kill(getpid(), SIGUSR1);
-kill(getpid(), SIGUSR1);
-kill(getpid(), SIGUSR1);
+*   **Prestazioni:** Dipendono totalmente dalla dimensione di $q$:
+    *   Se $q$ è *enorme*, il Round Robin degenera diventando un banale FCFS.
+    *   Se $q$ è *minuscolo*, l'overhead del Context Switch "mangia" tutta la potenza della CPU.
 
-// Il thread principale sblocca la maschera
-pthread_sigmask(SIG_UNBLOCK, &set, NULL);
-// → l'handler scatta una sola volta
-```
+### 6. Code Multiple (Multilevel Queue)
+Invece di avere una singola Coda Ready $O(n)$, i processi vengono partizionati (spesso in modo statico e permanente) in **diverse code separate**, in base al loro tipo (es. una coda per i processi in attesa di poter usare standard input, detti **foreground**, e una per quelli *background*).
 
-**Risultato atteso e osservato**: l'handler scatta **una sola volta**, nonostante siano stati inviati tre segnali.
+Bisogna quindi decidere quale coda servire. Può essere a *priorità fissa* (si svuota prima tutto il foreground, ma c'è rischio starvation per il background) oppure tramite *Time-slice* (es. l'80% del tempo della CPU è dedicato alla coda foreground, il 20% a quella background).
 
-> [!abstract] Definizione: Accodamento dei segnali
-> I segnali ordinari (come `SIGUSR1`, `SIGINT`) **non si accumulano**: se un segnale è già pending per un thread/processo, invii successivi dello stesso segnale vengono collassati in uno solo. Quando la maschera viene rimossa, l'handler scatta una volta sola.
->
-> I **segnali real-time** (numerati da `SIGRTMIN` a `SIGRTMAX`) si comportano diversamente: vengono **accodati** e consegnati tutti in sequenza.
+Ogni coda può avere il suo algoritmo di scheduling. Ad esempio, la coda foreground potrebbe usare il Round Robin per garantire reattività, mentre la coda background un semplice FCFS.
 
-> [!tip] Compilazione con supporto thread
-> Ricordarsi sempre di aggiungere `-lpthread` (o `-pthread`) alla riga di compilazione:
-> ```bash
-> gcc -o programma sorgente.c -lpthread
-> ```
+### 7. Code Multiple con Feedback
+È l'algoritmo più flessibile e complesso. Simile alle Code Multiple, ma qui **i processi possono spostarsi da una coda all'altra** dinamicamente. I processi vengono separati in base alle loro caratteristiche (es. i processi I/O-bound, che restano poco in CPU, vengono tenuti nelle code ad altissima priorità).
 
----
+Se un processo usa troppa CPU (CPU-bound), viene "declassato" spingendolo nelle code a priorità inferiore, mentre un processo relegato nelle code basse da troppo tempo viene promosso a una coda superiore per evitare la starvation (aging).
 
-## 2. Cancellazione dei thread
+## Algoritmi di Real-Time CPU Scheduling
+I sistemi Real-Time gestiscono task con vincoli temporali. Nella maggior parte dei casi con vincoli temporali intendiamo **scadenze (deadline)**.
 
-Un thread può essere cancellato da un altro thread tramite `pthread_cancel(tid)`. Il comportamento dipende dallo **stato di cancellazione** del thread destinatario.
+A differenza dello scheduling tradizionale, si occupano quindi di rispettare questi vincoli temporali piuttosto che ottimizzare metriche di performance.
 
-| Stato                            | Come si imposta                                            | Comportamento                                                                        |
-| -------------------------------- | ---------------------------------------------------------- | ------------------------------------------------------------------------------------ |
-| **Enabled + Deferred** (default) | —                                                          | Il thread viene cancellato solo in un cancellation point                             |
-| **Enabled + Asynchronous**       | `pthread_setcanceltype(PTHREAD_CANCEL_ASYNCHRONOUS, NULL)` | Il thread può essere cancellato in qualsiasi momento                                 |
-| **Disabled**                     | `pthread_setcancelstate(PTHREAD_CANCEL_DISABLE, NULL)`     | La richiesta di cancellazione rimane pending; verrà gestita quando verrà riabilitata |
+Gli algoritmi di Real-Time CPU Scheduling si dividono in:
+1.  **Soft Real-Time:** I processi critici ottengono sempre priorità massima rispetto a quelli non critici, ma il SO non offre una garanzia assoluta matematica sul rispetto delle scadenze.
+2.  **Hard Real-Time:** Un task *deve assolutamente* essere completato prima della sua deadline.
+Fanno spesso uso di ulteriori algoritmi di *Admission Control*, ovvero algoritmi che rifiutano l'esecuzione di un task se questo chiede risorse che farebbero saltare le deadline.
 
-### Cancellation point
+Per supportare il real-time, i SO devono avere Kernel con *prelazione* e ridurre al minimo le **Latenze di Evento**:
+*   *Interrupt Latency:* Tempo tra l'arrivo dell'interrupt e l'inizio della routine di servizio.
+*   *Dispatch Latency:* Tempo per fermare il processo corrente e far partire quello nuovo.
 
-Un **cancellation point** è un momento in cui il thread accetta una richiesta di cancellazione pending. Esempi di cancellation point naturali:
+Esistono diversi tipi di algoritmi di Real-Time CPU Scheduling, tra cui:
+### Rate Monotonic Scheduling (RMS)
+Algoritmo a priorità statica. La priorità viene assegnata **in base all'inverso del periodo**:
+*   Periodo breve (il task si ripete molto spesso) = Priorità altissima.
+*   Periodo lungo = Priorità bassa.
 
-- `sleep()`: il thread è in attesa e può essere cancellato.
-- Chiamate di I/O (lettura/scrittura su file, rete, ecc.): il thread sta attendendo una risposta dal kernel.
-- Punti di sincronizzazione (`pthread_cond_wait`, ecc.).
-- `pthread_testcancel()`: cancellation point **artificiale** inserito manualmente dal programmatore per thread CPU-bound che non hanno pause naturali.
+Si usa per task periodici, ovvero task che richiedono la CPU a intervalli costanti (hanno un tempo di processo $t$, una deadline $d$, e un periodo $p$).
 
-> [!example] Cancellazione con stato disabled (esempio mask_cancel2)
-> ```c
-> void *start_fn(void *arg) {
->     pthread_setcancelstate(PTHREAD_CANCEL_DISABLE, NULL); // disabilita cancellazione
->     for (int i = 1; i <= 5; i++) {
->         printf("%d\n", i);
->         sleep(1);
->     }
->     pthread_setcancelstate(PTHREAD_CANCEL_ENABLE, NULL);  // riabilita
->     // Il prossimo cancellation point (es. sleep) eseguirà la cancellazione pending
->     while(1) sleep(1);  // cancellation point
-> }
-> ```
-> Il thread principale chiama `pthread_cancel(tid)` subito dopo aver creato il thread, ma la richiesta rimane in pending finché la cancellazione non viene riabilitata. Il thread termina solo dopo aver completato il ciclo da 1 a 5.
+*Problema (Deadline Persa):* RMS assegna quindi priorità ai task più frequenti, ma garantisce il rispetto delle deadline solo fino a circa il 69% di utilizzo della CPU; oltre questa soglia, i task potrebbero mancare la deadline (e quindi fallire).
 
----
+### Earliest Deadline First (EDF)
+Algoritmo a priorità dinamica. La priorità viene calcolata istante per istante: **più la scadenza (deadline) è imminente, più la priorità si alza**.
+Se la somma dell'utilizzo della CPU richiesto dai task è $\le 100\%$, l'EDF garantisce che nessuna deadline verrà mai mancata.
 
-## 3. TID user-level vs. TID kernel-level
+Si può applicare sia a tasks periodici che a non periodici.
 
-In Linux, il modello è **one-to-one**: ogni user thread corrisponde a un kernel thread. Tuttavia, i due livelli usano identificativi diversi.
+### Scheduling a Quote Proporzionali
+Viene assegnato un numero totale $T$ di "quote" (es. 100) di CPU. Se un'applicazione riceve $N$ quote (es. 20), lo scheduler le garantisce matematicamente l'uso di $N/T$ (ovvero il 20%) del tempo totale del processore. L'ammissione di nuovi processi dipende dalle quote rimaste libere (se ne sono già state assegnate 99 e un processo ne richiede 2, o si accontenta di 1 o viene rifiutato).
 
-| Identificativo | Come si ottiene | Chi lo usa |
-|---|---|---|
-| TID user-level | `pthread_self()` | La libreria `pthreads` (un numero grande, gestito dalla libreria) |
-| TID kernel-level | `syscall(SYS_gettid)` | Il kernel (un intero progressivo, visibile con `ps`) |
-| PID del processo | `getpid()` | Entrambi i livelli |
-
-> [!example] Codice per stampare entrambi i TID
-> ```c
-> #include <sys/syscall.h>
-> #include <unistd.h>
->
-> void *worker(void *arg) {
->     pthread_t user_tid = pthread_self();
->     pid_t kernel_tid = syscall(SYS_gettid);
->     printf("User TID: %lu, Kernel TID: %d\n", user_tid, kernel_tid);
->     // ...
-> }
-> ```
-> **Attenzione**: `SYS_gettid` non è standard POSIX; funziona su Linux ma non è portabile.
-
-### Ispezione dei thread da shell
-
-```bash
-# Thread di un processo specifico
-ps -T -p <PID>        # SPID = kernel TID
-
-# Tutti i processi/thread del sistema (mostra lightweight processes)
-ps -eLf               # LWP = kernel TID
-
-# Tramite /proc (filesystem virtuale)
-ls /proc/<PID>/task/  # una cartella per ogni thread (TID kernel)
-```
-
-> [!example] Esempio
-> Un processo con PID 1812 che ha lanciato 5 thread avrà kernel TID 1812 (thread principale), 1813, 1814, 1815, 1816, 1817. Si vedono tutti con `ps -T -p 1812`.
+In realtà questo algoritmo non è specifico per il real-time; si basa infatti su una suddivisione equa della quantità di CPU, indipendentemente da periodi o deadline. Esso viene catalogato come Real-Time perché è l'unico modo per garantire matematicamente a un processo una fetta costante di CPU, permettendogli di rispettare indirettamente i suoi vincoli di tempo.
 
 ---
 
-## 4. Introduzione allo scheduling della CPU
 
-### Motivazione
 
-In un sistema multiprogrammato, quando un processo va in attesa (I/O, sincronizzazione) la CPU rimane libera. Lo **scheduler** decide quale tra i processi pronti mandare in esecuzione, per massimizzare l'utilizzo della CPU e rispettare criteri di equità e performance.
+## Thread Scheduling e Multiprocessori
 
-I cicli di esecuzione dei processi si alternano tra:
+### Scheduling dei Thread (PCS vs SCS)
+Nei moderni Sistemi Operativi, ciò che viene schedulato fisicamente dal Kernel **non sono i processi, ma i Kernel-level Threads**.
+Esistono due domini di competizione per l'allocazione della CPU:
+1.  **Process-Contention Scope (PCS):** Tipico dei modelli *Many-to-One* e *Many-to-Many*. La competizione per l'accesso ai thread del kernel (LWP) avviene solo tra i thread utente appartenenti allo **stesso processo**. È gestito dalla libreria dei thread.
+2.  **System-Contention Scope (SCS):** La competizione avviene tra **tutti i thread del sistema**, indipendentemente dal processo a cui appartengono. Sistemi *One-to-One* come Windows e Linux usano esclusivamente SCS.
 
-- **CPU burst**: il processo usa intensamente la CPU.
-- **I/O burst**: il processo attende un'operazione di I/O.
+### Scheduling Multi-Processore
+Con più CPU (o core), lo scheduling diventa enormemente più complesso e può essere gestito attraverso le seguenti strategie:
 
-Osservazione empirica: la maggior parte dei processi nei sistemi consumer ha burst di CPU molto brevi (pochi millisecondi). Pochi processi hanno burst lunghi.
+1. **Asymmetric Multiprocessing:** Un solo processore (il Master) prende tutte le decisioni di scheduling e accede alle strutture dati. Semplifica la gestione (nessuna condivisione di dati) ma il Master diventa un collo di bottiglia.
 
-### Quando interviene lo scheduler
+2. **Symmetric Multiprocessing (SMP):** È l'approccio standard odierno. **Ogni processore si auto-schedula**. Può esserci una Coda Ready comune a tutti (causa problemi di concorrenza/lock), oppure **ogni core ha la sua Coda Ready privata** (soluzione standard attuale).
 
-| Transizione di stato | Tipo |
-|---|---|
-| Running → Waiting (richiesta I/O) | Senza prelazione — il processo cede volontariamente |
-| Running → Ready (time slice scaduto o interrupt) | **Con prelazione** — il processo viene interrotto forzatamente |
-| Waiting → Ready (I/O completato) | Può richiedere prelazione |
-| Terminazione | Senza prelazione — il processo cede definitivamente |
+Inoltre possiamo trovare il meccanismo di **Chip Multithreading (CMT / Hyperthreading)**. Questo prevede che ogni core fisico appaia al SO come se fossero due (o più) CPU logiche separate, permettendo di nascondere i tempi morti dovuti all'attesa della memoria (*memory stall*).
 
-> [!abstract] Definizione: Prelazione (Preemption)
-> Si dice che lo scheduling è **con prelazione** se il sistema può interrompere un processo in esecuzione per mandarne in esecuzione un altro. Senza prelazione, i processi girano fino a terminazione o blocco volontario.
+#### Load Balancing e Processor Affinity
+Nei sistemi SMP con code private, è fondamentale che i core abbiano carichi di lavoro equilibrati.
+Si usano quindi due tecniche di **Load Balancing (Bilanciamento del carico)**:
 
-### Il dispatcher
+* **Push migration**, ovvero un processo di sistema controlla i carichi e "spinge" i task dai core sovraccarichi a quelli scarichi;
 
-Lo **dispatcher** è il componente che materialmente trasferisce il controllo della CPU al processo scelto dallo scheduler. Il suo costo è detto **dispatch latency**: tempo necessario per salvare il contesto del vecchio processo e caricare quello del nuovo.
+* **Pull migration**, ovvero un core in *idle*, cioè senza far nulla, che "ruba" task dalla coda di un core occupato.
 
----
+A causa della memoria Cache, spostare un thread da un core all'altro è costoso (la cache del nuovo core va riempita da zero). Il SO cerca quindi di mantenere un thread sempre sullo stesso processore (**Processor Affinity**). Può essere **Soft** (il SO ci prova, ma senza garanzie) o **Hard** (il programmatore vincola il thread a un set specifico di processori).
 
-## 5. Criteri di scheduling
+##### NUMA
+La Processor Affinity serve specialmente per l'architettura **NUMA (Non-Uniform Memory Access)**, in cui il processore accede alla sua memoria locale molto più velocemente rispetto alla memoria collegata a un altro processore.
 
-| Criterio | Obiettivo | Rilevante per |
-|---|---|---|
-| **Utilizzo CPU** | Massimizzare % di utilizzo | Tutti i sistemi |
-| **Throughput** | Massimizzare job completati per unità di tempo | Sistemi batch |
-| **Turnaround time** | Minimizzare il tempo medio di completamento (da arrivo a fine) | Processi lunghi, batch |
-| **Waiting time** | Minimizzare il tempo medio in coda Ready | Tutti |
-| **Response time** | Minimizzare il tempo alla prima risposta | Processi interattivi |
+##### Heterogeneous Multiprocessing (HMP)
+Architettura tipica del mondo mobile. I core fisici non sono tutti identici: alcuni sono grandi e potenti (ma consumano molta batteria), altri sono lenti ma estremamente efficienti dal punto di vista energetico. Lo scheduler qui non punta solo al bilanciamento delle performance, ma è progettato per **risparmiare energia**.
 
-> [!important] Minimizzare la varianza è spesso più importante della media
-> Un sistema con tempi di risposta imprevedibili (alta varianza) è percepito come inaffidabile anche se la media è bassa. Ridurre la varianza aumenta la predicibilità e la fiducia dell'utente.
+## Virtualizzazione e Scheduling
+Nei sistemi virtualizzati, l'Hypervisor deve schedulare l'utilizzo della CPU fisica tra le varie Macchine Virtuali (SO ospiti). A sua volta, il SO ospite sta facendo girare i *suoi* algoritmi di scheduling per i suoi thread interni.
 
----
+Il SO ospite crede (erroneamente) di possedere l'intera CPU in esclusiva. Questo strato doppio di scheduling può quindi annullare i benefici di un buon algoritmo del SO ospite e causare ritardi imprevisti nei tempi di risposta.
 
-## 6. Algoritmo FCFS (First Come First Served)
+## Scheduling in Linux e Windows
 
-Il processo che arriva per primo viene servito per primo. Nessuna prelazione.
+### Lo Scheduling in Linux
+Linux ha cambiato radicalmente il suo scheduler nel corso degli anni:
 
-> [!example] Esempio FCFS
-> Tre processi arrivano al tempo 0 in ordine P1, P2, P3 con burst time rispettivamente 24, 3, 3 ms.
->
-> ```
-> | P1 (24ms) | P2 (3ms) | P3 (3ms) |
-> 0          24         27         30
-> ```
->
-> Tempi di attesa: P1=0, P2=24, P3=27. **Media: 17 ms.**
+* **Versioni storiche (pre-2.5):** Usava una singola lista per tutti i processi ($O(n)$) e una variante del Round Robin pesato in base a un valore di *nice* (gentilezza, ovvero quanto i task tendevano a cedere il posto ad altri).
 
-**Problema — effetto convoglio**: un processo lungo (CPU-bound) blocca tutti i processi brevi (I/O-bound) che lo seguono, degradando il tempo di risposta dell'intero sistema.
+* **Kernel v2.5:** Usava due array separati per ogni CPU ($O(1)$): un array *active* (task con tempo ancora a disposizione) e uno *expired* (task che hanno esaurito il quantum). Finiti i task active, si scambiavano semplicemente i puntatori dei due array. Rapido ma pessimo per la reattività.
 
----
+* **Kernel 2.6.23+:** Non usa i tradizionali "quanti di tempo" fissi. Cerca di distribuire il tempo della CPU in modo perfettamente "equo" proporzionalmente al "peso" (priorità/nice) del task. Invece della priorità pura, calcola quanto **tempo virtuale** un processo ha effettivamente girato. Il tempo scorre più o meno velocemente in base alla priorità (il vruntime di un processo a bassa priorità scorre molto in fretta).
 
-## 7. Algoritmo SJF (Shortest Job First)
+* **Kernel 6.6+:** la versione precedente favoriva l'equità globale ma a volte generava *lag* nelle interfacce grafiche. Questa nuova versione nasce quindi per unire Equità e Reattività. Si basa sul concetto di *Lag* (da non confondere con il lag di sopra), ovvero la differenza tra quanto tempo di CPU un task *avrebbe dovuto* ricevere e quanto ne ha *effettivamente* ricevuto (con *Lag Positivo* il task è "elegibile", altrimenti ha consumato troppo e viene stoppato). L'algoritmo sceglie infine il task elegibile con la *Virtual Deadline* più vicina.
 
-Ad ogni ciclo di scheduling, si manda in esecuzione il processo con il **burst time più breve**. Questo minimizza il tempo medio di attesa.
+### Lo Scheduling in Windows
+Windows utilizza un sistema **Priority-based Preemptive** (basato su priorità, con prelazione). Usa uno schema a **32 livelli di priorità**:
+* `0`: il thread di gestione della memoria;
+* `1 - 15`: Classe a priorità variabile (assegna dei boost e penalità per garantire l'interattività);
+* `16 - 31`: Classe Real-Time (priorità fissa, per task critici).
+Ogni livello di priorità ha una propria coda; lo scheduler sceglie sempre il thread con priorità più alta disponibile. Se non trova nessun thread pronto, esegue il *thread idle* che non svolge lavoro utile ma mantiene la CPU occupata (dato che non può restare senza far nulla);
 
-> [!example] Esempio SJF
-> Stessi tre processi, ma ordinati per burst time crescente: P2 (3), P3 (3), P1 (24).
->
-> ```
-> | P2 (3ms) | P3 (3ms) | P1 (24ms) |
-> 0          3          6           30
-> ```
->
-> Tempi di attesa: P2=0, P3=3, P1=6. **Media: 3 ms** (vs. 17 ms di FCFS).
-
-> [!abstract] Proprietà: ottimalità di SJF
-> SJF è **ottimale** rispetto alla minimizzazione del tempo medio di attesa. Non esiste algoritmo non-preemptive che faccia meglio.
-
-> [!warning] Il problema pratico: non si conosce il burst time futuro
-> Il sistema operativo non può sapere a priori quanto durerà il prossimo CPU burst di un processo. SJF è quindi un **algoritmo teorico di riferimento**; in pratica si usa solo in contesti dove i tempi sono noti (es. job batch schedulati manualmente).
-
-> [!example] Esempio SJF con 4 processi e oracolo
-> P1 burst=6, P2 burst=8, P3 burst=7, P4 burst=3. Ordine: P4, P1, P3, P2.
->
-> Tempi di attesa: P4=0, P1=3, P3=9, P2=16. **Media: 7 ms.**
-
----
-
-## 8. Stima del burst time: media esponenziale
-
-Per stimare la durata del prossimo CPU burst, il sistema operativo usa la storia delle esecuzioni passate tramite una **media esponenziale**:
-
-$$\tau_{n+1} = \alpha \cdot t_n + (1 - \alpha) \cdot \tau_n$$
-
-dove:
-- $t_n$ = durata effettiva dell'$n$-esimo CPU burst (valore osservato)
-- $\tau_n$ = stima che era stata fatta per l'$n$-esimo burst
-- $\tau_{n+1}$ = nuova stima per il prossimo burst
-- $\alpha \in [0, 1]$ = peso relativo tra osservazione recente e storia passata
-
-Espandendo la formula ricorsivamente si ottiene:
-
-$$\tau_{n+1} = \alpha t_n + (1-\alpha)\alpha t_{n-1} + (1-\alpha)^2 \alpha t_{n-2} + \ldots$$
-
-I burst più recenti pesano di più; i burst più vecchi **sfumano esponenzialmente** (da cui il nome). L'ipotesi iniziale $\tau_0$ contribuisce sempre meno con il passare delle iterazioni.
-
-> [!example] Esempio con $\alpha = 0.5$, $\tau_0 = 10$
-> - Burst reale $t_1 = 6$ → $\tau_2 = 0.5 \cdot 6 + 0.5 \cdot 10 = 8$
-> - Burst reale $t_2 = 4$ → $\tau_3 = 0.5 \cdot 4 + 0.5 \cdot 8 = 6$
-> - E così via: la stima insegue il valore reale smorzando le fluttuazioni.
-
----
-
-> [!summary] Punti chiave della lezione
-> - I segnali ordinari pending non si accumulano: N invii → 1 sola consegna. I segnali real-time invece si accodano.
-> - Una maschera impostata prima del lancio dei thread viene ereditata da tutti i figli; impostata dopo, vale solo per il thread corrente.
-> - La cancellazione deferred (default) aspetta un cancellation point; si possono aggiungere cancellation point artificiali con `pthread_testcancel()`.
-> - TID user-level (`pthread_self`) e TID kernel-level (`SYS_gettid`) sono diversi ma in Linux corrispondono one-to-one.
-> - Lo scheduler minimizza idle time della CPU scegliendo quale processo mandare in esecuzione dalla coda Ready.
-> - FCFS: semplice, soffre dell'effetto convoglio. SJF: ottimale per tempo medio di attesa, ma richiede di conoscere i burst time futuri.
-
-## Prossimi argomenti
-
-- [ ] Esercitazione pratica su thread, segnali e cancellazione (martedì)
-- [ ] Scheduling con prelazione: Round Robin
-- [ ] Scheduling a priorità e problemi di starvation
-- [ ] Scheduling su sistemi multicore
-
-#SO #signal-handling #thread-cancellation #scheduling #FCFS #SJF #CPU-burst
+Il componente del kernel che gestisce lo switch si chiama **Dispatcher**.
