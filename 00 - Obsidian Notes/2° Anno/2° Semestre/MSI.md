@@ -5,7 +5,41 @@
 Il report presenta un'architettura teorica solida e ben strutturata. Tuttavia, emergono alcune aree suscettibili di approfondimento e precisazione tecnica.
 
 ---
-## Teoria di base
+## Definizioni Fondamentali
+
+### Esperimento
+
+> [!abstract] Definizione
+> Un **esperimento** è un'operazione (o insieme di operazioni) che conduce a **uno tra tanti risultati possibili**.
+
+### Spazio dei Campioni $\Omega$
+
+> [!abstract] Definizione
+> Lo **spazio dei campioni** (o *sample space*) è l'insieme di **tutti i possibili risultati** di un esperimento. Si indica con $\Omega$.
+$$\Omega = \{\omega_1, \omega_2, \ldots\}$$
+Può essere:
+- **Finito** → es. lancio di una moneta: $\Omega = \{T, C\}$
+- **Numerabilmente infinito** → es. numero di pacchetti in coda: $\Omega = \mathbb{N}_0$
+- **Non numerabile (continuo)** → es. tensione misurata ai capi di una resistenza (rumore termico): $\Omega = \mathbb{R}$
+
+> [!note] Discreto vs Continuo nella pratica
+> In realtà qualunque misura fisica è razionale (strumenti con cifre significative finite), ma quando i valori sono così tanti, si modella come continuo e poi si tronca. Il **tempo** viene solitamente schematizzato come continuo.
+
+### Evento
+
+> [!abstract] Definizione
+> Un **evento** è un **sottoinsieme** di $\Omega$ definito da una proposizione.
+> Un **evento elementare** è un singolo elemento di $\Omega$.
+
+> [!warning] La proposizione non è unica!
+> L'evento è univocamente determinato dagli elementi di $\Omega$ che lo compongono, ma la proposizione che lo descrive **non è univoca** (la ridondanza del linguaggio naturale lo permette).
+>
+> **Esempio:** ho in tasca 1, 2, 3, 4 o 5 euro. L'evento $\{1, 3, 5\}$ può essere descritto come:
+> - "ho un numero dispari di euro"
+> - "non ho un numero pari di euro"
+> - "ho 1 o 3 o 5 euro"
+>
+> → Saper **riformulare** la proposizione in modo conveniente è spesso la chiave per risolvere un esercizio.
 ### Nomenclatura degli eventi
 
 | Nome                     | Definizione                                                                              | Notazione         |
@@ -15,6 +49,51 @@ Il report presenta un'architettura teorica solida e ben strutturata. Tuttavia, e
 | **Evento complementare** | $A^c$ = elementi di $\Omega$ non in $A$                                                  | $A^c$ o $\bar{A}$ |
 | **Eventi incompatibili** | $A \cap B = \emptyset$                                                                   | —                 |
 | **$A$ implica $B$**      | $A \subseteq B$ — il verificarsi di $A$ implica il verificarsi di $B$ (non viceversa)    | $A \subseteq B$   |
+
+---
+
+## Operazioni sugli Insiemi / Eventi
+
+### Riassunto operazioni
+1. $A_1 \cup A_2 = \{\omega \in \Omega \mid \omega \in A_1 \text{ oppure } \omega \in A_2\}$
+2. $A_1 \cap A_2 = \{\omega \in \Omega \mid \omega \in A_1 \text{ e } \omega \in A_2\}$
+3. $A_1^c = \{\omega \in \Omega \mid \omega \notin A_1\}$
+4. $A_1 \setminus A_2 = A_1 \cap A_2^c$
+### Proprietà utili
+
+| Proprietà                | Formula                       |
+| ------------------------ | ----------------------------- |
+| Doppio complemento       | $($A^c$)^c = A$               |
+| Complemento di $\Omega$  | $\Omega^c = \emptyset$        |
+| Unione con complementare | $A \cup A^c = \Omega$         |
+| De Morgan                | $(A \cup B)^c = A^c \cap B^c$ |
+| De Morgan                | $(A \cap B)^c = A^c \cup B^c$ |
+
+---
+
+## Approccio Frequentistico alla Probabilità
+
+### Frequenza di successo
+
+> [!abstract] Definizione
+> Dati $n$ esperimenti **indipendenti** (l'esito di uno non influenza gli altri), si definisce **frequenza di successo** dell'evento $A$ su $n$ prove:
+>
+> $$f_n(A) = \frac{N_A}{n}$$
+>
+> dove $N_A$ è il numero di volte in cui si è verificato $A$.
+
+Per un dado **onesto** (eventi elementari equiprobabili):
+$$\lim_{n \to \infty} f_n(A) = \frac{|A|}{|\Omega|}$$
+> [!warning] Il cane che si morde la coda
+> La definizione frequentistica usa implicitamente il concetto di **indipendenza** — che è esso stesso un concetto probabilistico. È una definizione un po' autoriflessiva: per questo il prof darà anche una definizione più rigorosa (assiomatica).
+
+> [!example] Verifica dell'onestà di un dado
+> Lancio $n$ volte, conto $N_1, N_2, \ldots, N_6$. Il dado è (probabilmente) onesto se:
+> $$\frac{N_i}{n} \approx \frac{1}{6} \quad \forall i$$
+> Non è una condizione *sufficiente* (i singoli potrebbero compensarsi), ma è *necessaria*.
+
+---
+
 
 ## 1. Analisi Combinatoria: Integrazioni Necessarie
 

@@ -143,7 +143,7 @@ Quando la varianza tende a zero, la variabile aleatoria si concentra attorno all
 > **Convergenza con probabilità 1** (Legge forte dei grandi numeri, non dimostrata): l'evento che $F_n(A) \to P(A)$ ha probabilità esattamente 1.
 
 ```mermaid
-flowchart TD
+graph TD
     A["Convergenza con\nprobabilità 1\n(Legge forte GN)"] --> B["Convergenza\nin probabilità\n(Legge debole GN)"]
     C["Convergenza in\nmedia quadratica"] --> B
 ```

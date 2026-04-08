@@ -43,8 +43,8 @@ tags:
 > Intrinseco nel concetto di informazione c'è l'**incertezza**: se non c'è incertezza su ciò che viene trasmesso, non c'è informazione da trasmettere.
 
 ```mermaid
-flowchart LR
-    A[Incertezza\na priori] -->|trasferimento| B[Certezza\n a posteriori]
+graph LR
+    A["Incertezza\na priori"] -->|trasferimento| B["Certezza\na posteriori"]
     B --> C["(certezza mai assoluta)"]
 ```
 
@@ -58,16 +58,16 @@ La **probabilità** è lo strumento formale per modellare l'incertezza. Tutto ci
 ## Programma del Corso
 
 ```mermaid
-flowchart TD
-    A[Analisi Combinatoria\nSaper contare] --> B[Probabilità su spazi finiti\nDefinizione assiomatica]
-    B --> C[Variabili aleatorie discrete]
-    C --> D[Estensione al continuo\nIntegrali al posto di somme]
-    D --> E[Accenni ai processi aleatori]
-    
-    B --> F[Teoria dell'informazione\nEntropia di Shannon, bit]
-    B --> G[Statistica inferenziale\nBayesiana e non bayesiana]
-    G --> H[Teoria della decisione\nTest di ipotesi]
-    H --> I[Stima ricorsiva?\nGradiente → ML]
+graph TD
+    A["Analisi Combinatoria\nSaper contare"] --> B["Probabilità su spazi finiti\nDefinizione assiomatica"]
+    B --> C["Variabili aleatorie discrete"]
+    C --> D["Estensione al continuo\nIntegrali al posto di somme"]
+    D --> E["Accenni ai processi aleatori"]
+
+    B --> F["Teoria dell'informazione\nEntropia di Shannon, bit"]
+    B --> G["Statistica inferenziale\nBayesiana e non bayesiana"]
+    G --> H["Teoria della decisione\nTest di ipotesi"]
+    H --> I["Stima ricorsiva?\nGradiente → ML"]
 
     style A fill:#4a9eff,color:#fff
     style F fill:#f0a500,color:#fff
@@ -203,7 +203,7 @@ $$\lim_{n \to \infty} f_n(A) = \frac{|A|}{|\Omega|}$$
 
 ### Regola del Prodotto Cartesiano
 
-Dati $k$ insiemi $A_1, $A_2$, \ldots, A_k$ con $|A_i| = n_i$:
+Dati $k$ insiemi $A_1, A_2, \ldots, A_k$ con $|A_i| = n_i$:
 $$|A_1 \times A_2 \times \cdots \times A_k| = \prod_{i=1}^{k} n_i$$
 Questa è la **formula base** da cui derivano tutti i risultati di analisi combinatoria.
 
@@ -212,11 +212,11 @@ Questa è la **formula base** da cui derivano tutti i risultati di analisi combi
 ### $k$-uple ordinate da $n$ elementi
 
 ```mermaid
-flowchart LR
-    A["Estrazione di k elementi\nda un insieme di n"] --> B{Ripetizione?}
+graph LR
+    A["Estrazione di k elementi\nda un insieme di n"] --> B{"Ripetizione?"}
     B -->|Sì| C["n^k\nk-uple ordinate\ncon ripetizione"]
     B -->|No| D["n! / (n-k)!\nk-uple ordinate\nsenza ripetizione\n(disposizioni)"]
-    D --> E{k = n?}
+    D --> E{"k = n?"}
     E -->|Sì| F["n!\nPermutazioni"]
     E -->|No| G["n! / (n-k)!"]
 ```
@@ -245,9 +245,9 @@ Due $k$-uple che differiscono **solo per l'ordine** degli elementi sono consider
 > [!note] Ragionamento chiave
 > Tra tutte le $k$-uple ordinate senza ripetizione, ogni gruppo di $k!$ di esse (tutte le permutazioni degli stessi elementi) collassa in **un'unica** $k$-upla non ordinata. Quindi:
 $$C(n, k) = \binom{n}{k} = \frac{n!}{k!\,(n-k)!}$$
-$$
+
 Questo è il **coefficiente binomiale**.
-$$
+
 ---
 
 ### Riepilogo formule
@@ -272,12 +272,15 @@ $$
 > Dato un insieme $A$ con $m$ elementi, l'**insieme delle parti** $\mathcal{P}(A)$ (l'insieme di tutti i sottoinsiemi di $A$, inclusi $\emptyset$ e $A$ stesso) ha cardinalità:
 >
 > $$|\mathcal{P}(A)| = 2^m$$
-$$
-**Dimostrazione combinatoria:**
-$$
+
+#### Dimostrazione combinatoria
+
 I sottoinsiemi di $A$ di cardinalità $k$ sono esattamente le $k$-uple non ordinate senza ripetizione, cioè $\binom{m}{k}$. Sommando su tutti i possibili $k$:
+
 $$|\mathcal{P}(A)| = \sum_{k=0}^{m} \binom{m}{k} = \sum_{k=0}^{m} \binom{m}{k} 1^k \cdot 1^{m-k} = (1+1)^m = 2^m$$
+
 L'ultima uguaglianza è il **Binomio di Newton**:
+
 $$\boxed{(a+b)^m = \sum_{k=0}^{m} \binom{m}{k} a^k b^{m-k}}$$
 ---
 
