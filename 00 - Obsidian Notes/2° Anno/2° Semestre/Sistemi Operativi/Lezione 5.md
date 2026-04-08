@@ -6,7 +6,7 @@ lezione: Thread (concetti, modelli di mapping e librerie POSIX)
 tags: [SO, thread, user-thread, kernel-thread, POSIX, pthread, parallelismo]
 ---
 
-# SO — Lezione: Thread — Concetti, Modelli di Mapping e Librerie POSIX
+# SO — Lezione 5: Thread — Concetti, Modelli di Mapping e Librerie POSIX
 
 **Corso:** Sistemi Operativi
 

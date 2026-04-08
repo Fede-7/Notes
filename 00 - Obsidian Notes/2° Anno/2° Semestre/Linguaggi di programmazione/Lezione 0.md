@@ -1,5 +1,5 @@
 ---
-date: 2026-03-06
+date: 2026-03-05
 corso: Linguaggi di Programmazione
 docente: (da inserire)
 lezione: 2

@@ -15,7 +15,7 @@ tags:
   - ring
 Professore: Finzi
 ---
-# SO — Lezione 3: Virtualizzazione, Struttura del Kernel e Processi
+# SO — Lezione 2: Virtualizzazione, Struttura del Kernel e Processi
 
 **Docente:** Prof. Alberto Finzi | **Corso:** Sistemi Operativi | **CFU:** 9
 

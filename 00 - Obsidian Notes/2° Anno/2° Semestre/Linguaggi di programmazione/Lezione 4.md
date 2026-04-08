@@ -1,280 +1,294 @@
 ---
-date: 2026-03-19
+date: 2026-03-24
 corso: Linguaggi di Programmazione
-docente: Bonatti
-lezione: 4
-tags: [LP, blocchi, scope, scoping-statico, scoping-dinamico, record-di-attivazione, environment, parametri, ADA, mascheramento]
+docente: N/D
+lezione: Passaggio parametri, macro, funzioni di ordine superiore
+tags: [LP, passaggio-parametri, macro, ordine-superiore, stack-attivazione]
 ---
 
-# LP — Lezione 4: Blocchi, Scope e Record di Attivazione
+# LP — Lezione: Passaggio Parametri, Macro e Funzioni di Ordine Superiore
 
-**Corso:** Linguaggi di Programmazione | **Docente:** Prof. Bonatti | **Data:** 19/03/2026
+**Corso:** Linguaggi di Programmazione
 
 ---
 
 ## Argomenti trattati
 
-- Blocchi: definizione, motivazioni storiche, struttura sintattica
-- Legami di nome e ambito di validità (scope)
-- Scoping statico (lessicale): ereditarietà unidirezionale, mascheramento
-- Implementazione dello scoping statico con record di attivazione
-- Struttura dello stack di attivazione: variabili locali, temporanee, return pointer
-- Scoping dinamico: differenze, problemi di predittibilità, storia (LISP → Scheme)
-- Blocchi associati a procedure: record di attivazione più complesso
-- Puntatore all'ambiente non locale: differenza tra statico e dinamico
-- Parametri formali vs. parametri attuali
-- Modalità di passaggio: in, out, in-out (Ada)
-- Default values e passaggio per nome vs. per posizione
+- Riepilogo modalità di passaggio parametri (in, out, in-out per copia e per riferimento)
+- Simulazione del passaggio per riferimento in C++ e Java
+- Fenomeni di aliasing
+- Funzioni e procedure di ordine superiore
+- Macro (`#define` in C): vantaggi e pericoli
+- Esercizi su stack di attivazione con diverse modalità di passaggio
 
 ---
 
-## Blocchi: Motivazioni e Struttura
+## 1. Riepilogo: modalità di passaggio parametri
 
-### Perché i blocchi?
+In un linguaggio Pascal-like, la dichiarazione di un parametro formale determina la sua modalità:
 
-I blocchi di istruzione (delimitati in C da `{}`, in Pascal da `begin...end`, in Python dall'indentazione) furono introdotti con la **programmazione strutturata** per tre ragioni principali:
-
-1. **Evitare il `goto`**: definire i bordi di cicli, `if`, procedure.
-2. **Unità di compilazione separata**: componenti compilabili e testabili indipendentemente (package in Java).
-3. **Namespace separati**: evitare interferenze tra variabili con lo stesso nome usate in punti diversi del programma.
-
-> [!example] Il problema dei vecchi linguaggi
-> In Assembler e nel vecchio BASIC i nomi di variabile erano un unico calderone globale. Riutilizzare per errore lo stesso identificatore in un altro punto del codice causava bug insidiosi. I blocchi creano "recinti" all'interno dei quali un nome può essere riutilizzato senza interferire con gli usi esterni.
-
-### Struttura di un blocco (pseudolinguaggio)
-
-```
-begin blocco P
-    dichiarazioni    ← identificatori dichiarati in P
-begin statements
-    istruzioni       ← usano gli identificatori dichiarati sopra
-end blocco P
-```
-
-Il blocco ha due zone: la zona delle dichiarazioni e la zona degli enunciati. I blocchi possono essere innestati arbitrariamente.
-
----
-
-## Scoping Statico (Lessicale)
-
-### Definizione
-
-> [!abstract] Definizione: Scope Statico
-> Il **legame tra un nome e la sua locazione** è valido all'interno del blocco in cui il nome è dichiarato e in tutti i blocchi innestati in esso (salvo mascheramento). L'ambito di validità si determina **guardando il testo del programma**, senza bisogno di eseguirlo.
-
-### Ereditarietà unidirezionale
-
-Un blocco interno **vede** tutto ciò che è dichiarato nei blocchi più esterni. Il viceversa non vale: i blocchi esterni non vedono ciò che è dichiarato all'interno.
-
-```
-begin P                    -- dichiara X, Y
-    X visibile da qui
-    begin A                -- dichiara Z
-        X, Y visibili (ereditati da P)
-        Z visibile (dichiarato in A)
-        begin B            -- dichiara W
-            X, Y, Z, W tutti visibili
-        end blocco B
-        Z ancora visibile (B è finito)
-        W non più visibile (B è finito)
-    end blocco A
-    X, Y visibili
-    Z non visibile (A è finito)
-end blocco P
-```
-
-La struttura dei blocchi innestati forma un **albero**: ogni blocco ha esattamente un genitore (il blocco che lo contiene). L'ereditarietà scorre dall'alto verso il basso nell'albero.
-
-### Mascheramento (Shadowing)
-
-Se un blocco interno dichiara un nome già presente in un blocco esterno, la dichiarazione interna **maschera** quella esterna: finché si è dentro il blocco interno, il nome fa riferimento alla variabile locale. La variabile esterna continua ad esistere e mantiene il suo valore, ma è temporaneamente inaccessibile.
-
-> [!example] Mascheramento in C
-> ```c
-> int x = 5;          // x del blocco esterno
-> {
->     int x = 10;     // maschera la x esterna
->     printf("%d\n", x);  // stampa 10
-> }
-> printf("%d\n", x);  // stampa 5 — la x esterna è rimasta intatta
-> ```
-> Le due `x` occupano locazioni di memoria diverse.
-
-> [!warning] Cosa può cambiare nell'ambiente esterno dopo un blocco interno?
-> L'unica cosa che può cambiare è il **valore** di una variabile che il blocco interno ha modificato (avendo accesso alla variabile esterna). La struttura dei legami (nome → locazione) è invariata.
-
----
-
-## Implementazione: Record di Attivazione
-
-Per i blocchi statici semplici (non procedure), l'ambiente si implementa con uno **stack di record di attivazione**. Ogni record contiene:
-
-- Lo spazio per le **variabili locali** del blocco
-- Un **puntatore all'ambiente non locale** (il record del blocco che contiene questo)
-
-Entrando in un blocco si fa una push; uscendo, una pop. Il meccanismo è lo stesso della gestione degli environment:
-
-```mermaid
-flowchart LR
-    B["Record blocco B\nx_B, w\n→ env non-locale"] --> A["Record blocco A\nz, k\n→ env non-locale"] --> P["Record blocco P\nx_P, y\n→ null"]
-```
-
-Per cercare una variabile, si scansiona la lista dal record corrente verso la radice: si trova il primo binding con quel nome. Se `x` è dichiarata sia in `B` che in `P`, quella di `B` viene trovata per prima (mascheramento).
-
-### Allocazione statica vs. dinamica
-
-- **Allocazione statica**: la variabile ha una locazione fissa decisa a tempo di compilazione. Tutte le iterazioni di un ciclo usano la stessa locazione. Il valore dell'iterazione precedente persiste.
-- **Allocazione dinamica**: a ogni entrata nel blocco si alloca nuova memoria. Il valore non è definito (o è zero se ripulito, ma in pratica non lo è). Necessaria per la ricorsione.
-
-> [!example] Fattoriale con allocazione statica
-> ```
-> begin P: int i, j
-> begin statements
->     for i from 1 to 10:
->         begin A: int j        -- j dichiarata dentro il ciclo
->         begin statements
->             if i == 1: j = 1
->             else:      j = j * i   -- usa il j della iterazione precedente
-> ```
-> Questo calcola `10!` **solo se l'allocazione di `j` è statica**, perché `j` deve conservare il valore tra un'iterazione e l'altra. Con allocazione dinamica, `j` verrebbe reinizializzata (con valore impredicibile) a ogni iterazione e il calcolo sarebbe errato.
-
----
-
-## Record di Attivazione per Procedure
-
-### Struttura più complessa
-
-Quando si entra in una procedura, il record di attivazione deve contenere:
-
-| Campo | Contenuto |
-|---|---|
-| Variabili locali | Spazio per le variabili dichiarate dentro la procedura |
-| Memoria temporanea | Risultati parziali nella valutazione di espressioni |
-| Return pointer | Indirizzo dell'istruzione a cui tornare dopo la procedura |
-| Puntatore all'env non locale | Link al record di attivazione dell'ambiente esterno |
-
-### Memoria temporanea
-
-Durante la valutazione di un'espressione complessa come `x = y * 3 + z * 4`, il compilatore deve parcheggiare i risultati intermedi (es. `y * 3`) da qualche parte mentre calcola `z * 4`. Il posto naturale è il record di attivazione corrente, così le chiamate ricorsive non interferiscono.
-
-### Return pointer
-
-Ogni chiamata a una procedura salva nel record l'indirizzo dell'istruzione da eseguire al ritorno. All'uscita dalla procedura, si estrae il record dallo stack e si salta all'indirizzo salvato.
-
-> [!example] Traccia dello stack per chiamate ricorsive
-> P chiama S, S chiama R, R si richiama ricorsivamente, poi chiama Q:
-> ```
-> [fondo stack]  Record P (null)
->                Record S (→ P)
->                Record R, 1a attivazione (→ P)
->                Record R, 2a attivazione (→ P)  ← stessa funzione, record diverso
->                Record Q (→ Q)
-> [cima stack]
-> ```
-> Due attivazioni della stessa procedura coesistono sullo stack: hanno lo stesso codice ma ambienti separati.
-
----
-
-## Scoping Statico vs. Dinamico
-
-### Scoping dinamico
-
-In alternativa allo scope lessicale, alcune implementazioni adottano lo **scope dinamico**: l'ambiente non locale di una procedura è quello della procedura che **l'ha chiamata** (non quella che la contiene nel codice).
-
-Il puntatore all'env non locale punta sempre al record immediatamente precedente nello stack, senza saltare record intermedi.
-
-> [!warning] Problemi dello scoping dinamico
-> Con lo scope dinamico, non è possibile determinare staticamente qual è l'ambiente non locale di una funzione. Dipende dall'ordine delle chiamate a runtime, che dipende dall'input. Il risultato dello stesso programma con lo stesso input è prevedibile, ma **testare e debuggare** diventa estremamente difficile: quale variabile `x` sta usando la funzione in questo momento? Dipende da chi l'ha chiamata.
->
-> Formalmente: determinare l'ambiente non locale di una funzione con scoping dinamico è **indecidibile**.
-
-| | Scope Statico | Scope Dinamico |
-|---|---|---|
-| Env non locale | Definito dal testo (dove la funzione è scritta) | Definito dall'esecuzione (chi ha chiamato) |
-| Determinabile a | Tempo di compilazione | Solo a runtime |
-| Predittibilità | Alta | Bassa (indecidibile in generale) |
-| Puntatore env | Salta record intermedi (verso il blocco contenitore) | Punta sempre al record precedente |
-| Usato da | Quasi tutti i linguaggi moderni | Primo LISP (poi sostituito da Scheme) |
-
-> [!quote]
-> "Scheme è praticamente uguale a LISP — stessa sintassi con tante parentesi — ma usa lo scoping statico proprio per eliminare l'incubo di predire il comportamento dei programmi con scope dinamico."
-
----
-
-## Passaggio dei Parametri
-
-### Parametri formali vs. attuali
-
-- **Parametri formali**: i nomi usati nella **dichiarazione** della procedura. Fanno parte dell'environment locale della procedura.
-- **Parametri attuali**: i nomi usati nella **chiamata** alla procedura (i valori/variabili che si passano dall'esterno).
-
-### Modalità di passaggio (Ada)
-
-Ada è uno dei pochi linguaggi che specifica esplicitamente la direzione del passaggio dei parametri:
-
-```ada
-procedure foo(A : in integer; B : out integer; C : in out integer) is
-    ...
-end foo;
-```
-
-| Modalità | Significato | All'inizio dell'esecuzione | Modificabile esternamente? |
+| Modalità | Sintassi | Semantica | Implementazione tipica |
 |---|---|---|---|
-| `in` | Solo input | Valore valido (dato dal chiamante) | No (effetto collaterale indesiderabile) |
-| `out` | Solo output | Non inizializzato | Sì (il punto è ricevere un risultato) |
-| `in out` | Bidirezionale | Valore valido | Sì |
+| **in** (sola lettura) | nessuna annotazione | il parametro può essere solo letto | copia del valore |
+| **in per riferimento** | `var` (Pascal) | il parametro può essere solo letto, ma è un alias | puntatore (sola lettura) |
+| **out** (sola scrittura) | `out` | il parametro può essere solo scritto; deve essere inizializzato prima dell'uso | copia-out |
+| **in-out per copia** | `in out` | il parametro si legge e si scrive; valore copiato dentro e fuori | copia-in / copia-out |
+| **in-out per riferimento** | `var` (Pascal, per in-out) | il parametro si legge e si scrive; è un alias della variabile del chiamante | puntatore |
 
-### Passaggio per posizione vs. per nome
+> [!important] Errori a compile-time per modalità in
+> Un parametro dichiarato `in` non deve mai comparire a sinistra di un assegnamento. Il compilatore lo rileva staticamente. Se trovate questa violazione, il programma non compila e non ha senso costruire lo stack di attivazione.
 
-Nella maggior parte dei linguaggi, i parametri attuali si associano ai formali **per posizione**: il primo attuale va al primo formale, ecc.
-
-In Ada (e alcuni altri) è possibile il **passaggio per nome**:
-
-```ada
--- Chiamata per posizione (ordine obbligatorio):
-foo(X, Y, Z);
-
--- Chiamata per nome (ordine libero):
-foo(C => Z, A => X, B => Y);
-```
-
-Il passaggio per nome migliora la leggibilità (il nome del parametro è esplicito) ed è essenziale quando si vuole **saltare parametri con valore di default**.
-
-### Parametri con valore di default
-
-Alcuni linguaggi permettono di assegnare un valore di default ai parametri formali. Se il chiamante non specifica quel parametro, si usa il default. I parametri con default devono essere tutti in coda (con passaggio per posizione) oppure si può saltarli liberamente (con passaggio per nome).
-
-> [!tip] Perché Ada contiene tutto questo?
-> Ada nacque con l'ambizione di essere il linguaggio unico per tutto il software degli enti federali USA. Per supportare tutti i paradigmi e tutti gli usi possibili, risultò così complesso da essere ingestibile. È un caso da manuale di come il tentativo di essere "il linguaggio definitivo" produca un linguaggio che non lo usa quasi nessuno.
+> [!important] Errori per modalità out
+> Un parametro dichiarato `out` non deve essere letto prima di essere scritto. Poiché il suo valore iniziale è indefinito ("spazzatura"), leggerne il valore prima dell'inizializzazione è un errore.
 
 ---
 
-## Parametri: Valore vs. Riferimento
+## 2. Passaggio per riferimento in C++ e Java
 
-*(Argomento annunciato per la prossima lezione.)*
+### Simulazione in C
 
-Il passaggio di un parametro può avvenire:
+C non ha il passaggio per riferimento nativo. Si simula passando un **puntatore** alla variabile:
 
-- **Per valore** (`pass by value`): si copia il valore del parametro attuale nel parametro formale. Modificare il formale non altera l'attuale.
-- **Per riferimento** (`pass by reference`): il parametro formale è un alias del parametro attuale. Modificare il formale modifica l'attuale. Questo fenomeno si chiama **aliasing**.
+```c
+void f(int *param) {
+    *param = *param + 1;   // dereferenziazione necessaria
+}
 
-> *(Questo verrà approfondito nella prossima lezione insieme alle conseguenze dell'aliasing.)*
+// chiamata:
+int y = 5;
+f(&y);   // si passa l'indirizzo
+```
+
+Le differenze rispetto a un vero passaggio per riferimento (come in Ada):
+
+- In Ada basterebbe dichiarare `param : in out Integer` e usarlo come una normale variabile, senza `*` e `&`.
+- In C la simulazione "espone" il meccanismo: dereferenziazione esplicita nel corpo, `&` nella chiamata.
+
+### Oggetti in Java
+
+> [!warning] Passaggio per riferimento in Java
+> In Java il passaggio parametri è **sempre per copia**. Tuttavia, quando si passa un oggetto, si copia il **puntatore** all'oggetto (il riferimento). Di conseguenza, le modifiche al contenuto dell'oggetto dentro la procedura sono visibili all'esterno. Questo assomiglia al passaggio per riferimento, ma non lo è: riassegnare il parametro formale a un nuovo oggetto non influenza la variabile del chiamante.
+
+---
+
+## 3. Aliasing e fenomeni anomali
+
+L'aliasing si verifica quando due nomi diversi denotano la stessa locazione di memoria. Si presenta naturalmente con il passaggio per riferimento.
+
+> [!example] Esempio di aliasing con passaggio per riferimento
+> ```pascal
+> var a : integer;
+>
+> procedure test(var x : integer; var y : integer);
+> begin
+>   x := a + y;
+>   write(a, x, y)
+> end;
+>
+> begin
+>   a := 1;
+>   test(a, a)   // x, y e a sono la stessa locazione!
+> end.
+> ```
+> Quando si chiama `test(a, a)`:
+> - `env(x) = env(y) = env(a)`: tutti e tre puntano alla stessa locazione.
+> - L'espressione `a + y` vale `1 + 1 = 2`.
+> - L'assegnamento `x := 2` modifica l'unica locazione condivisa.
+> - Pertanto `write(a, x, y)` stampa `2, 2, 2`.
+
+Questo illustra come il riuso di una variabile in contesti con aliasing possa produrre comportamenti controintuitivi.
+
+---
+
+## 4. Funzioni e procedure di ordine superiore
+
+Una procedura o funzione è **di ordine superiore** se può ricevere come parametro un'altra funzione (o procedura). Il meccanismo è usato:
+
+- Nei **linguaggi funzionali** come ML, al posto dei cicli (che non esistono nei linguaggi puri privi di variabili mutabili).
+- In **C**, passando il nome di una funzione (che ha come valore l'indirizzo di partenza del codice).
+- In linguaggi come **Ada** o Pascal, con apposita sintassi che specifica il tipo della funzione-parametro (firma/segnatura).
+
+> [!warning] C non verifica la firma delle funzioni passate come argomento
+> In C, il nome di una funzione è solo un puntatore al codice. Non c'è informazione sul numero o tipo dei parametri, né sul tipo di ritorno. Linguaggi più moderni (C++, Java, Ada) effettuano controlli di tipo sulla segnatura.
+
+> [!example] Esempio Pascal-like: gestione degli errori con funzioni di ordine superiore
+> ```pascal
+> procedure testpos(x : real; procedure error(msg : string));
+> begin
+>   if x <= 0 then error('x negativo in testpos')
+> end;
+>
+> procedure E1(msg : string); begin write('E1 ', msg) end;
+> procedure E2(msg : string); begin write('E2 ', msg) end;
+>
+> begin
+>   read(v);
+>   testpos(v, E1);   // usa E1 come gestore di errore
+>   testpos(v, E2);   // usa E2 come gestore di errore
+> end.
+> ```
+> Se `v < 0`, la prima chiamata stampa `E1 x negativo in testpos`, la seconda `E2 x negativo in testpos`.
+
+In C, lo stesso meccanismo si usa per la gestione delle eccezioni con POSIX (`signal`): si passa il puntatore a una funzione handler il cui prototipo è definito dallo standard POSIX.
+
+---
+
+## 5. Macro in C (`#define`)
+
+### Macro senza parametri
+
+```c
+#define MAX_RECORDS 123
+```
+
+Il preprocessore sostituisce ogni occorrenza di `MAX_RECORDS` con `123` prima della compilazione. Non viene allocata memoria; non esiste come variabile a runtime.
+
+### Macro con parametri (funzione-like)
+
+```c
+#define M(x, y) ...corpo...
+```
+
+Ogni chiamata `M(2, 3)` viene **sostituita testualment** con il corpo, rimpiazzando `x` con `2` e `y` con `3`, prima della compilazione. Non viene creato nessun record di attivazione.
+
+> [!warning] Pericoli delle macro: nessun ambiente protetto
+> Le macro non hanno un proprio scope. Le variabili temporanee usate nel corpo della macro appartengono all'ambiente del chiamante, non a un ambiente separato. Questo può causare conflitti con variabili omonime del codice chiamante.
+
+> [!example] Macro SWAP: tre problemi
+>
+> **Problema 1: conflitto sul nome `temp`**
+> ```c
+> #define SWAP(x, y) { int temp = x; x = y; y = temp; }
+>
+> // se nel codice chiamante esiste già una variabile `temp` importante:
+> // la macro la sovrascrive!
+> ```
+>
+> **Problema 2: argomento con effetto collaterale (`i` e `M[i]`)**
+> ```c
+> int i = 3; int M[10] = ...;
+> SWAP(i, M[i]);
+> // espansione: temp = i; i = M[i]; M[i] = temp;
+> // Ma dopo `i = M[i]`, il valore di i è cambiato!
+> // Quindi `M[i] = temp` scrive in una posizione diversa da M[3].
+> ```
+>
+> **Problema 3: argomento `temp` passato direttamente**
+> ```c
+> SWAP(temp, i);
+> // espansione: int temp = temp; ... // sovrascrive se stesso subito
+> ```
+>
+> Con una vera procedura, i parametri vengono "congelati" al momento della chiamata (sia per copia che per riferimento), e le variabili locali hanno un ambiente separato — nessuno di questi problemi si presenterebbe.
+
+> [!tip] Usare le macro con giudizio
+> Le macro sono più efficienti (nessun overhead di chiamata), ma pericolose. Preferire funzioni inline (`inline` in C++) quando possibile. Se si usano macro, evitare variabili temporanee con nomi comuni e non passare mai espressioni con effetti collaterali.
+
+---
+
+## 6. Esercizi sullo stack di attivazione
+
+### Procedura di lavoro
+
+1. **Prima di costruire lo stack**, verificare se la modalità di passaggio causa errori a compile-time o runtime:
+   - Modalità `in`: verificare che il parametro non compaia mai a sinistra di un assegnamento.
+   - Modalità `out`: verificare che il parametro non venga letto prima di essere inizializzato.
+   - Modalità `in-out`: nessun errore a priori.
+2. Se non ci sono errori, costruire lo stack seguendo l'ordine di esecuzione.
+3. Seguire rigorosamente le regole di scoping statico (o dinamico, se richiesto).
+
+### Quattro modalità a confronto (Esercizio 2)
+
+Il programma di esempio ha due procedure annidate (`P1` e `P2`) con due parametri `A` e `B`, con modalità variabile. Segue l'analisi per ogni caso.
+
+#### a) In per copia
+
+I parametri sono **allocati nello stack** di P2 (e P1), inizializzati con i valori attuali. Le modifiche rimangono locali.
+
+Stack finale e output:
+
+```
+Esercizio2: a=1, b=5, c=10
+  → chiama P2(c, b) = P2(10, 5)
+    P2: A_locale=10, B_locale=5
+      A = A - B → A_locale = 5
+      if A == c? → 5 ≠ 10 → else → chiama P1(A, B) = P1(5, 5)
+        P1: A_locale=5, B_locale=5
+          A = A * B → A_locale = 25
+          if C/B == A? → 10/5 = 2 ≠ 25 → else → A_locale = 100
+        fine P1: nessuna copia fuori (in per copia)
+      fine P2: nessuna copia fuori (in per copia)
+  stampa a, b, c: 1, 5, 10
+```
+
+**Output: `1 5 10`**
+
+#### b) In-out per riferimento
+
+I parametri sono **alias** delle variabili del chiamante. Ogni modifica si riflette immediatamente sulla variabile originale.
+
+```
+env(A_P2) = env(c), env(B_P2) = env(b) → stessa locazione
+
+A = A - B → c diventa 5 (A e c sono la stessa locazione)
+if A == c? → 5 == 5 (aliasing!) → then branch → chiama P1(B, A) = P1(b, c)
+  env(A_P1) = env(b), env(B_P1) = env(c)   [aliasing: B_P1 e c]
+  A = A * B → b = 5 * 5 = 25... ma attenzione: B è c, e c è cambiata in 5
+  → quindi A*B = 5*5 = 25 → b = 25
+  if C/B == A? → c e B_P1 sono la stessa variabile → rapporto = 1 ≠ 25 → else
+  → A_P1 = 100 → b = 100
+fine: a=1, b=100, c=5
+```
+
+**Output: `1 100 5`**
+
+#### c) In-out per copia
+
+I parametri vengono copiati dentro all'inizio e **copiati fuori** al termine. Analogamente al passaggio per riferimento, ma le modifiche sono visibili solo a fine procedura.
+
+```
+P2 riceve copie: A_P2=10, B_P2=5. Da copiare fuori: A→c, B→b
+  A = A - B → A_P2 = 5
+  if A == c? → 5 ≠ 10 (c non è ancora aggiornata) → else → chiama P1(A_P2, B_P2)
+    P1 riceve copie: A_P1=5, B_P1=5. Da copiare fuori: A→A_P2, B→B_P2
+      A = A * B → A_P1 = 25
+      if C/B == A? → 10/5 = 2 ≠ 25 → else → A_P1 = 100
+    fine P1: copia fuori → A_P2 = 100, B_P2 rimane 5
+  fine P2: copia fuori → c = 100, b = 5
+stampa: a=1, b=5, c=100
+```
+
+**Output: `1 5 100`**
+
+> [!tip] Consiglio per l'esame
+> Nella modalità in-out per copia, segnate esplicitamente nel vostro stack "da copiare: A→c, B→b" prima di eseguire il corpo della procedura. È facilissimo dimenticare la copia in uscita, che è la parte che differenzia questa modalità dal passaggio per riferimento.
+
+> [!warning] L'ordine della copia-out può influenzare il risultato
+> Se ci sono parametri out multipli e ci sono dipendenze tra di loro (aliasing), il risultato può dipendere dall'ordine con cui vengono copiati (da sinistra a destra o da destra a sinistra). Lo standard non lo specifica: è uno dei comportamenti indefiniti da investigare.
+
+---
+
+## 7. Funzioni: cenni
+
+Le funzioni restituiscono un valore singolo. In linguaggi "vecchi" si usa una pseudo-variabile con lo stesso nome della funzione; nei linguaggi moderni si usa `return`. Si ricorre alle funzioni quando:
+
+- Si vuole restituire un solo valore (alternativa ai parametri `out`).
+- Il linguaggio non supporta parametri di tipo `out`.
 
 ---
 
 > [!summary] Punti chiave della lezione
-> - I **blocchi** introducono namespace separati e permettono l'ereditarietà unidirezionale (interno vede esterno, non viceversa). Il **mascheramento** nasconde temporaneamente la variabile esterna con lo stesso nome.
-> - Lo **scope statico** determina l'ambiente non locale guardando il testo del programma. È predittibile, debuggabile, usato in quasi tutti i linguaggi moderni.
-> - Lo **scope dinamico** determina l'ambiente non locale dall'ordine delle chiamate a runtime. È impredicibile (indecidibile in generale) e storicamente abbandonato (LISP → Scheme).
-> - I **record di attivazione** si accumulano su uno stack: varibili locali, memoria temporanea per espressioni, return pointer, puntatore all'env non locale.
-> - Procedure ricorsive richiedono allocazione dinamica: ogni attivazione ha il proprio record separato.
-> - **Parametri formali** (nella dichiarazione) vs. **attuali** (nella chiamata). Modalità Ada: `in`, `out`, `in out`. Passaggio per posizione vs. per nome.
+> - Le modalità di passaggio parametri (`in`, `out`, `in-out`, per copia o per riferimento) determinano l'ambiente del parametro e quando le modifiche diventano visibili all'esterno.
+> - Il passaggio per riferimento crea aliasing, che può produrre comportamenti controintuitivi.
+> - Le macro C sono sostituzioni testuali senza ambiente protetto: possono causare conflitti di nomi, doppia valutazione di argomenti con side effect, e comportamenti imprevedibili.
+> - Le funzioni di ordine superiore permettono di passare codice come dato; in C si implementano con puntatori a funzione, senza controllo di tipo sulla firma.
+> - Lo stack di attivazione va costruito solo dopo aver verificato l'assenza di errori per la modalità di passaggio scelta.
 
 ## Prossimi argomenti
 
-- [ ] Passaggio per valore vs. per riferimento (aliasing)
-- [ ] Conseguenze dell'aliasing sulla correttezza dei programmi
-- [ ] Esercizi su scoping e traccia dello stack di attivazione
-- [ ] Introduzione a Java: classi, oggetti, differenze con i blocchi imperativi
+- [ ] Esercizi completi con tutte le combinazioni di modalità (in, out, in-out × copia/riferimento)
+- [ ] Scoping dinamico vs. statico sugli esercizi di stack
+- [ ] Parametri di ritorno
+- [ ] Linguaggio ML: funzioni di ordine superiore nei linguaggi funzionali
 
-#LP #blocchi #scope #scoping-statico #scoping-dinamico #record-di-attivazione #environment #parametri #ADA #mascheramento
+#LP #passaggio-parametri #macro #ordine-superiore #stack-attivazione #aliasing

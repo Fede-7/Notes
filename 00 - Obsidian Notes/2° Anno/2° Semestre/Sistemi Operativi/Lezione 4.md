@@ -18,7 +18,7 @@ tags:
 Professore: Finzi
 ---
 
-# SO — Lezione 5: La Shell Unix, Compilazione e Ambiente di Sviluppo
+# SO — Lezione 4: La Shell Unix, Compilazione e Ambiente di Sviluppo
 
 **Docente:** Prof. Alberto Finzi | **Corso:** Sistemi Operativi | **CFU:** 9
 

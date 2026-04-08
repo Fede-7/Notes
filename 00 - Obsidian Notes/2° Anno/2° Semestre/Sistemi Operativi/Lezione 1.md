@@ -15,7 +15,7 @@ tags:
 Professore: Finzi
 ---
 
-# SO — Lezione 2: Servizi del SO, Chiamate di Sistema e Struttura del Kernel
+# SO — Lezione 1: Servizi del SO, Chiamate di Sistema e Struttura del Kernel
 
 **Docente:** Prof. Alberto Finzi | **Corso:** Sistemi Operativi | **CFU:** 9
 

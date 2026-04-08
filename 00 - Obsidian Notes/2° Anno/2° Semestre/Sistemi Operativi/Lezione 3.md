@@ -18,7 +18,7 @@ tags:
   - pipe
 Professore: Finzi
 ---
-# SO — Lezione 4: Comunicazione tra Processi (IPC) e Memoria Condivisa
+# SO — Lezione 3: Comunicazione tra Processi (IPC) e Memoria Condivisa
 
 **Docente:** Prof. Alberto Finzi | **Corso:** Sistemi Operativi | **CFU:** 9
 
