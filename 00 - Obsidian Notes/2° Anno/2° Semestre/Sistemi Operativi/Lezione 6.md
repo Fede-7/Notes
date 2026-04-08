@@ -92,11 +92,11 @@ pthread_sigmask(SIG_UNBLOCK, &set, NULL);
 
 Un thread può essere cancellato da un altro thread tramite `pthread_cancel(tid)`. Il comportamento dipende dallo **stato di cancellazione** del thread destinatario.
 
-| Stato | Come si imposta | Comportamento |
-|---|---|---|
-| **Enabled + Deferred** (default) | — | Il thread viene cancellato solo in un cancellation point |
-| **Enabled + Asynchronous** | `pthread_setcanceltype(PTHREAD_CANCEL_ASYNCHRONOUS, NULL)` | Il thread può essere cancellato in qualsiasi momento |
-| **Disabled** | `pthread_setcancelstate(PTHREAD_CANCEL_DISABLE, NULL)` | La richiesta di cancellazione rimane pending; verrà gestita quando verrà riabilitata |
+| Stato                            | Come si imposta                                            | Comportamento                                                                        |
+| -------------------------------- | ---------------------------------------------------------- | ------------------------------------------------------------------------------------ |
+| **Enabled + Deferred** (default) | —                                                          | Il thread viene cancellato solo in un cancellation point                             |
+| **Enabled + Asynchronous**       | `pthread_setcanceltype(PTHREAD_CANCEL_ASYNCHRONOUS, NULL)` | Il thread può essere cancellato in qualsiasi momento                                 |
+| **Disabled**                     | `pthread_setcancelstate(PTHREAD_CANCEL_DISABLE, NULL)`     | La richiesta di cancellazione rimane pending; verrà gestita quando verrà riabilitata |
 
 ### Cancellation point
 
