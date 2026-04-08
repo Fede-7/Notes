@@ -10,8 +10,8 @@ views:
     order:
       - file.name
       - Date
-      - Professore
       - tags
+      - Professore
     sort:
       - property: Date
         direction: DESC

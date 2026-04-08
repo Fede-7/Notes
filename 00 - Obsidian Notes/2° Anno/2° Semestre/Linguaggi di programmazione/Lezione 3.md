@@ -6,7 +6,7 @@ lezione: 4
 tags: [LP, blocchi, scope, scoping-statico, scoping-dinamico, record-di-attivazione, environment, parametri, ADA, mascheramento]
 ---
 
-# LP — Lezione 4: Blocchi, Scope e Record di Attivazione
+# LP — Lezione 3: Blocchi, Scope e Record di Attivazione
 
 **Corso:** Linguaggi di Programmazione | **Docente:** Prof. Bonatti | **Data:** 19/03/2026
 

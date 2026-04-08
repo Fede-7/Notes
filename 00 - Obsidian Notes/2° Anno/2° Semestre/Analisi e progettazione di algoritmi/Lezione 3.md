@@ -7,7 +7,7 @@ tags:
 
 
 
-# Lezione 4: Analisi di Insertion Sort e Introduzione a Merge Sort
+# Lezione 3: Analisi di Insertion Sort e Introduzione a Merge Sort
 
 ---
 

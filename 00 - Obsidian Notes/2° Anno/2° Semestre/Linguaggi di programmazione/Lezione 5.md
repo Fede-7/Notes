@@ -1,12 +1,12 @@
 ---
-date: 2026-03-26
+date: 2026-03-24
 corso: Linguaggi di Programmazione
 docente: N/D
-lezione: Stack di attivazione — esercizi con tutte le modalità di passaggio parametri
-tags: [LP, passaggio-parametri, stack-attivazione, in-out, per-copia, per-riferimento]
+lezione: Passaggio parametri, macro, funzioni di ordine superiore
+tags: [LP, passaggio-parametri, macro, ordine-superiore, stack-attivazione]
 ---
 
-# LP — Lezione: Esercizi sullo Stack di Attivazione con Tutte le Modalità di Passaggio
+# LP — Lezione 5: Passaggio Parametri, Macro e Funzioni di Ordine Superiore
 
 **Corso:** Linguaggi di Programmazione
 
@@ -14,224 +14,281 @@ tags: [LP, passaggio-parametri, stack-attivazione, in-out, per-copia, per-riferi
 
 ## Argomenti trattati
 
-- Esercizio 2 completo: analisi con 4 modalità di passaggio parametri
-  - In per riferimento (errore)
-  - Out per riferimento (errore)
-  - In-out per riferimento
-  - In-out per copia
-- Confronto dei risultati tra le diverse modalità
-- Metodologia generale per costruire lo stack di attivazione
+- Riepilogo modalità di passaggio parametri (in, out, in-out per copia e per riferimento)
+- Simulazione del passaggio per riferimento in C++ e Java
+- Fenomeni di aliasing
+- Funzioni e procedure di ordine superiore
+- Macro (`#define` in C): vantaggi e pericoli
+- Esercizi su stack di attivazione con diverse modalità di passaggio
 
 ---
 
-## 1. Il programma dell'esercizio
+## 1. Riepilogo: modalità di passaggio parametri
 
-Il programma da analizzare è un Pascal-like con due procedure annidate. Le procedure `P1` e `P2` hanno due parametri formali `A` e `B`, la cui modalità di passaggio varia a seconda del caso in esame.
+In un linguaggio Pascal-like, la dichiarazione di un parametro formale determina la sua modalità:
 
-```pascal
-program Esercizio2;
-  var a, b, c : integer;
+| Modalità | Sintassi | Semantica | Implementazione tipica |
+|---|---|---|---|
+| **in** (sola lettura) | nessuna annotazione | il parametro può essere solo letto | copia del valore |
+| **in per riferimento** | `var` (Pascal) | il parametro può essere solo letto, ma è un alias | puntatore (sola lettura) |
+| **out** (sola scrittura) | `out` | il parametro può essere solo scritto; deve essere inizializzato prima dell'uso | copia-out |
+| **in-out per copia** | `in out` | il parametro si legge e si scrive; valore copiato dentro e fuori | copia-in / copia-out |
+| **in-out per riferimento** | `var` (Pascal, per in-out) | il parametro si legge e si scrive; è un alias della variabile del chiamante | puntatore |
 
-  procedure P2(mode A, B : integer);
-  begin
-    A := A - B;
-    if A = c then
-      P1(B, A)
-    else
-      P1(A, B)
-  end;
+> [!important] Errori a compile-time per modalità in
+> Un parametro dichiarato `in` non deve mai comparire a sinistra di un assegnamento. Il compilatore lo rileva staticamente. Se trovate questa violazione, il programma non compila e non ha senso costruire lo stack di attivazione.
 
-  procedure P1(mode A, B : integer);
-  begin
-    A := A * B;
-    if c div B = A then
-      { ramo then: non raggiunto negli esempi }
-    else
-      A := 100
-  end;
-
-begin
-  a := 1; b := 5; c := 10;
-  P2(c, b);
-  write(a, b, c)
-end.
-```
-
-*(Nota: `mode` è il segnaposto per la modalità di passaggio che varia tra i casi.)*
+> [!important] Errori per modalità out
+> Un parametro dichiarato `out` non deve essere letto prima di essere scritto. Poiché il suo valore iniziale è indefinito ("spazzatura"), leggerne il valore prima dell'inizializzazione è un errore.
 
 ---
 
-## 2. Metodologia: checklist prima di costruire lo stack
+## 2. Passaggio per riferimento in C++ e Java
 
-> [!tip] Procedura obbligatoria
-> **Prima** di disegnare qualsiasi record di attivazione, rispondere a queste domande:
-> 1. La modalità causa errori (a compile-time o runtime)?
->    - **In**: il parametro è mai a sinistra di un assegnamento? → errore a compile-time.
->    - **Out**: il parametro è mai letto prima di essere scritto? → errore a runtime.
->    - **In-out**: nessun errore a priori.
-> 2. Solo se non ci sono errori: costruire lo stack.
-> 3. Seguire rigorosamente lo **scoping statico** (puntatori all'ambiente non locale basati su dove la procedura è definita).
+### Simulazione in C
+
+C non ha il passaggio per riferimento nativo. Si simula passando un **puntatore** alla variabile:
+
+```c
+void f(int *param) {
+    *param = *param + 1;   // dereferenziazione necessaria
+}
+
+// chiamata:
+int y = 5;
+f(&y);   // si passa l'indirizzo
+```
+
+Le differenze rispetto a un vero passaggio per riferimento (come in Ada):
+
+- In Ada basterebbe dichiarare `param : in out Integer` e usarlo come una normale variabile, senza `*` e `&`.
+- In C la simulazione "espone" il meccanismo: dereferenziazione esplicita nel corpo, `&` nella chiamata.
+
+### Oggetti in Java
+
+> [!warning] Passaggio per riferimento in Java
+> In Java il passaggio parametri è **sempre per copia**. Tuttavia, quando si passa un oggetto, si copia il **puntatore** all'oggetto (il riferimento). Di conseguenza, le modifiche al contenuto dell'oggetto dentro la procedura sono visibili all'esterno. Questo assomiglia al passaggio per riferimento, ma non lo è: riassegnare il parametro formale a un nuovo oggetto non influenza la variabile del chiamante.
 
 ---
 
-## 3. Caso 1: In per riferimento → **ERRORE**
+## 3. Aliasing e fenomeni anomali
 
-Con modalità `in per riferimento`, il parametro è un alias della variabile del chiamante, ma può essere solo letto (non scritto).
+L'aliasing si verifica quando due nomi diversi denotano la stessa locazione di memoria. Si presenta naturalmente con il passaggio per riferimento.
 
-Già la prima istruzione di P2 è `A := A - B`, che scrive nel parametro `A`. Questo viola la modalità `in`. **Errore a compile-time**: inutile costruire lo stack.
+> [!example] Esempio di aliasing con passaggio per riferimento
+> ```pascal
+> var a : integer;
+>
+> procedure test(var x : integer; var y : integer);
+> begin
+>   x := a + y;
+>   write(a, x, y)
+> end;
+>
+> begin
+>   a := 1;
+>   test(a, a)   // x, y e a sono la stessa locazione!
+> end.
+> ```
+> Quando si chiama `test(a, a)`:
+> - `env(x) = env(y) = env(a)`: tutti e tre puntano alla stessa locazione.
+> - L'espressione `a + y` vale `1 + 1 = 2`.
+> - L'assegnamento `x := 2` modifica l'unica locazione condivisa.
+> - Pertanto `write(a, x, y)` stampa `2, 2, 2`.
+
+Questo illustra come il riuso di una variabile in contesti con aliasing possa produrre comportamenti controintuitivi.
 
 ---
 
-## 4. Caso 2: Out per riferimento → **ERRORE**
+## 4. Funzioni e procedure di ordine superiore
 
-Con modalità `out`, il parametro non è inizializzato all'ingresso nella procedura (il suo valore è "spazzatura"). Leggerlo prima di scriverlo è un errore.
+Una procedura o funzione è **di ordine superiore** se può ricevere come parametro un'altra funzione (o procedura). Il meccanismo è usato:
 
-La prima istruzione di P2 è `A := A - B`, che legge sia `A` che `B` prima di averli inizializzati. **Errore**: almeno due parametri vengono letti prima di essere scritti.
+- Nei **linguaggi funzionali** come ML, al posto dei cicli (che non esistono nei linguaggi puri privi di variabili mutabili).
+- In **C**, passando il nome di una funzione (che ha come valore l'indirizzo di partenza del codice).
+- In linguaggi come **Ada** o Pascal, con apposita sintassi che specifica il tipo della funzione-parametro (firma/segnatura).
 
-> [!warning] Riconoscere gli errori out
-> Per la modalità `out`, non è sufficiente che il parametro venga inizializzato durante la procedura: deve essere inizializzato **prima di ogni lettura**. Se la prima operazione è una lettura, è sempre un errore.
+> [!warning] C non verifica la firma delle funzioni passate come argomento
+> In C, il nome di una funzione è solo un puntatore al codice. Non c'è informazione sul numero o tipo dei parametri, né sul tipo di ritorno. Linguaggi più moderni (C++, Java, Ada) effettuano controlli di tipo sulla segnatura.
+
+> [!example] Esempio Pascal-like: gestione degli errori con funzioni di ordine superiore
+> ```pascal
+> procedure testpos(x : real; procedure error(msg : string));
+> begin
+>   if x <= 0 then error('x negativo in testpos')
+> end;
+>
+> procedure E1(msg : string); begin write('E1 ', msg) end;
+> procedure E2(msg : string); begin write('E2 ', msg) end;
+>
+> begin
+>   read(v);
+>   testpos(v, E1);   // usa E1 come gestore di errore
+>   testpos(v, E2);   // usa E2 come gestore di errore
+> end.
+> ```
+> Se `v < 0`, la prima chiamata stampa `E1 x negativo in testpos`, la seconda `E2 x negativo in testpos`.
+
+In C, lo stesso meccanismo si usa per la gestione delle eccezioni con POSIX (`signal`): si passa il puntatore a una funzione handler il cui prototipo è definito dallo standard POSIX.
 
 ---
 
-## 5. Caso 3: In-out per riferimento
+## 5. Macro in C (`#define`)
 
-### Costruzione dello stack
+### Macro senza parametri
 
-Chiamata iniziale: `P2(c, b)` con `c=10`, `b=5`.
-
-**Record di Esercizio2**:
-```
-Esercizio2:
-  ENV non locale: (nessuno — blocco più esterno)
-  a = 1
-  b = 5
-  c = 10
+```c
+#define MAX_RECORDS 123
 ```
 
-**Record di P2** (parametri per riferimento → alias):
-```
-P2:
-  ENV non locale → Esercizio2
-  chiamata: P2(c, b)
-  A alias→ c (di Esercizio2)
-  B alias→ b (di Esercizio2)
-```
+Il preprocessore sostituisce ogni occorrenza di `MAX_RECORDS` con `123` prima della compilazione. Non viene allocata memoria; non esiste come variabile a runtime.
 
-> [!important] Notazione per il passaggio per riferimento
-> Non riscrivere il valore del parametro nel record di P2. Annotate esplicitamente l'alias, ad es. `A ≡ c (Esercizio2)`. Se li duplicate con il valore, dimenticate di aggiornare entrambe le copie quando il valore cambia.
+### Macro con parametri (funzione-like)
 
-### Esecuzione di P2
-
-- `A := A - B` → `c = 10 - 5 = 5`. Il valore di `c` in Esercizio2 diventa 5.
-- `if A = c` → `A` è `c`, e `c` è la stessa locazione. Quindi `A = c` è sempre vero (aliasing!). Ramo `then`.
-- `P1(B, A)` → `P1(b, c)` dove `b=5`, `c=5`.
-
-**Record di P1**:
-```
-P1:
-  ENV non locale → Esercizio2
-  chiamata: P1(B_P2, A_P2) = P1(b, c)
-  A alias→ b (di Esercizio2)
-  B alias→ c (di Esercizio2)  ← aliasing: B_P1 e c sono la stessa locazione!
+```c
+#define M(x, y) ...corpo...
 ```
 
-### Esecuzione di P1
+Ogni chiamata `M(2, 3)` viene **sostituita testualment** con il corpo, rimpiazzando `x` con `2` e `y` con `3`, prima della compilazione. Non viene creato nessun record di attivazione.
 
-- `A := A * B` → `A` è `b` (=5), `B` è `c` (=5). Quindi `b = 5 * 5 = 25`.
-- `if c div B = A` → `c` e `B` sono la stessa variabile! `c div c = 1`. `A` è `b = 25`. `1 ≠ 25` → ramo `else`.
-- `A := 100` → `b = 100`.
+> [!warning] Pericoli delle macro: nessun ambiente protetto
+> Le macro non hanno un proprio scope. Le variabili temporanee usate nel corpo della macro appartengono all'ambiente del chiamante, non a un ambiente separato. Questo può causare conflitti con variabili omonime del codice chiamante.
 
-**Uscita da P1** (nessuna copia — passaggio per riferimento).
+> [!example] Macro SWAP: tre problemi
+>
+> **Problema 1: conflitto sul nome `temp`**
+> ```c
+> #define SWAP(x, y) { int temp = x; x = y; y = temp; }
+>
+> // se nel codice chiamante esiste già una variabile `temp` importante:
+> // la macro la sovrascrive!
+> ```
+>
+> **Problema 2: argomento con effetto collaterale (`i` e `M[i]`)**
+> ```c
+> int i = 3; int M[10] = ...;
+> SWAP(i, M[i]);
+> // espansione: temp = i; i = M[i]; M[i] = temp;
+> // Ma dopo `i = M[i]`, il valore di i è cambiato!
+> // Quindi `M[i] = temp` scrive in una posizione diversa da M[3].
+> ```
+>
+> **Problema 3: argomento `temp` passato direttamente**
+> ```c
+> SWAP(temp, i);
+> // espansione: int temp = temp; ... // sovrascrive se stesso subito
+> ```
+>
+> Con una vera procedura, i parametri vengono "congelati" al momento della chiamata (sia per copia che per riferimento), e le variabili locali hanno un ambiente separato — nessuno di questi problemi si presenterebbe.
 
-**Uscita da P2** (nessuna copia).
+> [!tip] Usare le macro con giudizio
+> Le macro sono più efficienti (nessun overhead di chiamata), ma pericolose. Preferire funzioni inline (`inline` in C++) quando possibile. Se si usano macro, evitare variabili temporanee con nomi comuni e non passare mai espressioni con effetti collaterali.
 
-**Stato finale**: `a=1`, `b=100`, `c=5`.
+---
+
+## 6. Esercizi sullo stack di attivazione
+
+### Procedura di lavoro
+
+1. **Prima di costruire lo stack**, verificare se la modalità di passaggio causa errori a compile-time o runtime:
+   - Modalità `in`: verificare che il parametro non compaia mai a sinistra di un assegnamento.
+   - Modalità `out`: verificare che il parametro non venga letto prima di essere inizializzato.
+   - Modalità `in-out`: nessun errore a priori.
+2. Se non ci sono errori, costruire lo stack seguendo l'ordine di esecuzione.
+3. Seguire rigorosamente le regole di scoping statico (o dinamico, se richiesto).
+
+### Quattro modalità a confronto (Esercizio 2)
+
+Il programma di esempio ha due procedure annidate (`P1` e `P2`) con due parametri `A` e `B`, con modalità variabile. Segue l'analisi per ogni caso.
+
+#### a) In per copia
+
+I parametri sono **allocati nello stack** di P2 (e P1), inizializzati con i valori attuali. Le modifiche rimangono locali.
+
+Stack finale e output:
+
+```
+Esercizio2: a=1, b=5, c=10
+  → chiama P2(c, b) = P2(10, 5)
+    P2: A_locale=10, B_locale=5
+      A = A - B → A_locale = 5
+      if A == c? → 5 ≠ 10 → else → chiama P1(A, B) = P1(5, 5)
+        P1: A_locale=5, B_locale=5
+          A = A * B → A_locale = 25
+          if C/B == A? → 10/5 = 2 ≠ 25 → else → A_locale = 100
+        fine P1: nessuna copia fuori (in per copia)
+      fine P2: nessuna copia fuori (in per copia)
+  stampa a, b, c: 1, 5, 10
+```
+
+**Output: `1 5 10`**
+
+#### b) In-out per riferimento
+
+I parametri sono **alias** delle variabili del chiamante. Ogni modifica si riflette immediatamente sulla variabile originale.
+
+```
+env(A_P2) = env(c), env(B_P2) = env(b) → stessa locazione
+
+A = A - B → c diventa 5 (A e c sono la stessa locazione)
+if A == c? → 5 == 5 (aliasing!) → then branch → chiama P1(B, A) = P1(b, c)
+  env(A_P1) = env(b), env(B_P1) = env(c)   [aliasing: B_P1 e c]
+  A = A * B → b = 5 * 5 = 25... ma attenzione: B è c, e c è cambiata in 5
+  → quindi A*B = 5*5 = 25 → b = 25
+  if C/B == A? → c e B_P1 sono la stessa variabile → rapporto = 1 ≠ 25 → else
+  → A_P1 = 100 → b = 100
+fine: a=1, b=100, c=5
+```
 
 **Output: `1 100 5`**
 
----
+#### c) In-out per copia
 
-## 6. Caso 4: In-out per copia
+I parametri vengono copiati dentro all'inizio e **copiati fuori** al termine. Analogamente al passaggio per riferimento, ma le modifiche sono visibili solo a fine procedura.
 
-### Costruzione dello stack
-
-Chiamata iniziale: `P2(c, b)` con `c=10`, `b=5`.
-
-**Record di Esercizio2**:
 ```
-Esercizio2: a=1, b=5, c=10
+P2 riceve copie: A_P2=10, B_P2=5. Da copiare fuori: A→c, B→b
+  A = A - B → A_P2 = 5
+  if A == c? → 5 ≠ 10 (c non è ancora aggiornata) → else → chiama P1(A_P2, B_P2)
+    P1 riceve copie: A_P1=5, B_P1=5. Da copiare fuori: A→A_P2, B→B_P2
+      A = A * B → A_P1 = 25
+      if C/B == A? → 10/5 = 2 ≠ 25 → else → A_P1 = 100
+    fine P1: copia fuori → A_P2 = 100, B_P2 rimane 5
+  fine P2: copia fuori → c = 100, b = 5
+stampa: a=1, b=5, c=100
 ```
-
-**Record di P2** (parametri per copia → variabili locali nel record di P2):
-```
-P2:
-  ENV non locale → Esercizio2
-  A = 10  [copia di c; da copiare su c all'uscita]
-  B = 5   [copia di b; da copiare su b all'uscita]
-```
-
-### Esecuzione di P2
-
-- `A := A - B` → `A_P2 = 10 - 5 = 5`.
-- `if A = c` → `A` è locale (`= 5`); `c` si trova seguendo ENV non locale → `c = 10`. `5 ≠ 10` → ramo `else`.
-- `P1(A, B)` → passa `A_P2=5`, `B_P2=5`.
-
-**Record di P1**:
-```
-P1:
-  ENV non locale → Esercizio2
-  A = 5   [copia di A_P2; da copiare su A_P2 all'uscita]
-  B = 5   [copia di B_P2; da copiare su B_P2 all'uscita]
-```
-
-### Esecuzione di P1
-
-- `A := A * B` → `A_P1 = 5 * 5 = 25`.
-- `if c div B = A` → `c` (da ENV non locale) = 10; `B_P1` = 5; `10 div 5 = 2`. `A_P1 = 25`. `2 ≠ 25` → ramo `else`.
-- `A := 100` → `A_P1 = 100`.
-
-**Uscita da P1** — copia-out: `A_P2 = 100`, `B_P2 = 5` (invariato).
-
-**Uscita da P2** — copia-out: `c = 100`, `b = 5` (invariato).
 
 **Output: `1 5 100`**
 
----
+> [!tip] Consiglio per l'esame
+> Nella modalità in-out per copia, segnate esplicitamente nel vostro stack "da copiare: A→c, B→b" prima di eseguire il corpo della procedura. È facilissimo dimenticare la copia in uscita, che è la parte che differenzia questa modalità dal passaggio per riferimento.
 
-## 7. Riepilogo: confronto tra le 4 modalità
-
-| Modalità | Errore? | Output |
-|---|---|---|
-| In per riferimento | ✗ errore compile-time (`A :=` è scrittura) | — |
-| Out per riferimento | ✗ errore runtime (lettura prima di scrittura) | — |
-| In-out per riferimento | ✓ | `1 100 5` |
-| In-out per copia | ✓ | `1 5 100` |
-
-> [!example] Perché i risultati differiscono tra riferimento e copia
-> Nel passaggio per riferimento, la modifica di `c` dentro P2 (da 10 a 5) è immediatamente visibile nel test `if A = c` (aliasing → sempre vero), portando all'esecuzione del ramo `then` e a una catena di alias diversa. Nel passaggio per copia, `c` rimane 10 durante l'esecuzione di P2, il test è `5 ≠ 10`, si prende il ramo `else`, e la modifica si propaga solo all'uscita.
+> [!warning] L'ordine della copia-out può influenzare il risultato
+> Se ci sono parametri out multipli e ci sono dipendenze tra di loro (aliasing), il risultato può dipendere dall'ordine con cui vengono copiati (da sinistra a destra o da destra a sinistra). Lo standard non lo specifica: è uno dei comportamenti indefiniti da investigare.
 
 ---
 
-## 8. Note metodologiche per l'esame
+## 7. Funzioni: cenni
 
-> [!tip] Consigli pratici
-> 1. **Non duplicare** le variabili nel record per il passaggio per riferimento: annotate solo l'alias. Duplicare crea errori di disallineamento.
-> 2. **Annotare le copie-out** subito alla costruzione del record per in-out per copia: scrivete "da copiare su X all'uscita" accanto a ogni parametro.
-> 3. **Seguire sempre il puntatore ENV non locale** per trovare le variabili non locali (scoping statico): non andate nel record immediatamente precedente nello stack (quello sarebbe lo scoping dinamico).
-> 4. L'ordine della copia-out (da sinistra a destra o destra a sinistra) può influenzare il risultato in presenza di aliasing tra parametri attuali. Il linguaggio non lo specifica: è una fonte di comportamento indefinito.
+Le funzioni restituiscono un valore singolo. In linguaggi "vecchi" si usa una pseudo-variabile con lo stesso nome della funzione; nei linguaggi moderni si usa `return`. Si ricorre alle funzioni quando:
+
+- Si vuole restituire un solo valore (alternativa ai parametri `out`).
+- Il linguaggio non supporta parametri di tipo `out`.
 
 ---
 
 > [!summary] Punti chiave della lezione
-> - Modalità `in` e `out` devono essere controllate per errori prima di costruire lo stack.
-> - Il passaggio per riferimento crea alias: modifiche a un parametro si riflettono immediatamente sulla variabile originale, incluse eventuali successive letture dello stesso valore tramite altri nomi.
-> - Il passaggio per copia isola le modifiche fino all'uscita dalla procedura (copia-out).
-> - Stesse procedure, stessi valori iniziali, modalità diverse → output diversi: conoscere la modalità di passaggio è fondamentale per capire il comportamento del programma.
+> - Le modalità di passaggio parametri (`in`, `out`, `in-out`, per copia o per riferimento) determinano l'ambiente del parametro e quando le modifiche diventano visibili all'esterno.
+> - Il passaggio per riferimento crea aliasing, che può produrre comportamenti controintuitivi.
+> - Le macro C sono sostituzioni testuali senza ambiente protetto: possono causare conflitti di nomi, doppia valutazione di argomenti con side effect, e comportamenti imprevedibili.
+> - Le funzioni di ordine superiore permettono di passare codice come dato; in C si implementano con puntatori a funzione, senza controllo di tipo sulla firma.
+> - Lo stack di attivazione va costruito solo dopo aver verificato l'assenza di errori per la modalità di passaggio scelta.
 
 ## Prossimi argomenti
 
-- [ ] Esercizi inversi: ricostruire la struttura del programma dallo stack
-- [ ] Esercizio: scrivere un programma che distingue sperimentalmente passaggio per copia da passaggio per riferimento
-- [ ] Linguaggio ML: introduzione ai linguaggi funzionali
+- [ ] Esercizi completi con tutte le combinazioni di modalità (in, out, in-out × copia/riferimento)
+- [ ] Scoping dinamico vs. statico sugli esercizi di stack
+- [ ] Parametri di ritorno
+- [ ] Linguaggio ML: funzioni di ordine superiore nei linguaggi funzionali
 
-#LP #passaggio-parametri #stack-attivazione #in-out #per-copia #per-riferimento #aliasing
+#LP #passaggio-parametri #macro #ordine-superiore #stack-attivazione #aliasing

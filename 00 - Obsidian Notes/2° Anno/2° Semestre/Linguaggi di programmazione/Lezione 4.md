@@ -6,7 +6,7 @@ lezione: Passaggio parametri, macro, funzioni di ordine superiore
 tags: [LP, passaggio-parametri, macro, ordine-superiore, stack-attivazione]
 ---
 
-# LP — Lezione: Passaggio Parametri, Macro e Funzioni di Ordine Superiore
+# LP — Lezione 4: Passaggio Parametri, Macro e Funzioni di Ordine Superiore
 
 **Corso:** Linguaggi di Programmazione
 

@@ -17,7 +17,7 @@ tags:
 Professore: Bonatti
 ---
 
-# LP — Lezione 3: Criteri di valutazione dei linguaggi, paradigmi a confronto, modello imperativo e ambiente
+# LP — Lezione 1: Criteri di valutazione dei linguaggi, paradigmi a confronto, modello imperativo e ambiente
 
 **Corso:** Linguaggi di Programmazione
 

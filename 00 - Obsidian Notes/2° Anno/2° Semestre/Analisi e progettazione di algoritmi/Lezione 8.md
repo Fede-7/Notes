@@ -6,7 +6,7 @@ lezione: QuickSort — caso peggiore, analisi del caso medio, lower bound compar
 tags: [APA, quicksort, analisi-caso-medio, lower-bound, albero-decisione, induzione]
 ---
 
-# APA — Lezione: QuickSort — Caso Peggiore, Caso Medio e Lower Bound
+# APA — Lezione 8: QuickSort — Caso Peggiore, Caso Medio e Lower Bound
 
 **Corso:** Algoritmi e Principi dell'Informatica
 

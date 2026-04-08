@@ -7,7 +7,7 @@ tags:
 
 
 
-# Lezione 3: Ottimizzazioni della Sottosequenza Massima e Introduzione all'Ordinamento
+# Lezione 2: Ottimizzazioni della Sottosequenza Massima e Introduzione all'Ordinamento
 
 ---
 

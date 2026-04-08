@@ -6,7 +6,7 @@ tags:
   - Saltata
   - NoAudio
 ---
-# Appunti — Risoluzione di Ricorrenze
+# Lezione 4 — Risoluzione di Ricorrenze
 **Corso:** Algoritmi e Progettazione di Strutture Dati — UniNA
 
 ---

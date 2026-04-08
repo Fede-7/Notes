@@ -6,7 +6,7 @@ tags:
   - Saltata
   - NoAudio
 ---
-# Appunti — Vettori, Data Objects e Type Checking
+# Lezione 2 — Vettori, Data Objects e Type Checking
 **Corso:** Linguaggi di Programmazione I — Prof. Bonatti, UniNA
 
 ---

@@ -17,7 +17,7 @@ tags:
 Professore: Bonatti
 ---
 
-# LP — Lezione 2: Storia dei Linguaggi, Paradigmi e Implementazione
+# LP — Lezione 0: Storia dei Linguaggi, Paradigmi e Implementazione
 
 **Corso:** Linguaggi di Programmazione
 

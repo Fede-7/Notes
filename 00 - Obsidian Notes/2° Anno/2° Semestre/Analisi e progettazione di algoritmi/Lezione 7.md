@@ -6,7 +6,7 @@ lezione: QuickSort — correttezza di Partition e analisi del tempo di esecuzion
 tags: [APA, quicksort, partition, analisi-asintotica, ricorrenza]
 ---
 
-# APA — Lezione: QuickSort — Correttezza di Partition e Analisi
+# APA — Lezione 7: QuickSort — Correttezza di Partition e Analisi
 
 **Corso:** Algoritmi e Principi dell'Informatica
 

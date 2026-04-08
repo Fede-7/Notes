@@ -1,12 +1,12 @@
 ---
-date: 2026-03-31
+date: 2026-03-26
 corso: Linguaggi di Programmazione
 docente: N/D
-lezione: Java — JVM, design del linguaggio, sintassi di base e package
-tags: [LP, Java, JVM, bytecode, package, sintassi, garbage-collector, BNF]
+lezione: Stack di attivazione — esercizi con tutte le modalità di passaggio parametri
+tags: [LP, passaggio-parametri, stack-attivazione, in-out, per-copia, per-riferimento]
 ---
 
-# LP — Lezione: Java — JVM, Scelte di Design e Sintassi di Base
+# LP — Lezione 6: Esercizi sullo Stack di Attivazione con Tutte le Modalità di Passaggio
 
 **Corso:** Linguaggi di Programmazione
 
@@ -14,201 +14,224 @@ tags: [LP, Java, JVM, bytecode, package, sintassi, garbage-collector, BNF]
 
 ## Argomenti trattati
 
-- Scelte di sicurezza e design del linguaggio Java
-- Implementazione mista: compilazione a bytecode + interpretazione JVM
-- Componenti della JVM (class loader, bytecode verifier, garbage collector, JIT)
-- Formato del file `.class`
-- Comandi `javac` e `java` da command line
-- Package e organizzazione del codice
-- Deployment con JAR
-- Notazione BNF per la sintassi di Java (classi, attributi, metodi, costruttori)
-- Identificatori, parole chiave, tipi primitivi (introduzione)
+- Esercizio 2 completo: analisi con 4 modalità di passaggio parametri
+  - In per riferimento (errore)
+  - Out per riferimento (errore)
+  - In-out per riferimento
+  - In-out per copia
+- Confronto dei risultati tra le diverse modalità
+- Metodologia generale per costruire lo stack di attivazione
 
 ---
 
-## 1. Scelte di design per la sicurezza
+## 1. Il programma dell'esercizio
 
-> [!important] Perché Java è progettato per la sicurezza del codice mobile
-> Java nasce con il requisito di poter eseguire codice proveniente dalla rete in modo sicuro. Le scelte di design riflettono questo obiettivo.
+Il programma da analizzare è un Pascal-like con due procedure annidate. Le procedure `P1` e `P2` hanno due parametri formali `A` e `B`, la cui modalità di passaggio varia a seconda del caso in esame.
 
-Le principali scelte di sicurezza del linguaggio sono:
+```pascal
+program Esercizio2;
+  var a, b, c : integer;
 
-**Controllo degli indici**: ogni accesso a vettori, stringhe o buffer è controllato a runtime. Gli oggetti portano con sé la propria dimensione. Questo elimina i buffer overflow attack a livello di linguaggio.
+  procedure P2(mode A, B : integer);
+  begin
+    A := A - B;
+    if A = c then
+      P1(B, A)
+    else
+      P1(A, B)
+  end;
 
-**Tipizzazione forte**: il linguaggio è fortemente tipato, eliminando le ambiguità di C dove le conversioni implicite tra tipi possono causare errori difficili da individuare. Più errori vengono catturati a compile-time.
+  procedure P1(mode A, B : integer);
+  begin
+    A := A * B;
+    if c div B = A then
+      { ramo then: non raggiunto negli esempi }
+    else
+      A := 100
+  end;
 
-**Nessuna aritmetica dei puntatori**: i puntatori esistono (sono i tipi reference) ma non si possono modificare aritmeticamente. Questo elimina un'intera classe di vulnerabilità.
+begin
+  a := 1; b := 5; c := 10;
+  P2(c, b);
+  write(a, b, c)
+end.
+```
 
-**Garbage collection automatica**: la memoria non più in uso viene recuperata automaticamente dalla JVM. Questo previene i memory leak che possono causare denial of service.
-
-**Class loader con namespace separati**: il codice caricato da sorgenti diverse vive in namespace distinti, evitando interferenze tra nomi e impedendo lo spoofing (sostituzione di una classe con una malevola con lo stesso nome).
-
-**Bytecode verifier**: prima di eseguire il bytecode, la JVM lo verifica. Questa verifica controlla che non vengano accedute zone di memoria non autorizzate, che lo stack non vada in overflow/underflow, e che non ci siano conversioni di tipo illegali. Anche un bytecode manipolato a mano (che aggira il compilatore) viene rilevato.
-
-> [!quote]
-> "Se volete un sistema sicuro con codice mobile, non avete tante scelte."
+*(Nota: `mode` è il segnaposto per la modalità di passaggio che varia tra i casi.)*
 
 ---
 
-## 2. Implementazione mista: bytecode + JVM
+## 2. Metodologia: checklist prima di costruire lo stack
 
-Java usa una strategia intermedia tra compilazione pura e interpretazione pura.
-
-```mermaid
-flowchart LR
-    A[Sorgente .java] -->|javac| B[Bytecode .class]
-    B -->|Verifier| C[Verifica bytecode]
-    C -->|JVM interpreta| D[Esecuzione]
-    C -->|JIT compila cicli ripetuti| E[Codice nativo → Esecuzione]
-```
-
-**Fase 1 — Compilazione** (`javac`): trasforma il sorgente `.java` in bytecode `.class`. Effettua tutti i controlli di tipo che possono essere fatti staticamente. Se una classe importata non è ancora compilata, il compilatore la compila a cascata (approccio greedy).
-
-**Fase 2 — Esecuzione** (`java`): la JVM interpreta il bytecode. Prima di eseguirlo, il bytecode verifier lo controlla. I controlli che non si potevano fare a compile-time (es. accesso a indici di vettori, controllo degli accessi a runtime) vengono fatti qui.
-
-**Just-In-Time (JIT) compilation**: se la JVM rileva cicli che rispettano certi requisiti, li compila in codice nativo e li salva. Le esecuzioni successive di quei cicli usano il codice nativo direttamente, senza interpretazione.
-
-> [!tip] Vantaggio dell'implementazione mista
-> Il costo della compilazione e dei controlli di tipo viene pagato una volta sola. L'esecuzione del bytecode è più fluida perché il bytecode è compatto e facile da interpretare. Il JIT ottimizza i pezzi critici per le prestazioni.
-
-> [!important] Portabilità
-> Il bytecode è indipendente dalla piattaforma. Si compila una volta e si esegue su qualsiasi JVM, che può girare su qualsiasi sistema operativo e hardware. La JVM funge da mediatore tra il bytecode e il sistema sottostante.
+> [!tip] Procedura obbligatoria
+> **Prima** di disegnare qualsiasi record di attivazione, rispondere a queste domande:
+> 1. La modalità causa errori (a compile-time o runtime)?
+>    - **In**: il parametro è mai a sinistra di un assegnamento? → errore a compile-time.
+>    - **Out**: il parametro è mai letto prima di essere scritto? → errore a runtime.
+>    - **In-out**: nessun errore a priori.
+> 2. Solo se non ci sono errori: costruire lo stack.
+> 3. Seguire rigorosamente lo **scoping statico** (puntatori all'ambiente non locale basati su dove la procedura è definita).
 
 ---
 
-## 3. Componenti della JVM
+## 3. Caso 1: In per riferimento → **ERRORE**
 
-La JVM comprende:
+Con modalità `in per riferimento`, il parametro è un alias della variabile del chiamante, ma può essere solo letto (non scritto).
 
-**Class loader**: carica le classi dal file system o dalla rete. Mantiene i namespace separati per codice proveniente da locazioni diverse. Se due classi hanno lo stesso nome ma vengono da sorgenti diverse, non interferiscono. Impedisce anche lo spoofing.
-
-**Bytecode verifier**: controlla il bytecode prima dell'esecuzione. È una ridondanza voluta: anche se il compilatore Java ha già fatto i controlli, il bytecode potrebbe provenire da una fonte non fidata o essere stato modificato.
-
-**Interprete + JIT**: il nucleo esecutivo. Interpreta il bytecode istruzione per istruzione, con la JIT che ottimizza i cicli frequenti.
-
-**Garbage collector**: recupera la memoria degli oggetti non più raggiungibili. Gira in un thread separato e si attiva tipicamente quando il programma principale è in attesa di I/O. Le specifiche Java definiscono che il GC deve esistere, ma non specificano l'algoritmo — ogni implementazione della JVM può usarne uno diverso.
-
-> [!example] GC e strutture cicliche
-> L'implementazione semplificata del GC usata da Python (conteggio dei riferimenti) non funziona per strutture con cicli (due oggetti che si puntano a vicenda). Java usa algoritmi più sofisticati che gestiscono correttamente i cicli.
-
-**Stack di ricorsione e heap**: la JVM gestisce sia lo stack delle chiamate (per variabili locali e frame di attivazione) che l'heap (per oggetti allocati dinamicamente con `new`).
+Già la prima istruzione di P2 è `A := A - B`, che scrive nel parametro `A`. Questo viola la modalità `in`. **Errore a compile-time**: inutile costruire lo stack.
 
 ---
 
-## 4. Formato del file `.class`
+## 4. Caso 2: Out per riferimento → **ERRORE**
 
-Il file `.class` è un oggetto molto strutturato. Contiene, tra le altre cose, la **constant pool** (pool di costanti), informazioni sui tipi e sulla struttura della classe, e le istruzioni bytecode. Grazie a questa ricchezza di metadati, il bytecode è completamente reversibile ingegnerizzabile e permette tutti i controlli a runtime che non si possono fare a compile-time.
+Con modalità `out`, il parametro non è inizializzato all'ingresso nella procedura (il suo valore è "spazzatura"). Leggerlo prima di scriverlo è un errore.
 
-> [!tip] Da command line
-> ```bash
-> javac NomeClasse.java      # compila, produce NomeClasse.class
-> java NomeClasse            # esegue (invoca la JVM)
-> ```
-> In questo corso si usa `javac` e `java` da command line, senza IDE o Maven, per vedere il linguaggio "nudo".
+La prima istruzione di P2 è `A := A - B`, che legge sia `A` che `B` prima di averli inizializzati. **Errore**: almeno due parametri vengono letti prima di essere scritti.
+
+> [!warning] Riconoscere gli errori out
+> Per la modalità `out`, non è sufficiente che il parametro venga inizializzato durante la procedura: deve essere inizializzato **prima di ogni lettura**. Se la prima operazione è una lettura, è sempre un errore.
 
 ---
 
-## 5. Package e organizzazione del codice
+## 5. Caso 3: In-out per riferimento
 
-I package organizzano le classi in namespace gerarchici. Corrispondono a directory nel filesystem.
+### Costruzione dello stack
 
-**Dichiarazione di package** (prima riga del file sorgente):
-```java
-package trasporti.rapporti.web;
+Chiamata iniziale: `P2(c, b)` con `c=10`, `b=5`.
+
+**Record di Esercizio2**:
+```
+Esercizio2:
+  ENV non locale: (nessuno — blocco più esterno)
+  a = 1
+  b = 5
+  c = 10
 ```
 
-**Import** (abbreviazioni per evitare di scrivere il nome completo ogni volta):
-```java
-import java.util.List;       // importa solo List
-import java.util.io.*;        // importa tutto da io
+**Record di P2** (parametri per riferimento → alias):
+```
+P2:
+  ENV non locale → Esercizio2
+  chiamata: P2(c, b)
+  A alias→ c (di Esercizio2)
+  B alias→ b (di Esercizio2)
 ```
 
-> [!abstract] Definizione: cosa fa l'import
-> L'import è solo un'abbreviazione sintattica. Non copia né duplica nessun file. Senza import, si scrive `java.util.List` ogni volta; con l'import, si scrive solo `List`.
+> [!important] Notazione per il passaggio per riferimento
+> Non riscrivere il valore del parametro nel record di P2. Annotate esplicitamente l'alias, ad es. `A ≡ c (Esercizio2)`. Se li duplicate con il valore, dimenticate di aggiornare entrambe le copie quando il valore cambia.
 
-**Struttura nel filesystem**: i package si riflettono in directory annidate. Il file `trasporti/rapporti/web/MiaClasse.java` contiene la classe `trasporti.rapporti.web.MiaClasse`.
+### Esecuzione di P2
 
-**Vincolo nome file = nome classe**: il nome del file `.java` deve corrispondere al nome della classe pubblica in esso contenuta. Questo vale sia per il sorgente che per il `.class`. Motivo: i nomi dei file devono essere portabili, quindi composti solo da caratteri ASCII (non tutti i file system supportano Unicode nei nomi dei file).
+- `A := A - B` → `c = 10 - 5 = 5`. Il valore di `c` in Esercizio2 diventa 5.
+- `if A = c` → `A` è `c`, e `c` è la stessa locazione. Quindi `A = c` è sempre vero (aliasing!). Ramo `then`.
+- `P1(B, A)` → `P1(b, c)` dove `b=5`, `c=5`.
 
-**Deployment con JAR**: un file JAR (Java Archive) raccoglie tutto il bytecode organizzato in directory, in un singolo file eseguibile direttamente dalla JVM. Conveniente per distribuire applicazioni.
+**Record di P1**:
+```
+P1:
+  ENV non locale → Esercizio2
+  chiamata: P1(B_P2, A_P2) = P1(b, c)
+  A alias→ b (di Esercizio2)
+  B alias→ c (di Esercizio2)  ← aliasing: B_P1 e c sono la stessa locazione!
+```
+
+### Esecuzione di P1
+
+- `A := A * B` → `A` è `b` (=5), `B` è `c` (=5). Quindi `b = 5 * 5 = 25`.
+- `if c div B = A` → `c` e `B` sono la stessa variabile! `c div c = 1`. `A` è `b = 25`. `1 ≠ 25` → ramo `else`.
+- `A := 100` → `b = 100`.
+
+**Uscita da P1** (nessuna copia — passaggio per riferimento).
+
+**Uscita da P2** (nessuna copia).
+
+**Stato finale**: `a=1`, `b=100`, `c=5`.
+
+**Output: `1 100 5`**
 
 ---
 
-## 6. Sintassi BNF
+## 6. Caso 4: In-out per copia
 
-Java usa la notazione **Backus-Naur Form (BNF)** per definire formalmente la sintassi. I simboli usati sono:
+### Costruzione dello stack
 
-| Simbolo | Significato |
-|---|---|
-| `<categoria>` | Categoria sintattica (non terminale) |
-| `::=` | "è definito come" |
-| `|` | Alternativa |
-| `*` | Zero o più ripetizioni |
-| `[ ]` | Elemento opzionale (zero o una volta) |
-| Testo senza `< >` | Terminale (preso alla lettera) |
+Chiamata iniziale: `P2(c, b)` con `c=10`, `b=5`.
 
-**Dichiarazione di classe**:
+**Record di Esercizio2**:
 ```
-<class_decl> ::= <modifier>* class <class_name> { <attr_decl>* <constructor_decl>* <method_decl>* }
+Esercizio2: a=1, b=5, c=10
 ```
 
-**Dichiarazione di attributo**:
+**Record di P2** (parametri per copia → variabili locali nel record di P2):
 ```
-<attr_decl> ::= <modifier> <type> <attr_name> [= <default_value>] ;
-<type> ::= byte | short | int | long | float | double | boolean | char | <class_name>
-```
-
-**Dichiarazione di metodo**:
-```
-<method_decl> ::= <modifier> <return_type> <method_name> ( <param_list>* ) { <statement>* }
+P2:
+  ENV non locale → Esercizio2
+  A = 10  [copia di c; da copiare su c all'uscita]
+  B = 5   [copia di b; da copiare su b all'uscita]
 ```
 
-**Dichiarazione di costruttore**:
+### Esecuzione di P2
+
+- `A := A - B` → `A_P2 = 10 - 5 = 5`.
+- `if A = c` → `A` è locale (`= 5`); `c` si trova seguendo ENV non locale → `c = 10`. `5 ≠ 10` → ramo `else`.
+- `P1(A, B)` → passa `A_P2=5`, `B_P2=5`.
+
+**Record di P1**:
 ```
-<constructor_decl> ::= <modifier> <class_name> ( <param_list>* ) { <statement>* }
+P1:
+  ENV non locale → Esercizio2
+  A = 5   [copia di A_P2; da copiare su A_P2 all'uscita]
+  B = 5   [copia di B_P2; da copiare su B_P2 all'uscita]
 ```
 
-> [!warning] Differenze costruttore vs. metodo
-> Il costruttore non ha tipo di ritorno (sintatticamente). Non è ereditato. Non può essere invocato direttamente se non con `new`. Può essere overloaded (versioni con parametri diversi). I modificatori ammessi sono solo quelli di visibilità: `public`, `protected`, `private`.
+### Esecuzione di P1
 
-> [!example] Costruttore di default
-> Se non si dichiara nessun costruttore, Java inserisce automaticamente un costruttore senza parametri con corpo vuoto. Appena si dichiara un costruttore qualsiasi, quello di default sparisce. Questo può causare errori: se il codice esterno usava il costruttore senza parametri, smette di compilare dopo che si aggiunge un costruttore con parametri.
+- `A := A * B` → `A_P1 = 5 * 5 = 25`.
+- `if c div B = A` → `c` (da ENV non locale) = 10; `B_P1` = 5; `10 div 5 = 2`. `A_P1 = 25`. `2 ≠ 25` → ramo `else`.
+- `A := 100` → `A_P1 = 100`.
+
+**Uscita da P1** — copia-out: `A_P2 = 100`, `B_P2 = 5` (invariato).
+
+**Uscita da P2** — copia-out: `c = 100`, `b = 5` (invariato).
+
+**Output: `1 5 100`**
 
 ---
 
-## 7. Identificatori
+## 7. Riepilogo: confronto tra le 4 modalità
 
-Gli identificatori possono iniziare con una lettera Unicode, `_` o `$` (ma non con un numero). Sono case-sensitive. Non hanno lunghezza massima. I nomi delle classi devono essere composti solo da caratteri ASCII (per la portabilità sui file system).
+| Modalità | Errore? | Output |
+|---|---|---|
+| In per riferimento | ✗ errore compile-time (`A :=` è scrittura) | — |
+| Out per riferimento | ✗ errore runtime (lettura prima di scrittura) | — |
+| In-out per riferimento | ✓ | `1 100 5` |
+| In-out per copia | ✓ | `1 5 100` |
 
-**Non possono essere parole chiave**. Java riserva come parole chiave anche `goto` e `const`, che non sono comandi del linguaggio, ma che non si possono usare come identificatori — per evitare confusione con il C.
-
-**Differenze da C**: `true`, `false` e `null` sono letterali nativi (non macro `#define`). Non esiste `sizeof` (le dimensioni dei tipi primitivi sono fisse, indipendenti dalla piattaforma).
-
-> [!example] Identificatori validi e non validi
-> - `myVar`, `_temp`, `$value`, `nomeClasseDiEsempio` → validi
-> - `123abc` (inizia con numero), `my.var` (`.` è operatore), `int` (parola chiave) → non validi
+> [!example] Perché i risultati differiscono tra riferimento e copia
+> Nel passaggio per riferimento, la modifica di `c` dentro P2 (da 10 a 5) è immediatamente visibile nel test `if A = c` (aliasing → sempre vero), portando all'esecuzione del ramo `then` e a una catena di alias diversa. Nel passaggio per copia, `c` rimane 10 durante l'esecuzione di P2, il test è `5 ≠ 10`, si prende il ramo `else`, e la modifica si propaga solo all'uscita.
 
 ---
 
-## 8. Incapsulazione
+## 8. Note metodologiche per l'esame
 
-L'incapsulazione — rendere privati gli attributi e fornire accesso solo tramite metodi pubblici — garantisce che i controlli di consistenza dei dati siano centralizzati. Senza incapsulazione si avrebbero "cloni" di codice di validazione sparsi per il programma, difficili da mantenere.
-
-I modificatori di visibilità sono (dal più restrittivo al meno): `private`, (default/package), `protected`, `public`.
+> [!tip] Consigli pratici
+> 1. **Non duplicare** le variabili nel record per il passaggio per riferimento: annotate solo l'alias. Duplicare crea errori di disallineamento.
+> 2. **Annotare le copie-out** subito alla costruzione del record per in-out per copia: scrivete "da copiare su X all'uscita" accanto a ogni parametro.
+> 3. **Seguire sempre il puntatore ENV non locale** per trovare le variabili non locali (scoping statico): non andate nel record immediatamente precedente nello stack (quello sarebbe lo scoping dinamico).
+> 4. L'ordine della copia-out (da sinistra a destra o destra a sinistra) può influenzare il risultato in presenza di aliasing tra parametri attuali. Il linguaggio non lo specifica: è una fonte di comportamento indefinito.
 
 ---
 
 > [!summary] Punti chiave della lezione
-> - Java è progettato per eseguire codice mobile in modo sicuro: controllo indici, tipizzazione forte, no aritmetica puntatori, GC automatico, bytecode verifier.
-> - La JVM implementa una strategia mista: `javac` compila a bytecode portabile, `java` (JVM) interpreta con JIT per i cicli critici.
-> - I package organizzano il codice in namespace gerarchici corrispondenti a directory nel filesystem; gli import sono solo abbreviazioni.
-> - La sintassi è descritta formalmente in BNF; costruttori e metodi hanno differenze sintattiche e semantiche precise.
-> - In questo corso si usa sempre `javac`/`java` da command line per vedere il linguaggio nudo.
+> - Modalità `in` e `out` devono essere controllate per errori prima di costruire lo stack.
+> - Il passaggio per riferimento crea alias: modifiche a un parametro si riflettono immediatamente sulla variabile originale, incluse eventuali successive letture dello stesso valore tramite altri nomi.
+> - Il passaggio per copia isola le modifiche fino all'uscita dalla procedura (copia-out).
+> - Stesse procedure, stessi valori iniziali, modalità diverse → output diversi: conoscere la modalità di passaggio è fondamentale per capire il comportamento del programma.
 
 ## Prossimi argomenti
 
-- [ ] Tipi primitivi e operatori (differenze sottili rispetto a C)
-- [ ] Tipi reference e oggetti
-- [ ] Esercitazioni: compilare ed eseguire programmi con errori tipici da command line
+- [ ] Esercizi inversi: ricostruire la struttura del programma dallo stack
+- [ ] Esercizio: scrivere un programma che distingue sperimentalmente passaggio per copia da passaggio per riferimento
+- [ ] Linguaggio ML: introduzione ai linguaggi funzionali
 
-#LP #Java #JVM #bytecode #package #sintassi #garbage-collector #BNF
+#LP #passaggio-parametri #stack-attivazione #in-out #per-copia #per-riferimento #aliasing

@@ -6,7 +6,7 @@ lezione: Java — JVM, design del linguaggio, sintassi di base e package
 tags: [LP, Java, JVM, bytecode, package, sintassi, garbage-collector, BNF]
 ---
 
-# LP — Lezione: Java — JVM, Scelte di Design e Sintassi di Base
+# LP — Lezione 7: Java — JVM, Scelte di Design e Sintassi di Base
 
 **Corso:** Linguaggi di Programmazione
 

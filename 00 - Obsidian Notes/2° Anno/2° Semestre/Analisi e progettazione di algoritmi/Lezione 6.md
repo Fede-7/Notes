@@ -6,7 +6,7 @@ lezione: Analisi HeapSort e introduzione QuickSort
 tags: [APA, heap, heapsort, quicksort, analisi-asintotica]
 ---
 
-# APA — Lezione: Analisi di HeapSort e Introduzione a QuickSort
+# APA — Lezione 6: Analisi di HeapSort e Introduzione a QuickSort
 
 **Corso:** Algoritmi e Principi dell'Informatica
 
