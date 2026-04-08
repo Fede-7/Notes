@@ -1,9 +1,17 @@
 ---
-date: 2026-04-01
+date: 2026-03-31
 corso: Sistemi Operativi
 docente: N/D
 lezione: Scheduling real-time, Linux CFS e EEVDF
-tags: [SO, real-time, rate-monotonic, EDF, CFS, EEVDF, Linux-scheduling, multicore]
+tags:
+  - SO
+  - real-time
+  - rate-monotonic
+  - EDF
+  - CFS
+  - EEVDF
+  - Linux-scheduling
+  - multicore
 ---
 
 # SO — Lezione 8: Scheduling Real-Time, Linux CFS e EEVDF
