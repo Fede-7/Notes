@@ -182,7 +182,38 @@ e tutte le permutazioni degli indici sono valide.
 
 ---
 
-## 5. Indipendenza condizionale e catene di Markov (cenni)
+## 5. Proprietà di Markov (Introdotto dopo)
+
+### Definizione: Proprietà di Markov
+
+Una sequenza di variabili aleatorie $X_1, X_2, \ldots, X_n, X_{n+1}$ soddisfa la **proprietà di Markov** (o proprietà "senza memoria") se:
+
+> [!abstract] Proprietà di Markov
+> $$P(X_{n+1} | X_n, X_{n-1}, \ldots, X_1) = P(X_{n+1} | X_n)$$
+> 
+> Il valore futuro $X_{n+1}$ dipende dal passato **solo attraverso il presente** $X_n$, non direttamente da stati precedenti.
+
+In altre parole, conoscere $X_n$ rende **condizionalmente indipendente** la distribuzione futura dal resto della storia.
+
+### Interpretazione: "Assenza di memoria"
+
+La proprietà dice che la probabilità di un evento futuro, dato lo stato presente, non cambia se si conosce la storia precedente. Questo è il concetto fondamentale dietro i **processi di Markov**, utilizzati in teoria delle code, teoria dei circuiti, biologia (catene evolutive), finanza (modelli di prezzo delle azioni), ecc.
+
+> [!example] Passeggero in una stazione
+> Date le stazioni visitate fino ad ora $(X_1, X_2, \ldots, X_n)$, la probabilità di trovare treni per la prossima destinazione (numero di treni, ritardi) **dipende solo dalla stazione attuale $X_n$**, non dai percorsi storici presi per arrivarci.
+
+> [!example] Coda in banca
+> Se $X_n$ è il numero di clienti in coda al tempo $n$, e gli arrivi seguono un processo di Poisson, allora il numero di clienti al tempo $n+1$ dipende solo da $X_n$ (numero attuale) e non da come il sistema è arrivato a quella situazione.
+
+### Catena di Markov omogenea
+
+Se la probabilità di transizione **non dipende da** $n$ (il tempo):
+
+$$P(X_{n+1} = j | X_n = i) = P_{ij} \quad \text{(costante per ogni $n$)}$$
+
+allora la catena è detta **omogenea nel tempo** o **stazionaria**. Questa è l'ipotesi che semplifica enormemente l'analisi e permette di usare la teoria delle matrici stocastiche.
+
+### Indipendenza Condizionale nelle Catene
 
 > [!abstract] Definizione: Indipendenza condizionale
 > $X_1$ e $X_3$ sono **condizionalmente indipendenti dato $X_2$** se:

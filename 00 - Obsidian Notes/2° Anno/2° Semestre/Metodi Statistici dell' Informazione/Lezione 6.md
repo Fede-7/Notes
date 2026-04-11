@@ -43,7 +43,92 @@ Dalla PMF si derivano:
 
 ---
 
-## 2. Coppia di variabili aleatorie
+## Trasformazione di Densità (Introdotto dopo)
+
+Questa sezione introduce il concetto cruciale per passare a variabili aleatorie continue. Se $X$ è una variabile aleatoria continua con densità $f_X(x)$ e $Y = g(X)$ dove $g$ è una trasformazione monotona e differenziabile, la densità di $Y$ si calcola come segue:
+
+Se $g$ è **strettamente monotona** (crescente o decrescente), esiste una funzione inversa unica $x = g^{-1}(y)$. Per la regola della catena nel calcolo delle probabilità:
+
+> [!abstract] Teorema Fondamentale della Trasformazione di Densità
+> $$\boxed{f_Y(y) = f_X(g^{-1}(y)) \cdot \left|\frac{d}{dy} g^{-1}(y)\right| = \frac{f_X(x)}{|g'(x)|} \bigg|_{x = g^{-1}(y)}}$$
+>
+> dove il termine $|g'(x)|^{-1}$ è il **fattore jacobiano** che tiene conto della dilatazione/compressione della trasformazione.
+
+**Intuizione:** quando $g$ dilata lo spazio (aumenta le distanze), la concentrazione di probabilità diminuisce, quindi la densità deve diminuire. Il fattore jacobiano compensa questa variazione.
+
+> [!example] Trasformazione $Y = aX + b$
+> Se $X \sim \mathcal{N}(\mu, \sigma^2)$ e $Y = aX + b$ con $a > 0$:
+> $$x = \frac{y - b}{a}, \quad \frac{dx}{dy} = \frac{1}{a}$$
+> $$f_Y(y) = f_X\left(\frac{y-b}{a}\right) \cdot \frac{1}{|a|} = \frac{1}{\sigma\sqrt{2\pi}|a|} \exp\left(-\frac{1}{2\sigma^2}\left(\frac{y-b}{a} - \mu\right)^2\right)$$
+> che si riconosce come una gaussiana con media $a\mu + b$ e deviazione standard $|a|\sigma$.
+
+---
+
+## Entropia di Shannon (Introdotto dopo)
+
+### Informazione contenuta in un evento
+
+L'**entropia** è un concetto fondamentale nella teoria dell'informazione, introdotto da Claude Shannon nel 1948. Misura il grado di **incertezza** o **contenuto informativo** di una fonte di dati.
+
+Dato un evento $A$ di probabilità $P(A)$, la quantità di informazione ricevuta dal verificarsi di $A$ è misurata dalla funzione:
+
+$$I(A) = \log_2 \frac{1}{P(A)} = -\log_2 P(A)$$
+
+Questa funzione soddisfa tre proprietà naturali:
+
+1. **Non negativa**: $I(A) \geq 0$ (evento impossibile o certo raramente porta informazione).
+2. **Decrescente nella probabilità**: più rare l'evento, più informazione contiene. Un evento frequente ("il Sole sorgerà domani") porta poca informazione.
+3. **Additiva per eventi indipendenti**: $I(A \cap B) = I(A) + I(B)$ se $A$ e $B$ sono indipendenti.
+
+La base 2 del logaritmo rende l'unità di misura il **bit** (binary digit): un evento certo e uno impossibile corrispondono rispettivamente a 0 e $+\infty$ bit.
+
+> [!example] Esempi interpretativi
+> - Evento certo ($P(A) = 1$): $I(A) = -\log_2 1 = 0$ bit (informazione nulla: non apprendiamo nulla di nuovo).
+> - Moneta equilibrata ($P(A) = 1/2$): $I(A) = -\log_2(1/2) = 1$ bit (informazione massima per un evento binario).
+> - Evento molto raro ($P(A) = 1/1024 = 2^{-10}$): $I(A) = 10$ bit (informazione molto alta).
+
+### Entropia di una variabile aleatoria discreta
+
+Poiché $I(X=x) = -\log_2 p_X(x)$ è essa stessa una variabile aleatoria (dipende dal valore assunto da $X$), l'**entropia** è definita come la sua **media statistica**:
+
+> [!abstract] Definizione: Entropia di Shannon
+> L'entropia di una variabile aleatoria discreta $X$ con PMF $p_X(x)$ è:
+> $$\boxed{H(X) = -\sum_{x \in \mathcal{X}} p_X(x) \log_2 p_X(x)}$$
+> Alternativamente: $H(X) = E\left[-\log_2 p_X(X)\right]$.
+> Si misura in **bit** (con logaritmo in base 2).
+
+L'entropia risponde alla domanda: **quanti bit in media** serve trasferire (o memorizzare) per codificare il valore di $X$?
+
+**Proprietà fundamentali:**
+
+- **Non negativa**: $H(X) \geq 0$, con $H(X) = 0$ se e solo se $X$ è deterministica (assume un valore con probabilità 1).
+- **Massimizzata dall'uniforme**: data un alfabeto di cardinalità $n$, l'entropia è massima quando $p_X(x) = 1/n$ per ogni $x$, e vale $H_{\max} = \log_2 n$.
+- **Sotto-additività per variabili indipendenti**: $H(X, Y) \leq H(X) + H(Y)$, con uguaglianza se $X$ e $Y$ sono indipendenti.
+
+### Entropia di variabili comuni
+
+| Variabile | Alfabeto | PMF | Entropia massima |
+|---|---|---|---|
+| Bernoulliana | $\{0, 1\}$ | $p, 1-p$ | $H_{\max} = 1$ bit a $p = 1/2$ |
+| Uniforme su $n$ valori | $\{1, \ldots, n\}$ | $1/n$ | $H_{\max} = \log_2 n$ bit |
+| Poissoniana $\mathcal{P}(\lambda)$ | $\mathbb{N}_0$ | $\lambda^k e^{-\lambda}/k!$ | Infinito (alfabeto infinito) |
+
+> [!example] Entropia di una Bernoulliana
+> Per $X \in \{0, 1\}$ con $P(X=1) = p$:
+> $$H(X) = -p \log_2 p - (1-p) \log_2(1-p)$$
+> A $p = 1/2$ (equiprobabile): $H(1/2, 1/2) = -\frac{1}{2} \log_2(1/2) - \frac{1}{2} \log_2(1/2) = 1$ bit.
+> A $p = 0.9$ (molto asimmetrica): $H(0.9, 0.1) \approx 0.47$ bit.
+> A $p = 1$ (deterministica): $H(1, 0) = 0$ bit.
+
+### Implicazione nella compressione di dati
+
+Un **file compresso ideale** è una sequenza binaria in cui ogni bit è ugualmente probabile di essere 0 o 1 (**equiprobabile**) e i bit sono statisticamente indipendenti. In questo caso, ogni bit trasferisce 1 bit di informazione nel senso di Shannon, e non è possibile comprimere ulteriormente.
+
+Se il file ha caratteri con frequenze diverse (es. lettera 'e' più frequente), l'entropia è inferiore a 1 bit per carattere, e **la compressione (es. Huffman coding) può ridurre la media di bit utilizzati**.
+
+---
+
+
 
 ### Motivazione
 

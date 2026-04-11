@@ -106,7 +106,62 @@ $$\sigma_{aX+b}^2 = E\!\left[(aX+b - (a\mu_X + b))^2\right] = E\!\left[(a(X-\mu_
 
 ---
 
-## Giustificazione Matematica della Probabilità Frequentistica
+## Covarianza e Correlazione (Introdotto dopo)
+
+### Covarianza
+
+> [!abstract] Definizione: Covarianza
+> Date due variabili aleatorie $X$ e $Y$, la **covarianza** è:
+> $$\text{Cov}(X, Y) = E[(X - \mu_X)(Y - \mu_Y)] = E[XY] - E[X]E[Y]$$
+> dove $\mu_X = E[X]$ e $\mu_Y = E[Y]$.
+
+La covarianza misura il grado di **co-variazione** tra due variabili:
+- **Positiva**: le deviazioni dalla media di $X$ e $Y$ tendono a essere dello stesso segno (se $X$ è sopra la media, anche $Y$ lo è).
+- **Negativa**: le deviazioni tendono a essere di segno opposto (se $X$ è sopra la media, $Y$ tende ad essere sotto).
+- **Zero**: non esiste una tendenza lineare di co-variazione.
+
+> [!important] Indipendenza implica incorrelazione
+> Se $X$ e $Y$ sono indipendenti, allora $\text{Cov}(X, Y) = 0$:
+> $$E[XY] = E[X]E[Y] \quad \Rightarrow \quad \text{Cov}(X,Y) = 0$$
+> Però l'implicazione non vale al contrario: variabili non correlate (covarianza nulla) **non sono necessariamente indipendenti**.
+
+> [!example] Variabili dipendenti ma incorrelate
+> Sia $U \sim \text{Uniforme}(-1, 1)$ (simmetrica attorno a 0). Poniamo $Y = U^2$. Chiaramente $Y$ dipende da $U$, ma:
+> $$\text{Cov}(U, U^2) = E[U \cdot U^2] - E[U] \cdot E[U^2] = E[U^3] - 0 = 0$$
+> perché $U^3$ è una funzione dispari di $U$ (simmetrico attorno allo zero).
+
+### Coefficiente di correlazione
+
+> [!abstract] Definizione: Coefficiente di correlazione
+> $$\rho_{XY} = \frac{\text{Cov}(X, Y)}{\sigma_X \sigma_Y}$$
+> dove $\sigma_X = \sqrt{\text{Var}(X)}$ e $\sigma_Y = \sqrt{\text{Var}(Y)}$ sono le deviazioni standard.
+
+Questo coefficiente **normalizza** la covarianza rispetto alle scale delle due variabili, rendendola adimensionale.
+
+**Proprietà fondamentale:**
+
+$$\boxed{-1 \leq \rho_{XY} \leq 1}$$
+
+**Dimostrazione (Cauchy-Schwarz):** consideriamo le variabili centrate $X' = X - \mu_X$ e $Y' = Y - \mu_Y$. L'insieme delle variabili aleatorie con varianza finita forma uno **spazio vettoriale** con prodotto scalare $\langle X', Y' \rangle = \text{Cov}(X, Y)$ e norma $\|X'\| = \sigma_X$. La disuguaglianza di Cauchy-Schwarz afferma:
+
+$$|\langle X', Y' \rangle| \leq \|X'\| \cdot \|Y'\| \quad \Rightarrow \quad |\text{Cov}(X,Y)| \leq \sigma_X \sigma_Y \quad \Rightarrow \quad |\rho_{XY}| \leq 1$$
+
+**Interpretazione dei valori estremi:**
+
+- $\rho_{XY} = 1$: relazione lineare perfetta crescente; $Y = a + bX$ con $b > 0$.
+- $\rho_{XY} = -1$: relazione lineare perfetta decrescente; $Y = a + bX$ con $b < 0$.
+- $\rho_{XY} = 0$: assenza di relazione lineare (incorrelazione).
+
+$$\boxed{\text{Incorrelazione} \leftrightarrow \rho_{XY} = 0}$$
+
+$$\boxed{\text{Indipendenza} \Rightarrow \text{Incorrelazione}} \text{ (implicazione unidirezionale, salvo caso gaussiano)}$$
+
+> [!warning] Correlazione ≠ Causalità
+> Una correlazione elevata tra $X$ e $Y$ non implica che $X$ cause $Y$ o viceversa. Potrebbero essere entrambe causate da una terza variabile (confondimento).
+
+---
+
+
 
 ### La frequenza di successo come variabile aleatoria
 

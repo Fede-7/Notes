@@ -3,17 +3,10 @@ date: 2026-03-31
 corso: Modelli Statistici e Probabilità
 docente: N/D
 lezione: Teorema della media condizionale, covarianza, correlazione e introduzione alle variabili continue
-tags:
-  - media-condizionale
-  - covarianza
-  - correlazione
-  - matrice-covarianza
-  - variabili-continue
-  - densita-probabilita
-  - MSI
+tags: [MSP, media-condizionale, covarianza, correlazione, matrice-covarianza, variabili-continue, densita-probabilita]
 ---
 
-# MSP — Lezione: Media Condizionale, Covarianza e Introduzione alle Variabili Continue
+# MSP — Lezione 8: Media Condizionale, Covarianza e Introduzione alle Variabili Continue
 
 **Corso:** Modelli Statistici e Probabilità
 
@@ -205,10 +198,121 @@ La teoria sarà ripresa in dettaglio nella prossima lezione, con il concetto di 
 > - La matrice di covarianza è semidefinita positiva e fondamentale in statistica multivariata e machine learning.
 > - Per variabili continue, la probabilità di un singolo punto è 0; si lavora con la densità di probabilità e con probabilità di intervalli.
 
+---
+
+## 7. Teorema del Limite Centrale (CLT) (Introdotto dopo)
+
+### Enunciato informale
+
+Il **Teorema del Limite Centrale** è uno dei risultati fondamentali della probabilità e della statistica. In forma semplificata, esso afferma che:
+
+> [!abstract] Teorema del Limite Centrale (versione semplice)
+> Siano $X_1, X_2, \ldots, X_n$ variabili aleatorie **indipendenti identicamente distribuite** (i.i.d.) con media $\mu$ e varianza $\sigma^2$ finite. Allora, per $n$ grande, la **somma standardizzata**:
+> $$Z_n = \frac{\sum_{i=1}^{n} X_i - n\mu}{\sqrt{n}\sigma}$$
+> tende a una **distribuzione Gaussiana** di media 0 e varianza 1 (distribuzione normale standard $\mathcal{N}(0,1)$).
+
+In altre parole, le variabili aleatorie originali possono avere qualunque distribuzione; purché siano indipendenti e identicamente distribuite, la loro somma (opportunamente standardizzata) tende a una gaussiana.
+
+### Implicazione pratica
+
+Se $S_n = X_1 + X_2 + \cdots + X_n$, allora per $n$ grande:
+
+$$S_n \approx \mathcal{N}(n\mu, n\sigma^2)$$
+
+Cioè: media $n\mu$ e varianza $n\sigma^2$.
+
+> [!example] Lanciamento di un dado
+> Un dado onesto ha media $\mu = 3.5$ e varianza $\sigma^2 \approx 2.917$. Se si lanciano 100 dadi indipendenti e si sommano i risultati:
+> - Media della somma: $100 \times 3.5 = 350$
+> - Varianza della somma: $100 \times 2.917 = 291.7$
+> - Deviazione standard: $\sqrt{291.7} \approx 17$
+> Per il CLT, la distribuzione della somma è **approssimativamente gaussiana**.
+
+### Perché è così importante
+
+Il CLT giustifica l'uso diffuso della distribuzione gaussiana in statistica, anche quando i dati individuali non sono gaussiani. Medietà aritmetica di dati i.i.d. tende a essere gaussiana (normalizzata): questo è il fondamento dell'**inferenza statistica** mediante intervalli di confidenza e test d'ipotesi.
+
+---
+
+## 8. Distribuzione Esponenziale (Introdotto dopo)
+
+### Motivazione e definizione
+
+La distribuzione esponenziale modella il **tempo di attesa** tra eventi successivi in un processo di Poisson. È la distribuzione continua dell'assenza di memoria (analoga alla distribuzione geometrica nel caso discreto).
+
+> [!abstract] Definizione: Distribuzione Esponenziale
+> Una variabile aleatoria continua $X$ segue una **distribuzione esponenziale** di parametro $\lambda > 0$ (indicato $X \sim \text{Exp}(\lambda)$) se la sua **densità di probabilità** è:
+> $$\boxed{f_X(x) = \lambda e^{-\lambda x}, \quad x \geq 0}$$
+> Per $x < 0$: $f_X(x) = 0$.
+
+**Parametro $\lambda$:** il **tasso di arrivo** o **intensità** del processo di Poisson. Un valore $\lambda$ grande significa eventi frequenti (tempo di attesa breve); un valore piccolo significa eventi rari (tempo di attesa lungo).
+
+### Proprietà principali
+
+**Media e Varianza:**
+
+$$E[X] = \frac{1}{\lambda}, \quad \text{Var}(X) = \frac{1}{\lambda^2}$$
+
+Quindi la deviazione standard è $\sigma_X = 1/\lambda$, uguale alla media (caso di alta variabilità relativa).
+
+**Funzione di distribuzione cumulativa (CDF):**
+
+$$F_X(x) = P(X \leq x) = 1 - e^{-\lambda x}, \quad x \geq 0$$
+
+**Proprietà di assenza di memoria:**
+
+$$P(X > s + t | X > s) = P(X > t)$$
+
+Questa proprietà dice che se un evento non è stato osservato in tempo $s$, la distribuzione del "tempo aggiuntivo" rimane esponenziale con lo stesso parametro. Questa è la **proprietà caratteristica** dell'esponenziale tra tutte le distribuzioni continue.
+
+> [!example] Tempo di vita di una componente elettronica
+> Se I guasti seguono un processo con tasso di arrivo $\lambda = 0.01$ guasti/ora, allora il tempo medio di vita è $1/0.01 = 100$ ore. Il tempo rimanente di vita di una componente che ha già funzionato per 50 ore ha lo stesso distribution (assenza di memoria).
+
+### Relazione con la Poissoniana
+
+Se il numero di eventi in un intervallo di tempo $[0, t]$ segue una distribuzione di Poisson con media $\lambda t$, il tempo $X$ tra due eventi successivi segue una distribuzione esponenziale di parametro $\lambda$.
+
+---
+
+## 9. Teorema di Continuità di Lévy e Convergenza in Distribuzione (Introdotto dopo)
+
+### Funzione generatrice dei momenti (MGF)
+
+La **Funzione Generatrice dei Momenti (MGF)** è uno strumento potente per lo studio della convergenza di distribuzioni:
+
+> [!abstract] Definizione: MGF
+> Sia $X$ una variabile aleatoria. La sua **funzione generatrice dei momenti** è:
+> $$M_X(t) = E[e^{tX}], \quad t \in \mathbb{R}$$
+> (quando l'aspettazione esiste in un intorno di $t=0$).
+
+**Proprietà:**
+- I **momenti** di $X$ si ricavano dalle derivate di $M_X(t)$: $E[X^k] = \frac{d^k M_X}{dt^k}(0)$.
+- Se la MGF esiste e è unica, determina completamente la distribuzione di $X$.
+
+### Teorema di Continuità di Lévy
+
+> [!abstract] Teorema di Continuità di Lévy
+> Siano $X, X_1, X_2, \ldots$ variabili aleatorie. Allora:
+> $$X_n \xrightarrow{d} X \quad \text{(convergenza in distribuzione)}$$
+> se e solo se:
+> $$M_{X_n}(t) \to M_X(t) \quad \text{per ogni } t$$
+
+**Interpretazione:** è più facile controllare la convergenza delle MGF che confrontare le funzioni di distribuzione direttamente.
+
+### Applicazione al CLT
+
+Per dimostrare rigorosamente il **Teorema del Limite Centrale**, si calcola la MGF della somma standardizzata e si mostra che converge alla MGF della gaussiana standard $\mathcal{N}(0,1)$, che è $M(t) = e^{t^2/2}$.
+
+> [!important] Criterio di convergenza in pratica
+> Per verificare se una sequenza di distribuzioni converge a quella di una variabile aleatoria nota (es. gaussiana), calcolare le MGF e controllare se la convergenza vale punto per punto.
+
+---
+
 ## Prossimi argomenti (dopo Pasqua)
 
 - [ ] Variabili aleatorie continue: CDF, PDF, valor medio integrale
 - [ ] Distribuzione uniforme, esponenziale, gaussiana
 - [ ] Estensione a variabili continue della PMF congiunta → densità congiunta
 
-#MSP #covarianza #correlazione #matrice-covarianza #media-condizionale #variabili-continue #densita-probabilita
+#MSP #covarianza #correlazione #matrice-covarianza #media-condizionale #variabili-continue #densita-probabilita #CLT #teorema-limite-centrale #distribuzione-esponenziale #MGF
+

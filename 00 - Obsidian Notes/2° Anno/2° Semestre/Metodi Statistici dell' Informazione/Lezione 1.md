@@ -23,6 +23,7 @@ Professore: Marco Lops
 
 ## Argomenti trattati
 
+- Fondamenti di calcolo combinatorio: disposizioni, combinazioni e relative formule
 - Completamento esercizi di analisi combinatoria (cinquine da poker)
 - Sequenze binarie con esattamente $k$ uni: coefficiente multinomiale
 - Definizione frequentistica di probabilità
@@ -34,7 +35,55 @@ Professore: Marco Lops
 
 ---
 
-## Completamento: Analisi Combinatoria sul Poker
+## Fondamenti di Calcolo Combinatorio (Introdotto dopo)
+
+Il calcolo combinatorio fornisce gli strumenti per **contare** gli elementi di insiemi finiti, fondamentale quando si calcola la probabilità di eventi sotto l'ipotesi che tutti gli esiti elementari siano equiprobabili.
+
+### Disposizioni con ripetizione
+
+Il numero di **sequenze ordinate di lunghezza $k$** scelte da un alfabeto di $n$ simboli, **con la possibilità di ripetere** lo stesso simbolo, è:
+
+$$\boxed{D'_{n,k} = n^k}$$
+
+**Ragionamento:** per ogni delle $k$ posizioni si sceglie uno dei $n$ simboli indipendentemente. Totale: $n \times n \times \cdots \times n$ ($k$ volte) $= n^k$.
+
+> [!example] Stringhe binarie
+> Stringhe di lunghezza 5 su alfabeto $\{0, 1\}$: $D'_{2,5} = 2^5 = 32$.
+
+### Disposizioni semplici
+
+Il numero di **sequenze ordinate di lunghezza $k$** scelte da un insieme di $n$ elementi **senza ripetizione** (elementi distinti), è:
+
+$$\boxed{D_{n,k} = \frac{n!}{(n-k)!} = n(n-1)(n-2)\cdots(n-k+1)}$$
+
+**Ragionamento:** per la prima posizione si sceglie uno dei $n$ elementi; per la seconda, uno dei $n-1$ rimanenti; e così via fino alla $k$-esima posizione dove restano $n-k+1$ scelte.
+
+> [!example] Codice di 3 cifre distinte da 0-9
+> $D_{10,3} = \frac{10!}{7!} = 10 \times 9 \times 8 = 720$.
+
+### Combinazioni semplici
+
+Il numero di **sottoinsiemi non ordinati di dimensione $k$** scelti da un insieme di $n$ elementi è:
+
+$$\boxed{\binom{n}{k} = \frac{n!}{k!(n-k)!}}$$
+
+**Ragionamento:** le disposizioni semplici $D_{n,k}$ contano le sequenze ordinate. Se invece ordine non importa (sono sottoinsiemi), ogni sottoinsieme di $k$ elementi corrisponde a $k!$ sequenze ordinate diverse (permutazioni degli elementi del sottoinsieme). Quindi:
+
+$$\binom{n}{k} = \frac{D_{n,k}}{k!} = \frac{n!}{k!(n-k)!}$$
+
+Questo coefficiente è detto anche **coefficiente binomiale**.
+
+> [!example] Mani di poker
+> Mazzo da 52 carte, mano di 5 carte: $\binom{52}{5} = \frac{52!}{5! \cdot 47!} = 2.598.960$.
+
+> [!important] Equivalenza: sequenze binarie con $k$ uni
+> Il numero di sequenze binarie di lunghezza $n$ con esattamente $k$ uni (e $n-k$ zeri) è:
+> $$\binom{n}{k}$$
+> Questa interpretazione combinatoria del coefficiente binomiale è fondamentale per calcolare probabilità in esperimenti come "almeno $k$ successi in $n$ prove".
+
+---
+
+
 
 **Mazzo da poker francese:** 32 carte (7, 8, 9, 10, J, Q, K, A in 4 semi = 8 valori × 4 semi).
 
