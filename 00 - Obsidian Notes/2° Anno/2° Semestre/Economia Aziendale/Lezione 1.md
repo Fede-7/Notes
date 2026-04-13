@@ -2,7 +2,7 @@
 date: 2026-03-09
 corso: Economia e Organizzazione Aziendale
 docente: (da inserire)
-lezione: 2
+lezione: 1
 tags:
   - EOA
   - impresa
@@ -26,7 +26,7 @@ tags:
 Professore: Piccirillo Giuseppe
 ---
 
-# EOA — Lezione 2: Mercati, Evoluzione e Fonti di Finanziamento
+# EOA — Lezione 1: Mercati, Evoluzione e Fonti di Finanziamento
 
 **Corso:** Economia e Organizzazione Aziendale
 

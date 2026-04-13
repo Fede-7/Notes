@@ -1,8 +1,8 @@
 ---
-date: 2026-03-07
+date: 2026-03-06
 corso: Economia e Organizzazione Aziendale
 docente: (da inserire)
-lezione: 1
+lezione: 0
 tags:
   - EOA
   - impresa
@@ -15,7 +15,7 @@ tags:
 Professore: Piccirillo Giuseppe
 ---
 
-# EOA — Lezione 1: Impresa, Sistema e Ambiente
+# EOA — Lezione 0: Impresa, Sistema e Ambiente
 
 **Corso:** Economia e Organizzazione Aziendale
 

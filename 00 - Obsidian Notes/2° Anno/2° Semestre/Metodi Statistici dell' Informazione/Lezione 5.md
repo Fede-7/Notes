@@ -199,8 +199,8 @@ Quando la varianza tende a zero, la variabile aleatoria si concentra attorno all
 
 ```mermaid
 graph TD
-    A["Convergenza con\nprobabilità 1\n(Legge forte GN)"] --> B["Convergenza\nin probabilità\n(Legge debole GN)"]
-    C["Convergenza in\nmedia quadratica"] --> B
+    A["Convergenza con<br/>probabilità 1<br/>(Legge forte GN)"] --> B["Convergenza<br/>in probabilità<br/>(Legge debole GN)"]
+    C["Convergenza in<br/>media quadratica"] --> B
 ```
 
 Le frecce indicano implicazioni. Convergenza con prob. 1 e convergenza in media quadratica sono entrambe **forti**, ma non si implicano a vicenda. Entrambe implicano la convergenza in probabilità (la più debole).

@@ -44,7 +44,7 @@ tags:
 
 ```mermaid
 graph LR
-    A["Incertezza\na priori"] -->|trasferimento| B["Certezza\na posteriori"]
+    A["Incertezza<br/>a priori"] -->|trasferimento| B["Certezza<br/>a posteriori"]
     B --> C["(certezza mai assoluta)"]
 ```
 
@@ -59,15 +59,15 @@ La **probabilità** è lo strumento formale per modellare l'incertezza. Tutto ci
 
 ```mermaid
 graph TD
-    A["Analisi Combinatoria\nSaper contare"] --> B["Probabilità su spazi finiti\nDefinizione assiomatica"]
+    A["Analisi Combinatoria<br/>Saper contare"] --> B["Probabilità su spazi finiti<br/>Definizione assiomatica"]
     B --> C["Variabili aleatorie discrete"]
-    C --> D["Estensione al continuo\nIntegrali al posto di somme"]
+    C --> D["Estensione al continuo<br/>Integrali al posto di somme"]
     D --> E["Accenni ai processi aleatori"]
 
-    B --> F["Teoria dell'informazione\nEntropia di Shannon, bit"]
-    B --> G["Statistica inferenziale\nBayesiana e non bayesiana"]
-    G --> H["Teoria della decisione\nTest di ipotesi"]
-    H --> I["Stima ricorsiva?\nGradiente → ML"]
+    B --> F["Teoria dell'informazione<br/>Entropia di Shannon, bit"]
+    B --> G["Statistica inferenziale<br/>Bayesiana e non bayesiana"]
+    G --> H["Teoria della decisione<br/>Test di ipotesi"]
+    H --> I["Stima ricorsiva?<br/>Gradiente → ML"]
 
     style A fill:#4a9eff,color:#fff
     style F fill:#f0a500,color:#fff
@@ -213,11 +213,11 @@ Questa è la **formula base** da cui derivano tutti i risultati di analisi combi
 
 ```mermaid
 graph LR
-    A["Estrazione di k elementi\nda un insieme di n"] --> B{"Ripetizione?"}
-    B -->|Sì| C["n^k\nk-uple ordinate\ncon ripetizione"]
-    B -->|No| D["n! / (n-k)!\nk-uple ordinate\nsenza ripetizione\n(disposizioni)"]
+    A["Estrazione di k elementi<br/>da un insieme di n"] --> B{"Ripetizione?"}
+    B -->|Sì| C["n^k<br/>k-uple ordinate<br/>con ripetizione"]
+    B -->|No| D["n! / (n-k)!<br/>k-uple ordinate<br/>senza ripetizione<br/>(disposizioni)"]
     D --> E{"k = n?"}
-    E -->|Sì| F["n!\nPermutazioni"]
+    E -->|Sì| F["n!<br/>Permutazioni"]
     E -->|No| G["n! / (n-k)!"]
 ```
 
