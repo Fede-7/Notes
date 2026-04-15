@@ -17,21 +17,16 @@ Professore: Marco Lops
 
 # MSI — Lezione 1: Probabilità Frequentistica e Proprietà Fondamentali
 
-**Docente:** Prof. Marco Lops | **Corso:** Metodi Statistici per l'Informazione | **CFU:** 6
-
----
-
-## Argomenti trattati
-
-- Fondamenti di calcolo combinatorio: disposizioni, combinazioni e relative formule
-- Completamento esercizi di analisi combinatoria (cinquine da poker)
-- Sequenze binarie con esattamente $k$ uni: coefficiente multinomiale
-- Definizione frequentistica di probabilità
-- Critica e vantaggi dell'approccio frequentistico
-- Proprietà della probabilità derivate dalla frequenza (senza assiomi)
-- Evento complementare, subadditività, evento $A \setminus B$
-- Probabilità condizionata: definizione e intuizione sul database
-- Indipendenza stocastica
+>[!question]  Argomenti trattati
+>- Fondamenti di calcolo combinatorio: disposizioni, combinazioni e relative formule
+>- Completamento esercizi di analisi combinatoria (cinquine da poker)
+>- Sequenze binarie con esattamente $k$ uni: coefficiente multinomiale
+>- Definizione frequentistica di probabilità
+>- Critica e vantaggi dell'approccio frequentistico
+>- Proprietà della probabilità derivate dalla frequenza (senza assiomi)
+>- Evento complementare, subadditività, evento $A \setminus B$
+>- Probabilità condizionata: definizione e intuizione sul database
+>- Indipendenza stocastica
 
 ---
 
@@ -43,12 +38,12 @@ Il calcolo combinatorio fornisce gli strumenti per **contare** gli elementi di i
 
 Il numero di **sequenze ordinate di lunghezza $k$** scelte da un alfabeto di $n$ simboli, **con la possibilità di ripetere** lo stesso simbolo, è:
 
-$$\boxed{D'_{n,k} = n^k}$$
+$$\boxed{D_{n,k} = n^k}$$
 
 **Ragionamento:** per ogni delle $k$ posizioni si sceglie uno dei $n$ simboli indipendentemente. Totale: $n \times n \times \cdots \times n$ ($k$ volte) $= n^k$.
 
 > [!example] Stringhe binarie
-> Stringhe di lunghezza 5 su alfabeto $\{0, 1\}$: $D'_{2,5} = 2^5 = 32$.
+> Stringhe di lunghezza 5 su alfabeto $\{0, 1\}$: $D_{2,5} = 2^5 = 32$.
 
 ### Disposizioni semplici
 
@@ -80,11 +75,8 @@ Questo coefficiente è detto anche **coefficiente binomiale**.
 > Il numero di sequenze binarie di lunghezza $n$ con esattamente $k$ uni (e $n-k$ zeri) è:
 > $$\binom{n}{k}$$
 > Questa interpretazione combinatoria del coefficiente binomiale è fondamentale per calcolare probabilità in esperimenti come "almeno $k$ successi in $n$ prove".
-
----
-
-
-
+### Esempi: 
+#### La mano nel Poker
 **Mazzo da poker francese:** 32 carte (7, 8, 9, 10, J, Q, K, A in 4 semi = 8 valori × 4 semi).
 
 Lo spazio dei campioni ha cardinalità:
@@ -94,7 +86,7 @@ $$|\Omega| = \binom{32}{5} = \frac{32!}{5! \cdot 27!} = 201.376$$
 > [!tip] L'ordinamento non conta nel poker
 > Una mano di poker è un sottoinsieme non ordinato: avere A♠ K♥ Q♦ J♣ 10♠ o K♥ A♠ Q♦ J♣ 10♠ è la stessa mano. Si usano sempre i coefficienti binomiali, non le disposizioni.
 
-### Cinquine con esattamente due assi
+#### Cinquine con esattamente due assi
 
 $$|C_2| = \underbrace{\binom{4}{2}}_{\text{scegli 2 assi tra 4}} \cdot \underbrace{\binom{28}{3}}_{\text{scegli 3 carte non-asso tra 28}} = 6 \cdot 3276 = 69.184$$
 
@@ -104,19 +96,19 @@ Nota: questo include doppie coppie e full (tre tra le altre carte uguali). Se si
 
 $$|C_{\text{coppia assi}}| = \binom{4}{2} \cdot 28 \cdot \frac{24 \cdot 20}{3!} \qquad \Rightarrow \qquad P \approx 6{,}3\%$$
 
-### Almeno tre assi
+#### Almeno tre assi
 
 $$|C_{\geq 3}| = \underbrace{\binom{4}{3} \cdot \binom{28}{2}}_{\text{tre assi}} + \underbrace{\binom{4}{4} \cdot 28}_{\text{quattro assi}} = 4 \cdot 378 + 28 = 1.540$$
 
 $$P(\geq 3 \text{ assi}) = \frac{1.540}{201.376} \approx 0{,}76\%$$
 
-### Tris di un valore specifico (es. tre 7, senza full né poker)
+#### Tris di un valore specifico (es. tre 7, senza full né poker)
 
 $$|C_{3\text{sette}}| = \binom{4}{3} \cdot 28 \cdot \frac{24}{2} = 4 \cdot 28 \cdot 12 = 1.344$$
 
 $$P(\text{tris qualsiasi}) = 8 \cdot \frac{1.344}{201.376} \approx 5{,}3\%$$
 
-### Colore di picche
+#### Colore di picche
 
 $$|C_{\text{picche}}| = \binom{8}{5} = 56 \qquad \Rightarrow \qquad P(\text{colore picche}) = \frac{56}{201.376} \approx 0{,}11\%$$
 
@@ -124,11 +116,12 @@ $$P(\text{colore qualsiasi}) = 4 \cdot \frac{56}{201.376} \approx 0{,}44\%$$
 
 ---
 
-## Sequenze Binarie con Esattamente $k$ Uni
+#### Sequenze Binarie con Esattamente $k$ Uni
 
-**Domanda:** data una sequenza di $n$ bit, quante sequenze hanno esattamente $k$ uni?
+> [!quote] **Domanda:**
+Data una sequenza di $n$ bit, quante sequenze hanno esattamente $k$ uni?
 
-**Ragionamento senza formula:**
+>**Ragionamento senza formula:**
 
 Se tutti i bit fossero distinti, ci sarebbero $n!$ permutazioni. Ma nella nostra sequenza ci sono $k$ uni (indistinguibili tra loro) e $n-k$ zeri (indistinguibili tra loro). Le $k!$ permutazioni degli uni tra di loro danno la stessa sequenza, e lo stesso vale per le $(n-k)!$ permutazioni degli zeri.
 

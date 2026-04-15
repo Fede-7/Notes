@@ -8,15 +8,6 @@ tags:
 # MSI — Lezione 0: Introduzione, Spazio dei Campioni e Analisi Combinatoria
 **Docente:** Prof. Marco Lops (Telecomunicazioni) | **CFU:** 6 | **Corso:** Metodi Statistici per l'Informazione
 
-> [!info] Orario
-> - **Martedì** 14:00–16:00
-> - **Giovedì** 8:45–10:45
-> - Ricevimento: orari ufficiali + disponibile su Teams per appuntamenti di gruppo
-> - Materiale (slide + lavagne PDF) sul canale **Teams** del corso
-
-> [!warning] Nota logistica
-> Nella prima settimana di maggio il prof sarà all'estero per ricerca → lezione da remoto o recupero.
-
 ---
 
 ## 📚 Testi di riferimento
@@ -271,7 +262,7 @@ Questo è il **coefficiente binomiale**.
 ### Applicazione: Cardinalità dell'Insieme delle Parti
 
 > [!abstract] Teorema
-> Dato un insieme $A$ con $m$ elementi, l'**insieme delle parti** $\mathcal{P}(A)$ (l'insieme di tutti i sottoinsiemi di $A$, inclusi $\emptyset$ e $A$ stesso) ha cardinalità:
+> Dato un insieme $A$ con $m$ elementi, l'**insieme delle parti** $\mathcal{P}(A)$ (l'insieme di tutti i sottoinsiemi di $A$, inclusi $\emptyset \space$ e $A$ stesso) ha cardinalità:
 >
 > $$|\mathcal{P}(A)| = 2^m$$
 
@@ -308,15 +299,8 @@ $$P(\text{colore}) = \frac{4 \cdot \binom{13}{5}}{\binom{52}{5}}$$
 > Il limite di puntata esiste proprio per questo motivo.
 
 ---
-
-## Prossimi argomenti
-
-- [ ] Ripasso completo analisi combinatoria con esercizi
-- [ ] Definizione assiomatica (Kolmogorov) della probabilità
-- [ ] Probabilità condizionata e indipendenza
-- [ ] Variabili aleatorie discrete
+## Tags
+#probabilità #MSI #spazio-campioni #eventi #analisi-combinatoria #combinazioni #permutazioni #coefficiente-binomiale
 
 ---
 
-## Tags
-#probabilità #MSI #spazio-campioni #eventi #analisi-combinatoria #combinazioni #permutazioni #coefficiente-binomiale
