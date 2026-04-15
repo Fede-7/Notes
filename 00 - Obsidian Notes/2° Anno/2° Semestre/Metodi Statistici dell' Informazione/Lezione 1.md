@@ -115,8 +115,7 @@ $$|C_{\text{picche}}| = \binom{8}{5} = 56 \qquad \Rightarrow \qquad P(\text{colo
 $$P(\text{colore qualsiasi}) = 4 \cdot \frac{56}{201.376} \approx 0{,}44\%$$
 
 ---
-
-#### Sequenze Binarie con Esattamente $k$ Uni
+### Caso m-ario: Sequenze Binarie con Esattamente $k$ Uni
 
 > [!quote] **Domanda:**
 Data una sequenza di $n$ bit, quante sequenze hanno esattamente $k$ uni?
@@ -127,9 +126,8 @@ Se tutti i bit fossero distinti, ci sarebbero $n!$ permutazioni. Ma nella nostra
 
 $$\boxed{|\{x \in \{0,1\}^n : |x|_1 = k\}| = \frac{n!}{k! \cdot (n-k)!} = \binom{n}{k}}$$
 
-**Generalizzazione al caso $m$-ario:** data una sequenza di lunghezza $n$ su un alfabeto di $m$ simboli, con $n_i$ occorrenze del simbolo $i$ (con $\sum_i n_i = n$), il numero di sequenze distinte è il **coefficiente multinomiale**:
-
-$$\binom{n}{n_1, n_2, \ldots, n_m} = \frac{n!}{n_1! \cdot n_2! \cdots n_m!}$$
+>[!abstract] **Generalizzazione al caso $m$-ario:**
+>Data una sequenza di lunghezza $n$ su un alfabeto di $m$ simboli, con $n_i$ occorrenze del simbolo $i$ (con $\sum_i n_i = n$), il numero di sequenze distinte è il **coefficiente multinomiale**: $$\binom{n}{n_1, n_2, \ldots, n_m} = \frac{n!}{n_1! \cdot n_2! \cdots n_m!}$$
 
 > [!example] Applicazione in teoria dell'informazione
 > Questi conteggi sono fondamentali per il codice universale a lunghezza fissa: determinare quanti messaggi di lunghezza $n$ contengono esattamente $k$ simboli di un certo tipo è la base per calcolare la capacità di un canale.
@@ -138,9 +136,9 @@ $$\binom{n}{n_1, n_2, \ldots, n_m} = \frac{n!}{n_1! \cdot n_2! \cdots n_m!}$$
 
 ## Definizione Frequentistica di Probabilità
 
-Sia $\Omega$ uno spazio dei campioni discreto (finito o numerabile). Si eseguono $n$ prove indipendenti dello stesso esperimento.
+Sia $\Omega$ uno spazio dei campioni *discreto* (finito o numerabile). Si eseguono $n$ prove indipendenti dello stesso esperimento.
 
-> [!abstract] Definizione: Frequenza di successo
+> [!abstract] Definizione: Frequenza di successo (vista in precedenza)
 > $$f_n(A) = \frac{N_A}{n}$$
 > dove $N_A$ è il numero di volte in cui l'evento $A$ si verifica su $n$ prove.
 
@@ -217,21 +215,23 @@ L'evento certo si verifica tutte le $n$ volte; $f_n(\Omega) = n/n = 1$.
 
 ---
 
-## Dado Truccato: Esempio di Probabilità Non Equiprobabili
+### Dado Truccato: Esempio di Probabilità Non Equiprobabili
 
 Supponiamo che il dado sia truccato così: il risultato 1 esce 5 volte più spesso degli altri risultati (tra loro equiprobabili).
 
-Allora: $N_1 = 5 \cdot (N_2 + N_3 + N_4 + N_5 + N_6)/5$, da cui:
+Sia $P(i) = x$ la probabilità associata a ciascun esito $i \in \{2, 3, 4, 5, 6\}$. Per ipotesi, si ha $P(1) = 5x$. Affinché la distribuzione sia valida, la somma delle probabilità su tutto lo spazio campionario $\Omega$ deve essere unitaria:
+$$\sum_{i=1}^{6} P(i) = 1 \implies 5x + 5x = 1 \implies 10x = 1 $$
+Si ricava $x = 1/10$. Di conseguenza, le probabilità elementari risultano:
+- $P(1) = 5/10 = 1/2$
+- $P(i) = 1/10 \quad \text{per } i \in \{2, 3, 4, 5, 6\}$
 
-$$P(1) = \frac{5}{10} = \frac{5}{6}^\star \qquad P(i) = \frac{1}{30} \text{ per } i = 2,\ldots,6$$
+> [!example] Esempio: Calcolo di probabilità per eventi composti
+> Calcoliamo la probabilità degli eventi $E_{pari}$ ed $E_{dispari}$ sotto questa nuova misura:
+> - $P(\text{pari}) = P(2) + P(4) + P(6) = \frac{1}{10} + \frac{1}{10} + \frac{1}{10} = 30\%$
+> - $P(\text{dispari}) = P(1) + P(3) + P(5) = \frac{1}{2} + \frac{1}{10} + \frac{1}{10} = 70\%$
 
-> [!warning] Correzione: ricalcolo esatto
-> Con il dado truccato dove $N_1 = 5 \cdot N_i$ per ogni $i \neq 1$, e $\sum P = 1$:
-> $$5x + 5x = 1 \Rightarrow x = \frac{1}{10}, \quad P(1) = \frac{5}{10} = \frac{1}{2}, \quad P(i) = \frac{1}{10} \text{ per } i \neq 1$$
->
-> Quindi: $P(\text{pari}) = P(2) + P(4) + P(6) = 3 \cdot \frac{1}{10} = 30\%$, mentre $P(\text{dispari}) = P(1) + P(3) + P(5) = \frac{1}{2} + \frac{1}{10} + \frac{1}{10} = 70\%$.
->
-> Morale: **quando gli eventi elementari non sono equiprobabili**, calcolare la probabilità di un evento come rapporto di cardinalità **non ha senso**. Si deve usare la definizione frequentistica o la misura di probabilità corretta.
+> [!warning] Attenzione
+>  Morale: **quando gli eventi elementari non sono equiprobabili**, calcolare la probabilità di un evento come rapporto di cardinalità **non ha senso**. Si deve usare la definizione frequentistica o la misura di probabilità corretta.
 
 ---
 
@@ -316,13 +316,6 @@ Il risultato è circa 70% — molto più alto di quanto l'intuizione suggerisce.
 > - Due eventi sono indipendenti se $P(A \cap B) = P(A) \cdot P(B)$.
 > - Per "almeno uno", usare il complementare è quasi sempre la strategia migliore.
 
-## Prossimi argomenti
-
-- [ ] Teorema della probabilità totale
-- [ ] Teorema di Bayes
-- [ ] Variabili aleatorie discrete
-- [ ] Esercizi su probabilità condizionata, indipendenza e Bayes
+#MSI #probabilità #frequenza #probabilità-condizionata #indipendenza #misura #combinatoria #complementare #Bayes
 
 ---
-
-#MSI #probabilità #frequenza #probabilità-condizionata #indipendenza #misura #combinatoria #complementare #Bayes

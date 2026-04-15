@@ -21,131 +21,62 @@ Professore: Marco Lops
 
 ---
 
-## Argomenti trattati
-
-- Riepilogo dell'analisi combinatoria ($k$-uple ordinate, non ordinate, con/senza ripetizione, coefficiente binomiale)
-- Riepilogo della definizione frequentistica e delle proprietà derivate (complementare, unione, differenza)
-- Riepilogo della probabilità condizionata e della frequenza condizionale
-- Legge della probabilità composta e legge di Bayes (approccio frequentistico)
-- Legge della probabilità totale (partizioni di $\Omega$)
-- Limiti dell'approccio frequentistico e necessità della teoria formale
-- Algebra e $\sigma$-algebra di eventi: definizione e proprietà di chiusura
-- Spazio di probabilità $(\Omega, \mathcal{E}, P)$ e assiomi di Kolmogorov
-- Derivazione rigorosa delle proprietà della probabilità dagli assiomi
-- Indipendenza stocastica: definizione, proprietà dei complementari, indipendenza di $n$ eventi
-- Indipendenza a coppie vs. indipendenza congiunta: controesempio del bit di parità
-- Esercizio: probabilità con $n$ eventi indipendenti (nessuno, almeno uno, esattamente uno)
-- La probabilità condizionata come legge di probabilità (verifica degli assiomi)
-- Esercizio: bussolotto con dado onesto e dado truccato (applicazione di Bayes)
-- Introduzione alle variabili aleatorie discrete e alla PMF
-- Cenno al valore atteso
-
----
-
-## Riepilogo: Analisi Combinatoria
-
-Il professore apre la lezione richiamando i risultati fondamentali dell'analisi combinatoria trattati nelle lezioni precedenti. La motivazione originale era quella di calcolare la probabilità di un evento sotto l'ipotesi che tutti gli eventi elementari siano equiprobabili, ovvero "equivalenti": in tal caso la probabilità si calcola come rapporto tra il numero di casi favorevoli e il numero di casi possibili, e il problema si riduce a **saper contare** gli elementi di un insieme.
-
-Dato un insieme di $n$ elementi:
-
-- Il numero di **$k$-uple ordinate di elementi distinti** (disposizioni semplici) e:
-
-$$D_{n,k} = \frac{n!}{(n-k)!}$$
-
-- Il numero di **$k$-uple ordinate con ripetizione** e:
-
-$$n^k$$
-
-- Il numero di **$k$-uple non ordinate** (combinazioni semplici) si ottiene dividendo le disposizioni per il numero di permutazioni di $k$ elementi su $k$ posti, cioe $k!$:
-
-$$\binom{n}{k} = \frac{n!}{k!\,(n-k)!}$$
-
-dove $\binom{n}{k}$ e il **coefficiente binomiale**.
-
-Questo coefficiente conta anche il numero di **sequenze binarie** di lunghezza $n$ con esattamente $k$ uni (e $n-k$ zeri).
-
-> [!quote]
-> "Aritmetica deriva dal greco *arithmos*, che vuol dire numero. Quindi questi esercizi numerologici, ho detto si, va bene, ma spesso gli eventi elementari non sono equiprobabili."
+>[!question] Argomenti trattati
+> - Riepilogo dell'analisi combinatoria ($k$-uple ordinate, non ordinate, con/senza ripetizione, coefficiente binomiale)
+> - Riepilogo della definizione frequentistica e delle proprietà derivate (complementare, unione, differenza)
+> - Riepilogo della probabilità condizionata e della frequenza condizionale
+> - Legge della probabilità composta e legge di Bayes (approccio frequentistico)
+> - Legge della probabilità totale (partizioni di $\Omega$)
+> - Limiti dell'approccio frequentistico e necessità della teoria formale
+> - Algebra e $\sigma$-algebra di eventi: definizione e proprietà di chiusura
+> - Spazio di probabilità $(\Omega, \mathcal{E}, P)$ e assiomi di Kolmogorov
+> - Derivazione rigorosa delle proprietà della probabilità dagli assiomi
+> - Indipendenza stocastica: definizione, proprietà dei complementari, indipendenza di $n$ eventi
+> - Indipendenza a coppie vs. indipendenza congiunta: controesempio del bit di parità
+> - Esercizio: probabilità con $n$ eventi indipendenti (nessuno, almeno uno, esattamente uno)
+> - La probabilità condizionata come legge di probabilità (verifica degli assiomi)
+> - Esercizio: bussolotto con dado onesto e dado truccato (applicazione di Bayes)
+> - Introduzione alle variabili aleatorie discrete e alla PMF
+> - Cenno al valore atteso
 
 ---
+## Richiami :
+### Analisi Combinatoria
 
-## Riepilogo: Proprietà dalla Definizione Frequentistica
+Sotto l'ipotesi di equiprobabilità degli eventi elementari, la probabilità di un evento si determina come rapporto tra la cardinalità dell'evento e quella dello spazio campionario. Il problema si riduce dunque all'**enumerazione** degli elementi tramite gli strumenti dell'analisi combinatoria. Dato un insieme di $n$ elementi, si definiscono:
 
-Ricordando che la probabilità di un evento $A$ e definita come il limite della frequenza di successo:
+- **$k$-uple ordinate con ripetizione**: $n^k$.
+- **$k$-uple ordinate di elementi distinti** (**disposizioni semplici**): $D_{n,k} = \frac{n!}{(n-k)!}$.
+- **$k$-uple non ordinate** (**combinazioni semplici**): $\binom{n}{k} = \frac{n!}{k!(n-k)!}$.
 
-$$P(A) = \lim_{n \to \infty} f_n(A) = \lim_{n \to \infty} \frac{N_A}{n}$$
+Il **coefficiente binomiale** $\binom{n}{k}$ esprime non solo il numero di sottoinsiemi di dimensione $k$, ma anche il numero di **sequenze binarie** di lunghezza $n$ contenenti esattamente $k$ uni, interpretazione fondamentale per la modellazione di processi a prove ripetute.
 
-dove $N_A$ e il numero di volte in cui l'evento $A$ si verifica su $n$ prove, si ricavano le seguenti proprietà come conseguenze dirette delle operazioni tra insiemi.
+### Proprietà Derivate dalla Definizione Frequentistica
 
-### Evento complementare
+Assumendo la probabilità come limite della frequenza relativa di successo, $P(A) = \lim_{n \to \infty} $N_A$/n$, è possibile derivare le proprietà fondamentali del calcolo probabilistico trattandolo come una **misura** (analoga all'area geometrica) definita sugli insiemi:
 
-Se $A$ si verifica $N_A$ volte su $n$ prove, il suo complementare $A^c$ contiene tutti e soli gli elementi di $\Omega$ che non sono presenti in $A$, e si verifica $n - N_A$ volte:
+1. **Evento complementare**: Poiché su $n$ prove il numero di insuccessi è $n - N_A$, si ha $P($A^c$) = 1 - P(A)$.
+2. **Unione (Subadditività)**: Per due eventi $A, B$, il conteggio degli esiti favorevoli all'unione deve escludere la doppia computazione dell'intersezione:
+   $$P(A \cup B) = P(A) + P(B) - P(A \cap B) \tag{2.1}$$
+   Nel caso di **eventi incompatibili** ($A \cap B = \emptyset$), la (2.1) si riduce alla somma delle probabilità.
+3. **Differenza**: La probabilità dell'evento $A \setminus B$ (esiti in $A$ che non appartengono a $B$) è pari a $P(A) - P(A \cap B)$.
 
-$$f_n(A^c) = \frac{n - N_A}{n} = 1 - f_n(A) \qquad \Longrightarrow \qquad P(A^c) = 1 - P(A)$$
+### Probabilità Condizionata e Teorema di Bayes
 
-### Unione di eventi (subadditività)
+La **frequenza condizionale** $f_n(A \mid B)$ modella il restringimento dello spazio dei campioni ai soli esiti che soddisfano la condizione $B$. Nell'ambito di questo "nuovo universo", si valuta la quota di esiti che soddisfano simultaneamente $A$.
 
-Se $A$ e $B$ sono due eventi contenuti in $\Omega$, l'evento $A \cup B$ contiene tutti e soli gli elementi che appartengono ad $A$, oppure a $B$, oppure a entrambi. Il numero di volte in cui si verifica $A \cup B$ su $n$ prove e $N_A + N_B - N_{A \cap B}$ (si sottrae l'intersezione per non contarla due volte):
+> [!abstract] Definizione: Probabilità condizionata e Legge Composta
+> Dato $P(B) > 0$, la probabilità condizionata è:
+> $$P(A \mid B) = \frac{P(A \cap B)}{P(B)}$$
+> Da cui si deriva la **legge della probabilità composta**:
+> $$P(A \cap B) = P(A) \cdot P(B \mid A) = P(B) \cdot P(A \mid B) \tag{2.2}$$
+Dalla (2.2), sfruttando la commutatività dell'intersezione, si ricava la **Legge di Bayes**, strumento cardine dell'inferenza statistica che permette di invertire la direzione del condizionamento:
 
-$$P(A \cup B) = P(A) + P(B) - P(A \cap B)$$
-
-Se $A$ e $B$ sono **eventi incompatibili** ($A \cap B = \emptyset$, non possono mai verificarsi insieme):
-
-$$P(A \cup B) = P(A) + P(B)$$
-
-> [!tip] La probabilità come misura
-> Il professore offre un'interpretazione geometrica: la probabilità e un modo per misurare le "dimensioni" di un evento. L'area di $A \cup B$ e la somma delle aree se i due insiemi sono disgiunti; se non lo sono, bisogna sottrarre l'area dell'intersezione. La probabilità si comporta esattamente come una misura di area.
-
-### Differenza di eventi
-
-L'evento $A \setminus B$ contiene tutti e soli gli elementi di $A$ che non appartengono a $B$. Il numero di volte in cui si verifica $A \setminus B$ e $N_A - N_{A \cap B}$:
-
-$$P(A \setminus B) = P(A) - P(A \cap B)$$
-
----
-
-## Riepilogo: Probabilità Condizionata e Frequenza Condizionale
-
-Il professore richiama il concetto fondamentale di **frequenza condizionale**.
-
-La frequenza condizionale dell'evento $A$ dato che si e verificato $B$ si costruisce **restringendo l'analisi** ai soli elementi che soddisfano la condizione $B$: nell'ambito di questi elementi, si contano quanti soddisfano anche la condizione $A$. Questi elementi soddisfano dunque sia $A$ che $B$.
-
-$$f_n(A \mid B) = \frac{N_{A \cap B}}{N_B} = \frac{N_{A \cap B}/n}{N_B/n} = \frac{f_n(A \cap B)}{f_n(B)}$$
-
-Passando al limite:
-
-> [!abstract] Definizione: Probabilità condizionata
-> $$P(A \mid B) = \frac{P(A \cap B)}{P(B)}, \qquad P(B) > 0$$
-> La probabilità che si verifichi $A$, dato che si e verificato $B$, e il rapporto tra la probabilità che si verifichino entrambi e la probabilità di $B$.
-
-> [!warning] $P(B)$ deve essere diverso da zero
-> La definizione di probabilità condizionata perde significato se $P(B) = 0$, perche si avrebbe una divisione per zero.
-
-Scambiando $A$ e $B$:
-
-$$P(B \mid A) = \frac{P(A \cap B)}{P(A)}$$
-
-Notando che $B \cap A = A \cap B$ (l'intersezione e commutativa), si ha:
-
-$$P(A \cap B) = P(A) \cdot P(B \mid A) = P(B) \cdot P(A \mid B)$$
-
-> [!abstract] Definizione: Legge della probabilità composta
-> $$P(A \cap B) = P(A) \cdot P(B \mid A) = P(B) \cdot P(A \mid B)$$
-> La probabilità dell'intersezione di due eventi si puo esprimere sia come $P(A)$ per la condizionale $P(B \mid A)$, sia come $P(B)$ per la condizionale $P(A \mid B)$.
-
-### Legge di Bayes
-
-Uguagliando le due espressioni della probabilità composta si ottiene una legge fondamentale:
-
-> [!abstract] Definizione: Legge di Bayes
+> [!abstract] Legge di Bayes
 > $$P(B \mid A) = \frac{P(A \mid B) \cdot P(B)}{P(A)}$$
-> Se si conoscono le probabilità marginali $P(A)$ e $P(B)$ e la condizionale $P(A \mid B)$, si puo ricavare la condizionale "inversa" $P(B \mid A)$.
-
-> [!quote]
-> "Da questa legge ha preso nome tutta la statistica bayesiana, non so se l'avete mai sentita. In generale tutte le materie che si fondano sulla probabilità devono conoscere la statistica bayesiana."
+Questa formulazione consente di aggiornare la conoscenza *a priori* di un fenomeno ($P(B)$) alla luce di nuove evidenze sperimentali ($A$), determinando la probabilità *a posteriori* ($P(B \mid A)$).
 
 ---
-
 ## Legge della Probabilità Totale
 
 > [!abstract] Definizione: Partizione
@@ -156,11 +87,11 @@ Uguagliando le due espressioni della probabilità composta si ottiene una legge 
 > [!example] Esempio concreto: i lastroni dell'aula
 > I lastroni sul pavimento di un'aula sono una partizione della stanza: la loro unione copre tutta la stanza e due lastroni diversi non si sovrappongono (hanno intersezione nulla).
 
-**Derivazione.** Dato un qualunque evento $A$:
+>**Derivazione.** Dato un qualunque evento $A$:
 
 $$A = A \cap \Omega = A \cap \left(\bigcup_{i=1}^{m} E_i\right) = \bigcup_{i=1}^{m} (A \cap E_i)$$
 
-dove si e usata la proprietà distributiva dell'intersezione rispetto all'unione. Gli insiemi $A \cap E_i$ e $A \cap E_j$ (con $i \neq j$) sono **disgiunti**: $A \cap E_i$ contiene tutti e soli gli elementi che appartengono sia ad $A$ che ad $E_i$, mentre $A \cap E_j$ contiene quelli che appartengono sia ad $A$ che ad $E_j$; ma $E_i$ e $E_j$ non hanno elementi comuni perche formano una partizione. Quindi:
+dove si e usata la proprietà distributiva dell'intersezione rispetto all'unione. Gli insiemi $A \cap E_i$ e $A \cap E_j$ (con $i \neq j$) sono **disgiunti**: $A \cap E_i$ contiene tutti e soli gli elementi che appartengono sia ad $A$ che ad $E_i$, mentre $A \cap E_j$ contiene quelli che appartengono sia ad $A$ che ad $E_j$; ma $E_i$ e $E_j$ non hanno elementi comuni perchè formano una partizione. Quindi:
 
 $$P(A) = \sum_{i=1}^{m} P(A \cap E_i)$$
 
@@ -177,7 +108,7 @@ Usando la definizione di probabilità condizionata, $P(A \cap E_i) = P(A \mid E_
 
 ## Limiti dell'Approccio Frequentistico
 
-Tutte le proprietà ricavate finora --- complementare, unione, differenza, probabilità condizionata, legge di Bayes, legge della probabilità totale --- derivano dalla definizione frequentistica (limite della frequenza di successo) e sono conseguenze delle proprietà delle operazioni tra insiemi.
+Tutte le proprietà ricavate finora --- *complementare, unione, differenza, probabilità condizionata, legge di Bayes, legge della probabilità totale* --- derivano dalla definizione frequentistica (limite della frequenza di successo) e sono conseguenze delle proprietà delle operazioni tra insiemi.
 
 Tuttavia questa impostazione presenta due problemi fondamentali:
 
@@ -186,8 +117,6 @@ Tuttavia questa impostazione presenta due problemi fondamentali:
 
 > [!quote]
 > "Io vi ho promesso che vi avrei definito in modo piu rigoroso la probabilità. Tutto questo zoppica dal punto di vista non solo matematico, ma concettuale."
-
-Il professore spiega perche ha comunque usato l'approccio frequentistico: in quella cornice tutte le proprietà sono **conseguenze immediate** della teoria degli insiemi. Nell'approccio formale che segue, le stesse proprietà diventano **teoremi da dimostrare**.
 
 ---
 
