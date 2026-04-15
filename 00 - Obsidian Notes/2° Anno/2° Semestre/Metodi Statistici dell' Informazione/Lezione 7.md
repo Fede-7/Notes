@@ -19,15 +19,14 @@ tags:
 
 ---
 
-## Argomenti trattati
-
-- Canale binario simmetrico: modello, probabilità di errore, legge di Bayes
-- Caso peggiore del canale: $\varepsilon = 1/2$
-- Introduzione all'entropia e al concetto di informazione (Claude Shannon)
-- PMF condizionale e proprietà di marginalizzazione come media
-- Regola della catena per tre variabili aleatorie
-- Indipendenza condizionale e catene di Markov (cenni)
-- Esercizi: urna con due estrazioni, dado onesto e dado truccato
+>[!question] Argomenti trattati
+>- Canale binario simmetrico: modello, probabilità di errore, legge di Bayes
+>- Caso peggiore del canale: $\varepsilon = 1/2$
+>- Introduzione all'entropia e al concetto di informazione (Claude Shannon)
+>- PMF condizionale e proprietà di marginalizzazione come media
+>- Regola della catena per tre variabili aleatorie
+>- Indipendenza condizionale e catene di Markov (cenni)
+>- Esercizi: urna con due estrazioni, dado onesto e dado truccato
 
 ---
 
@@ -94,7 +93,7 @@ Questo accade quando $\varepsilon = 1/2$: il canale produce rumore puro, e $Y$ �
 
 ---
 
-## 2. Entropia e informazione (introduzione)
+## Entropia e informazione (introduzione)
 
 ### Misura dell'informazione
 
@@ -147,7 +146,7 @@ Una variabile quaternaria equiprobabile porta 2 bit di informazione, coerentemen
 
 ---
 
-## 3. PMF condizionale e marginalizzazione come media
+## PMF condizionale e marginalizzazione come media
 
 ### Ricapitolo
 
@@ -167,7 +166,7 @@ Cioè: **la PMF marginale di $X$ è la media (rispetto a $Y$) della PMF condizio
 
 ---
 
-## 4. Regola della catena
+## Regola della catena
 
 Per tre variabili aleatorie $X$, $Y$, $Z$:
 
@@ -182,7 +181,7 @@ e tutte le permutazioni degli indici sono valide.
 
 ---
 
-## 5. Proprietà di Markov (Introdotto dopo)
+## Proprietà di Markov (Introdotto dopo)
 
 ### Definizione: Proprietà di Markov
 
@@ -228,15 +227,16 @@ Quando vale questa proprietà, la terna $(X_1, X_2, X_3)$ è detta **catena di M
 
 ---
 
-## 6. Esercizio: urna con due estrazioni senza reinserimento
+## Esercizi: 
+### 1. urna con due estrazioni senza reinserimento
 
 **Setup**: urna con 6 palline — 1 marcata "1", 2 marcate "2", 3 marcate "3". Due estrazioni senza reinserimento. $X_1$ = risultato prima estrazione, $X_2$ = risultato seconda estrazione.
 
-### PMF marginale di $X_1$
+#### PMF marginale di $X_1$
 
 $$p_{X_1}(1) = \frac{1}{6}, \quad p_{X_1}(2) = \frac{2}{6} = \frac{1}{3}, \quad p_{X_1}(3) = \frac{3}{6} = \frac{1}{2}$$
 
-### PMF congiunta
+#### PMF congiunta
 
 Si usa la regola della probabilità composta: $p_{X_1 X_2}(x_1, x_2) = p_{X_1}(x_1) \cdot p_{X_2|X_1}(x_2|x_1)$.
 
@@ -251,7 +251,7 @@ Le probabilità condizionali $p_{X_2|X_1}(x_2|x_1)$ si calcolano ricordando che 
 > [!example] Verifica della somma
 > $0 + \frac{1}{15} + \frac{1}{10} + \frac{1}{15} + \frac{1}{15} + \frac{1}{5} + \frac{1}{10} + \frac{1}{5} + \frac{1}{5} = 1$ ✓
 
-### PMF condizionale $p_{X_2|X_1}$
+#### PMF condizionale $p_{X_2|X_1}$
 
 Organizzata per righe (condizionamento = valore di $X_1$):
 
@@ -266,17 +266,17 @@ Organizzata per righe (condizionamento = valore di $X_1$):
 
 ---
 
-## 7. Esercizio: dado onesto e dado truccato
+### 2. dado onesto e dado truccato
 
 **Setup**: bussolotto con un dado onesto e uno truccato ($P(6|\text{truccato}) = 1/2$, $P(i|\text{truccato}) = 1/10$ per $i \neq 6$). Si estrae un dado casualmente (prob. $1/2$ ciascuno), si lancia, se il risultato è pari si rilancia lo stesso dado, se dispari si cambia dado.
 
-### Distribuzione del dado truccato
+#### Distribuzione del dado truccato
 
 $P(6|\text{truccato}) = 5 \cdot P(i|\text{truccato}) = 5p$. Normalizzazione: $5p + 5p = 1 \Rightarrow p = 1/10$.
 
 $$P(i|\text{truccato}) = \begin{cases} 1/2 & i=6 \\ 1/10 & i \in \{1,2,3,4,5\} \end{cases}$$
 
-### Calcolo di $P(X_1=6, X_2=6)$
+#### Calcolo di $P(X_1=6, X_2=6)$
 
 Per la legge della probabilità totale (condizionando sul dado estratto):
 
@@ -287,14 +287,14 @@ $$P(X_1=6, X_2=6) = \frac{1}{2} P(X_1=6, X_2=6|\text{onesto}) + \frac{1}{2} P(X_
 
 $$P(6,6) = \frac{1}{2} \cdot \frac{1}{36} + \frac{1}{2} \cdot \frac{1}{4} = \frac{1}{72} + \frac{1}{8} = \frac{1 + 9}{72} = \frac{10}{72} = \frac{5}{36}$$
 
-### Calcolo di $P(X_1=6, X_2=5)$
+#### Calcolo di $P(X_1=6, X_2=5)$
 
 - Dado onesto: $P(X_1=6|\text{onesto})=1/6$. Dato $X_1=6$ (pari), si rilancia lo stesso dado: $P(X_2=5|X_1=6, \text{onesto})=1/6$. Contributo: $1/36$.
 - Dado truccato: $P(X_1=6|\text{truccato})=1/2$. Dato $X_1=6$ (pari), si rilancia il dado truccato: $P(X_2=5|X_1=6, \text{truccato})=1/10$. Contributo: $1/2 \cdot 1/10 = 1/20$.
 
 $$P(6,5) = \frac{1}{2} \cdot \frac{1}{36} + \frac{1}{2} \cdot \frac{1}{20} = \frac{1}{72} + \frac{1}{40}$$
 
-### Confronto: $P(6,5)$ vs. $P(5,6)$
+#### Confronto: $P(6,5)$ vs. $P(5,6)$
 
 > [!important] Asimmetria della coppia $(6,5)$ vs $(5,6)$
 > Per il calcolo di $P(X_1=5, X_2=6)$: dato $X_1=5$ (dispari), si **cambia dado**. Quindi, se il primo dado era onesto, il secondo è truccato (e viceversa). Questo cambia radicalmente le probabilità:
@@ -315,11 +315,8 @@ $$P(6,5) = \frac{1}{2} \cdot \frac{1}{36} + \frac{1}{2} \cdot \frac{1}{20} = \fr
 > - L'indipendenza condizionale (e le catene di Markov) è un concetto distinto dall'indipendenza marginale.
 > - Negli esercizi probabilistici complessi, condizionare su un evento ausiliario (legge della probabilità totale) e applicare la regola della catena sistematicamente porta alla soluzione.
 
-## Prossimi argomenti
-
-- [ ] Esercizio 3 della raccolta (da svolgere autonomamente)
-- [ ] Approfondimento sulla teoria dell'informazione e sulla compressione
-- [ ] Processi di Poisson e catene di Markov
-- [ ] Nota: prossima lezione martedì (auguri di Pasqua)
+---
 
 #MSP #canale-binario #entropia #informazione #PMF-condizionale #Bayes #esercizi
+
+---

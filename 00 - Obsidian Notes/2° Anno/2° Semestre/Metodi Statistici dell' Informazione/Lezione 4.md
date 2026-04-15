@@ -24,19 +24,18 @@ Professore: Marco Lops
 
 ---
 
-## Argomenti trattati
-
-- Ripasso variabili notevoli: Binomiale, Uniforme, Poissoniana, Geometrica
-- PMF condizionata: ripasso e generalizzazione
-- Media condizionale e legge della probabilità totale per le medie
-- Funzioni di variabili aleatorie: $Y = g(X)$
-  - Caso biiettivo: reflagging dell'alfabeto
-  - Caso molti-a-uno: collasso delle probabilità
-- Teorema fondamentale del calcolo della media: $E[g(X)] = \sum_x g(x) p_X(x)$
-- Valore quadratico medio (RMS) e valore efficace
-- Varianza e deviazione standard
-- Relazione varianza-valore quadratico medio
-- Esercizi: dado truccato (3 dadi), vaccinazione (Binomiale), carte napoletane (non-geometrica)
+>[!question] Argomenti trattati
+> - Ripasso variabili notevoli: Binomiale, Uniforme, Poissoniana, Geometrica
+> - PMF condizionata: ripasso e generalizzazione
+> - Media condizionale e legge della probabilità totale per le medie
+> - Funzioni di variabili aleatorie: $Y = g(X)$
+  > 	- Caso biiettivo: reflagging dell'alfabeto
+  > 	- Caso molti-a-uno: collasso delle probabilità
+> - Teorema fondamentale del calcolo della media: $E[g(X)] = \sum_x g(x) p_X(x)$
+> - Valore quadratico medio (RMS) e valore efficace
+> - Varianza e deviazione standard
+> - Relazione varianza-valore quadratico medio
+> - Esercizi: dado truccato (3 dadi), vaccinazione (Binomiale), carte napoletane (non-geometrica)
 
 ---
 

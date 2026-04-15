@@ -7,21 +7,17 @@ tags: [MSI, CDF, PDF, distribuzione-uniforme, distribuzione-esponenziale, laplac
 ---
 
 # MSI — Lezione 9: CDF, Distribuzioni Continue Notevoli e PDF Condizionata
-
-**Corso:** Metodi Statistici dell'Informazione
-
 ---
 
-## Argomenti trattati
-
-- Definizione formale di CDF (Cumulative Distribution Function) e sue proprietà
-- Relazione fondamentale tra CDF e PDF
-- CDF di una variabile discreta (esempio bernoulliano)
-- Variabile uniforme: PDF, CDF e valore atteso
-- Derivazione del valore atteso per variabili continue tramite quantizzazione
-- Variabile esponenziale: PDF, CDF e valore atteso
-- Variabile di Laplace (doppia esponenziale): PDF e CDF
-- Introduzione alla PDF e CDF condizionate
+>[!question] Argomenti trattati
+>- Definizione formale di CDF (Cumulative Distribution Function) e sue proprietà
+>- Relazione fondamentale tra CDF e PDF
+>- CDF di una variabile discreta (esempio bernoulliano)
+>- Variabile uniforme: PDF, CDF e valore atteso
+>- Derivazione del valore atteso per variabili continue tramite quantizzazione
+>- Variabile esponenziale: PDF, CDF e valore atteso
+>- Variabile di Laplace (doppia esponenziale): PDF e CDF
+>- Introduzione alla PDF e CDF condizionate
 
 ---
 
@@ -204,10 +200,7 @@ La convenienza di lavorare con la CDF è che $P(X \leq x \mid A)$ è sempre ben 
 > - Uniforme $U(a,b)$: media $\frac{a+b}{2}$, CDF lineare. Esponenziale $\text{Exp}(\lambda)$: media $\frac{1}{\lambda}$, CDF $1-e^{-\lambda x}$. Laplace $(\lambda)$: PDF simmetrica, CDF sigmoidale.
 > - La PDF condizionata si definisce tramite la CDF condizionata, senza problemi di definizione.
 
-## Prossimi argomenti
-
-- [ ] Variabili aleatorie continue: valore atteso, varianza, deviazione standard
-- [ ] Distribuzione gaussiana
-- [ ] PMF/PDF condizionate: approfondimento ed esercizi
-
+---
 #MSI #CDF #PDF #distribuzione-uniforme #distribuzione-esponenziale #laplace #media-continua #pdf-condizionata
+
+___

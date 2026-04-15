@@ -16,9 +16,6 @@ Professore: Marco Lops
 ---
 
 # MSI --- Lezione 2: Teoria Assiomatica della Probabilita, Bayes e Variabili Aleatorie
-
-**Docente:** Prof. Marco Lops | **Corso:** Metodi Statistici per l'Informazione | **CFU:** 6
-
 ---
 
 >[!question] Argomenti trattati
@@ -131,7 +128,7 @@ Dato uno spazio dei campioni $\Omega$, consideriamo una collezione $\mathcal{E}$
 > 1. **Chiusura rispetto all'unione:** se $A_i \in \mathcal{E}$ e $A_j \in \mathcal{E}$, allora $A_i \cup A_j \in \mathcal{E}$;
 > 2. **Chiusura rispetto alla complementazione:** se $A_i \in \mathcal{E}$, allora $A_i^c \in \mathcal{E}$.
 
-### Chiusura rispetto all'intersezione (dimostrazione via De Morgan)
+#### Chiusura rispetto all'intersezione (dimostrazione via De Morgan)
 
 Il professore chiede alla classe se l'algebra contiene anche l'intersezione di due suoi elementi, e guida la dimostrazione usando le **leggi di De Morgan**.
 
@@ -151,14 +148,14 @@ Allora, se $A \in \mathcal{E}$ e $B \in \mathcal{E}$:
 
 Quindi $A \cap B \in \mathcal{E}$. L'algebra e **chiusa anche rispetto all'intersezione**.
 
-### Chiusura rispetto alla differenza
+#### Chiusura rispetto alla differenza
 
 Analogamente, $A \setminus B = A \cap B^c$: poiche $B^c \in \mathcal{E}$ (chiusura per complementazione) e l'intersezione e chiusa, si ha $A \setminus B \in \mathcal{E}$.
 
 > [!warning] Tutte le operazioni insiemistiche restano nell'algebra
 > Unione, intersezione, complementazione e differenza di elementi dell'algebra producono sempre elementi dell'algebra. Questo garantisce che la funzione di probabilità possa essere calcolata su qualunque combinazione di eventi: si resta sempre nel dominio di definizione.
 
-### La piu piccola algebra contenente un evento
+### Esercizio: La piu piccola algebra contenente un evento
 
 > [!example] Esempio: dado e evento "risultato pari"
 > Sia $\Omega = \{1,2,3,4,5,6\}$ e $A = \{2,4,6\}$ l'evento "risultato pari". La piu piccola algebra che contiene $A$ e:
@@ -187,9 +184,6 @@ Analogamente, $A \setminus B = A \cap B^c$: poiche $B^c \in \mathcal{E}$ (chiusu
 > [!example] Perche serve la $\sigma$-algebra
 > Siamo sull'autostrada e contiamo le macchine. Gli eventi elementari sono "non passa nessuna macchina", "passa una macchina", "passano due macchine", eccetera, fino potenzialmente a infinito. Per ogni insieme di questi eventi devo poter fare l'unione, anche all'infinito. Se $\Omega$ e finito, la $\sigma$-algebra non aggiunge nulla rispetto all'algebra, perche le unioni finite sono gia sufficienti; la $\sigma$-algebra diventa necessaria quando $\Omega$ e numerabile.
 
-> [!quote]
-> "Sigma perche? Forse sommatoria, no? Simbolo della somma."
-
 ---
 
 ## Spazio di Probabilità e Assiomi di Kolmogorov
@@ -201,24 +195,25 @@ A questo punto si dispone di uno spazio dei campioni $\Omega$ e di una $\sigma$-
 > $$P : \mathcal{E} \to [0,1]$$
 > che soddisfa i seguenti **assiomi di Kolmogorov** ("tre assiomi e mezzo"):
 >
-> **Assioma 1 --- Non negatività:**
+> - **Assioma 1 --- Non negatività:**
 > $$P(A) \geq 0 \quad \forall\, A \in \mathcal{E}$$
 >
-> **Assioma 2 --- Normalizzazione:**
+> - **Assioma 2 --- Normalizzazione:**
 > $$P(\Omega) = 1$$
 >
-> **Assioma 3 --- Additività (o subadditività):**
+> - **Assioma 3 --- Additività (o subadditività):**
 > Se $A$ e $B$ sono eventi disgiunti ($A \cap B = \emptyset$):
 > $$P(A \cup B) = P(A) + P(B)$$
 >
-> **Assioma 3$\frac{1}{2}$ --- $\sigma$-additività (estensione numerabile):**
+> - **Assioma 3$\frac{1}{2}$ --- $\sigma$-additività (estensione numerabile):**
 > Se $\{A_i\}_{i=1}^{\infty}$ e una successione di eventi a due a due disgiunti:
 > $$P\!\left(\bigcup_{i=1}^{\infty} A_i\right) = \sum_{i=1}^{\infty} P(A_i)$$
 
 La terna $(\Omega, \mathcal{E}, P)$ prende il nome di **spazio di probabilità**.
 
-> [!warning] Perche la struttura della $\sigma$-algebra e necessaria
-> La $\sigma$-algebra garantisce che tutte le operazioni insiemistiche (unione, intersezione, complementazione, differenza) restino nel dominio di definizione della funzione $P$. Senza questa struttura, non si potrebbe essere certi di poter calcolare $P$ su combinazioni arbitrarie di eventi. Come dice il professore: "i matematici pensano: io resto nel dominio di definizione dell'algebra."
+> [!warning] Perche la struttura della $\sigma$-algebra è necessaria
+> La $\sigma$-algebra garantisce che tutte le operazioni insiemistiche (unione, intersezione, complementazione, differenza) restino nel dominio di definizione della funzione $P$. Senza questa struttura, non si potrebbe essere certi di poter calcolare $P$ su combinazioni arbitrarie di eventi. 
+> Come dice il professore: "i matematici pensano: io resto nel dominio di definizione dell'algebra."
 
 > [!quote]
 > "Vedete che noi abbiamo fatto tutto questo ambaradan. Dice, ma e tutta questa cosa complicata? Tu metti le tue prove, fatti la frequenza di successo... Tutto quello che abbiamo ricavato, qua non c'e niente. Io ti faccio vedere che tutto quello che tu hai ricavato prima, usando quella definizione, se volete, un po' farlocca di probabilità, io te lo ricavo come unica conseguenza degli assiomi di Kolmogorov."
@@ -229,7 +224,7 @@ La terna $(\Omega, \mathcal{E}, P)$ prende il nome di **spazio di probabilità**
 
 Il professore mostra come le proprietà ricavate in modo "facile" dalla definizione frequentistica si dimostrino ora rigorosamente a partire dai **soli** assiomi di Kolmogorov.
 
-### Probabilità di $A \setminus B$
+### Probabilità di $A \setminus \space B$
 
 Si parte dall'identità insiemistica:
 
@@ -337,7 +332,7 @@ $$\boxed{P(A^c \cap B^c) = P(A^c) \cdot P(B^c) \quad \checkmark}$$
 > [!warning] Indipendenza a coppie $\not\Rightarrow$ indipendenza congiunta
 > L'indipendenza a coppie **non** implica l'indipendenza della terna (o della $n$-upla). Un controesempio classico e il **bit di parità**.
 
-### Controesempio: il bit di parità
+#### Controesempio: il bit di parità
 
 > [!example] Il bit di parità
 > Siano $X_1$ e $X_2$ due bit equiprobabili e indipendenti, ciascuno con valore $0$ o $1$ con probabilità $\frac{1}{2}$. Si definisce il **bit di parità**:
@@ -621,13 +616,8 @@ $$\bar{X}_n \xrightarrow{n \to \infty} 0 \cdot P(X=0) + 1 \cdot P(X=1) = \frac{1
 > - Una **variabile aleatoria** e un'applicazione da $\Omega$ a un insieme numerico; la **PMF** ne caratterizza completamente la distribuzione nel caso discreto.
 > - La **media aritmetica** delle osservazioni converge al valore atteso $E[X]$, concetto che sarà formalizzato nelle prossime lezioni.
 
-## Prossimi argomenti
-
-- [ ] Ripasso e ulteriori esercizi su probabilità condizionata, Bayes e indipendenza
-- [ ] Approfondimento sulle variabili aleatorie discrete
-- [ ] Valore atteso e momenti
-- [ ] Variabili aleatorie congiunte
-
 ---
 
 #MSI #probabilità #sigma-algebra #assiomi #Kolmogorov #Bayes #probabilità-totale #probabilità-composta #indipendenza #variabili-aleatorie #PMF #partizione
+
+---

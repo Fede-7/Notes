@@ -12,17 +12,16 @@ tags: [MSI, varianza, deviazione-standard, Chebyshev, convergenza, frequenza, ma
 
 ---
 
-## Argomenti trattati
-
-- Varianza come misura dell'aleatorietà: interpretazione fisica e geometrica
-- Disuguaglianza di Markov e disuguaglianza di Chebyshev
-- Relazione varianza–media: quando la media è un buon indicatore
-- Proprietà algebriche di media e varianza (linearità, covarianza per scala, invarianza per traslazione)
-- Giustificazione matematica della definizione frequentistica di probabilità
-- Convergenza in media quadratica e in probabilità della frequenza di successo
-- Legge dei grandi numeri: versione forte e debole
-- Esercizio: strategia di gioco con puntata costante (geometrica) e martingala
-- Annuncio: prossima lezione su coppie di variabili aleatorie
+>[!question] Argomenti trattati
+> - Varianza come misura dell'aleatorietà: interpretazione fisica e geometrica
+> - Disuguaglianza di Markov e disuguaglianza di Chebyshev
+> - Relazione varianza–media: quando la media è un buon indicatore
+> - Proprietà algebriche di media e varianza (linearità, covarianza per scala, invarianza per traslazione)
+> - Giustificazione matematica della definizione frequentistica di probabilità
+> - Convergenza in media quadratica e in probabilità della frequenza di successo
+> - Legge dei grandi numeri: versione forte e debole
+> - Esercizio: strategia di gioco con puntata costante (geometrica) e martingala
+> - Annuncio: prossima lezione su coppie di variabili aleatorie
 
 ---
 
@@ -272,11 +271,7 @@ Per la roulette ($b = 36$, $a = 18/37$): $g(k) = 34 \cdot 2^{k-1} + 1$.
 > - La **frequenza di successo** $F_n(A)$ è una variabile aleatoria con $E[F_n(A)] = P(A)$ e $\text{Var}(F_n(A)) = P(A)(1-P(A))/n \to 0$. Quindi $F_n(A) \to P(A)$ in media quadratica e in probabilità (legge dei grandi numeri).
 > - La convergenza in media quadratica e quella con probabilità 1 sono entrambe forti e implicano quella in probabilità, ma non si implicano a vicenda.
 
-## Prossimi argomenti
-
-- [ ] Coppie di variabili aleatorie (variabili aleatorie congiunte)
-- [ ] PMF congiunta, marginale e condizionale
-- [ ] Indipendenza tra variabili aleatorie
-- [ ] Covarianza e correlazione
-
+---
 #MSI #varianza #deviazione-standard #Chebyshev #convergenza #frequenza #martingala #legge-grandi-numeri
+
+---

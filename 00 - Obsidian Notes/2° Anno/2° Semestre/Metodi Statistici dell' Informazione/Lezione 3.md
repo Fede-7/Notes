@@ -19,24 +19,20 @@ Professore: Marco Lops
 ---
 
 # MSI — Lezione 3: Valore Atteso e Distribuzioni Notevoli
-
-**Docente:** Prof. Marco Lops | **Corso:** Metodi Statistici per l'Informazione | **CFU:** 6
-
 ---
 
-## Argomenti trattati
-
-- Definizione del valore atteso (media statistica) e motivazione tramite legge dei grandi numeri
-- Distribuzione di Bernoulli e distribuzione Binomiale: definizione, verifica PMF, media $= np$ (derivazione completa)
-- Connessione tra la Binomiale e i problemi di conteggio combinatorio
-- Distribuzione Uniforme discreta: definizione, media = media aritmetica dell'alfabeto
-- Formula di Gauss per la somma dei primi $n$ interi
-- Distribuzione di Poisson: definizione, verifica PMF tramite serie esponenziale, media $= \lambda$
-- Applicazioni della Poisson: code di traffico, router, uffici postali
-- Distribuzione Geometrica: tempo al primo successo, PMF, media $= 1/p$ (derivazione con serie geometrica)
-- Esercizio: 3 dadi (2 onesti, 1 truccato), applicazione del teorema di Bayes
-- Introduzione alla PMF condizionata
-- Cenni sugli outlier nell'analisi dei dati
+>[!question] Argomenti trattati:
+> - Definizione del valore atteso (media statistica) e motivazione tramite legge dei grandi numeri
+> - Distribuzione di Bernoulli e distribuzione Binomiale: definizione, verifica PMF, media $= np$ (derivazione completa)
+> - Connessione tra la Binomiale e i problemi di conteggio combinatorio
+> - Distribuzione Uniforme discreta: definizione, media = media aritmetica dell'alfabeto
+> - Formula di Gauss per la somma dei primi $n$ interi
+> - Distribuzione di Poisson: definizione, verifica PMF tramite serie esponenziale, media $= \lambda$
+> - Applicazioni della Poisson: code di traffico, router, uffici postali
+> - Distribuzione Geometrica: tempo al primo successo, PMF, media $= 1/p$ (derivazione con serie geometrica)
+> - Esercizio: 3 dadi (2 onesti, 1 truccato), applicazione del teorema di Bayes
+> - Introduzione alla PMF condizionata
+> - Cenni sugli outlier nell'analisi dei dati
 
 ---
 
@@ -139,13 +135,13 @@ $$\sum_{k=0}^{n} P_{S_n}(k) = \sum_{k=0}^{n} \binom{n}{k} p^k (1-p)^{n-k} = \big
 
 ### Media della Binomiale: derivazione completa
 
-**Metodo 1 — Per linearità del valore atteso.** Poiché $S_n = X_1 + X_2 + \cdots + X_n$ con $X_i \sim \text{Ber}(p)$ indipendenti, e poiché il valore atteso è un operatore **lineare** (la media di una somma è la somma delle medie):
+- **Metodo 1 — Per linearità del valore atteso.** Poiché $S_n = X_1 + X_2 + \cdots + X_n$ con $X_i \sim \text{Ber}(p)$ indipendenti, e poiché il valore atteso è un operatore **lineare** (la media di una somma è la somma delle medie):
 
 $$E[S_n] = E\left[\sum_{i=1}^{n} X_i\right] = \sum_{i=1}^{n} E[X_i] = \sum_{i=1}^{n} p = np$$
 
 $$\boxed{E[S_n] = np}$$
 
-**Metodo 2 — Calcolo diretto dalla definizione della PMF.** Si parte dalla definizione:
+- **Metodo 2 — Calcolo diretto dalla definizione della PMF.** Si parte dalla definizione:
 
 $$E[S_n] = \sum_{k=0}^{n} k \cdot \binom{n}{k} p^k (1-p)^{n-k}$$
 
@@ -165,7 +161,7 @@ Effettuiamo il cambio di indice $j = k-1$ e poniamo $m = n-1$:
 
 $$= np \sum_{j=0}^{m} \binom{m}{j} p^j (1-p)^{m-j} = np \cdot \big(p + (1-p)\big)^m = np \cdot 1 = np$$
 
-I due metodi danno lo stesso risultato: $E[S_n] = np$.
+> I due metodi danno lo stesso risultato: $E[S_n] = np$.
 
 > [!example] Esempio: vaccino
 > Un vaccino ha efficacia $p = 0{,}95$ (probabilità che un singolo vaccinato sviluppi l'immunità). Su $n = 1000$ vaccinati, il numero atteso di soggetti protetti è:
@@ -495,14 +491,7 @@ Per questo motivo, nella pratica, accanto alla media si calcolano sempre altri i
 > - La **PMF condizionata** restringe lo spazio dei campioni e ridistribuisce le probabilità.
 > - La media è sensibile agli **outlier**: nella pratica va sempre affiancata da mediana e varianza.
 
-## Prossimi argomenti
-
-- [ ] Varianza e deviazione standard
-- [ ] Momenti di ordine superiore
-- [ ] Variabili aleatorie continue: densità di probabilità
-- [ ] Distribuzione Gaussiana (normale)
-- [ ] Funzioni di variabili aleatorie
+---
+#MSI #variabili-aleatorie #valore-atteso #Bernoulli #binomiale #uniforme #Poisson #geometrica #Bayes #PMF-condizionata #outlier 
 
 ---
-
-#MSI #variabili-aleatorie #valore-atteso #Bernoulli #binomiale #uniforme #Poisson #geometrica #Bayes #PMF-condizionata #outlier

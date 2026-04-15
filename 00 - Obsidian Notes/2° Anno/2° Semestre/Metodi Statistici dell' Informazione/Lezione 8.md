@@ -7,25 +7,21 @@ tags: [MSP, media-condizionale, covarianza, correlazione, matrice-covarianza, va
 ---
 
 # MSP — Lezione 8: Media Condizionale, Covarianza e Introduzione alle Variabili Continue
+---
 
-**Corso:** Modelli Statistici e Probabilità
+>[!question] Argomenti trattati
+>- Riepilogo: PMF congiunta, marginalizzazione, indipendenza, PMF condizionale
+>- Teorema della media condizionale (law of total expectation)
+>- Esercizio: distribuzione del numero di pacchetti in errore (Poissonian → Poissonian)
+>- Covarianza tra due variabili aleatorie
+>- Coefficiente di correlazione e sue proprietà ($\rho \in [-1, 1]$)
+>- Dimostrazione algebrica e geometrica (Cauchy-Schwarz) di $|\rho| \leq 1$
+>- Matrice di covarianza per vettori aleatori
+>- Introduzione alle variabili aleatorie continue: densità di probabilità
 
 ---
 
-## Argomenti trattati
-
-- Riepilogo: PMF congiunta, marginalizzazione, indipendenza, PMF condizionale
-- Teorema della media condizionale (law of total expectation)
-- Esercizio: distribuzione del numero di pacchetti in errore (Poissonian → Poissonian)
-- Covarianza tra due variabili aleatorie
-- Coefficiente di correlazione e sue proprietà ($\rho \in [-1, 1]$)
-- Dimostrazione algebrica e geometrica (Cauchy-Schwarz) di $|\rho| \leq 1$
-- Matrice di covarianza per vettori aleatori
-- Introduzione alle variabili aleatorie continue: densità di probabilità
-
----
-
-## 1. Riepilogo rapido: PMF congiunta e condizionale
+## Riepilogo rapido: PMF congiunta e condizionale
 
 - **PMF congiunta** di $(X, Y)$: tabella di $|\mathcal{X}| \times |\mathcal{Y}|$ numeri non negativi che sommano a 1.
 - **Marginalizzazione**: $p_X(x) = \sum_y p_{XY}(x,y)$ e $p_Y(y) = \sum_x p_{XY}(x,y)$.
@@ -36,7 +32,7 @@ tags: [MSP, media-condizionale, covarianza, correlazione, matrice-covarianza, va
 
 ---
 
-## 2. Teorema della media condizionale
+## Teorema della media condizionale
 
 La proprietà di marginalizzazione si può rileggere in termini di valor medio:
 
@@ -59,7 +55,7 @@ La dimostrazione usa la proprietà di marginalizzazione e non richiede l'indipen
 
 ---
 
-## 3. Esercizio: distribuzione poissoniana dell'errore
+## Esercizio: distribuzione poissoniana dell'errore
 
 **Setup**: Una coda di un router ha $N$ pacchetti, con $N \sim \text{Poisson}(\lambda)$:
 
@@ -88,7 +84,7 @@ $$P(M=m) = \frac{(\lambda p)^m}{m!} e^{-\lambda p}$$
 
 ---
 
-## 4. Covarianza
+## Covarianza
 
 > [!abstract] Definizione: Covarianza
 > Date due variabili aleatorie $X$ e $Y$, la **covarianza** è:
@@ -110,7 +106,7 @@ Le variabili indipendenti sono **incorrelate** (covarianza nulla).
 
 ---
 
-## 5. Coefficiente di correlazione
+## Coefficiente di correlazione
 
 > [!abstract] Definizione: Coefficiente di correlazione
 > $$\rho_{XY} = \frac{\text{Cov}(X,Y)}{\sigma_X \sigma_Y}$$
@@ -138,7 +134,7 @@ Il coefficiente di correlazione è un **indice di predecibilità lineare**: misu
 
 ---
 
-## 6. Matrice di covarianza
+## Matrice di covarianza
 
 Per un vettore aleatorio $\mathbf{x} = (X_1, X_2)^T$, si definisce la **matrice di covarianza**:
 
@@ -153,7 +149,7 @@ Il caso si generalizza a $n$ variabili: la matrice $K$ è $n \times n$, con $K_{
 
 ---
 
-## 7. Introduzione alle variabili aleatorie continue
+## Introduzione alle variabili aleatorie continue
 
 ### Perché le variabili continue
 
@@ -188,19 +184,7 @@ $$f_X(x) = \lim_{\delta x \to 0} \frac{P(x - \delta x/2 \leq X \leq x + \delta x
 
 La teoria sarà ripresa in dettaglio nella prossima lezione, con il concetto di **funzione di distribuzione cumulativa (CDF)** e con tutti gli strumenti del caso continuo.
 
----
-
-> [!summary] Punti chiave della lezione
-> - Il teorema della media condizionale permette di calcolare la media totale condizionando su una variabile ausiliaria, scomponendo problemi complessi in sottoproblemi più semplici.
-> - La distribuzione di Poisson è chiusa rispetto al subcampionamento bernoulliano: $N \sim \text{Poisson}(\lambda)$ e $M|N \sim \text{Bin}(N,p)$ implicano $M \sim \text{Poisson}(\lambda p)$.
-> - La covarianza misura la co-variazione lineare tra due variabili; il coefficiente di correlazione la normalizza in $[-1,1]$.
-> - Indipendenza $\Rightarrow$ incorrelazione, ma non viceversa (eccetto nel caso gaussiano).
-> - La matrice di covarianza è semidefinita positiva e fondamentale in statistica multivariata e machine learning.
-> - Per variabili continue, la probabilità di un singolo punto è 0; si lavora con la densità di probabilità e con probabilità di intervalli.
-
----
-
-## 7. Teorema del Limite Centrale (CLT) (Introdotto dopo)
+## Teorema del Limite Centrale (CLT) (Introdotto dopo)
 
 ### Enunciato informale
 
@@ -234,7 +218,7 @@ Il CLT giustifica l'uso diffuso della distribuzione gaussiana in statistica, anc
 
 ---
 
-## 8. Distribuzione Esponenziale (Introdotto dopo)
+## Distribuzione Esponenziale (Introdotto dopo)
 
 ### Motivazione e definizione
 
@@ -274,7 +258,7 @@ Se il numero di eventi in un intervallo di tempo $[0, t]$ segue una distribuzion
 
 ---
 
-## 9. Teorema di Continuità di Lévy e Convergenza in Distribuzione (Introdotto dopo)
+## Teorema di Continuità di Lévy e Convergenza in Distribuzione (Introdotto dopo)
 
 ### Funzione generatrice dei momenti (MGF)
 
@@ -308,11 +292,19 @@ Per dimostrare rigorosamente il **Teorema del Limite Centrale**, si calcola la M
 
 ---
 
-## Prossimi argomenti (dopo Pasqua)
 
-- [ ] Variabili aleatorie continue: CDF, PDF, valor medio integrale
-- [ ] Distribuzione uniforme, esponenziale, gaussiana
-- [ ] Estensione a variabili continue della PMF congiunta → densità congiunta
+---
+
+> [!summary] Punti chiave della lezione
+> - Il teorema della media condizionale permette di calcolare la media totale condizionando su una variabile ausiliaria, scomponendo problemi complessi in sottoproblemi più semplici.
+> - La distribuzione di Poisson è chiusa rispetto al subcampionamento bernoulliano: $N \sim \text{Poisson}(\lambda)$ e $M|N \sim \text{Bin}(N,p)$ implicano $M \sim \text{Poisson}(\lambda p)$.
+> - La covarianza misura la co-variazione lineare tra due variabili; il coefficiente di correlazione la normalizza in $[-1,1]$.
+> - Indipendenza $\Rightarrow$ incorrelazione, ma non viceversa (eccetto nel caso gaussiano).
+> - La matrice di covarianza è semidefinita positiva e fondamentale in statistica multivariata e machine learning.
+> - Per variabili continue, la probabilità di un singolo punto è 0; si lavora con la densità di probabilità e con probabilità di intervalli.
+
+---
 
 #MSP #covarianza #correlazione #matrice-covarianza #media-condizionale #variabili-continue #densita-probabilita #CLT #teorema-limite-centrale #distribuzione-esponenziale #MGF
 
+---

@@ -12,24 +12,20 @@ tags:
 ---
 
 # Lezione 6: PMF Congiunta, Variabili Aleatorie Multiple e Indipendenza
+---
 
-**Corso:** Modelli Statistici e Probabilità
+>[!question] Argomenti trattati
+>- Riepilogo: caratterizzazione di una singola variabile aleatoria
+>- Coppia di variabili aleatorie: definizione e PMF congiunta
+>- Proprietà di marginalizzazione
+>- Indipendenza statistica tra variabili aleatorie
+>- Estensione a terne e n-uple di variabili aleatorie
+>- PMF condizionale per coppie
+>- Esempio: terne di bit (sorgente senza memoria vs. bit di parità)
 
 ---
 
-## Argomenti trattati
-
-- Riepilogo: caratterizzazione di una singola variabile aleatoria
-- Coppia di variabili aleatorie: definizione e PMF congiunta
-- Proprietà di marginalizzazione
-- Indipendenza statistica tra variabili aleatorie
-- Estensione a terne e n-uple di variabili aleatorie
-- PMF condizionale per coppie
-- Esempio: terne di bit (sorgente senza memoria vs. bit di parità)
-
----
-
-## 1. Riepilogo: singola variabile aleatoria
+## Riepilogo: singola variabile aleatoria
 
 Una singola variabile aleatoria discreta $X$ è completamente caratterizzata dalla sua **PMF** (Probability Mass Function) $p_X(x)$, che assegna a ogni valore $x$ dell'alfabeto la probabilità $P(X = x)$.
 
@@ -42,6 +38,7 @@ Dalla PMF si derivano:
 - **Disuguaglianza di Chebyshev**: $P(|X - E[X]| \geq k\sigma) \leq \frac{1}{k^2}$, dove $\sigma$ è la deviazione standard
 
 ---
+
 
 ## Trasformazione di Densità (Introdotto dopo)
 
@@ -159,7 +156,7 @@ In molte applicazioni si osservano più grandezze contemporaneamente sullo stess
 
 ---
 
-## 3. Marginalizzazione
+## Marginalizzazione
 
 Dalla PMF congiunta si ricavano le PMF delle singole variabili, dette **PMF marginali**:
 
@@ -175,7 +172,7 @@ $$p_X(x) = \sum_{y \in \mathcal{Y}} p_{XY}(x, y), \qquad p_Y(y) = \sum_{x \in \m
 
 ---
 
-## 4. Indipendenza statistica
+## Indipendenza statistica
 
 > [!abstract] Definizione: Indipendenza statistica
 > Due variabili aleatorie $X$ e $Y$ sono **statisticamente indipendenti** se e solo se la loro PMF congiunta si fattorizza nel prodotto delle marginali:
@@ -194,7 +191,7 @@ $$p_X(x) = \sum_{y \in \mathcal{Y}} p_{XY}(x, y), \qquad p_Y(y) = \sum_{x \in \m
 
 ---
 
-## 5. PMF condizionale
+## PMF condizionale
 
 > [!abstract] Definizione: PMF condizionale
 > La **PMF condizionale di $X$ dato $Y$** è:
@@ -219,7 +216,7 @@ $$p_X(x) = \sum_{y \in \mathcal{Y}} p_{XY}(x, y), \qquad p_Y(y) = \sum_{x \in \m
 
 ---
 
-## 6. Estensione a n-uple di variabili aleatorie
+## Estensione a n-uple di variabili aleatorie
 
 Il caso di due variabili si generalizza naturalmente.
 
@@ -233,9 +230,7 @@ Il caso di due variabili si generalizza naturalmente.
 > [!important] La gerarchia va solo verso il basso
 > La conoscenza di ordine $n$ implica la conoscenza di ordine $n-1$, $n-2$, ..., fino a 1. Non vale il contrario: le marginali di ordine inferiore non determinano quella di ordine superiore (salvo indipendenza).
 
----
-
-## 7. Esempio: terne di bit
+### Esempio: terne di bit
 
 > [!example] Due leggi di probabilità per terne binarie
 > Si considerano tre variabili aleatorie binarie $X_1, X_2, X_3 \in \{0, 1\}$, con $p \in (0,1)$.
@@ -255,7 +250,7 @@ Questo esempio mostra concretamente che scegliere una legge di probabilità cong
 
 ---
 
-## 8. Regola della catena e marginalizzazione come media
+## Regola della catena e marginalizzazione come media
 
 ### Regola della catena
 
@@ -282,11 +277,8 @@ Cioè, la PMF marginale di $X$ è la **media rispetto a $Y$** della PMF condizio
 > - La PMF condizionale $p_{X|Y}(x|y)$ è una legge di probabilità per $Y$ fisso, non per tutte le coppie $(x,y)$.
 > - Una PMF di ordine $n$ implica tutte le PMF di ordine inferiore; una caratterizzazione di ordine superiore implica quelle di ordine inferiore.
 
-## Prossimi argomenti
-
-- [ ] Esercizi sulla PMF congiunta (urna con reinserimento/senza)
-- [ ] Canale binario simmetrico: probabilità di errore e legge di Bayes
-- [ ] Entropia di una variabile aleatoria e concetto di informazione
-- [ ] Catene di Markov e indipendenza condizionale
+---
 
 #MSP #PMF-congiunta #marginalizzazione #indipendenza #variabili-multiple #probabilita
+
+---
