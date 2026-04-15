@@ -1,284 +1,138 @@
-# Analisi Critica e Approfondimenti al Report Tecnico
-
-## Osservazioni Metodologiche Generali
-
-Il report presenta un'architettura teorica solida e ben strutturata. Tuttavia, emergono alcune aree suscettibili di approfondimento e precisazione tecnica.
-
 ---
-## Definizioni Fondamentali
-
-### Esperimento
-
-> [!abstract] Definizione
-> Un **esperimento** è un'operazione (o insieme di operazioni) che conduce a **uno tra tanti risultati possibili**.
-
-### Spazio dei Campioni $\Omega$
-
-> [!abstract] Definizione
-> Lo **spazio dei campioni** (o *sample space*) è l'insieme di **tutti i possibili risultati** di un esperimento. Si indica con $\Omega$.
-$$\Omega = \{\omega_1, \omega_2, \ldots\}$$
-Può essere:
-- **Finito** → es. lancio di una moneta: $\Omega = \{T, C\}$
-- **Numerabilmente infinito** → es. numero di pacchetti in coda: $\Omega = \mathbb{N}_0$
-- **Non numerabile (continuo)** → es. tensione misurata ai capi di una resistenza (rumore termico): $\Omega = \mathbb{R}$
-
-> [!note] Discreto vs Continuo nella pratica
-> In realtà qualunque misura fisica è razionale (strumenti con cifre significative finite), ma quando i valori sono così tanti, si modella come continuo e poi si tronca. Il **tempo** viene solitamente schematizzato come continuo.
-
-### Evento
-
-> [!abstract] Definizione
-> Un **evento** è un **sottoinsieme** di $\Omega$ definito da una proposizione.
-> Un **evento elementare** è un singolo elemento di $\Omega$.
-
-> [!warning] La proposizione non è unica!
-> L'evento è univocamente determinato dagli elementi di $\Omega$ che lo compongono, ma la proposizione che lo descrive **non è univoca** (la ridondanza del linguaggio naturale lo permette).
->
-> **Esempio:** ho in tasca 1, 2, 3, 4 o 5 euro. L'evento $\{1, 3, 5\}$ può essere descritto come:
-> - "ho un numero dispari di euro"
-> - "non ho un numero pari di euro"
-> - "ho 1 o 3 o 5 euro"
->
-> → Saper **riformulare** la proposizione in modo conveniente è spesso la chiave per risolvere un esercizio.
-### Nomenclatura degli eventi
-
-| Nome                     | Definizione                                                                              | Notazione         |
-| ------------------------ | ---------------------------------------------------------------------------------------- | ----------------- |
-| **Evento impossibile**   | Insieme vuoto                                                                            | $\emptyset$       |
-| **Evento certo**         | $\Omega$ stesso — ogni volta che compie l'esperimento si ottiene un elemento di $\Omega$ | $\Omega$          |
-| **Evento complementare** | $A^c$ = elementi di $\Omega$ non in $A$                                                  | $A^c$ o $\bar{A}$ |
-| **Eventi incompatibili** | $A \cap B = \emptyset$                                                                   | —                 |
-| **$A$ implica $B$**      | $A \subseteq B$ — il verificarsi di $A$ implica il verificarsi di $B$ (non viceversa)    | $A \subseteq B$   |
-
+corso: Metodi Statistici per l'Informazione
+docente: Marco Lops
+periodo: Marzo 2026
+tags:
+  - probabilità
+  - statistica
+  - informazione
+  - machine-learning
+  - segnali
 ---
 
-## Operazioni sugli Insiemi / Eventi
+# 1. Fondamenti di Calcolo delle Probabilità
 
-### Riassunto operazioni
-1. $A_1 \cup A_2 = \{\omega \in \Omega \mid \omega \in A_1 \text{ oppure } \omega \in A_2\}$
-2. $A_1 \cap A_2 = \{\omega \in \Omega \mid \omega \in A_1 \text{ e } \omega \in A_2\}$
-3. $A_1^c = \{\omega \in \Omega \mid \omega \notin A_1\}$
-4. $A_1 \setminus A_2 = A_1 \cap A_2^c$
-### Proprietà utili
+Il concetto di informazione è intrinsecamente legato a quello di incertezza. In ambito informatico e delle telecomunicazioni, il trasferimento di dati può avvenire nello spazio (comunicazione) o nel tempo (memorizzazione). Se non vi fosse incertezza sul messaggio ricevuto o recuperato, non vi sarebbe alcuna informazione utile da trasmettere. La **probabilità** costituisce lo strumento formale necessario per modellare tale incertezza e rappresenta la base teorica su cui poggiano discipline moderne come il *machine learning* e l'inferenza statistica.
 
-| Proprietà                | Formula                       |
-| ------------------------ | ----------------------------- |
-| Doppio complemento       | $($A^c$)^c = A$               |
-| Complemento di $\Omega$  | $\Omega^c = \emptyset$        |
-| Unione con complementare | $A \cup A^c = \Omega$         |
-| De Morgan                | $(A \cup B)^c = A^c \cap B^c$ |
-| De Morgan                | $(A \cap B)^c = A^c \cup B^c$ |
+## 1.1 Spazio dei Campioni ed Eventi
 
----
+Ogni analisi probabilistica inizia con la definizione di un **esperimento**, ovvero un'operazione che conduce a uno tra più risultati possibili.
 
-## Approccio Frequentistico alla Probabilità
+> [!abstract] Definizione: Spazio dei Campioni $\Omega$
+> Lo **spazio dei campioni** (o *sample space*) è l'insieme di tutti i possibili esiti elementari $\omega$ di un esperimento. Un **evento** è un sottoinsieme di $\Omega$.
 
-### Frequenza di successo
+Lo spazio dei campioni può essere di tre tipologie:
+1. **Finito**: ad esempio il lancio di un dado ($\Omega = \{1, 2, 3, 4, 5, 6\}$).
+2. **Numerabilmente infinito**: ad esempio il numero di pacchetti che arrivano a un router ($\Omega = \mathbb{N}_0$).
+3. **Non numerabile (continuo)**: ad esempio la tensione di rumore ai capi di un resistore ($\Omega = \mathbb{R}$).
 
-> [!abstract] Definizione
-> Dati $n$ esperimenti **indipendenti** (l'esito di uno non influenza gli altri), si definisce **frequenza di successo** dell'evento $A$ su $n$ prove:
->
-> $$f_n(A) = \frac{N_A}{n}$$
->
-> dove $N_A$ è il numero di volte in cui si è verificato $A$.
+È fondamentale osservare che la proposizione che descrive un evento non è univoca, data la ridondanza del linguaggio naturale. L'evento è definito unicamente dall'insieme di esiti che lo compongono, ma saper riformulare la proposizione in modo logico è spesso la chiave per la risoluzione di problemi complessi.
 
-Per un dado **onesto** (eventi elementari equiprobabili):
-$$\lim_{n \to \infty} f_n(A) = \frac{|A|}{|\Omega|}$$
-> [!warning] Il cane che si morde la coda
-> La definizione frequentistica usa implicitamente il concetto di **indipendenza** — che è esso stesso un concetto probabilistico. È una definizione un po' autoriflessiva: per questo il prof darà anche una definizione più rigorosa (assiomatica).
+## 1.2 Approccio Frequentistico e Assiomi di Kolmogorov
 
-> [!example] Verifica dell'onestà di un dado
-> Lancio $n$ volte, conto $N_1, N_2, \ldots, N_6$. Il dado è (probabilmente) onesto se:
-> $$\frac{N_i}{n} \approx \frac{1}{6} \quad \forall i$$
-> Non è una condizione *sufficiente* (i singoli potrebbero compensarsi), ma è *necessaria*.
+Storicamente, la probabilità di un evento $A$ è stata introdotta tramite la **frequenza di successo** su $n$ prove indipendenti:
+$$f_n(A) = \frac{N_A}{n} \tag{1.1}$$
+dove $N_A$ è il numero di volte in cui $A$ si è verificato. Sebbene intuitivo, l'approccio frequentistico soffre di circolarità logica, poiché richiede il concetto di indipendenza, che è a sua volta un concetto probabilistico. La teoria moderna risolve il problema tramite l'assiomatizzazione di Kolmogorov.
 
----
+> [!abstract] Teorema: Assiomi di Kolmogorov
+> Dato uno spazio $\Omega$ e una $\sigma$-algebra $\mathcal{E}$ di suoi sottoinsiemi, una legge di probabilità $P$ è una funzione $P: \mathcal{E} \to [0,1]$ tale che:
+> 1. **Non negatività**: $P(A) \geq 0$ per ogni $A \in \mathcal{E}$.
+> 2. **Normalizzazione**: $P(\Omega) = 1$.
+> 3. **$\sigma$-additività**: Per ogni successione di eventi $\{A_i\}$ a due a due disgiunti, $P(\bigcup $A_i$) = \sum P($A_i$)$.
 
+Dagli assiomi derivano proprietà fondamentali quali la probabilità del complementare $P($A^c$) = 1 - P(A)$ e la formula dell'unione (subadditività):
+$$P(A \cup B) = P(A) + P(B) - P(A \cap B) \tag{1.2}$$
+## 1.3 Probabilità Condizionata e Bayes
 
-## 1. Analisi Combinatoria: Integrazioni Necessarie
+L'introduzione di una condizione equivale a un restringimento dello spazio dei campioni. Se sappiamo che si è verificato l'evento $B$, l'unico modo in cui $A$ può verificarsi è tramite l'intersezione $A \cap B$.
 
-### 1.1 Distinzione tra Modelli con/senza Reinserimento
+> [!abstract] Definizione: Probabilità Condizionata
+> La probabilità di $A$ dato $B$ è definita come:
+> $$P(A \mid B) = \frac{P(A \cap B)}{P(B)}, \quad P(B) > 0$$
+Dalla definizione segue la **Legge di Bayes**, pilastro dell'inferenza statistica, che permette di aggiornare una conoscenza *a priori* $P(B)$ in una conoscenza *a posteriori* $P(B|A)$ dopo aver osservato un dato $A$:
+$$P(B \mid A) = \frac{P(A \mid B) P(B)}{P(A)} \tag{1.3}$$
+# 2. Variabili Aleatorie Discrete
 
-Il report menziona le **disposizioni con ripetizione** ($n^k$) ma non esplicita sufficientemente il modello di **combinazioni con ripetizione**:
+Le **variabili aleatorie** (VA) permettono di associare un valore numerico agli esiti di un esperimento, unificando trattazioni di fenomeni fisicamente diversi ma probabilisticamente equivalenti.
 
-$$C^*_{n,k} = \binom{n+k-1}{k} = \frac{(n+k-1)!}{k!(n-1)!}$$
+## 2.1 Caratterizzazione tramite PMF e Valore Atteso
 
-**Caso d'uso**: Distribuzione di $k$ oggetti indistinguibili in $n$ contenitori distinti (problema stars-and-bars).
+Una VA discreta $X$ è caratterizzata dalla sua **Probability Mass Function** (PMF), definita come $p_X(x) = P(X = x)$. La PMF deve essere non negativa e sommare a 1 su tutto l'alfabeto $\mathcal{X}$.
 
-### 1.2 Principio di Inclusione-Esclusione
+L'indice sintetico principale di una VA è il **valore atteso** (o media statistica), che rappresenta il baricentro della distribuzione:
+$$E[X] = \mu_X = \sum_{x \in \mathcal{X}} x \cdot p_X(x) \tag{2.1}$$
+## 2.2 Modelli di Distribuzione Notevoli
 
-Per eventi non disgiunti, la formula dell'unione si generalizza:
+### 2.2.1 Distribuzione Binomiale
+Modella il numero di successi in $n$ prove indipendenti di Bernoulli (esito binario con probabilità $p$).
 
-$$P\left(\bigcup_{i=1}^n A_i\right) = \sum_{i} P(A_i) - \sum_{i<j} P(A_i \cap A_j) + \sum_{i<j<k} P(A_i \cap A_j \cap A_k) - \cdots$$
+> [!abstract] PMF Binomiale: $X \sim \mathcal{B}(n, p)$
+> $$p_X(k) = \binom{n}{k} p^k (1-p)^{n-k}$$
+> con $E[X] = np$.
 
-**Applicazione**: Calcolo della probabilità che almeno una carta sia un asso in una mano di 5 carte.
+### 2.2.2 Distribuzione di Poisson
+Modella il numero di occorrenze di eventi rari in un intervallo continuo (es. pacchetti in un router, chiamate a un centralino).
 
----
+> [!abstract] PMF di Poisson: $X \sim \text{Poi}(\lambda)$
+> $$p_X(k) = \frac{\lambda^k}{k!} e^{-\lambda}$$
+> con $E[X] = \lambda$.
 
-## 2. Assiomi di Kolmogorov: Precisazioni Tecniche
+La Poissoniana è il limite della Binomiale quando $n \to \infty$ e $p \to 0$, mantenendo costante il prodotto $np = \lambda$.
 
-### 2.1 σ-Algebra e Misurabilità
+### 2.2.3 Distribuzione Geometrica
+Rappresenta il numero di prove necessarie per ottenere il primo successo. È l'unica distribuzione discreta a godere della proprietà di **assenza di memoria**: il fallimento delle prove passate non influenza la probabilità del successo futuro.
 
-Il report omette la definizione formale dello spazio di probabilità $(\Omega, \mathcal{F}, P)$, dove:
+> [!abstract] PMF Geometrica: $X \sim \text{Geo}(p)$
+> $$p_X(k) = (1-p)^{k-1} p$$
+> con $E[X] = 1/p$.
 
-- $\mathcal{F}$ è una **σ-algebra** su $\Omega$
-- Gli eventi devono appartenere a $\mathcal{F}$ per essere misurabili
+# 3. Caratterizzazione del Secondo Ordine e Funzioni di VA
 
-**Implicazione pratica**: Non tutti i sottoinsiemi di $\Omega$ sono necessariamente eventi (rilevante in spazi continui).
+## 3.1 Trasformazioni di Variabili Aleatorie
+Data una VA $X$ e una funzione $g(\cdot)$, la nuova variabile $Y = g(X)$ eredita la statistica di $X$. Se $g$ è molti-a-uno, la PMF di $Y$ in un punto $y$ è data dalla somma delle probabilità di tutti gli $x$ tali che $g(x)=y$.
+Il calcolo della media di una funzione non richiede necessariamente la PMF di $Y$, grazie al **teorema fondamentale del calcolo della media**:
+$$E[g(X)] = \sum_{x \in \mathcal{X}} g(x) p_X(x) \tag{3.1}$$
+## 3.2 Varianza e Disuguaglianza di Chebyshev
+Mentre la media indica la posizione, la **varianza** $\sigma_X^2$ misura la dispersione dei valori attorno ad essa:
+$$\sigma_X^2 = E[(X - \mu_X)^2] = E[X^2] - \mu_X^2 \tag{3.2}$$
+Il valore $\sigma_X$ è detto deviazione standard. La sua importanza è sancita dalla **disuguaglianza di Chebyshev**, che fornisce un limite superiore alla probabilità che una VA si discosti dalla media, indipendentemente dalla sua distribuzione:
+$$P(|X - \mu_X| \geq k\sigma_X) \leq \frac{1}{k^2} \tag{3.3}$$
+Questa disuguaglianza giustifica formalmente la **Legge dei Grandi Numeri**: al crescere del numero di prove $n$, la frequenza di successo si concentra intorno alla probabilità teorica poiché la sua varianza decade come $1/n$.
 
-### 2.2 Convergenza Frequentista
+# 4. Variabili Multiple e Teoria dell'Informazione
 
-La definizione frequentista richiede precisazione:
+## 4.1 PMF Congiunta e Marginalizzazione
+Nello studio di coppie di variabili $(X, Y)$, la caratterizzazione completa è fornita dalla **PMF congiunta** $p_{XY}(x, y)$. Da essa si ricavano le **marginali** sommando rispetto all'altra variabile:
+$$p_X(x) = \sum_{y \in \mathcal{Y}} p_{XY}(x, y) \tag{4.1}$$
+Due variabili sono **indipendenti** se e solo se la congiunta è il prodotto delle marginali: $p_{XY}(x, y) = p_X(x)p_Y(y)$.
 
-$$P(A) = \lim_{n \to \infty} \frac{n_A}{n} \quad \text{(convergenza quasi certa per la Legge dei Grandi Numeri)}$$
+## 4.2 Correlazione e Covarianza
+La **covarianza** misura il legame lineare tra due variabili:
+$$\text{Cov}(X, Y) = E[XY] - E[X]E[Y] \tag{4.2}$$
+Il **coefficiente di correlazione** $\rho_{XY} = \frac{\text{Cov}(X, Y)}{\sigma_X \sigma_Y}$ normalizza tale legame nell'intervallo $[-1, 1]$. L'indipendenza implica l'incorrelazione ($\rho=0$), ma il viceversa non è generalmente vero.
 
-**Nota**: La convergenza è garantita con probabilità 1, non in senso deterministico.
+## 4.3 Entropia di Shannon
+L'entropia $H(X)$ misura l'incertezza media di una sorgente di informazione in bit:
 
----
+> [!abstract] Definizione: Entropia
+> $$H(X) = - \sum_{x \in \mathcal{X}} p_X(x) \log_2 p_X(x)$$
+L'entropia è massima per distribuzioni uniformi e nulla per variabili deterministiche. Essa rappresenta il limite teorico alla compressione dei dati senza perdita di informazione.
 
-## 3. Teorema di Bayes: Estensioni e Applicazioni
+# 5. Variabili Aleatorie Continue
 
-### 3.1 Correzione nell'Esempio del Dado Truccato
+Nello spazio continuo, la probabilità di un singolo punto è nulla. Si introduce quindi la **Funzione Densità di Probabilità** (PDF).
 
-**Verifica dei calcoli**:
+## 5.1 PDF e CDF
+La **Cumulative Distribution Function** (CDF) è definita come $F_X(x) = P(X \leq x)$. Per variabili continue, la PDF $f_X(x)$ è la derivata della CDF:
+$$f_X(x) = \frac{d}{dx} F_X(x) \quad \Rightarrow \quad P(a \leq X \leq b) = \int_a^b f_X(x) dx \tag{5.1}$$
+## 5.2 Modelli Continui Notevoli
 
-Per il dado truccato $D_t$: $P(5|D_t) = \frac{1}{10}$
+1. **Uniforme $U(a, b)$**: Densità costante $1/(b-a)$ nell'intervallo.
+2. **Esponenziale $\text{Exp}(\lambda)$**: Modella il tempo di attesa tra eventi di Poisson. Gode della proprietà di assenza di memoria nel continuo.
+3. **Laplaciana**: Caratterizzata da una densità a "doppia vela" $f_X(x) = $\frac{\lambda}{2}$ e^{-\lambda|x|}$, spesso usata per modellare segnali audio o errori con code pesanti.
+4. **Gaussiana (Normale)**: Per il **Teorema del Limite Centrale**, la somma di un grande numero di variabili i.i.d. tende a una distribuzione gaussiana, rendendola il modello ubiquitario per il rumore termico e i fenomeni naturali.
 
-$$P(55|D_t) = \left(\frac{1}{10}\right)^2 = 0.01 \quad \checkmark$$
-
-Per il dado onesto:
-
-$$P(55|D_o) = \left(\frac{1}{6}\right)^2 = \frac{1}{36} \approx 0.0278$$
-
-Applicando Bayes:
-
-$$P(D_t|55) = \frac{0.01 \times 0.5}{0.01 \times 0.5 + 0.0278 \times 0.5} = \frac{0.005}{0.0189} \approx 0.265$$
-
-**Interpretazione**: L'osservazione di due "5" consecutivi riduce la probabilità posteriore che il dado sia truccato (da 0.5 a 0.265), poiché l'evento è *più verosimile* con il dado onesto.
-
-### 3.2 Inference Bayesiana Sequenziale
-
-Dopo osservazione multipla, aggiornamento iterativo:
-
-$$P(H|E_1, E_2) \propto P(E_2|H, E_1) P(H|E_1)$$
-
----
-
-## 4. Variabili Aleatorie: Approfondimenti
-
-### 4.1 Funzione di Ripartizione (CDF)
-
-Complemento essenziale alla PMF:
-
-$$F_X(x) = P(X \leq x) = \sum_{x_i \leq x} p_X(x_i)$$
-
-**Proprietà**:
-- Monotona non decrescente
-- $\lim_{x \to -\infty} F_X(x) = 0$, $\lim_{x \to +\infty} F_X(x) = 1$
-- Continua a destra con limiti sinistri
-
-### 4.2 Binomiale vs Poisson: Limite Asintotico
-
-La distribuzione di Poisson emerge come limite della Binomiale quando $n \to \infty$, $p \to 0$, con $np = \lambda$ fissato:
-
-$$\lim_{n \to \infty} \binom{n}{k} p^k (1-p)^{n-k} = \frac{\lambda^k e^{-\lambda}}{k!}$$
-
-**Applicazione**: Modellazione di eventi rari su grandi popolazioni (difetti produttivi, decadimenti radioattivi).
+> [!tip] Osservazione: Il Valore Modale
+> In ambito continuo, il valore in cui la PDF è massima non è il "più probabile" (avendo ogni punto probabilità zero), ma è correttamente definito **moda** o valore modale, indicando la zona di massima concentrazione di probabilità.
 
 ---
-
-## 5. Momenti e Disuguaglianze: Estensioni
-
-### 5.1 Momenti Superiori
-
-- **Momento $r$-esimo**: $E[X^r]$
-- **Skewness** (asimmetria): $\gamma_1 = \frac{E[(X-\mu)^3]}{\sigma^3}$
-- **Kurtosis** (curtosi): $\gamma_2 = \frac{E[(X-\mu)^4]}{\sigma^4} - 3$
-
-### 5.2 Disuguaglianza di Markov - Forma Generale
-
-Per variabile aleatoria non negativa e funzione crescente $g$:
-
-$$P(X \geq a) \leq \frac{E[g(X)]}{g(a)}$$
-
-**Caso particolare** ($g(x) = x$):
-
-$$P(X \geq a) \leq \frac{E[X]}{a}$$
-
-### 5.3 Applicazione Pratica della Disuguaglianza di Chebyshev
-
-**Problema**: Verificare il margine di errore in un sondaggio.
-
-Con $n=400$ campioni, $\sigma^2 = 0.25$:
-
-$$P(|\bar{X} - \mu| \geq 0.05) \leq \frac{0.25/400}{0.05^2} = 0.25$$
-
-Garantisce che l'errore superi il 5% con probabilità massima 25%.
-
----
-
-## 6. Variabili Multiple: Correlazione e Covarianza
-
-### 6.1 Covarianza
-
-Misura la tendenza di due variabili a variare congiuntamente:
-
-$$\text{Cov}(X,Y) = E[(X - E[X])(Y - E[Y])] = E[XY] - E[X]E[Y]$$
-
-**Proprietà**:
-- $\text{Cov}(X,X) = \text{Var}(X)$
-- Se $X$ e $Y$ indipendenti, allora $\text{Cov}(X,Y) = 0$ (non vale il viceversa)
-
-### 6.2 Coefficiente di Correlazione
-
-Normalizzazione della covarianza:
-
-$$\rho_{XY} = \frac{\text{Cov}(X,Y)}{\sigma_X \sigma_Y}, \quad -1 \leq \rho \leq 1$$
-
-**Interpretazione**:
-- $\rho = 1$: dipendenza lineare positiva perfetta
-- $\rho = -1$: dipendenza lineare negativa perfetta
-- $\rho = 0$: assenza di correlazione lineare
-
-### 6.3 Esempio Numerico - Verifica Indipendenza
-
-Dalla tabella fornita:
-
-| X\Y | 0 | 1 | $P(X)$ |
-|-----|-------|-------|--------|
-| 0 | 1/4 | 1/8 | 3/8 |
-| 1 | 1/8 | 1/2 | 5/8 |
-| $P(Y)$ | 3/8 | 5/8 | 1 |
-
-**Calcolo covarianza**:
-
-$$E[XY] = 0 \cdot 0 \cdot \frac{1}{4} + 0 \cdot 1 \cdot \frac{1}{8} + 1 \cdot 0 \cdot \frac{1}{8} + 1 \cdot 1 \cdot \frac{1}{2} = \frac{1}{2}$$
-
-$$E[X] = \frac{5}{8}, \quad E[Y] = \frac{5}{8}$$
-
-$$\text{Cov}(X,Y) = \frac{1}{2} - \frac{5}{8} \cdot \frac{5}{8} = \frac{1}{2} - \frac{25}{64} = \frac{7}{64} \neq 0$$
-
-**Conclusione**: Le variabili sono **dipendenti** e **positivamente correlate**.
-
----
-
-## 7. Integrazioni Raccomandate
-
-### Teoremi Limite
-- **Legge dei Grandi Numeri** (debole e forte)
-- **Teorema Centrale del Limite**: convergenza alla distribuzione normale
-
-### Catene di Markov
-Estensione della probabilità condizionata a processi stocastici:
-
-$$P(X_{n+1} | X_n, X_{n-1}, \ldots, X_0) = P(X_{n+1} | X_n)$$
-
-### Stima dei Parametri
-- **Massima Verosimiglianza** (MLE)
-- **Stimatori non distorti** e loro varianza minima
-
----
-
-## Conclusioni
-
-Il report costituisce una base teorica rigorosa. Le integrazioni suggerite ne aumenterebbero la completezza operativa, specialmente in contesti di inferenza statistica e machine learning, dove correlazione, momenti superiori e teoremi limite sono strumenti quotidiani di analisi.

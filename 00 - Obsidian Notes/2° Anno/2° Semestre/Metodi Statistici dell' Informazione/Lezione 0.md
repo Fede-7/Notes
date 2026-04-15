@@ -153,17 +153,19 @@ Può essere:
 ## Operazioni sugli Insiemi / Eventi
 
 ### Riassunto operazioni
-$$A_1 \cup A_2 = \{\omega \in \Omega \mid \omega \in A_1 \text{ oppure } \omega \in A_2\}$$
-$$A_1 \cap A_2 = \{\omega \in \Omega \mid \omega \in A_1 \text{ e } \omega \in A_2\}$$
-$$A_1^c = \{\omega \in \Omega \mid \omega \notin A_1\}$$
-$$A_1 \setminus A_2 = A_1 \cap A_2^c$$
+| Operazione   | Definizione                                                                               |
+| ------------ | ----------------------------------------------------------------------------------------- |
+| Unione       | $A_1 \cup A_2 = \{\omega \in \Omega \mid \omega \in A_1 \text{ oppure } \omega \in A_2\}$ |
+| Intersezione | $A_1 \cap A_2 = \{\omega \in \Omega \mid \omega \in A_1 \text{ e } \omega \in A_2\}$      |
+| Complemento  | $A_1^c = \{\omega \in \Omega \mid \omega \notin A_1\}$                                    |
+| Sottrazione  | $A_1\setminus  A_2 = A_1 \cap A_2^c$                                                      |
 ### Proprietà utili
 
 | Proprietà                | Formula                       |
 | ------------------------ | ----------------------------- |
-| Doppio complemento       | $($A^c$)^c = A$               |
+| Doppio complemento       | $(A^c)^c = A$                 |
 | Complemento di $\Omega$  | $\Omega^c = \emptyset$        |
-| Unione con complementare | $A \cup $A^c$ = \Omega$       |
+| Unione con complementare | $A \cup A^c = \Omega$         |
 | De Morgan                | $(A \cup B)^c = A^c \cap B^c$ |
 | De Morgan                | $(A \cap B)^c = A^c \cup B^c$ |
 
@@ -186,7 +188,7 @@ $$\lim_{n \to \infty} f_n(A) = \frac{|A|}{|\Omega|}$$
 > La definizione frequentistica usa implicitamente il concetto di **indipendenza** — che è esso stesso un concetto probabilistico. È una definizione un po' autoriflessiva: per questo il prof darà anche una definizione più rigorosa (assiomatica).
 
 > [!example] Verifica dell'onestà di un dado
-> Lancio $n$ volte, conto $N_1, $N_2$, \ldots, N_6$. Il dado è (probabilmente) onesto se:
+> Lancio $n$ volte, conto $N_1, N_2, \ldots, N_6$. Il dado è (probabilmente) onesto se:
 > $$\frac{N_i}{n} \approx \frac{1}{6} \quad \forall i$$
 > Non è una condizione *sufficiente* (i singoli potrebbero compensarsi), ma è *necessaria*.
 
