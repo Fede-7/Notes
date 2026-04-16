@@ -71,7 +71,7 @@ Questo coefficiente è detto anche **coefficiente binomiale**.
 > [!example] Mani di poker
 > Mazzo da 52 carte, mano di 5 carte: $\binom{52}{5} = \frac{52!}{5! \cdot 47!} = 2.598.960$.
 
-> [!important] Equivalenza: sequenze binarie con $k$ uni
+> [!info] Equivalenza: sequenze binarie con $k$ uni
 > Il numero di sequenze binarie di lunghezza $n$ con esattamente $k$ uni (e $n-k$ zeri) è:
 > $$\binom{n}{k}$$
 > Questa interpretazione combinatoria del coefficiente binomiale è fondamentale per calcolare probabilità in esperimenti come "almeno $k$ successi in $n$ prove".
@@ -117,7 +117,7 @@ $$P(\text{colore qualsiasi}) = 4 \cdot \frac{56}{201.376} \approx 0{,}44\%$$
 ---
 ### Caso m-ario: Sequenze Binarie con Esattamente $k$ Uni
 
-> [!quote] **Domanda:**
+> [!tip] **Domanda:**
 Data una sequenza di $n$ bit, quante sequenze hanno esattamente $k$ uni?
 
 >**Ragionamento senza formula:**
@@ -155,7 +155,7 @@ Questa definizione è matematicamente "zoppicante" per due motivi:
 
 Nonostante ciò, l'approccio frequentistico è preferito da questo docente per una ragione pratica: **rende le proprietà della probabilità intuitive**, derivandole direttamente dalle proprietà degli insiemi, senza bisogno di assiomi astratti da dimostrare separatamente.
 
-> [!quote]
+> [!tip]
 > "Io do le carte napoletane, mi ha giocato a scopone, ho dieci carri per uno, poi la probabilità che gli do i sette carri... Con l'approccio teorico la gente cominciava a ragionare in percentuali assurde. Con quello frequentistico si ragiona automaticamente nel modo giusto."
 
 ### La probabilità come misura
@@ -307,7 +307,7 @@ Il risultato è circa 70% — molto più alto di quanto l'intuizione suggerisce.
 
 ---
 
-> [!summary] Punti chiave della lezione
+> [!abstract] Punti chiave della lezione
 > - Il coefficiente binomiale $\binom{n}{k}$ conta le sequenze binarie di lunghezza $n$ con esattamente $k$ uni: si deriva solo dal ragionamento sulle permutazioni degli indistinguibili.
 > - La probabilità frequentistica $P(A) = \lim_{n \to \infty} N_A/n$ è intuitiva e permette di derivare tutte le proprietà dalle operazioni sugli insiemi.
 > - Quando gli eventi elementari non sono equiprobabili, non si può usare il rapporto di cardinalità.

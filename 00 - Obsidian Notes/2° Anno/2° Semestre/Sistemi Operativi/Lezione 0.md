@@ -24,7 +24,7 @@ tags:
 ---
 ## 📝 Esame
 
-> [!important] Modalità d'esame
+> [!info] Modalità d'esame
 > 1. **Prova scritta** — domande aperte + esercizi (lettura e interpretazione di codice, non scrittura)
 > 2. **Prova orale** — accessibile solo dopo aver superato lo scritto
 > 
@@ -44,7 +44,7 @@ tags:
 
 ## Cos'è un Sistema Operativo?
 
-> [!quote] Definizione
+> [!tip] Definizione
 > Un Sistema Operativo è un **programma** che gestisce le risorse hardware di un calcolatore, facendo da intermediario tra utente e macchina. È il **primo strato software** che si pone tra l'hardware e le applicazioni.
 
 ### Obiettivi principali
@@ -99,7 +99,7 @@ graph TB
 
 ## Kernel vs Programmi di sistema
 
-> [!note] Distinzione fondamentale
+> [!info] Distinzione fondamentale
 > - **Kernel (nucleo):** parte più interna; unico programma con accesso completo all'hardware; opera in *Kernel Mode* (modalità privilegiata)
 > - **Programmi di sistema:** estendono le funzionalità del kernel (shell, utilità di sistema, ecc.)
 > - **Applicazioni:** tutto ciò che non è né kernel né programma di sistema
@@ -274,7 +274,7 @@ gantt
 
 ### Dual Mode — Modalità Duale
 
-> [!important] Principio fondamentale
+> [!info] Principio fondamentale
 > Il sistema opera sempre in una di due modalità, distinte da un **bit hardware**:
 > - **Kernel Mode:** accesso completo all'hardware, operazioni privilegiate
 > - **User Mode:** operazioni limitate; per accedere all'hardware si deve richiedere al kernel tramite *system call*
@@ -288,7 +288,7 @@ gantt
 
 Per evitare che un processo utente occupi la CPU indefinitamente:
 
-> [!note]
+> [!info]
 > Un **timer hardware** invia periodicamente un interrupt alla CPU, riportando il controllo al kernel. Questo garantisce che nessun processo possa monopolizzare la CPU.
 
 ### Protezione della Memoria

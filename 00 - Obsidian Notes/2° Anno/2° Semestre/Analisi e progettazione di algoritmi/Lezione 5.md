@@ -78,7 +78,7 @@ $$T(n) = \sum_{i=2}^{n} T_{\text{findmax}}(i) = \sum_{i=2}^{n} \Theta(i) = \Thet
 
 Il problema di Selection Sort è che ogni chiamata a `find_max` parte da zero, dimenticando tutto quello che ha visto nelle chiamate precedenti. Eppure, durante la ricerca del massimo, l'algoritmo fa confronti e acquisisce informazioni sulle relazioni di ordine tra elementi — che vengono poi dimenticate.
 
-> [!quote]
+> [!tip]
 > "Se il nostro algoritmo ricordasse le cose che ha già visto, potrebbe evitare di fare confronti inutili nelle ricerche successive. La prima ricerca del massimo sarà sempre $\Theta(n)$ — non c'è modo di evitarlo su input arbitrario. Ma le ricerche successive potrebbero costare molto meno, se disponessimo dell'informazione accumulata in precedenza."
 
 L'idea è mantenere una struttura dati che rappresenta un **ordinamento parziale** tra gli elementi: non sappiamo l'ordinamento totale, ma conosciamo alcune relazioni tra coppie. Questa struttura ha naturalmente forma di albero.
@@ -134,7 +134,7 @@ Da questa corrispondenza si ricavano le funzioni di navigazione dell'albero (con
 
 $$\text{FiglioSinistro}(i) = 2i \qquad \text{FiglioDestra}(i) = 2i + 1 \qquad \text{Padre}(i) = \lfloor i/2 \rfloor$$
 
-> [!important] Proprietà strutturali dell'array
+> [!info] Proprietà strutturali dell'array
 > - I **nodi interni** (quelli con almeno un figlio) occupano le posizioni $1$ a $\lfloor n/2 \rfloor$.
 > - Le **foglie** occupano le posizioni $\lfloor n/2 \rfloor + 1$ a $n$.
 > - Ogni array di lunghezza $n$ corrisponde implicitamente a un albero binario completo.
@@ -265,7 +265,7 @@ flowchart LR
 
 Totale: $T(n) = \Theta(n) + O(n \log n) = O(n \log n)$
 
-> [!important] Il costo è esattamente $\Theta(n \log n)$, non solo $O(n \log n)$
+> [!info] Il costo è esattamente $\Theta(n \log n)$, non solo $O(n \log n)$
 > Il limite inferiore $\Omega(n \log n)$ deriva dal **Teorema degli Alberi di Decisione** (che verrà dimostrato più avanti): nessun algoritmo di ordinamento basato su confronti può fare meglio di $\Omega(n \log n)$. Quindi HeapSort è asintoticamente ottimale.
 
 ### Confronto finale
@@ -280,7 +280,7 @@ HeapSort combina i vantaggi di Merge Sort (complessità garantita $\Theta(n \log
 
 ---
 
-> [!summary] Punti chiave della lezione
+> [!abstract] Punti chiave della lezione
 > - **Selection Sort** è il duale di Insertion Sort: seleziona le posizioni e cerca l'elemento. Ha sempre costo $\Theta(n^2)$ perché `find_max` è ottimale ma non ha memoria.
 > - **HeapSort** nasce dall'idea di memorizzare le relazioni d'ordine viste durante la prima ricerca del massimo in una struttura dati (lo heap), evitando lavoro ridondante nelle ricerche successive.
 > - Uno **heap** è un albero binario completo con la proprietà che ogni nodo è ≥ dei suoi figli. Il massimo è sempre in radice.

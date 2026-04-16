@@ -39,7 +39,7 @@ Il sistema operativo deve fornire un insieme ampio di servizi. Deve mettere a di
 
 Il SO è anche un **monitor**: non solo alloca le risorse, ma tiene costantemente traccia di tutto quello che sta succedendo sulla macchina. Per ogni processo sa quali file sono aperti, quali risorse sono allocate, chi sono gli utenti coinvolti. Mantiene per questo una serie di strutture dati interne al kernel. Vengono anche garantiti meccanismi di **protezione** (accesso controllato alle risorse tra processi interni) e **sicurezza** (difesa da accessi non autorizzati dall'esterno).
 
-> [!important] Protezione ≠ Sicurezza
+> [!info] Protezione ≠ Sicurezza
 > La **protezione** riguarda l'interno: garantisce che processi utente non accedano a zone di memoria o operazioni non consentite. La **sicurezza** riguarda l'esterno: autenticazione, difesa da intrusioni. Sono concetti e meccanismi distinti.
 
 ---
@@ -131,7 +131,7 @@ Questo è ciò che il compilatore genera quando si compila una chiamata come `wr
 6. Esegue la routine di servizio.
 7. Scrive il risultato in `rax` e ritorna al processo utente.
 
-> [!quote]
+> [!tip]
 > "È come se voi vi siete già messi d'accordo su dove stanno le chiavi di casa. Io ho lasciato le chiavi nel solito posto. Il kernel già sa in quali cassetti aprire per trovare i dati."
 
 > [!example] Esempio dall'alto: il comando `cp`
@@ -199,7 +199,7 @@ La scelta dipende sempre dai trade-off: velocità vs modularità, sicurezza vs p
 
 ---
 
-> [!summary] Punti chiave della lezione
+> [!abstract] Punti chiave della lezione
 > - Le system call sono il confine tra user space e kernel space: l'unico canale di comunicazione controllato.
 > - API (alto livello, portabile) e ABI (livello macchina) sono due cose distinte; non c'è mapping 1:1 garantito.
 > - Le API POSIX sono lo standard Unix-like che useremo nel corso per la programmazione concorrente in C.

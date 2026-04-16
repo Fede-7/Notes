@@ -108,7 +108,7 @@ Esistono concetti più deboli di invertibilità:
 *   $g: B \to A$ è **inversa sinistra** di $f: A \to B$ se $g \circ f = id_A$. Si può dimostrare che $f$ ammette inversa sinistra $\iff$ $f$ è **iniettiva**. L'inversa sinistra, se esiste, non è necessariamente unica.
 *   $h: B \to A$ è **inversa destra** di $f: A \to B$ se $f \circ h = id_B$. Si può dimostrare che $f$ ammette inversa destra $\iff$ $f$ è **suriettiva**. L'inversa destra, se esiste, non è necessariamente unica.
 
-> [!IMPORTANT] Una funzione è invertibile (cioè ha un'inversa "bilatera") se e solo se è **biettiva**, e in tal caso l'inversa è unica. L'esistenza di solo una delle due (sinistra o destra) è legata solo all'iniettività o solo alla suriettività.
+> [!info] Una funzione è invertibile (cioè ha un'inversa "bilatera") se e solo se è **biettiva**, e in tal caso l'inversa è unica. L'esistenza di solo una delle due (sinistra o destra) è legata solo all'iniettività o solo alla suriettività.
 
 *   Esempio (Pag 11): $f: \mathbb{Z} \to \mathbb{Z}$ con $f(x)=2x+1$.
     *   Iniettiva? $2x+1=2y+1 \implies 2x=2y \implies x=y$. **SÌ**.
@@ -214,7 +214,7 @@ Sia $(S, *)$ un semigruppo (o anche solo una struttura con operazione binaria).
 
 ---
 
-> [!SUMMARY] Riepilogo Veloce Lezione 5
+> [!abstract] Riepilogo Veloce Lezione 5
 > *   La composizione di funzioni **non è commutativa** ma **è associativa**.
 > *   Una funzione è **invertibile se e solo se è biettiva**, e l'inversa è **unica**.
 > *   L'esistenza di inverse sinistre/destre è legata all'iniettività/suriettività.
@@ -223,6 +223,6 @@ Sia $(S, *)$ un semigruppo (o anche solo una struttura con operazione binaria).
 > *   L'**elemento neutro**, se esiste in un semigruppo, è unico.
 > *   Un **monoide** è un semigruppo con elemento neutro.
 
-> [!TIP] Prossimi Passi
+> [!tip] Prossimi Passi
 > *   Prova a svolgere gli esercizi proposti sulla biettività/inversa e sull'associatività. Sono fondamentali per prendere confidenza.
 > *   Il prossimo passo logico in algebra è introdurre l'ultimo ingrediente per i gruppi: l'**elemento inverso**.

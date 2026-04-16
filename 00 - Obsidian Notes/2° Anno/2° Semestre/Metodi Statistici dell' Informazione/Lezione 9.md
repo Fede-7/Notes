@@ -110,7 +110,7 @@ dove $c_i$ è un punto del sottointervallo $i$ per il teorema del valor medio. Q
 
 $$E[X] = \int_{-\infty}^{+\infty} x\, f_X(x)\, dx$$
 
-> [!important] Implicazione pratica: la quantizzazione vettoriale
+> [!info] Implicazione pratica: la quantizzazione vettoriale
 > Shannon (1948) dimostrò che per digitalizzare dati analogici in modo ottimo non conviene quantizzare campione per campione, ma blocchi di dati grandi tutti insieme (**quantizzazione vettoriale**). Un quantizzatore su $\mathbb{R}^n$ è asintoticamente molto più efficiente di $n$ quantizzatori scalari indipendenti. Questo è il fondamento della codifica a blocchi usata in tutti i sistemi di compressione moderni.
 
 ---
@@ -193,7 +193,7 @@ La convenienza di lavorare con la CDF è che $P(X \leq x \mid A)$ è sempre ben 
 
 ---
 
-> [!summary] Punti chiave della lezione
+> [!abstract] Punti chiave della lezione
 > - La CDF $F_X(x) = P(X \leq x)$ è definita per qualsiasi variabile aleatoria; è monotona crescente, vale 0 a $-\infty$ e 1 a $+\infty$.
 > - PDF e CDF sono equivalenti: $f_X(x) = F_X'(x)$ e $F_X(x) = \int_{-\infty}^x f_X(t)\, dt$.
 > - Il valore atteso continuo $E[X] = \int x f_X(x)\, dx$ si giustifica come limite di medie di variabili quantizzate.

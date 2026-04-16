@@ -186,7 +186,7 @@ Ricollegandoci al problema dei Ponti di Königsberg.
 
 ---
 
-> [!SUMMARY] Riepilogo Veloce Lezione Bonus (Grafi)
+> [!abstract] Riepilogo Veloce Lezione Bonus (Grafi)
 > *   Il problema dei **Ponti di Königsberg** ha dato origine alla teoria dei grafi.
 > *   Abbiamo definito un **grafo semplice non orientato** $(V, L)$ e concetti come **grado**, **somma dei gradi** (pari al doppio dei lati), e il fatto che i **vertici di grado dispari sono in numero pari**.
 > *   Abbiamo visto **grafi regolari** e **grafi completi** $K_n$.
@@ -195,6 +195,6 @@ Ricollegandoci al problema dei Ponti di Königsberg.
 > *   Un (multi)grafo ha un **circuito euleriano** $\iff$ è connesso e tutti i vertici hanno grado pari.
 > *   Abbiamo accennato al **grafo complementare**.
 
-> [!TIP] Prossimi Passi
+> [!tip] Prossimi Passi
 > *   La teoria dei grafi è vasta! Si potrebbero esplorare grafi orientati, pesati, algoritmi su grafi (ricerca cammini minimi, alberi ricoprenti, flusso massimo), colorazione, isomorfismo tra grafi.
 > *   Rifletti su come le proprietà delle relazioni binarie (riflessiva, simmetrica, transitiva) si collegano alla struttura dei grafi.

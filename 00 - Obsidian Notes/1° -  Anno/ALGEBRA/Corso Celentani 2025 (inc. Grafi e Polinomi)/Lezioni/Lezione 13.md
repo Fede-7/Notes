@@ -58,7 +58,7 @@ La relazione di congruenza si "comporta bene" rispetto alla somma e al prodotto 
         *   Poiché $(ck + hd + mhk) \in \mathbb{Z}$, questo significa $m \mid (ab - cd)$.
         *   Quindi, $ab \equiv cd \pmod{m}$.
 
-> [!IMPORTANT] La compatibilità della congruenza con somma e prodotto è ciò che permette di definire le operazioni sull'insieme quoziente $\mathbb{Z}_m$.
+> [!info] La compatibilità della congruenza con somma e prodotto è ciò che permette di definire le operazioni sull'insieme quoziente $\mathbb{Z}_m$.
 
 ---
 
@@ -140,7 +140,7 @@ L'insieme delle classi di equivalenza della congruenza modulo $m$.
 
 ## 5. Campi $\mathbb{Z}_m$ e Caratteristica
 
-> [!TEOREM] Teorema: $\mathbb{Z}_m$ è un Campo se e solo se $m$ è Primo
+> [!info] Teorema: $\mathbb{Z}_m$ è un Campo se e solo se $m$ è Primo
 > *   **Enunciato (Pag 11):** L'anello $(\mathbb{Z}_m, +, \cdot)$ è un **campo** se e solo se $m$ è un numero **primo**.
 > *   **Idea Chiave:** Questo risultato collega la struttura algebrica di $\mathbb{Z}_m$ (essere un campo, dove la divisione per elementi non nulli è sempre possibile) a una proprietà fondamentale del modulo $m$ (essere primo).
 > *   **Spiegazione (legata al Capitolo 6):** La dimostrazione completa si basa sulla caratterizzazione degli elementi invertibili in $\mathbb{Z}_m$. Un anello commutativo unitario è un campo se e solo se ogni suo elemento non nullo è invertibile. Come vedremo, un elemento $[a]_m$ (con $a \not\equiv 0 \pmod m$) è invertibile in $\mathbb{Z}_m$ se e solo se $\text{MCD}(a, m)=1$.
@@ -152,7 +152,7 @@ L'insieme delle classi di equivalenza della congruenza modulo $m$.
 > *   **Esempi:** $\mathbb{Z}_2, \mathbb{Z}_3, \mathbb{Z}_5, \mathbb{Z}_7, \mathbb{Z}_{11}, \dots$ sono campi. $\mathbb{Z}_4, \mathbb{Z}_6, \mathbb{Z}_8, \mathbb{Z}_9, \mathbb{Z}_{10}, \dots$ non sono campi.
 
 
-> [!INFO] Caratteristica di $\mathbb{Z}_m$
+> [!info] Caratteristica di $\mathbb{Z}_m$
 > *   **Definizione (Pag 11-12):** La **caratteristica** di un anello unitario $R$, indicata con $char(R)$, è il più piccolo intero positivo $k$ tale che la somma di $k$ copie dell'elemento neutro moltiplicativo $1_R$ sia uguale all'elemento neutro additivo $0_R$. Se un tale $k$ non esiste, la caratteristica è 0.
 > *   **Proposizione:** Per ogni $m \ge 1$, la caratteristica dell'anello $\mathbb{Z}_m$ è $m$.
 >     $$ char(\mathbb{Z}_m) = m $$
@@ -299,25 +299,25 @@ Risolvere equazioni della forma $\bar{a} \cdot X = \bar{b}$ in $\mathbb{Z}_m$.
 
 ## 9. Esercizi Assegnati (Pag 26 e Foto)
 
-> [!EXERCISE] Esercizio 1 (Pag 26)
+> [!example] Esercizio 1 (Pag 26)
 > Determinare gli elementi invertibili, i divisori dello zero e gli elementi nilpotenti di $\mathbb{Z}_{40}$.
 > *Suggerimento: $40 = 2^3 \cdot 5$. Usare le proposizioni basate su $\text{MCD}(a, 40)$ e sulla fattorizzazione.*
 
-> [!EXERCISE] Esercizio 2 (Pag 26)
+> [!example] Esercizio 2 (Pag 26)
 > Determinare l'inverso di $\bar{25}$ in $\mathbb{Z}_{192}$.
 > *Suggerimento: Calcolare $\text{MCD}(25, 192)$ con l'algoritmo di Euclide. Se è 1, usare l'algoritmo esteso a ritroso per trovare l'identità di Bézout $25h + 192k = 1$. L'inverso sarà $\bar{h}$.*
 
-> [!EXERCISE] Esercizio 3 (dalla Foto 1)
+> [!example] Esercizio 3 (dalla Foto 1)
 > Calcolare l'inverso di $\bar{16}$ in $\mathbb{Z}_{125}$.
 > *Suggerimento: Calcolare $\text{MCD}(16, 125)$ e usare l'algoritmo esteso.*
 
-> [!EXERCISE] Esercizio 4 (dalla Foto 1)
+> [!example] Esercizio 4 (dalla Foto 1)
 > Calcolare l'inverso di $\bar{17}$ in $\mathbb{Z}_{42}$.
 > *Suggerimento: Calcolare $\text{MCD}(17, 42)$ e usare l'algoritmo esteso.*
 
 ---
 
-> [!SUMMARY] Riepilogo Veloce Lezione 13
+> [!abstract] Riepilogo Veloce Lezione 13
 > *   Abbiamo definito la **congruenza modulo m** e visto la sua compatibilità con somma e prodotto.
 > *   Abbiamo costruito l'**anello quoziente** $(\mathbb{Z}_m, +, \cdot)$ delle classi di resto.
 > *   Abbiamo visto che $\mathbb{Z}_m$ è un **campo** $\iff m$ è primo.
@@ -326,7 +326,7 @@ Risolvere equazioni della forma $\bar{a} \cdot X = \bar{b}$ in $\mathbb{Z}_m$.
 > *   Abbiamo introdotto gli elementi **nilpotenti** in $\mathbb{Z}_m$.
 > *   Abbiamo studiato le **equazioni congruenziali** $ax \equiv b \pmod{m}$ e il teorema sulla loro risolubilità.
 
-> [!TIP] Prossimi Passi
+> [!tip] Prossimi Passi
 > *   Fai pratica con l'algoritmo di Euclide esteso per trovare gli inversi in $\mathbb{Z}_m$.
 > *   Risolvi gli esercizi assegnati su $\mathbb{Z}_{40}$ e $\mathbb{Z}_{192}$.
 > *   Potremmo approfondire le proprietà degli omomorfismi di anelli o iniziare a studiare i sottogruppi e le loro proprietà.

@@ -264,7 +264,7 @@ Questo approccio non è altruismo: è una **strategia commerciale razionale**. U
 
 ---
 
-> [!summary] Riepilogo concettuale
+> [!abstract] Riepilogo concettuale
 > L'imprenditore è il visionario che identifica opportunità e rischia i propri capitali per realizzarle. Il manager è l'esecutore razionale che implementa la visione dell'imprenditore in modo efficiente. L'efficacia riguarda il raggiungimento dell'obiettivo; l'efficienza riguarda il raggiungimento con minimo spreco di risorse. Un'impresa moderna non serve solo gli azionisti, ma un complesso di stakeholder (dipendenti, fornitori, clienti, comunità). La gestione consapevole di questi rapporti è una fonte di vantaggio competitivo sostenibile nel lungo termine.
 
 ---

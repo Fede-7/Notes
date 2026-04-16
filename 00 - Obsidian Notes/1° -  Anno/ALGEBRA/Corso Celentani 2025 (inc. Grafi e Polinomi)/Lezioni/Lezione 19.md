@@ -150,7 +150,7 @@ Per insiemi ordinati **finiti**. Si disegnano nodi per gli elementi e segmenti p
         AC --> SABC
         BC --> SABC
     ```
-    > [!NOTE] Questo diagramma di Hasse illustra che ogni elemento di cardinalità $k$ è "minore" (secondo $\mathcal{R}$) di ogni elemento di cardinalità $k+1, k+2, \dots$. La relazione di copertura si ha tra livelli di cardinalità adiacenti.
+    > [!info] Questo diagramma di Hasse illustra che ogni elemento di cardinalità $k$ è "minore" (secondo $\mathcal{R}$) di ogni elemento di cardinalità $k+1, k+2, \dots$. La relazione di copertura si ha tra livelli di cardinalità adiacenti.
 
 *   **Esempio $(\{2,3,4,5,6,8,10\}, \mathcal{R})$ con $a \mathcal{R} b \iff (a=b) \lor (\pi(a) \subset \pi(b))$, dove $\pi(n)$ è l'insieme dei divisori primi di $n$ (Pag 6):**
     *   $\pi(2)=\{2\}$, $\pi(3)=\{3\}$, $\pi(4)=\{2\}$, $\pi(5)=\{5\}$, $\pi(6)=\{2,3\}$, $\pi(8)=\{2\}$, $\pi(10)=\{2,5\}$.
@@ -178,7 +178,7 @@ Per insiemi ordinati **finiti**. Si disegnano nodi per gli elementi e segmenti p
         %% n4, n8 sono incomparabili (o uguali per pi) con gli altri in termini di copertura stretta
         %% e non coprono/sono coperti da altri in modo stretto basato su pi(x) subset pi(y)
     ```
-    > [!NOTE] In questo diagramma, i nodi 4 e 8 sono isolati perché $\pi(4)=\pi(2)$ e $\pi(8)=\pi(2)$. La relazione $a \mathcal{R} b$ si verifica se $a=b$ (riflessività, non mostrata in Hasse) oppure se $\pi(a)$ è un *sottoinsieme proprio* di $\pi(b)$. Quindi $2 \mathcal{R} 4$ non vale in senso stretto, né $2 \mathcal{R} 8$.
+    > [!info] In questo diagramma, i nodi 4 e 8 sono isolati perché $\pi(4)=\pi(2)$ e $\pi(8)=\pi(2)$. La relazione $a \mathcal{R} b$ si verifica se $a=b$ (riflessività, non mostrata in Hasse) oppure se $\pi(a)$ è un *sottoinsieme proprio* di $\pi(b)$. Quindi $2 \mathcal{R} 4$ non vale in senso stretto, né $2 \mathcal{R} 8$.
 
 [[Diagramma di Hasse]]
 
@@ -227,7 +227,7 @@ dove $<_T$ è l'ordine stretto associato a $\le_T$. Questa $\le_f$ è una relazi
 
 ---
 
-> [!EXERCISE] Esercizio (Pag 29 - DA FARE)
+> [!example] Esercizio (Pag 29 - DA FARE)
 > Sia $(P(S), \mathcal{R})$ con $S=\{a,b,c\}$ e $X \mathcal{R} Y \iff (X=Y) \lor (|X| < |Y|)$.
 > *   Disegnare il diagramma di Hasse.
 > *   Trovare gli elementi minimali e massimali.
@@ -274,7 +274,7 @@ graph BT
 
 ---
 
-> [!SUMMARY] Riepilogo Veloce Lezione 19
+> [!abstract] Riepilogo Veloce Lezione 19
 > *   Definite **relazioni d'ordine largo** e **stretto** e la loro corrispondenza.
 > *   Distinzione tra ordine **totale** e **parziale**.
 > *   I **Diagrammi di Hasse** visualizzano ordini finiti.

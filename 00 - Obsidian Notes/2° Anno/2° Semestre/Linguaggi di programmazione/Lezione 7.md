@@ -28,7 +28,7 @@ tags: [LP, Java, JVM, bytecode, package, sintassi, garbage-collector, BNF]
 
 ## 1. Scelte di design per la sicurezza
 
-> [!important] Perché Java è progettato per la sicurezza del codice mobile
+> [!info] Perché Java è progettato per la sicurezza del codice mobile
 > Java nasce con il requisito di poter eseguire codice proveniente dalla rete in modo sicuro. Le scelte di design riflettono questo obiettivo.
 
 Le principali scelte di sicurezza del linguaggio sono:
@@ -45,7 +45,7 @@ Le principali scelte di sicurezza del linguaggio sono:
 
 **Bytecode verifier**: prima di eseguire il bytecode, la JVM lo verifica. Questa verifica controlla che non vengano accedute zone di memoria non autorizzate, che lo stack non vada in overflow/underflow, e che non ci siano conversioni di tipo illegali. Anche un bytecode manipolato a mano (che aggira il compilatore) viene rilevato.
 
-> [!quote]
+> [!tip]
 > "Se volete un sistema sicuro con codice mobile, non avete tante scelte."
 
 ---
@@ -71,7 +71,7 @@ flowchart LR
 > [!tip] Vantaggio dell'implementazione mista
 > Il costo della compilazione e dei controlli di tipo viene pagato una volta sola. L'esecuzione del bytecode è più fluida perché il bytecode è compatto e facile da interpretare. Il JIT ottimizza i pezzi critici per le prestazioni.
 
-> [!important] Portabilità
+> [!info] Portabilità
 > Il bytecode è indipendente dalla piattaforma. Si compila una volta e si esegue su qualsiasi JVM, che può girare su qualsiasi sistema operativo e hardware. La JVM funge da mediatore tra il bytecode e il sistema sottostante.
 
 ---
@@ -198,7 +198,7 @@ I modificatori di visibilità sono (dal più restrittivo al meno): `private`, (d
 
 ---
 
-> [!summary] Punti chiave della lezione
+> [!abstract] Punti chiave della lezione
 > - Java è progettato per eseguire codice mobile in modo sicuro: controllo indici, tipizzazione forte, no aritmetica puntatori, GC automatico, bytecode verifier.
 > - La JVM implementa una strategia mista: `javac` compila a bytecode portabile, `java` (JVM) interpreta con JIT per i cicli critici.
 > - I package organizzano il codice in namespace gerarchici corrispondenti a directory nel filesystem; gli import sono solo abbreviazioni.

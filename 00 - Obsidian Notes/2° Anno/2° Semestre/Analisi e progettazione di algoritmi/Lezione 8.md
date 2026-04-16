@@ -61,7 +61,7 @@ $$T(n) = \Theta(n \cdot h_{\max}) = \Theta(n \log n)$$
 
 Per qualsiasi costante $\alpha$ con $0 < \alpha < 1$, se le partizioni sono sempre $\alpha n$ e $(1-\alpha)n$, si ottiene $T(n) = \Theta(n \log n)$.
 
-> [!important] Il sbilanciamento proporzionale non peggiora l'andamento asintotico
+> [!info] Il sbilanciamento proporzionale non peggiora l'andamento asintotico
 > Finché le due partizioni hanno dimensioni che sono entrambe frazioni costanti di $n$, l'algoritmo rimane $\Theta(n \log n)$. Solo quando una partizione è di dimensione costante (es. 1) si degrada a $\Theta(n^2)$.
 
 ### Alternanza di partizioni perfette e pessime
@@ -70,7 +70,7 @@ Se QuickSort alterna livelli perfettamente bilanciati ($n/2, n/2$) e livelli com
 
 $$T(n) = \Theta(n \cdot 2 \log_2 n) = \Theta(n \log n)$$
 
-> [!quote]
+> [!tip]
 > "Non è facile rovinare l'andamento del caso migliore in vari modi in cui ho provato ad avvicinarmi. Quindi sembra che questo algoritmo tendenzialmente si comporti sempre così."
 
 ---
@@ -188,7 +188,7 @@ Fissato $n$ e fissato l'algoritmo $A$, esiste un unico **albero di decisione** c
 
 ---
 
-> [!summary] Punti chiave della lezione
+> [!abstract] Punti chiave della lezione
 > - Il caso peggiore di QuickSort è $\Theta(n^2)$ (pivot sempre estremo), ma questo è raro con la scelta casuale del pivot.
 > - Qualsiasi sbilanciamento proporzionale (es. 1/10 e 9/10) mantiene la complessità a $\Theta(n \log n)$.
 > - Il caso medio è $\Theta(n \log n)$, dimostrato per induzione con la tecnica della sommatoria in due parti.

@@ -240,7 +240,7 @@ Concetto specifico degli anelli $(A, +, \cdot)$.
 
 ---
 
-> [!SUMMARY] Riepilogo Veloce Lezione 7
+> [!abstract] Riepilogo Veloce Lezione 7
 > *   Abbiamo rivisto la definizione di **Gruppo** e classificato esempi comuni.
 > *   Abbiamo visto come calcolare l'**inversa di una matrice 2x2**.
 > *   Abbiamo analizzato in dettaglio due **strutture algebriche** verificando associatività, commutatività, neutro e invertibili.
@@ -251,7 +251,7 @@ Concetto specifico degli anelli $(A, +, \cdot)$.
 > *   Abbiamo definito gli **elementi cancellabili** e visto che invertibile $\implies$ cancellabile.
 > *   Abbiamo definito i **divisori dello zero** in un anello e visto che $a \neq 0$ è divisore dello zero $\iff$ $a$ non è cancellabile (rispetto a $\cdot$).
 
-> [!TIP] Prossimi Passi
+> [!tip] Prossimi Passi
 > *   Assicurati di aver compreso la definizione di Anello e le sue proprietà.
 > *   Rifletti sulla differenza tra cancellabilità e invertibilità.
 > *   Il prossimo passo potrebbe essere l'introduzione di Domini di Integrità e Campi, che sono anelli con proprietà aggiuntive legate ai divisori dello zero e agli inversi moltiplicativi.

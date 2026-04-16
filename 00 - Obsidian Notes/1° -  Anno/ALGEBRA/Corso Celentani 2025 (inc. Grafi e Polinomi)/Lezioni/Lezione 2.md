@@ -12,7 +12,7 @@
 Riprendiamo e approfondiamo alcune importanti leggi logiche.
 
 *   **Non-Associatività dell'Implicazione:**
-    > [!WARNING] Attenzione! L'implicazione **NON** è associativa in generale.
+    > [!warning] Attenzione! L'implicazione **NON** è associativa in generale.
     > $(a \implies b) \implies c$ **NON** è logicamente equivalente a $a \implies (b \implies c)$.
     > [[Non-Associatività Implicazione]]
 
@@ -73,12 +73,12 @@ Analizziamo le implicazioni numerate nelle tue note (Pag 4):
 2.  **(2) $(\neg p \land \neg q) \implies \neg r$**
     *   Traduzione: "Se un numero NON è multiplo di 2 E NON è multiplo di 3, allora NON è multiplo di 6".
     *   **Valore di Verità: VERO**. Se non è multiplo di 2, non può essere multiplo di 6. Se non è multiplo di 3, non può essere multiplo di 6. Quindi se non è né multiplo di 2 né di 3, a maggior ragione non è multiplo di 6.
-    *   > [!NOTE] Attenzione: Questa **NON** è la contrapposta di (1)! La contrapposta di $(p \land q) \implies r$ è $\neg r \implies \neg (p \land q)$, che per De Morgan diventa $\neg r \implies (\neg p \lor \neg q)$.
+    *   > [!info] Attenzione: Questa **NON** è la contrapposta di (1)! La contrapposta di $(p \land q) \implies r$ è $\neg r \implies \neg (p \land q)$, che per De Morgan diventa $\neg r \implies (\neg p \lor \neg q)$.
 
 3.  **(3) $(\neg p \lor \neg q) \implies \neg r$**
     *   Traduzione: "Se un numero NON è multiplo di 2 OPPURE NON è multiplo di 3, allora NON è multiplo di 6".
     *   **Valore di Verità: VERO**. Se non è multiplo di 2, non può essere multiplo di 6. Se non è multiplo di 3, non può essere multiplo di 6. Quindi, se vale almeno una delle due negazioni, non può essere multiplo di 6.
-    *   > [!TIP] Questa è equivalente alla contrapposta di (1), cioè $\neg r \implies (\neg p \lor \neg q)$. Quindi, poiché (1) è vera, anche (3) deve essere vera.
+    *   > [!tip] Questa è equivalente alla contrapposta di (1), cioè $\neg r \implies (\neg p \lor \neg q)$. Quindi, poiché (1) è vera, anche (3) deve essere vera.
 
 4.  **(4) $\neg r \implies (\neg p \land \neg q)$**
     *   Traduzione: "Se un numero NON è multiplo di 6, allora NON è multiplo di 2 E NON è multiplo di 3".
@@ -88,7 +88,7 @@ Analizziamo le implicazioni numerate nelle tue note (Pag 4):
     *   Traduzione: "Se un numero NON è multiplo di 6, allora NON è multiplo di 2 OPPURE NON è multiplo di 3".
     *   **Valore di Verità: VERO**. Questa è la contrapposta di (1) e anche equivalente a (3). Se un numero non è multiplo di 6, significa che gli manca almeno uno dei fattori primi 2 o 3. Quindi o non è multiplo di 2, o non è multiplo di 3 (o entrambi).
 
-> [!SUMMARY] Analisi Argomento
+> [!abstract] Analisi Argomento
 > * L'implicazione (1) è vera per definizione di multiplo di 6.
 > * L'implicazione (2) è vera, ma non è legata a (1) da regole semplici come la contrapposizione.
 > * L'implicazione (3) è vera ed è equivalente alla contrapposta di (1).
@@ -140,7 +140,7 @@ Come si nega un'affermazione con $\forall$ o $\exists$?
     *   Formula: $\neg (\exists x P(x)) \iff \forall x (\neg P(x))$
     *   Esempio: Negare "Esiste un numero reale il cui quadrato è negativo" ($\exists x (x^2 < 0)$) significa "Per tutti i numeri reali, il loro quadrato NON è negativo" ($\forall x \neg (x^2 < 0)$, cioè $\forall x (x^2 \ge 0)$).
 
-> [!IMPORTANT] Queste regole sono fondamentali per fare dimostrazioni per assurdo o per capire cosa significa falsificare un'affermazione universale o esistenziale.
+> [!info] Queste regole sono fondamentali per fare dimostrazioni per assurdo o per capire cosa significa falsificare un'affermazione universale o esistenziale.
 > [[Negazione dei Quantificatori]]
 
 ### 2.3 Ordine dei Quantificatori
@@ -155,7 +155,7 @@ Consideriamo un predicato $\varphi(x, y)$ con due variabili.
 *   **$\exists y \forall x \, \varphi(x, y)$**: "Esiste (almeno) un $y$ (fisso, lo stesso per tutti) tale che per ogni $x$, $\varphi(x, y)$ è vera."
     *   Esempio (Universo $\mathbb{R}$): $\exists y \forall x (y > x)$. ("Esiste un numero reale y che è più grande di tutti i numeri reali x"). **FALSO**. Non esiste un numero reale massimo.
 
-> [!WARNING] In generale: $\exists y \forall x \, \varphi(x, y) \implies \forall x \exists y \, \varphi(x, y)$
+> [!warning] In generale: $\exists y \forall x \, \varphi(x, y) \implies \forall x \exists y \, \varphi(x, y)$
 > L'implicazione inversa **NON** vale! Se per ogni x trovo un y *diverso*, non è detto che esista un y *unico* che vada bene per tutti gli x.
 
 *   Esempio dalle note (Pag 8): $\varphi(x,y)$ è $x \cdot y = x$. Universo $\mathbb{N} = \{1, 2, 3, ...\}$.
@@ -180,7 +180,7 @@ Data una funzione $f: A \to B$.
 *   Definizione Formale: $\vec{f}(X) = \{ f(x) \mid x \in X \}$
 *   Proprietà: $\vec{f}(X) \subseteq B$
 
-> [!NOTE] L'immagine $\vec{f}(X)$ contiene i *risultati* della funzione applicata agli elementi di $X$.
+> [!info] L'immagine $\vec{f}(X)$ contiene i *risultati* della funzione applicata agli elementi di $X$.
 
 *   Esempio (Pag 13): $f: \mathbb{Z} \to \mathbb{Z}$ definita da $f(x) = |x|$. Sia $X = \{-2, 5, -5\}$.
     *   $\vec{f}(X) = \{ f(-2), f(5), f(-5) \} = \{ |-2|, |5|, |-5| \} = \{ 2, 5, 5 \} = \{2, 5\}$. (Ricorda: gli insiemi non hanno ripetizioni).
@@ -200,7 +200,7 @@ Data una funzione $f: A \to B$.
 *   Definizione Formale: $\overleftarrow{f}(Y) = \{ x \in A \mid f(x) \in Y \}$
 *   Proprietà: $\overleftarrow{f}(Y) \subseteq A$
 
-> [!NOTE] La controimmagine $\overleftarrow{f}(Y)$ contiene gli *input* della funzione che producono risultati appartenenti a $Y$.
+> [!info] La controimmagine $\overleftarrow{f}(Y)$ contiene gli *input* della funzione che producono risultati appartenenti a $Y$.
 
 *   Esempio (Pag 13): $f: \mathbb{Z} \to \mathbb{Z}$ definita da $f(x) = |x|$. Sia $Y = \{2, 5\}$.
     *   $\overleftarrow{f}(Y) = \{ x \in \mathbb{Z} \mid f(x) \in \{2, 5\} \} = \{ x \in \mathbb{Z} \mid |x| = 2 \text{ oppure } |x| = 5 \}$
@@ -247,7 +247,7 @@ Una proprietà molto importante delle funzioni.
     $$
     *   **Spiegazione:** Se una funzione fosse non iniettiva, esisterebbero $x_1 \neq x_2$ con $f(x_1)=f(x_2)=b$. Ma allora la controimmagine di $b$, $\overleftarrow{f}(\{b\})$, conterrebbe sia $x_1$ che $x_2$, e quindi avrebbe cardinalità $\ge 2$. Viceversa, se la controimmagine di ogni $b$ ha al massimo un elemento, non possono esistere due $x$ distinti che mappano allo stesso $b$.
 
-> [!TIP] Per dimostrare che $f$ è iniettiva, parti da $f(x_1)=f(x_2)$ e cerca di dedurre $x_1=x_2$.
+> [!tip] Per dimostrare che $f$ è iniettiva, parti da $f(x_1)=f(x_2)$ e cerca di dedurre $x_1=x_2$.
 > Per dimostrare che $f$ NON è iniettiva, trova due $x_1 \neq x_2$ specifici tali che $f(x_1)=f(x_2)$.
 
 [[Funzione Iniettiva]]
@@ -309,7 +309,7 @@ Un modo per "dividere" un insieme in pezzi disgiunti.
     3.  **I pezzi ricoprono tutto l'insieme:** L'unione di tutti i sottoinsiemi nella famiglia $\mathcal{F}$ deve dare l'insieme originale $S$.
         $$ \bigcup_{X \in \mathcal{F}} X = S $$
 
-> [!NOTE] Immagina di rompere un piatto $S$. I frammenti $X_i$ formano una partizione: nessun frammento è vuoto, due frammenti diversi non si sovrappongono (a parte i bordi, che qui ignoriamo), e rimettendo insieme tutti i frammenti ottieni il piatto originale.
+> [!info] Immagina di rompere un piatto $S$. I frammenti $X_i$ formano una partizione: nessun frammento è vuoto, due frammenti diversi non si sovrappongono (a parte i bordi, che qui ignoriamo), e rimettendo insieme tutti i frammenti ottieni il piatto originale.
 
 *   **Esempi (Pag 27):** Sia $S = \{a, b, c\}$.
     *   **Partizioni Banali:**
@@ -337,7 +337,7 @@ Un modo per "dividere" un insieme in pezzi disgiunti.
 
 ---
 
-> [!SUMMARY] Riepilogo Veloce Lezione 2
+> [!abstract] Riepilogo Veloce Lezione 2
 > *   Abbiamo rivisto tautologie importanti come la **transitività** e la **contrapposizione** dell'implicazione, e l'equivalenza del **bicondizionale**.
 > *   Abbiamo analizzato un'argomentazione logica concreta.
 > *   Abbiamo imparato a **negare i quantificatori** ($\neg \forall \iff \exists \neg$, $\neg \exists \iff \forall \neg$).
@@ -346,7 +346,7 @@ Un modo per "dividere" un insieme in pezzi disgiunti.
 > *   Abbiamo definito la **funzione iniettiva** (diversi input $\implies$ diversi output) e visto diversi modi per caratterizzarla (definizione formale, contrapposta, negazione, tramite controimmagine di singleton).
 > *   Abbiamo introdotto il concetto di **partizione** di un insieme (divisione in pezzi non vuoti e disgiunti che ricoprono tutto).
 
-> [!TIP] Prossimi Passi
+> [!tip] Prossimi Passi
 > *   Assicurati di aver compreso bene la differenza tra immagine e controimmagine. Prova a calcolarle per funzioni semplici.
 > *   Fai pratica nel dimostrare se una funzione è iniettiva o meno. Trovare un controesempio è spesso il modo più rapido per dimostrare la non-iniettività.
 > *   Rifletti sul legame tra partizioni e relazioni di equivalenza (lo vedremo presto!).

@@ -130,7 +130,7 @@ $$H(X) = p \log_2 \frac{1}{p} + (1-p) \log_2 \frac{1}{1-p}$$
 
 Proprietà: $0 \leq H(X) \leq 1$, con $H(X) = 1$ se e solo se $p = 1/2$.
 
-> [!important] Implicazione per i file compressi
+> [!info] Implicazione per i file compressi
 > Una variabile Bernoulliana porta al più 1 bit di informazione, e esattamente 1 bit solo quando $p = 1/2$ (i due valori sono equiprobabili). Un file compresso idealmente è una sequenza binaria in cui 0 e 1 sono equiprobabili e statisticamente indipendenti: questa è la condizione di massima complessità informazionale.
 
 ### Entropia di una variabile quaternaria uniforme
@@ -141,7 +141,7 @@ $$H(X) = 4 \cdot \frac{1}{4} \log_2 4 = \log_2 4 = 2 \text{ bit}$$
 
 Una variabile quaternaria equiprobabile porta 2 bit di informazione, coerentemente con il fatto che 4 valori si codificano con 2 bit binari.
 
-> [!quote]
+> [!tip]
 > "Una variabile bistabile trasporta una quantità di informazione che è al più un bit."
 
 ---
@@ -296,7 +296,7 @@ $$P(6,5) = \frac{1}{2} \cdot \frac{1}{36} + \frac{1}{2} \cdot \frac{1}{20} = \fr
 
 #### Confronto: $P(6,5)$ vs. $P(5,6)$
 
-> [!important] Asimmetria della coppia $(6,5)$ vs $(5,6)$
+> [!info] Asimmetria della coppia $(6,5)$ vs $(5,6)$
 > Per il calcolo di $P(X_1=5, X_2=6)$: dato $X_1=5$ (dispari), si **cambia dado**. Quindi, se il primo dado era onesto, il secondo è truccato (e viceversa). Questo cambia radicalmente le probabilità:
 >
 > - Dado onesto primo: $P(X_1=5|\text{onesto})=1/6$. Dato $X_1=5$ (dispari), si usa il dado truccato: $P(X_2=6|\text{truccato})=1/2$. Contributo: $1/6 \cdot 1/2 = 1/12$.
@@ -308,7 +308,7 @@ $$P(6,5) = \frac{1}{2} \cdot \frac{1}{36} + \frac{1}{2} \cdot \frac{1}{20} = \fr
 
 ---
 
-> [!summary] Punti chiave della lezione
+> [!abstract] Punti chiave della lezione
 > - Nel canale binario simmetrico la probabilità di errore è $\varepsilon$ indipendentemente dall'input; il caso peggiore è $\varepsilon=1/2$ (l'uscita non dà informazioni sull'ingresso).
 > - L'entropia $H(X) = E[\log_2(1/p_X(X))]$ misura la quantità media di informazione in bit; per una variabile Bernoulliana vale al più 1 bit, raggiunto con $p=1/2$.
 > - La PMF marginale è la media della PMF condizionale rispetto alla variabile condizionante.

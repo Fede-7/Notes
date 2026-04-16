@@ -24,7 +24,7 @@ Questo teorema stabilisce un legame profondo e fondamentale tra due concetti app
 
 *   **Osservazione Chiave (Pag 1):** Le proprietà 1, 2, 3 delle classi di equivalenza sono esattamente le proprietà che definiscono una **partizione**! L'insieme quoziente $S/\mathcal{R}$ è una partizione di $S$.
 
-> [!THEOREM] Teorema Fondamentale sulle Relazioni di Equivalenza (Pag 2)
+> [!info] Teorema Fondamentale sulle Relazioni di Equivalenza (Pag 2)
 > Sia $S$ un insieme non vuoto ($S \neq \emptyset$). Esiste una **corrispondenza biunivoca** tra l'insieme di tutte le relazioni di equivalenza su $S$ e l'insieme di tutte le partizioni di $S$.
 >
 > i)  **Da Relazione a Partizione:** Se $\mathcal{R}$ è una relazione di equivalenza su $S$, allora l'insieme quoziente $S/\mathcal{R} = \{ [a]_{\mathcal{R}} \mid a \in S \}$ è una partizione di $S$.
@@ -73,7 +73,7 @@ Questo teorema stabilisce un legame profondo e fondamentale tra due concetti app
 
 Ogni funzione definisce naturalmente una relazione di equivalenza sul suo dominio.
 
-> [!THEOREM] Teorema (Pag 8): Relazione di Equivalenza Indotta da una Funzione
+> [!info] Teorema (Pag 8): Relazione di Equivalenza Indotta da una Funzione
 > Siano $S, T$ insiemi non vuoti e $f: S \to T$ una funzione.
 > La relazione $\mathcal{R}_f$ su $S$ definita da:
 > $$ x \mathcal{R}_f y \iff f(x) = f(y) $$
@@ -230,7 +230,7 @@ e
 $$ 0 \le r < m $$
 Il valore $r$ è denotato come $\text{rest}(a,m)$.
 
-> [!THEOREM] Equivalenza tra Congruenza Modulo m e Uguaglianza dei Resti (Pag 26)
+> [!info] Equivalenza tra Congruenza Modulo m e Uguaglianza dei Resti (Pag 26)
 > Siano $a, b \in \mathbb{Z}$ e $m \in \mathbb{Z}$ con $m \ge 2$. Allora:
 > $$ a \equiv b \pmod{m} \iff \text{rest}(a, m) = \text{rest}(b, m) $$
 > In altre parole, due interi sono congrui modulo $m$ se e solo se hanno lo stesso resto nella divisione euclidea per $m$.
@@ -294,7 +294,7 @@ Questo teorema implica che le classi di equivalenza modulo $m$ (per $m \ge 2$) s
 
 La relazione di congruenza modulo $m$ non è solo una relazione di equivalenza, ma è anche una **congruenza** rispetto alle operazioni di addizione e moltiplicazione definite su $\mathbb{Z}$. Questo è un risultato cruciale.
 
-> [!THEOREM] Compatibilità della Congruenza Modulo m con Addizione e Moltiplicazione
+> [!info] Compatibilità della Congruenza Modulo m con Addizione e Moltiplicazione
 > Siano $a, b, c, d \in \mathbb{Z}$ e $m \in \mathbb{Z}$ con $m \neq 0$. Se
 > *   $a \equiv c \pmod{m}$
 > *   $b \equiv d \pmod{m}$
@@ -351,7 +351,7 @@ L'insieme $\mathbb{Z}_m$ con queste operazioni forma una nuova e fondamentale st
 
 ---
 
-> [!SUMMARY] Riepilogo Veloce Lezione 12
+> [!abstract] Riepilogo Veloce Lezione 12
 > *   Il **Teorema Fondamentale** stabilisce una corrispondenza 1:1 tra **relazioni di equivalenza** su $S$ e **partizioni** di $S$. La partizione associata a $\mathcal{R}$ è l'insieme quoziente $S/\mathcal{R}$. La relazione associata a $\mathcal{F}$ è $x \mathcal{R}_{\mathcal{F}} y \iff x, y$ appartengono allo stesso blocco di $\mathcal{F}$.
 > *   Ogni **funzione** $f: S \to T$ induce una relazione di equivalenza $\mathcal{R}_f$ su $S$ ($x \mathcal{R}_f y \iff f(x)=f(y)$).
 > *   Esiste una **mappa quoziente iniettiva** $\bar{f}: S/\mathcal{R}_f \to T$ tale che $\bar{f}([a]) = f(a)$.
@@ -359,7 +359,7 @@ L'insieme $\mathbb{Z}_m$ con queste operazioni forma una nuova e fondamentale st
 > *   La **congruenza modulo m** ($a \equiv b \pmod{m} \iff m \mid (a-b)$) è una relazione di equivalenza su $\mathbb{Z}$.
 > *   Per $m \ge 2$, $a \equiv b \pmod{m} \iff \text{rest}(a, m) = \text{rest}(b, m)$.
 
-> [!TIP] Prossimi Passi
+> [!tip] Prossimi Passi
 > *   Assicurati di aver compreso il legame tra relazioni di equivalenza, classi di equivalenza e partizioni.
 > *   Rifletti su come la relazione indotta da una funzione "raggruppa" gli elementi del dominio che hanno la stessa immagine.
 > *   La congruenza modulo m è fondamentale. Il prossimo passo sarà studiare la struttura dell'insieme quoziente $\mathbb{Z}_m$ (l'anello delle classi di resto modulo m).

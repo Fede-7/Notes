@@ -23,7 +23,7 @@ Sia $S$ un insieme non vuoto e $\mathcal{R}$ una relazione binaria su $S$.
     1.  **Antiriflessiva (o Irriflessiva):** $\forall x \in S, \neg (x \mathcal{R}' x)$.
     2.  **Transitiva:** $\forall x, y, z \in S, (x \mathcal{R}' y \land y \mathcal{R}' z) \implies x \mathcal{R}' z$.
     *   *Notazione comune:* Spesso si usa il simbolo $<$ (o $\prec$) per denotare una generica relazione d'ordine stretto.
-    > [!NOTE] Una relazione d'ordine stretto è automaticamente asimmetrica. Se fosse $x \mathcal{R}' y$ e $y \mathcal{R}' x$, per transitività avremmo $x \mathcal{R}' x$, il che contraddice l'antiriflessività.
+    > [!info] Una relazione d'ordine stretto è automaticamente asimmetrica. Se fosse $x \mathcal{R}' y$ e $y \mathcal{R}' x$, per transitività avremmo $x \mathcal{R}' x$, il che contraddice l'antiriflessività.
 
 [[Relazione d'ordine]] [[Relazione d'ordine stretto]]
 
@@ -255,7 +255,7 @@ Sia $(S, \le)$ un insieme parzialmente ordinato.
 
 ## 7. Esercizi Proposti
 
-> [!EXERCISE] Esercizio 1 (Pag 24 - Ordine tramite Funzione)
+> [!example] Esercizio 1 (Pag 24 - Ordine tramite Funzione)
 > Siano $(S, \le_S)$ e $(T, \le_T)$ insiemi ordinati, e $f: S \to T$ una funzione.
 > Definiamo una relazione $\le_f$ su $S$ come:
 > $$ a \le_f b \iff (a=b) \lor (f(a) <_T f(b)) $$
@@ -279,14 +279,14 @@ Sia $(S, \le)$ un insieme parzialmente ordinato.
 >     Determinare $\vec{f}(\mathbb{Z})$, $\min(\vec{f}(\mathbb{Z}))$.
 >     Determinare $\overleftarrow{f}(\{1\})$.
 
-> [!EXERCISE] Esercizio 2 (Pag 30 - DA FARE)
+> [!example] Esercizio 2 (Pag 30 - DA FARE)
 > Sia $(P(S), \mathcal{R})$ con $S=\{a,b,c\}$ e $X \mathcal{R} Y \iff (X=Y) \lor (|X| < |Y|)$.
 > Trovare gli elementi minimali e massimali di $P(S) \setminus \{\{a,b\}, \{a,c\}\}$.
 > Disegnare il diagramma di Hasse di questo sottoinsieme ordinato.
 
 ---
 
-> [!SUMMARY] Riepilogo Veloce Lezione 17
+> [!abstract] Riepilogo Veloce Lezione 17
 > *   Abbiamo definito le **relazioni d'ordine largo** (riflessiva, antisimmetrica, transitiva) e **stretto** (antiriflessiva, transitiva) e la loro corrispondenza.
 > *   Un ordine è **totale** se tutti gli elementi sono confrontabili, altrimenti è **parziale**.
 > *   I **Diagrammi di Hasse** visualizzano ordini finiti mostrando solo le relazioni di copertura.
@@ -294,7 +294,7 @@ Sia $(S, \le)$ un insieme parzialmente ordinato.
 > *   Un insieme è **ben ordinato** se ogni suo sottoinsieme non vuoto ha un minimo (implica ordine totale).
 > *   Abbiamo definito **minoranti, maggioranti, infimum (MCD generalizzato) e supremum (mcm generalizzato)**.
 
-> [!TIP] Prossimi Passi
+> [!tip] Prossimi Passi
 > *   Svolgi gli esercizi proposti per familiarizzare con i diversi tipi di ordine e gli elementi speciali.
 > *   Le relazioni d'ordine sono fondamentali per strutture come i reticoli e le algebre di Boole.
 > *   Le relazioni di equivalenza (che vedremo) sono l'altro tipo principale di relazione con proprietà strutturali importanti.}

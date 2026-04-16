@@ -119,7 +119,7 @@ La covarianza misura il grado di **co-variazione** tra due variabili:
 - **Negativa**: le deviazioni tendono a essere di segno opposto (se $X$ è sopra la media, $Y$ tende ad essere sotto).
 - **Zero**: non esiste una tendenza lineare di co-variazione.
 
-> [!important] Indipendenza implica incorrelazione
+> [!info] Indipendenza implica incorrelazione
 > Se $X$ e $Y$ sono indipendenti, allora $\text{Cov}(X, Y) = 0$:
 > $$E[XY] = E[X]E[Y] \quad \Rightarrow \quad \text{Cov}(X,Y) = 0$$
 > Però l'implicazione non vale al contrario: variabili non correlate (covarianza nulla) **non sono necessariamente indipendenti**.
@@ -204,14 +204,14 @@ graph TD
 
 Le frecce indicano implicazioni. Convergenza con prob. 1 e convergenza in media quadratica sono entrambe **forti**, ma non si implicano a vicenda. Entrambe implicano la convergenza in probabilità (la più debole).
 
-> [!quote]
+> [!tip]
 > "La probabilità è definita come il limite della frequenza di successo. Questo ha senso matematico rigoroso: la frequenza converge alla probabilità in media quadratica e in probabilità. La nostra definizione era corretta fin dall'inizio."
 
 ### Nota sul problema circolare
 
 La definizione frequentistica richiede che le prove siano **indipendenti** — ma l'indipendenza è essa stessa un concetto probabilistico. L'approccio formale (assiomi di Kolmogorov) risolve questo problema: si definisce prima la probabilità assiomaticamente, poi si dimostra che la frequenza converge a essa.
 
-> [!quote]
+> [!tip]
 > "Il professore Conte me lo contesta sempre: per definire la probabilità usi la frequenza, ma per dire che è una frequenza hai bisogno dell'indipendenza, che è un concetto probabilistico. È il cane che si morde la coda. In realtà non serve strettamente l'indipendenza: basta un'asintotica indipendenza."
 
 ---
@@ -259,12 +259,12 @@ Per la roulette ($b = 36$, $a = 18/37$): $g(k) = 34 \cdot 2^{k-1} + 1$.
 > [!warning] Paradosso della martingala
 > Se il limite di puntata $S \to \infty$ (patrimonio infinito, nessun limite), la martingala garantisce di vincere con probabilità 1 — ed è per questo che i casinò impongono un **limite massimo di puntata**. Con un qualunque limite finito $S$, il guadagno medio è negativo per il giocatore (il banco ha sempre un vantaggio statistico).
 
-> [!quote]
+> [!tip]
 > "Il guadagno medio per $S \to \infty$ diverge. Ma attenzione: fare il limite di $S$ al denominatore non è lo stesso che calcolare il guadagno con $S$ infinito. La convergenza è in probabilità, non puntuale. Questo è un esempio di convergenza in probabilità che non implica nulla sul limite dei valori attesi."
 
 ---
 
-> [!summary] Punti chiave della lezione
+> [!abstract] Punti chiave della lezione
 > - La **varianza** misura l'aleatorietà: $\sigma_X^2$ piccolo significa variabile concentrata intorno alla media. La coppia $(\mu_X, \sigma_X)$ caratterizza globalmente $X$.
 > - La **disuguaglianza di Chebyshev** quantifica quanto raramente una variabile si discosta dalla media: $P(|X-\mu_X| \geq k\sigma_X) \leq 1/k^2$.
 > - **Media** è lineare: $E[aX+b] = aE[X]+b$. **Varianza** è invariante per traslazione e covariante per scala: $\text{Var}(aX+b) = a^2\text{Var}(X)$.

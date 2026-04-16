@@ -85,28 +85,28 @@ Sia $(S, *)$ una struttura con operazione binaria. Un elemento $a \in S$ è:
 
 ## 3. Esercizi Proposti (come da note e suggerimento)
 
-> [!EXERCISE] Esercizio 1 (Pag 13 - Verifica Associatività)
+> [!example] Esercizio 1 (Pag 13 - Verifica Associatività)
 > Verificare se vale o meno l'associatività per le seguenti operazioni su $\mathbb{Z}$:
 > 1.  $a * b = a + |b|$
 > 2.  $a \perp b = |a| + |b|$
 > 3.  $a \circ b = |a + b|$
 > 4.  $a \star b = -|a \cdot b|$
 
-> [!EXERCISE] Esercizio 2 (Pag 14 - Divisori Zero in $\mathbb{Z}^{\mathbb{Z}}$)
+> [!example] Esercizio 2 (Pag 14 - Divisori Zero in $\mathbb{Z}^{\mathbb{Z}}$)
 > Determinare gli eventuali divisori dello zero nell'anello $(\mathbb{Z}^{\mathbb{Z}}, +, \cdot)$, dove $+$ e $\cdot$ sono definiti puntualmente: $(f+g)(x) = f(x)+g(x)$ e $(f \cdot g)(x) = f(x)g(x)$. L'elemento neutro additivo è la funzione costante $cost_0(x)=0$.
 > *Suggerimento: Una funzione $f \neq cost_0$ è divisore dello zero se esiste $g \neq cost_0$ tale che $f \cdot g = cost_0$. Cosa significa $f(x)g(x)=0$ per ogni $x$?*
 
-> [!EXERCISE] Esercizio 3 (Pag 15 - Stabilità Funzioni Costanti)
+> [!example] Esercizio 3 (Pag 15 - Stabilità Funzioni Costanti)
 > Sia $T = \{ f \in \mathbb{Z}^{\mathbb{Z}} \mid f \text{ è costante} \}$. Verificare che $T$ è stabile (chiuso) rispetto a $+$ e $\cdot$ in $\mathbb{Z}^{\mathbb{Z}}$. È un sottoanello?
 
-> [!EXERCISE] Esercizio 4 (Pag 15 - Studio Struttura $\mathbb{Z}$)
+> [!example] Esercizio 4 (Pag 15 - Studio Struttura $\mathbb{Z}$)
 > Studiare la struttura $(\mathbb{Z}, *)$ dove $a * b = a + b + 4ab$.
 > *   Verificare associatività e commutatività.
 > *   Cercare l'eventuale elemento neutro.
 > *   Determinare gli eventuali elementi invertibili (simmetrici).
 > *   È un monoide? È un gruppo?
 
-> [!EXERCISE] Esercizio 5 (Pag 16-18 - Studio Struttura $\mathbb{Q}^2$)
+> [!example] Esercizio 5 (Pag 16-18 - Studio Struttura $\mathbb{Q}^2$)
 > Studiare la struttura $(\mathbb{Q}^2, *)$ dove $(x_1, x_2) * (y_1, y_2) = (x_1y_1 + x_2y_2, 3x_2y_2)$.
 > *   Verificare se vale la proprietà associativa.
 > *   Verificare se è commutativa.
@@ -115,7 +115,7 @@ Sia $(S, *)$ una struttura con operazione binaria. Un elemento $a \in S$ è:
 > *   È un semigruppo? Monoide? Gruppo?
 > *   Considerare la stabilità del sottoinsieme $T = \mathbb{Q} \times \{0\}$.
 
-> [!EXERCISE] Esercizio 6 (Pag 19-20 - Studio Struttura $\mathbb{Q}^3$ e Anello)
+> [!example] Esercizio 6 (Pag 19-20 - Studio Struttura $\mathbb{Q}^3$ e Anello)
 > Studiare la struttura $(\mathbb{Q}^3, *)$ dove $(x_1, x_2, x_3) * (y_1, y_2, y_3) = (x_1y_1, x_2y_1 + x_3y_2, x_3y_3)$.
 > *   Verificare se è associativa.
 > *   Verificare se è commutativa.
@@ -131,14 +131,14 @@ Sia $(S, *)$ una struttura con operazione binaria. Un elemento $a \in S$ è:
 >     *   $(Y + Z) * X = (Y * X) + (Z * X)$ ?
 >     (dove $X=(x_1,x_2,x_3)$, $Y=(y_1,y_2,y_3)$, $Z=(z_1,z_2,z_3)$).
 
-> [!EXERCISE] Esercizio 7 (Pag 21 - Stabilità Sottoinsiemi $\mathbb{Z}$)
+> [!example] Esercizio 7 (Pag 21 - Stabilità Sottoinsiemi $\mathbb{Z}$)
 > Nella struttura $(\mathbb{Z}, *)$ con $a * b = a|b|$, verificare quali dei seguenti sottoinsiemi sono stabili:
 > *   $P = \{ 2n \mid n \in \mathbb{Z} \}$ (Pari)
 > *   $D = \{ 2n+1 \mid n \in \mathbb{Z} \}$ (Dispari)
 > *   $S = \{ n \in \mathbb{Z} \mid n < 0 \}$ (Negativi)
 > *   $L = \{ n \in \mathbb{Z} \mid n > 0 \}$ (Positivi)
 
-> [!EXERCISE] Esercizio 8 (Pag 22 - Studio Strutture $\mathbb{Z}$)
+> [!example] Esercizio 8 (Pag 22 - Studio Strutture $\mathbb{Z}$)
 > Studiare le strutture $(\mathbb{Z}, \perp)$ con $a \perp b = 2ab - a - b$ e $(\mathbb{Z}, \circ)$ con $a \circ b = a + b + 2ab$.
 > *   Verificare associatività, commutatività.
 > *   Cercare elemento neutro.
@@ -276,7 +276,7 @@ Un esempio importante di gruppo non abeliano.
 
 ---
 
-> [!SUMMARY] Riepilogo Veloce Lezione 8
+> [!abstract] Riepilogo Veloce Lezione 8
 > *   Abbiamo rivisto la **cancellabilità** e la sua relazione (non equivalenza) con l'invertibilità.
 > *   Abbiamo definito la notazione per **multipli additivi e potenze moltiplicative** in anelli.
 > *   Abbiamo dimostrato che $a \cdot 0_A = 0_A$.
@@ -288,7 +288,7 @@ Un esempio importante di gruppo non abeliano.
 > *   Abbiamo introdotto il **Gruppo Simmetrico $S_n$** (permutazioni), la notazione ciclica, la decomposizione in cicli disgiunti e il calcolo dell'inversa.
 > *   Sono stati proposti numerosi **esercizi** per praticare questi concetti.
 
-> [!TIP] Prossimi Passi
+> [!tip] Prossimi Passi
 > *   Prova a svolgere gli esercizi proposti, in particolare quelli sullo studio delle strutture e sulla verifica delle proprietà (anello, associatività, commutatività, neutro, inversi, divisori dello zero).
 > *   Familiarizza con la notazione ciclica delle permutazioni.
 > *   Il prossimo passo potrebbe essere approfondire le proprietà dei gruppi (sottogruppi, teorema di Lagrange) o degli anelli (ideali, anelli quoziente).

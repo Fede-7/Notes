@@ -11,7 +11,7 @@ Un reticolo può essere visto in due modi equivalenti, come due sentieri che por
 
 ### 1.1. Definizione tramite Insieme Parzialmente Ordinato (Poset)
 
-> [!NOTE] Definizione (come Poset)
+> [!info] Definizione (come Poset)
 > Un insieme parzialmente ordinato $(L, \le)$ è un **reticolo** se, per ogni coppia di elementi $a, b \in L$, esistono sempre:
 > 1.  L'**estremo inferiore** (infimum) di $\{a, b\}$, denotato come $a \wedge b$ (letto "a meet b" o "a inf b").
 > 2.  L'**estremo superiore** (supremum) di $\{a, b\}$, denotato come $a \vee b$ (letto "a join b" o "a sup b").
@@ -24,7 +24,7 @@ Visualizza $a \wedge b$ come il punto d'incontro più "basso" raggiungibile da $
 
 ### 1.2. Definizione tramite Struttura Algebrica
 
-> [!NOTE] Definizione (come Struttura Algebrica)
+> [!info] Definizione (come Struttura Algebrica)
 > Una struttura algebrica $(L, \wedge, \vee)$, dove $\wedge$ e $\vee$ sono operazioni binarie su $L$, è un **reticolo** se valgono le seguenti proprietà per tutti gli $a, b, c \in L$:
 > 1.  **Leggi Associative**:
 >     $$ (a \wedge b) \wedge c = a \wedge (b \wedge c) $$
@@ -46,7 +46,7 @@ La relazione d'ordine $\le$ e le operazioni $\wedge, \vee$ sono intimamente coll
 Per $a, b \in L$:
 $$ a \le b \iff a \wedge b = a \iff a \vee b = b $$
 
-> [!TIP] Suggerimento per la Memoria
+> [!tip] Suggerimento per la Memoria
 > *   $a \wedge b = a \implies a$ è "sotto" $b$ (o uguale), quindi $a \le b$.
 > *   $a \vee b = b \implies b$ è "sopra" $a$ (o uguale), quindi $a \le b$.
 
@@ -58,7 +58,7 @@ Vediamo alcuni esempi per rendere il concetto più concreto.
 
 ### 2.1. Insiemi Totalmente Ordinati
 
-> [!EXAMPLE] Esempio: Insiemi Totalmente Ordinati
+> [!example] Esempio: Insiemi Totalmente Ordinati
 > Se $(S, \le)$ è un **insieme totalmente ordinato** (cioè, per ogni $a, b \in S$, o $a \le b$ o $b \le a$), allora $S$ è un reticolo.
 > *   **Perché?** Se $a \le b$:
 >     *   $a \wedge b = a$ (l'infimum è $a$)
@@ -68,7 +68,7 @@ Vediamo alcuni esempi per rendere il concetto più concreto.
 
 ### 2.2. L'Insieme delle Parti $\mathcal{P}(S)$
 
-> [!EXAMPLE] Esempio: Insieme delle Parti
+> [!example] Esempio: Insieme delle Parti
 > Sia $S$ un insieme. L'insieme delle sue parti, $\mathcal{P}(S)$, con la relazione di inclusione $\subseteq$, forma un reticolo.
 > Qui:
 > *   $A \wedge B = A \cap B$ (l'intersezione è il più grande sottoinsieme comune)
@@ -76,7 +76,7 @@ Vediamo alcuni esempi per rendere il concetto più concreto.
 >
 > Quindi, $(\mathcal{P}(S), \cap, \cup)$ è la struttura algebrica del reticolo.
 
-> [!IMPORTANT] Attenzione!
+> [!info] Attenzione!
 > **Non tutti i reticoli sono totalmente ordinati!**
 > Pensa a $\mathcal{P}(\{1,2\}) = \{\emptyset, \{1\}, \{2\}, \{1,2\}\}$.
 > Qui, $\{1\}$ e $\{2\}$ non sono confrontabili (né $\{1\} \subseteq \{2\}$ né $\{2\} \subseteq \{1\}$).
@@ -90,7 +90,7 @@ Vediamo alcuni esempi per rendere il concetto più concreto.
 
 Alcuni reticoli hanno degli elementi "speciali" che fungono da minimo e massimo assoluto.
 
-> [!NOTE] Definizione: Reticolo Limitato
+> [!info] Definizione: Reticolo Limitato
 > Un reticolo $L$ si dice **limitato** se possiede:
 > *   Un **elemento minimo assoluto**, denotato con $0$ (o $0_L$), tale che $0 \le a$ per ogni $a \in L$.
 > *   Un **elemento massimo assoluto**, denotato con $1$ (o $1_L$), tale che $a \le 1$ per ogni $a \in L$.
@@ -113,11 +113,11 @@ Immagina $0$ come il "punto di partenza" o il "pavimento" del reticolo, e $1$ co
     *   $0_{\mathbb{D}_n} = 1$ (1 divide tutti gli altri divisori)
     *   $1_{\mathbb{D}_n} = n$ (n è divisibile per tutti gli altri divisori)
 
-> [!TIP] Reticoli Finiti
+> [!tip] Reticoli Finiti
 > **Ogni reticolo finito è limitato!**
 > Se hai un numero finito di elementi, puoi sempre trovare un minimo e un massimo (potrebbero non essere unici se non fosse un reticolo, ma in un reticolo l'esistenza di inf/sup per ogni coppia garantisce un minimo e massimo globale unici).
 
-> [!CAUTION] Attenzione con $(\mathbb{N}^*, |)$
+> [!warning] Attenzione con $(\mathbb{N}^*, |)$
 > L'insieme di **tutti** i numeri naturali positivi $(\mathbb{N}^*, |)$ con la divisibilità è un reticolo:
 > *   $a \wedge b = \text{MCD}(a,b)$
 > *   $a \vee b = \text{mcm}(a,b)$
@@ -170,7 +170,7 @@ I diagrammi di Hasse sono un modo fantastico per visualizzare i reticoli finiti.
     ```
     Il tuo "Reticolo Trizettangolo golo" (M3 o diamante) è corretto.
 
-> [!QUESTION] Proviamo a Riflettere
+> [!question] Proviamo a Riflettere
 > Guardando i diagrammi M3 e N5 (quello standard), riesci a trovare coppie di elementi e calcolare il loro $\wedge$ (meet) e $\vee$ (join)?
 > Ad esempio, in M3, cosa sono $a \wedge b$ e $a \vee b$?
 
@@ -180,7 +180,7 @@ I diagrammi di Hasse sono un modo fantastico per visualizzare i reticoli finiti.
 
 Proprio come gli insiemi hanno sottoinsiemi e i gruppi hanno sottogruppi, i reticoli hanno i sottoreticoli!
 
-> [!NOTE] Definizione: Sottoreticolo
+> [!info] Definizione: Sottoreticolo
 > Sia $(L, \wedge_L, \vee_L)$ un reticolo e sia $A \subseteq L$ un sottoinsieme non vuoto di $L$.
 > $A$ è un **sottoreticolo** di $L$ se $A$ è chiuso rispetto alle operazioni $\wedge_L$ e $\vee_L$.
 > Cioè, per ogni $x, y \in A$:
@@ -210,7 +210,7 @@ Come per altre strutture algebriche, possiamo parlare di "uguaglianza struttural
 
 ### 6.1. Isomorfismo di Insiemi Parzialmente Ordinati (Poset)
 
-> [!NOTE] Definizione: Isomorfismo di Poset
+> [!info] Definizione: Isomorfismo di Poset
 > Siano $(S, \le_S)$ e $(T, \le_T)$ due poset. Una funzione $f: S \to T$ è un **isomorfismo di poset** se:
 > 1.  $f$ è **biettiva** (corrispondenza uno-a-uno e suriettiva).
 > 2.  $f$ **preserva l'ordine**: per ogni $a, b \in S$, $a \le_S b \iff f(a) \le_T f(b)$.
@@ -218,14 +218,14 @@ Come per altre strutture algebriche, possiamo parlare di "uguaglianza struttural
 
 ### 6.2. Isomorfismo di Reticoli
 
-> [!NOTE] Definizione: Isomorfismo di Reticoli
+> [!info] Definizione: Isomorfismo di Reticoli
 > Siano $(L, \wedge_L, \vee_L)$ e $(M, \wedge_M, \vee_M)$ due reticoli. Una funzione $f: L \to M$ è un **isomorfismo di reticoli** se:
 > 1.  $f$ è **biettiva**.
 > 2.  $f$ **preserva le operazioni** (è un omomorfismo):
 >     *   $f(a \wedge_L b) = f(a) \wedge_M f(b)$
 >     *   $f(a \vee_L b) = f(a) \vee_M f(b)$
 
-> [!IMPORTANT] Isomorfismo di Poset vs. Isomorfismo di Reticoli
+> [!info] Isomorfismo di Poset vs. Isomorfismo di Reticoli
 > Se $L$ e $M$ sono reticoli, un isomorfismo di poset $f: L \to M$ è **sempre** anche un isomorfismo di reticoli, e viceversa.
 > Cioè, se $f$ è biettiva e $a \le_L b \iff f(a) \le_M f(b)$, allora automaticamente $f$ preserverà le operazioni $\wedge$ e $\vee$.
 >
@@ -246,7 +246,7 @@ Come per altre strutture algebriche, possiamo parlare di "uguaglianza struttural
 
 Questa è una proprietà molto importante, specialmente per le algebre di Boole!
 
-> [!NOTE] Definizione: Reticolo Complementato
+> [!info] Definizione: Reticolo Complementato
 > Un reticolo $(L, \wedge, \vee)$ si dice **complementato** se:
 > 1.  $L$ è **limitato** (possiede $0$ e $1$).
 > 2.  Per ogni elemento $a \in L$, esiste almeno un **complemento** $\bar{a} \in L$ tale che:
@@ -285,7 +285,7 @@ Questa è una proprietà molto importante, specialmente per le algebre di Boole!
         *   Se $\bar{a}=3$: $\text{mcm}(2,3)=6 \ne 12$.
         *   Nessun elemento funziona. $2$ non ha complemento.
 
-> [!CAUTION] $(\mathbb{N}^*, |)$ (pag. 21)
+> [!warning] $(\mathbb{N}^*, |)$ (pag. 21)
 > Questo reticolo non è limitato superiormente, quindi per definizione non può essere complementato. Le tue note $(10,9)=1, (10,3)=1$ mostrano che puoi trovare elementi il cui MCD è $1$ (il $0_L$), ma questo è solo metà del lavoro. Devi anche avere $\text{mcm}(10, \bar{a}) = 1_L$, ma $1_L$ non esiste!
 
 ---
@@ -352,7 +352,7 @@ $$ a \ \sigma \ b \iff (a=b) \text{ oppure } (a|b \text{ propriamente (cioè } a
     *   La domanda se questo $L$ forma un reticolo sotto $\sigma$ è complessa. Richiederebbe di verificare l'esistenza di inf e sup per tutte le coppie usando l'ordine $\sigma$ all'interno di $L$.
     *   I tuoi appunti a pag. 28 dicono che $M = \{5,10,9,16,81,256\}$ con $f(16)=f(2^4)=4, f(81)=f(3^4)=4, f(256)=f(2^8)=8$ **NON è un reticolo**. Questo suggerisce che tali strutture non sono facilmente reticoli.
 
-> [!TIP] Affrontare Concetti Complessi
+> [!tip] Affrontare Concetti Complessi
 > Luca, la parte sull'ordine $\sigma$ è un po' un rompicapo! È un ottimo esercizio per capire come si possono definire ordini non standard. Se ti senti bloccato, concentrati sulla definizione di $f$ e $\sigma$, prova con coppie piccole, e non preoccuparti se l'analisi completa di un insieme come $L$ o $M$ sembra difficile. È normale!
 
 ---

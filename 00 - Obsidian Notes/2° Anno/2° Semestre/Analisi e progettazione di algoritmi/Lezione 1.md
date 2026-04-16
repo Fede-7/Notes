@@ -57,7 +57,7 @@ Da questo punto in poi, sia la condizione $O$ che quella $\Omega$ sono soddisfat
 	             │  solo O vale                      │  O e Ω valgono entrambi
 ```
 
-> [!note]
+> [!info]
 > Se $n_{0,2} > n_{0,1}$, c'è un intervallo $[n_{0,1}, n_{0,2})$ in cui vale solo $O$ ma non $\Omega$. Prendendo il massimo, si elimina questo problema.
 
 ---
@@ -110,7 +110,7 @@ flowchart LR
     style Ck fill:#fff3cd
 ```
 
-> [!note] Perché funziona quando $L = k$ (costante)
+> [!info] Perché funziona quando $L = k$ (costante)
 > Se $h$ tende a $k$ da sopra o da sotto, le oscillazioni diventano irrilevanti rispetto a costanti opportunamente scelte. Si trovano $c_1 < k < c_2$ tali che, da un certo $n_0$ in poi, $c_1 \leq h(n) \leq c_2$, ovvero $c_1 \cdot g(n) \leq f(n) \leq c_2 \cdot g(n)$ → definizione di $\Theta$.
 
 > [!tip] Quando usare De L'Hôpital
@@ -126,7 +126,7 @@ Vogliamo confrontare $f(n) = 4n^2 + 10n$ con $g(n) = n^2$.
 $$L = \lim_{n \to \infty} \frac{4n^2 + 10n}{n^2} = \lim_{n \to \infty} \left(4 + \frac{10}{n}\right) = 4$$
 $L$ è una costante positiva finita → $f(n) = \Theta($n^2$)$.
 
-> [!note] Proprietà generale sui polinomi
+> [!info] Proprietà generale sui polinomi
 > Per qualsiasi polinomio $f(n)$ di grado $d$ con coefficiente principale positivo:
 > $$f(n) = \Theta(n^d)$$
 > La dimostrazione è una generalizzazione diretta: tutti i termini di grado inferiore producono termini $\to 0$ nel rapporto con $n^d$.
@@ -186,7 +186,7 @@ Per $n \geq n_3$:
 $$f(n) \leq c_1 \cdot g(n) \leq c_1 \cdot c_2 \cdot h(n)$$
 Scelgo $c_3 = c_1 \cdot c_2 > 0$ (prodotto di positivi). Ho dimostrato $f = O(h)$. $\square$
 
-> [!note] Stessa dimostrazione per $\Omega$ e $\Theta$
+> [!info] Stessa dimostrazione per $\Omega$ e $\Theta$
 > Il ragionamento è identico per $\Omega$. Per $\Theta$, si combina transitività di $O$ e $\Omega$.
 
 ---
@@ -215,10 +215,10 @@ Ora $\log c_1$ e $\log c_2$ sono **costanti** (anche potenzialmente negative, ma
 $$\frac{\log g(n) + \log c_1}{\log g(n)} \leq \frac{\log f(n)}{\log g(n)} \leq \frac{\log g(n) + \log c_2}{\log g(n)}$$
 I due lati tendono entrambi a 1 (poiché $\log g(n) \to \infty$ e le costanti sommative diventano irrilevanti) → per il metodo dei limiti, il rapporto tende a una costante positiva → $\Theta$.
 
-> [!quote]
+> [!tip]
 > *"Il punto chiave è questo: una costante moltiplicativa, prendendo il logaritmo, diventa una costante additiva, e le costanti additive sono irrilevanti rispetto a funzioni che crescono all'infinito. Con l'esponenziale è il contrario: una costante moltiplicativa nell'esponente diventa un fattore moltiplicativo esponenziale, e quello non è più trascurabile."*
 
-> [!note] Generalizzazione: torri di esponenziali
+> [!info] Generalizzazione: torri di esponenziali
 > Il logaritmo "taglia" un solo livello di esponenziale. Per confrontare $2^{2^n}$ e $2^{4^n}$ bisognerebbe applicare il logaritmo due volte ($\log \log$). La torre degli esponenziali ha come inversa la torre dei logaritmi.
 
 ---
@@ -245,7 +245,7 @@ I due lati tendono entrambi a 1 (poiché $\log g(n) \to \infty$ e le costanti so
 >
 > Senza il vincolo di contiguità, basterebbe sommare tutti i valori non negativi. **Il vincolo di contiguità rende il problema non banale.**
 
-> [!note] Gestione del caso "tutti negativi"
+> [!info] Gestione del caso "tutti negativi"
 > Se tutti i valori sono negativi, la sottosequenza ottimale è quella **vuota**, con somma 0. Per questo l'algoritmo parte con $\text{somma\_massima} = 0$ — se non trova niente di meglio, la risposta sarà 0.
 
 ### Quante sono le sottosequenze contigue?
@@ -291,7 +291,7 @@ $$\boxed{T(n) = \Theta(n^3)}$$
 
 ## Anticipazione: verso l'algoritmo quadratico
 
-> [!note] *(Verrà approfondito nella prossima lezione)*
+> [!info] *(Verrà approfondito nella prossima lezione)*
 
 Il ciclo interno fa **lavoro inutile**: ogni volta che $j$ avanza di 1, ricalcola da zero l'intera somma $\sum_{k=i}^{j} A[k]$, che era già stata calcolata al passo precedente!
 
@@ -299,16 +299,16 @@ Il ciclo interno fa **lavoro inutile**: ogni volta che $j$ avanza di 1, ricalcol
 $$S([i, j+1]) = S([i, j]) + A[j+1]$$
 cioè posso estendere la sottosequenza a destra in **tempo costante**, senza ricalcolare tutto. Questo elimina il ciclo `k`, abbassando la complessità da $O($n^3$)$ a $O($n^2$)$.
 
-> [!note] *(Verrà approfondito nelle lezioni successive)*
+> [!info] *(Verrà approfondito nelle lezioni successive)*
 
 Abbassare ulteriormente da $O($n^2$)$ a $O(n)$ richiede di **non analizzare tutte le sottosequenze**, scartandone alcune con la garanzia formale che non possono contenere la soluzione ottima.
 
-> [!quote]
+> [!tip]
 > *"Il numero di sottosequenze contigue è quadratico, quindi l'unico modo di abbassare rispetto al quadratico è non analizzare tutte le sottosequenze — devo avere un modo di scartarle con la certezza di non perdere quella buona."*
 
 ---
 
-> [!summary] Punti chiave della lezione
+> [!abstract] Punti chiave della lezione
 > 1. **$\Theta = O \cap \Omega$**: la dimostrazione del verso non banale richiede di scegliere $n_0 = \max(n_{0,1}, n_{0,2})$ per garantire che entrambe le condizioni valgano contemporaneamente.
 > 2. **Transitività**: $O$, $\Omega$ e $\Theta$ sono transitive; la costante si ottiene come prodotto $c_3 = c_1 \cdot c_2$.
 > 3. **Metodo dei limiti**: $L=0 \Rightarrow o$; $L=\infty \Rightarrow \omega$; $L=k>0 \Rightarrow \Theta$. Utile De L'Hôpital per forme indeterminate.

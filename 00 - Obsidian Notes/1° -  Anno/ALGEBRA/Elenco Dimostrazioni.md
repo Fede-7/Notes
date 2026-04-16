@@ -1,7 +1,7 @@
 
 ## <mark style="background:#D4AF37; color:white; padding:0 6px; border-radius:6px;">4.9:</mark> Teorema Invertibilità di Funzioni
 
->[!important] Teorema Fondamentale: Invertibilità
+>[!info] Teorema Fondamentale: Invertibilità
 >Una funzione $f$ è completamente invertibile $\iff$ biettiva.
 >
 >**Dimostrazione**
@@ -16,7 +16,7 @@
 ## <mark style="background:#C0C0C0; color:black; padding:0 6px; border-radius:6px;">6.1:</mark> Elementi simmetrizzabili: se esiste il simmetrico è unico
 
 
-> [!note] Elemento Invertibile opp. Simmetrizzabile
+> [!info] Elemento Invertibile opp. Simmetrizzabile
 > In un monoide $(S, *, u)$, $a \in S$ è **invertibile** se:
 > $$\exists\, a' \in S:\; a * a' = a' * a = u$$
 > L'inverso è **unico**. Invertibile $\Longrightarrow$ Cancellabile.
@@ -30,7 +30,7 @@
 ## <mark style="background:#C0C0C0; color:black; padding:0 6px; border-radius:6px;">7.6:</mark> Divisioni dello zero: mai cancellabili
 
 
-> [!note] Divisore dello Zero
+> [!info] Divisore dello Zero
 > $a \neq 0_A$ è **divisore dello zero** se $\exists\, b \neq 0_A:\; a \cdot b = 0_A$.
 > $$a \neq 0 \text{ è divisore dello zero} \;\Longleftrightarrow\; a \text{ non è cancellabile}$$
 
@@ -47,7 +47,7 @@
 ## <mark style="background:#C0C0C0; color:black; padding:0 6px; border-radius:6px;">8.1:</mark> Elementi simmetrizzabili $\implies$  elementi cancellabili
 
 
-> [!note] Cancellabilità
+> [!info] Cancellabilità
 > $a$ è **cancellabile a sinistra** se $a \cdot b = a \cdot c \Rightarrow b = c$.
 > $a$ è **cancellabile a destra** se $b \cdot a = c \cdot a \Rightarrow b = c$.
 > **Invertibile $\Longrightarrow$ Cancellabile** (il viceversa non vale in generale).
@@ -62,7 +62,7 @@
 
 ## <mark style="background:#D4AF37; color:white; padding:0 6px; border-radius:6px;">8.7:</mark> Teorema di Wedderburn
 
-> [!important] Teorema di Wedderburn
+> [!info] Teorema di Wedderburn
 > Ogni **corpo finito** è anche un **campo**.
 > - Spiegazione:
 > Il teorema dimostra che se l'insieme degli elementi è finito, è matematicamente impossibile costruire una struttura dove valga l'invertibilità senza che valga anche la commutatività
@@ -73,7 +73,7 @@
 
 ## <mark style="background:#D4AF37; color:white; padding:0 6px; border-radius:6px;">8.9:</mark> Teorema di scomposizione canonica di una permutazione
 
-> [!important] **Teorema di Scomposizione Canonica (Permutazioni)**
+> [!info] **Teorema di Scomposizione Canonica (Permutazioni)**
 >
 > - *Enunciato*
 > Ogni permutazione $\sigma \in S_n$ diversa dall'identità si può scrivere come prodotto di cicli disgiunti. Tale scomposizione è **unica a meno dell'ordine** con cui i cicli compaiono nel prodotto.
@@ -93,7 +93,7 @@
 
 ## <mark style="background:#D4AF37; color:white; padding:0 6px; border-radius:6px;">10.5:</mark> Teorema della divisione euclidea
 
-> [!important] Teorema della Divisione Euclidea
+> [!info] Teorema della Divisione Euclidea
 > $\forall\, m \in \mathbb{Z},\; n \in \mathbb{Z} \setminus \{0\},\; \exists!\, q, r \in \mathbb{Z}:$
 > $$m = n \cdot q + r, \qquad 0 \leq r < |n|$$
 
@@ -110,7 +110,7 @@
 > Quindi $r_1 = r_2$ e $q_1 = q_2$. $\square$
 ## <mark style="background:#D4AF37; color:white; padding:0 6px; border-radius:6px;">10.6:</mark> Teorema di Bézout
 
-> [!important] Identità di Bézout
+> [!info] Identità di Bézout
 > $$\mathrm{MCD}(a, b) = a \cdot x + b \cdot y \quad \text{per opportuni } x, y \in \mathbb{Z}$$
 > Corollario: $a, b$ coprimi $\Longleftrightarrow$ $\exists\, x, y:\; ax + by = 1$.
 
@@ -141,7 +141,7 @@
 
 ## Teorema Fondamentale dell'Aritmetica
 
-> [!important] FTA
+> [!info] FTA
 > Ogni intero $n \geq 2$ si scrive in modo **unico** (a meno dell'ordine) come prodotto di numeri primi:
 > $$n = p_1^{\alpha_1} \cdot p_2^{\alpha_2} \cdots p_k^{\alpha_k}$$
 >- **Unicità della Fattorizzazione :**
@@ -157,7 +157,7 @@ Il Lemma di Euclide è cruciale per dimostrare l'unicità della fattorizzazione:
 
 ## <mark style="background:#D4AF37; color:white; padding:0 6px; border-radius:6px;">11.2:</mark> Teorema su relazioni di equivalenza e partizioni
 
-> [!important] Teorema: Equivalenza e Partizioni
+> [!info] Teorema: Equivalenza e Partizioni
 > Esiste una corrispondenza biunivoca tra relazioni di equivalenza su $S$ e partizioni di $S$.
 > 1. Ogni relazione di equivalenza R su S induce una partizione di S (data dall'insieme quoziente S/R).
 > 2. Ogni partizione F di S induce una relazione di equivalenza RF su S, definita da:

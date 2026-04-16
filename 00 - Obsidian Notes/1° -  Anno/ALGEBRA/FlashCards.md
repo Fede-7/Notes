@@ -435,14 +435,14 @@ Dato un reticolo booleano (L, ∧, ∨, ', 0, 1), si definisce (L, +, ·):
 
 Teorema Fondamentale dell'Aritmetica (TFA)
 ?
-> [!important] **Teorema Fondamentale dell'Aritmetica (TFA)**
+> [!info] **Teorema Fondamentale dell'Aritmetica (TFA)**
 >
 > **Enunciato:**
 > Ogni intero $n \geq 2$ si scrive in modo **unico** (a meno dell'ordine) come prodotto di numeri primi:
 > $$n = p_1^{\alpha_1} \cdot p_2^{\alpha_2} \cdots p_k^{\alpha_k}$$
 > dove i $p_i$ sono primi distinti e gli $\alpha_i$ sono interi positivi.
 >
->> [!attention] **Dimostrazione (Idea Generale)**
+>> [!warning] **Dimostrazione (Idea Generale)**
 >>
 >> ### Parte 1: Esistenza della fattorizzazione
 >>
@@ -489,13 +489,13 @@ Teorema Fondamentale dell'Aritmetica (TFA)
 
 Teorema Divisione euclidea
 ?
-> [!important] **Teorema della Divisione Euclidea**
+> [!info] **Teorema della Divisione Euclidea**
 >
 > **Enunciato:**
 > $\forall\, m, n \in \mathbb{Z},\; n \neq 0,\; \exists!\, q, r \in \mathbb{Z}:$
 > $$m = n \cdot q + r, \qquad 0 \leq r < |n|$$
 >
->> [!attention] **Dimostrazione**
+>> [!warning] **Dimostrazione**
 >>
 >> **Esistenza** (per induzione forte su $m$):
 >> - *Base:* Se $0 \leq m < |n|$, basta prendere $q = 0$ e $r = m$.
@@ -511,13 +511,13 @@ Teorema Divisione euclidea
 
 Teorema di Bézout
 ?
-> [!important] **Identità di Bézout**
+> [!info] **Identità di Bézout**
 >
 > **Enunciato:**
 > Per ogni coppia di interi $a, b$, esistono interi $x, y$ tali che:
 > $$\mathrm{MCD}(a, b) = a \cdot x + b \cdot y$$
 >
->> [!attention] **Dimostrazione**
+>> [!warning] **Dimostrazione**
 >>
 >> Sia $S = \{as + bt \mid s, t \in \mathbb{Z}, \, as + bt > 0\}$.
 >>
@@ -547,12 +547,12 @@ Teorema di Bézout
 
 Applicazione Quoziente
 ?
->[!important] Fattorizzazione
+>[!info] Fattorizzazione
 > Data $f: S \to T$ e la relazione $R_f$, l'**applicazione quoziente** è:
 > $$\bar{f}: S/R_f \to T, \qquad \bar{f}([a]) = f(a)$$
 > È **ben definita** e **iniettiva**. Vale $f = \bar{f} \circ \pi$ (dove $\pi$ è la proiezione canonica).
 >
->> [!attention] Dimostrazione — Fattorizzazione (forse non necessaria)
+>> [!warning] Dimostrazione — Fattorizzazione (forse non necessaria)
 >> **Ben definita:** Se $[a] = [b]$, allora $a \mathrel{R_f} b$, cioè $f(a) = f(b)$, dunque $\bar{f}([a]) = \bar{f}([b])$.
 >>
 >> **Iniettiva:** Se $\bar{f}([a]) = \bar{f}([b])$, allora $f(a) = f(b)$, dunque $a \mathrel{R_f} b$, cioè $[a] = [b]$. $\square$
@@ -561,14 +561,14 @@ Applicazione Quoziente
 
 Teorema fondamentale sulle relazioni d'equivalenza (Equivalenza $\iff$ Partizione)
 ?
-> [!important] **Teorema Fondamentale sulle Relazioni di Equivalenza (Versione Ristretta)**
+> [!info] **Teorema Fondamentale sulle Relazioni di Equivalenza (Versione Ristretta)**
 >
 > **Enunciato:**
 > Sia $R$ una relazione di equivalenza su un insieme non vuoto $S$. Allora l'insieme quoziente $S/R$ è una **partizione** di $S$. 
 > 
 > Viceversa, ogni partizione di $S$ definisce una relazione di equivalenza.
 >
->> [!attention] **Dimostrazione**
+>> [!warning] **Dimostrazione**
 >>
 >> ### Verso 1: Equivalenza $\Rightarrow$ Partizione
 >>

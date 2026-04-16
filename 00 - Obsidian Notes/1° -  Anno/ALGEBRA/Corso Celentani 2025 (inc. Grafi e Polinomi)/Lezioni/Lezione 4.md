@@ -25,7 +25,7 @@
     *   $\{\{a\}\} \in P(S)$ (l'insieme contenente l'elemento {a} è un sottoinsieme di S, quindi è un elemento di P(S))
     *   $\{\{a\}\} \subseteq P(S)$ (questo è vero perché l'unico elemento di $\{\{a\}\}$, cioè $\{a\}$, è anche un elemento di $P(S)$).
 
-> [!WARNING] Fai molta attenzione alla differenza tra $x$ e $\{x\}$ e tra $\in$ e $\subseteq$, specialmente con $P(S)$!
+> [!warning] Fai molta attenzione alla differenza tra $x$ e $\{x\}$ e tra $\in$ e $\subseteq$, specialmente con $P(S)$!
 
 [[Insieme delle Parti]]
 
@@ -62,7 +62,7 @@ Ricordiamo la definizione: Una **partizione** di $S \neq \emptyset$ è una famig
     *   $\mathcal{H} = \{A, E, F, G\}$ **NON è una partizione** perché $A \cap E = \emptyset$, $A \cap F = \emptyset$, $A \cap G = \emptyset$, $E \cap F = \emptyset$, ecc. MA $A \cup E \cup F \cup G = \mathbb{Z}$. Tutti gli elementi sono non vuoti. Tutti disgiunti? No, $A$ contiene $2, -2$, ecc. $E=\{1\}$, $F=\{-1\}$, $G=\{0\}$. Sembra che $A = \mathbb{Z} \setminus \{-1, 0, 1\}$. In questo caso, $A, E, F, G$ sono disgiunti, non vuoti e la loro unione è $\mathbb{Z}$. **SÌ, $\mathcal{H}$ è una partizione.**
     *   La nota originale $\{A, C\}$ con $A=\{a | a^2>1\}$ e $C=\{a | a^2 \le 1\}$ **è una partizione** se interpretiamo $A = \mathbb{Z} \setminus \{-1, 0, 1\}$ e $C = \{-1, 0, 1\}$. I pezzi sono non vuoti, disgiunti e la loro unione è $\mathbb{Z}$.
 
-> [!CAUTION] L'insieme vuoto $\emptyset$ e l'insieme totale $S$ **non** sono MAI partizioni di $S$ (se $|S|>1$). $\emptyset$ non è una famiglia di sottoinsiemi non vuoti. $\{S\}$ è una partizione (banale), ma $S$ da solo non è una famiglia di sottoinsiemi.
+> [!warning] L'insieme vuoto $\emptyset$ e l'insieme totale $S$ **non** sono MAI partizioni di $S$ (se $|S|>1$). $\emptyset$ non è una famiglia di sottoinsiemi non vuoti. $\{S\}$ è una partizione (banale), ma $S$ da solo non è una famiglia di sottoinsiemi.
 
 [[Partizione di un insieme]]
 
@@ -121,7 +121,7 @@ Come combinare due funzioni in sequenza.
         2.  Poiché $f(x)$ appartiene anche a $C$ (per l'ipotesi $\vec{f}(A) \subseteq C$), puoi applicare $g$ a $f(x)$.
         3.  Il risultato è $g(f(x)) \in D$.
 
-> [!WARNING] L'ordine è importante! $g \circ f$ significa: prima applichi $f$, poi applichi $g$. Il dominio della composizione è il dominio della *prima* funzione applicata ($f$). Il codominio della composizione è il codominio della *seconda* funzione applicata ($g$). La condizione $\vec{f}(A) \subseteq C$ è essenziale perché l'output di $f$ deve essere un input valido per $g$.
+> [!warning] L'ordine è importante! $g \circ f$ significa: prima applichi $f$, poi applichi $g$. Il dominio della composizione è il dominio della *prima* funzione applicata ($f$). Il codominio della composizione è il codominio della *seconda* funzione applicata ($g$). La condizione $\vec{f}(A) \subseteq C$ è essenziale perché l'output di $f$ deve essere un input valido per $g$.
 
 *   **Esempio 1 (Pag 14):**
     *   $S = \{x \subseteq{Z} \mid x ≠ \emptyset \text{ e finito}\}$? Sembra una definizione strana. Forse $S = P_{fin}(\mathbb{Z}) \setminus \{\emptyset\}$ (sottoinsiemi finiti non vuoti di $\mathbb{Z}$).
@@ -177,7 +177,7 @@ Quando una funzione può essere "annullata" da un'altra.
     1.  $f^{-1} \circ f = id_A$ (Comporre $f$ e poi $f^{-1}$ riporta all'identità sul dominio originale A).
     2.  $f \circ f^{-1} = id_B$ (Comporre $f^{-1}$ e poi $f$ riporta all'identità sul codominio originale B).
 
-> [!theorem] Teorema Fondamentale: Invertibilità e Biettività (Pag 19)
+> [!info] Teorema Fondamentale: Invertibilità e Biettività (Pag 19)
 > Una funzione $f: A \to B$ è **completamente invertibile se e solo se è biettiva**.
 >
 > *   **Costruzione dell'Inversa:** Se $f$ è biettiva, la sua inversa $f^{-1}: B \to A$ è definita associando a ogni $b \in B$ l'**unico** elemento $a \in A$ tale che $f(a)=b$. L'esistenza e unicità di tale $a$ è garantita dalla biettività di $f$ (poiché $|\overleftarrow{f}(\{b\})|=1$ per ogni $b \in B$).
@@ -298,7 +298,7 @@ Introduciamo i concetti base dell'algebra.
     *   $\overleftarrow{f}(\mathcal{P}(S) \times \mathcal{P}(S))$
 ---
 
-> [!SUMMARY] Riepilogo Veloce Lezione 4
+> [!abstract] Riepilogo Veloce Lezione 4
 > *   Abbiamo chiarito la distinzione tra $\in$ e $\subseteq$ in relazione a $P(S)$.
 > *   Abbiamo rivisto la definizione di **partizione** con esempi.
 > *   Abbiamo definito la **funzione biettiva** (iniettiva + suriettiva) e la sua caratterizzazione tramite controimmagine di singleton.
@@ -309,6 +309,6 @@ Introduciamo i concetti base dell'algebra.
 > *   Abbiamo definito le **strutture algebriche**.
 > *   Abbiamo definito la **proprietà associativa**.
 
-> [!TIP] Prossimi Passi
+> [!tip] Prossimi Passi
 > *   Prova a svolgere gli esercizi proposti. Sono ottimi per consolidare i concetti di iniettività, suriettività, immagine e controimmagine.
 > *   Rifletti sulle diverse strutture algebriche menzionate. Quali proprietà (oltre all'associatività) potrebbero avere le loro operazioni (es. commutatività, elemento neutro, inverso)? Questo ci porterà ai gruppi!

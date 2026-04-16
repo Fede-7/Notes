@@ -37,7 +37,7 @@ Un **thread** è un flusso esecutivo che condivide lo spazio di indirizzamento d
 | **Economia** | Creare e distruggere un thread è più veloce di un processo; il context switch è più leggero (lo stack è più piccolo) |
 | **Scalabilità** | Su architetture multicore, thread diversi possono girare su core diversi contemporaneamente |
 
-> [!important] Thread e architetture multicore
+> [!info] Thread e architetture multicore
 > Con l'aumentare del numero di core nelle CPU moderne (es. 16 core fisici, 24 hardware thread), la capacità di parallelizzare tramite thread diventa un principio architetturale fondamentale, non solo un'ottimizzazione.
 
 ---
@@ -119,7 +119,7 @@ Tutti gli user thread di un processo si mappano su **un unico kernel thread**. L
 - Se un thread si blocca (es. su I/O), si bloccano tutti (il kernel vede un unico thread bloccato).
 - Nessun vero parallelismo su multicore.
 
-> [!quote]
+> [!tip]
 > "Questo poteva avere un senso quando avevamo architetture single core. Adesso che sono architetture multicore non si utilizza questo tipo di mapping."
 
 ### One-to-one
@@ -180,7 +180,7 @@ La libreria **POSIX Threads** (`pthread.h`) è lo standard per la gestione dei t
 | `pthread_self()` | Restituisce il TID del thread corrente |
 | `pthread_attr_init(attr)` | Inizializza gli attributi del thread |
 
-> [!important] Prototipo della funzione di avvio
+> [!info] Prototipo della funzione di avvio
 > Ogni funzione passata a `pthread_create` deve avere questa firma:
 > ```c
 > void *start_function(void *arg);
@@ -289,7 +289,7 @@ for (int i = 0; i < N; i++) {
 
 ---
 
-> [!summary] Punti chiave della lezione
+> [!abstract] Punti chiave della lezione
 > - I thread condividono lo spazio di indirizzamento del processo: comunicano direttamente ma possono andare in conflitto (race condition).
 > - La legge di Amdahl mostra che la parte seriale limita lo speedup ottenibile con più core.
 > - User thread e kernel thread sono distinti; i modelli di mapping (many-to-one, one-to-one, many-to-many) definiscono come vengono collegati.
