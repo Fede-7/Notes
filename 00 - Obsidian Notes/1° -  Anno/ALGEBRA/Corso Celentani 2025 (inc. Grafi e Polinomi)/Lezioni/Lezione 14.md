@@ -53,7 +53,7 @@ Lo zero è $\bar{0}$.
 
 ## 2. Esercizi su $\mathbb{Z}_m$ (Pag 2-3)
 
-> [!example] Esercizio (Pag 2)
+> [!EXERCISE] Esercizio (Pag 2)
 > Determinare (se possibile) un $m \in \mathbb{N}, m > 1$ tale che $\mathbb{Z}_m$ soddisfi le seguenti condizioni:
 >
 > *   i) $\mathbb{Z}_m$ possiede esattamente 8 elementi invertibili e 6 divisori dello zero.
@@ -205,7 +205,7 @@ Questo approccio formale mostra che il "trucco" della somma delle cifre per la d
 Si tratta di equazioni della forma $ax \equiv b \pmod{m}$.
 Cercare le soluzioni per $x$ significa trovare le classi di resto $\bar{x} \in \mathbb{Z}_m$ tali che $[a]_m [x]_m = [b]_m$.
 
-> [!info] Esistenza e Numero di Soluzioni per $ax \equiv b \pmod{m}$
+> [!TEOREM] Esistenza e Numero di Soluzioni per $ax \equiv b \pmod{m}$
 > Sia data l'equazione congruenziale lineare:
 > $$ ax \equiv b \pmod{m} $$
 > dove $a, b$ sono interi e $m$ è un intero positivo ($m > 1$). Sia $d = \text{MCD}(a, m)$.
@@ -268,12 +268,12 @@ Cercare le soluzioni per $x$ significa trovare le classi di resto $\bar{x} \in \
 
 ## 5. Esercizi Proposti (Pag 15-21)
 
-> [!example] Esercizio 1 (Pag 15)
+> [!EXERCISE] Esercizio 1 (Pag 15)
 > Risolvere $135x \equiv 10 \pmod{192}$.
 > *  $d = \text{MCD}(135, 192)$. $192 = 135 \cdot 1 + 57$; $135 = 57 \cdot 2 + 21$; $57 = 21 \cdot 2 + 15$; $21 = 15 \cdot 1 + 6$; $15 = 6 \cdot 2 + 3$; $6 = 3 \cdot 2 + 0$. $d=3$.
 > *  $b=10$. $d=3 \nmid b=10$. **Nessuna soluzione.**
 
-> [!example] Esercizio 2 (Pag 16-18)
+> [!EXERCISE] Esercizio 2 (Pag 16-18)
 > Risolvere $135x \equiv 12 \pmod{192}$ (*).
 > *  $a=135, b=12, m=192$. $d = \text{MCD}(135, 192) = 3$.
 > *  $d=3 \mid b=12$. Esistono $d=3$ soluzioni.
@@ -298,7 +298,7 @@ Cercare le soluzioni per $x$ significa trovare le classi di resto $\bar{x} \in \
 >     *   $x_2 = 20 + 2 \cdot 64 = 20 + 128 = 148$.
 >     *   Soluzioni: $[20]_{192}, [84]_{192}, [148]_{192}$.
 
-> [!example] Esercizio 3 (Pag 19-20)
+> [!EXERCISE] Esercizio 3 (Pag 19-20)
 > Risolvere $39x \equiv b \pmod{90}$ per $b \in \{10, 15, 17\}$.
 > *  $a=39, m=90$. $d = \text{MCD}(39, 90)$. $90 = 39 \cdot 2 + 12$; $39 = 12 \cdot 3 + 3$; $12 = 3 \cdot 4 + 0$. $d=3$.
 > *  Caso $b=10$: $d=3 \nmid b=10$. **Nessuna soluzione.**
@@ -318,7 +318,7 @@ Cercare le soluzioni per $x$ significa trovare le classi di resto $\bar{x} \in \
 >         *   $x_2 = 5 + 2 \cdot 30 = 65$.
 >         *   Soluzioni per $b=15$: $[5]_{90}, [35]_{90}, [65]_{90}$.
 
-> [!example] Esercizio 4 (Pag 21-23)
+> [!EXERCISE] Esercizio 4 (Pag 21-23)
 > In $\mathbb{Z}_{100}$, con operazione $a * b = \overline{7}ab + \overline{25}(a+b)$, determinare gli $a \in \mathbb{Z}_{100}$ tali che $a * \bar{4} = \bar{4}$.
 > *  $a * \bar{4} = \overline{7}a\bar{4} + \overline{25}(a+\bar{4}) = \overline{28}a + \overline{25}a + \overline{100} = \overline{53}a + \bar{0} = \overline{53}a$.
 > *  Vogliamo $\overline{53}a = \bar{4}$, cioè $53a \equiv 4 \pmod{100}$ (*).
@@ -332,7 +332,7 @@ Cercare le soluzioni per $x$ significa trovare le classi di resto $\bar{x} \in \
 > *  Moltiplichiamo (*) per $c_1=17$: $a \equiv 17 \cdot 4 \pmod{100} \implies a \equiv 68 \pmod{100}$.
 > *  Soluzione: $a = \overline{68}$.
 
-> [!example] Esercizio 5 (Pag 24-26)
+> [!EXERCISE] Esercizio 5 (Pag 24-26)
 > In $(\mathbb{Z}_{50}, *)$ con $a * b = \overline{3}ab$.
 > *   Determinare l'elemento neutro $u$.
 > *   Determinare $U(\mathbb{Z}_{50})$ rispetto a $*$.
@@ -376,7 +376,7 @@ Cercare le soluzioni per $x$ significa trovare le classi di resto $\bar{x} \in \
 >   $221 = 4 \cdot 50 + 21$. $221 \equiv 21 \pmod{50}$.
 > *  L'inverso di $\bar{9}$ è $\bar{c} = \overline{21}$.
 
-> [!example] Esercizio 6 (Pag 27-29)
+> [!EXERCISE] Esercizio 6 (Pag 27-29)
 > In $\mathbb{Z}_{10}$ con l'operazione $a \oplus b = a + \overline{6}b$.
 > *   È associativa? È commutativa?
 > *   Determinare elementi neutri a destra e a sinistra.
@@ -423,14 +423,14 @@ Cercare le soluzioni per $x$ significa trovare le classi di resto $\bar{x} \in \
 
 ---
 
-> [!abstract] Riepilogo Veloce Lezione 14
+> [!SUMMARY] Riepilogo Veloce Lezione 14
 > *   Abbiamo analizzato a fondo le proprietà dell'anello $\mathbb{Z}_m$: divisori dello zero ($\text{MCD}(a,m) \neq 1$), invertibili ($\text{MCD}(a,m) = 1$), nilpotenti ($rad(m) \mid a$), idempotenti ($m \mid a(a-1)$).
 > *   Abbiamo visto che $\mathbb{Z}_p$ è un campo se $p$ è primo.
 > *   Abbiamo derivato i **criteri di divisibilità** usando l'aritmetica modulare.
 > *   Abbiamo studiato il teorema e il metodo risolutivo per le **equazioni congruenziali lineari** $ax \equiv b \pmod{m}$.
 > *   Sono stati proposti diversi esercizi su $\mathbb{Z}_m$ e la risoluzione di congruenze.
 
-> [!tip] Prossimi Passi
+> [!TIP] Prossimi Passi
 > *   Assicurati di aver compreso bene come determinare gli elementi speciali (div. zero, invertibili, etc.) in $\mathbb{Z}_m$.
 > *   Fai pratica con la risoluzione delle equazioni congruenziali, specialmente con l'algoritmo di Euclide esteso.
 > *   Il prossimo argomento, gli anelli dei polinomi, costruirà su queste fondamenta.

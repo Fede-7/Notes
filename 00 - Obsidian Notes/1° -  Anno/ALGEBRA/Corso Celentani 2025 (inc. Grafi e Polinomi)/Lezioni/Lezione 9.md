@@ -217,7 +217,7 @@ Torniamo alle relazioni, ma ora definite su un singolo insieme $A$.
 
 ---
 
-> [!abstract] Riepilogo Veloce Lezione 9
+> [!SUMMARY] Riepilogo Veloce Lezione 9
 > *   Le **Tavole di Cayley** aiutano a visualizzare operazioni su insiemi finiti e a verificarne le proprietà (commutatività, neutro, inversi, cancellabilità).
 > *   In strutture finite, **cancellabilità $\iff$ iniettività** della mappa di moltiplicazione.
 > *   Un elemento **nilpotente** $a \neq 0$ ($a^n=0$) è sempre un **divisore dello zero**.
@@ -225,6 +225,6 @@ Torniamo alle relazioni, ma ora definite su un singolo insieme $A$.
 > *   In $\mathbb{Z}$, abbiamo definito **MCD**, **mcm** e **numeri primi**.
 > *   Abbiamo introdotto le **relazioni binarie** su un insieme $A$ e le loro proprietà fondamentali: riflessiva, antiriflessiva, simmetrica, asimmetrica, antisimmetrica, transitiva.
 
-> [!tip] Prossimi Passi
+> [!TIP] Prossimi Passi
 > *   Rivedi le definizioni delle proprietà delle relazioni binarie. Prova a classificarne altre (es. "<", ">", "essere fratello di", "essere antenato di").
 > *   Le combinazioni di queste proprietà daranno origine a strutture importanti: relazioni di equivalenza (riflessiva, simmetrica, transitiva) e relazioni d'ordine (riflessiva, antisimmetrica, transitiva).

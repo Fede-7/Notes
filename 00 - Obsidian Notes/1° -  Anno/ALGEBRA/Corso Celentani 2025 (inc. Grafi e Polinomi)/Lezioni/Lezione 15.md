@@ -96,7 +96,7 @@ Una congruenza lineare è un'equazione della forma $ax \equiv b \pmod{n}$.
 
 ## 3. Esercizi su Funzioni e Strutture
 
-> [!example] Esercizio 1 (Pag 7-10 - Funzione su $\mathbb{Z}_{15}$)
+> [!EXERCISE] Esercizio 1 (Pag 7-10 - Funzione su $\mathbb{Z}_{15}$)
 > Sia $f: \mathbb{Z}_{15} \to \mathbb{Z}_{15}$ definita da:
 > $$ f([a]_{15}) = \begin{cases} ([a]_{15})^{-1} & \text{se } [a]_{15} \in U(\mathbb{Z}_{15}) \\ [a]_{15} & \text{se } [a]_{15} \notin U(\mathbb{Z}_{15}) \end{cases} $$
 > Determinare se $f$ è iniettiva e/o suriettiva (e quindi biettiva).
@@ -123,7 +123,7 @@ Una congruenza lineare è un'equazione della forma $ax \equiv b \pmod{n}$.
 >         *   Per ogni $[y] \notin U(\mathbb{Z}_{15})$, vogliamo trovare $[x]$ t.c. $f([x])=[y]$. Se prendiamo $[x]=[y]$ (che non è in $U(\mathbb{Z}_{15})$), allora $f([x]) = [x] = [y]$.
 >         *   **Conclusione: $f$ è suriettiva.**
 
-> [!example] Esercizio 2 (Pag 11-13 - Struttura $(\mathbb{Z}_{15}, *)$)
+> [!EXERCISE] Esercizio 2 (Pag 11-13 - Struttura $(\mathbb{Z}_{15}, *)$)
 > Studiare la struttura $(\mathbb{Z}_{15}, *)$ dove $a * b = a + b + 2ab$.
 > *   **Associatività e Commutatività:** Valgono perché le operazioni base ($+, \cdot$) in $\mathbb{Z}_{15}$ le hanno, e la forma è la stessa dell'Esercizio 4 della Lezione 8.
 > *   **Elemento Neutro $u$:**
@@ -143,7 +143,7 @@ Una congruenza lineare è un'equazione della forma $ax \equiv b \pmod{n}$.
 >     *   ... e così via. Bisogna testare tutti gli $a$.
 >     *   $U(\mathbb{Z}_{15}, *) = \{ a \in \mathbb{Z}_{15} \mid \text{MCD}(1+2a, 15)=1 \}$.
 
-> [!example] Esercizio 3 (Pag 14 - Funzione $f: \mathbb{Z}_3 \times \mathbb{Z}_5 \to \mathbb{Z}_{15}$)
+> [!EXERCISE] Esercizio 3 (Pag 14 - Funzione $f: \mathbb{Z}_3 \times \mathbb{Z}_5 \to \mathbb{Z}_{15}$)
 > È definita una funzione $f: (\bar{a}, \tilde{b}) \mapsto [a \cdot b]_{15}$? (dove $\bar{a} \in \mathbb{Z}_3, \tilde{b} \in \mathbb{Z}_5$).
 > *   Una funzione deve essere ben definita. Se prendiamo rappresentanti diversi per la stessa classe, il risultato deve essere lo stesso.
 > *   Sia $(\bar{a}, \tilde{b}) = (\bar{a'}, \tilde{b'})$. Questo significa $a \equiv a' \pmod 3$ e $b \equiv b' \pmod 5$.
@@ -158,7 +158,7 @@ Una congruenza lineare è un'equazione della forma $ax \equiv b \pmod{n}$.
 
 ## 4. Anello Prodotto $\mathbb{Z}_m \times \mathbb{Z}_n$ (Esempio Pratico)
 
-> [!example] Esercizio 4 (Pag 17-22 - Studio $\mathbb{Z}_4 \times \mathbb{Z}_6$)
+> [!EXERCISE] Esercizio 4 (Pag 17-22 - Studio $\mathbb{Z}_4 \times \mathbb{Z}_6$)
 > Sia $R = \mathbb{Z}_4 \times \mathbb{Z}_6$. Definiamo $+$ e $\cdot$ componente per componente:
 > $(\bar{a}, \tilde{b}) + (\bar{c}, \tilde{d}) = (\overline{a+c}, \widetilde{b+d})$
 > $(\bar{a}, \tilde{b}) \cdot (\bar{c}, \tilde{d}) = (\overline{a \cdot c}, \widetilde{b \cdot d})$
@@ -219,7 +219,7 @@ Una congruenza lineare è un'equazione della forma $ax \equiv b \pmod{n}$.
 
 ## 5. Esercizio su Funzione e Invertibilità Modulare (Pag 23)
 
-> [!example] Esercizio 5 (Pag 23 - Funzione e Invertibilità Modulare)
+> [!EXERCISE] Esercizio 5 (Pag 23 - Funzione e Invertibilità Modulare)
 > Sia $f: \mathbb{Z} \times \mathbb{Z} \to \mathbb{Z}$ data da $f(a, b) = 30a+b$.
 > 1. È iniettiva? È suriettiva?
 > 2. Sia $T = \{c \in \mathbb{Z} \mid 60 \le c \le 70\}$. Determinare gli elementi $(n,a) \in \mathbb{Z} \times T$ (con $n \ge 0$) tali che $f(n,a)$ sia invertibile modulo 45.
@@ -259,7 +259,7 @@ Una congruenza lineare è un'equazione della forma $ax \equiv b \pmod{n}$.
 
 ## 6. Relazioni di Equivalenza (Cenno)
 
-> [!example] Esercizio 6 (Pag 15-16 - Relazione di Equivalenza)
+> [!EXERCISE] Esercizio 6 (Pag 15-16 - Relazione di Equivalenza)
 > Sia $A = \{ n \in \mathbb{N} \mid n \le 7 \} = \{0, 1, 2, 3, 4, 5, 6, 7\}$.
 > Sia $\rho$ una relazione di equivalenza su $A$. Sappiamo che:
 > *   $0 \rho 7$
@@ -300,7 +300,7 @@ Una congruenza lineare è un'equazione della forma $ax \equiv b \pmod{n}$.
 
 ---
 
-> [!abstract] Riepilogo Veloce Lezione 10 (15)
+> [!SUMMARY] Riepilogo Veloce Lezione 10 (15)
 > *   Abbiamo imparato a **risolvere congruenze lineari** $ax \equiv b \pmod n$.
 > *   Abbiamo caratterizzato i **divisori dello zero** ($MCD(a,n) \neq 1$) e gli **elementi nilpotenti** (multipli di $\text{rad}(n)$) in $\mathbb{Z}_n$.
 > *   Abbiamo svolto esercizi sulla **biettività di funzioni** definite su $\mathbb{Z}_n$.
@@ -308,7 +308,7 @@ Una congruenza lineare è un'equazione della forma $ax \equiv b \pmod{n}$.
 > *   Abbiamo introdotto il concetto di **relazione di equivalenza** e classi di equivalenza.
 > *   Sono stati proposti numerosi **esercizi** per consolidare questi concetti.
 
-> [!tip] Prossimi Passi
+> [!TIP] Prossimi Passi
 > *   Assicurati di padroneggiare la risoluzione delle congruenze lineari.
 > *   Comprendi bene come identificare gli elementi speciali (invertibili, divisori dello zero, nilpotenti, idempotenti) negli anelli $\mathbb{Z}_n$ e negli anelli prodotto.
 > *   Le relazioni di equivalenza sono fondamentali e portano al concetto di insiemi quoziente.

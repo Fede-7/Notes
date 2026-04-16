@@ -33,28 +33,28 @@
 
 ### Connettivi Logici
 
-> [!info] Negazione
+> [!note] Negazione
 > $\neg P$ è vera quando $P$ è falsa, e viceversa.
 
-> [!info] Congiunzione
+> [!note] Congiunzione
 > $P \wedge Q$ è vera solo quando **entrambe** $P$ e $Q$ sono vere.
 
-> [!info] Disgiunzione Inclusiva
+> [!note] Disgiunzione Inclusiva
 > $P \vee Q$ è falsa solo quando **entrambe** $P$ e $Q$ sono false.
 
-> [!info] Implicazione
+> [!note] Implicazione
 > $P \Rightarrow Q$ è falsa solo quando $P$ è vera e $Q$ è falsa.
 
-> [!info] Bicondizionale
+> [!note] Bicondizionale
 > $P \Leftrightarrow Q$ è vera quando $P$ e $Q$ hanno lo **stesso valore di verità**.
 
 ### Tautologia e Contraddizione
 
-> [!info] Tautologia
+> [!note] Tautologia
 > Proposizione composta **sempre vera**, qualunque siano i valori di verità delle componenti.
 > Esempio: $P \vee \neg P$.
 
-> [!info] Contraddizione
+> [!note] Contraddizione
 > Proposizione composta **sempre falsa**.
 > Esempio: $P \wedge \neg P$.
 
@@ -70,43 +70,43 @@
 
 ### XOR, NAND, NOR
 
-> [!info] XOR (Disgiunzione Esclusiva)
+> [!note] XOR (Disgiunzione Esclusiva)
 > $$a \oplus b \;\Longleftrightarrow\; (\neg a \wedge b) \vee (a \wedge \neg b)$$
 
-> [!info] NAND / NOR
+> [!note] NAND / NOR
 > Sono **funzionalmente completi**: ogni connettivo logico può essere espresso usando solo NAND (o solo NOR).
 
 ### Predicati e Quantificatori
 
-> [!info] Predicato
+> [!note] Predicato
 > Proprietà o relazione con variabili; una **formula ben formata** (FBF) diventa proposizione quando le variabili vengono sostituite.
 
-> [!info] Quantificatore Universale
+> [!note] Quantificatore Universale
 > $\forall x\, P(x)$: «per ogni $x$, vale $P(x)$».
 
-> [!info] Quantificatore Esistenziale
+> [!note] Quantificatore Esistenziale
 > $\exists x\, P(x)$: «esiste almeno un $x$ tale che $P(x)$».
 
-> [!info] Quantificatore Esistenziale Unico
+> [!note] Quantificatore Esistenziale Unico
 > $$\exists!\, x\, P(x) \;\Longleftrightarrow\; \exists x\, P(x) \;\wedge\; \forall x\,\forall y\,\bigl(P(x) \wedge P(y) \Rightarrow x = y\bigr)$$
 
 ### Variabili Libere e Vincolate
 
-> [!info] Variabile Vincolata
+> [!note] Variabile Vincolata
 > Una variabile che compare nel raggio d'azione di un quantificatore. Altrimenti è **libera**. Una formula senza variabili libere è detta **chiusa** (è una proposizione).
 
 ### Insiemi
 
-> [!info] Insieme
+> [!note] Insieme
 > Collezione di oggetti distinti, detti **elementi**. Si scrive $a \in A$ se $a$ appartiene ad $A$.
 
-> [!info] Insieme Vuoto
+> [!note] Insieme Vuoto
 > $\emptyset$ — l'insieme privo di elementi.
 
-> [!info] Sottoinsieme
+> [!note] Sottoinsieme
 > $A \subseteq B \;\Longleftrightarrow\; \forall x\,(x \in A \Rightarrow x \in B)$.
 
-> [!info] Prodotto Cartesiano
+> [!note] Prodotto Cartesiano
 > $$A \times B = \{(a, b) \mid a \in A \wedge b \in B\}$$
 
 ### Operazioni su Insiemi
@@ -121,10 +121,10 @@
 
 ### Relazione e Funzione
 
-> [!info] Relazione
+> [!note] Relazione
 > $\rho \subseteq A \times B$ — un sottoinsieme del prodotto cartesiano.
 
-> [!info] Funzione
+> [!note] Funzione
 > $f: A \to B$ è una relazione tale che $\forall a \in A,\; \exists!\, b \in B$ con $(a, b) \in G_f$.
 > $A$ è il **dominio**, $B$ il **codominio**.
 
@@ -134,31 +134,31 @@
 
 ### Proprietà dei Quantificatori
 
-> [!info] Negazione dei Quantificatori (De Morgan Generalizzato)
+> [!note] Negazione dei Quantificatori (De Morgan Generalizzato)
 > $$\neg(\forall x\, P(x)) \;\Longleftrightarrow\; \exists x\,(\neg P(x))$$
 > $$\neg(\exists x\, P(x)) \;\Longleftrightarrow\; \forall x\,(\neg P(x))$$
 
-> [!info] Ordine dei Quantificatori
+> [!note] Ordine dei Quantificatori
 > $$\exists y\,\forall x\, \varphi(x,y) \;\Longrightarrow\; \forall x\,\exists y\, \varphi(x,y)$$
 > Il viceversa **non** vale in generale.
 
 ### Immagine e Controimmagine
 
-> [!info] Immagine di un Sottoinsieme
+> [!note] Immagine di un Sottoinsieme
 > $$\vec{f}(X) = \{f(x) \mid x \in X\} \subseteq B$$
 
-> [!info] Controimmagine
+> [!note] Controimmagine
 > $$\overleftarrow{f}(Y) = \{x \in A \mid f(x) \in Y\} \subseteq A$$
 
 ### Funzione Iniettiva
 
-> [!info] Iniettività
+> [!note] Iniettività
 > $f: A \to B$ è **iniettiva** se:
 > $$\forall x_1, x_2 \in A:\; f(x_1) = f(x_2) \;\Longrightarrow\; x_1 = x_2$$
 
 ### Partizione
 
-> [!info] Partizione
+> [!note] Partizione
 > Una famiglia $\mathcal{F} \subseteq \mathcal{P}(S)$ è una **partizione** di $S$ se:
 > 1. $\forall X \in \mathcal{F},\; X \neq \emptyset$
 > 2. $\forall X, Y \in \mathcal{F},\; X \neq Y \Rightarrow X \cap Y = \emptyset$
@@ -170,32 +170,32 @@
 
 ### Funzione Suriettiva
 
-> [!info] Suriettività
+> [!note] Suriettività
 > $f: A \to B$ è **suriettiva** se:
 > $$\forall b \in B,\; \exists a \in A:\; f(a) = b$$
 
 ### Funzione Caratteristica
 
-> [!info] Funzione Caratteristica
+> [!note] Funzione Caratteristica
 > Sia $A \subseteq S$. La funzione $\chi_A: S \to \{0, 1\}$ è definita da:
 > $$\chi_A(x) = \begin{cases} 1 & \text{se } x \in A \\ 0 & \text{se } x \notin A \end{cases}$$
 
 ### Uguaglianza di Funzioni
 
-> [!info] Uguaglianza
+> [!note] Uguaglianza
 > $f = g$ se e solo se hanno lo **stesso dominio**, lo **stesso codominio** e la **stessa legge**: $f(x) = g(x)$ per ogni $x$.
 
 ### Restrizione e Prolungamento
 
-> [!info] Restrizione
+> [!note] Restrizione
 > Sia $C \subseteq A$. La **restrizione** di $f: A \to B$ a $C$ è $f|_C: C \to B$ con $f|_C(x) = f(x)$.
 
-> [!info] Prolungamento (Estensione)
+> [!note] Prolungamento (Estensione)
 > $f: A \to B$ **estende** $g: C \to B$ se $C \subseteq A$ e $f(x) = g(x)$ per ogni $x \in C$.
 
 ### Funzione Identità
 
-> [!info] Identità
+> [!note] Identità
 > $\mathrm{id}_A: A \to A$ definita da $\mathrm{id}_A(a) = a$. È sempre **biettiva**.
 
 ---
@@ -204,42 +204,42 @@
 
 ### Insieme delle Parti
 
-> [!info] Insieme delle Parti
+> [!note] Insieme delle Parti
 > $$\mathcal{P}(S) = \{X \mid X \subseteq S\}$$
 
 ### Funzione Biettiva
 
-> [!info] Biettività
+> [!note] Biettività
 > $f: A \to B$ è **biettiva** se è **iniettiva e suriettiva**:
 > $$\forall b \in B,\; |\overleftarrow{f}(\{b\})| = 1$$
 
 ### Equipotenza e Cardinalità
 
-> [!info] Equipotenza
+> [!note] Equipotenza
 > $|A| = |B|$ se e solo se esiste una **biiezione** $f: A \to B$.
 
 ### Composizione di Funzioni
 
-> [!info] Composizione
+> [!note] Composizione
 > Date $f: A \to B$ e $g: B \to C$:
 > $$(g \circ f)(x) = g(f(x))$$
 > La composizione **non è commutativa**, ma è **associativa**.
 
 ### Funzione Invertibile
 
-> [!info] Invertibilità
+> [!note] Invertibilità
 > $f: A \to B$ è **invertibile** se esiste $f^{-1}: B \to A$ tale che $f^{-1} \circ f = \mathrm{id}_A$ e $f \circ f^{-1} = \mathrm{id}_B$.
 > $$f \text{ invertibile} \;\Longleftrightarrow\; f \text{ biettiva}$$
 
 ### Operazione e Struttura Algebrica
 
-> [!info] Operazione $n$-aria
+> [!note] Operazione $n$-aria
 > $f: A^n \to A$. Per $n = 2$: **operazione binaria interna**.
 
-> [!info] Struttura Algebrica
+> [!note] Struttura Algebrica
 > $(S, \mathcal{O})$ dove $S$ è un insieme non vuoto e $\mathcal{O}$ è una famiglia di operazioni su $S$.
 
-> [!info] Associatività
+> [!note] Associatività
 > $$\forall a, b, c \in S:\; (a * b) * c = a * (b * c)$$
 
 ---
@@ -248,37 +248,37 @@
 
 ### Teorema di Invertibilità
 
-> [!info] Teorema
+> [!important] Teorema
 > $f: A \to B$ è invertibile se e solo se $f$ è biettiva. L'inversa è unica.
 
 ### Inversa Sinistra e Destra
 
-> [!info] Inversa Sinistra
+> [!note] Inversa Sinistra
 > $g \circ f = \mathrm{id}_A$. Esiste $\Longleftrightarrow$ $f$ è **iniettiva**.
 
-> [!info] Inversa Destra
+> [!note] Inversa Destra
 > $f \circ h = \mathrm{id}_B$. Esiste $\Longleftrightarrow$ $f$ è **suriettiva**.
 
 ### Matrici
 
-> [!info] Matrice $m \times n$
+> [!note] Matrice $m \times n$
 > Tabella rettangolare di $m$ righe e $n$ colonne di elementi di un anello.
 > **Trasposta:** $(A^T)_{ij} = A_{ji}$.
 
 ### Semigruppo
 
-> [!info] Semigruppo
+> [!note] Semigruppo
 > $(S, *)$ dove $*$ è un'operazione binaria **associativa**.
 
 ### Elemento Neutro
 
-> [!info] Elemento Neutro
+> [!note] Elemento Neutro
 > $u \in S$ tale che $\forall a \in S:\; a * u = u * a = a$.
 > Se esiste, è **unico**.
 
 ### Monoide
 
-> [!info] Monoide
+> [!note] Monoide
 > **Semigruppo con elemento neutro**: $(S, *, u)$.
 >
 > Esempi:
@@ -292,14 +292,14 @@
 
 ### Prodotto di Matrici
 
-> [!info] Prodotto Matriciale
+> [!note] Prodotto Matriciale
 > Date $A \in M_{m \times p}$ e $B \in M_{p \times n}$:
 > $$c_{ij} = \sum_{k=1}^{p} a_{ik} \cdot b_{kj}$$
 > Non commutativo; associativo; la matrice identità $I_n$ è l'elemento neutro.
 
 ### Elemento Invertibile (Simmetrico)
 
-> [!info] Elemento Invertibile
+> [!note] Elemento Invertibile
 > In un monoide $(S, *, u)$, $a$ è **invertibile** se:
 > $$\exists\, a' \in S:\; a * a' = a' * a = u$$
 > L'inverso è **unico**. Invertibile $\Longrightarrow$ Cancellabile.
@@ -311,26 +311,26 @@
 
 ### Gruppo degli Invertibili
 
-> [!info] $U(S)$ — Gruppo degli Invertibili
+> [!note] $U(S)$ — Gruppo degli Invertibili
 > L'insieme degli elementi invertibili di un monoide $(S, *, u)$ è **chiuso** per $*$ e forma un **gruppo** $(U(S), *)$.
 >
 > Esempi: $U(\mathbb{N},+) = \{0\}$, $\;U(\mathbb{Z}, \cdot) = \{1,-1\}$, $\;U(\mathbb{Q}, \cdot) = \mathbb{Q}^*$, $\;U(A^A, \circ) = S_A$.
 
 ### Parte Stabile (Chiusa)
 
-> [!info] Parte Stabile
+> [!note] Parte Stabile
 > $H \subseteq S$ è **stabile** (o chiusa) per $*$ se:
 > $$\forall h, k \in H:\; h * k \in H$$
 
 ### Gruppo
 
-> [!info] Gruppo
+> [!note] Gruppo
 > $(G, *)$ è un **gruppo** se:
 > 1. $*$ è **associativa**
 > 2. Esiste un **elemento neutro** $u$
 > 3. Ogni elemento ha un **inverso**: $\forall a \in G,\; \exists\, a^{-1} \in G$
 
-> [!info] Gruppo Abeliano
+> [!note] Gruppo Abeliano
 > Gruppo in cui $*$ è **commutativa**: $a * b = b * a$.
 
 ---
@@ -339,31 +339,31 @@
 
 ### Inversa di una Matrice $2 \times 2$
 
-> [!info] Inversa $2 \times 2$
+> [!note] Inversa $2 \times 2$
 > Sia $A = \begin{pmatrix} a & b \\ c & d \end{pmatrix}$ con $\det(A) = ad - bc \neq 0$:
 > $$A^{-1} = \frac{1}{ad - bc}\begin{pmatrix} d & -b \\ -c & a \end{pmatrix}$$
 
 ### Anello
 
-> [!info] Anello
+> [!note] Anello
 > $(A, +, \cdot)$ è un **anello** se:
 > 1. $(A, +)$ è un **gruppo abeliano**
 > 2. $(A, \cdot)$ è un **semigruppo**
 > 3. Valgono le **proprietà distributive** (sinistra e destra):
 >    $$a \cdot (b + c) = a \cdot b + a \cdot c \qquad (b + c) \cdot a = b \cdot a + c \cdot a$$
 
-> [!info] Anello Commutativo
+> [!note] Anello Commutativo
 > $a \cdot b = b \cdot a$ per ogni $a, b$.
 
-> [!info] Anello Unitario
+> [!note] Anello Unitario
 > Esiste un'unità $1_A$ tale che $a \cdot 1_A = 1_A \cdot a = a$.
 
-> [!info] Anello Booleano
+> [!note] Anello Booleano
 > Anello con $a \cdot a = a$ per ogni $a$. Esempio: $(\mathcal{P}(S), \triangle, \cap)$.
 
 ### Caratteristica di un Anello
 
-> [!info] Caratteristica
+> [!note] Caratteristica
 > $$\mathrm{char}(A) = \min\{m > 0 \mid \underbrace{1_A + \cdots + 1_A}_{m} = 0_A\}$$
 > Se tale $m$ non esiste, $\mathrm{char}(A) = 0$.
 >
@@ -371,7 +371,7 @@
 
 ### Elemento Cancellabile
 
-> [!info] Cancellabilità
+> [!note] Cancellabilità
 > $a$ è **cancellabile a sinistra** se $a \cdot b = a \cdot c \Rightarrow b = c$.
 > $a$ è **cancellabile a destra** se $b \cdot a = c \cdot a \Rightarrow b = c$.
 > **Invertibile $\Longrightarrow$ Cancellabile** (il viceversa non vale in generale).
@@ -383,7 +383,7 @@
 
 ### Divisore dello Zero
 
-> [!info] Divisore dello Zero
+> [!note] Divisore dello Zero
 > $a \neq 0_A$ è **divisore dello zero** se $\exists\, b \neq 0_A:\; a \cdot b = 0_A$.
 > $$a \neq 0 \text{ è divisore dello zero} \;\Longleftrightarrow\; a \text{ non è cancellabile}$$
 
@@ -400,31 +400,31 @@
 
 ### Omomorfismo
 
-> [!info] Omomorfismo
+> [!note] Omomorfismo
 > $f: (S, *) \to (T, \perp)$ è un **omomorfismo** se:
 > $$f(a * b) = f(a) \perp f(b) \quad \forall a, b \in S$$
 
 ### Dominio d'Integrità
 
-> [!info] Dominio d'Integrità
+> [!note] Dominio d'Integrità
 > Anello **commutativo**, **unitario** (con $1_A \neq 0_A$), **privo di divisori dello zero**.
 > Esempi: $\mathbb{Z}$, $\mathbb{Q}$, $\mathbb{R}$, $\mathbb{C}$.
 
 ### Corpo e Campo
 
-> [!info] Corpo
+> [!note] Corpo
 > Anello unitario $(K, +, \cdot)$ con $1_K \neq 0_K$ e $U(K) = K \setminus \{0_K\}$
 > (ogni elemento non nullo è invertibile).
 
-> [!info] Campo
+> [!note] Campo
 > **Corpo commutativo**. Campo $\Longrightarrow$ Dominio d'integrità.
 
-> [!info] Teorema di Wedderburn
+> [!important] Teorema di Wedderburn
 > Ogni **corpo finito** è un **campo**.
 
 ### Spazio Vettoriale
 
-> [!info] Spazio Vettoriale
+> [!note] Spazio Vettoriale
 > $(V, +)$ gruppo abeliano su un campo $(K, +, \cdot)$ con operazione esterna $\cdot: K \times V \to V$ che soddisfa:
 > 1. $\lambda(\mu v) = (\lambda\mu)v$
 > 2. $(\lambda + \mu)v = \lambda v + \mu v$
@@ -433,12 +433,12 @@
 
 ### Gruppo Simmetrico
 
-> [!info] Gruppo Simmetrico $S_n$
+> [!note] Gruppo Simmetrico $S_n$
 > L'insieme di tutte le permutazioni di $\{1, 2, \ldots, n\}$ con l'operazione di composizione.
 > $$|S_n| = n!$$
 > Non abeliano per $n \geq 3$.
 
-> [!info] Notazione Ciclica
+> [!note] Notazione Ciclica
 > Ogni permutazione si decompone in **cicli disgiunti** in modo unico (a meno dell'ordine).
 
 ---
@@ -447,56 +447,56 @@
 
 ### Tavole di Cayley
 
-> [!info] Proprietà visibili dalle Tavole
+> [!note] Proprietà visibili dalle Tavole
 > - **Commutatività** $\Longleftrightarrow$ tabella simmetrica rispetto alla diagonale
 > - **Cancellabilità** $\Longleftrightarrow$ nessuna ripetizione nelle righe e colonne
 
-> [!info] Cancellabilità in Strutture Finite
+> [!important] Cancellabilità in Strutture Finite
 > In un magma **finito** $(S, *)$, un elemento $a$ è **cancellabile** se e solo se la funzione $x \mapsto a * x$ è **iniettiva** (e quindi biettiva, essendo $S$ finito).
 
 ### Elemento Nilpotente
 
-> [!info] Nilpotente
+> [!note] Nilpotente
 > $a \in A$ è **nilpotente** se $\exists\, n \geq 1:\; a^n = 0_A$.
 > **Nilpotente non nullo $\Longrightarrow$ Divisore dello zero.**
 
 ### Divisibilità
 
-> [!info] Divisibilità
+> [!note] Divisibilità
 > $$b \mid a \;\Longleftrightarrow\; \exists c:\; a = b \cdot c$$
 > $\mathrm{div}(a)$: insieme dei divisori di $a$. $\;\mathrm{mult}(b)$: insieme dei multipli di $b$.
 
 ### Elementi Associati
 
-> [!info] Associati
+> [!note] Associati
 > $x \sim y \;\Longleftrightarrow\; \exists\, u \in U(A):\; x = u \cdot y$.
 > È una **relazione di equivalenza**.
 
 ### Divisori Banali e Propri
 
-> [!info] Divisori Banali e Propri
+> [!note] Divisori Banali e Propri
 > Sia $a \in A$ un anello unitario.
 > - I **divisori banali** di $a$ sono gli elementi **associati** a $1$ (cioè gli invertibili $U(A)$) e gli associati ad $a$ stesso.
 > - Un **divisore proprio** è un divisore di $a$ che non è né banale né invertibile.
 
 ### MCD e mcm
 
-> [!info] Massimo Comun Divisore
+> [!note] Massimo Comun Divisore
 > $e = \mathrm{MCD}(a, b)$ se:
 > 1. $e \mid a$ e $e \mid b$
 > 2. $\forall x:\; (x \mid a \;\wedge\; x \mid b) \Rightarrow x \mid e$
 
-> [!info] Minimo Comune Multiplo
+> [!note] Minimo Comune Multiplo
 > $m = \mathrm{mcm}(a, b)$ se:
 > 1. $a \mid m$ e $b \mid m$
 > 2. $\forall x:\; (a \mid x \;\wedge\; b \mid x) \Rightarrow m \mid x$
 
 ### Numero Primo
 
-> [!info] Primo
+> [!note] Primo
 > $p$ è **primo** se $p \notin U(\mathbb{Z})$ e $\mathrm{div}(p) = \{1, -1, p, -p\}$.
 
-> [!info] Lemma di Euclide
+> [!important] Lemma di Euclide
 > Se $p$ è primo e $p \mid ab$, allora $p \mid a$ oppure $p \mid b$.
 
 > [!tip] Dimostrazione — Lemma di Euclide
@@ -510,7 +510,7 @@
 
 ### Relazioni Binarie — Proprietà
 
-> [!info] Proprietà di una Relazione $R \subseteq A \times A$
+> [!note] Proprietà di una Relazione $R \subseteq A \times A$
 > | Proprietà | Definizione |
 > |:----------|:-----------|
 > | **Riflessiva** | $\forall x \in A,\; xRx$ |
@@ -526,22 +526,22 @@
 
 ### Insieme Ben Ordinato
 
-> [!info] Ben Ordinato
+> [!note] Ben Ordinato
 > $(S, \leq)$ è **ben ordinato** se ogni sottoinsieme non vuoto ammette un **minimo**.
 > Ben ordinato $\Longrightarrow$ totalmente ordinato.
 > Esempio: $(\mathbb{N}, \leq)$.
 
 ### Principio di Induzione
 
-> [!info] Forma I (Standard)
+> [!note] Forma I (Standard)
 > Se $P(\bar{n})$ è vera e $\forall n \geq \bar{n}:\; P(n) \Rightarrow P(n+1)$, allora $P(n)$ è vera $\forall n \geq \bar{n}$.
 
-> [!info] Forma II (Forte)
+> [!note] Forma II (Forte)
 > Se $P(\bar{n})$ è vera e $\forall n > \bar{n}:\; \bigl[\forall i\;(\bar{n} \leq i < n \Rightarrow P(i))\bigr] \Rightarrow P(n)$, allora $P(n)$ è vera $\forall n \geq \bar{n}$.
 
 ### Divisione Euclidea
 
-> [!info] Teorema della Divisione Euclidea
+> [!important] Teorema della Divisione Euclidea
 > $\forall\, m \in \mathbb{Z},\; n \in \mathbb{Z} \setminus \{0\},\; \exists!\, q, r \in \mathbb{Z}:$
 > $$m = n \cdot q + r, \qquad 0 \leq r < |n|$$
 
@@ -558,7 +558,7 @@
 
 ### Identità di Bézout
 
-> [!info] Identità di Bézout
+> [!important] Identità di Bézout
 > $$\mathrm{MCD}(a, b) = a \cdot x + b \cdot y \quad \text{per opportuni } x, y \in \mathbb{Z}$$
 > Corollario: $a, b$ coprimi $\Longleftrightarrow$ $\exists\, x, y:\; ax + by = 1$.
 
@@ -574,7 +574,7 @@
 
 ### Relazione d'Equivalenza
 
-> [!info] Equivalenza
+> [!note] Equivalenza
 > Una relazione $R$ su $A$ è di **equivalenza** se è:
 > 1. **Riflessiva**
 > 2. **Simmetrica**
@@ -582,7 +582,7 @@
 
 ### Relazione d'Ordine
 
-> [!info] Ordine (Parziale)
+> [!note] Ordine (Parziale)
 > Una relazione su $A$ è d'**ordine** se è riflessiva, **antisimmetrica** e transitiva.
 > È **totale** se $\forall x, y:\; xRy \vee yRx$.
 
@@ -592,23 +592,23 @@
 
 ### Algoritmo di Euclide
 
-> [!info] Algoritmo di Euclide
+> [!note] Algoritmo di Euclide
 > Calcola $\mathrm{MCD}(a, b)$ tramite divisioni successive: si divide ripetutamente il dividendo per il resto, finché il resto è $0$. L'ultimo resto non nullo è il MCD.
 
 ### Algoritmo Esteso di Euclide
 
-> [!info] Algoritmo Esteso
+> [!note] Algoritmo Esteso
 > Risalendo le divisioni dell'Algoritmo di Euclide, si trovano i **coefficienti di Bézout** $x, y$ tali che $ax + by = \mathrm{MCD}(a, b)$.
 
 ### Teorema Fondamentale dell'Aritmetica
 
-> [!info] FTA
+> [!important] FTA
 > Ogni intero $n \geq 2$ si scrive in modo **unico** (a meno dell'ordine) come prodotto di numeri primi:
 > $$n = p_1^{\alpha_1} \cdot p_2^{\alpha_2} \cdots p_k^{\alpha_k}$$
 
 ### Classi di Equivalenza
 
-> [!info] Classe di Equivalenza
+> [!note] Classe di Equivalenza
 > $$[a]_R = \{x \in S \mid x \mathrel{R} a\}$$
 > Proprietà:
 > - Ogni classe è **non vuota** ($a \in [a]$)
@@ -617,11 +617,11 @@
 
 ### Insieme Quoziente
 
-> [!info] Insieme Quoziente
+> [!note] Insieme Quoziente
 > $$S / R = \{[a]_R \mid a \in S\}$$
 > L'insieme di tutte le classi di equivalenza.
 
-> [!info] Teorema
+> [!important] Teorema
 > Esiste una corrispondenza biunivoca tra relazioni di equivalenza su $S$ e partizioni di $S$.
 
 > [!tip] Dimostrazione — Equivalenza $\longleftrightarrow$ Partizioni
@@ -645,7 +645,7 @@
 
 ### Relazione di Equivalenza Indotta da Funzione
 
-> [!info] Equivalenza indotta
+> [!note] Equivalenza indotta
 > Data $f: S \to T$, si definisce $x \mathrel{R_f} y \;\Longleftrightarrow\; f(x) = f(y)$.
 > Questa è una relazione di equivalenza su $S$.
 
@@ -656,7 +656,7 @@
 
 ### Applicazione Quoziente (Fattorizzazione)
 
-> [!info] Fattorizzazione
+> [!note] Fattorizzazione
 > Data $f: S \to T$ e la relazione $R_f$, l'**applicazione quoziente** è:
 > $$\bar{f}: S/R_f \to T, \qquad \bar{f}([a]) = f(a)$$
 > È **ben definita** e **iniettiva**. Vale $f = \bar{f} \circ \pi$ (dove $\pi$ è la proiezione canonica).
@@ -668,14 +668,14 @@
 
 ### Congruenza (Compatibilità)
 
-> [!info] Congruenza
+> [!note] Congruenza
 > Una relazione di equivalenza $R$ su $(S, \perp)$ è una **congruenza** se:
 > $$a \mathrel{R} c \;\wedge\; b \mathrel{R} d \;\Longrightarrow\; (a \perp b) \mathrel{R} (c \perp d)$$
 > Questo rende l'operazione quoziente **ben definita**.
 
 ### Congruenza Modulo $m$
 
-> [!info] Congruenza Modulo $m$
+> [!note] Congruenza Modulo $m$
 > $$a \equiv b \pmod{m} \;\Longleftrightarrow\; m \mid (a - b)$$
 > Equivalentemente: $a$ e $b$ hanno lo **stesso resto** nella divisione per $m$.
 >
@@ -683,7 +683,7 @@
 > - $m = 0$: la congruenza è l'**uguaglianza**
 > - $m = 1$: la relazione è **totale** (sempre vera)
 
-> [!info] Compatibilità con $+$ e $\cdot$
+> [!note] Compatibilità con $+$ e $\cdot$
 > Se $a \equiv c$ e $b \equiv d$ $\pmod{m}$, allora:
 > $$a + b \equiv c + d \pmod{m} \qquad a \cdot b \equiv c \cdot d \pmod{m}$$
 
@@ -694,7 +694,7 @@
 >
 > **Prodotto:** $ab = (c + mh)(d + mk) = cd + m(ck + hd + mhk)$, dunque $ab - cd = m(ck + hd + mhk)$ e $m \mid (ab - cd)$. $\square$
 
-> [!info] Anello $\mathbb{Z}_m$
+> [!note] Anello $\mathbb{Z}_m$
 > L'insieme quoziente $\mathbb{Z}_m = \{[0]_m, [1]_m, \ldots, [m-1]_m\}$ con:
 > $$[a] + [b] = [a + b], \qquad [a] \cdot [b] = [a \cdot b]$$
 > è un **anello commutativo unitario**.
@@ -705,7 +705,7 @@
 
 ### $\mathbb{Z}_m$ è un Campo
 
-> [!info] Teorema
+> [!important] Teorema
 > $(\mathbb{Z}_m, +, \cdot)$ è un **campo** se e solo se $m$ è un numero **primo**.
 
 > [!tip] Dimostrazione — $\mathbb{Z}_m$ campo $\Longleftrightarrow$ $m$ primo
@@ -715,7 +715,7 @@
 
 ### Caratteristica di $\mathbb{Z}_m$
 
-> [!info] Caratteristica
+> [!note] Caratteristica
 > $$\mathrm{char}(\mathbb{Z}_m) = m$$
 
 > [!tip] Dimostrazione — $\mathrm{char}(\mathbb{Z}_m) = m$
@@ -724,13 +724,13 @@
 
 ### Invertibili e Divisori dello Zero in $\mathbb{Z}_m$
 
-> [!info] Invertibili
+> [!note] Invertibili
 > $[a]_m$ è **invertibile** in $\mathbb{Z}_m$ $\;\Longleftrightarrow\;$ $\mathrm{MCD}(a, m) = 1$.
 
-> [!info] Divisori dello Zero
+> [!note] Divisori dello Zero
 > $[a]_m \neq [0]_m$ è **divisore dello zero** in $\mathbb{Z}_m$ $\;\Longleftrightarrow\;$ $\mathrm{MCD}(a, m) > 1$.
 
-> [!info] Dicotomia
+> [!note] Dicotomia
 > In $\mathbb{Z}_m$, ogni $[a] \neq [0]$ è **o invertibile o divisore dello zero**.
 
 > [!tip] Dimostrazione — Invertibili e Divisori dello Zero in $\mathbb{Z}_m$
@@ -750,12 +750,12 @@
 
 ### Elementi Nilpotenti in $\mathbb{Z}_m$
 
-> [!info] Nilpotenti in $\mathbb{Z}_m$
+> [!note] Nilpotenti in $\mathbb{Z}_m$
 > Sia $m = p_1^{\alpha_1} \cdots p_t^{\alpha_t}$. Allora $[a]_m$ è nilpotente se e solo se $a$ è multiplo di $\mathrm{rad}(m) = p_1 \cdot p_2 \cdots p_t$.
 
 ### Equazioni Congruenziali
 
-> [!info] Teorema di Risolubilità
+> [!important] Teorema di Risolubilità
 > L'equazione $ax \equiv b \pmod{m}$ ha soluzione $\;\Longleftrightarrow\;$ $d \mid b$, dove $d = \mathrm{MCD}(a, m)$.
 > Se ha soluzione, ci sono esattamente **$d$ soluzioni distinte** modulo $m$.
 > Se $d = 1$, la soluzione unica è $x \equiv a^{-1} b \pmod{m}$.
@@ -766,13 +766,13 @@
 
 ### Elemento Idempotente
 
-> [!info] Idempotente in $\mathbb{Z}_m$
+> [!note] Idempotente in $\mathbb{Z}_m$
 > $[a]_m$ è **idempotente** se $[a]^2 = [a]$, cioè $m \mid a(a-1)$.
 > Sempre idempotenti: $[0]$ e $[1]$.
 
 ### Criteri di Divisibilità (via Aritmetica Modulare)
 
-> [!info] Formula Generale
+> [!note] Formula Generale
 > Sia $n = c_k \cdot 10^k + \cdots + c_1 \cdot 10 + c_0$. Allora:
 > $$n \equiv \sum_{i=0}^{k} c_i \cdot (10^i \bmod m) \pmod{m}$$
 
@@ -789,12 +789,12 @@
 
 ### Corollario: $\mathbb{Z}_n$ Dominio d'Integrità
 
-> [!info] Dominio
+> [!note] Dominio
 > $\mathbb{Z}_n$ è un **dominio d'integrità** $\;\Longleftrightarrow\;$ $n$ è primo $\;\Longleftrightarrow\;$ $\mathbb{Z}_n$ è un campo.
 
 ### Anello Prodotto
 
-> [!info] Anello Prodotto $\mathbb{Z}_m \times \mathbb{Z}_n$
+> [!note] Anello Prodotto $\mathbb{Z}_m \times \mathbb{Z}_n$
 > Operazioni **componente per componente**:
 > $$(\bar{a}, \tilde{b}) + (\bar{c}, \tilde{d}) = (\overline{a+c},\, \widetilde{b+d})$$
 > $$(\bar{a}, \tilde{b}) \cdot (\bar{c}, \tilde{d}) = (\overline{a \cdot c},\, \widetilde{b \cdot d})$$
@@ -803,7 +803,7 @@
 
 ### Caratteristica del Prodotto
 
-> [!info] Caratteristica dell'Anello Prodotto
+> [!note] Caratteristica dell'Anello Prodotto
 > $$\mathrm{char}(\mathbb{Z}_m \times \mathbb{Z}_n) = \mathrm{mcm}(\mathrm{char}(\mathbb{Z}_m),\, \mathrm{char}(\mathbb{Z}_n)) = \mathrm{mcm}(m, n)$$
 
 ---
@@ -812,13 +812,13 @@
 
 ### Equazione Diofantea Lineare
 
-> [!info] Equazione Diofantea
+> [!note] Equazione Diofantea
 > $ax + by = c$ con $a, b, c \in \mathbb{Z}$, soluzioni $x, y \in \mathbb{Z}$.
 > Ha soluzione $\;\Longleftrightarrow\;$ $\mathrm{MCD}(a, b) \mid c$.
 
 ### Funzione Totiente di Eulero
 
-> [!info] Funzione $\varphi(n)$
+> [!note] Funzione $\varphi(n)$
 > $$\varphi(n) = |U(\mathbb{Z}_n)| = |\{k \in \{0, \ldots, n-1\} \mid \mathrm{MCD}(k, n) = 1\}|$$
 >
 > Proprietà:
@@ -828,23 +828,23 @@
 
 ### Teorema di Fermat-Eulero
 
-> [!info] Fermat-Eulero
+> [!important] Fermat-Eulero
 > Se $\mathrm{MCD}(a, n) = 1$, allora:
 > $$a^{\varphi(n)} \equiv 1 \pmod{n}$$
 
-> [!info] Piccolo Teorema di Fermat
+> [!important] Piccolo Teorema di Fermat
 > Se $p$ è primo e $p \nmid a$:
 > $$a^{p-1} \equiv 1 \pmod{p}$$
 
 ### Coefficiente Binomiale
 
-> [!info] Coefficiente Binomiale
+> [!note] Coefficiente Binomiale
 > $$\binom{n}{k} = \frac{n!}{k!\,(n-k)!} \qquad \text{per } 0 \leq k \leq n$$
 > Simmetria: $\binom{n}{k} = \binom{n}{n-k}$.
 
 ### Identità di Pascal
 
-> [!info] Identità di Pascal
+> [!important] Identità di Pascal
 > $$\binom{n}{k} + \binom{n}{k-1} = \binom{n+1}{k}$$
 
 > [!tip] Dimostrazione — Identità di Pascal
@@ -854,7 +854,7 @@
 
 ### Somma dei Coefficienti Binomiali
 
-> [!info] Somma
+> [!note] Somma
 > $$\sum_{k=0}^{n} \binom{n}{k} = 2^n$$
 
 > [!tip] Dimostrazione — $|\mathcal{P}(S)| = 2^{|S|}$ (per induzione)
@@ -866,7 +866,7 @@
 
 ### Applicazioni Iniettive
 
-> [!info] Conteggio
+> [!note] Conteggio
 > Il numero di applicazioni iniettive $f: S \to T$ con $|S| = n$, $|T| = m$, $n \leq m$:
 > $$\frac{m!}{(m-n)!}$$
 
@@ -879,7 +879,7 @@
 
 ### Binomio di Newton
 
-> [!info] Binomio di Newton
+> [!important] Binomio di Newton
 > $$(a + b)^n = \sum_{k=0}^{n} \binom{n}{k}\, a^{n-k}\, b^k$$
 
 > [!tip] Dimostrazione — Binomio di Newton (per induzione su $n$)
@@ -899,7 +899,7 @@
 
 ### Relazione d'Ordine Largo
 
-> [!info] Ordine Largo
+> [!note] Ordine Largo
 > $\mathcal{R}$ su $S$ è d'**ordine** se è:
 > 1. **Riflessiva**
 > 2. **Antisimmetrica**
@@ -907,7 +907,7 @@
 
 ### Relazione d'Ordine Stretto
 
-> [!info] Ordine Stretto
+> [!note] Ordine Stretto
 > $\mathcal{R}'$ su $S$ è d'**ordine stretto** se è:
 > 1. **Antiriflessiva**
 > 2. **Transitiva**
@@ -916,49 +916,49 @@
 
 ### Corrispondenza Largo ↔ Stretto
 
-> [!info] Corrispondenza
+> [!note] Corrispondenza
 > $$x <  y \;\Longleftrightarrow\; (x \leq y \;\wedge\; x \neq y)$$
 > $$x \leq y \;\Longleftrightarrow\; (x < y \;\vee\; x = y)$$
 
 ### Ordine Totale
 
-> [!info] Ordine Totale
+> [!note] Ordine Totale
 > $\forall x, y \in S:\; x \leq y \;\vee\; y \leq x$ (ogni coppia è confrontabile).
 
 ### Copertura
 
-> [!info] Copertura
+> [!note] Copertura
 > $b$ **copre** $a$ se $a < b$ e $\nexists\, c:\; a < c < b$.
 
 ### Diagramma di Hasse
 
-> [!info] Diagramma di Hasse
+> [!note] Diagramma di Hasse
 > Rappresentazione grafica di un poset finito: si disegnano solo le relazioni di **copertura**, con l'elemento maggiore in alto.
 
 ### Elemento Minimo / Massimo
 
-> [!info] Minimo e Massimo
+> [!note] Minimo e Massimo
 > - $a$ è **minimo** se $a \leq x$ per ogni $x \in S$. Se esiste, è **unico**.
 > - $a$ è **massimo** se $x \leq a$ per ogni $x \in S$. Se esiste, è **unico**.
 
 ### Elemento Minimale / Massimale
 
-> [!info] Minimale e Massimale
+> [!note] Minimale e Massimale
 > - $a$ è **minimale** se $\nexists\, x:\; x < a$.
 > - $a$ è **massimale** se $\nexists\, x:\; a < x$.
 > - Minimo $\Longrightarrow$ unico minimale. Ma un minimale unico **non** è necessariamente il minimo.
 
-> [!info] Teorema (Poset Finiti)
+> [!important] Teorema (Poset Finiti)
 > Ogni insieme **finito non vuoto** parzialmente ordinato possiede almeno un elemento **minimale** e almeno un elemento **massimale**.
 
 ### Minoranti, Maggioranti, Inf, Sup
 
-> [!info] Minorante e Maggiorante
+> [!note] Minorante e Maggiorante
 > Sia $X \subseteq S$:
 > - **Minorante** di $X$: $a \leq x\;\forall x \in X$
 > - **Maggiorante** di $X$: $x \leq a\;\forall x \in X$
 
-> [!info] Infimo e Supremo
+> [!note] Infimo e Supremo
 > - $\inf(X) = \max(\text{minoranti di } X)$
 > - $\sup(X) = \min(\text{maggioranti di } X)$
 >
@@ -970,13 +970,13 @@
 
 ### Divisibilità su $\mathbb{N}^*$
 
-> [!info] Divisibilità come Ordine
+> [!note] Divisibilità come Ordine
 > $(\mathbb{N}^*, \mid)$ è un **ordine parziale**.
 > $(\mathbb{Z}, \mid)$ **non** è un ordine (non è antisimmetrica: $2 \mid {-2}$ e ${-2} \mid 2$ ma $2 \neq -2$).
 
 ### Ordine Indotto da Funzione
 
-> [!info] Ordine Indotto
+> [!note] Ordine Indotto
 > Data $f: S \to T$ e $(T, \leq_T)$ ordinato:
 > $$a \leq_f b \;\Longleftrightarrow\; (a = b) \;\vee\; (f(a) <_T f(b))$$
 > Questa è una relazione d'ordine su $S$.
@@ -987,14 +987,14 @@
 
 ### Reticolo (Definizione tramite Ordine)
 
-> [!info] Reticolo
+> [!note] Reticolo
 > Un poset $(L, \leq)$ è un **reticolo** se per ogni $a, b \in L$ esistono:
 > - $\inf\{a, b\} = a \wedge b$ (**meet**)
 > - $\sup\{a, b\} = a \vee b$ (**join**)
 
 ### Reticolo (Definizione Algebrica)
 
-> [!info] Reticolo (algebrico)
+> [!note] Reticolo (algebrico)
 > $(L, \wedge, \vee)$ è un **reticolo** se $\wedge$ e $\vee$ soddisfano:
 > 1. **Associatività**: $(a \wedge b) \wedge c = a \wedge (b \wedge c)$, $\;(a \vee b) \vee c = a \vee (b \vee c)$
 > 2. **Commutatività**: $a \wedge b = b \wedge a$, $\;a \vee b = b \vee a$
@@ -1002,13 +1002,13 @@
 
 ### Idempotenza (derivata)
 
-> [!info] Idempotenza
+> [!note] Idempotenza
 > Dalle leggi di assorbimento:
 > $$a \wedge a = a, \qquad a \vee a = a$$
 
 ### Equivalenza tra le Due Definizioni
 
-> [!info] Teorema
+> [!important] Teorema
 > Le due definizioni sono equivalenti. La relazione d'ordine si recupera da:
 > $$a \leq b \;\Longleftrightarrow\; a \wedge b = a \;\Longleftrightarrow\; a \vee b = b$$
 
@@ -1023,15 +1023,15 @@
 
 ### Esempio Fondamentale
 
-> [!info] $(\mathcal{P}(S), \subseteq)$ è un Reticolo
+> [!note] $(\mathcal{P}(S), \subseteq)$ è un Reticolo
 > Con $A \wedge B = A \cap B$ e $A \vee B = A \cup B$.
 ### Catena
 
-> [!info] Catena
+> [!note] Catena
 > Un sottoinsieme $C \subseteq S$ di un insieme parzialmente ordinato $(S, \leq)$ è una **catena** se è **totalmente ordinato**:
 > $$\forall x, y \in C:\; x \leq y \;\vee\; y \leq x$$
 
-> [!info] Catena Massimale
+> [!note] Catena Massimale
 > Una catena $C$ in $(S, \leq)$ è **massimale** se non può essere estesa: non esiste alcun elemento $s \in S \setminus C$ tale che $C \cup \{s\}$ sia ancora una catena.
 ---
 
@@ -1039,29 +1039,29 @@
 
 ### Reticolo Limitato
 
-> [!info] Reticolo Limitato
+> [!note] Reticolo Limitato
 > Un reticolo $L$ è **limitato** se possiede:
 > - Elemento **minimo** $0_L$: $\;0_L \leq a\;\forall a$, ossia $a \vee 0_L = a$
 > - Elemento **massimo** $1_L$: $\;a \leq 1_L\;\forall a$, ossia $a \wedge 1_L = a$
 >
 > **Ogni reticolo finito è limitato.**
 
-> [!info] Insieme Totalmente Ordinato ⇒ Reticolo
+> [!important] Insieme Totalmente Ordinato ⇒ Reticolo
 > Se $(S, \leq)$ è un insieme **totalmente ordinato**, allora è un **reticolo**.
 > Per ogni $a, b \in S$: se $a \leq b$, allora $a \wedge b = a$ e $a \vee b = b$.
 
-> [!info] Reticolo Finito ⇒ Limitato
+> [!important] Reticolo Finito ⇒ Limitato
 > Ogni reticolo **finito** è **limitato**: possiede sempre un elemento minimo $0_L$ e un elemento massimo $1_L$.
 
 ### Sottoreticolo
 
-> [!info] Sottoreticolo
+> [!note] Sottoreticolo
 > $A \subseteq L$ non vuoto è un **sottoreticolo** se è chiuso per $\wedge$ e $\vee$:
 > $$\forall x, y \in A:\; x \wedge y \in A \;\wedge\; x \vee y \in A$$
 
 ### Isomorfismo di Reticoli
 
-> [!info] Isomorfismo di Poset / Reticoli
+> [!note] Isomorfismo di Poset / Reticoli
 > $f: L \to M$ biettiva è un **isomorfismo** se:
 > $$a \leq_L b \;\Longleftrightarrow\; f(a) \leq_M f(b)$$
 > Equivalentemente, preserva $\wedge$ e $\vee$:
@@ -1069,13 +1069,13 @@
 
 ### Reticolo Complementato
 
-> [!info] Complementato
+> [!note] Complementato
 > Un reticolo **limitato** è **complementato** se per ogni $a \in L$ esiste almeno un $\bar{a} \in L$ tale che:
 > $$a \wedge \bar{a} = 0_L \qquad \text{e} \qquad a \vee \bar{a} = 1_L$$
 
 ### Reticolo Prodotto
 
-> [!info] Reticolo Prodotto
+> [!note] Reticolo Prodotto
 > Dati $(L_1, \leq_1)$ e $(L_2, \leq_2)$ reticoli, $L_1 \times L_2$ è un reticolo con:
 > $$(a, b) \leq (c, d) \;\Longleftrightarrow\; a \leq_1 c \;\wedge\; b \leq_2 d$$
 > $$(a, b) \wedge (c, d) = (a \wedge_1 c,\; b \wedge_2 d)$$
@@ -1083,7 +1083,7 @@
 
 ### Reticolo dei Divisori
 
-> [!info] Reticolo $(\mathbb{D}_n, \mid)$
+> [!note] Reticolo $(\mathbb{D}_n, \mid)$
 > L’insieme dei divisori positivi di $n$, ordinato per divisibilità, forma un **reticolo limitato**:
 > - $a \wedge b = \mathrm{MCD}(a, b)$
 > - $a \vee b = \mathrm{mcm}(a, b)$
@@ -1095,32 +1095,32 @@
 
 ### Sottoanello
 
-> [!info] Sottoanello
+> [!note] Sottoanello
 > Sia $(A, +, \cdot)$ un anello e $B \subseteq A$, $B \neq \emptyset$.
 > $(B, +, \cdot)$ è un **sottoanello** se $B$ è chiuso per **sottrazione** e **moltiplicazione**:
 > $$\forall b_1, b_2 \in B:\; b_1 - b_2 \in B \;\wedge\; b_1 \cdot b_2 \in B$$
 
 ### Principio di Dualità per Reticoli
 
-> [!info] Principio di Dualità
+> [!important] Principio di Dualità
 > Se un enunciato vale per **tutti** i reticoli, anche l'enunciato **duale** vale, ottenuto scambiando:
 > $$\leq \;\longleftrightarrow\; \geq, \qquad \wedge \;\longleftrightarrow\; \vee, \qquad 0_L \;\longleftrightarrow\; 1_L$$
 
 ### Reticolo Distributivo
 
-> [!info] Distributivo
+> [!note] Distributivo
 > Un reticolo è **distributivo** se:
 > $$a \wedge (b \vee c) = (a \wedge b) \vee (a \wedge c)$$
 > $$a \vee (b \wedge c) = (a \vee b) \wedge (a \vee c)$$
 > (Le due leggi sono equivalenti per dualità.)
 
-> [!info] Teorema ($M_3$, $N_5$)
+> [!important] Teorema ($M_3$, $N_5$)
 > Un reticolo è distributivo $\;\Longleftrightarrow\;$ **non contiene** sottoreticoli isomorfi a $M_3$ (diamante) o $N_5$ (pentagono).
 
-> [!info] Reticolo Pentagonale $N_5$
+> [!note] Reticolo Pentagonale $N_5$
 > Il reticolo con 5 elementi $\{0, a, b, c, 1\}$ dove $0 < a < b < 1$ e $0 < c < 1$ con $c$ non confrontabile con $a$ e $b$. **Non è distributivo** né modulare.
 
-> [!info] Reticolo Diamante $M_3$
+> [!note] Reticolo Diamante $M_3$
 > Il reticolo con 5 elementi $\{0, a, b, c, 1\}$ dove $a, b, c$ sono mutuamente non confrontabili e $0 < a, b, c < 1$. **Non è distributivo** (ma è modulare).
 
 > [!tip] Dimostrazione — $M_3$ e $N_5$ non sono distributivi
@@ -1136,7 +1136,7 @@
 
 ### Unicità del Complemento
 
-> [!info] Proposizione
+> [!important] Proposizione
 > In un reticolo **distributivo e limitato**, se un elemento ha un complemento, questo è **unico**.
 
 > [!tip] Dimostrazione — Unicità del Complemento
@@ -1146,18 +1146,18 @@
 
 ### Reticolo Booleano
 
-> [!info] Reticolo Booleano
+> [!note] Reticolo Booleano
 > Un reticolo è **booleano** se è **distributivo** e **complementato**.
 >
 > Esempio fondamentale: $(\mathcal{P}(S), \subseteq)$.
 
-> [!info] Teorema di Rappresentazione
+> [!important] Teorema di Rappresentazione
 > Ogni reticolo booleano **finito** è isomorfo a $(\mathcal{P}(S), \subseteq)$ per qualche insieme finito $S$.
 > Pertanto $|L| = 2^n$.
 
 ### Algebra di Boole
 
-> [!info] Algebra di Boole
+> [!note] Algebra di Boole
 > $(A, \wedge, \vee, ', 0, 1)$ dove $\wedge, \vee$ sono binarie, $'$ è unaria, e valgono:
 > 1. **Associatività** di $\wedge$ e $\vee$
 > 2. **Commutatività** di $\wedge$ e $\vee$
@@ -1166,12 +1166,12 @@
 > 5. **Elementi neutri**: $a \wedge 1 = a$, $\;a \vee 0 = a$
 > 6. **Complemento**: $a \wedge a' = 0$, $\;a \vee a' = 1$
 
-> [!info] Teorema di Stone
+> [!important] Teorema di Stone
 > Ogni algebra di Boole **finita** è isomorfa a $(\mathcal{P}(S), \cap, \cup, {}^c, \emptyset, S)$.
 
 ### Anello Booleano
 
-> [!info] Anello Booleano
+> [!note] Anello Booleano
 > Un anello $(A, +, \cdot)$ è **booleano** se $a^2 = a$ per ogni $a \in A$.
 >
 > Proprietà:
@@ -1190,7 +1190,7 @@
 
 ### Da Reticolo Booleano ad Anello Booleano
 
-> [!info] Costruzione
+> [!note] Costruzione
 > Dato un reticolo booleano $(L, \wedge, \vee, ', 0, 1)$, si definisce l'anello $(L, +, \cdot)$:
 > - **Prodotto:** $a \cdot b = a \wedge b$
 > - **Somma:** $a + b = (a \wedge b') \vee (b \wedge a')$ (differenza simmetrica)

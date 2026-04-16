@@ -105,7 +105,7 @@
 
 ## 4. Esercizi e Strutture Algebriche Varie
 
-> [!example] Esercizi per Casa (Associatività)
+> [!EXERCISE] Esercizi per Casa (Associatività)
 > Verificare se l'operazione binaria $\star$ è associativa nei seguenti casi (controllare se $(a \star b) \star c = a \star (b \star c)$ per ogni $a, b, c$):
 >
 > 1.  $(\mathbb{Z}, *)$ con $a * b = a + |b|$
@@ -128,7 +128,7 @@
     *   $T$ è **chiuso** rispetto a $+$ e $\cdot$ (somma/prodotto di costanti è costante).
     *   $(T, +, \cdot)$ è un sottoanello, isomorfo a $(\mathbb{Z}, +, \cdot)$.
 
-> [!example] Esercizio per Casa (Struttura Algebrica)
+> [!EXERCISE] Esercizio per Casa (Struttura Algebrica)
 > Studia la struttura $(\mathbb{Z}, *)$ dove:
 > $$ a * b = a + b + 4ab $$
 > Verifica:
@@ -191,7 +191,7 @@
         *   $g((x_1, x_2) + (y_1, y_2)) = g(x_1+y_1, x_2+y_2) = \begin{pmatrix} x_1+y_1 & x_2+y_2 \\ 0 & 0 \end{pmatrix}$.
         *   $g(x_1, x_2) + g(y_1, y_2) = \begin{pmatrix} x_1 & x_2 \\ 0 & 0 \end{pmatrix} + \begin{pmatrix} y_1 & y_2 \\ 0 & 0 \end{pmatrix} = \begin{pmatrix} x_1+y_1 & x_2+y_2 \\ 0 & 0 \end{pmatrix}$. **SÌ, è omomorfismo.**
 
-> [!example] Esercizi per Casa (Operazioni e Omomorfismi)
+> [!EXERCISE] Esercizi per Casa (Operazioni e Omomorfismi)
 > Definisci le seguenti operazioni su $\mathbb{Z}$:
 > *   $a \perp b = 2ab - a - b$
 > *   $a \circ b = a + b + 2ab$
@@ -266,7 +266,7 @@
 
 ---
 
-> [!abstract] Riepilogo Veloce Lezione 8
+> [!SUMMARY] Riepilogo Veloce Lezione 8
 > *   Definito **Semigruppo** e **Elemento Cancellabile**, con esempi.
 > *   Definito **Monoide** e **Elemento Invertibile**, visto che Invertibile $\implies$ Cancellabile (ma non viceversa).
 > *   Richiamato **Anello** e definito **Divisori dello Zero**, collegandoli alla non-cancellabilità.
@@ -275,7 +275,7 @@
 > *   Definizioni rapide di **Dominio Integrità**, **Corpo**, **Campo**, **Spazio Vettoriale**.
 > *   Introdotto il **Gruppo Simmetrico $S_n$** (permutazioni), la **notazione ciclica**, il teorema di **decomposizione in cicli disgiunti** e il calcolo dell'**inversa**.
 
-> [!tip] Prossimi Passi
+> [!TIP] Prossimi Passi
 > *   Assicurati di saper distinguere Semigruppo, Monoide, Gruppo, Anello, Dominio, Campo.
 > *   Esercitati con la cancellabilità e i divisori dello zero.
 > *   Prendi confidenza con la notazione ciclica delle permutazioni e la loro composizione/inversione.

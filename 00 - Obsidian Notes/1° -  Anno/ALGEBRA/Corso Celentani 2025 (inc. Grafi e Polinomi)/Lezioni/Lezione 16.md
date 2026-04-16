@@ -81,7 +81,7 @@ $a \operatorname{\delta} b \iff \forall p \in \mathbb{P}, (p \mid a \iff p \mid 
 
 ## 2. Esercizi su Strutture Algebriche
 
-> [!example] Esercizio 1 (Pag 7)
+> [!EXERCISE] Esercizio 1 (Pag 7)
 > Sia $(\mathbb{Z}_{16}, *)$ con $a * b = \overline{3}ab$.
 > 1.  Verificare che è un monoide commutativo.
 > 2.  Determinare l'elemento neutro.
@@ -280,7 +280,7 @@ Verificare per quali $n \in \mathbb{N}$ vale $n! \ge 2^n$.
 
 ---
 
-> [!abstract] Riepilogo Veloce Lezione 16
+> [!SUMMARY] Riepilogo Veloce Lezione 16
 > *   Abbiamo definito le **Relazioni di Equivalenza** (riflessiva, simmetrica, transitiva) e visto come la congruenza modulo n ne sia un esempio.
 > *   Abbiamo analizzato le **classi di equivalenza** e l'**insieme quoziente**.
 > *   Abbiamo svolto un esercizio su una **struttura algebrica in $\mathbb{Z}_{16}$**.
@@ -290,7 +290,7 @@ Verificare per quali $n \in \mathbb{N}$ vale $n! \ge 2^n$.
 > *   Abbiamo esplorato il **Calcolo Combinatorio**: fattoriale, coefficiente binomiale, Identità di Pascal, numero di sottoinsiemi, numero di applicazioni iniettive, Binomio di Newton.
 > *   Abbiamo dimostrato la disuguaglianza $n! \ge 2^n$ per $n=0$ e $n \ge 4$.
 
-> [!tip] Prossimi Passi
+> [!TIP] Prossimi Passi
 > *   Assicurati di aver compreso bene come si dimostrano le proprietà di una relazione per verificarne l'equivalenza.
 > *   Fai pratica con il calcolo di $\varphi(n)$ e l'applicazione del Teorema di Fermat-Eulero.
 > *   Gli esercizi di calcolo combinatorio sono fondamentali per molte aree della matematica.

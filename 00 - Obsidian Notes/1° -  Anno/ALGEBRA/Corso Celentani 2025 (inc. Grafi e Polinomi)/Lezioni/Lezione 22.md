@@ -3,7 +3,7 @@
 **Docente:** Maria Rosaria Celentani
 **Argomenti Principali:** Sottoanelli, Reticoli (Dualità, Complementati, Distributivi, Booleani), Algebre di Boole, Anelli Booleani.
 
-> [!tip] Ricorda!
+> [!TIP] Ricorda!
 > *   Usa il tuo **dizionario visuale** per i simboli che incontriamo. Se un simbolo è nuovo o ostico, disegnalo e associalo a un'immagine o a una parola chiave che ti aiuti a ricordarlo!
 > *   Non esitare a **fare pause** quando ne senti il bisogno. Il cervello impara meglio quando è riposato.
 > *   Se un concetto sembra un mostro, spezzettiamolo in parti più piccole. Insieme, possiamo domarlo!
@@ -16,7 +16,7 @@ Ricordi cosa sia un **anello** $(A, +, \cdot)$? È una struttura algebrica con d
 
 Ora, immaginiamo di trovare un "piccolo mondo" all'interno di un anello più grande, che si comporta esso stesso come un anello. Quello è un **sottoanello**!
 
-> [!info] Definizione: Sottoanello
+> [!NOTE] Definizione: Sottoanello
 > Sia $(A, +, \cdot)$ un anello e sia $B$ un sottoinsieme **non vuoto** di $A$ ($B \subseteq A$, $B \neq \emptyset$).
 > Diciamo che $(B, +, \cdot)$ è un **sottoanello** di $A$ se soddisfa queste condizioni:
 > 1.  **$B$ è stabile (o chiuso) rispetto a entrambe le operazioni $+$ e $\cdot$**:
@@ -55,7 +55,7 @@ Questo insieme $B$ è un sottoanello di $A$? Vediamo!
 
 **Conclusione:** Sì, $B$ è un sottoanello di $M_{2,2}(\mathbb{R})$!
 
-> [!info] Un dettaglio menzionato negli appunti (pag. 1):
+> [!NOTE] Un dettaglio menzionato negli appunti (pag. 1):
 > $I_A \neq I_B$ in generale. $I_A = \begin{pmatrix} 1 & 0 \\ 0 & 1 \end{pmatrix}$.
 > L'elemento $\begin{pmatrix} 1 & 0 \\ 0 & 0 \end{pmatrix}$ agisce come identità moltiplicativa *all'interno* di $B$ (se $B$ fosse un anello unitario a sé stante), ma non è l'identità di $A$.
 > In questo specifico esempio $B$, l'elemento $\begin{pmatrix} 1 & 0 \\ 0 & 0 \end{pmatrix}$ è l'unità di $B$.
@@ -67,7 +67,7 @@ Questo insieme $B$ è un sottoanello di $A$? Vediamo!
 
 Passiamo ora ai **reticoli**. Immagina una struttura dove gli elementi sono "ordinati" in qualche modo, e per ogni coppia di elementi possiamo trovare un "punto d'incontro superiore" e un "punto d'incontro inferiore".
 
-> [!info] Definizione: Reticolo (con relazione d'ordine $\le$)
+> [!NOTE] Definizione: Reticolo (con relazione d'ordine $\le$)
 > Un insieme parzialmente ordinato $(L, \le)$ (cioè $\le$ è riflessiva, antisimmetrica, transitiva) si dice un **reticolo** se, per ogni coppia di elementi $a, b \in L$, esistono:
 > 1.  L'**estremo inferiore** (o *meet* o *infimum*), indicato con $a \land b$ (leggi "a meet b" o "a inf b"). È il più grande elemento che è $\le a$ e $\le b$.
 > 2.  L'**estremo superiore** (o *join* o *supremum*), indicato con $a \lor b$ (leggi "a join b" o "a sup b"). È il più piccolo elemento che è $\ge a$ e $\ge b$.
@@ -78,7 +78,7 @@ Passiamo ora ai **reticoli**. Immagina una struttura dove gli elementi sono "ord
 
 Questo è un concetto super potente e elegante! È come guardare un'immagine allo specchio.
 
-> [!info] Principio di Dualità per Reticoli
+> [!IMPORTANT] Principio di Dualità per Reticoli
 > Se un enunciato (una proprietà, un teorema) è valido per **tutti** i reticoli, allora anche l'enunciato **duale** è valido per tutti i reticoli.
 >
 > Come si ottiene l'enunciato duale?
@@ -100,7 +100,7 @@ Sia $(L, \le)$ un reticolo.
 *   **Enunciato $a$**: Se esiste $0_L$ (elemento minimo), allora $0_L \le a, \forall a \in L$.
     *   **Enunciato duale $a^*$**: Se esiste $1_L$ (elemento massimo), allora $1_L \ge a, \forall a \in L$.
 
-> [!tip] Pensa alla musica! Se hai una melodia che sale, la sua "duale" potrebbe essere una melodia che scende in modo speculare. Il principio di dualità ci dice che se certe armonie funzionano con la melodia originale, armonie "speculari" funzioneranno con la melodia duale.
+> [!TIP] Pensa alla musica! Se hai una melodia che sale, la sua "duale" potrebbe essere una melodia che scende in modo speculare. Il principio di dualità ci dice che se certe armonie funzionano con la melodia originale, armonie "speculari" funzioneranno con la melodia duale.
 
 ### 2.2. Esempio Pratico: Una Relazione d'Ordine su $\mathbb{N} \times \mathbb{N}$ (Pagine 4-6)
 
@@ -161,7 +161,7 @@ Non tutti i reticoli sono uguali! Alcuni hanno proprietà speciali.
 
 ### 3.1. Reticoli Limitati (Pagina 8, 10)
 
-> [!info] Definizione: Reticolo Limitato
+> [!NOTE] Definizione: Reticolo Limitato
 > Un reticolo $(L, \le)$ (o $(L, \land, \lor)$) si dice **limitato** se possiede:
 > *   Un elemento minimo, chiamato **zero** ($0_L$ o $0$), tale che $0_L \le x$ per ogni $x \in L$.
 > *   Un elemento massimo, chiamato **uno** ($1_L$ o $1$), tale che $x \le 1_L$ per ogni $x \in L$.
@@ -175,7 +175,7 @@ Non tutti i reticoli sono uguali! Alcuni hanno proprietà speciali.
 
 Questa è come trovare l' "opposto" o il "contrario" di un elemento, ma in senso reticolare.
 
-> [!info] Definizione: Reticolo Complementato
+> [!NOTE] Definizione: Reticolo Complementato
 > Un reticolo **limitato** $(L, \le, 0_L, 1_L)$ si dice **complementato** se per ogni elemento $a \in L$ esiste almeno un **complemento** $\bar{a} \in L$ tale che:
 > $$
 > a \land \bar{a} = 0_L \quad \text{e} \quad a \lor \bar{a} = 1_L
@@ -230,7 +230,7 @@ $0_L \land 1_L = 0_L$ e $0_L \lor 1_L = 1_L$.
 
 La distributività è una proprietà che conosciamo bene dall'aritmetica (la moltiplicazione distribuisce sulla somma). Nei reticoli è simile.
 
-> [!info] Definizione: Reticolo Distributivo
+> [!NOTE] Definizione: Reticolo Distributivo
 > Un reticolo $(L, \land, \lor)$ si dice **distributivo** se valgono le seguenti leggi distributive (basta che ne valga una, l'altra segue per dualità):
 > 1.  $a \land (b \lor c) = (a \land b) \lor (a \land c)$  per ogni $a,b,c \in L$. (meet distribuisce su join)
 > 2.  $a \lor (b \land c) = (a \lor b) \land (a \lor c)$  per ogni $a,b,c \in L$. (join distribuisce su meet)
@@ -249,7 +249,7 @@ I "cattivi ragazzi" che impediscono la distributività sono due reticoli specifi
     $(a \lor b) \land (a \lor c) = b \land 1 = b$. (Assumendo $a \lor b = b$ perché $a<b$, e $a \lor c = 1$ e $b \land c = 0$).
     Poiché $a \neq b$, $N_5$ non è distributivo.
 
-> [!info] Teorema Fondamentale per i Reticoli Distributivi (Pagina 13)
+> [!IMPORTANT] Teorema Fondamentale per i Reticoli Distributivi (Pagina 13)
 > Un reticolo $L$ è **distributivo** se e solo se **non contiene** alcun sottoreticolo isomorfo a $M_3$ o $N_5$.
 > (I disegni a pag. 13 mostrano $N_5$ e $M_3$).
 > Questo è un risultato molto potente per "diagnosticare" la distributività guardando la struttura del reticolo!
@@ -271,7 +271,7 @@ Il diagramma a pagina 15 mostra una struttura che non è un reticolo. Probabilme
 
 **Unicità del Complemento (Pagina 16):**
 
-> [!info] Proposizione
+> [!IMPORTANT] Proposizione
 > Sia $(L, \land, \lor)$ un reticolo **distributivo** e **limitato**. Se un elemento $a \in L$ possiede un complemento, allora tale complemento è **unico**.
 >
 > **Dimostrazione (idea):**
@@ -325,7 +325,7 @@ $x \lor (z \land y) = 2 \lor (3 \land 4) = 2 \lor \text{MCD}(3,4) = 2 \lor 1 = 2
 $(x \lor z) \land (x \lor y) = (\text{mcm}(2,3)) \land (\text{mcm}(2,4)) = 6 \land 4 = \text{MCD}(6,4) = 2$.
 Questo esempio non mostra la non-distributività.
 
-> [!warning] L'esempio della non distributività di $(\mathbb{N}, |)$ va chiarito meglio. Il reticolo dei divisori di un numero $n = p_1^{a_1} \cdots p_k^{a_k}$ è distributivo se e solo se tutti gli $a_i \le 1$ oppure $k \le 2$. Quindi $D_{30}$ (divisori di $2 \cdot 3 \cdot 5$) è distributivo. $D_{12}$ (divisori di $2^2 \cdot 3$) è distributivo. $D_{p^2 q r}$ non lo è. Ad esempio $D_{60}$ (divisori di $2^2 \cdot 3 \cdot 5$) contiene un $M_3$ (ad es. $\{2, 6, 10\}$ non è un $M_3$, i tre elementi "intermedi" sono $2\cdot3=6$, $2\cdot5=10$, $2\cdot2=4$). Gli elementi $2, 6, 10$ non sono in $M_3$.
+> [!CAUTION] L'esempio della non distributività di $(\mathbb{N}, |)$ va chiarito meglio. Il reticolo dei divisori di un numero $n = p_1^{a_1} \cdots p_k^{a_k}$ è distributivo se e solo se tutti gli $a_i \le 1$ oppure $k \le 2$. Quindi $D_{30}$ (divisori di $2 \cdot 3 \cdot 5$) è distributivo. $D_{12}$ (divisori di $2^2 \cdot 3$) è distributivo. $D_{p^2 q r}$ non lo è. Ad esempio $D_{60}$ (divisori di $2^2 \cdot 3 \cdot 5$) contiene un $M_3$ (ad es. $\{2, 6, 10\}$ non è un $M_3$, i tre elementi "intermedi" sono $2\cdot3=6$, $2\cdot5=10$, $2\cdot2=4$). Gli elementi $2, 6, 10$ non sono in $M_3$.
 > Il reticolo $D_{pqr}$ (come $D_{30}$) è isomorfo a $\mathcal{P}(\{p,q,r\})$ ed è distributivo.
 > Il reticolo $D_{p^2q}$ (come $D_{12}$) è distributivo.
 > Un reticolo $L$ è non distributivo se contiene $M_3$ o $N_5$.
@@ -335,7 +335,7 @@ Questo esempio non mostra la non-distributività.
 
 Questi sono i reticoli "perfetti": distributivi E complementati.
 
-> [!info] Definizione: Reticolo Booleano
+> [!NOTE] Definizione: Reticolo Booleano
 > Un reticolo $(L, \le)$ si dice **booleano** se:
 > 1.  È **distributivo**.
 > 2.  È **complementato**.
@@ -350,7 +350,7 @@ $(\mathcal{P}(S), \subseteq)$ è un reticolo booleano!
     *   $A \cup A^c = S = 1_L$.
 L'appunto dice: "non è 'un' esempio, è L'ESEMPIO". Questo sottolinea la sua importanza!
 
-> [!info] Teorema di Rappresentazione per Reticoli Booleani Finiti (Pagina 19)
+> [!IMPORTANT] Teorema di Rappresentazione per Reticoli Booleani Finiti (Pagina 19)
 > Sia $(L, \le)$ un reticolo booleano.
 > *   $(L, \le)$ è isomorfo a un sottoreticolo di $(\mathcal{P}(S), \subseteq)$ per qualche insieme $S$. (Questo $S$ è l'insieme degli atomi di $L$ o degli ideali primi/massimali).
 > *   Se $L$ è **finito**, allora esiste un insieme finito $S$ tale che $(L, \le)$ è isomorfo a $(\mathcal{P}(S), \subseteq)$.
@@ -372,7 +372,7 @@ La nota $|L|=2^n$ con un X sopra ($|L|=2^n \mathbb{X}$) forse significa che *non
 
 Strettamente collegate ai reticoli booleani, le algebre di Boole formalizzano le operazioni.
 
-> [!info] Definizione: Algebra di Boole
+> [!NOTE] Definizione: Algebra di Boole
 > Un'**algebra di Boole** è una struttura $(A, \land, \lor, ', 0, 1)$ dove:
 > *   $A$ è un insieme non vuoto.
 > *   $\land$ (meet) e $\lor$ (join) sono operazioni binarie su $A$.
@@ -407,7 +407,7 @@ Viceversa, un'algebra di Boole $(A, \land, \lor, ', 0, 1)$ definisce un reticolo
 $(\mathcal{P}(S), \cap, \cup, (\cdot)^c, \emptyset, S)$ è l'algebra di Boole per eccellenza.
 *   Operazione unaria $'$: $A' = S \setminus A$ (complemento insiemistico).
 
-> [!info] Teorema di Rappresentazione di Stone per Algebre di Boole Finite (Pagina 23)
+> [!IMPORTANT] Teorema di Rappresentazione di Stone per Algebre di Boole Finite (Pagina 23)
 > Ogni algebra di Boole **finita** $(A, \land, \lor, ', 0, 1)$ è isomorfa all'algebra di Boole $(\mathcal{P}(S), \cap, \cup, (\cdot)^c, \emptyset, S)$ per qualche insieme finito $S$.
 > (Questo è essenzialmente lo stesso teorema visto per i reticoli booleani finiti, ma formulato per le algebre).
 
@@ -417,7 +417,7 @@ $(\mathcal{P}(S), \cap, \cup, (\cdot)^c, \emptyset, S)$ è l'algebra di Boole pe
 
 Ora colleghiamo questi concetti con gli anelli!
 
-> [!info] Definizione: Anello Booleano
+> [!NOTE] Definizione: Anello Booleano
 > Un **anello** $(A, +, \cdot)$ (solitamente unitario, cioè con un'identità moltiplicativa $1_A$) si dice **booleano** se ogni suo elemento è **idempotente**, cioè:
 > $$
 > a^2 = a \cdot a = a \quad \text{per ogni } a \in A
@@ -448,7 +448,7 @@ forma un anello booleano $(\mathcal{P}(S), \Delta, \cap)$.
 *   Verifichiamo l'idempotenza: $A^2 = A \cap A = A$. Sì!
 L'appunto dice: "CNO se considero $(\mathcal{P}(S), \Delta, \cup)$ non vale la distributività". Qui si riferisce alla distributività di $\cup$ rispetto a $\Delta$, che non è una delle leggi degli anelli. L'anello è $(\mathcal{P}(S), \Delta, \cap)$. La distributività richiesta è $\cap$ su $\Delta$: $A \cap (B \Delta C) = (A \cap B) \Delta (A \cap C)$. Questa è vera.
 
-> [!info] Teorema di Rappresentazione per Anelli Booleani Finiti (Pagina 26)
+> [!IMPORTANT] Teorema di Rappresentazione per Anelli Booleani Finiti (Pagina 26)
 > Ogni anello booleano **finito** $(A, +, \cdot)$ è isomorfo a un anello $(\mathcal{P}(S), \Delta, \cap)$ per qualche insieme finito $S$.
 > (Se $A$ non è finito, è isomorfo a un sottoanello di $(\mathcal{P}(S), \Delta, \cap)$).
 
@@ -508,7 +508,7 @@ Ricorda che $a \cdot b = a \land b$. Quindi $a \le b \iff a \land b = a$, che è
 
 ## Riepilogo della Lezione: Punti Chiave
 
-> [!abstract] Cosa abbiamo imparato oggi:
+> [!SUMMARY] Cosa abbiamo imparato oggi:
 > *   Un **sottoanello** è un sottoinsieme di un anello che è esso stesso un anello con le stesse operazioni.
 > *   Un **reticolo** è un insieme parzialmente ordinato dove ogni coppia di elementi ha un estremo superiore (join $\lor$) e un estremo inferiore (meet $\land$).
 > *   Il **Principio di Dualità** ci permette di ottenere nuovi teoremi validi scambiando $\le/\ge$ e $\land/\lor$.

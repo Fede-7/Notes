@@ -277,7 +277,7 @@ Il diagramma di Hasse analizzato **non è un reticolo** perché la coppia $\{a, 
 
 ---
 
-> [!abstract] Riepilogo Veloce Lezione 20
+> [!SUMMARY] Riepilogo Veloce Lezione 20
 > *   Abbiamo rivisto le proprietà degli **insiemi ordinati** e analizzato esempi, inclusi i diagrammi di Hasse.
 > *   Un **reticolo** $(L, \le)$ è un poset dove ogni coppia di elementi $\{a,b\}$ ammette $\inf\{a,b\}$ (denotato $a \land b$) e $\sup\{a,b\}$ (denotato $a \lor b$).
 > *   Equivalentemente, un reticolo è una struttura algebrica $(L, \land, \lor)$ dove $\land, \lor$ sono binarie, associative, commutative e soddisfano le **leggi di assorbimento** (da cui deriva l'idempotenza).
@@ -285,6 +285,6 @@ Il diagramma di Hasse analizzato **non è un reticolo** perché la coppia $\{a, 
 > *   $(P(S), \subseteq)$ è un reticolo con $A \land B = A \cap B$ e $A \lor B = A \cup B$.
 > *   L'ordine basato sulla stretta inclusione delle cardinalità non è necessariamente un reticolo.
 z
-> [!tip] Prossimi Passi
+> [!TIP] Prossimi Passi
 > *   Assicurati di aver compreso l'equivalenza tra le due definizioni di reticolo.
 > *   I reticoli possono avere ulteriori proprietà (distributivi, booleani, completi) che definiscono classi più specifiche di strutture.

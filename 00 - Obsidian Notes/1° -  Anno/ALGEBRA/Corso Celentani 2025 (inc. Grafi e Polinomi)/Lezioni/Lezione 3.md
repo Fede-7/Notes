@@ -15,7 +15,7 @@ Vediamo come negare formule più complesse e analizziamo qualche altra tautologi
     *   Quindi, $\neg (p \implies q) \iff \neg (\neg p \lor q)$.
     *   Applicando De Morgan: $\neg (\neg p \lor q) \iff (\neg (\neg p) \land \neg q)$.
     *   Applicando la doppia negazione: $(\neg (\neg p) \land \neg q) \iff (p \land \neg q)$.
-    > [!info] Regola di Negazione dell'Implicazione:
+    > [!IMPORTANT] Regola di Negazione dell'Implicazione:
     > $$ \neg (p \implies q) \iff p \land \neg q $$
     > **Spiegazione:** Negare "Se piove allora prendo l'ombrello" significa affermare che "Piove E non prendo l'ombrello". È l'unico caso che rende falsa l'implicazione originale.
     *   [[Negazione Implicazione]]
@@ -59,7 +59,7 @@ Vediamo come negare formule più complesse e analizziamo qualche altra tautologi
 *   **Esercizio 8 (Pag 1):** L'equivalenza $((p \implies q) \implies (q \implies r \land s)) \iff ((\neg q) \lor (r \land s))$ è una tautologia?
     *   Analizziamo il lato sinistro: $(p \implies q) \implies (q \implies (r \land s))$
     *   Questo **NON** sembra una tautologia standard o facilmente riconducibile. Potrebbe essere un errore di trascrizione o un'affermazione da verificare con una tavola di verità (che sarebbe molto lunga!). Sembra improbabile che sia una tautologia generale senza ulteriori condizioni su p, q, r, s. La nota "è tautologia?" suggerisce che sia una domanda, non un'affermazione.
-    > [!question] Verifica: Questa equivalenza è corretta o era una domanda da verificare? A prima vista non sembra una tautologia standard.
+    > [!QUESTION] Verifica: Questa equivalenza è corretta o era una domanda da verificare? A prima vista non sembra una tautologia standard.
 
 ---
 
@@ -67,7 +67,7 @@ Vediamo come negare formule più complesse e analizziamo qualche altra tautologi
 
 ### 2.1 Errore Comune sull'Iniettività (Pag 2)
 
-> [!warning] Attenzione a non confondere la definizione di funzione con quella di iniettività!
+> [!WARNING] Attenzione a non confondere la definizione di funzione con quella di iniettività!
 > *   Per **definizione di funzione**, se prendi lo stesso input $x$, otterrai sempre lo stesso output $f(x)$. Quindi, l'implicazione $x = y \implies f(x) = f(y)$ è **SEMPRE VERA** per qualsiasi funzione.
 > *   La **definizione di iniettività** richiede l'implicazione inversa: $f(x) = f(y) \implies x = y$. Questo **NON** è vero per tutte le funzioni, ma solo per quelle iniettive.
 
@@ -76,7 +76,7 @@ Vediamo come negare formule più complesse e analizziamo qualche altra tautologi
 Sia $f: A \to B$ una funzione e $X \subseteq A$.
 *   $\vec{f}(\emptyset) = \emptyset$. (L'immagine del vuoto è vuota).
 *   Se $X \neq \emptyset$, è possibile che $\vec{f}(X) \neq \emptyset$? **Sì, sempre!** Se $X$ contiene almeno un elemento $x$, allora $\vec{f}(X)$ contiene almeno $f(x)$, quindi non è vuoto.
-    > [!info] La nota $\vec{f}(X) \neq \emptyset$ nella pagina 3 sembra ridondante se $X \neq \emptyset$. Forse si intendeva qualcos'altro?
+    > [!NOTE] La nota $\vec{f}(X) \neq \emptyset$ nella pagina 3 sembra ridondante se $X \neq \emptyset$. Forse si intendeva qualcos'altro?
 *   $\vec{f}(A)$ è l'**immagine dell'intera funzione**, spesso denotata $Im(f)$.
 *   In generale, $\vec{f}(A) \subseteq B$.
 *   $\vec{f}(A) = B$ se e solo se $f$ è **suriettiva**. (Lo vedremo meglio tra poco).
@@ -113,7 +113,7 @@ Un'altra proprietà fondamentale delle funzioni.
     2.  Tramite Controimmagine di Singleton: $f$ è suriettiva $\iff \forall b \in B, \overleftarrow{f}(\{b\}) \neq \emptyset$. (La controimmagine di ogni singolo elemento del codominio non è mai vuota).
     3.  Tramite Controimmagine di Sottoinsiemi Non Vuoti: $f$ è suriettiva $\iff \forall C \subseteq B \text{ con } C \neq \emptyset, \text{ si ha } \overleftarrow{f}(C) \neq \emptyset$. (Se prendi un qualsiasi sottoinsieme non vuoto del codominio, ci deve essere almeno un elemento nel dominio la cui immagine cade in quel sottoinsieme).
 
-> [!tip] Per dimostrare che $f$ è suriettiva, prendi un generico $b \in B$ e dimostra che esiste un $a \in A$ (spesso trovando una formula per $a$ in termini di $b$) tale che $f(a)=b$.
+> [!TIP] Per dimostrare che $f$ è suriettiva, prendi un generico $b \in B$ e dimostra che esiste un $a \in A$ (spesso trovando una formula per $a$ in termini di $b$) tale che $f(a)=b$.
 > Per dimostrare che $f$ NON è suriettiva, trova uno specifico $b \in B$ per cui non esiste nessun $a \in A$ tale che $f(a)=b$.
 
 [[Funzione Suriettiva]]
@@ -237,7 +237,7 @@ Due funzioni $f$ e $g$ sono **uguali** ($f=g$) se e solo se soddisfano **tutte e
 
 ---
 
-> [!abstract] Riepilogo Veloce Lezione 3
+> [!SUMMARY] Riepilogo Veloce Lezione 3
 > *   Abbiamo praticato la **negazione** di formule logiche complesse (implicazioni, quantificatori).
 > *   Abbiamo chiarito un **errore comune sull'iniettività**.
 > *   Abbiamo esplorato le **proprietà dell'immagine e della controimmagine**, collegandole alla suriettività.
@@ -248,7 +248,7 @@ Due funzioni $f$ e $g$ sono **uguali** ($f=g$) se e solo se soddisfano **tutte e
 > *   Abbiamo definito la **restrizione** $f|_C$ e il **prolungamento** di funzioni, vedendo come si rapportano all'iniettività.
 > *   Abbiamo definito la **funzione identità** $id_A$.
 
-> [!tip] Prossimi Passi
+> [!TIP] Prossimi Passi
 > *   Assicurati di saper distinguere bene tra iniettività e suriettività e di conoscere le loro definizioni e caratterizzazioni.
 > *   Prova a creare tu degli esempi di funzioni e a determinarne iniettività e suriettività.
 > *   Rifletti: una funzione può essere sia iniettiva che suriettiva? (Sì, si chiama biettiva!). Può non essere nessuna delle due? (Sì!).

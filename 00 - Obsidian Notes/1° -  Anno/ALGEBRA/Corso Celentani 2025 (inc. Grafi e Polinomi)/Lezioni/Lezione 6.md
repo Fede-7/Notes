@@ -50,7 +50,7 @@
     *   $d_{11} = (\text{riga 1 di B}) \cdot (\text{colonna 1 di A}) = (7 \cdot 1) + (8 \cdot 4) = 7 + 32 = 39$
     *   $d_{12} = (\text{riga 1 di B}) \cdot (\text{colonna 2 di A}) = (7 \cdot 2) + (8 \cdot 5) = 14 + 40 = 54$
     *   ... e così via.
-    > [!info] Si vede subito che $A \cdot B \neq B \cdot A$ (non sono nemmeno delle stesse dimensioni in questo caso!). Il prodotto tra matrici **non è commutativo**.
+    > [!IMPORTANT] Si vede subito che $A \cdot B \neq B \cdot A$ (non sono nemmeno delle stesse dimensioni in questo caso!). Il prodotto tra matrici **non è commutativo**.
 
 *   **Matrici Quadrate e Monoide (Pag 6):** Consideriamo l'insieme delle matrici quadrate $n \times n$ a coefficienti reali, $M_{n,n}(\mathbb{R})$ o $M_n(\mathbb{R})$.
     *   Il prodotto tra matrici è un'operazione binaria interna su $M_n(\mathbb{R})$.
@@ -259,7 +259,7 @@ La struttura algebrica fondamentale.
 
 ---
 
-> [!abstract] Riepilogo Veloce Lezione 6
+> [!SUMMARY] Riepilogo Veloce Lezione 6
 > *   Abbiamo visto che l'esponenziazione non è associativa.
 > *   Abbiamo definito e praticato il **prodotto tra matrici**, notando che è associativo ma non commutativo, e che $(M_n(\mathbb{R}), \cdot, I_n)$ è un monoide.
 > *   Abbiamo definito i **monoidi commutativi**.
@@ -270,7 +270,7 @@ La struttura algebrica fondamentale.
 > *   Abbiamo finalmente definito la struttura di **Gruppo** (associatività, neutro, inverso per tutti gli elementi) e di **Gruppo Abeliano** (gruppo con operazione commutativa).
 > *   Abbiamo visto numerosi esempi di gruppi e monoidi.
 
-> [!tip] Prossimi Passi
+> [!TIP] Prossimi Passi
 > *   Assicurati di aver ben compreso la definizione di Gruppo e le sue proprietà costitutive.
 > *   Rivedi gli esempi di gruppi e monoidi, cercando di capire perché alcuni lo sono e altri no.
 > *   Il prossimo passo sarà esplorare le proprietà fondamentali dei gruppi e introdurre i sottogruppi.

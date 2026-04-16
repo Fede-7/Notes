@@ -52,7 +52,7 @@ I connettivi logici sono come la "colla" che unisce le proposizioni semplici per
 | F | V | V |
 | F | F | F |
 
-> [!info] Nota Bene: Questa è la "o" inclusiva, significa che va bene anche se entrambe sono vere. Nelle tue note c'era scritto "non disgiuntiva", ma in realtà $\lor$ *è* la disgiunzione standard (inclusiva). Forse intendevi la disgiunzione *esclusiva*? Ne parliamo tra poco! [[Lezione 1#1.5 Disgiunzione Esclusiva (XOR)]]
+> [!NOTE] Nota Bene: Questa è la "o" inclusiva, significa che va bene anche se entrambe sono vere. Nelle tue note c'era scritto "non disgiuntiva", ma in realtà $\lor$ *è* la disgiunzione standard (inclusiva). Forse intendevi la disgiunzione *esclusiva*? Ne parliamo tra poco! [[Lezione 1#1.5 Disgiunzione Esclusiva (XOR)]]
 
 *   **Implicazione Materiale (SE... ALLORA):** È falsa solo se la prima proposizione (antecedente) è vera e la seconda (conseguente) è falsa.
     *   Simbolo: $\implies$ (o $\rightarrow$, si legge "implica" o "se... allora")
@@ -67,7 +67,7 @@ I connettivi logici sono come la "colla" che unisce le proposizioni semplici per
 | F | V | V |
 | F | F | V |
 
-> [!tip] Suggerimento: Pensa all'implicazione come a una promessa. $P \implies Q$ significa "Se P è vera, prometto che Q è vera". L'unico caso in cui la promessa è infranta è quando P è vera, ma Q è falsa. Se P è falsa, la promessa non è stata messa alla prova, quindi l'implicazione è considerata vera.
+> [!TIP] Suggerimento: Pensa all'implicazione come a una promessa. $P \implies Q$ significa "Se P è vera, prometto che Q è vera". L'unico caso in cui la promessa è infranta è quando P è vera, ma Q è falsa. Se P è falsa, la promessa non è stata messa alla prova, quindi l'implicazione è considerata vera.
 
 *   **Bicondizionale (SE E SOLO SE):** È vera solo se le proposizioni hanno lo *stesso* valore di verità.
     *   Simbolo: $\iff$ (o $\leftrightarrow$, si legge "se e solo se" o "è equivalente a")
@@ -98,7 +98,7 @@ Alcune formule complesse sono equivalenti, cioè hanno sempre lo stesso valore d
 | F | V | V | V | V | V |
 | F | F | V | V | V | V |
 
-> [!info] Questa equivalenza è super utile per trasformare le implicazioni! [[Equivalenza Implicazione-Disgiunzione]]
+> [!IMPORTANT] Questa equivalenza è super utile per trasformare le implicazioni! [[Equivalenza Implicazione-Disgiunzione]]
 
 *   **Doppia Negazione:** Negare due volte riporta alla proposizione originale.
     *   Formula: $\neg (\neg P) \iff P$
@@ -125,7 +125,7 @@ Alcune formule complesse sono equivalenti, cioè hanno sempre lo stesso valore d
         *   $P \lor \neg P$ (Principio del terzo escluso)
         *   $P \implies P$ (Identità)
         *   $((P \implies Q) \land P) \implies Q$ (Modus Ponens)
-    > [!info] Le tautologie rappresentano le leggi fondamentali del pensiero logico.
+    > [!NOTE] Le tautologie rappresentano le leggi fondamentali del pensiero logico.
     *   #tag/tautologia [[Tautologia]]
 
 *   **Contraddizione:** Una proposizione composta che è **sempre FALSA**. È la negazione di una tautologia.
@@ -224,7 +224,7 @@ Questi sono interessanti perché *ciascuno* di essi può essere usato per costru
     *   Definizione: $P \downarrow Q \iff \neg (P \lor Q)$
 *   #tag/nand #tag/nor [[Operatore NAND]] [[Operatore NOR]] [[Completezza Funzionale]]
 
-> [!question] Domanda Rapida: Riesci a vedere perché $(P \land \neg P)$ è una contraddizione usando la tavola di verità? E perché $(P \lor \neg P)$ è una tautologia?
+> [!QUESTION] Domanda Rapida: Riesci a vedere perché $(P \land \neg P)$ è una contraddizione usando la tavola di verità? E perché $(P \lor \neg P)$ è una tautologia?
 
 ---
 
@@ -271,7 +271,7 @@ I quantificatori ci dicono *quanti* elementi nell'universo soddisfano un predica
 *   **Formula Aperta:** Una formula che contiene almeno una variabile libera. Il suo valore di verità dipende dal valore assegnato alle variabili libere (es. $x > 10$).
 *   **Formula Chiusa (o Enunciato):** Una formula che non contiene variabili libere. Ha un valore di verità definito (V o F) indipendentemente da assegnazioni esterne (es. $\forall x (x > 1)$, $\exists x (x > 10)$).
 
-> [!info] Esempio dalle tue note (Pagina 17):
+> [!NOTE] Esempio dalle tue note (Pagina 17):
 > *   `a: x > 1` (Formula aperta, $x$ è libera)
 > *   `b: ∀x(x > 1)` (Formula chiusa, $x$ è vincolata da $\forall$)
 > *   `c: ∀x(x > 1) ∧ x = 7` (Questa è un po' ambigua come scritta. Probabilmente si intende `(∀y(y > 1)) ∧ (x = 7)`. Qui, la $y$ nel primo pezzo è vincolata (ho cambiato nome per chiarezza), ma la $x$ nel secondo pezzo è libera. Quindi è una formula aperta.)
@@ -322,7 +322,7 @@ Una **funzione** $f$ da A a B è un tipo *speciale* di relazione in cui **ogni**
 *   Combinando le due condizioni (dalle tue note!): $\forall a \in A, \exists ! b \in B \text{ tale che } (a, b) \in G$.
 *   Notazione funzionale: Se $(a, b) \in G$, scriviamo $f(a) = b$. $b$ è detta **immagine** di $a$ tramite $f$. $a$ è una **controimmagine** di $b$.
 
-> [!info] Differenza Chiave: In una relazione generica, un elemento di A può essere collegato a zero, uno o molti elementi di B. In una funzione, ogni elemento di A *deve* essere collegato a *esattamente un* elemento di B.
+> [!IMPORTANT] Differenza Chiave: In una relazione generica, un elemento di A può essere collegato a zero, uno o molti elementi di B. In una funzione, ogni elemento di A *deve* essere collegato a *esattamente un* elemento di B.
 
 *   **Esempi (dalle tue note - Pagine 24-27):**
     *   Consideriamo relazioni $G \subseteq \mathbb{Z} \times \mathbb{Z}$. Quali sono funzioni $f: \mathbb{Z} \to \mathbb{Z}$?
@@ -353,7 +353,7 @@ Una **funzione** $f$ da A a B è un tipo *speciale* di relazione in cui **ogni**
 
 ---
 
-> [!abstract] Riepilogo Veloce
+> [!SUMMARY] Riepilogo Veloce
 > *   Abbiamo definito i **connettivi logici** ($\neg, \land, \lor, \implies, \iff$) e visto le loro **tavole di verità**.
 > *   Abbiamo esplorato **equivalenze logiche** importanti come De Morgan, contrapposizione e l'equivalenza tra implicazione e disgiunzione.
 > *   Abbiamo distinto **tautologie** (sempre vere) e **contraddizioni** (sempre false).
@@ -361,7 +361,7 @@ Una **funzione** $f$ da A a B è un tipo *speciale* di relazione in cui **ogni**
 > *   Abbiamo definito gli **insiemi**, il **prodotto cartesiano** ($A \times B$), le **relazioni** (sottoinsiemi di $A \times B$) e le **funzioni** (relazioni speciali dove ogni input ha un unico output).
 > *   Abbiamo visto le operazioni fondamentali tra insiemi ($\cup, \cap, \setminus, \Delta, ^c$).
 
-> [!tip] Prossimi Passi
+> [!TIP] Prossimi Passi
 > *   Rileggi questi appunti con calma. Ci sono parti che non sono chiare? Usa i link `[[...]]` per creare nuove note o collegarti a note esistenti per approfondire!
 > *   Prova a fare qualche esempio tu stesso/a. Crea piccole tavole di verità o elenca gli elementi di un prodotto cartesiano.
 > *   Pensa a come questi concetti si collegano. Ad esempio, come useresti i quantificatori per definire l'unione di due insiemi? ($x \in A \cup B \iff (x \in A) \lor (x \in B)$).

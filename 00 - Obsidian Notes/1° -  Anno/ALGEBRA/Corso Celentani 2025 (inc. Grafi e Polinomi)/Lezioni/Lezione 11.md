@@ -15,7 +15,7 @@ Approfondiamo le proprietà dei numeri interi $\mathbb{Z}$.
 
 Questo teorema è la base per l'algoritmo di Euclide.
 
-> [!info] Teorema della Divisione Euclidea
+> [!THEOREM] Teorema della Divisione Euclidea
 > Dati due interi $a, b \in \mathbb{Z}$, con $b \neq 0$, esistono **unici** due interi $q$ (quoziente) e $r$ (resto) tali che:
 > $$ a = b \cdot q + r $$
 > con la condizione che $0 \le r < |b|$ (il resto è non negativo e strettamente minore del valore assoluto del divisore).
@@ -56,13 +56,13 @@ Applichiamo l'algoritmo di Euclide:
     $20 = 5 \cdot 4 + 0$ ($q_4=4, r_4=0$)
 5.  Il resto è 0. L'ultimo resto non nullo è $r_3 = 5$.
 
-> [!example] $\text{MCD}(375, 110) = 5$.
+> [!RESULT] $\text{MCD}(375, 110) = 5$.
 
 ### 1.4 Teorema di Bézout (Identità)
 
 Questo teorema fondamentale collega il MCD a una combinazione lineare degli interi originali.
 
-> [!info] Teorema di Bézout
+> [!THEOREM] Teorema di Bézout
 > Siano $a, b \in \mathbb{Z}$, non entrambi nulli. Allora esistono due interi $x, y \in \mathbb{Z}$ tali che:
 > $$ ax + by = \text{MCD}(a, b) $$
 > Questi interi $x, y$ sono detti **coefficienti di Bézout**.
@@ -171,7 +171,7 @@ $5 = 375 \cdot (5) + 110 \cdot (-17)$
 Abbiamo trovato l'identità di Bézout: $ax + by = d$ con $a=375, b=110, d=5$.
 I coefficienti sono $x=5$ e $y=-17$.
 
-> [!example] $375 \cdot (5) + 110 \cdot (-17) = 5$.
+> [!RESULT] $375 \cdot (5) + 110 \cdot (-17) = 5$.
 
 ### 1.7 Esempio Alternativo: MCD(100, 54) e Bézout (da lavagna)
 
@@ -197,7 +197,7 @@ $2 = 100 \cdot (-7) + 54 \cdot (13)$
 
 I coefficienti sono $x=-7$ e $y=13$.
 
-> [!example] $100 \cdot (-7) + 54 \cdot (13) = 2$.
+> [!RESULT] $100 \cdot (-7) + 54 \cdot (13) = 2$.
 
 ### 1.8 Conseguenze e Proprietà (da note/lavagna)
 
@@ -325,7 +325,7 @@ graph TD
 
 Questo teorema afferma che ogni intero (diverso da 0, 1, -1) si scompone in modo unico in fattori primi.
 
-> [!info] Teorema Fondamentale dell'Aritmetica
+> [!THEOREM] Teorema Fondamentale dell'Aritmetica
 > Ogni intero $a \in \mathbb{Z} \setminus \{0, 1, -1\}$ si può scrivere come prodotto di numeri primi. Tale decomposizione è **unica** a meno dell'ordine dei fattori e della sostituzione di un fattore primo $p_i$ con il suo associato $-p_i$.
 > $$ a = (\pm 1) \cdot p_1^{e_1} \cdot p_2^{e_2} \cdots p_k^{e_k} $$
 > dove $p_1, \dots, p_k$ sono primi positivi distinti e $e_i \ge 1$.
@@ -372,7 +372,7 @@ Sia $\mathcal{R}$ una relazione di equivalenza su $S$. Valgono le seguenti propr
 3.  **Unione:** L'unione di tutte le classi di equivalenza distinte restituisce l'insieme originale $S$.
     $$ \bigcup_{a \in S} [a]_{\mathcal{R}} = S $$
 
-> [!info] Le classi di equivalenza formano una **partizione** dell'insieme $S$. Ogni elemento di $S$ appartiene a una e una sola classe di equivalenza.
+> [!IMPORTANT] Le classi di equivalenza formano una **partizione** dell'insieme $S$. Ogni elemento di $S$ appartiene a una e una sola classe di equivalenza.
 
 ### 3.4 Insieme Quoziente
 
@@ -408,7 +408,7 @@ Sia $S=\{a, b, c, d\}$. Consideriamo $P(S)$. Definiamo la relazione $\mathcal{R}
 
 ---
 
-> [!abstract] Riepilogo Veloce Lezione 11
+> [!SUMMARY] Riepilogo Veloce Lezione 11
 > *   Abbiamo visto l'**Algoritmo di Euclide** per calcolare il MCD e l'**Algoritmo Esteso** per trovare i coefficienti dell'**Identità di Bézout** ($ax+by=d$).
 > *   Abbiamo richiamato le **conseguenze** su coprimalità e il **Lemma di Euclide**.
 > *   Abbiamo enunciato il **Teorema Fondamentale dell'Aritmetica** (fattorizzazione unica in primi).
@@ -417,7 +417,7 @@ Sia $S=\{a, b, c, d\}$. Consideriamo $P(S)$. Definiamo la relazione $\mathcal{R}
 > *   Abbiamo definito l'**Insieme Quoziente** $S/\mathcal{R}$ come l'insieme delle classi di equivalenza.
 > *   Abbiamo enunciato la corrispondenza tra relazioni di equivalenza e partizioni.
 
-> [!tip] Prossimi Passi
+> [!TIP] Prossimi Passi
 > *   Fai pratica con l'algoritmo esteso di Euclide per trovare i coefficienti di Bézout.
 > *   Assicurati di aver compreso le proprietà R, S, T e come verificare se una relazione è di equivalenza.
 > *   Cerca di capire bene cosa sono le classi di equivalenza e l'insieme quoziente, magari con esempi concreti (es. congruenza modulo n).

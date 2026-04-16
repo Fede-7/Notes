@@ -21,7 +21,7 @@
 
 ## Definizioni di Base sui Polinomi
 
-> [!info] Definizione: Anello dei Polinomi
+> [!NOTE] Definizione: Anello dei Polinomi
 > Dato un anello commutativo unitario $(A, +, \cdot)$, l'insieme dei polinomi a coefficienti in $A$ nell'indeterminata $x$, indicato con $A[x]$, è l'insieme di tutte le espressioni formali del tipo:
 > $$
 > f(x) = a_0 + a_1x + a_2x^2 + \dots + a_nx^n
@@ -41,7 +41,7 @@ Possiamo sommare e moltiplicare i polinomi in modo molto intuitivo.
 
 ### Somma di Polinomi
 
-> [!tip] Come sommare due polinomi
+> [!TIP] Come sommare due polinomi
 > Per sommare due polinomi, $f(x)$ e $g(x)$, semplicemente **sommiamo i coefficienti dei termini con lo stesso grado**.
 
 Se $f(x) = a_0 + a_1x + \dots$ e $g(x) = b_0 + b_1x + \dots$, allora:
@@ -49,7 +49,7 @@ $$
 f(x) + g(x) = (a_0 + b_0) + (a_1 + b_1)x + (a_2 + b_2)x^2 + \dots
 $$
 
-> [!example] Esempio di Somma
+> [!EXAMPLE] Esempio di Somma
 > *   $f(x) = 3 - 5x^2 + 7x^4$
 > *   $g(x) = 1 + 3x + 4x^2 - 2x^3$
 >
@@ -59,7 +59,7 @@ $$
 
 Il prodotto è un po' più elaborato, ma segue la regola "tutti per tutti".
 
-> [!info] Formula del Prodotto
+> [!NOTE] Formula del Prodotto
 > Se $f(x) \cdot g(x) = c_0 + c_1x + c_2x^2 + \dots$, il coefficiente $c_k$ si ottiene sommando tutti i prodotti $a_i \cdot b_j$ tali che $i+j=k$.
 > $$
 > c_k = \sum_{i+j=k} a_i b_j
@@ -75,7 +75,7 @@ Con queste operazioni, $(A[x], +, \cdot)$ diventa a sua volta un **anello commut
 
 #tag/definizione #tag/teorema
 
-> [!info] Definizione: Grado di un Polinomio
+> [!IMPORTANT] Definizione: Grado di un Polinomio
 > Il **grado** di un polinomio non nullo $f(x)$, indicato con $\text{gr}(f)$ o $\delta(f)$, è il **massimo esponente** della $x$ con un coefficiente diverso da zero.
 > *   Il coefficiente di grado massimo è detto **coefficiente direttore**.
 > *   Per convenzione, il grado del polinomio nullo è $-\infty$.
@@ -92,7 +92,7 @@ Questa seconda proprietà diventa un'uguaglianza in un caso molto importante.
 
 ### Teorema: Additività dei Gradi (DIM)
 
-> [!info] Teorema dei Gradi
+> [!NOTE] Teorema dei Gradi
 > Siano $f(x), g(x) \in A[x]$.
 > 1.  $\text{gr}(f \cdot g) \le \text{gr}(f) + \text{gr}(g)$
 > 2.  Se $A$ è un **dominio di integrità**, allora vale l'uguaglianza:
@@ -118,7 +118,7 @@ Questa seconda proprietà diventa un'uguaglianza in un caso molto importante.
     $$
     **Q.E.D.** (Quod Erat Demonstrandum - Come Volevasi Dimostrare)
 
-> [!warning] Cosa succede se A non è un dominio di integrità?
+> [!WARNING] Cosa succede se A non è un dominio di integrità?
 > Prendiamo l'anello $\mathbb{Z}_6[x]$. $\mathbb{Z}_6$ non è un dominio perché $\bar{2} \cdot \bar{3} = \bar{6} = \bar{0}$.
 > *   $f(x) = \bar{5} + \bar{2}x$ (grado 1)
 > *   $g(x) = \bar{1} + \bar{3}x$ (grado 1)
@@ -133,7 +133,7 @@ Questa seconda proprietà diventa un'uguaglianza in un caso molto importante.
 
 ### Unità in A[x]
 
-> [!info] Teorema sulle Unità
+> [!IMPORTANT] Teorema sulle Unità
 > Se $A$ è un **dominio di integrità**, allora le unità dell'anello dei polinomi $A[x]$ sono esattamente le unità dell'anello dei coefficienti $A$.
 > $$
 > \mathcal{U}(A[x]) = \mathcal{U}(A)
@@ -143,7 +143,7 @@ Questa seconda proprietà diventa un'uguaglianza in un caso molto importante.
 
 ### Elementi Associati
 
-> [!info] Definizione: Elementi Associati
+> [!NOTE] Definizione: Elementi Associati
 > Due polinomi $f(x)$ e $g(x)$ si dicono **associati** (e si scrive $f \sim g$) se esiste un'unità $c \in \mathcal{U}(A[x])$ tale che:
 > $$
 > f(x) = c \cdot g(x)
@@ -153,16 +153,16 @@ Questa seconda proprietà diventa un'uguaglianza in un caso molto importante.
 
 ### Polinomi Monici
 
-> [!tip] Definizione: Polinomio Monico
+> [!TIP] Definizione: Polinomio Monico
 > Un polinomio si dice **monico** se il suo coefficiente direttore è **1**.
 
-> [!example] Esempi di Polinomi Monici
+> [!EXAMPLE] Esempi di Polinomi Monici
 > *   $x^2 - 3x + 5$ è monico.
 > *   $2x^3 + x - 1$ **non** è monico.
 
 **Il Superpotere dei Polinomi Monici:** Se il coefficiente direttore di un polinomio $f(x)$ è un'unità, allora $f(x)$ è associato a un **unico** polinomio monico. Basta moltiplicare $f(x)$ per l'inverso del suo coefficiente direttore!
 
-> [!question] Esercizio Guidato
+> [!QUESTION] Esercizio Guidato
 > Verificare se in $\mathbb{Z}_{42}[x]$ il polinomio $f(x) = \overline{25}x^3 + \overline{7}x - \overline{2}$ è associato a un polinomio monico.
 > 1.  **Domanda:** Il coefficiente direttore, $\overline{25}$, è un'unità in $\mathbb{Z}_{42}$?
 > 2.  **Controllo:** Un elemento $\bar{a}$ è invertibile in $\mathbb{Z}_n$ se e solo se $\text{MCD}(a, n) = 1$.
@@ -192,7 +192,7 @@ Proprio come per i numeri interi, possiamo fare la divisione con resto anche per
 
 ### Teorema: Divisione Euclidea tra Polinomi (DIM)
 
-> [!info] Teorema della Divisione
+> [!NOTE] Teorema della Divisione
 > Siano $f(x), g(x) \in A[x]$, con $g(x) \neq 0$. Se il **coefficiente direttore di $g(x)$ è un'unità** in $A$, allora esistono e sono **unici** due polinomi $q(x)$ (quoziente) e $r(x)$ (resto) tali che:
 > $$
 > f(x) = g(x) \cdot q(x) + r(x)
@@ -230,7 +230,7 @@ La dimostrazione si fa per **induzione sul grado di $f(x)$**.
         $$
     *   Abbiamo trovato il nostro quoziente $q(x)$ e il nostro resto $r(x)$, e il resto ha il grado giusto. L'esistenza è provata.
 
-> [!example] Esempio di Divisione
+> [!EXAMPLE] Esempio di Divisione
 > Dividiamo $f(x) = 2x^3 + 7x^2 - 5x + 3$ per $g(x) = x-1$ in $\mathbb{Q}[x]$.
 > ```
 >        2x^2 + 9x + 4   <-- q(x)
@@ -261,12 +261,12 @@ $$
 \tilde{f}(c) = a_0 + a_1c + a_2c^2 + \dots + a_nc^n
 $$
 
-> [!info] Definizione: Radice (o Zero)
+> [!IMPORTANT] Definizione: Radice (o Zero)
 > Un elemento $c \in A$ è una **radice** (o **zero**) del polinomio $f(x)$ se $\tilde{f}(c) = 0$.
 
 ### Lemma del Resto (DIM)
 
-> [!info] Lemma del Resto
+> [!NOTE] Lemma del Resto
 > Il resto della divisione di un polinomio $f(x)$ per un binomio $(x-c)$ è uguale al valore che il polinomio assume in $c$, cioè $\tilde{f}(c)$.
 > $$
 > \text{rest}(f(x), x-c) = \tilde{f}(c)
@@ -296,7 +296,7 @@ $$
 
 ### Teorema di Ruffini (DIM)
 
-> [!info] Teorema di Ruffini
+> [!NOTE] Teorema di Ruffini
 > Un elemento $c \in A$ è una radice di $f(x)$ se e solo se il polinomio $(x-c)$ divide $f(x)$.
 > $$
 > \tilde{f}(c) = 0 \iff (x-c) \mid f(x)
@@ -310,7 +310,7 @@ $$
 
 ### Teorema di Ruffini Generalizzato
 
-> [!info] Teorema di Ruffini Generalizzato
+> [!NOTE] Teorema di Ruffini Generalizzato
 > Se $A$ è un **dominio di integrità** e $c_1, c_2, \dots, c_k$ sono $k$ radici **distinte** di $f(x)$, allora il prodotto $(x-c_1)(x-c_2)\dots(x-c_k)$ divide $f(x)$.
 
 ---
@@ -319,13 +319,13 @@ $$
 
 #tag/funzioni
 
-> [!question] Se due polinomi generano la stessa funzione, sono per forza lo stesso polinomio?
+> [!QUESTION] Se due polinomi generano la stessa funzione, sono per forza lo stesso polinomio?
 
 La risposta, sorprendentemente, è... **dipende dall'anello A!**
 
 ### Teorema: Identità dei Polinomi (DIM)
 
-> [!info] Teorema sull'Identità dei Polinomi
+> [!NOTE] Teorema sull'Identità dei Polinomi
 > Siano $f(x), g(x) \in A[x]$ dove $(A, +, \cdot)$ è un **campo**.
 > 1.  Se $A$ è un **campo infinito** (come $\mathbb{Q}, \mathbb{R}, \mathbb{C}$), allora:
 >     $$
@@ -339,7 +339,7 @@ La risposta, sorprendentemente, è... **dipende dall'anello A!**
 *   **Caso Infinito:** Se $\tilde{f} = \tilde{g}$, allora il polinomio differenza $h(x) = f(x) - g(x)$ ha la proprietà che $\tilde{h}(c) = 0$ per ogni $c \in A$. Ma un polinomio non nullo può avere solo un numero finito di radici (al massimo il suo grado). Poiché $A$ è infinito, l'unico modo per avere infinite radici è che il polinomio $h(x)$ sia il polinomio nullo. Se $h(x)=0$, allora $f(x)=g(x)$.
 *   **Caso Finito:** Se $\tilde{f} = \tilde{g}$, allora il polinomio differenza $h(x) = f(x) - g(x)$ ha come radici tutti gli $m$ elementi del campo $A$. Per il Teorema di Ruffini Generalizzato, il prodotto $(x-c_1)\dots(x-c_m)$ deve dividere $h(x)$. Si può dimostrare che questo prodotto è esattamente il "polinomio fondamentale" $x^m - x$.
 
-> [!example] Esempio in un Campo Finito
+> [!EXAMPLE] Esempio in un Campo Finito
 > In $\mathbb{Z}_3[x]$, consideriamo $f(x) = x^3+1$ e $g(x) = x+1$.
 > *   $f \neq g$ come polinomi formali.
 > *   Valutiamo le funzioni $\tilde{f}$ e $\tilde{g}$:
@@ -360,23 +360,23 @@ La risposta, sorprendentemente, è... **dipende dall'anello A!**
 
 Questi concetti sono l'analogo dei numeri primi per i polinomi.
 
-> [!info] Definizione: Polinomio Irriducibile
+> [!IMPORTANT] Definizione: Polinomio Irriducibile
 > Un polinomio non costante $f(x) \in A[x]$ si dice **irriducibile** su $A$ se non può essere scritto come prodotto di due polinomi non costanti di grado inferiore.
 > Formalmente, se $f(x) = g(x) \cdot h(x)$, allora o $g(x)$ o $h(x)$ deve essere un'unità (cioè un polinomio costante invertibile).
 
 **Spiegazione Semplice:** Un polinomio è irriducibile se non puoi "spezzarlo" in polinomi più semplici. È un "atomo" polinomiale. Se è possibile spezzarlo, si dice **riducibile**.
 
-> [!tip] Irriducibilità e Radici
+> [!TIP] Irriducibilità e Radici
 > Se un polinomio $f(x)$ di grado 2 o 3 **ha una radice** in un campo $A$, allora è **riducibile** su $A$.
 > **Perché?** Se $c$ è una radice, per Ruffini $(x-c)$ divide $f(x)$. Quindi $f(x) = (x-c) \cdot q(x)$. Poiché $\text{gr}(f) > 1$, anche $q(x)$ non sarà costante. Abbiamo spezzato $f(x)$!
 >
-> > [!warning] Attenzione!
+> > [!WARNING] Attenzione!
 > > Il viceversa non è sempre vero! Un polinomio può essere riducibile anche senza avere radici.
 > > Esempio: $f(x) = (x^2+1)^2$ in $\mathbb{R}[x]$ non ha radici reali, ma è chiaramente riducibile.
 
 ### Proposizione: Irriducibilità per gradi 2 e 3 (DIM)
 
-> [!info] Proposizione
+> [!NOTE] Proposizione
 > Sia $A$ un **campo** e $f(x) \in A[x]$ un polinomio di grado 2 o 3. Allora:
 > $$
 > f(x) \text{ è irriducibile} \iff f(x) \text{ non ha radici in } A
@@ -409,7 +409,7 @@ Ogni intero $a \in \mathbb{Z} \setminus \{0, 1, -1\}$ è un numero primo oppure 
 
 ### Teorema di Fattorizzazione Unica per Polinomi (DIM)
 
-> [!info] Teorema di Fattorizzazione Unica
+> [!NOTE] Teorema di Fattorizzazione Unica
 > Sia $A$ un **campo**. Ogni polinomio non costante $f(x) \in A[x]$ è irriducibile oppure può essere scritto in modo **unico** (a meno dell'ordine e di fattori associati) come prodotto di polinomi irriducibili.
 
 #### Dimostrazione (Cenno)
@@ -426,7 +426,7 @@ La dimostrazione è molto simile a quella per i numeri interi e si basa su due p
 
 ## Punti Chiave della Lezione
 
-> [!tip] Riepilogo Super-Sintetico
+> [!TIP] Riepilogo Super-Sintetico
 > *   I **polinomi** formano un anello $A[x]$ con le operazioni di somma e prodotto.
 > *   Il **grado** è l'esponente più alto. Se i coefficienti sono in un **dominio di integrità**, il grado del prodotto è la somma dei gradi.
 > *   La **divisione con resto** è possibile se il coefficiente direttore del divisore è un'unità.
@@ -438,7 +438,7 @@ La dimostrazione è molto simile a quella per i numeri interi e si basa su due p
 
 ## Domande per la Riflessione
 
-> [!question] Mettiti alla Prova!
+> [!QUESTION] Mettiti alla Prova!
 > 1.  Perché è così importante che l'anello dei coefficienti $A$ sia un dominio di integrità per il teorema dei gradi? Cosa "si rompe" se non lo è?
 > 2.  Prendi il polinomio $f(x) = x^2 + 1$. È irriducibile su $\mathbb{R}[x]$? E su $\mathbb{C}[x]$? (Suggerimento: cerca le radici!)
 > 3.  Sai spiegare a parole tue la differenza tra un polinomio *formale* $f(x)$ e la sua *funzione* associata $\tilde{f}$? Perché questa distinzione è importante nei campi finiti?

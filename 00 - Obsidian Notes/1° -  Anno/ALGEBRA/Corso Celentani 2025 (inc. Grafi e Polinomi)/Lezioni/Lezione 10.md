@@ -43,7 +43,7 @@ Il Principio di Induzione è uno strumento potente per dimostrare proprietà $P(
     2.  **Passo Induttivo Forte:** Per ogni $n > \bar{n}$, **se** $P(i)$ è vera per **tutti** gli $i$ tali che $\bar{n} \le i < n$ (**ipotesi induttiva forte**), **allora** anche $P(n)$ è vera. ($\forall n > \bar{n}, (\forall i, \bar{n} \le i < n \implies P(i)) \implies P(n)$).
     **Allora:** $P(n)$ è vera per ogni $n \ge \bar{n}$.
 
-> [!info] Le due forme sono logicamente equivalenti. La Forma II sembra richiedere un'ipotesi più forte, ma permette di dimostrare il passo induttivo in casi in cui $P(n+1)$ dipende non solo da $P(n)$ ma anche da $P(k)$ per $k < n$.
+> [!NOTE] Le due forme sono logicamente equivalenti. La Forma II sembra richiedere un'ipotesi più forte, ma permette di dimostrare il passo induttivo in casi in cui $P(n+1)$ dipende non solo da $P(n)$ ma anche da $P(k)$ per $k < n$.
 
 [[Principio di Induzione]]
 
@@ -208,32 +208,32 @@ Riprendiamo le proprietà delle relazioni binarie su un insieme $S$.
 
 Verificare se le seguenti sono relazioni di equivalenza sui rispettivi insiemi. Ricorda che per essere di equivalenza, una relazione deve essere **Riflessiva**, **Simmetrica** e **Transitiva**.
 
-> [!example] Esercizio 1: Relazione su P(S)
+> [!EXERCISE] Esercizio 1: Relazione su P(S)
 > Sia $S = \{a, b, c, d\}$ e sia $K = \{b, c\}$.
 > Si consideri la relazione $\mathcal{R}_1$ su $P(S)$ definita da:
 > $$ X \mathcal{R}_1 Y \iff X \cap K = Y \cap K $$
 > Verificare se $\mathcal{R}_1$ è una relazione di equivalenza.
 
-> [!example] Esercizio 2: Relazione su P(S)
+> [!EXERCISE] Esercizio 2: Relazione su P(S)
 > Sia $S = \{a, b, c, d\}$ e sia $K = \{b, c\}$.
 > Si consideri la relazione $\mathcal{R}_2$ su $P(S)$ definita da:
 > $$ X \mathcal{R}_2 Y \iff X \cup K = Y \cup K $$
 > Verificare se $\mathcal{R}_2$ è una relazione di equivalenza.
 
-> [!example] Esercizio 3: Relazione su P(S)
+> [!EXERCISE] Esercizio 3: Relazione su P(S)
 > Sia $S = \{a, b, c, d\}$ e sia $K = \{b, c\}$.
 > Si consideri la relazione $\mathcal{R}_3$ su $P(S)$ definita da:
 > $$ X \mathcal{R}_3 Y \iff X \setminus K = Y \setminus K $$
 > Verificare se $\mathcal{R}_3$ è una relazione di equivalenza.
 
-> [!example] Esercizio 4: Relazione su $\mathbb{Z} \times \mathbb{Z}$
+> [!EXERCISE] Esercizio 4: Relazione su $\mathbb{Z} \times \mathbb{Z}$
 > Si consideri la relazione $\mathcal{R}_4$ su $\mathbb{Z} \times \mathbb{Z}$ definita da:
 > $$ (a, b) \mathcal{R}_4 (c, d) \iff a + c = b + d $$
 > Verificare se $\mathcal{R}_4$ è una relazione di equivalenza.
 
 ---
 
-> [!abstract] Riepilogo Veloce Lezione 10
+> [!SUMMARY] Riepilogo Veloce Lezione 10
 > *   Il **Principio del Buon Ordinamento** di $\mathbb{N}$ garantisce che ogni sottoinsieme non vuoto ha minimo.
 > *   Il **Principio di Induzione** (Forma I e II) è una tecnica di dimostrazione basata sul buon ordinamento.
 > *   Il **Teorema della Divisione Euclidea** garantisce esistenza e unicità di quoziente e resto $r$ con $0 \le r < |n|$.
@@ -242,7 +242,7 @@ Verificare se le seguenti sono relazioni di equivalenza sui rispettivi insiemi. 
 > *   Una **Relazione d'Ordine** è Riflessiva, Antisimmetrica, Transitiva.
 > *   La relazione $ad=bc$ su $\mathbb{Z} \times \mathbb{Z}^*$ è di equivalenza e definisce i razionali.
 
-> [!tip] Prossimi Passi
+> [!TIP] Prossimi Passi
 > *   Prova a svolgere gli esercizi sulle relazioni di equivalenza.
 > *   Il passo successivo naturale è studiare le **classi di equivalenza** e l'**insieme quoziente** associati a una relazione di equivalenza, e vedere come le partizioni sono collegate.
 > *   Approfondire le **relazioni d'ordine** (parziale, totale, massimi, minimi, maggioranti, minoranti).
