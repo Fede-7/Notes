@@ -156,7 +156,7 @@ Questa definizione è matematicamente "zoppicante" per due motivi:
 Nonostante ciò, l'approccio frequentistico è preferito da questo docente per una ragione pratica: **rende le proprietà della probabilità intuitive**, derivandole direttamente dalle proprietà degli insiemi, senza bisogno di assiomi astratti da dimostrare separatamente.
 
 > [!tip] Parole del Professore
-> > [!tip]
+> > [!quote]
 > > "Io do le carte napoletane, mi ha giocato a scopone, ho dieci carri per uno, poi la probabilità che gli do i sette carri... Con l'approccio teorico la gente cominciava a ragionare in percentuali assurde. Con quello frequentistico si ragiona automaticamente nel modo giusto."
 
 ### La probabilità come misura

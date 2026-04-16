@@ -216,7 +216,7 @@ $$\frac{\log g(n) + \log c_1}{\log g(n)} \leq \frac{\log f(n)}{\log g(n)} \leq \
 I due lati tendono entrambi a 1 (poiché $\log g(n) \to \infty$ e le costanti sommative diventano irrilevanti) → per il metodo dei limiti, il rapporto tende a una costante positiva → $\Theta$.
 
 > [!tip] Parole del Professore
-> > [!tip]
+> > [!quote]
 > > *"Il punto chiave è questo: una costante moltiplicativa, prendendo il logaritmo, diventa una costante additiva, e le costanti additive sono irrilevanti rispetto a funzioni che crescono all'infinito. Con l'esponenziale è il contrario: una costante moltiplicativa nell'esponente diventa un fattore moltiplicativo esponenziale, e quello non è più trascurabile."*
 
 > [!info] Generalizzazione: torri di esponenziali
@@ -305,7 +305,7 @@ cioè posso estendere la sottosequenza a destra in **tempo costante**, senza ric
 Abbassare ulteriormente da $O($n^2$)$ a $O(n)$ richiede di **non analizzare tutte le sottosequenze**, scartandone alcune con la garanzia formale che non possono contenere la soluzione ottima.
 
 > [!tip] Parole del Professore
-> > [!tip]
+> > [!quote]
 > > *"Il numero di sottosequenze contigue è quadratico, quindi l'unico modo di abbassare rispetto al quadratico è non analizzare tutte le sottosequenze — devo avere un modo di scartarle con la certezza di non perdere quella buona."*
 
 ---

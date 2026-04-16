@@ -296,7 +296,7 @@ Per evitare che un processo utente occupi la CPU indefinitamente:
 Il kernel assegna ad ogni processo uno **spazio di indirizzamento** con registro base e registro limite:
 $$\text{indirizzo fisico} = \text{base} + \text{indirizzo logico} \quad \text{se} \quad \text{indirizzo logico} \leq \text{limite}$$
 > [!tip] Parole del Professore
-> > [!tip]
+> > [!quote]
 > > La CPU lavora con **indirizzi logici** (disaccoppiati dalla RAM fisica). I controlli di accesso sono eseguiti in **hardware** per motivi di velocità. Il SO "apparecchia la tavola", poi l'hardware fa i controlli.
 
 ---

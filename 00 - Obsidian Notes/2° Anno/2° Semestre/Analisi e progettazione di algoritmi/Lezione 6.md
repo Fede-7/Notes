@@ -43,7 +43,7 @@ Le stime superiori che avevamo dato erano: $O(n \log n)$ sia per `BuildHeap` che
 `BuildHeap` applica `Heapify` a tutti i nodi interni, ma la **gran parte delle chiamate** avviene su nodi che sono radici di sottoalberi di altezza molto bassa. I nodi profondi (vicini alle foglie) sono molti, ma i loro sottoalberi sono piccoli. I nodi vicini alla radice (con sottoalberi alti) sono pochi.
 
 > [!tip] Parole del Professore
-> > [!tip]
+> > [!quote]
 > > "La stragrande maggioranza delle chiamate Heapify vengono fatte su heap in cui H è molto basso."
 
 ### La struttura dell'analisi

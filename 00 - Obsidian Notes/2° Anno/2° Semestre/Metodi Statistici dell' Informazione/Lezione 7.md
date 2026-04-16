@@ -142,7 +142,7 @@ $$H(X) = 4 \cdot \frac{1}{4} \log_2 4 = \log_2 4 = 2 \text{ bit}$$
 Una variabile quaternaria equiprobabile porta 2 bit di informazione, coerentemente con il fatto che 4 valori si codificano con 2 bit binari.
 
 > [!tip] Parole del Professore
-> > [!tip]
+> > [!quote]
 > > "Una variabile bistabile trasporta una quantità di informazione che è al più un bit."
 
 ---

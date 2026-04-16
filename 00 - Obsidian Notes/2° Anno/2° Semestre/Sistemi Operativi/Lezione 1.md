@@ -132,7 +132,7 @@ Questo è ciò che il compilatore genera quando si compila una chiamata come `wr
 7. Scrive il risultato in `rax` e ritorna al processo utente.
 
 > [!tip] Parole del Professore
-> > [!tip]
+> > [!quote]
 > > "È come se voi vi siete già messi d'accordo su dove stanno le chiavi di casa. Io ho lasciato le chiavi nel solito posto. Il kernel già sa in quali cassetti aprire per trovare i dati."
 
 > [!example] Esempio dall'alto: il comando `cp`

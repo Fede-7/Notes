@@ -79,7 +79,7 @@ $$T(n) = \sum_{i=2}^{n} T_{\text{findmax}}(i) = \sum_{i=2}^{n} \Theta(i) = \Thet
 Il problema di Selection Sort è che ogni chiamata a `find_max` parte da zero, dimenticando tutto quello che ha visto nelle chiamate precedenti. Eppure, durante la ricerca del massimo, l'algoritmo fa confronti e acquisisce informazioni sulle relazioni di ordine tra elementi — che vengono poi dimenticate.
 
 > [!tip] Parole del Professore
-> > [!tip]
+> > [!quote]
 > > "Se il nostro algoritmo ricordasse le cose che ha già visto, potrebbe evitare di fare confronti inutili nelle ricerche successive. La prima ricerca del massimo sarà sempre $\Theta(n)$ — non c'è modo di evitarlo su input arbitrario. Ma le ricerche successive potrebbero costare molto meno, se disponessimo dell'informazione accumulata in precedenza."
 
 L'idea è mantenere una struttura dati che rappresenta un **ordinamento parziale** tra gli elementi: non sappiamo l'ordinamento totale, ma conosciamo alcune relazioni tra coppie. Questa struttura ha naturalmente forma di albero.

@@ -99,7 +99,7 @@ Usando la definizione di probabilità condizionata, $P(A \cap E_i) = P(A \mid E_
 > La probabilità di un evento $A$ si puo scomporre condizionando rispetto a una partizione dello spazio dei campioni.
 
 > [!tip] Parole del Professore
-> > [!tip]
+> > [!quote]
 > > "Questa legge, ragazzi, e importantissima. Si usa in tutti i calcoli probabilistici, in quasi tutti, perche a volte devo calcolare la probabilità di un evento ed e difficile, pero se mi metto in certe condizioni la devo scomporre in calcoli piu semplici. La useremo, la vedremo, ve la farò vedere negli esercizi."
 
 ---
@@ -114,7 +114,7 @@ Tuttavia questa impostazione presenta due problemi fondamentali:
 2. **Generalità non garantita:** non c'e a priori nessuna garanzia che le proprietà trovate sotto certe ipotesi valgano in generale.
 
 > [!tip] Parole del Professore
-> > [!tip]
+> > [!quote]
 > > "Io vi ho promesso che vi avrei definito in modo piu rigoroso la probabilità. Tutto questo zoppica dal punto di vista non solo matematico, ma concettuale."
 
 ---
@@ -170,7 +170,7 @@ Analogamente, $A \setminus B = A \cap B^c$: poiche $B^c \in \mathcal{E}$ (chiusu
 > L'insieme delle parti $2^\Omega$ e anch'esso un'algebra, ma e molto piu grande del necessario. Piu piccola di questi quattro elementi non e possibile.
 
 > [!tip] Parole del Professore
-> > [!tip]
+> > [!quote]
 > > "Non vi fate mai spaventare dai paroloni della matematica."
 
 ---
@@ -219,7 +219,7 @@ La terna $(\Omega, \mathcal{E}, P)$ prende il nome di **spazio di probabilità**
 > Come dice il professore: "i matematici pensano: io resto nel dominio di definizione dell'algebra."
 
 > [!tip] Parole del Professore
-> > [!tip]
+> > [!quote]
 > > "Vedete che noi abbiamo fatto tutto questo ambaradan. Dice, ma e tutta questa cosa complicata? Tu metti le tue prove, fatti la frequenza di successo... Tutto quello che abbiamo ricavato, qua non c'e niente. Io ti faccio vedere che tutto quello che tu hai ricavato prima, usando quella definizione, se volete, un po' farlocca di probabilità, io te lo ricavo come unica conseguenza degli assiomi di Kolmogorov."
 
 ---
@@ -282,7 +282,7 @@ $$P(\emptyset) = P(\Omega^c) = 1 - P(\Omega) = 1 - 1 = 0$$
 > L'insieme vuoto $\emptyset$ si chiama **evento impossibile**; lo spazio dei campioni $\Omega$ si chiama **evento certo**.
 
 > [!tip] Parole del Professore
-> > [!tip]
+> > [!quote]
 > > "Riprendo il giro per dirvi quanto e pesante questo. Abbiamo trovato le cose prima, le abbiamo trovate in modo facile. Ora dimostrarle diventa un giochino, perche gia sappiamo il risultato che dobbiamo tirare."
 
 ---
@@ -294,7 +294,7 @@ $$P(\emptyset) = P(\Omega^c) = 1 - P(\Omega) = 1 - 1 = 0$$
 > $$P(A \cap B) = P(A) \cdot P(B)$$
 
 > [!tip] Parole del Professore
-> > [!tip]
+> > [!quote]
 > > "La nozione di indipendenza e fondamentale e moltissima statistica inferenziale si fonda su ipotesi di indipendenza, perche senza indipendenza una serie di convergenze [non valgono]. Voi avete dei grandi database, giocate quei file Excel per ricavarvi una serie di parametri globali. E ci sono delle ipotesi alla base: ipotesi di ergodicità, che a loro volta indicano ipotesi di indipendenza, per lo meno tra campioni sufficientemente lontani. Se no, la statistica descrittiva vale solo per quel campione di dati. Non e generalizzabile."
 
 ### Indipendenza dei complementari
@@ -386,7 +386,7 @@ Questi $n$ eventi sono **disgiunti** (nel primo c'e $A_1$, nel secondo c'e $A_2$
 $$\boxed{P(\text{esattamente uno}) = \sum_{i=1}^{n} p_i \prod_{\substack{j=1 \\ j \neq i}}^{n} (1 - p_j)}$$
 
 > [!tip] Parole del Professore
-> > [!tip]
+> > [!quote]
 > > "E solo logica, ragazzi, pero vi dico anche che questa logica non la dovete dimenticare, perche poi quando andiamo sulle variabili aleatorie e un po' piu numerica la cosa, pero dovete sempre ricordarvi questa logica. Dovete formulare opportunamente le proposizioni."
 
 ---
@@ -541,7 +541,7 @@ hanno tutti un esito **binario**. Codificando opportunamente (testa $\to 0$, cro
 Il professore accenna al fatto che, per essere rigorosi, una variabile aleatoria deve essere un'**applicazione misurabile**: l'anti-immagine di ogni evento concernente $X$ deve essere un elemento della $\sigma$-algebra. Questa condizione garantisce che si possa calcolare la probabilità che $X$ assuma certi valori. Tuttavia, per il livello del corso, e sufficiente la definizione semplificata.
 
 > [!tip] Parole del Professore
-> > [!tip]
+> > [!quote]
 > > "Queste cose le ho studiate perche mi sono servite per la mia ricerca, e manco sono sicuro che mi siano servite veramente perche il mio advisor di dottorato era sadico e mi metteva in mano certi libri. Pero se uno deve fare ricerca in questo campo, e bene che certe cose le faccia."
 
 ### Evento elementare nello spazio della variabile aleatoria
@@ -603,7 +603,7 @@ dove $n_0$ e il numero di volte in cui esce $0$ e $n_1 = n - n_0$ e il numero di
 $$\bar{X}_n \xrightarrow{n \to \infty} 0 \cdot P(X=0) + 1 \cdot P(X=1) = \frac{1}{2} \stackrel{\text{def}}{=} E[X]$$
 
 > [!tip] Parole del Professore
-> > [!tip]
+> > [!quote]
 > > "Voi avete automaticamente detto, guarda, se io faccio $n$ prove, la meta delle volte mi viene $0$, la meta delle volte mi viene $1$. Voi ragionate inevitabilmente sulla frequenza di successo."
 
 > [!warning] Attenzione

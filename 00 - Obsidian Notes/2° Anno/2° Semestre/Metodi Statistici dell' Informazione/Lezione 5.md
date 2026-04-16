@@ -205,7 +205,7 @@ graph TD
 Le frecce indicano implicazioni. Convergenza con prob. 1 e convergenza in media quadratica sono entrambe **forti**, ma non si implicano a vicenda. Entrambe implicano la convergenza in probabilità (la più debole).
 
 > [!tip] Parole del Professore
-> > [!tip]
+> > [!quote]
 > > "La probabilità è definita come il limite della frequenza di successo. Questo ha senso matematico rigoroso: la frequenza converge alla probabilità in media quadratica e in probabilità. La nostra definizione era corretta fin dall'inizio."
 
 ### Nota sul problema circolare
@@ -213,7 +213,7 @@ Le frecce indicano implicazioni. Convergenza con prob. 1 e convergenza in media 
 La definizione frequentistica richiede che le prove siano **indipendenti** — ma l'indipendenza è essa stessa un concetto probabilistico. L'approccio formale (assiomi di Kolmogorov) risolve questo problema: si definisce prima la probabilità assiomaticamente, poi si dimostra che la frequenza converge a essa.
 
 > [!tip] Parole del Professore
-> > [!tip]
+> > [!quote]
 > > "Il professore Conte me lo contesta sempre: per definire la probabilità usi la frequenza, ma per dire che è una frequenza hai bisogno dell'indipendenza, che è un concetto probabilistico. È il cane che si morde la coda. In realtà non serve strettamente l'indipendenza: basta un'asintotica indipendenza."
 
 ---
@@ -262,7 +262,7 @@ Per la roulette ($b = 36$, $a = 18/37$): $g(k) = 34 \cdot 2^{k-1} + 1$.
 > Se il limite di puntata $S \to \infty$ (patrimonio infinito, nessun limite), la martingala garantisce di vincere con probabilità 1 — ed è per questo che i casinò impongono un **limite massimo di puntata**. Con un qualunque limite finito $S$, il guadagno medio è negativo per il giocatore (il banco ha sempre un vantaggio statistico).
 
 > [!tip] Parole del Professore
-> > [!tip]
+> > [!quote]
 > > "Il guadagno medio per $S \to \infty$ diverge. Ma attenzione: fare il limite di $S$ al denominatore non è lo stesso che calcolare il guadagno con $S$ infinito. La convergenza è in probabilità, non puntuale. Questo è un esempio di convergenza in probabilità che non implica nulla sul limite dei valori attesi."
 
 ---

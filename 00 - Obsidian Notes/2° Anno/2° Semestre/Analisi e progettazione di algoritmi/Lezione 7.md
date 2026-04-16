@@ -119,7 +119,7 @@ Per il Teorema Master (caso 2): $T(n) = \Theta(n \log n)$.
 **Caso medio**: in media su tutti i possibili input, il tempo atteso è $\Theta(n \log n)$. Questo verrà dimostrato nelle lezioni successive.
 
 > [!tip] Parole del Professore
-> > [!tip]
+> > [!quote]
 > > "Dovremo fare analisi di caso migliore, caso peggiore e eventualmente caso medio, analogamente a quanto fatto con InsertionSort."
 
 ---

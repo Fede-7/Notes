@@ -61,7 +61,7 @@ Quando si sceglie o si progetta un linguaggio, esistono diversi **criteri di val
 > Nel libro di Sterling e Shapiro si trova un codice Prolog che risolve il problema delle N regine (piazzare N regine su una scacchiera NxN senza che si attacchino) in circa **10 righe**. Tuttavia, comprendere quel codice richiede una conoscenza approfondita del paradigma logico e dell'unificazione.
 
 > [!tip] Parole del Professore
-> > [!tip]
+> > [!quote]
 > > "Quel codice che risolve il problema delle N regine e lungo 10 righe, una roba di questo genere. Pero io, che sono un esperto in linguaggi di programmazione logica, ci sono cresciuto --- per capire come funzionava ci ho passato il pomeriggio. Quindi concisione non vuol dire necessariamente leggibilita."
 
 La semplicita puo anche significare **semplicita sintattica**: pochi costrutti, pochi modi di fare la stessa cosa, il che facilita l'apprendimento.
@@ -91,7 +91,7 @@ L'espressivita misura quante cose un linguaggio puo esprimere e quanto facilment
 > Un linguaggio e **ortogonale** quando ha poche eccezioni alle proprie regole: e molto regolare, e dove si puo usare una categoria sintattica si possono usare tutte le sue istanziazioni. Dove trovo un identificatore, puo essere un identificatore qualsiasi; dove trovo una chiamata a funzione, puo essere una chiamata a qualsiasi funzione.
 
 > [!tip] Parole del Professore
-> > [!tip]
+> > [!quote]
 > > "I linguaggi moderni sono tutti molto ortogonali, perche vengono costruiti con grammatiche che dicono come ogni costrutto puo essere realizzato. Inizialmente, nel tempo di FORTRAN, i parser si scrivevano a mano e c'erano cose che si potevano usare in certi contesti ma non in altri."
 
 ### Portabilita e fattori esterni
@@ -175,7 +175,7 @@ bool member(int x, list L) {
 ```
 
 > [!tip] Parole del Professore
-> > [!tip]
+> > [!quote]
 > > "Questi due programmi hanno esattamente la stessa struttura. Cosa cambia? I blocchi con indentazione vs parentesi graffe, il terminatore punto-e-virgola, NOT vs punto esclamativo. Ma sono dettagli sintattici. Lo stesso paradigma vuol dire che lo stesso problema ha le stesse soluzioni algoritmiche."
 
 **Funzionale (pseudocodice / Lisp)**:
@@ -195,7 +195,7 @@ function member(x, L):
 ```
 
 > [!tip] Parole del Professore
-> > [!tip]
+> > [!quote]
 > > "Le parentesi di Lisp derivano dal fatto che e un linguaggio nato in accademia, dove si sono semplificati la vita nella costruzione del parser scegliendo questa sintassi molto semplice a liste. L'intenzione era metterci una sintassi piu amichevole all'esterno. Non e mai successo."
 
 **C in stile funzionale** (senza assegnamenti, con l'operatore ternario):
@@ -235,13 +235,13 @@ Esempi di uso di `member` in Prolog:
 | `member(1, L)`       | Quali liste contengono 1?      | `L=[1           | _]; L=[_,1 | _]; ...` (infinite) |
 
 > [!tip] Parole del Professore
-> > [!tip]
+> > [!quote]
 > > "Lo stesso codice lo posso usare come funzione booleana, come generatore, come iteratore. Con poche righe si fa una semplice AI per giocare a Tris, dove lo stesso pezzo di codice lo uso per valutare strategie vincenti, per giocare, per esplorare le mosse successive."
 
 ### Conclusione sui paradigmi
 
 > [!tip] Parole del Professore
-> > [!tip]
+> > [!quote]
 > > "Imparato a risolvere il problema in un linguaggio, so risolverlo in qualunque linguaggio dello stesso paradigma. La curva di apprendimento si accelera molto: devo soltanto andarmi a vedere il manuale."
 
 Oltre al paradigma, contano anche: il **sistema di tipi**, la **gestione delle eccezioni**, il supporto alla **concorrenza**.
@@ -300,7 +300,7 @@ Composizione di due funzioni: prima si trova la locazione (`env`), poi si legge 
 > L'ambiente (`env`) e **immutabile** all'interno di un singolo contesto di esecuzione. Finche resto dentro una funzione, l'associazione nome-locazione non cambia. Cio che cambia e il **contenuto della memoria** (`mem`), modificato dagli assegnamenti. Quando si entra in un nuovo blocco o si fa una chiamata ricorsiva, si passa a un **ambiente diverso**.
 
 > [!tip] Parole del Professore
-> > [!tip]
+> > [!quote]
 > > "Quando faccio una chiamata al fattoriale, `n` viene associato dall'ambiente direttamente a 4 e non cambia per tutta l'esecuzione di quel livello di ricorsione. Quando faccio la chiamata ricorsiva e dentro `n` diventa 3, quello e un altro `n` perche sta in un altro contesto, in un ambiente diverso."
 
 ---
@@ -343,7 +343,7 @@ Nell'assegnamento `x = x + 1`:
 > `env` vuole un **nome** (un simbolo del codice sorgente). `mem` restituisce un **valore** (un dato a runtime). Scrivere `env(mem(...))` e sempre un errore concettuale: i due domini sono incompatibili.
 
 > [!tip] Parole del Professore
-> > [!tip]
+> > [!quote]
 > > "Quando ci dovete ragionare, partite dall'inizio della catena dei puntatori, da quello esplicito che sta li col nome, e procedete incrementalmente."
 
 ---

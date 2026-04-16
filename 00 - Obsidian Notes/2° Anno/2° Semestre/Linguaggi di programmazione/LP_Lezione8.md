@@ -118,7 +118,7 @@ flowchart LR
 3. **Corpo del costruttore:** esegue ulteriori inizializzazioni.
 
 > [!tip] Parole del Professore
-> > [!tip]
+> > [!quote]
 > > "Questo è un fattore di sicurezza. Se provate a usare un puntatore azzerato, vi darà fuori un'eccezione. È un compromesso vantaggioso tra sicurezza ed efficienza: la costruzione di oggetti è relativamente rara rispetto alle operazioni."
 
 ---

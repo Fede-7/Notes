@@ -120,7 +120,7 @@ Tutti gli user thread di un processo si mappano su **un unico kernel thread**. L
 - Nessun vero parallelismo su multicore.
 
 > [!tip] Parole del Professore
-> > [!tip]
+> > [!quote]
 > > "Questo poteva avere un senso quando avevamo architetture single core. Adesso che sono architetture multicore non si utilizza questo tipo di mapping."
 
 ### One-to-one
