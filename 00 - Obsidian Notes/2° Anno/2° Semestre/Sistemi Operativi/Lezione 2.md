@@ -149,8 +149,9 @@ Svantaggio: **overhead di comunicazione**. Ogni volta che un modulo deve comunic
 
 Approccio usato dai kernel moderni (Linux, Solaris, Windows). Il kernel ha un nucleo fisso a cui si possono agganciare/sganciare **moduli** dinamicamente, senza ricompilare. I moduli vengono linkati dentro il kernel → nessun overhead di message passing, ma comunque compartimentazione del codice.
 
-> [!tip]
-> "È simile al microkernel per l'idea di compartimentazione, ma senza il message passing. I moduli stanno dentro il kernel, si parlano direttamente."
+> [!tip] Parole del Professore
+> > [!tip]
+> > "È simile al microkernel per l'idea di compartimentazione, ma senza il message passing. I moduli stanno dentro il kernel, si parlano direttamente."
 
 ### Sistemi Ibridi
 

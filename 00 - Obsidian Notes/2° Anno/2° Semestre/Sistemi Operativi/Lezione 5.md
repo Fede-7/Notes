@@ -119,8 +119,9 @@ Tutti gli user thread di un processo si mappano su **un unico kernel thread**. L
 - Se un thread si blocca (es. su I/O), si bloccano tutti (il kernel vede un unico thread bloccato).
 - Nessun vero parallelismo su multicore.
 
-> [!tip]
-> "Questo poteva avere un senso quando avevamo architetture single core. Adesso che sono architetture multicore non si utilizza questo tipo di mapping."
+> [!tip] Parole del Professore
+> > [!tip]
+> > "Questo poteva avere un senso quando avevamo architetture single core. Adesso che sono architetture multicore non si utilizza questo tipo di mapping."
 
 ### One-to-one
 

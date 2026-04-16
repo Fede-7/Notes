@@ -193,8 +193,9 @@ usando la stima $\log_2(n!) = \Omega(n \log n)$ già dimostrata sopra.
 
 ## 8. Il significato del risultato
 
-> [!tip]
-> "Il fatto che voi non riusciate a trovare un algoritmo migliore non significa che non esista. O c'è un'argomentazione sufficientemente astratta che vi permette di quantificare su tutti i possibili modi di risolvere, oppure non avete modo di rispondere."
+> [!tip] Parole del Professore
+> > [!tip]
+> > "Il fatto che voi non riusciate a trovare un algoritmo migliore non significa che non esista. O c'è un'argomentazione sufficientemente astratta che vi permette di quantificare su tutti i possibili modi di risolvere, oppure non avete modo di rispondere."
 
 La tecnica usata — astrarsi dalla struttura sintattica degli algoritmi e ragionare sulle classi di equivalenza definite dall'albero di decisione — è un esempio di **approccio information-theoretic**: si ragiona sul numero di output distinti che l'algoritmo deve essere in grado di produrre e si deduce il numero minimo di confronti necessari per discriminarli tutti.
 

@@ -70,8 +70,9 @@ Se QuickSort alterna livelli perfettamente bilanciati ($n/2, n/2$) e livelli com
 
 $$T(n) = \Theta(n \cdot 2 \log_2 n) = \Theta(n \log n)$$
 
-> [!tip]
-> "Non è facile rovinare l'andamento del caso migliore in vari modi in cui ho provato ad avvicinarmi. Quindi sembra che questo algoritmo tendenzialmente si comporti sempre così."
+> [!tip] Parole del Professore
+> > [!tip]
+> > "Non è facile rovinare l'andamento del caso migliore in vari modi in cui ho provato ad avvicinarmi. Quindi sembra che questo algoritmo tendenzialmente si comporti sempre così."
 
 ---
 

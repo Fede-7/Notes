@@ -131,8 +131,9 @@ Questo è ciò che il compilatore genera quando si compila una chiamata come `wr
 6. Esegue la routine di servizio.
 7. Scrive il risultato in `rax` e ritorna al processo utente.
 
-> [!tip]
-> "È come se voi vi siete già messi d'accordo su dove stanno le chiavi di casa. Io ho lasciato le chiavi nel solito posto. Il kernel già sa in quali cassetti aprire per trovare i dati."
+> [!tip] Parole del Professore
+> > [!tip]
+> > "È come se voi vi siete già messi d'accordo su dove stanno le chiavi di casa. Io ho lasciato le chiavi nel solito posto. Il kernel già sa in quali cassetti aprire per trovare i dati."
 
 > [!example] Esempio dall'alto: il comando `cp`
 > Il comando `cp input.txt output.txt` è un programma C che si compone di decine di system call:

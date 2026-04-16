@@ -42,8 +42,9 @@ Il corso si chiama "Linguaggi di Programmazione" al plurale per una ragione prec
 
 La risposta pratica non è conoscerli tutti, ma capire le **idee fondamentali** con cui i linguaggi vengono costruiti. Queste idee sono poche, stabili nel tempo, e non dipendono dalla sintassi di un linguaggio specifico. Quando emerge un linguaggio nuovo, lo si "scompatta" nelle sue idee costituenti e lo si impara per delta rispetto a ciò che si conosce già.
 
-> [!tip]
-> "L'obiettivo specifico è insegnare a imparare velocemente un nuovo linguaggio, astraendo quelle che sono le caratteristiche di base. Queste cambiano di rado: è tanto tempo che non ne vedo comparire una completamente nuova."
+> [!tip] Parole del Professore
+> > [!tip]
+> > "L'obiettivo specifico è insegnare a imparare velocemente un nuovo linguaggio, astraendo quelle che sono le caratteristiche di base. Queste cambiano di rado: è tanto tempo che non ne vedo comparire una completamente nuova."
 
 ### Obiettivi del corso
 

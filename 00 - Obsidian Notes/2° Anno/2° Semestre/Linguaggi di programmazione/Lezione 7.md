@@ -45,8 +45,9 @@ Le principali scelte di sicurezza del linguaggio sono:
 
 **Bytecode verifier**: prima di eseguire il bytecode, la JVM lo verifica. Questa verifica controlla che non vengano accedute zone di memoria non autorizzate, che lo stack non vada in overflow/underflow, e che non ci siano conversioni di tipo illegali. Anche un bytecode manipolato a mano (che aggira il compilatore) viene rilevato.
 
-> [!tip]
-> "Se volete un sistema sicuro con codice mobile, non avete tante scelte."
+> [!tip] Parole del Professore
+> > [!tip]
+> > "Se volete un sistema sicuro con codice mobile, non avete tante scelte."
 
 ---
 

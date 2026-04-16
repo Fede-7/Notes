@@ -206,8 +206,9 @@ Ogni processo ha:
 
 **Selezione**: tra i processi eligibili, si sceglie quello con la **virtual deadline più ravvicinata** (EDF applicato alle deadline virtuali).
 
-> [!tip]
-> "Se quello di prima era orientato alla fairness pesata su priorità, questo nuovo è orientato alla reattività pesata, considerando priorità e deadline."
+> [!tip] Parole del Professore
+> > [!tip]
+> > "Se quello di prima era orientato alla fairness pesata su priorità, questo nuovo è orientato alla reattività pesata, considerando priorità e deadline."
 
 ### Confronto CFS vs. EEVDF
 

@@ -117,8 +117,9 @@ flowchart LR
 2. **Inizializzatori espliciti:** se un attributo è dichiarato con `= valore`, quel valore viene scritto.
 3. **Corpo del costruttore:** esegue ulteriori inizializzazioni.
 
-> [!tip]
-> "Questo è un fattore di sicurezza. Se provate a usare un puntatore azzerato, vi darà fuori un'eccezione. È un compromesso vantaggioso tra sicurezza ed efficienza: la costruzione di oggetti è relativamente rara rispetto alle operazioni."
+> [!tip] Parole del Professore
+> > [!tip]
+> > "Questo è un fattore di sicurezza. Se provate a usare un puntatore azzerato, vi darà fuori un'eccezione. È un compromesso vantaggioso tra sicurezza ed efficienza: la costruzione di oggetti è relativamente rara rispetto alle operazioni."
 
 ---
 

@@ -179,8 +179,9 @@ $$f_X(x) = \lim_{\delta x \to 0} \frac{P(x - \delta x/2 \leq X \leq x + \delta x
 > [!warning] La densità non è una probabilità
 > $f_X(x_0)$ non è la probabilità che $X = x_0$. La probabilità di un singolo punto è 0. La densità è la "concentrazione" di probabilità in un intorno di $x_0$: più è alta, più è probabile trovare $X$ vicino a $x_0$.
 
-> [!tip]
-> "Chiamare il massimo della densità il 'valore più probabile' mi dà una pugnalata a sangue freddo. Il massimo della densità si chiama correttamente il valore modale."
+> [!tip] Parole del Professore
+> > [!tip]
+> > "Chiamare il massimo della densità il 'valore più probabile' mi dà una pugnalata a sangue freddo. Il massimo della densità si chiama correttamente il valore modale."
 
 La teoria sarà ripresa in dettaglio nella prossima lezione, con il concetto di **funzione di distribuzione cumulativa (CDF)** e con tutti gli strumenti del caso continuo.
 

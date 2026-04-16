@@ -37,8 +37,9 @@ Gli algoritmi di scheduling possono essere valutati con approcci di diverso live
 > [!info] Il vero banco di prova
 > L'unico modo per valutare davvero un algoritmo di scheduling sofisticato è inserirlo nel kernel e osservarne il comportamento nel sistema completo. L'algoritmo vive in un ecosistema e interagisce con tutto il resto: un algoritmo teoricamente ottimo può risultare non performante in pratica. Ad esempio, l'EEVDF di Linux è stato proposto come lavoro scientifico diversi anni prima di essere integrato nel kernel, proprio per la cautela necessaria nel sostituire un algoritmo già in produzione.
 
-> [!tip]
-> "Finché si trattano algoritmi molto semplici, si possono modellare in astratto, però poi per valutare effettivamente l'impatto reale bisogna immergerlo dentro il kernel."
+> [!tip] Parole del Professore
+> > [!tip]
+> > "Finché si trattano algoritmi molto semplici, si possono modellare in astratto, però poi per valutare effettivamente l'impatto reale bisogna immergerlo dentro il kernel."
 
 ---
 
@@ -55,8 +56,9 @@ La soluzione con contatore esplicita il problema in modo ancora più chiaro: un 
 > [!example] Corsa critica sul contatore
 > Supponiamo `counter = 5`. Il thread 1 legge 5 nel registro R1, aggiorna R1 a 6. Prima di scrivere in memoria, lo scheduler cede la parola al thread 2, che legge 5 nel registro R2, aggiorna R2 a 4, scrive 4 in memoria. Poi il thread 1 scrive 6. Il risultato finale è 6 invece di 5. Se avessero operato atomicamente, qualunque ordine avrebbe prodotto 5.
 
-> [!tip]
-> "Voi che cosa state ipotizzando, lanciando due thread? Che tutte queste siano operazioni atomiche. Se fossero atomiche, chi arriva prima, chi arriva dopo... non è un problema."
+> [!tip] Parole del Professore
+> > [!tip]
+> > "Voi che cosa state ipotizzando, lanciando due thread? Che tutte queste siano operazioni atomiche. Se fossero atomiche, chi arriva prima, chi arriva dopo... non è un problema."
 
 Il problema si amplifica su sistemi **multicore** dove c'è parallelismo reale: i thread girano su core distinti e accedono a memoria condivisa contemporaneamente. In più, le cache possono introdurre ulteriori problemi di consistenza: una modifica tenuta in cache può non essere ancora propagata in memoria globale.
 

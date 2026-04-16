@@ -68,8 +68,9 @@ Questo limite è il **valore atteso** della variabile aleatoria.
 > [!warning] Media statistica vs media aritmetica
 > La media statistica **non** coincide in generale con la media aritmetica dei valori dell'alfabeto. La media aritmetica pesa tutti i valori allo stesso modo ($1/M$ ciascuno); la media statistica è una **media pesata** con pesi $P_X(a_k)$. Solo quando la distribuzione è uniforme (tutti i valori equiprobabili) le due medie coincidono.
 
-> [!tip]
-> "La media statistica è il baricentro della distribuzione di probabilità: se mettete dei pesi sulle posizioni dell'asse reale, il baricentro cade dove c'è più massa di probabilità. È il numero verso cui converge la media campionaria quando fate tante prove."
+> [!tip] Parole del Professore
+> > [!tip]
+> > "La media statistica è il baricentro della distribuzione di probabilità: se mettete dei pesi sulle posizioni dell'asse reale, il baricentro cade dove c'è più massa di probabilità. È il numero verso cui converge la media campionaria quando fate tante prove."
 
 ---
 
@@ -200,8 +201,9 @@ Quando l'alfabeto è $\mathcal{X} = \{1, 2, \ldots, M\}$ (i primi $M$ interi pos
 
 $$\sum_{k=1}^{M} k = \frac{M(M+1)}{2}$$
 
-> [!tip]
-> "La scoprì Gauss a sei anni, quando il maestro gli chiese di sommare i numeri da 1 a 100 pensando di tenerlo occupato per un'ora. Gauss scrisse l'ultimo numero accanto al primo, il penultimo accanto al secondo... e si accorse che ogni coppia faceva 101. Cinquanta coppie: $50 \times 101 = 5050$. Il maestro rimase a bocca aperta."
+> [!tip] Parole del Professore
+> > [!tip]
+> > "La scoprì Gauss a sei anni, quando il maestro gli chiese di sommare i numeri da 1 a 100 pensando di tenerlo occupato per un'ora. Gauss scrisse l'ultimo numero accanto al primo, il penultimo accanto al secondo... e si accorse che ogni coppia faceva 101. Cinquanta coppie: $50 \times 101 = 5050$. Il maestro rimase a bocca aperta."
 
 **Dimostrazione.** Sia $S = 1 + 2 + \cdots + M$. Scriviamo la somma due volte, una in ordine crescente e una in ordine decrescente:
 
@@ -273,8 +275,9 @@ $$\boxed{E[X] = \lambda}$$
 
 La media della Poisson è esattamente il parametro $\lambda$: un risultato elegante che conferma l'interpretazione di $\lambda$ come tasso medio.
 
-> [!tip]
-> "La Poisson è la distribuzione delle cose rare: eventi che singolarmente sono poco probabili, ma che vengono osservati su un numero enorme di occasioni. Quante macchine passano al casello in un minuto? Quanti pacchetti arrivano al router in un millisecondo? Quante persone entrano all'ufficio postale in un'ora? Tutte Poisson."
+> [!tip] Parole del Professore
+> > [!tip]
+> > "La Poisson è la distribuzione delle cose rare: eventi che singolarmente sono poco probabili, ma che vengono osservati su un numero enorme di occasioni. Quante macchine passano al casello in un minuto? Quanti pacchetti arrivano al router in un millisecondo? Quante persone entrano all'ufficio postale in un'ora? Tutte Poisson."
 
 ### Applicazioni della distribuzione di Poisson
 
@@ -418,8 +421,9 @@ $$P(T \mid S) + P(O \mid S) = \frac{3}{5} + \frac{2}{5} = 1 \quad \checkmark$$
 > [!warning] L'aggiornamento bayesiano: a priori vs a posteriori
 > Prima del lancio, la probabilità che il dado fosse truccato era $P(T) = 1/3 \approx 33\%$. Dopo aver osservato l'uscita del $6$, la probabilità è salita a $P(T \mid S) = 3/5 = 60\%$. L'osservazione ha **aggiornato** la nostra credenza: poiché il $6$ è molto più probabile con il dado truccato ($1/2$ vs $1/6$), la sua uscita è un'evidenza a favore dell'ipotesi "dado truccato".
 
-> [!tip]
-> "Bayes è questo: prima di vedere i dati avete un'opinione — la probabilità a priori. Poi vedete i dati e aggiornate l'opinione — ottenete la probabilità a posteriori. Se i dati sono coerenti con la vostra ipotesi, la probabilità sale; se non lo sono, scende. Questo è il cuore dell'inferenza statistica."
+> [!tip] Parole del Professore
+> > [!tip]
+> > "Bayes è questo: prima di vedere i dati avete un'opinione — la probabilità a priori. Poi vedete i dati e aggiornate l'opinione — ottenete la probabilità a posteriori. Se i dati sono coerenti con la vostra ipotesi, la probabilità sale; se non lo sono, scende. Questo è il cuore dell'inferenza statistica."
 
 ---
 
@@ -475,8 +479,9 @@ Per questo motivo, nella pratica, accanto alla media si calcolano sempre altri i
 - La **mediana**: il valore che divide la distribuzione a metà (il 50% dei dati sta sopra, il 50% sotto). È robusta rispetto agli outlier.
 - La **varianza** (che vedremo nelle prossime lezioni): misura la dispersione dei dati attorno alla media. Se la varianza è alta, la media da sola è poco informativa.
 
-> [!tip]
-> "Se uno mette la testa nel forno e i piedi nel congelatore, in media sta bene. Ecco perché la media da sola non basta: bisogna sempre guardare anche quanto i dati si disperdono attorno ad essa."
+> [!tip] Parole del Professore
+> > [!tip]
+> > "Se uno mette la testa nel forno e i piedi nel congelatore, in media sta bene. Ecco perché la media da sola non basta: bisogna sempre guardare anche quanto i dati si disperdono attorno ad essa."
 
 ---
 

@@ -196,8 +196,9 @@ Il puntatore all'env non locale punta sempre al record immediatamente precedente
 | Puntatore env | Salta record intermedi (verso il blocco contenitore) | Punta sempre al record precedente |
 | Usato da | Quasi tutti i linguaggi moderni | Primo LISP (poi sostituito da Scheme) |
 
-> [!tip]
-> "Scheme è praticamente uguale a LISP — stessa sintassi con tante parentesi — ma usa lo scoping statico proprio per eliminare l'incubo di predire il comportamento dei programmi con scope dinamico."
+> [!tip] Parole del Professore
+> > [!tip]
+> > "Scheme è praticamente uguale a LISP — stessa sintassi con tante parentesi — ma usa lo scoping statico proprio per eliminare l'incubo di predire il comportamento dei programmi con scope dinamico."
 
 ---
 
