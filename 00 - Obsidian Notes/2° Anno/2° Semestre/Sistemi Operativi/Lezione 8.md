@@ -206,8 +206,9 @@ Ogni processo ha:
 
 **Selezione**: tra i processi eligibili, si sceglie quello con la **virtual deadline più ravvicinata** (EDF applicato alle deadline virtuali).
 
-> [!quote]
-> "Se quello di prima era orientato alla fairness pesata su priorità, questo nuovo è orientato alla reattività pesata, considerando priorità e deadline."
+> [!tip] Parole del Professore
+> > [!quote]
+> > "Se quello di prima era orientato alla fairness pesata su priorità, questo nuovo è orientato alla reattività pesata, considerando priorità e deadline."
 
 ### Confronto CFS vs. EEVDF
 
@@ -250,7 +251,7 @@ Core ad alte prestazioni (big) e core a basso consumo (LITTLE) sullo stesso chip
 
 ---
 
-> [!summary] Punti chiave della lezione
+> [!abstract] Punti chiave della lezione
 > - RMS: priorità statica basata sulla frequenza; garantisce le deadline finché l'utilizzo totale ≤ $n(2^{1/n}-1)$ (69% per $n \to \infty$).
 > - EDF: priorità dinamica basata sulla deadline più ravvicinata; ottimale — se esiste uno scheduling fattibile, EDF lo trova.
 > - Linux CFS: virtual runtime con "orologio truccato" in base alla priorità; albero rosso-nero per selezione O(1).

@@ -42,8 +42,9 @@ Il corso si chiama "Linguaggi di Programmazione" al plurale per una ragione prec
 
 La risposta pratica non è conoscerli tutti, ma capire le **idee fondamentali** con cui i linguaggi vengono costruiti. Queste idee sono poche, stabili nel tempo, e non dipendono dalla sintassi di un linguaggio specifico. Quando emerge un linguaggio nuovo, lo si "scompatta" nelle sue idee costituenti e lo si impara per delta rispetto a ciò che si conosce già.
 
-> [!quote]
-> "L'obiettivo specifico è insegnare a imparare velocemente un nuovo linguaggio, astraendo quelle che sono le caratteristiche di base. Queste cambiano di rado: è tanto tempo che non ne vedo comparire una completamente nuova."
+> [!tip] Parole del Professore
+> > [!quote]
+> > "L'obiettivo specifico è insegnare a imparare velocemente un nuovo linguaggio, astraendo quelle che sono le caratteristiche di base. Queste cambiano di rado: è tanto tempo che non ne vedo comparire una completamente nuova."
 
 ### Obiettivi del corso
 
@@ -191,7 +192,7 @@ flowchart TD
 
 ---
 
-> [!summary] Punti chiave della lezione
+> [!abstract] Punti chiave della lezione
 > - I linguaggi proliferano perché categorie di problemi diverse richiedono strumenti espressivi diversi. Imparare le idee fondamentali (non le sintassi) permette adattamento rapido.
 > - Le caratteristiche chiave — variabile, tipo, ricorsione, GC, OO, metaprogrammazione — sono state introdotte tra gli anni '50 e '70.
 > - Un linguaggio è Turing-completo se i suoi programmi possono non terminare; SQL non lo è.

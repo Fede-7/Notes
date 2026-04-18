@@ -42,8 +42,9 @@ Le stime superiori che avevamo dato erano: $O(n \log n)$ sia per `BuildHeap` che
 
 `BuildHeap` applica `Heapify` a tutti i nodi interni, ma la **gran parte delle chiamate** avviene su nodi che sono radici di sottoalberi di altezza molto bassa. I nodi profondi (vicini alle foglie) sono molti, ma i loro sottoalberi sono piccoli. I nodi vicini alla radice (con sottoalberi alti) sono pochi.
 
-> [!quote]
-> "La stragrande maggioranza delle chiamate Heapify vengono fatte su heap in cui H è molto basso."
+> [!tip] Parole del Professore
+> > [!quote]
+> > "La stragrande maggioranza delle chiamate Heapify vengono fatte su heap in cui H è molto basso."
 
 ### La struttura dell'analisi
 
@@ -245,12 +246,12 @@ $$T(n) = \begin{cases} \Theta(1) & \text{se } n \leq 1 \\ \Theta(n) + T(k) + T(n
 
 dove $k$ dipende dall'input. L'analisi richiede quindi di distinguere **caso peggiore**, **caso migliore** e **caso medio**, analogamente a quanto fatto per InsertionSort.
 
-> [!important] Implicazione
+> [!info] Implicazione
 > Il comportamento di QuickSort non dipende solo dalla dimensione dell'input, ma dai suoi **valori**. Se il pivot è sempre il minimo o il massimo, la partizione sarà sempre sbilanciata (1 elemento da un lato, $n-1$ dall'altro), degradando a $\Theta(n^2)$. La prossima lezione tratterà la soluzione di questa equazione di ricorrenza.
 
 ---
 
-> [!summary] Punti chiave della lezione
+> [!abstract] Punti chiave della lezione
 > - `BuildHeap` ha costo $\Theta(n)$, non $\Theta(n \log n)$: la maggior parte delle chiamate `Heapify` avviene su sottoalberi molto bassi.
 > - `HeapSort` ha costo $\Theta(n \log n)$: la stima era stretta perché le prime $n/2$ chiamate costano ciascuna $\log n$.
 > - QuickSort evita la fusione garantendo che ogni elemento della partizione sinistra sia $\leq$ di ogni elemento della destra.

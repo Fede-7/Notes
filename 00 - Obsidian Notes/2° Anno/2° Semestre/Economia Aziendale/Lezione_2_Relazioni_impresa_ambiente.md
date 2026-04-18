@@ -107,7 +107,7 @@ L'impresa che comprende il pattern di questa dinamica — ovvero che alcuni fatt
 
 ---
 
-> [!summary] Riepilogo concettuale
+> [!abstract] Riepilogo concettuale
 > La relazione tra impresa e ambiente è dinamica e multidimensionale. Non esiste una gerarchia fissa di influenze: a volte l'impresa condiziona il mercato, a volte è il mercato a vincolare l'impresa, a volte ancora fattori completamente esterni determinano i confini dello spazio d'azione aziendale. Comprendere come posizionare un singolo fattore lungo questo spettro di influenze è cruciale per la formulazione di strategie aziendali efficaci.
 
 ---

@@ -80,7 +80,7 @@ void spinlock_release(int *lock) {
 | Adatto a | Sistemi multicore, kernel | Programmazione applicativa |
 | Analogia | Macchina al semaforo col motore acceso | Macchina che si spegne e si riavvia |
 
-> [!important] Spin lock su sistemi single-core
+> [!info] Spin lock su sistemi single-core
 > Su un solo core, lo spin lock è dannoso: il processo che aspetta occupa il 100% della CPU, impedendo al processo che tiene il lock di eseguire e liberarlo. Su multicore invece un core può dedicarsi allo spinning mentre un altro esegue il processo che deve rilasciare il lock.
 
 ---
@@ -297,7 +297,7 @@ Gli spin lock non fanno context switch ma sprecano CPU. I mutex sospendono il pr
 
 ---
 
-> [!summary] Punti chiave della lezione
+> [!abstract] Punti chiave della lezione
 > - I semafori generalizzano i mutex: un semaforo binario equivale a un mutex, un semaforo contatore permette $k$ accessi contemporanei.
 > - Il problema produttore-consumatore si risolve elegantemente con tre semafori (`mutex`, `empty`, `full`).
 > - I monitor garantiscono mutua esclusione strutturalmente; le variabili di condizione permettono ai processi di sospendersi in attesa di una condizione, lasciando entrare altri.

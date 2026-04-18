@@ -173,7 +173,7 @@ Una prima rottura parziale del mercato si e verificata quando **LG** ha messo in
 
 La vera rivoluzione e arrivata con **Apple** e il touchscreen. Questo cambiamento e stato cosi radicale che aziende leader come Nokia non sono riuscite a tenere il passo. Nokia esiste ancora oggi, ma vende principalmente telefoni con tasti grandi destinati a persone anziane: non ha piu la potenza mondiale che aveva vent'anni fa.
 
-> [!quote] Il docente sulla rivoluzione del touchscreen
+> [!tip] Il docente sulla rivoluzione del touchscreen
 > "C'e stata un'evoluzione che ha cambiato completamente il mondo. Aziende forti come Nokia, che erano leader del mercato, non sono riuscite a tenere il passo e si sono trovate, andando da li a poco, che Nokia esiste ma non fattura le stesse cose che fatturava prima."
 
 ### Motorola
@@ -218,7 +218,7 @@ Il docente distingue nettamente tra giudizio politico e giudizio imprenditoriale
 
 ### Berlusconi
 
-> [!quote] Il docente su Berlusconi imprenditore
+> [!tip] Il docente su Berlusconi imprenditore
 > "Berlusconi lo si puo criticare come uomo di politica. Ma come imprenditore? Come imprenditore Berlusconi e stato un grande. Ha iniziato cantando sulle navi da crociera, poi e diventato l'uomo piu ricco d'Italia e uno dei piu ricchi del mondo, perche ha saputo sfruttare la sua capacita imprenditoriale."
 
 Dal punto di vista politico si puo essere d'accordo o meno, ma dal punto di vista imprenditoriale la sua capacita di costruire un impero mediatico e finanziario e indiscutibile. Il docente nota anche che i suoi rapporti internazionali (Trump, Putin) derivavano in parte dal suo status di grande imprenditore.
@@ -331,7 +331,7 @@ I video sono disponibili anche all'interno delle slide caricate su Teams.
 
 ---
 
-> [!summary] Punti chiave della lezione
+> [!abstract] Punti chiave della lezione
 > - L'impresa e un sistema cognitivo perche la componente umana acquisisce continuamente nuove conoscenze, a differenza delle macchine (conoscenza statica).
 > - Gli elementi tangibili (immobilizzazioni materiali) e intangibili (immobilizzazioni immateriali come brevetti e marchi) coesistono nel bilancio, ma il sapere umano non vi compare.
 > - L'impresa opera in tre mercati esterni: produzione (fornitori), lavoro (personale) e capitali (investitori e banche).
