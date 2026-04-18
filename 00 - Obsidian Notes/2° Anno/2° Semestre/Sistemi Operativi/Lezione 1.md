@@ -158,11 +158,11 @@ Il software che gira sulla macchina si divide in tre grandi categorie:
 flowchart TB
     %% Definizione dello stile per adattarsi all'A4
     classDef default fill:#e1f5fe,stroke:#01579b,stroke-width:2px,rx:10,ry:10;
-    HW[Hardware] :::default --> KRN[Kernel\ngestione proc, mem, I/O, FS, driver] :::default
-    KRN --> SCI[System Call Interface] :::default
-    SCI --> SYS[Software di sistema\ncompilatori, shell, loader, linker] :::default
-    SCI --> DEM[Demoni\nservizi in background, user space] :::default
-    SYS --> APP[Programmi applicativi] :::default
+    HW[Hardware] --> KRN[Kernel<br/>gestione proc, mem, I/O, FS, driver]
+    KRN --> SCI[System Call Interface]
+    SCI --> SYS[Software di sistema<br/>compilatori, shell, loader, linker]
+    SCI --> DEM[Demoni<br/>servizi in background, user space]
+    SYS --> APP[Programmi applicativi]
     DEM --> APP
 ```
 

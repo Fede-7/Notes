@@ -119,7 +119,7 @@ Entrando in un blocco si fa una push; uscendo, una pop. Il meccanismo è lo stes
 flowchart TD
     %% Definizione dello stile per adattarsi all'A4
     classDef default fill:#e1f5fe,stroke:#01579b,stroke-width:2px,rx:10,ry:10;
-    B["Record blocco B\nx_B, w\n→ env non-locale"] :::default --> A["Record blocco A\nz, k\n→ env non-locale"] :::default --> P["Record blocco P\nx_P, y\n→ null"] :::default
+    B["Record blocco B<br/>x_B, w<br/>→ env non-locale"] --> A["Record blocco A<br/>z, k<br/>→ env non-locale"] --> P["Record blocco P<br/>x_P, y<br/>→ null"]
 ```
 
 Per cercare una variabile, si scansiona la lista dal record corrente verso la radice: si trova il primo binding con quel nome. Se `x` è dichiarata sia in `B` che in `P`, quella di `B` viene trovata per prima (mascheramento).

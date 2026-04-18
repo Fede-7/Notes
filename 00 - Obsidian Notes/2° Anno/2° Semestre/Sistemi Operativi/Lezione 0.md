@@ -60,19 +60,19 @@ tags:
 graph TB
     %% Definizione dello stile per adattarsi all'A4
     classDef default fill:#e1f5fe,stroke:#01579b,stroke-width:2px,rx:10,ry:10;
-    subgraph User["Livello Utente"] :::default
-        A[Applicazioni utente] :::default
+    subgraph User["Livello Utente"]
+        A[Applicazioni utente]
     end
     
-    subgraph OS["Livello Sistema Operativo"] :::default
-        B1[Kernel] :::default
-        B2[Programmi di sistema] :::default
+    subgraph OS["Livello Sistema Operativo"]
+        B1[Kernel]
+        B2[Programmi di sistema]
     end
     
-    subgraph HW["Livello Hardware"] :::default
-        C1[CPU] :::default
-        C2[RAM] :::default
-        C3[Periferiche] :::default
+    subgraph HW["Livello Hardware"]
+        C1[CPU]
+        C2[RAM]
+        C3[Periferiche]
     end
     
     A <--> B1
@@ -129,9 +129,9 @@ timeline
               : Multiprogrammazione, time sharing, MULTICS, Unix, linguaggio C
     1980      : Quarta generazione
               : Personal Computer
-              : MS-DOS, GUI (Xerox PARC → Apple → Windows) :::default
+              : MS-DOS, GUI (Xerox PARC → Apple → Windows)
     Oggi      : Quinta generazione
-              : Sistemi mobile (iOS, Android) :::default
+              : Sistemi mobile (iOS, Android)
 ```
 
 ### Prima generazione (anni '40–'50) — Valvole
@@ -160,12 +160,12 @@ timeline
 flowchart TD
     %% Definizione dello stile per adattarsi all'A4
     classDef default fill:#e1f5fe,stroke:#01579b,stroke-width:2px,rx:10,ry:10;
-    A[MULTICS $$\space$$ Bell Labs, ~1965] :::default -->|troppo complesso| B[UNIX $$\space$$ Thompson & Ritchie, 1969] :::default
-    B --> C[Linguaggio C $$\space$$ Ritchie] :::default
-    B --> D[Famiglie Unix $$\space$$ BSD, System V...] :::default
-    D --> E[Minix Tanenbaum] :::default
-    E --> F[Linux Torvalds, 1991] :::default
-    B --> G[macOS XNU/Darwin] :::default
+    A[MULTICS $$\space$$ Bell Labs, ~1965] -->|troppo complesso| B[UNIX $$\space$$ Thompson & Ritchie, 1969]
+    B --> C[Linguaggio C $$\space$$ Ritchie]
+    B --> D[Famiglie Unix $$\space$$ BSD, System V...]
+    D --> E[Minix Tanenbaum]
+    E --> F[Linux Torvalds, 1991]
+    B --> G[macOS XNU/Darwin]
 ```
 
 > [!tip] Curiosità
@@ -230,7 +230,7 @@ sequenceDiagram
 
     P1->>PER: Richiede operazione I/O
     CPU->>P2: Scheduler manda in esecuzione P2
-    PER-->>CPU: Interrupt (operazione completata) :::default
+    PER-->>CPU: Interrupt (operazione completata)
     CPU->>ISR: Esegue routine di servizio
     ISR-->>CPU: Fine servizio
     CPU->>P1: Ripristina e riprende P1
@@ -336,14 +336,14 @@ $$\text{indirizzo fisico} = \text{base} + \text{indirizzo logico} \quad \text{se
 stateDiagram-v2
     %% Definizione dello stile per adattarsi all'A4
     classDef default fill:#e1f5fe,stroke:#01579b,stroke-width:2px,rx:10,ry:10;
-    [*] :::default --> Creato
+    [*] --> Creato
     Creato --> Pronto
     Pronto --> In_esecuzione : scheduler lo seleziona
     In_esecuzione --> Pronto : quanto di tempo scaduto
     In_esecuzione --> In_attesa : richiesta I/O
-    In_attesa --> Pronto : I/O completato (interrupt) :::default
+    In_attesa --> Pronto : I/O completato (interrupt)
     In_esecuzione --> Terminato
-    Terminato --> [*] :::default
+    Terminato --> [*]
 ```
 
 ---
@@ -355,12 +355,12 @@ stateDiagram-v2
 flowchart TD
     %% Definizione dello stile per adattarsi all'A4
     classDef default fill:#e1f5fe,stroke:#01579b,stroke-width:2px,rx:10,ry:10;
-    A[Introduzione ai SO] :::default --> B[Struttura e architettura del SO] :::default
-    B --> C[Processi: concetto, scheduling, sincronizzazione] :::default
-    C --> D[Gestione della memoria principale] :::default
-    D --> E[Sistemi di I/O] :::default
-    E --> F[File system] :::default
-    F --> G[Virtualizzazione] :::default
+    A[Introduzione ai SO] --> B[Struttura e architettura del SO]
+    B --> C[Processi: concetto, scheduling, sincronizzazione]
+    C --> D[Gestione della memoria principale]
+    D --> E[Sistemi di I/O]
+    E --> F[File system]
+    F --> G[Virtualizzazione]
     
     style A fill:#4a9eff,color:#fff
     style C fill:#f0a500,color:#fff

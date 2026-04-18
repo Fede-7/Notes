@@ -293,7 +293,7 @@ Dal più leggero al più pesante:
 flowchart TD
     %% Definizione dello stile per adattarsi all'A4
     classDef default fill:#e1f5fe,stroke:#01579b,stroke-width:2px,rx:10,ry:10;
-    A["Istruzioni atomiche\n(test-and-set, CAS)"] :::default --> B["Spin lock"] :::default --> C["Mutex lock"] :::default --> D["Semafori"] :::default --> E["Monitor"] :::default
+    A["Istruzioni atomiche<br/>(test-and-set, CAS)"] --> B["Spin lock"] --> C["Mutex lock"] --> D["Semafori"] --> E["Monitor"]
 ```
 
 Gli spin lock non fanno context switch ma sprecano CPU. I mutex sospendono il processo (context switch). I semafori sono più pesanti perché più flessibili. I monitor sono il meccanismo più alto livello e più pesante. Per la programmazione applicativa ordinaria si usano i mutex lock.

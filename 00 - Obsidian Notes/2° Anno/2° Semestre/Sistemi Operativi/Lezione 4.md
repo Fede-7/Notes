@@ -59,15 +59,15 @@ Il ciclo principale della shell (main command loop) esegue queste operazioni:
 flowchart TD
     %% Definizione dello stile per adattarsi all'A4
     classDef default fill:#e1f5fe,stroke:#01579b,stroke-width:2px,rx:10,ry:10;
-    A[Mostra il prompt] :::default --> B[Leggi comando dall'utente] :::default
-    B --> C{Analisi sintattica} :::default
-    C -->|Comando valido| D{Built-in?} :::default
-    C -->|Errore| E[Mostra errore] :::default
+    A[Mostra il prompt] --> B[Leggi comando dall'utente]
+    B --> C{Analisi sintattica}
+    C -->|Comando valido| D{Built-in?}
+    C -->|Errore| E[Mostra errore]
     E --> A
-    D -->|Sì| F[Esegui internamente] :::default
-    D -->|No| G[Cerca eseguibile nel PATH] :::default
-    G --> H[fork + exec] :::default
-    H --> I[Attendi terminazione figlio] :::default
+    D -->|Sì| F[Esegui internamente]
+    D -->|No| G[Cerca eseguibile nel PATH]
+    G --> H[fork + exec]
+    H --> I[Attendi terminazione figlio]
     F --> A
     I --> A
 ```
@@ -197,10 +197,10 @@ La compilazione di un programma C non è un singolo passo, ma una **pipeline di 
 flowchart TD
     %% Definizione dello stile per adattarsi all'A4
     classDef default fill:#e1f5fe,stroke:#01579b,stroke-width:2px,rx:10,ry:10;
-    A["file.c\n(sorgente)"] :::default -->|Preprocessore| B["file.i\n(sorgente espanso)"] :::default
-    B -->|Compilatore| C["file.s\n(assembly)"] :::default
-    C -->|Assemblatore| D["file.o\n(oggetto)"] :::default
-    D -->|Linker| E["a.out\n(eseguibile)"] :::default
+    A["file.c<br/>(sorgente)"] -->|Preprocessore| B["file.i<br/>(sorgente espanso)"]
+    B -->|Compilatore| C["file.s<br/>(assembly)"]
+    C -->|Assemblatore| D["file.o<br/>(oggetto)"]
+    D -->|Linker| E["a.out<br/>(eseguibile)"]
 ```
 
 ### Fase 1: Preprocessore

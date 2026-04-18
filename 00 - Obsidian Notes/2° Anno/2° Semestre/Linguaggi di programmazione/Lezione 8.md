@@ -113,7 +113,7 @@ Quando si crea un oggetto con `new`, Java esegue **tre strati di inizializzazion
 flowchart TD
     %% Definizione dello stile per adattarsi all'A4
     classDef default fill:#e1f5fe,stroke:#01579b,stroke-width:2px,rx:10,ry:10;
-    A["1. Azzeramento (tutto a 0/false/null)"] :::default --> B["2. Inizializzatori espliciti (=valore)"] :::default --> C["3. Costruttore"] :::default
+    A["1. Azzeramento (tutto a 0/false/null)"] --> B["2. Inizializzatori espliciti (=valore)"] --> C["3. Costruttore"]
 ```
 
 1. **Azzeramento automatico:** tutti i campi vengono riempiti con zeri (0 per i tipi numerici, `false` per i boolean, `null` per i reference). Questo garantisce che nessun campo di un oggetto parta con un valore casuale.

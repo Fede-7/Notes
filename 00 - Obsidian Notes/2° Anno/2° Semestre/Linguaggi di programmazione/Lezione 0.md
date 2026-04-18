@@ -162,12 +162,12 @@ Vantaggi: **portabilità** (stesso bytecode gira su qualunque piattaforma con un
 flowchart TD
     %% Definizione dello stile per adattarsi all'A4
     classDef default fill:#e1f5fe,stroke:#01579b,stroke-width:2px,rx:10,ry:10;
-    SRC["Codice sorgente\nsequenza di caratteri"] :::default
-    SRC --> LEX["Analisi lessicale\n→ token stream"] :::default
-    LEX --> SYN["Analisi sintattica\n→ albero sintattico (AST)"] :::default
-    SYN --> SEM["Analisi semantica\n→ AST arricchito (tipi, legami)"] :::default
-    SEM --> GEN["Generazione del codice\n→ codice oggetto / bytecode"] :::default
-    GEN --> OPT["Ottimizzazione\n→ output finale"] :::default
+    SRC["Codice sorgente<br/>sequenza di caratteri"]
+    SRC --> LEX["Analisi lessicale<br/>→ token stream"]
+    LEX --> SYN["Analisi sintattica<br/>→ albero sintattico (AST)"]
+    SYN --> SEM["Analisi semantica<br/>→ AST arricchito (tipi, legami)"]
+    SEM --> GEN["Generazione del codice<br/>→ codice oggetto / bytecode"]
+    GEN --> OPT["Ottimizzazione<br/>→ output finale"]
 ```
 
 **Analisi lessicale:** trasforma la stringa di caratteri in una sequenza di **token** (identificatori, parole chiave, operatori, parentesi...). Implementabile con automi a stati finiti (grammatiche regolari). Esistono generatori automatici di lexer.

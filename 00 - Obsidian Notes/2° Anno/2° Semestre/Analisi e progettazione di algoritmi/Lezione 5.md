@@ -257,9 +257,9 @@ Dopo `BuildHeap`, il massimo si trova in $A[1]$. Si scambia con l'ultima posizio
 flowchart TD
     %% Definizione dello stile per adattarsi all'A4
     classDef default fill:#e1f5fe,stroke:#01579b,stroke-width:2px,rx:10,ry:10;
-    A["BuildHeap\nΘ(n)"] :::default --> B["Estrai massimo\n× (n-1) volte"] :::default
-    B --> C["Heapify dopo\nocni estrazione\nO(log n)"] :::default
-    C --> D["Array ordinato"] :::default
+    A["BuildHeap<br/>Θ(n)"] --> B["Estrai massimo<br/>× (n-1) volte"]
+    B --> C["Heapify dopo<br/>ocni estrazione<br/>O(log n)"]
+    C --> D["Array ordinato"]
 ```
 
 ### Analisi

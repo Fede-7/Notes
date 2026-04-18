@@ -146,14 +146,14 @@ if (pid < 0) {
 flowchart TD
     %% Definizione dello stile per adattarsi all'A4
     classDef default fill:#e1f5fe,stroke:#01579b,stroke-width:2px,rx:10,ry:10;
-    subgraph Prima["Prima di exec()"] :::default
-        T1[Text: codice originale] :::default --> D1[Data + Stack originali] :::default
+    subgraph Prima["Prima di exec()"]
+        T1[Text: codice originale] --> D1[Data + Stack originali]
     end
-    subgraph Dopo["Dopo exec()"] :::default
-        T2[Text: NUOVO programma] :::default --> D2[Data + Stack reinizializzati] :::default
+    subgraph Dopo["Dopo exec()"]
+        T2[Text: NUOVO programma] --> D2[Data + Stack reinizializzati]
     end
     Prima -->|"exec(nuovo_programma) :::default"| Dopo
-    note["PID rimane lo stesso\nPCB aggiornato parzialmente\nKernel stack invariato"] :::default
+    note["PID rimane lo stesso<br/>PCB aggiornato parzialmente<br/>Kernel stack invariato"]
 ```
 
 > [!warning] exec() e un punto di non ritorno
@@ -245,15 +245,15 @@ I processi sono **isolati** tra loro: ogni processo ha il proprio spazio di indi
 flowchart TB
     %% Definizione dello stile per adattarsi all'A4
     classDef default fill:#e1f5fe,stroke:#01579b,stroke-width:2px,rx:10,ry:10;
-    subgraph SM["Shared Memory"] :::default
-        P1A[Processo A] :::default -->|scrive| SHM[(Memoria\nCondivisa)] :::default
-        SHM -->|legge| P1B[Processo B] :::default
-        note1["Il kernel alloca la zona condivisa.\nDopo, i processi comunicano\nin user mode senza passare\ndal kernel."] :::default
+    subgraph SM["Shared Memory"]
+        P1A[Processo A] -->|scrive| SHM[(Memoria<br/>Condivisa)]
+        SHM -->|legge| P1B[Processo B]
+        note1["Il kernel alloca la zona condivisa.<br/>Dopo, i processi comunicano<br/>in user mode senza passare<br/>dal kernel."]
     end
-    subgraph MP["Message Passing"] :::default
-        P2A[Processo A] :::default -->|send| K[Kernel\ncanale di comunicazione] :::default
-        K -->|receive| P2B[Processo B] :::default
-        note2["Ogni messaggio passa\nattraverso il kernel."] :::default
+    subgraph MP["Message Passing"]
+        P2A[Processo A] -->|send| K[Kernel<br/>canale di comunicazione]
+        K -->|receive| P2B[Processo B]
+        note2["Ogni messaggio passa<br/>attraverso il kernel."]
     end
 ```
 
@@ -350,9 +350,9 @@ L'API POSIX mette a disposizione un meccanismo per creare e gestire segmenti di 
 flowchart TD
     %% Definizione dello stile per adattarsi all'A4
     classDef default fill:#e1f5fe,stroke:#01579b,stroke-width:2px,rx:10,ry:10;
-    A["shm_open()\nCrea il segmento\n(metadati + permessi)"] :::default --> B["ftruncate()\nImposta la dimensione\n(alloca memoria)"] :::default
-    B --> C["mmap()\nMappa il segmento\nnello spazio virtuale\ndel processo"] :::default
-    C --> D["Lettura/Scrittura\ntramite puntatori\n(user mode)"] :::default
+    A["shm_open()<br/>Crea il segmento<br/>(metadati + permessi)"] --> B["ftruncate()<br/>Imposta la dimensione<br/>(alloca memoria)"]
+    B --> C["mmap()<br/>Mappa il segmento<br/>nello spazio virtuale<br/>del processo"]
+    C --> D["Lettura/Scrittura<br/>tramite puntatori<br/>(user mode)"]
 ```
 
 ### shm_open() — Creazione del segmento
@@ -509,10 +509,10 @@ La comunicazione diretta puo essere:
 flowchart TD
     %% Definizione dello stile per adattarsi all'A4
     classDef default fill:#e1f5fe,stroke:#01579b,stroke-width:2px,rx:10,ry:10;
-    P1[Processo 1] :::default -->|send| MB[(Mailbox A)] :::default
-    P2[Processo 2] :::default -->|send| MB
-    MB -->|receive| P3[Processo 3] :::default
-    MB -->|receive| P4[Processo 4] :::default
+    P1[Processo 1] -->|send| MB[(Mailbox A)]
+    P2[Processo 2] -->|send| MB
+    MB -->|receive| P3[Processo 3]
+    MB -->|receive| P4[Processo 4]
 ```
 
 I processi comunicano attraverso una **mailbox** (o porta) identificata da un ID. Si disaccoppia il canale da chi lo usa: piu processi possono leggere e scrivere sulla stessa mailbox.

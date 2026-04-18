@@ -23,6 +23,19 @@ def add_style_to_mermaid(mermaid_content: str) -> str:
     """
     lines = mermaid_content.strip().split('\n')
     
+    # Pulisce eventuali :::default malposizionati dentro i nodi (errore di precedenti esecuzioni)
+    cleaned_lines = []
+    for line in lines:
+        # Rimuove :::default se è dentro le parentesi quadre/graffe/tonde
+        line = re.sub(r'(\[[^\]]*)\s+:::default([^\]]*\])', r'\1\2', line)
+        line = re.sub(r'(\{[^\}]*)\s+:::default([^\}]*\})', r'\1\2', line)
+        line = re.sub(r'(\([^\)]*)\s+:::default([^\)]*\))', r'\1\2', line)
+        # Converte \n back to <br/> (i test hanno mostrato che <br/> funziona meglio)
+        line = re.sub(r'\\n', '<br/>', line)
+        cleaned_lines.append(line)
+    
+    lines = cleaned_lines
+    
     # Verifica e converte graph/flowchart LR → TD
     first_line = lines[0].strip()
     if 'LR' in first_line or 'LR' in first_line.upper():
@@ -48,20 +61,15 @@ def add_style_to_mermaid(mermaid_content: str) -> str:
         if insert_index < len(lines):
             lines.insert(insert_index + 1, MERMAID_STYLE)
     
-    # Applica la classe :::default ai nodi
+    # Applica la classe :::default ai nodi (ma non a quelli con HTML ancora presenti)
+    # NOTA: Commentato perché causa errori di parsing in Mermaid
+    # Le classi verranno applicate tramite 'style' invece
     result_lines = []
     for line in lines:
-        if ':::' in line or 'classDef' in line or 'style' in line or 'init' in line:
-            result_lines.append(line)
-        else:
-            if re.search(r'\[[^\]]*\]|\{[^\}]*\}|\([^\)]*\)', line):
-                if not re.search(r'\s+:::\w+\s*$', line):
-                    line = re.sub(
-                        r'(\[[^\]]*\]|\{[^\}]*\}|\([^\)]*\))(?!\s*:::)',
-                        r'\1 :::default',
-                        line
-                    )
-            result_lines.append(line)
+        # Pulisce eventuali :::default rimasti da versioni precedenti
+        line = re.sub(r'\s+:::default\s*$', '', line)
+        line = re.sub(r'\s+:::default(\s+-->)', r'\1', line)  # Rimuove prima delle frecce
+        result_lines.append(line)
     
     return '\n'.join(result_lines)
 
@@ -101,6 +109,11 @@ def process_file(filepath: Path) -> bool:
 
 def main():
     """Funzione principale."""
+    import sys
+    
+    # Controlla se è richiesto il force
+    force_update = '--force' in sys.argv
+    
     if not BASE_DIR.exists():
         print(f"❌ Cartella non trovata: {BASE_DIR}")
         return
@@ -113,6 +126,8 @@ def main():
         return
     
     print(f"📁 Trovati {len(md_files)} file markdown in {BASE_DIR}")
+    if force_update:
+        print("⚠️  Modalità FORCE: rielabora tutti i diagrammi")
     print()
     
     modified_count = 0
@@ -131,7 +146,9 @@ def main():
         matches = list(re.finditer(pattern, content, re.DOTALL))
         if matches:
             file_with_mermaid += 1
-            if process_file(filepath):
+            # Forza update se --force è specificato, oppure se il file contiene mermaid senza config
+            needs_update = force_update or any('init' not in m.group(0) for m in matches)
+            if needs_update and process_file(filepath):
                 modified_count += 1
                 print(f"✅ {rel_path}")
                 print(f"   └─ {len(matches)} diagramma(i) aggiornato(i)")

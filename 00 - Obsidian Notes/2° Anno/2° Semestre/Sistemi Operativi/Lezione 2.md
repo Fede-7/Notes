@@ -72,16 +72,16 @@ Le CPU moderne (Intel VT-x, AMD-V) supportano direttamente la virtualizzazione a
 flowchart TD
     %% Definizione dello stile per adattarsi all'A4
     classDef default fill:#e1f5fe,stroke:#01579b,stroke-width:2px,rx:10,ry:10;
-    subgraph Tipo1["Tipo 1 — Bare Metal"] :::default
-        HW1[Hardware] :::default --> VMM1[Hypervisor / VMM] :::default
-        VMM1 --> OS1_A[OS Guest A] :::default
-        VMM1 --> OS1_B[OS Guest B] :::default
+    subgraph Tipo1["Tipo 1 — Bare Metal"]
+        HW1[Hardware] --> VMM1[Hypervisor / VMM]
+        VMM1 --> OS1_A[OS Guest A]
+        VMM1 --> OS1_B[OS Guest B]
     end
-    subgraph Tipo2["Tipo 2 — Hosted"] :::default
-        HW2[Hardware] :::default --> OS2[OS Host] :::default
-        OS2 --> VMM2[VMM applicativo] :::default
-        VMM2 --> OS2_A[OS Guest A] :::default
-        VMM2 --> OS2_B[OS Guest B] :::default
+    subgraph Tipo2["Tipo 2 — Hosted"]
+        HW2[Hardware] --> OS2[OS Host]
+        OS2 --> VMM2[VMM applicativo]
+        VMM2 --> OS2_A[OS Guest A]
+        VMM2 --> OS2_B[OS Guest B]
     end
 ```
 
@@ -137,11 +137,11 @@ Si mette nel kernel **solo il minimo indispensabile**: scheduling di base, gesti
 flowchart TB
     %% Definizione dello stile per adattarsi all'A4
     classDef default fill:#e1f5fe,stroke:#01579b,stroke-width:2px,rx:10,ry:10;
-    APP[Applicazione] :::default --> FS[File System\nuser mode] :::default
-    APP --> DRV[Device Driver\nuser mode] :::default
-    FS --> MK[Microkernel\nIPC, memoria, scheduling] :::default
+    APP[Applicazione] --> FS[File System<br/>user mode]
+    APP --> DRV[Device Driver<br/>user mode]
+    FS --> MK[Microkernel<br/>IPC, memoria, scheduling]
     DRV --> MK
-    MK --> HW[Hardware] :::default
+    MK --> HW[Hardware]
 ```
 
 Vantaggi: alta modularità, sicurezza (un crash del driver non abbatte il kernel), portabilità.
@@ -168,10 +168,10 @@ La maggior parte dei kernel reali combina più approcci:
 flowchart TB
     %% Definizione dello stile per adattarsi all'A4
     classDef default fill:#e1f5fe,stroke:#01579b,stroke-width:2px,rx:10,ry:10;
-    subgraph Darwin["macOS (Darwin/XNU)"] :::default
-        MACH[Mach microkernel\nIPC, memoria, scheduling] :::default --> BSD[BSD monolitico\nfile system, rete, processi] :::default
-        BSD --> IOP[I/O Kit\ndriver in kernel mode] :::default
-        IOP --> USR[Driver kit\nuser space drivers] :::default
+    subgraph Darwin["macOS (Darwin/XNU)"]
+        MACH[Mach microkernel<br/>IPC, memoria, scheduling] --> BSD[BSD monolitico<br/>file system, rete, processi]
+        BSD --> IOP[I/O Kit<br/>driver in kernel mode]
+        IOP --> USR[Driver kit<br/>user space drivers]
     end
 ```
 
@@ -233,14 +233,14 @@ Quando stack e heap si incontrano → **stack overflow**.
 stateDiagram-v2
     %% Definizione dello stile per adattarsi all'A4
     classDef default fill:#e1f5fe,stroke:#01579b,stroke-width:2px,rx:10,ry:10;
-    [*] :::default --> New : creazione
+    [*] --> New : creazione
     New --> Ready : ammissione
-    Ready --> Running : dispatch (scheduler) :::default
+    Ready --> Running : dispatch (scheduler)
     Running --> Ready : interrupt / time slice esaurito
     Running --> Waiting : richiesta I/O o attesa evento
     Waiting --> Ready : I/O completato / evento arrivato
     Running --> Terminated : exit / errore
-    Terminated --> [*] :::default
+    Terminated --> [*]
 ```
 
 **New** — il processo è stato creato ma non ancora ammesso alla coda di esecuzione.
@@ -292,7 +292,7 @@ sequenceDiagram
     participant CPU
     participant PCB_A as PCB Processo A
     participant PCB_B as PCB Processo B
-    CPU ->> PCB_A: salva stato (PC, registri, ...) :::default
+    CPU ->> PCB_A: salva stato (PC, registri, ...)
     CPU ->> PCB_B: carica stato
     CPU ->> CPU: esegue Processo B
     CPU ->> PCB_B: salva stato
