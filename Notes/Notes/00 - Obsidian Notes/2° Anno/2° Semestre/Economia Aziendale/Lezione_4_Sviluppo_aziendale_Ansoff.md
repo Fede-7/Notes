@@ -290,7 +290,7 @@ Ciascuna strategia comporta profili di rischio, complessità, e potenziale di re
 
 ---
 
-> [!summary] Riepilogo concettuale
+> [!abstract] Riepilogo concettuale
 > I percorsi di sviluppo aziendale possono essere classificati secondo la matrice di Ansoff, che considera come cambiano il prodotto e il mercato. La penetrazione del mercato è la strategia conservativa di aumento della quota nel segmento attuale. Lo sviluppo del prodotto comporta innovazione senza uscire dal mercato attuale. Lo sviluppo del mercato significa espandere geograficamente o di segmento senza modificare il prodotto. La diversificazione è la strategia più ambiziosa e rischiosa. Ogni strategia è appropriata in contesti diversi e richiede analisi critica del business plan, comprensivo di analisi SWOT, visione e missione, analisi competitiva, e proiezioni finanziarie.
 
 ---

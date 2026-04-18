@@ -148,7 +148,7 @@ L'organizzazione delle parti avviene secondo due criteri: favorire l'apprendimen
 
 ---
 
-> [!summary] Punti chiave della lezione
+> [!abstract] Punti chiave della lezione
 > - L'impresa è un'organizzazione che acquisisce input, li trasforma e produce output per generare reddito.
 > - L'utile è il risultato economico positivo; una perdita non implica automaticamente il fallimento, ma è un rischio.
 > - L'impresa è un sistema: tutte le sue parti devono essere interconnesse e orientate allo stesso obiettivo.

@@ -553,7 +553,7 @@ La capacita del canale di comunicazione determina il comportamento:
 
 ---
 
-> [!summary] Punti chiave della lezione
+> [!abstract] Punti chiave della lezione
 > - Il formato degli eseguibili in Linux e passato da **.out** a **.elf**; il loader usa l'header del file per caricare i segmenti nello spazio di indirizzamento virtuale.
 > - Ogni processo ha uno spazio virtuale che include sia la zona **user mode** che una mappatura del **kernel** (shared tra tutti i processi).
 > - L'**exit status** e un intero opaco che va letto con macro bit a bit (`WIFEXITED`, `WEXITSTATUS`).

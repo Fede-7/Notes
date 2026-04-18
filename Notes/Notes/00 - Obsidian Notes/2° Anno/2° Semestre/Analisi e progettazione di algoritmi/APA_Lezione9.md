@@ -193,8 +193,9 @@ usando la stima $\log_2(n!) = \Omega(n \log n)$ già dimostrata sopra.
 
 ## 8. Il significato del risultato
 
-> [!quote]
-> "Il fatto che voi non riusciate a trovare un algoritmo migliore non significa che non esista. O c'è un'argomentazione sufficientemente astratta che vi permette di quantificare su tutti i possibili modi di risolvere, oppure non avete modo di rispondere."
+> [!tip] Parole del Professore
+> > [!quote]
+> > "Il fatto che voi non riusciate a trovare un algoritmo migliore non significa che non esista. O c'è un'argomentazione sufficientemente astratta che vi permette di quantificare su tutti i possibili modi di risolvere, oppure non avete modo di rispondere."
 
 La tecnica usata — astrarsi dalla struttura sintattica degli algoritmi e ragionare sulle classi di equivalenza definite dall'albero di decisione — è un esempio di **approccio information-theoretic**: si ragiona sul numero di output distinti che l'algoritmo deve essere in grado di produrre e si deduce il numero minimo di confronti necessari per discriminarli tutti.
 
@@ -202,7 +203,7 @@ Questo è diverso dall'analisi sintattica dei singoli algoritmi. Due algoritmi c
 
 ---
 
-> [!summary] Punti chiave della lezione
+> [!abstract] Punti chiave della lezione
 > - Ogni algoritmo comparison-based per ordinamento ha un unico albero di decisione di ordine $n$: i percorsi nell'albero corrispondono alle esecuzioni.
 > - L'altezza dell'albero = complessità caso peggiore; la lunghezza media dei percorsi = complessità caso medio.
 > - Poiché ci sono $n!$ permutazioni distinte, l'albero ha almeno $n!$ foglie, e questo implica altezza $\geq \log_2(n!) = \Omega(n \log n)$.
