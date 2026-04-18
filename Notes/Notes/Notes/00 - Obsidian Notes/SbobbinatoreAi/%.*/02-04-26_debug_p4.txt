@@ -1,0 +1,180 @@
+## Introduzione a SJF e Exponential Averaging
+
+- **Definizione formale:** Shortest Job First (SJF) con media esponenziale  
+  Il prof introduce SJF come algoritmo di schedulazione che seleziona il processo con burst minore, basandosi su una stima del tempo futuro ottenuta mediante una media esponenziale. Questa stima è calcolata pesando le stime passate e attuali con un coefficiente alfa (0 < alfa < 1).  
+
+- **Spiegazioni del "perché":** Mostrare vantaggio di ottimizzazione su algoritmi banali  
+  Il prof sottolinea che SJF migliora i tempi di attesa medi rispetto ad algoritmi semplici, come il First-Come-First-Served (FCFS). L'ottimizzazione si basa sulla selezione del processo con burst minore, riducendo il tempo di attesa complessivo.  
+
+- **Esempio presente:** SJF seleziona processi con burst minore; media esponenziale stima tempi futuri con media pesata (esempio: ipotesi iniziale 10, lettura 6, nuova previsione = 8)  
+  Il prof espone un esempio concreto: un processo ha un'ipotesi iniziale di 10 unità di tempo, ma la lettura effettiva è 6. La nuova previsione si calcola come media esponenziale tra l'ipotesi precedente (10) e il tempo letto (6), ottenendo 8. Questo processo è ripetuto con ulteriori letture (es. 4) per aggiornare la stima.  
+
+- **Avvertenze o affermazioni forti del prof:** La previsione è basata su una media esponenziale che dà un peso alle stime passate e attuali  
+  Il prof enfatizza che la media esponenziale attribuisce un peso maggiore alle stime recenti (determinato da alfa) e un peso minore a quelle passate. Se alfa = 1, la previsione dipende solo dal tempo letto; se alfa = 0, si basa solo sull'ipotesi iniziale.  
+
+- **Dipende da:** Nessuno  
+  Non sono menzionate dipendenze esterne per l'applicazione di SJF e della media esponenziale.  
+
+- **Prepara:** BLOCCO 2, BLOCCO 6  
+  Il prof indica che lo studio di SJF e della media esponenziale è parte del contenuto dei blocchi 2 e 6.
+
+---
+
+**Annotazioni visive integrate:**
+
+- **[FORMULA: $\hat{t}_n = \alpha t_n + (1 - \alpha) \hat{t}_{n-1}$ dove $\hat{t}_n$ è la stima corrente, $t_n$ è il tempo letto, $\hat{t}_{n-1}$ è la stima precedente e $\alpha$ è il coefficiente di smoothing (0 < $\alpha$ < 1)]**  
+- **[TABELLA: "Algoritmo", "Vantaggi", "Svantaggi" — "SJF", "Minimizza tempo di attesa medio", "Richiede conoscenza del burst futuro" — "FCFS", "Semplice da implementare", "Possibile starvation"]**
+
+## Scheduling preemptivo con SJF
+
+**Definizione formale:** Preemptive Shortest Job First (SJF) è un algoritmo di schedulazione in cui, tra i processi in attesa, si seleziona quello che si prevede abbia il tempo di CPU minore. Questo criterio si basa sull'idea di minimizzare il tempo di attesa medio dei processi, selezionando prima il processo con il burst time (tempo di CPU) più breve.
+
+**Spiegazioni del "perché":** Il prof spiega che SJF è motivato dall'obiettivo di ridurre i tempi di attesa medi. Il tempo di attesa è calcolato considerando il tempo in coda e l'interrompimento dei processi. Il prof sottolinea che il tempo di attesa è influenzato da due fattori: il tempo in coda (quando il processo è in attesa di essere eseguito) e il tempo di interrompimento (quando un processo viene interrotto per permettere a un altro di iniziare). Questo approccio è vantaggioso rispetto ad algoritmi più semplici, come il First-Come-First-Served (FCFS), poiché permette di ottimizzare i tempi di attesa.
+
+**Esempio presente:** Il prof presenta un esempio con quattro processi (P1-P4) e spiega come vengono gestiti in un contesto preemptivo. I processi interrotti vengono riacodati in coda. Il calcolo del tempo di turnaround (tempo totale tra l'arrivo e la fine del processo) è illustrato con un esempio specifico: il processo P1 ha un tempo di turnaround di 17 unità. Il prof dettaglia i passaggi del scheduling, inclusa l'interruzione del P1 a favore del P2, e mostra come il tempo di attesa venga calcolato considerando il tempo in coda e l'interrompimento. Ad esempio, il P1 ha un tempo di attesa totale di 17 unità, che include il tempo in coda (da 1 a 10) e il tempo di CPU (8 unità).
+
+**Avvertenze o affermazioni forti del prof:** Il prof sottolinea che il tempo di attesa è calcolato considerando il tempo in coda e l'interrompimento dei processi. Questo è un aspetto cruciale, poiché il tempo di attesa non è solo il tempo trascorso in coda, ma include anche il tempo in cui il processo è stato interrotto e riacodato. Il prof enfatizza che il calcolo del tempo di attesa deve tenere conto di tutti i momenti in cui il processo è stato in attesa, inclusi gli interrompimenti.
+
+**Dipende da:** BLOCCO 1
+
+**Prepara:** Nessuno
+
+[FORMULA: tempo di attesa = tempo in coda + tempo di interrompimento]
+[FORMULA: tempo di turnaround = tempo di attesa + tempo di CPU]
+[FORMULA: tempo di CPU = burst time]
+[DIAGRAM
+
+## Gestione delle priorità con aging
+
+- **Definizione formale:** Priorità e aging  
+  Il professoore introduce il concetto di priorità come criterio di schedulazione, spiegando che i processi vengono selezionati in base a una priorità assegnata. La priorità può essere definita numericamente, ad esempio in modo inversamente proporzionale alla durata del burst time (come nel caso del *shortest job first*). L'aging è descritto come un meccanismo di "invecchiamento" che aumenta la priorità di un processo nel tempo, evitando il problema della starvation. Il professoore afferma: *"l'aging alza la priorità, anche se naturalmente non avrebbe quella priorità, la priorità si può alzare col tempo di attesa e quindi finalmente poi toccherà il suo turno."*
+
+- **Spiegazioni del "perché":** Spiegare problema starvation e soluzioni (aging).  
+  Il professoore spiega che la gestione delle priorità può portare a problemi di starvation, ovvero a processi che non vengono mai eseguiti perché hanno bassa priorità. A questo proposito, il professoore afferma: *"Starvation significa che se continuano ad arrivare continuamente processi ad alta priorità, quello che è a bassa priorità non viene mai servito."* La soluzione presentata è l'aging, che "invecchia" i processi in attesa, aumentando progressivamente la loro priorità. Il professoore spiega: *"questi sono dei correttivi rispetto ai meccanismi di priorità."*
+
+- **Avvertenze o affermazioni forti del prof:** La gestione delle priorità può portare a problemi di starvation.  
+  Il professoore sottolinea chiaramente il rischio di starvation legato alla gestione delle priorità: *"il problema è che se continuano ad arrivare continuamente processi ad alta priorità, quello che è a bassa priorità non viene mai servito."* Inoltre, il professoore afferma: *"la gestione delle priorità può portare a problemi di starvation."*
+
+- **Dipende da:** BLOCCO 1  
+  La sezione è indicata come dipendente dal BLOCCO 1, ma non è presente esplicitamente nella trascrizione.  
+
+- **Prepara:** Nessuno  
+  Non è necessario preparare nulla per questa sezione.  
+
+---
+
+**Dettagli sull'aging e la gestione delle priorità**  
+Il professoore spiega che l'aging è un meccanismo utilizzato per evitare la starvation nei sistemi con priorità statiche. L'aging funziona aumentando progressivamente la priorità di un processo in attesa, in modo che non rimanga bloccato per molto tempo. Questo meccanismo è descritto come un "invecchiamento" che si basa su un fattore di sconto del passato, dove la priorità di un processo cresce con il tempo di attesa. Il professoore afferma: *"questo che cosa significa? Significa che c'è una sorta di fading, no? alfa è compreso tra 0 e 1 quindi 1-alfa sarà minore di 1 più è alto l'esponente e più abbatte il valore e quindi qui abbiamo che essenzialmente questo tipo di media porta in conto le varie esperienze fatte precedentemente però scalate scalate nel passato quindi è una specie di fattore di sconto del passato invece che del futuro."*
+
+**Esempi numerici e dimostrazioni**  
+Il professoore utilizza un esempio concreti per illustrare l'aging. Ad esempio, un processo con un tempo di attesa di 17 unità di misura (secondi) viene sottoposto a un calcolo del tempo di attesa medio, dove si sottrae il tempo di burst (tempo di CPU) dal tempo di fine. Il professoore spiega: *"la formula generale per calcolarsi il tempo d'attesa nella coda libri è tempo di fine meno tempo di arrivo meno burst time."* Inoltre, il professoore mostra come l'aging possa essere applicato in un contesto di scheduling con priorità, dove i processi con priorità bassa vengono gradualmente promossi a priorità più elevate.  
+
+**Confronto tra algoritmi**  
+Il professoore confronta l'aging con altri algoritmi come il *round-robin*, sottolineando che l'aging è un meccanismo di correttivo per evitare la starvation, mentre il *round-robin* è un algoritmo nativo che prevede un'alternanza rapida dei processi. Il professoore afferma: *"il round robin va bene quando quei processi devono comunque portare avanti una computazione e in un certo senso ti interessa non solo che finiscano, ma anche che nel frattempo facciano delle cose."*  
+
+**Conclusione**  
+Il professoore conclude che l'aging è un meccanismo fondamentale per gestire le priorità in modo equo, evitando la starvation. Tuttavia, l'aging non è l'unica soluzione, poiché esistono altri algoritmi come il *round-robin* che offrono un'alternanza rapida dei processi. Il professoore afferma: *"questi sono dei correttivi rispetto ai meccanismi di priorità."*
+
+---
+
+**Annotazioni visive aggiunte:**
+
+- `[FORMULA: tempo_di_attesa = tempo_di_fine - tempo_di_arrivo - burst_time dove tempo_di_attesa è il tempo trascorso in coda, tempo_di_fine è il momento in cui il processo termina, tempo_di_arrivo è il momento in cui il processo entra in coda, burst_time è il tempo di CPU richiesto]`
+- `[FORMULA: priorità = priorità_iniziale * (1 - alfa)^tempo_di_attesa dove alfa è un fattore di sconto tra 0 e 1, tempo_di_attesa è il tempo trascorso in coda, e priorità è il valore aggiornato]`
+- `[TABELLA: Algoritmo | Descrizione | Vantaggi | Svantaggi | Uso]`
+
+## Algoritmo Round Robin con quantum
+
+Il Round Robin (RR) è un algoritmo di schedulazione che distribuisce il tempo di CPU in modo equo tra i processi, utilizzando un **quantum** (quantità di tempo assegnata a ogni processo). Il quantum deve essere calibrato per bilanciare il trade-off tra prestazioni e overhead di contest switch. Se il quantum è troppo grande, l'algoritzza si comporta come FIFO (First In First Out), riducendo il numero di contest switch ma aumentando il tempo di attesa. Se il quantum è troppo piccolo, si incrementa il numero di contest switch, che comportano un overhead significativo.
+
+### Esempio con burst time 24/3/3 e quantum 4
+Nell'esempio fornito, i processi P1 (burst time 24), P2 (burst time 3), e P3 (burst time 3) vengono schedulati con un quantum di 4. Il processo P1 esegue per 4 unità di tempo, poi viene interrotto e riacodato. P2 e P3 eseguono rispettivamente per 3 unità di tempo, completando il loro burst time. Il tempo di attesa per ogni processo viene calcolato come la differenza tra il tempo di fine e il tempo di arrivo, sottraendo il burst time. Ad esempio, il tempo di attesa per P1 è 17 (tempo di fine) - 0 (tempo di arrivo) - 8 (burst time) = 9. Questo calcolo è ripetuto per tutti i processi, ottenendo il tempo medio di attesa.
+
+[FORMULA: $ W = (T_{\text{fine}} - T_{\text{arrivo}} - B) $ dove $ W $ è il tempo di attesa, $ T_{\text{fine}} $ è il tempo di fine, $ T_{\text{arrivo}} $ è il tempo di arrivo, $ B $ è il burst time]
+
+### Avvertenze e affermazioni forti del prof
+Il prof sottolinea che il quantum deve essere calibrato per bilanciare il trade-off tra prestazioni e overhead. Se il quantum è troppo piccolo, il tempo di contest switch diventa un overhead significativo, mentre un quantum troppo grande riduce la risposta del sistema. Il prof afferma che il quantum deve essere scelto in modo che il tempo di contest switch non superi il 10% del quantum stesso, altrimenti il gioco non vale la candela.
+
+[DIAGRAMMA flowchart: "Calibrazione del quantum" con nodi "Quantum troppo piccolo → Overhead contest switch", "Quantum troppo grande → Riduzione risposta", "Quantum ottimale → Bilanciamento tra prestazioni e overhead"]
+
+### Dipende da
+- **BLOCCO 1**: Non presente nella trascrizione.
+- **BLOCCO 3**: Non presente nella trascrizione.
+
+### Prepara
+- **Nessuno**: Non presente nella trascrizione.
+
+## Architetture multi-core e scheduling complesso
+
+- **Definizione formale:** Code multiple con priorità e round robin; NUMA (Non Uniform Memory Access)  
+- **Spiegazioni del "perché":** Espandere il concetto di scheduling su architetture multi-core.  
+  Il prof spiega che il scheduling su architetture multi-core richiede la gestione di code multiple con priorità e l'uso di algoritmi come round robin. Questo è necessario per bilanciare la carica dei processori e gestire efficacemente la concorrenza tra processi. Il NUMA (Non Uniform Memory Access) è un aspetto chiave, poiché i diversi core hanno accesso a memoria con velocità diverse, richiedendo un'ottimizzazione specifica per il loro utilizzo.  
+- **Avvertenze o affermazioni forti del prof:** La gestione delle code multiple può essere complessa ma necessaria per bilanciare la carica dei processori.  
+  Il prof sottolinea che la gestione delle code multiple, pur essendo complessa, è indispensabile per evitare la starvation e garantire un'efficace distribuzione del carico di lavoro.  
+- **Dipende da:** BLOCCO 4  
+- **Prepara:** Nessuno  
+
+---
+
+**Definizione formale:**  
+Il prof definisce le architetture multi-core come sistemi che utilizzano code multiple con priorità e algoritmi come round robin. Viene anche menzionato il NUMA (Non Uniform Memory Access), un modello in cui i core hanno accesso a memoria con velocità diverse, richiedendo un'ottimizzazione specifica per il loro utilizzo.  
+
+**Spiegazioni del "perché":**  
+Il prof espande il concetto di scheduling su architetture multi-core, spiegando che la gestione di code multiple con priorità e l'uso di algoritmi come round robin sono necessari per bilanciare la carica dei processori. Questo è fondamentale per evitare la starvation e garantire un'efficace distribuzione del carico di lavoro. Il NUMA è un aspetto chiave, poiché i diversi core hanno accesso a memoria con velocità diverse, richiedendo un'ottimizzazione specifica per il loro utilizzo.  
+
+**Avvertenze o affermazioni forti del prof:**  
+Il prof sottolinea che la gestione delle code multiple, pur essendo complessa, è indispensabile per evitare la starvation e garantire un'efficace distribuzione del carico di lavoro.  
+
+**Dipende da:**  
+Il contenuto dipende dal BLOCCO 4, che tratta argomenti correlati alle architetture multi-core e al scheduling complesso.  
+
+**Prepara:**  
+Non è necessario preparare nulla per questa sezione.  
+
+[DIAGRAMMA stateDiagram-v2: NUMA (Non Uniform Memory Access) - Core 1 <-> Memoria 1 (velocità 100ns), Core 2 <-> Memoria 2 (velocità 150ns), Core 3 <-> Memoria 3 (velocità 200ns), Core 4 <-> Memoria 4 (velocità 250ns) - relazioni: Core 1 accesso diretto a Memoria 1, Core 2 accesso diretto a Memoria 2, ecc.]
+
+## Esercitazione su calcolo tempo di attesa e turnaround
+
+Il calcolo del tempo di attesa e del tempo di turnaround è un concetto fondamentale nella gestione della schedulazione dei processi. Il tempo di attesa è calcolato considerando il tempo in coda e l'interrompimento dei processi, mentre il tempo di turnaround rappresenta il tempo totale trascorso da quando un processo entra in coda fino al suo completamento. La formula generale per calcolare il tempo di attesa è: **tempo di fine meno tempo di arrivo meno burst time**. Questo calcolo è essenziale per valutare l'efficienza degli algoritmi di schedulazione.  
+[FORMULA: $ W = (T_{fine} - T_{arrivo} - B) $ dove $ W $ è il tempo di attesa, $ T_{fine} $ è il tempo di fine, $ T_{arrivo} $ è il tempo di arrivo e $ B $ è il burst time]
+
+Nell'esempio fornito, il prof illustra come applicare queste formule a esempi concreti. Ad esempio, il processo P1 ha un tempo di fine di 17 unità di misura, un tempo di arrivo di 0 e un burst time di 8. Il tempo di attesa per P1 è quindi calcolato come 17 - 0 - 8 = 9. Per il processo P2, che non è stato interrotto, il tempo di attesa è semplicemente il tempo di fine (5) meno il tempo di arrivo (1), risultando in 4. Il processo P3, invece, ha un tempo di attesa di 14 unità di misura, ottenuto da 17 (tempo di fine) meno 3 (tempo di arrivo) meno 0 (burst time), ma il calcolo è stato corretto in seguito a un errore nella trascrizione.
+
+L'esercitazione include un esempio dettagliato con un Gantt chart che mostra l'evoluzione della schedulazione. I processi P1, P2, P3, P4 e P5 arrivano in momenti diversi e vengono eseguiti in base all'algoritmo di shortest remaining time first. Il Gantt chart illustra come i processi vengono interrotti e riacodati, con un esempio specifico in cui P1 viene interrotto al tempo 1 e riacodato, mentre P2 inizia a eseguirsi.  
+[DIAGRAMMA timeline: "Esempio di Gantt chart con processi P1-P5, interruzioni e riacodamenti. P1 interrotto al tempo 1, P2 inizia a eseguirsi, P3-P5 in coda in ordine di arrivo"]
+
+Il calcolo del tempo di attesa medio richiede di sommare i tempi di attesa di tutti i processi e dividerli per il numero totale di processi, come mostrato nel caso di P1, P2, P3, P4 e P5.
+
+Il prof sottolinea che il tempo di attesa medio può variare in base all'algoritmo di schedulazione utilizzato. Ad esempio, l'algoritmo shortest job first senza prelazione ha un tempo di attesa medio più alto rispetto a quello con prelazione. Inoltre, il prof mette in guardia contro il rischio di starvation, un problema che si verifica quando i processi a bassa priorità non vengono mai eseguiti. Per mitigare questo problema, vengono utilizzati meccanismi come l'aging, che aumenta la priorità dei processi in attesa nel tempo.
+
+L'esercitazione include anche un esempio di algoritmo round-robin, dove ogni processo riceve un tempo di quantum (ad esempio 4 unità di misura) prima di essere interrotto e riacodato. Il prof spiega come il tempo di attesa e il tempo di turnaround dipendono dal quantum, con un trade-off tra la dimensione del quantum e l'efficienza del sistema. Un quantum troppo grande può ridurre il numero di conti e switch, ma un quantum troppo piccolo può aumentare il sovraccarico del sistema.  
+[TABELLA: "Confronto tra quantum e performance: colonne 'Quantum', 'Tempo di attesa medio', 'Tempo di turnaround medio', 'Efficienza sistema'"]
+
+In sintesi, l'esercitazione mostra come calcolare il tempo di attesa e il tempo di turnaround utilizzando formule specifiche e esempi concreti, evidenziando l'importanza di considerare l'interrompimento dei processi e l'effetto dell'algoritmo di schedulazione sulla performance complessiva del sistema.
+
+## Scheduling multi-core e architetture NUMA
+
+**Definizione formale:**  
+Le architetture multi-core si riferiscono a sistemi con più unità di elaborazione (core) che operano in parallelo. Il load balancing è il processo di distribuzione equa del carico di lavoro tra i core per ottimizzare l'utilizzo delle risorse. Il scheduling energy-aware è un approccio che considera il consumo energetico durante la gestione dei processi, mirando a minimizzare l'uso di energia senza compromettere la performance.
+
+**Spiegazioni del "perché":**  
+Il prof espande il contesto a sistemi più complessi come quelli multi-core e NUMA (Non Uniform Memory Access). Questi sistemi richiedono un bilanciamento della carica e considerazioni sull'energia perché la gestione delle risorse diventa più intricata. Ad esempio, in un sistema NUMA, i core hanno accesso a memoria diverso, con latenze variabili, il che implica che il scheduling deve tenere conto della posizione della memoria per evitare penalità di accesso. Inoltre, in architetture multi-core, il bilanciamento del carico è essenziale per evitare che alcuni core siano sovraccarichi mentre altri rimangono inattivi.
+
+**Avvertenze o affermazioni forti del prof:**  
+Il prof sottolinea che la gestione di architetture multi-core richiede un bilanciamento della carica e considerazione dell'energia. Inoltre, in sistemi NUMA, il trasferimento di un processo da un core a un altro può comportare un aumento della latenza a causa della differenza di accesso alla memoria. Il prof avverte che il scheduling in questi sistemi deve essere "energy-aware" per ottimizzare l'efficienza energetica, soprattutto in dispositivi mobili.
+
+**Dipende da:** BLOCCO 5  
+**Prepara:** Nessuno  
+
+**Dettagli espansi:**  
+Il prof spiega che il scheduling in sistemi multi-core e NUMA è complesso perché coinvolge non solo la gestione dei processi ma anche la distribuzione delle risorse hardware. Ad esempio, in un sistema NUMA, i core hanno accesso a memoria diversa, con latenze variabili. Questo implica che il trasferimento di un processo da un core a un altro può comportare un aumento della latenza a causa della differenza di accesso alla memoria. Il prof sottolinea che il scheduling in questi sistemi deve considerare la posizione della memoria per evitare penalità di accesso.  
+
+[DIAGRAMMA flowchart: "Strategie di load balancing" con nodi "Push" (spostare task verso core sovraccarichi), "Pull" (core inattivi prendono task in attesa), e "Affinità" (mantenere processi su core specifici per evitare penalità di trasferimento)]  
+
+Inoltre, il prof descrive il concetto di load balancing, che include strategie come il "push" (spostare i task verso i core sovraccarichi) e il "pull" (i core inattivi prendono i task in attesa). Questi meccanismi sono essenziali per mantenere un equilibrio tra i core e prevenire la sovraccarica. Il prof avverte che la "affinità" dei processi (la preferenza per un core specifico) deve essere mantenuta il più possibile per evitare penalità di trasferimento dei dati.  
+
+Il prof illustra anche il concetto di scheduling energy-aware, che è particolarmente rilevante in architetture eterogenee, dove i core possono avere diversi consumi energetici. Ad esempio, in un sistema con core "big" (alta performance, alto consumo) e core "small" (bassa performance, basso consumo), il scheduling deve decidere dove assegnare i task in base alle esigenze energetiche. Questo è cruciale per dispositivi mobili, dove il risparmio energetico è un fattore critico.  
+
+[TABELLA: "Confronto tra core big e core small" con colonne "Performance", "Consumo energetico", "Adatto a" e righe "Core big" e "Core small"]  
+
+Il prof conclude che i sistemi multi-core e NUMA richiedono algoritmi di scheduling più complessi, che devono considerare non solo la performance ma anche l'efficienza energetica e il bilanciamento del carico. Questi aspetti rendono il scheduling un problema significativo, specialmente in architetture avanzate.
