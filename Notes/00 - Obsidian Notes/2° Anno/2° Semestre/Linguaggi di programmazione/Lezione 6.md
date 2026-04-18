@@ -117,7 +117,7 @@ P2:
   B alias→ b (di Esercizio2)
 ```
 
-> [!important] Notazione per il passaggio per riferimento
+> [!info] Notazione per il passaggio per riferimento
 > Non riscrivere il valore del parametro nel record di P2. Annotate esplicitamente l'alias, ad es. `A ≡ c (Esercizio2)`. Se li duplicate con il valore, dimenticate di aggiornare entrambe le copie quando il valore cambia.
 
 ### Esecuzione di P2
@@ -222,7 +222,7 @@ P1:
 
 ---
 
-> [!summary] Punti chiave della lezione
+> [!abstract] Punti chiave della lezione
 > - Modalità `in` e `out` devono essere controllate per errori prima di costruire lo stack.
 > - Il passaggio per riferimento crea alias: modifiche a un parametro si riflettono immediatamente sulla variabile originale, incluse eventuali successive letture dello stesso valore tramite altri nomi.
 > - Il passaggio per copia isola le modifiche fino all'uscita dalla procedura (copia-out).

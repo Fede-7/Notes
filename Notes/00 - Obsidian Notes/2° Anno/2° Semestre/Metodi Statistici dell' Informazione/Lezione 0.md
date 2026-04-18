@@ -21,14 +21,14 @@ tags:
 
 ## 📝 Esame
 
-> [!important] Modalità d'esame
+> [!info] Modalità d'esame
 > - **Prova scritta** + **colloquio orale**
 > - 6 CFU, nessun progetto
 ---
 
 ## Perché la Probabilità per l'Informatica?
 
-> [!quote] Idea chiave del corso
+> [!tip] Idea chiave del corso
 > Telecomunicazioni e informatica trattano entrambe lo stesso oggetto: l'**informazione**. Le telecomunicazioni la trasferiscono *nello spazio* (da un luogo a un altro); l'informatica la trasferisce *nel tempo* (memorizzazione, compressione, correzione degli errori).
 >
 > Intrinseco nel concetto di informazione c'è l'**incertezza**: se non c'è incertezza su ciò che viene trasmesso, non c'è informazione da trasmettere.
@@ -65,7 +65,7 @@ graph TD
     style G fill:#f0a500,color:#fff
 ```
 
-> [!note] Cherry picking
+> [!info] Cherry picking
 > Essendo un corso da 6 CFU (vs 9 CFU del corso parallelo al 3° anno), alcuni argomenti come la compressione dati (Huffman, codifica aritmetica) e le passeggiate casuali su grafi non saranno trattati in dettaglio. Priorità: **meno argomenti, ma compresi bene**.
 
 ### Statistica inferenziale vs descrittiva
@@ -84,7 +84,7 @@ graph TD
 
 ### Il Discreto vs il Continuo
 
-> [!quote] Aforisma del prof
+> [!tip] Aforisma del prof
 > *"Il discreto riempie la testa di idee; il continuo riempie la lavagna di formule. Se uno capisce bene le idee, le formule sono una conseguenza."*
 
 ---
@@ -106,7 +106,7 @@ Può essere:
 - **Numerabilmente infinito** → es. numero di pacchetti in coda: $\Omega = \mathbb{N}_0$
 - **Non numerabile (continuo)** → es. tensione misurata ai capi di una resistenza (rumore termico): $\Omega = \mathbb{R}$
 
-> [!note] Discreto vs Continuo nella pratica
+> [!info] Discreto vs Continuo nella pratica
 > In realtà qualunque misura fisica è razionale (strumenti con cifre significative finite), ma quando i valori sono così tanti, si modella come continuo e poi si tronca. Il **tempo** viene solitamente schematizzato come continuo.
 
 ### Evento
@@ -235,7 +235,7 @@ Le permutazioni di $n$ elementi sono tutte le $n$-uple ordinate senza ripetizion
 
 Due $k$-uple che differiscono **solo per l'ordine** degli elementi sono considerate la **stessa** combinazione.
 
-> [!note] Ragionamento chiave
+> [!info] Ragionamento chiave
 > Tra tutte le $k$-uple ordinate senza ripetizione, ogni gruppo di $k!$ di esse (tutte le permutazioni degli stessi elementi) collassa in **un'unica** $k$-upla non ordinata. Quindi:
 $$C(n, k) = \binom{n}{k} = \frac{n!}{k!\,(n-k)!}$$
 

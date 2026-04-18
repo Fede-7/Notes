@@ -164,7 +164,7 @@ $$p_X(x) = \sum_{y \in \mathcal{Y}} p_{XY}(x, y), \qquad p_Y(y) = \sum_{x \in \m
 
 **Dimostrazione**: L'evento $\{X = x\}$ è l'unione disgiunta degli eventi $\{X = x, Y = y\}$ al variare di $y$. Per l'assioma di additività di Kolmogorov: $P(X=x) = \sum_y P(X=x, Y=y)$.
 
-> [!important] Asimmetria congiunta ↔ marginali
+> [!info] Asimmetria congiunta ↔ marginali
 > - Congiunta **implica** marginali: data la PMF congiunta, le marginali sono univocamente determinate (per somma).
 > - Marginali **non implicano** congiunta: date le due PMF marginali, esistono in generale molte congiunte compatibili con esse.
 >
@@ -227,7 +227,7 @@ Il caso di due variabili si generalizza naturalmente.
 
 **Marginalizzazione gerarchica**: Una PMF di ordine $n$ implica tutte le PMF di ordine inferiore. Sommando su tutti i valori di $X_k$, si ottiene la PMF congiunta delle restanti $n-1$ variabili.
 
-> [!important] La gerarchia va solo verso il basso
+> [!info] La gerarchia va solo verso il basso
 > La conoscenza di ordine $n$ implica la conoscenza di ordine $n-1$, $n-2$, ..., fino a 1. Non vale il contrario: le marginali di ordine inferiore non determinano quella di ordine superiore (salvo indipendenza).
 
 ### Esempio: terne di bit
@@ -270,7 +270,7 @@ Cioè, la PMF marginale di $X$ è la **media rispetto a $Y$** della PMF condizio
 
 ---
 
-> [!summary] Punti chiave della lezione
+> [!abstract] Punti chiave della lezione
 > - Una coppia di variabili aleatorie è caratterizzata dalla PMF congiunta: una tabella di $|\mathcal{X}| \times |\mathcal{Y}|$ numeri non negativi che sommano a 1.
 > - Dalla congiunta si ricavano le marginali per somma (marginalizzazione). Il viceversa non vale in generale.
 > - Due variabili sono indipendenti se e solo se la congiunta si fattorizza nel prodotto delle marginali.

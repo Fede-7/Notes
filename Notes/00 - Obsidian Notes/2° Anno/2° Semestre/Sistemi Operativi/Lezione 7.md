@@ -207,7 +207,7 @@ Lo **dispatcher** è il componente che materialmente trasferisce il controllo de
 | **Waiting time** | Minimizzare il tempo medio in coda Ready | Tutti |
 | **Response time** | Minimizzare il tempo alla prima risposta | Processi interattivi |
 
-> [!important] Minimizzare la varianza è spesso più importante della media
+> [!info] Minimizzare la varianza è spesso più importante della media
 > Un sistema con tempi di risposta imprevedibili (alta varianza) è percepito come inaffidabile anche se la media è bassa. Ridurre la varianza aumenta la predicibilità e la fiducia dell'utente.
 
 ---
@@ -282,7 +282,7 @@ I burst più recenti pesano di più; i burst più vecchi **sfumano esponenzialme
 
 ---
 
-> [!summary] Punti chiave della lezione
+> [!abstract] Punti chiave della lezione
 > - I segnali ordinari pending non si accumulano: N invii → 1 sola consegna. I segnali real-time invece si accodano.
 > - Una maschera impostata prima del lancio dei thread viene ereditata da tutti i figli; impostata dopo, vale solo per il thread corrente.
 > - La cancellazione deferred (default) aspetta un cancellation point; si possono aggiungere cancellation point artificiali con `pthread_testcancel()`.

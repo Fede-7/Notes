@@ -392,7 +392,7 @@ $$T_{\text{worst}}(n) = \Theta(n^2)$$
 
 ---
 
-> [!summary] Punti chiave della lezione
+> [!abstract] Punti chiave della lezione
 > 1. **Da $\Theta(n^3)$ a $\Theta(n^2)$**: eliminando il ciclo interno e mantenendo la somma incrementale tra iterazioni successive di $j$, si riduce il costo di valutazione di ogni sottosequenza da $O(n)$ a $O(1)$.
 > 2. **Da $\Theta(n^2)$ a $\Theta(n)$ (Kadane)**: dimostrando che ogni sottosequenza contenente un prefisso di somma negativa e subottimale, si riduce lo spazio di ricerca da $\Theta(n^2)$ a $O(n)$ sottosequenze. L'algoritmo e **ottimo** (limite inferiore $\Omega(n)$).
 > 3. **Due strategie di ottimizzazione**: (a) ridurre il costo per soluzione, (b) ridurre il numero di soluzioni esaminate. La seconda e piu potente ma richiede una dimostrazione di correttezza.

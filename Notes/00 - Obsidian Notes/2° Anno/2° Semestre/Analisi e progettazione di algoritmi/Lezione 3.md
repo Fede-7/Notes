@@ -432,7 +432,7 @@ L'approccio usato per Merge Sort si generalizza a qualsiasi algoritmo ricorsivo:
 
 ---
 
-> [!summary] Punti chiave della lezione
+> [!abstract] Punti chiave della lezione
 > 1. **Insertion Sort --- caso migliore**: $t_j = 1$ per ogni $j$ (array ordinato) $\Rightarrow$ $T(n) = \Theta(n)$.
 > 2. **Insertion Sort --- caso peggiore**: $t_j = j$ per ogni $j$ (array ordinato al contrario) $\Rightarrow$ $T(n) = \Theta(n^2)$.
 > 3. **Insertion Sort --- caso medio**: il valore atteso $E[t_j] = \frac{j+1}{2}$ porta a $T(n) = \Theta(n^2)$. La conferma arriva anche dall'analisi delle inversioni: il numero medio di inversioni e $\frac{n(n-1)}{4} = \Theta(n^2)$.
