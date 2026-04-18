@@ -135,7 +135,7 @@ Il **valore efficace** (root mean square) è:
 
 $$x_{\text{rms}} = \sqrt{E[X^2]}$$
 
-> [!note] Terminologia RMS
+> [!info] Terminologia RMS
 > Il termine inglese "root mean square" indica che si prende la **radice** del valor medio del **quadrato**. La notazione $x_{\text{rms}}^2 = E[X^2]$ (il quadrato del valore efficace = valore quadratico medio) può essere fonte di confusione.
 
 > [!example] Corrente alternata e valore efficace

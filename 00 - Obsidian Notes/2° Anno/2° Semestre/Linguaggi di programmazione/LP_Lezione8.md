@@ -117,8 +117,9 @@ flowchart LR
 2. **Inizializzatori espliciti:** se un attributo è dichiarato con `= valore`, quel valore viene scritto.
 3. **Corpo del costruttore:** esegue ulteriori inizializzazioni.
 
-> [!quote]
-> "Questo è un fattore di sicurezza. Se provate a usare un puntatore azzerato, vi darà fuori un'eccezione. È un compromesso vantaggioso tra sicurezza ed efficienza: la costruzione di oggetti è relativamente rara rispetto alle operazioni."
+> [!tip] Parole del Professore
+> > [!quote]
+> > "Questo è un fattore di sicurezza. Se provate a usare un puntatore azzerato, vi darà fuori un'eccezione. È un compromesso vantaggioso tra sicurezza ed efficienza: la costruzione di oggetti è relativamente rara rispetto alle operazioni."
 
 ---
 
@@ -257,7 +258,7 @@ Quando si studia un linguaggio nuovo, le caratteristiche del sistema di tipi da 
 
 ---
 
-> [!summary] Punti chiave della lezione
+> [!abstract] Punti chiave della lezione
 > - Java ha 8 tipi primitivi con dimensioni fisse su qualunque piattaforma; `boolean` non è mai compatibile con i tipi interi.
 > - Gli oggetti vengono costruiti in tre strati: azzeramento → inizializzatori espliciti → costruttore. Gli attributi sono sempre inizializzati; le variabili locali devono essere inizializzate esplicitamente (controllo statico del compilatore).
 > - Il passaggio parametri in Java è sempre per copia. Per i tipi reference si copia il puntatore: modifiche all'oggetto sono visibili fuori, ma riassegnare il parametro formale non lo è.
