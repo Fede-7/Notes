@@ -149,8 +149,9 @@ Svantaggio: **overhead di comunicazione**. Ogni volta che un modulo deve comunic
 
 Approccio usato dai kernel moderni (Linux, Solaris, Windows). Il kernel ha un nucleo fisso a cui si possono agganciare/sganciare **moduli** dinamicamente, senza ricompilare. I moduli vengono linkati dentro il kernel → nessun overhead di message passing, ma comunque compartimentazione del codice.
 
-> [!quote]
-> "È simile al microkernel per l'idea di compartimentazione, ma senza il message passing. I moduli stanno dentro il kernel, si parlano direttamente."
+> [!tip] Parole del Professore
+> > [!quote]
+> > "È simile al microkernel per l'idea di compartimentazione, ma senza il message passing. I moduli stanno dentro il kernel, si parlano direttamente."
 
 ### Sistemi Ibridi
 
@@ -335,7 +336,7 @@ if (pid < 0) {
 
 ---
 
-> [!summary] Punti chiave della lezione
+> [!abstract] Punti chiave della lezione
 > - La virtualizzazione tipo 1 (bare metal) è più efficiente del tipo 2 (hosted); entrambe si distinguono dall'emulazione, che riproduce software l'intera architettura.
 > - I kernel moderni sono ibridi: prendono idee dal monolitico (prestazioni), dal microkernel (modularità) e dalla struttura modulare (estendibilità).
 > - Un processo è un programma in esecuzione con un proprio spazio di memoria, un program counter e un ciclo di vita.

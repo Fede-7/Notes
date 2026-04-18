@@ -182,7 +182,7 @@ Per comprendere pienamente l'economia aziendale, quindi, bisogna sempre guardare
 
 ---
 
-> [!summary] Riepilogo concettuale
+> [!abstract] Riepilogo concettuale
 > L'impresa è un sistema politico-istituzionale, socio-demografico, culturale-tecnologico e economico. La qualità di ciascuna di queste dimensioni nel contesto in cui l'impresa opera determina la sua capacità di nascere, crescere, e generare profitto. I vincoli burocratici, la tassazione, l'infrastruttura tecnologica, e le scelte politiche dei governi hanno impatto diretto sulla vitalità economica. L'analisi critica delle politiche pubbliche richiede di guardare oltre le giustificazioni ufficiali e chiedersi chi effettivamente beneficia dalle decisioni prese.
 
 ---

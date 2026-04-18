@@ -39,11 +39,11 @@ Il corso si divide in due macro-aree:
 ### 2. Progettazione degli algoritmi
 Dato un problema, come si costruisce una soluzione algoritmica? Si seguono due principi fondamentali:
 
-> [!definition] Decomposizione
+> [!info] Decomposizione
 > Scomporre il problema in **sottoproblemi più semplici**, risolverli separatamente e comporre le soluzioni.
 > *Esempio già visto:* problema delle coppie → generazione + filtraggio/conteggio.
 
-> [!definition] Riduzione
+> [!info] Riduzione
 > Ridurre un problema a un **problema già noto** e risolverlo sfruttando quella soluzione.
 > *Esempio già visto:* ordinamento topologico → ridotto alla visita DFS su grafi.
 
@@ -58,7 +58,7 @@ Dato un problema, come si costruisce una soluzione algoritmica? Si seguono due p
 
 Per analizzare matematicamente un algoritmo serve un **ponte** tra il mondo degli algoritmi e il mondo della matematica. Questo ponte è il modello RAM (*Random Access Machine*).
 
-> [!definition] Modello RAM
+> [!info] Modello RAM
 > Astrazione di un calcolatore con:
 > - **Memoria illimitata** di celle accessibili a tempo costante (accesso diretto)
 > - Un insieme di **istruzioni elementari:** operazioni aritmetiche, lettura/scrittura in memoria
@@ -68,7 +68,7 @@ Per analizzare matematicamente un algoritmo serve un **ponte** tra il mondo degl
 $$T_A : \mathbb{N} \rightarrow \mathbb{R}^+$$
 Dove $n \in \mathbb{N}$ è la **dimensione dell'input** (es. numero di elementi di un array) e $T_A(n)$ è il numero di operazioni elementari necessarie.
 
-> [!note] Perché $\mathbb{R}^+$ e non $\mathbb{N}$?
+> [!info] Perché $\mathbb{R}^+$ e non $\mathbb{N}$?
 > Il numero di operazioni è un naturale, ma le espressioni che useremo (es. con logaritmi) assumono valori reali. Lavorare in $\mathbb{R}$ ci dà accesso a strumenti più potenti: derivate, integrali, limiti — tutti strumenti di $\mathbb{R}$ non disponibili (o difficili) nel discreto.
 
 > [!tip] Codifica dell'input
@@ -131,7 +131,7 @@ Far partire `j` da `i` invece che da `1`: si evitano i confronti inutili (tutti 
 4. return sam
 ```
 $$T_3(n) = 6n + 4 \quad \Rightarrow \quad \Theta(n)$$
-> [!success] Miglioramento asintotico
+> [!tip] Miglioramento asintotico
 > Da $\Theta($n^2$)$ a $\Theta(n)$: un ciclo annidato in meno produce un salto di classe di complessità.
 
 ### Algoritmo 4 — Soluzione a tempo costante (geometrica)
@@ -142,7 +142,7 @@ $$\text{risultato} = \frac{n^2 - n}{2} + n = \frac{n(n+1)}{2}$$
 1. return n * (n + 1) / 2
 ```
 $$T_4(n) = O(1)$$
-> [!success] Tempo costante
+> [!tip] Tempo costante
 > Nessun ciclo: la risposta si calcola in un numero fisso di operazioni indipendentemente da $n$.
 
 ---
@@ -158,7 +158,7 @@ $$T_4(n) = O(1)$$
 
 Confrontare due funzioni punto per punto non è sempre possibile (potrebbero incrociarsi). Ci interessa il comportamento **al crescere illimitato di $n$**, cioè il regime asintotico.
 
-> [!important] Intuizione fondamentale
+> [!info] Intuizione fondamentale
 > Un algoritmo è **intrinsecamente** migliore di un altro se lo è **indipendentemente dall'hardware** su cui gira. Un computer può essere $c$ volte più veloce di un altro, ma questo fattore è **costante** e non dipende da $n$. Due algoritmi sono equivalenti se la differenza tra loro è solo una costante moltiplicativa fissa.
 
 ### Le tre notazioni
@@ -173,7 +173,7 @@ Confrontare due funzioni punto per punto non è sempre possibile (potrebbero inc
 
 ### $O$ grande — Limite superiore asintotico
 
-> [!definition] O grande
+> [!info] O grande
 > $$f(n) = O(g(n)) \iff \exists\, c > 0,\ \exists\, n_0 > 0 : \forall n \geq n_0,\quad f(n) \leq c \cdot g(n)$$
 **Interpretazione:** $c$ è il fattore con cui posso *rallentare* l'esecutore di $g$ per renderlo peggio di $f$. Se esiste tale $c$ fissata a priori, allora $f$ non è peggio di $g$.
 
@@ -186,7 +186,7 @@ Confrontare due funzioni punto per punto non è sempre possibile (potrebbero inc
 
 ### $\Omega$ grande — Limite inferiore asintotico
 
-> [!definition] Omega grande
+> [!info] Omega grande
 > $$f(n) = \Omega(g(n)) \iff \exists\, c > 0,\ \exists\, n_0 > 0 : \forall n \geq n_0,\quad f(n) \geq c \cdot g(n)$$
 Duale di $O$ grande: $c$ è ora il fattore con cui *accelero* l'esecutore di $g$.
 
@@ -194,7 +194,7 @@ Duale di $O$ grande: $c$ è ora il fattore con cui *accelero* l'esecutore di $g$
 
 ### $\Theta$ (Theta) — Equivalenza asintotica
 
-> [!definition] Theta
+> [!info] Theta
 > $$f(n) = \Theta(g(n)) \iff \exists\, c_1, c_2 > 0,\ \exists\, n_0 > 0 : \forall n \geq n_0,\quad c_1 \cdot g(n) \leq f(n) \leq c_2 \cdot g(n)$$
 Equivale a: $f = O(g)$ **e** $f = \Omega(g)$.
 
