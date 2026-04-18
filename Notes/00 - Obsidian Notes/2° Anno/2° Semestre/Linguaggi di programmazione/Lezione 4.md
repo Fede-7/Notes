@@ -35,10 +35,10 @@ In un linguaggio Pascal-like, la dichiarazione di un parametro formale determina
 | **in-out per copia** | `in out` | il parametro si legge e si scrive; valore copiato dentro e fuori | copia-in / copia-out |
 | **in-out per riferimento** | `var` (Pascal, per in-out) | il parametro si legge e si scrive; è un alias della variabile del chiamante | puntatore |
 
-> [!important] Errori a compile-time per modalità in
+> [!info] Errori a compile-time per modalità in
 > Un parametro dichiarato `in` non deve mai comparire a sinistra di un assegnamento. Il compilatore lo rileva staticamente. Se trovate questa violazione, il programma non compila e non ha senso costruire lo stack di attivazione.
 
-> [!important] Errori per modalità out
+> [!info] Errori per modalità out
 > Un parametro dichiarato `out` non deve essere letto prima di essere scritto. Poiché il suo valore iniziale è indefinito ("spazzatura"), leggerne il valore prima dell'inizializzazione è un errore.
 
 ---
@@ -277,7 +277,7 @@ Le funzioni restituiscono un valore singolo. In linguaggi "vecchi" si usa una ps
 
 ---
 
-> [!summary] Punti chiave della lezione
+> [!abstract] Punti chiave della lezione
 > - Le modalità di passaggio parametri (`in`, `out`, `in-out`, per copia o per riferimento) determinano l'ambiente del parametro e quando le modifiche diventano visibili all'esterno.
 > - Il passaggio per riferimento crea aliasing, che può produrre comportamenti controintuitivi.
 > - Le macro C sono sostituzioni testuali senza ambiente protetto: possono causare conflitti di nomi, doppia valutazione di argomenti con side effect, e comportamenti imprevedibili.

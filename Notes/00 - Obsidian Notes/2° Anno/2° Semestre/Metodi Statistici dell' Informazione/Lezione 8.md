@@ -144,7 +144,7 @@ $$K_{\mathbf{x}} = E\!\left[(\mathbf{x} - \boldsymbol{\mu})(\mathbf{x} - \boldsy
 
 Il caso si generalizza a $n$ variabili: la matrice $K$ è $n \times n$, con $K_{ij} = \text{Cov}(X_i, X_j)$.
 
-> [!important] Importanza nella data analysis e nel machine learning
+> [!info] Importanza nella data analysis e nel machine learning
 > La matrice di covarianza è fondamentale in machine learning, analisi dei componenti principali (PCA), stima MMSE (Minimum Mean Square Error) e in generale in tutti i metodi statistici che lavorano con vettori di dati. Se $K$ è diagonale, le variabili sono incorrelate.
 
 ---
@@ -179,8 +179,9 @@ $$f_X(x) = \lim_{\delta x \to 0} \frac{P(x - \delta x/2 \leq X \leq x + \delta x
 > [!warning] La densità non è una probabilità
 > $f_X(x_0)$ non è la probabilità che $X = x_0$. La probabilità di un singolo punto è 0. La densità è la "concentrazione" di probabilità in un intorno di $x_0$: più è alta, più è probabile trovare $X$ vicino a $x_0$.
 
-> [!quote]
-> "Chiamare il massimo della densità il 'valore più probabile' mi dà una pugnalata a sangue freddo. Il massimo della densità si chiama correttamente il valore modale."
+> [!tip] Parole del Professore
+> > [!quote]
+> > "Chiamare il massimo della densità il 'valore più probabile' mi dà una pugnalata a sangue freddo. Il massimo della densità si chiama correttamente il valore modale."
 
 La teoria sarà ripresa in dettaglio nella prossima lezione, con il concetto di **funzione di distribuzione cumulativa (CDF)** e con tutti gli strumenti del caso continuo.
 
@@ -287,7 +288,7 @@ La **Funzione Generatrice dei Momenti (MGF)** è uno strumento potente per lo st
 
 Per dimostrare rigorosamente il **Teorema del Limite Centrale**, si calcola la MGF della somma standardizzata e si mostra che converge alla MGF della gaussiana standard $\mathcal{N}(0,1)$, che è $M(t) = e^{t^2/2}$.
 
-> [!important] Criterio di convergenza in pratica
+> [!info] Criterio di convergenza in pratica
 > Per verificare se una sequenza di distribuzioni converge a quella di una variabile aleatoria nota (es. gaussiana), calcolare le MGF e controllare se la convergenza vale punto per punto.
 
 ---
@@ -295,7 +296,7 @@ Per dimostrare rigorosamente il **Teorema del Limite Centrale**, si calcola la M
 
 ---
 
-> [!summary] Punti chiave della lezione
+> [!abstract] Punti chiave della lezione
 > - Il teorema della media condizionale permette di calcolare la media totale condizionando su una variabile ausiliaria, scomponendo problemi complessi in sottoproblemi più semplici.
 > - La distribuzione di Poisson è chiusa rispetto al subcampionamento bernoulliano: $N \sim \text{Poisson}(\lambda)$ e $M|N \sim \text{Bin}(N,p)$ implicano $M \sim \text{Poisson}(\lambda p)$.
 > - La covarianza misura la co-variazione lineare tra due variabili; il coefficiente di correlazione la normalizza in $[-1,1]$.

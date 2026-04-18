@@ -34,7 +34,7 @@ Gli algoritmi di scheduling possono essere valutati con approcci di diverso live
 
 **Simulazione** — Si simulano gli arrivi e i tempi di elaborazione con generatori casuali. Più realistico, ma pur sempre limitato. Il vero banco di prova è l'implementazione diretta nel kernel.
 
-> [!important] Il vero banco di prova
+> [!info] Il vero banco di prova
 > L'unico modo per valutare davvero un algoritmo di scheduling sofisticato è inserirlo nel kernel e osservarne il comportamento nel sistema completo. L'algoritmo vive in un ecosistema e interagisce con tutto il resto: un algoritmo teoricamente ottimo può risultare non performante in pratica. Ad esempio, l'EEVDF di Linux è stato proposto come lavoro scientifico diversi anni prima di essere integrato nel kernel, proprio per la cautela necessaria nel sostituire un algoritmo già in produzione.
 
 > [!quote]
@@ -204,7 +204,7 @@ Questo garantisce che ogni processo che aspetta verrà servito nell'ordine circo
 
 ---
 
-> [!summary] Punti chiave della lezione
+> [!abstract] Punti chiave della lezione
 > - La valutazione deterministica degli algoritmi di scheduling è quella richiesta ai compiti; il vero banco di prova è l'implementazione nel kernel.
 > - Le corse critiche nascono dall'interfogliamento di istruzioni macchina su variabili condivise: anche `counter++` non è atomica.
 > - Un corretto meccanismo per la sezione critica deve garantire mutua esclusione, progresso e bounded waiting.

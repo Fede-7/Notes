@@ -118,12 +118,13 @@ Per il Teorema Master (caso 2): $T(n) = \Theta(n \log n)$.
 
 **Caso medio**: in media su tutti i possibili input, il tempo atteso è $\Theta(n \log n)$. Questo verrà dimostrato nelle lezioni successive.
 
-> [!quote]
-> "Dovremo fare analisi di caso migliore, caso peggiore e eventualmente caso medio, analogamente a quanto fatto con InsertionSort."
+> [!tip] Parole del Professore
+> > [!quote]
+> > "Dovremo fare analisi di caso migliore, caso peggiore e eventualmente caso medio, analogamente a quanto fatto con InsertionSort."
 
 ---
 
-> [!summary] Punti chiave della lezione
+> [!abstract] Punti chiave della lezione
 > - `Partition` termina in $\Theta(n)$: la somma degli incrementi di $i$ e dei decrementi di $j$ è al più $n+1$.
 > - Si restituisce $j$ perché si ferma su un elemento $\leq x$ (corretto per la partizione sinistra); $i$ si ferma su un elemento $\geq x$ che potrebbe essere troppo grande.
 > - Fermarsi sugli uguali è fondamentale per garantire R2 su array con elementi duplicati.

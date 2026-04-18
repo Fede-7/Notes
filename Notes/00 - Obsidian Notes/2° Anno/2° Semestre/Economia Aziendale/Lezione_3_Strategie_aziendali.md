@@ -186,7 +186,7 @@ Il successo di una strategia dipende dalla sua coerenza con l'ambiente esterno e
 
 ---
 
-> [!summary] Riepilogo concettuale
+> [!abstract] Riepilogo concettuale
 > La gestione strategica è il processo attraverso il quale un'impresa formula e persegue scelte per mantenere un vantaggio competitivo. Una strategia efficace deve essere coerente sia con l'ambiente esterno sia con le risorse interne. Nel corso dei decenni, le strategie aziendali hanno seguito evoluzioni significative: dalla diversificazione dei prodotti alla focalizzazione sul vantaggio competitivo, fino all'innovazione e cooperazione contemporanea. La distinzione tra strategia (il piano complessivo) e tattica (le azioni specifiche) è fondamentale per comprendere come le imprese operano e competono.
 
 ---

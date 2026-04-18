@@ -268,7 +268,7 @@ Un settore **attraente** (ad es. tecnologia dei semiconduttori negli anni 2000) 
 
 ---
 
-> [!summary] Riepilogo concettuale
+> [!abstract] Riepilogo concettuale
 > Le barriere di mercato — economiche, strategiche, e normative — determinano la struttura competitiva di un settore. Il modello di Porter delle cinque forze fornisce un framework per analizzare la competizione: minaccia di nuovi entranti, potere dei fornitori, potere dei clienti, rivalità tra competitor, e minaccia di prodotti sostitutivi. Un'azienda che comprende queste forze può formulare strategie difensive appropriate (aumentare le barriere, differenziarsi, innovare) per proteggere la propria redditività.
 
 ---

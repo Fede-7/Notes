@@ -196,8 +196,9 @@ Il puntatore all'env non locale punta sempre al record immediatamente precedente
 | Puntatore env | Salta record intermedi (verso il blocco contenitore) | Punta sempre al record precedente |
 | Usato da | Quasi tutti i linguaggi moderni | Primo LISP (poi sostituito da Scheme) |
 
-> [!quote]
-> "Scheme è praticamente uguale a LISP — stessa sintassi con tante parentesi — ma usa lo scoping statico proprio per eliminare l'incubo di predire il comportamento dei programmi con scope dinamico."
+> [!tip] Parole del Professore
+> > [!quote]
+> > "Scheme è praticamente uguale a LISP — stessa sintassi con tante parentesi — ma usa lo scoping statico proprio per eliminare l'incubo di predire il comportamento dei programmi con scope dinamico."
 
 ---
 
@@ -262,7 +263,7 @@ Il passaggio di un parametro può avvenire:
 
 ---
 
-> [!summary] Punti chiave della lezione
+> [!abstract] Punti chiave della lezione
 > - I **blocchi** introducono namespace separati e permettono l'ereditarietà unidirezionale (interno vede esterno, non viceversa). Il **mascheramento** nasconde temporaneamente la variabile esterna con lo stesso nome.
 > - Lo **scope statico** determina l'ambiente non locale guardando il testo del programma. È predittibile, debuggabile, usato in quasi tutti i linguaggi moderni.
 > - Lo **scope dinamico** determina l'ambiente non locale dall'ordine delle chiamate a runtime. È impredicibile (indecidibile in generale) e storicamente abbandonato (LISP → Scheme).
