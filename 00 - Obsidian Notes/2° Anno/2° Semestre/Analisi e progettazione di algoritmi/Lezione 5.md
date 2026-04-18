@@ -253,10 +253,13 @@ def heap_sort(A, n):
 Dopo `BuildHeap`, il massimo si trova in $A[1]$. Si scambia con l'ultima posizione $A[n]$: il massimo è ora al suo posto definitivo. Si riduce la dimensione dello heap di 1 ed si applica `Heapify` sulla nuova radice (che potrebbe violare la proprietà) per ripristinare lo heap sui rimanenti $n-1$ elementi. Si ripete $n-1$ volte.
 
 ```mermaid
-flowchart LR
-    A["BuildHeap\nΘ(n)"] --> B["Estrai massimo\n× (n-1) volte"]
-    B --> C["Heapify dopo\nocni estrazione\nO(log n)"]
-    C --> D["Array ordinato"]
+%%{init: {'flowchart': {'curve': 'linear', 'useMaxWidth': true, 'htmlLabels': true}, 'theme': 'base', 'themeVariables': {'fontSize': '14px', 'primaryColor': '#e1f5fe', 'primaryBorderColor': '#01579b'}}}%%
+flowchart TD
+    %% Definizione dello stile per adattarsi all'A4
+    classDef default fill:#e1f5fe,stroke:#01579b,stroke-width:2px,rx:10,ry:10;
+    A["BuildHeap\nΘ(n)"] :::default --> B["Estrai massimo\n× (n-1) volte"] :::default
+    B --> C["Heapify dopo\nocni estrazione\nO(log n)"] :::default
+    C --> D["Array ordinato"] :::default
 ```
 
 ### Analisi

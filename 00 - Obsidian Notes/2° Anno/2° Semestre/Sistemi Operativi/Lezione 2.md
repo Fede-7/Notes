@@ -68,17 +68,20 @@ Le CPU moderne (Intel VT-x, AMD-V) supportano direttamente la virtualizzazione a
 ## Virtualizzazione Tipo 1 vs Tipo 2
 
 ```mermaid
-flowchart LR
-    subgraph Tipo1["Tipo 1 — Bare Metal"]
-        HW1[Hardware] --> VMM1[Hypervisor / VMM]
-        VMM1 --> OS1_A[OS Guest A]
-        VMM1 --> OS1_B[OS Guest B]
+%%{init: {'flowchart': {'curve': 'linear', 'useMaxWidth': true, 'htmlLabels': true}, 'theme': 'base', 'themeVariables': {'fontSize': '14px', 'primaryColor': '#e1f5fe', 'primaryBorderColor': '#01579b'}}}%%
+flowchart TD
+    %% Definizione dello stile per adattarsi all'A4
+    classDef default fill:#e1f5fe,stroke:#01579b,stroke-width:2px,rx:10,ry:10;
+    subgraph Tipo1["Tipo 1 — Bare Metal"] :::default
+        HW1[Hardware] :::default --> VMM1[Hypervisor / VMM] :::default
+        VMM1 --> OS1_A[OS Guest A] :::default
+        VMM1 --> OS1_B[OS Guest B] :::default
     end
-    subgraph Tipo2["Tipo 2 — Hosted"]
-        HW2[Hardware] --> OS2[OS Host]
-        OS2 --> VMM2[VMM applicativo]
-        VMM2 --> OS2_A[OS Guest A]
-        VMM2 --> OS2_B[OS Guest B]
+    subgraph Tipo2["Tipo 2 — Hosted"] :::default
+        HW2[Hardware] :::default --> OS2[OS Host] :::default
+        OS2 --> VMM2[VMM applicativo] :::default
+        VMM2 --> OS2_A[OS Guest A] :::default
+        VMM2 --> OS2_B[OS Guest B] :::default
     end
 ```
 
@@ -130,12 +133,15 @@ Il kernel è organizzato in strati (anelli concentrici), dove ogni strato usa so
 Si mette nel kernel **solo il minimo indispensabile**: scheduling di base, gestione della memoria, IPC (comunicazione interprocesso). Tutto il resto — file system, driver, gestione della rete — va in user space come processi separati.
 
 ```mermaid
+%%{init: {'flowchart': {'curve': 'linear', 'useMaxWidth': true, 'htmlLabels': true}, 'theme': 'base', 'themeVariables': {'fontSize': '14px', 'primaryColor': '#e1f5fe', 'primaryBorderColor': '#01579b'}}}%%
 flowchart TB
-    APP[Applicazione] --> FS[File System\nuser mode]
-    APP --> DRV[Device Driver\nuser mode]
-    FS --> MK[Microkernel\nIPC, memoria, scheduling]
+    %% Definizione dello stile per adattarsi all'A4
+    classDef default fill:#e1f5fe,stroke:#01579b,stroke-width:2px,rx:10,ry:10;
+    APP[Applicazione] :::default --> FS[File System\nuser mode] :::default
+    APP --> DRV[Device Driver\nuser mode] :::default
+    FS --> MK[Microkernel\nIPC, memoria, scheduling] :::default
     DRV --> MK
-    MK --> HW[Hardware]
+    MK --> HW[Hardware] :::default
 ```
 
 Vantaggi: alta modularità, sicurezza (un crash del driver non abbatte il kernel), portabilità.
@@ -158,11 +164,14 @@ Approccio usato dai kernel moderni (Linux, Solaris, Windows). Il kernel ha un nu
 La maggior parte dei kernel reali combina più approcci:
 
 ```mermaid
+%%{init: {'flowchart': {'curve': 'linear', 'useMaxWidth': true, 'htmlLabels': true}, 'theme': 'base', 'themeVariables': {'fontSize': '14px', 'primaryColor': '#e1f5fe', 'primaryBorderColor': '#01579b'}}}%%
 flowchart TB
-    subgraph Darwin["macOS (Darwin/XNU)"]
-        MACH[Mach microkernel\nIPC, memoria, scheduling] --> BSD[BSD monolitico\nfile system, rete, processi]
-        BSD --> IOP[I/O Kit\ndriver in kernel mode]
-        IOP --> USR[Driver kit\nuser space drivers]
+    %% Definizione dello stile per adattarsi all'A4
+    classDef default fill:#e1f5fe,stroke:#01579b,stroke-width:2px,rx:10,ry:10;
+    subgraph Darwin["macOS (Darwin/XNU)"] :::default
+        MACH[Mach microkernel\nIPC, memoria, scheduling] :::default --> BSD[BSD monolitico\nfile system, rete, processi] :::default
+        BSD --> IOP[I/O Kit\ndriver in kernel mode] :::default
+        IOP --> USR[Driver kit\nuser space drivers] :::default
     end
 ```
 
@@ -220,15 +229,18 @@ Quando stack e heap si incontrano → **stack overflow**.
 ## Ciclo di vita dei processi
 
 ```mermaid
+%%{init: {'flowchart': {'curve': 'linear', 'useMaxWidth': true, 'htmlLabels': true}, 'theme': 'base', 'themeVariables': {'fontSize': '14px', 'primaryColor': '#e1f5fe', 'primaryBorderColor': '#01579b'}}}%%
 stateDiagram-v2
-    [*] --> New : creazione
+    %% Definizione dello stile per adattarsi all'A4
+    classDef default fill:#e1f5fe,stroke:#01579b,stroke-width:2px,rx:10,ry:10;
+    [*] :::default --> New : creazione
     New --> Ready : ammissione
-    Ready --> Running : dispatch (scheduler)
+    Ready --> Running : dispatch (scheduler) :::default
     Running --> Ready : interrupt / time slice esaurito
     Running --> Waiting : richiesta I/O o attesa evento
     Waiting --> Ready : I/O completato / evento arrivato
     Running --> Terminated : exit / errore
-    Terminated --> [*]
+    Terminated --> [*] :::default
 ```
 
 **New** — il processo è stato creato ma non ancora ammesso alla coda di esecuzione.
@@ -273,11 +285,14 @@ Linux tratta processi e thread con lo stesso meccanismo (task). La chiamata `clo
 Quando la CPU passa da un processo all'altro, avviene il **context switch**:
 
 ```mermaid
+%%{init: {'flowchart': {'curve': 'linear', 'useMaxWidth': true, 'htmlLabels': true}, 'theme': 'base', 'themeVariables': {'fontSize': '14px', 'primaryColor': '#e1f5fe', 'primaryBorderColor': '#01579b'}}}%%
 sequenceDiagram
+    %% Definizione dello stile per adattarsi all'A4
+    classDef default fill:#e1f5fe,stroke:#01579b,stroke-width:2px,rx:10,ry:10;
     participant CPU
     participant PCB_A as PCB Processo A
     participant PCB_B as PCB Processo B
-    CPU ->> PCB_A: salva stato (PC, registri, ...)
+    CPU ->> PCB_A: salva stato (PC, registri, ...) :::default
     CPU ->> PCB_B: carica stato
     CPU ->> CPU: esegue Processo B
     CPU ->> PCB_B: salva stato

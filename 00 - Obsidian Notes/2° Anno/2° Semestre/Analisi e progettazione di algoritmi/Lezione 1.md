@@ -92,15 +92,18 @@ Calcoliamo $L = \lim_{n \to \infty} \frac{T_A(n)}{T_B(n)}$ e osserviamo la funzi
 Poiché $T_A$ e $T_B$ sono funzioni di tempo (non decrescenti e asintoticamente positive), $h$ sarà positiva da un certo punto in poi.
 
 ```mermaid
-flowchart LR
-    L0["L = 0<br/>h(n) → 0"] --> R0["h decrescente<br/>(da un certo punto)<br/>Per ogni c > 0,<br/>poi h < c"]
-    R0 --> C0["f = o(g)<br/>⟹ f = O(g)"]
+%%{init: {'flowchart': {'curve': 'linear', 'useMaxWidth': true, 'htmlLabels': true}, 'theme': 'base', 'themeVariables': {'fontSize': '14px', 'primaryColor': '#e1f5fe', 'primaryBorderColor': '#01579b'}}}%%
+flowchart TD
+    %% Definizione dello stile per adattarsi all'A4
+    classDef default fill:#e1f5fe,stroke:#01579b,stroke-width:2px,rx:10,ry:10;
+    L0["L = 0<br/>h(n) → 0"] :::default --> R0["h decrescente<br/>(da un certo punto)<br/>Per ogni c > 0,<br/>poi h < c"] :::default
+    R0 --> C0["f = o(g)<br/>⟹ f = O(g)"] :::default
 
-    Linf["L = ∞<br/>h(n) → ∞"] --> Rinf["h crescente<br/>(da un certo punto)<br/>Per ogni c > 0,<br/>poi h > c"]
-    Rinf --> Cinf["f = ω(g)<br/>⟹ f = Ω(g)"]
+    Linf["L = ∞<br/>h(n) → ∞"] :::default --> Rinf["h crescente<br/>(da un certo punto)<br/>Per ogni c > 0,<br/>poi h > c"] :::default
+    Rinf --> Cinf["f = ω(g)<br/>⟹ f = Ω(g)"] :::default
 
-    Lk["L = k<br/>(costante > 0)"] --> Rk["h oscillante<br/>ma l'ampiezza<br/>→ 0"]
-    Rk --> Ck["f = Θ(g)"]
+    Lk["L = k<br/>(costante > 0)"] :::default --> Rk["h oscillante<br/>ma l'ampiezza<br/>→ 0"] :::default
+    Rk --> Ck["f = Θ(g)"] :::default
     
     style L0 fill:#e1f5ff
     style Linf fill:#ffe1e1

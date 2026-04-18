@@ -158,13 +158,16 @@ Vantaggi: **portabilità** (stesso bytecode gira su qualunque piattaforma con un
 ## Fasi del compilatore
 
 ```mermaid
+%%{init: {'flowchart': {'curve': 'linear', 'useMaxWidth': true, 'htmlLabels': true}, 'theme': 'base', 'themeVariables': {'fontSize': '14px', 'primaryColor': '#e1f5fe', 'primaryBorderColor': '#01579b'}}}%%
 flowchart TD
-    SRC["Codice sorgente\nsequenza di caratteri"]
-    SRC --> LEX["Analisi lessicale\n→ token stream"]
-    LEX --> SYN["Analisi sintattica\n→ albero sintattico (AST)"]
-    SYN --> SEM["Analisi semantica\n→ AST arricchito (tipi, legami)"]
-    SEM --> GEN["Generazione del codice\n→ codice oggetto / bytecode"]
-    GEN --> OPT["Ottimizzazione\n→ output finale"]
+    %% Definizione dello stile per adattarsi all'A4
+    classDef default fill:#e1f5fe,stroke:#01579b,stroke-width:2px,rx:10,ry:10;
+    SRC["Codice sorgente\nsequenza di caratteri"] :::default
+    SRC --> LEX["Analisi lessicale\n→ token stream"] :::default
+    LEX --> SYN["Analisi sintattica\n→ albero sintattico (AST)"] :::default
+    SYN --> SEM["Analisi semantica\n→ AST arricchito (tipi, legami)"] :::default
+    SEM --> GEN["Generazione del codice\n→ codice oggetto / bytecode"] :::default
+    GEN --> OPT["Ottimizzazione\n→ output finale"] :::default
 ```
 
 **Analisi lessicale:** trasforma la stringa di caratteri in una sequenza di **token** (identificatori, parole chiave, operatori, parentesi...). Implementabile con automi a stati finiti (grammatiche regolari). Esistono generatori automatici di lexer.

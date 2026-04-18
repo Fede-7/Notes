@@ -54,12 +54,15 @@ tags:
 Tra l'arrivo di un evento (es. interrupt hardware) e l'effettiva risposta del processo, ci sono diverse latenze:
 
 ```mermaid
-flowchart LR
-    A[Interrupt] --> B[Riconoscimento tipo]
-    B --> C[Gestione conflitti / prelazione]
-    C --> D[Rilascio risorse processi bassa priorità]
-    D --> E[Dispatch: context switch]
-    E --> F[Esecuzione handler]
+%%{init: {'flowchart': {'curve': 'linear', 'useMaxWidth': true, 'htmlLabels': true}, 'theme': 'base', 'themeVariables': {'fontSize': '14px', 'primaryColor': '#e1f5fe', 'primaryBorderColor': '#01579b'}}}%%
+flowchart TD
+    %% Definizione dello stile per adattarsi all'A4
+    classDef default fill:#e1f5fe,stroke:#01579b,stroke-width:2px,rx:10,ry:10;
+    A[Interrupt] :::default --> B[Riconoscimento tipo] :::default
+    B --> C[Gestione conflitti / prelazione] :::default
+    C --> D[Rilascio risorse processi bassa priorità] :::default
+    D --> E[Dispatch: context switch] :::default
+    E --> F[Esecuzione handler] :::default
 ```
 
 Questa **dispatch latency** non è eliminabile, ma va minimizzata nei sistemi real-time.

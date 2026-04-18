@@ -56,20 +56,23 @@ tags:
 
 ### Struttura a strati
 ```mermaid
+%%{init: {'flowchart': {'curve': 'linear', 'useMaxWidth': true, 'htmlLabels': true}, 'theme': 'base', 'themeVariables': {'fontSize': '14px', 'primaryColor': '#e1f5fe', 'primaryBorderColor': '#01579b'}}}%%
 graph TB
-    subgraph User["Livello Utente"]
-        A[Applicazioni utente]
+    %% Definizione dello stile per adattarsi all'A4
+    classDef default fill:#e1f5fe,stroke:#01579b,stroke-width:2px,rx:10,ry:10;
+    subgraph User["Livello Utente"] :::default
+        A[Applicazioni utente] :::default
     end
     
-    subgraph OS["Livello Sistema Operativo"]
-        B1[Kernel]
-        B2[Programmi di sistema]
+    subgraph OS["Livello Sistema Operativo"] :::default
+        B1[Kernel] :::default
+        B2[Programmi di sistema] :::default
     end
     
-    subgraph HW["Livello Hardware"]
-        C1[CPU]
-        C2[RAM]
-        C3[Periferiche]
+    subgraph HW["Livello Hardware"] :::default
+        C1[CPU] :::default
+        C2[RAM] :::default
+        C3[Periferiche] :::default
     end
     
     A <--> B1
@@ -110,7 +113,10 @@ graph TB
 ## 🕰️ Storia dei Sistemi Operativi
 
 ```mermaid
+%%{init: {'flowchart': {'curve': 'linear', 'useMaxWidth': true, 'htmlLabels': true}, 'theme': 'base', 'themeVariables': {'fontSize': '14px', 'primaryColor': '#e1f5fe', 'primaryBorderColor': '#01579b'}}}%%
 timeline
+    %% Definizione dello stile per adattarsi all'A4
+    classDef default fill:#e1f5fe,stroke:#01579b,stroke-width:2px,rx:10,ry:10;
     title Evoluzione dei Sistemi Operativi
     1940-1950 : Prima generazione
               : Valvole termoioniche
@@ -123,9 +129,9 @@ timeline
               : Multiprogrammazione, time sharing, MULTICS, Unix, linguaggio C
     1980      : Quarta generazione
               : Personal Computer
-              : MS-DOS, GUI (Xerox PARC → Apple → Windows)
+              : MS-DOS, GUI (Xerox PARC → Apple → Windows) :::default
     Oggi      : Quinta generazione
-              : Sistemi mobile (iOS, Android)
+              : Sistemi mobile (iOS, Android) :::default
 ```
 
 ### Prima generazione (anni '40–'50) — Valvole
@@ -150,13 +156,16 @@ timeline
 #### MULTICS → UNIX
 
 ```mermaid
-flowchart LR
-    A[MULTICS $$\space$$ Bell Labs, ~1965] -->|troppo complesso| B[UNIX $$\space$$ Thompson & Ritchie, 1969]
-    B --> C[Linguaggio C $$\space$$ Ritchie]
-    B --> D[Famiglie Unix $$\space$$ BSD, System V...]
-    D --> E[Minix Tanenbaum]
-    E --> F[Linux Torvalds, 1991]
-    B --> G[macOS XNU/Darwin]
+%%{init: {'flowchart': {'curve': 'linear', 'useMaxWidth': true, 'htmlLabels': true}, 'theme': 'base', 'themeVariables': {'fontSize': '14px', 'primaryColor': '#e1f5fe', 'primaryBorderColor': '#01579b'}}}%%
+flowchart TD
+    %% Definizione dello stile per adattarsi all'A4
+    classDef default fill:#e1f5fe,stroke:#01579b,stroke-width:2px,rx:10,ry:10;
+    A[MULTICS $$\space$$ Bell Labs, ~1965] :::default -->|troppo complesso| B[UNIX $$\space$$ Thompson & Ritchie, 1969] :::default
+    B --> C[Linguaggio C $$\space$$ Ritchie] :::default
+    B --> D[Famiglie Unix $$\space$$ BSD, System V...] :::default
+    D --> E[Minix Tanenbaum] :::default
+    E --> F[Linux Torvalds, 1991] :::default
+    B --> G[macOS XNU/Darwin] :::default
 ```
 
 > [!tip] Curiosità
@@ -209,7 +218,10 @@ Periferiche
 ### Flusso di gestione di un interrupt
 
 ```mermaid
+%%{init: {'flowchart': {'curve': 'linear', 'useMaxWidth': true, 'htmlLabels': true}, 'theme': 'base', 'themeVariables': {'fontSize': '14px', 'primaryColor': '#e1f5fe', 'primaryBorderColor': '#01579b'}}}%%
 sequenceDiagram
+    %% Definizione dello stile per adattarsi all'A4
+    classDef default fill:#e1f5fe,stroke:#01579b,stroke-width:2px,rx:10,ry:10;
     participant P1 as Processo 1
     participant CPU
     participant P2 as Processo 2
@@ -218,7 +230,7 @@ sequenceDiagram
 
     P1->>PER: Richiede operazione I/O
     CPU->>P2: Scheduler manda in esecuzione P2
-    PER-->>CPU: Interrupt (operazione completata)
+    PER-->>CPU: Interrupt (operazione completata) :::default
     CPU->>ISR: Esegue routine di servizio
     ISR-->>CPU: Fine servizio
     CPU->>P1: Ripristina e riprende P1
@@ -256,7 +268,10 @@ $$\text{vettore}[\,n_{\text{interrupt}}\,] = \text{indirizzo della routine di se
 ### Multiprogrammazione e Time Sharing
 
 ```mermaid
+%%{init: {'flowchart': {'curve': 'linear', 'useMaxWidth': true, 'htmlLabels': true}, 'theme': 'base', 'themeVariables': {'fontSize': '14px', 'primaryColor': '#e1f5fe', 'primaryBorderColor': '#01579b'}}}%%
 gantt
+    %% Definizione dello stile per adattarsi all'A4
+    classDef default fill:#e1f5fe,stroke:#01579b,stroke-width:2px,rx:10,ry:10;
     title Time Sharing — alternanza dei processi sulla CPU
     dateFormat X
     axisFormat %s
@@ -317,15 +332,18 @@ $$\text{indirizzo fisico} = \text{base} + \text{indirizzo logico} \quad \text{se
 ### Ciclo di vita di un processo
 
 ```mermaid
+%%{init: {'flowchart': {'curve': 'linear', 'useMaxWidth': true, 'htmlLabels': true}, 'theme': 'base', 'themeVariables': {'fontSize': '14px', 'primaryColor': '#e1f5fe', 'primaryBorderColor': '#01579b'}}}%%
 stateDiagram-v2
-    [*] --> Creato
+    %% Definizione dello stile per adattarsi all'A4
+    classDef default fill:#e1f5fe,stroke:#01579b,stroke-width:2px,rx:10,ry:10;
+    [*] :::default --> Creato
     Creato --> Pronto
     Pronto --> In_esecuzione : scheduler lo seleziona
     In_esecuzione --> Pronto : quanto di tempo scaduto
     In_esecuzione --> In_attesa : richiesta I/O
-    In_attesa --> Pronto : I/O completato (interrupt)
+    In_attesa --> Pronto : I/O completato (interrupt) :::default
     In_esecuzione --> Terminato
-    Terminato --> [*]
+    Terminato --> [*] :::default
 ```
 
 ---
@@ -333,13 +351,16 @@ stateDiagram-v2
 ## Programma del Corso
 
 ```mermaid
+%%{init: {'flowchart': {'curve': 'linear', 'useMaxWidth': true, 'htmlLabels': true}, 'theme': 'base', 'themeVariables': {'fontSize': '14px', 'primaryColor': '#e1f5fe', 'primaryBorderColor': '#01579b'}}}%%
 flowchart TD
-    A[Introduzione ai SO] --> B[Struttura e architettura del SO]
-    B --> C[Processi: concetto, scheduling, sincronizzazione]
-    C --> D[Gestione della memoria principale]
-    D --> E[Sistemi di I/O]
-    E --> F[File system]
-    F --> G[Virtualizzazione]
+    %% Definizione dello stile per adattarsi all'A4
+    classDef default fill:#e1f5fe,stroke:#01579b,stroke-width:2px,rx:10,ry:10;
+    A[Introduzione ai SO] :::default --> B[Struttura e architettura del SO] :::default
+    B --> C[Processi: concetto, scheduling, sincronizzazione] :::default
+    C --> D[Gestione della memoria principale] :::default
+    D --> E[Sistemi di I/O] :::default
+    E --> F[File system] :::default
+    F --> G[Virtualizzazione] :::default
     
     style A fill:#4a9eff,color:#fff
     style C fill:#f0a500,color:#fff

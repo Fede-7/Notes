@@ -197,9 +197,12 @@ Quando la varianza tende a zero, la variabile aleatoria si concentra attorno all
 > **Convergenza con probabilità 1** (Legge forte dei grandi numeri, non dimostrata): l'evento che $F_n(A) \to P(A)$ ha probabilità esattamente 1.
 
 ```mermaid
+%%{init: {'flowchart': {'curve': 'linear', 'useMaxWidth': true, 'htmlLabels': true}, 'theme': 'base', 'themeVariables': {'fontSize': '14px', 'primaryColor': '#e1f5fe', 'primaryBorderColor': '#01579b'}}}%%
 graph TD
-    A["Convergenza con<br/>probabilità 1<br/>(Legge forte GN)"] --> B["Convergenza<br/>in probabilità<br/>(Legge debole GN)"]
-    C["Convergenza in<br/>media quadratica"] --> B
+    %% Definizione dello stile per adattarsi all'A4
+    classDef default fill:#e1f5fe,stroke:#01579b,stroke-width:2px,rx:10,ry:10;
+    A["Convergenza con<br/>probabilità 1<br/>(Legge forte GN)"] :::default --> B["Convergenza<br/>in probabilità<br/>(Legge debole GN)"] :::default
+    C["Convergenza in<br/>media quadratica"] :::default --> B
 ```
 
 Le frecce indicano implicazioni. Convergenza con prob. 1 e convergenza in media quadratica sono entrambe **forti**, ma non si implicano a vicenda. Entrambe implicano la convergenza in probabilità (la più debole).

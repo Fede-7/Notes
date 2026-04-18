@@ -34,9 +34,12 @@ tags:
 > Intrinseco nel concetto di informazione c'è l'**incertezza**: se non c'è incertezza su ciò che viene trasmesso, non c'è informazione da trasmettere.
 
 ```mermaid
-graph LR
-    A["Incertezza<br/>a priori"] -->|trasferimento| B["Certezza<br/>a posteriori"]
-    B --> C["(certezza mai assoluta)"]
+%%{init: {'flowchart': {'curve': 'linear', 'useMaxWidth': true, 'htmlLabels': true}, 'theme': 'base', 'themeVariables': {'fontSize': '14px', 'primaryColor': '#e1f5fe', 'primaryBorderColor': '#01579b'}}}%%
+graph TD
+    %% Definizione dello stile per adattarsi all'A4
+    classDef default fill:#e1f5fe,stroke:#01579b,stroke-width:2px,rx:10,ry:10;
+    A["Incertezza<br/>a priori"] :::default -->|trasferimento| B["Certezza<br/>a posteriori"] :::default
+    B --> C["(certezza mai assoluta)"] :::default
 ```
 
 La **probabilità** è lo strumento formale per modellare l'incertezza. Tutto ciò che va sotto il nome di *machine learning*, *statistical learning*, *deep learning*, reti neurali — è costruito su questa base.
@@ -50,15 +53,17 @@ La **probabilità** è lo strumento formale per modellare l'incertezza. Tutto ci
 
 ```mermaid
 graph TD
-    A["Analisi Combinatoria<br/>Saper contare"] --> B["Probabilità su spazi finiti<br/>Definizione assiomatica"]
-    B --> C["Variabili aleatorie discrete"]
-    C --> D["Estensione al continuo<br/>Integrali al posto di somme"]
-    D --> E["Accenni ai processi aleatori"]
+    %% Definizione dello stile per adattarsi all'A4
+    classDef default fill:#e1f5fe,stroke:#01579b,stroke-width:2px,rx:10,ry:10;
+    A["Analisi Combinatoria<br/>Saper contare"] :::default --> B["Probabilità su spazi finiti<br/>Definizione assiomatica"] :::default
+    B --> C["Variabili aleatorie discrete"] :::default
+    C --> D["Estensione al continuo<br/>Integrali al posto di somme"] :::default
+    D --> E["Accenni ai processi aleatori"] :::default
 
-    B --> F["Teoria dell'informazione<br/>Entropia di Shannon, bit"]
-    B --> G["Statistica inferenziale<br/>Bayesiana e non bayesiana"]
-    G --> H["Teoria della decisione<br/>Test di ipotesi"]
-    H --> I["Stima ricorsiva?<br/>Gradiente → ML"]
+    B --> F["Teoria dell'informazione<br/>Entropia di Shannon, bit"] :::default
+    B --> G["Statistica inferenziale<br/>Bayesiana e non bayesiana"] :::default
+    G --> H["Teoria della decisione<br/>Test di ipotesi"] :::default
+    H --> I["Stima ricorsiva?<br/>Gradiente → ML"] :::default
 
     style A fill:#4a9eff,color:#fff
     style F fill:#f0a500,color:#fff
@@ -205,13 +210,16 @@ Questa è la **formula base** da cui derivano tutti i risultati di analisi combi
 ### $k$-uple ordinate da $n$ elementi
 
 ```mermaid
-graph LR
-    A["Estrazione di k elementi<br/>da un insieme di n"] --> B{"Ripetizione?"}
-    B -->|Sì| C["n^k<br/>k-uple ordinate<br/>con ripetizione"]
-    B -->|No| D["n! / (n-k)!<br/>k-uple ordinate<br/>senza ripetizione<br/>(disposizioni)"]
-    D --> E{"k = n?"}
-    E -->|Sì| F["n!<br/>Permutazioni"]
-    E -->|No| G["n! / (n-k)!"]
+%%{init: {'flowchart': {'curve': 'linear', 'useMaxWidth': true, 'htmlLabels': true}, 'theme': 'base', 'themeVariables': {'fontSize': '14px', 'primaryColor': '#e1f5fe', 'primaryBorderColor': '#01579b'}}}%%
+graph TD
+    %% Definizione dello stile per adattarsi all'A4
+    classDef default fill:#e1f5fe,stroke:#01579b,stroke-width:2px,rx:10,ry:10;
+    A["Estrazione di k elementi<br/>da un insieme di n"] :::default --> B{"Ripetizione?"} :::default
+    B -->|Sì| C["n^k<br/>k-uple ordinate<br/>con ripetizione"] :::default
+    B -->|No| D["n! / (n-k)!<br/>k-uple ordinate<br/>senza ripetizione<br/>(disposizioni)"] :::default
+    D --> E{"k = n?"} :::default
+    E -->|Sì| F["n!<br/>Permutazioni"] :::default
+    E -->|No| G["n! / (n-k)!"] :::default
 ```
 
 #### Con ripetizione ammessa

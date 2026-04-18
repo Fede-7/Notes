@@ -154,12 +154,15 @@ Questo è ciò che il compilatore genera quando si compila una chiamata come `wr
 Il software che gira sulla macchina si divide in tre grandi categorie:
 
 ```mermaid
+%%{init: {'flowchart': {'curve': 'linear', 'useMaxWidth': true, 'htmlLabels': true}, 'theme': 'base', 'themeVariables': {'fontSize': '14px', 'primaryColor': '#e1f5fe', 'primaryBorderColor': '#01579b'}}}%%
 flowchart TB
-    HW[Hardware] --> KRN[Kernel\ngestione proc, mem, I/O, FS, driver]
-    KRN --> SCI[System Call Interface]
-    SCI --> SYS[Software di sistema\ncompilatori, shell, loader, linker]
-    SCI --> DEM[Demoni\nservizi in background, user space]
-    SYS --> APP[Programmi applicativi]
+    %% Definizione dello stile per adattarsi all'A4
+    classDef default fill:#e1f5fe,stroke:#01579b,stroke-width:2px,rx:10,ry:10;
+    HW[Hardware] :::default --> KRN[Kernel\ngestione proc, mem, I/O, FS, driver] :::default
+    KRN --> SCI[System Call Interface] :::default
+    SCI --> SYS[Software di sistema\ncompilatori, shell, loader, linker] :::default
+    SCI --> DEM[Demoni\nservizi in background, user space] :::default
+    SYS --> APP[Programmi applicativi] :::default
     DEM --> APP
 ```
 

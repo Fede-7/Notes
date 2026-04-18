@@ -56,11 +56,14 @@ Le principali scelte di sicurezza del linguaggio sono:
 Java usa una strategia intermedia tra compilazione pura e interpretazione pura.
 
 ```mermaid
-flowchart LR
-    A[Sorgente .java] -->|javac| B[Bytecode .class]
-    B -->|Verifier| C[Verifica bytecode]
-    C -->|JVM interpreta| D[Esecuzione]
-    C -->|JIT compila cicli ripetuti| E[Codice nativo → Esecuzione]
+%%{init: {'flowchart': {'curve': 'linear', 'useMaxWidth': true, 'htmlLabels': true}, 'theme': 'base', 'themeVariables': {'fontSize': '14px', 'primaryColor': '#e1f5fe', 'primaryBorderColor': '#01579b'}}}%%
+flowchart TD
+    %% Definizione dello stile per adattarsi all'A4
+    classDef default fill:#e1f5fe,stroke:#01579b,stroke-width:2px,rx:10,ry:10;
+    A[Sorgente .java] :::default -->|javac| B[Bytecode .class] :::default
+    B -->|Verifier| C[Verifica bytecode] :::default
+    C -->|JVM interpreta| D[Esecuzione] :::default
+    C -->|JIT compila cicli ripetuti| E[Codice nativo → Esecuzione] :::default
 ```
 
 **Fase 1 — Compilazione** (`javac`): trasforma il sorgente `.java` in bytecode `.class`. Effettua tutti i controlli di tipo che possono essere fatti staticamente. Se una classe importata non è ancora compilata, il compilatore la compila a cascata (approccio greedy).
