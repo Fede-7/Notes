@@ -185,12 +185,12 @@ Con più core, lo scheduler deve anche decidere **su quale core** eseguire ogni 
 - **Push migration**: un processo verifica periodicamente i carichi e sposta task dai core sovraccarichi.
 - **Pull migration**: un core idle va a "rubare" task dalla coda di un core occupato.
 
-> [!important] Affinità del processore (CPU affinity)
+> [!info] Affinità del processore (CPU affinity)
 > Un thread che ha già eseguito su un core ha i suoi dati in quella cache. Migrarlo su un altro core implica invalidare la cache → costo. Lo scheduler tende a mantenere un thread sullo stesso core (soft affinity) o può forzarlo (hard affinity).
 
 ---
 
-> [!summary] Punti chiave della lezione
+> [!abstract] Punti chiave della lezione
 > - SRTF (SJF preemptive) prelaziona quando arriva un processo con burst rimanente più breve; minimizza il tempo di attesa medio meglio di SJF non-preemptive.
 > - La priorità fissa causa starvation; l'aging la previene alzando la priorità dei processi che aspettano.
 > - Round-Robin è equo e senza starvation; il quanto deve essere abbastanza grande rispetto al context switch ma abbastanza piccolo per garantire reattività.

@@ -480,7 +480,7 @@ gcc -Wall -g hello.c -o hello
 
 ---
 
-> [!summary] Punti chiave della lezione
+> [!abstract] Punti chiave della lezione
 > - La **shell** è l'interfaccia testuale con il sistema operativo; bash è la shell standard su Linux
 > - La compilazione è una **pipeline a 4 fasi**: preprocessore → compilatore → assemblatore → linker
 > - **GCC** permette di fermarsi a ciascuna fase con i flag `-E`, `-S`, `-c`
