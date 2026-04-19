@@ -12,13 +12,6 @@ tags:
   - esercizi
   - MSI
 ---
-
-# Lezione 7: Canale Binario Simmetrico, Entropia e Esercizi su PMF Congiunta
-
-**Corso:** Modelli Statistici e Probabilità
-
----
-
 >[!question] Argomenti trattati
 >- Canale binario simmetrico: modello, probabilità di errore, legge di Bayes
 >- Caso peggiore del canale: $\varepsilon = 1/2$

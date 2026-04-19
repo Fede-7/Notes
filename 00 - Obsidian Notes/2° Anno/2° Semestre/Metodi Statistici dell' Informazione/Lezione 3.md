@@ -17,10 +17,6 @@ tags:
   - outlier
 Professore: Marco Lops
 ---
-
-# MSI — Lezione 3: Valore Atteso e Distribuzioni Notevoli
----
-
 >[!question] Argomenti trattati:
 > - Definizione del valore atteso (media statistica) e motivazione tramite legge dei grandi numeri
 > - Distribuzione di Bernoulli e distribuzione Binomiale: definizione, verifica PMF, media $= np$ (derivazione completa)

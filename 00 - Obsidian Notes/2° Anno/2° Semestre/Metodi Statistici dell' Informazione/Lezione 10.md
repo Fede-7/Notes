@@ -4,22 +4,14 @@ corso: Metodi Statistici dell'Informazione
 lezione: "Variabili continue — CDF, PDF e distribuzioni notevoli"
 tags: [MSI, variabili-continue, CDF, PDF, distribuzione-uniforme, distribuzione-esponenziale, misura-probabilita]
 ---
-
-# MSI — Variabili Continue: CDF, PDF e Distribuzioni Notevoli
-
-**Corso:** Metodi Statistici dell'Informazione
-
----
-
-## Argomenti trattati
-
-- Passaggio da variabili discrete a variabili continue
-- Caratterizzazione mediante misura di probabilità su intervalli
-- Definizione formale di CDF e PDF per variabili continue
-- Relazione tra CDF e PDF: integrazione e derivazione
-- Distribuzioni continue notevoli: uniforme, esponenziale
-- Valore atteso per variabili continue
-- Introduzione alla PDF condizionata
+>[!question] Argomenti trattati
+>- Passaggio da variabili discrete a variabili continue
+>- Caratterizzazione mediante misura di probabilità su intervalli
+>- Definizione formale di CDF e PDF per variabili continue
+>- Relazione tra CDF e PDF: integrazione e derivazione
+>- Distribuzioni continue notevoli: uniforme, esponenziale
+>- Valore atteso per variabili continue
+>- Introduzione alla PDF condizionata
 
 ---
 

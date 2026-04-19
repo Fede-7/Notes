@@ -5,10 +5,6 @@ docente: N/D
 lezione: Teorema della media condizionale, covarianza, correlazione e introduzione alle variabili continue
 tags: [MSP, media-condizionale, covarianza, correlazione, matrice-covarianza, variabili-continue, densita-probabilita]
 ---
-
-# MSP — Lezione 8: Media Condizionale, Covarianza e Introduzione alle Variabili Continue
----
-
 >[!question] Argomenti trattati
 >- Riepilogo: PMF congiunta, marginalizzazione, indipendenza, PMF condizionale
 >- Teorema della media condizionale (law of total expectation)

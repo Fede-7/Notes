@@ -14,10 +14,6 @@ tags:
   - probabilità-composta
 Professore: Marco Lops
 ---
-
-# MSI --- Lezione 2: Teoria Assiomatica della Probabilita, Bayes e Variabili Aleatorie
----
-
 >[!question] Argomenti trattati
 > - Riepilogo dell'analisi combinatoria ($k$-uple ordinate, non ordinate, con/senza ripetizione, coefficiente binomiale)
 > - Riepilogo della definizione frequentistica e delle proprietà derivate (complementare, unione, differenza)

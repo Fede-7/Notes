@@ -5,10 +5,6 @@ docente: N/D
 lezione: "CDF, distribuzioni continue notevoli e PDF condizionata"
 tags: [MSI, CDF, PDF, distribuzione-uniforme, distribuzione-esponenziale, laplace, pdf-condizionata, media-continua]
 ---
-
-# MSI — Lezione 9: CDF, Distribuzioni Continue Notevoli e PDF Condizionata
----
-
 >[!question] Argomenti trattati
 >- Definizione formale di CDF (Cumulative Distribution Function) e sue proprietà
 >- Relazione fondamentale tra CDF e PDF

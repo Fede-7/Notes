@@ -19,11 +19,6 @@ tags:
   - Bayes
 Professore: Marco Lops
 ---
-
-# MSI — Lezione 4: Funzioni di Variabili Aleatorie, Varianza e Esercizi
-
----
-
 >[!question] Argomenti trattati
 > - Ripasso variabili notevoli: Binomiale, Uniforme, Poissoniana, Geometrica
 > - PMF condizionata: ripasso e generalizzazione

@@ -10,10 +10,6 @@ tags:
   - marginalizzazione
   - MSI
 ---
-
-# Lezione 6: PMF Congiunta, Variabili Aleatorie Multiple e Indipendenza
----
-
 >[!question] Argomenti trattati
 >- Riepilogo: caratterizzazione di una singola variabile aleatoria
 >- Coppia di variabili aleatorie: definizione e PMF congiunta

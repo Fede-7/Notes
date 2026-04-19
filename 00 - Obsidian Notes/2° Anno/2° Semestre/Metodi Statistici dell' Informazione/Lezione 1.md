@@ -14,9 +14,6 @@ tags:
   - poker
 Professore: Marco Lops
 ---
-
-# MSI — Lezione 1: Probabilità Frequentistica e Proprietà Fondamentali
-
 >[!question]  Argomenti trattati
 >- Fondamenti di calcolo combinatorio: disposizioni, combinazioni e relative formule
 >- Completamento esercizi di analisi combinatoria (cinquine da poker)

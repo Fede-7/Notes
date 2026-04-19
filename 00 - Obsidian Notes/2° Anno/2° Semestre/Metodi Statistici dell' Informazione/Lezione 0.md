@@ -5,11 +5,6 @@ tags:
   - "#MSI"
   - 6-CFU
 ---
-# MSI — Lezione 0: Introduzione, Spazio dei Campioni e Analisi Combinatoria
-**Docente:** Prof. Marco Lops (Telecomunicazioni) | **CFU:** 6 | **Corso:** Metodi Statistici per l'Informazione
-
----
-
 ## 📚 Testi di riferimento
 
 | Argomento                | Testo                                                                                       |
@@ -21,7 +16,7 @@ tags:
 
 ## 📝 Esame
 
-> [!info] Modalità d'esame
+> [!Info.png] Modalità d'esame
 > - **Prova scritta** + **colloquio orale**
 > - 6 CFU, nessun progetto
 ---
