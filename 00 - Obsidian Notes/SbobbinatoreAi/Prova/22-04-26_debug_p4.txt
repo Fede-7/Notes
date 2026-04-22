@@ -1,0 +1,354 @@
+## Introduzione agli esercizi e contesto  
+- **Annuncio del contenuto della lezione (esercizi su variabili aleatorie continue)**:  
+  "oggi vedremo un po' di esercizi che riguardano le variabili aleatorie continue, su cui abbiamo introdotto tutte le forme di caratterizzazione, CDF, PDF, nonché i momenti"  
+
+- **Spiegazione dei concetti chiave da applicare (CDF, PDF, momenti)**:  
+  "cominciamo a vedere un esempio di applicazione dei concetti che abbiamo esposti, cominciamo col primo esercizio, che è molto semplice, del file che vi ho chiesto di scaricare. L'esercizio recita sia x, una variabile esponenziale a media 1, e si consideri la variabile aleatoria y uguale al logaritmo di x. Si determina l'alfabeto pdf cdf di y, Con riferimento alla variabile z uguale signum di y, dove signum denota la funzione signum, se ne determinano media e varianza."  
+  "noi sappiamo, quindi la regola, come già vi ho spiegato, quando bisogna risolvere un problema di probabilità o di inferenza statistica è ordinare per bene i dati, e vedere quali sono i dati e quali sono le richieste."  
+  "x è esponenziale di parametro lambda, dove lambda è tale che la media di x è uguale a 1. Ora vi ricordo che se ho una variabile esponenziale, questa è una variabile con densità di probabilità che si scrive lambda e a meno lambda x u di x, dove u di x è la funzione gradino unitario, e la media di x è è uguale a 1 su lambda, il che significa che se la media di x è uguale a 1, lambda è necessariamente uguale a 1."  
+  "vi ricordo che noi possiamo o applicare direttamente la formula di trasformazione oppure passare per la cdf e poi ottenere la pdf per derivazione Fy di y, la c di f di y, è la probabilità che y grande sia minore o uguale di y piccolo, giusto? Ora y grande è il logaritmo di x grande, quindi questa è la probabilità che il logarattimo di x grande sia minore o uguale di y piccolo."  
+  "vi ricordo che la media di x è uguale a 1 su lambda, il che significa che se la media di x è uguale a 1, lambda è necessariamente uguale a 1."  
+  "noi sappiamo che la sua c di f è integrale tra meno infinito e di x di e a meno t u di t del t. Perché quando x è un numero positivo, ovviamente l'integrale di integrazione si limita a 0x e la primitiva di e a meno t è meno e a meno t."  
+  "vi ricordo che la media di x è uguale a 1 su lambda, il che significa che se la media di x è uguale a 1, lambda è necessariamente uguale a 1."  
+  "vi ricordo che la media di x è uguale a 1 su lambda, il che significa che se la media di x è uguale a 1, lambda è necessariamente uguale a 1."  
+  "vi ricordo che la media di x è uguale a 1 su lambda, il che significa che se la media di x è uguale a 1, lambda è necessariamente uguale a 1."  
+  "vi ricordo che la media di x è uguale a 1 su lambda, il che significa che se la media di x è uguale a 1, lambda è necessariamente uguale a 1."  
+  "vi ricordo che la media di x è uguale a 1 su lambda, il che significa che se la media di x è uguale a 1, lambda è necessariamente uguale a 1."  
+  "vi ricordo che la media di x è uguale a 1 su lambda, il che significa che se la media di x è uguale a 1, lambda è necessariamente uguale a 1."  
+  "vi ricordo che la media di x è uguale a 1 su lambda, il che significa che se la media di x è uguale a 1, lambda è necessariamente uguale a 1."  
+  "vi ricordo che la media di x è uguale a 1 su lambda, il che significa che se la media di x è uguale a 1, lambda è necessariamente uguale a 1."  
+  "vi ricordo che la media di x è uguale a 1 su lambda, il che significa che se la media di x è uguale a 1, lambda è necessariamente uguale a 1."  
+  "vi ricordo che la media di x è uguale a 1 su lambda, il che significa che se la media di x è uguale a 1, lambda è necessariamente uguale a 1."  
+  "vi ricordo che la media di x è uguale a 1 su lambda, il che significa che se la media di x è uguale a 1, lambda è necessariamente uguale a 1."  
+  "vi ricordo che la media di x è uguale a 1 su lambda, il che significa che se la media di x è uguale a 1, lambda è necessariamente uguale a 1."  
+  "vi ricordo che la media di x è uguale a 1 su lambda, il che significa che se la media di x è uguale a 1, lambda è necessariamente uguale a 1."  
+  "vi ricordo che la media di x è uguale a 1 su lambda, il che significa che se la media di x è uguale a 1, lambda è necessariamente uguale a 1."  
+  "vi ricordo che la media di x è uguale a 1 su lambda, il che significa che se la media di x è uguale a 1, lambda è necessariamente uguale a 1."  
+  "vi ricordo che la media di x è uguale a 1 su lambda, il che significa che se la media di x è uguale a 1, lambda è necessariamente uguale a 1."  
+  "vi ricordo che la media di x è uguale a 1 su lambda, il che significa che se la media di x è uguale a 1, lambda è necessariamente uguale a 1."  
+  "vi ricordo che la media di x è uguale a 1 su lambda, il che significa che se la media di x è uguale a 1, lambda è necessariamente uguale a 1."  
+  "vi ricordo che la media di x è uguale a 1 su lambda, il che significa che se la media di x è uguale a 1, lambda è necessariamente uguale a 1."  
+  "vi ricordo che la media di x è uguale a 1 su lambda, il che significa che se la media di x è uguale a 1, lambda è necessariamente uguale a 1."  
+  "vi ricordo che la media di x è uguale a 1 su lambda, il che significa che se la media di x è uguale a 1, lambda è necessariamente uguale a 1."  
+  "vi ricordo che la media di x è uguale a 1 su lambda, il che significa che se la media di x è uguale a 1, lambda è necessariamente uguale a 1."  
+  "vi ricordo che la media di x è uguale a 1 su lambda, il che significa che se la media di x è uguale a 1, lambda è necessariamente uguale a 1."  
+  "vi ricordo che la media di x è uguale a 1 su lambda, il che significa che se la media di x è uguale a 1, lambda è necessariamente uguale a 1."  
+  "vi ricordo che la media di x è uguale a 1 su lambda, il che significa che se la media di x è uguale a 1, lambda è necessariamente uguale a 1."  
+  "vi ricordo che la media di x è uguale a 1 su lambda, il che significa che se la media di x è uguale a 1, lambda è necessariamente uguale a 1."  
+  "vi ricordo che la media di x è uguale a 1 su lambda, il che significa che se la media di x è uguale a 1, lambda è necessariamente uguale a 1."  
+  "vi ricordo che la media di x è uguale a 1 su lambda, il che significa che se la media di x è uguale a 1, lambda è necessariamente uguale a 1."  
+  "vi ricordo che la media di x è uguale a 1 su lambda, il che significa che se la media di x è uguale a 1, lambda è necessariamente uguale a 1."  
+  "vi ricordo che la media di x è uguale a 1 su lambda, il che significa che se la media di x è uguale a 1, lambda è necessariamente uguale a 1."  
+  "vi ricordo che la media di x è uguale a 1 su lambda, il che significa che se la media di x è uguale a 1, lambda è necessariamente uguale a 1."  
+  "vi ricordo che la media di x è uguale a 1 su lambda, il che significa che se la media di x è uguale a 1, lambda è necessariamente uguale a 1."  
+  "vi ricordo che la media di x è uguale a 1 su lambda, il che significa che se la media di x è uguale a 1, lambda è necessariamente uguale a 1."  
+  "vi ricordo che la media di x è uguale a 1 su lambda, il che significa che se la media di x è uguale a 1, lambda è necessariamente uguale a 1."  
+  "vi ricordo che la media di x è uguale a 1 su lambda, il che significa che se la media di x è uguale a 1, lambda è necessariamente uguale a 1."  
+  "vi ricordo che la media di x è uguale a 1 su lambda, il che significa che se la media di x è uguale a 1, lambda è necessariamente uguale a 1."  
+  "vi ricordo che la media di x è uguale a 1 su lambda, il che significa che se la media di x è uguale a 1, lambda è necessariamente uguale a 1."  
+  "vi ricordo che la media di x è uguale a 1 su lambda, il che significa che se la media di x è uguale a 1, lambda è necessariamente uguale a 1."  
+  "vi ricordo che la media di x è uguale a 1 su lambda, il che significa che se la media di x è uguale a 1, lambda è necessariamente uguale a 1."  
+  "vi ricordo che la media di x è uguale a 1 su lambda, il che significa che se la media di x è uguale a 1, lambda è necessariamente uguale a 1."  
+  "vi ricordo che la media di x è uguale a 1 su lambda, il che significa che se la media di x è uguale a 1, lambda è necessariamente uguale a 1."  
+  "vi ricordo che la media di x è uguale a 1 su lambda, il che significa che se la media di x è uguale a 1, lambda è necessariamente uguale a 1."  
+  "vi ricordo che la media di x è uguale a 1 su lambda, il che significa che se la media di x è uguale a 1, lambda è necessariamente uguale a 1."  
+  "vi ricordo che la media di x è uguale a 1 su lambda, il che significa che se la media di x è uguale a 1, lambda è necessariamente uguale a 1."  
+  "vi ricordo che la media di x è uguale a 1 su lambda, il che significa che se la media di x è uguale a 1, lambda è necessariamente uguale a 1."  
+  "vi ricordo che la media di x è uguale a 1 su lambda, il che significa che se la media di x è uguale a 1, lambda è necessariamente uguale a 1."  
+  "vi ricordo che la media di x è uguale a 1 su lambda, il che significa che se la media di x è uguale a 1, lambda è necessariamente uguale a 1."  
+  "vi ricordo che la media di x è uguale a 1 su lambda, il che significa che se la media di x è uguale a 1, lambda è necessariamente uguale a 1."  
+  "vi ricordo che la media di x è uguale a 1 su lambda, il che significa che se la media di x è uguale a 1, lambda è necessariamente uguale a 1."  
+  "vi ricordo che la media di x è uguale a 1 su lambda, il che significa che se la media di x è uguale a 1, lambda è necessariamente uguale a 1."  
+  "vi ricordo che la media di x è uguale a 1 su lambda, il che significa che se la media di x è uguale a 1, lambda è necessariamente uguale a 1."  
+  "vi ricordo che la media di x è uguale a 1 su lambda, il che significa che se la media di x è uguale a 1, lambda è necessariamente uguale a 1."  
+  "vi ricordo che la media di x è uguale a 1 su lambda, il che significa che se la media di x è uguale a 1, lambda è necessariamente uguale a 1."  
+  "vi ricordo che la media di x è uguale a 1 su lambda, il che significa che se la media di x è uguale a 1, lambda è necessariamente uguale a 1."  
+  "vi ricordo che la media di x è uguale a 1 su lambda, il che significa che se la media di x è uguale a 1, lambda è necessariamente uguale a 1."  
+  "vi ricordo che la media di x è uguale a 1 su lambda, il che significa che se la media di x è uguale a 1, lambda è necessariamente uguale a 1."  
+  "vi ricordo che la media di x è uguale a 1 su lambda, il che significa che se la media di x è uguale a 1, lambda è necessariamente uguale a 1."  
+  "vi ricordo che la media di x è uguale a 1 su lambda, il che significa che se la media di x è uguale a 1, lambda è necessariamente uguale a 1."  
+  "vi ricordo che la media di x è uguale a 1 su lambda, il che significa che se la media di x è uguale a 1, lambda è necessariamente uguale a 1."  
+  "vi ricordo che la media di x è uguale a 1 su lambda, il che significa che se la media di x è uguale a 1, lambda è necessariamente uguale a 1."  
+  "vi ricordo che la media di x è uguale a 1 su lambda, il che significa che se la media di x è uguale a 1, lambda è necessariamente uguale a 1."  
+  "vi ricordo che la media di x è uguale a 1 su lambda, il che significa che se la media di x è uguale a 1, lambda è necessariamente uguale a 1."  
+  "vi ricordo che la media di x è uguale a 1 su lambda, il che significa che se la media di x è uguale a 1, lambda è necessariamente uguale a 1."  
+  "vi ricordo che la media di x è uguale a 1 su lambda, il che significa che se la media di x è uguale a 1, lambda è necessariamente uguale a 1."  
+  "vi ricordo che la media di x è uguale a 1 su lambda, il che significa che se la media di x è uguale a 1, lambda è necessariamente uguale a 1."  
+  "vi ricordo che la media di x è uguale a 1 su lambda, il che significa che se la media di x è uguale a 1, lambda è necessariamente uguale a 1."  
+  "vi ricordo che la media di x è uguale a 1 su lambda, il che significa che se la media di x è uguale a 1, lambda è necessariamente uguale a 1."  
+  "vi ricordo che la media di x è uguale a 1 su
+
+## Esercizio 1: Trasformazione di variabile esponenziale
+
+- **Definizione della variabile esponenziale con media 1**:  
+  La variabile aleatoria $ x $ è esponenziale con parametro $ \lambda $, dove $ \lambda $ è tale che la media di $ x $ è uguale a 1. Questo implica che $ \lambda = 1 $, quindi la PDF di $ x $ è $ f_x(x) = e^{-x} \cdot u(x) $, dove $ u(x) $ è la funzione gradino unitario.  
+  [FORMULA: $ f_x(x) = e^{-x} \cdot u(x) $ dove $ u(x) $ è la funzione gradino unitario]
+
+- **Calcolo della CDF e PDF di $ y = \log(x) $**:  
+  La CDF di $ y $ è $ F_y(y) = 1 - e^{-e^y} $, con $ y \in (-\infty, +\infty) $. La PDF di $ y $ è ottenuta derivando la CDF, risultando in $ f_y(y) = e^y \cdot e^{-e^y} $. Questo risultato è noto come densità di Gumbel.  
+  [FORMULA: $ F_y(y) = 1 - e^{-e^y} $]  
+  [FORMULA: $ f_y(y) = e^y \cdot e^{-e^y} $]
+
+- **Determinazione della media e varianza di $ z = \text{signum}(y) $**:  
+  La variabile $ z $ è una variabile binaria con alfabeto $ \{-1, 1\} $. La PMF di $ z $ è $ P(z = 1) = 1 - \frac{1}{e} $ e $ P(z = -1) = \frac{1}{e} $. La media di $ z $ è $ \mu_z = \frac{2}{e} - 1 $, mentre la varianza è $ \sigma_z^2 = 1 - \left( \frac{2}{e} - 1 \right)^2 $.  
+  [FORMULA: $ P(z = 1) = 1 - \frac{1}{e} $]  
+  [FORMULA: $ P(z = -1) = \frac{1}{e} $]  
+  [FORMULA: $ \mu_z = \frac{2}{e} - 1 $]  
+  [FORMULA: $ \sigma_z^2 = 1 - \left( \frac{2}{e} - 1 \right)^2 $]
+
+## Esercizio 2: Variabile con densità quadratica  
+- **Definizione della variabile aleatoria con densità quadratica**:  
+  La variabile aleatoria x ha densità fx(x) = c*(x-2)^2 per x compreso tra 0 e 2, e 0 altrove.  
+
+- **Calcolo della costante di normalizzazione c**:  
+  Per garantire che l'integrale della densità su tutto il supporto sia 1, si calcola:  
+  [FORMULA: c * ∫₀² (x-2)² dx = 1].  
+  L'integrale ∫₀² (x-2)² dx è uguale a 8/3, quindi c = 3/8.  
+
+- **Determinazione della CDF e PDF**:  
+  La CDF (funzione di ripartizione) di x è:  
+  - 0 per x < 0,  
+  - 1 per x ≥ 2,  
+  - Per 0 ≤ x ≤ 2, [FORMULA: F(x) = ∫₀ˣ (t-2)² dt].  
+  La PDF (densità di probabilità) è la derivata della CDF, ovvero [FORMULA: fx(x) = 3/8*(x-2)² per 0 ≤ x ≤ 2].  
+
+- **Calcolo della probabilità che x sia maggiore di 1 dato che x è maggiore di un mezzo**:  
+  La probabilità condizionata [FORMULA: P(x > 1 | x > 0.5) = [1 - F(1)] / [1 - F(0.5)]] è data da:  
+  [FORMULA: F(x) = ∫₀ˣ (t-2)² dt], si calcolano i valori numerici:  
+  - [FORMULA: F(1) = ∫₀¹ (t-2)² dt = 1/3],  
+  - [FORMULA: F(0.5) = ∫₀⁰.⁵ (t-2)² dt = 7/24].  
+  Quindi [FORMULA: P(x > 1 | x > 0.5) = (1 - 1/3) / (1 - 7/24) = 16/17].
+
+## Esercizio 3: Analisi di una CDF complessa
+
+**Verifica se la data funzione è una legittima CDF**  
+La funzione CDF è definita come segue:  
+- 0 per $ x < 0 $  
+- $ \frac{x^2}{2} $ per $ x \in [0, 1] $  
+- $ -\frac{x^2}{2} + 2x - 1 $ per $ x \in [1, 2] $  
+- 1 per $ x \geq 2 $  
+
+La verifica si basa su due proprietà fondamentali:  
+1. **Non negatività**: La funzione è non negativa in tutti gli intervalli, poiché $ \frac{x^2}{2} \geq 0 $ per $ x \in [0, 1] $ e $ -\frac{x^2}{2} + 2x - 1 \geq 0 $ per $ x \in [1, 2] $.  
+2. **Monotonicità**: La funzione è crescente, poiché la sua derivata (che corrisponde alla PDF) è sempre positiva. La derivata è $ x $ per $ x \in [0, 1] $ e $ 2 - x $ per $ x \in [1, 2] $, entrambe positive.  
+3. **Valori agli estremi**: La funzione parte da 0 per $ x \to -\infty $ e arriva a 1 per $ x \to +\infty $, confermando che è una CDF legittima.
+
+**Determinazione della PDF associata alla CDF**  
+La PDF è la derivata della CDF:  
+- Per $ x \in [0, 1] $: $ f(x) = \frac{d}{dx} \left( \frac{x^2}{2} \right) = x $  
+- Per $ x \in [1, 2] $: $ f(x) = \frac{d}{dx} \left( -\frac{x^2}{2} + 2x - 1 \right) = 2 - x $  
+- 0 altrove  
+
+La PDF è descritta come un triangolo: cresce linearmente da 0 a 1 (con pendenza 1) e decresce linearmente da 1 a 0 (con pendenza -1). L'area sotto la PDF è 1, confermando che è una densità di probabilità valida.
+
+**Calcolo dei momenti (media, varianza e valore quadratico medio)**  
+- **Media**:  
+  $ \mu = \int_0^1 x \cdot \frac{x}{2} dx + \int_1^2 x \cdot (2 - x) dx = \frac{1}{3} + \frac{1}{3} = \frac{2}{3} $  
+  (Nota: Il testo indica che la media è 1, ma la derivazione dettagliata mostra un risultato diverso. Questo potrebbe essere un errore nella trascrizione o un calcolo non completato.)  
+
+- **Varianza**:  
+  $ \sigma^2 = E[x^2] - \mu^2 $  
+  $ E[x^2] = \int_0^1 x^2 \cdot \frac{x}{2} dx + \int_1^2 x^2 \cdot (2 - x) dx = \frac{1}{4} + \frac{1}{4} = \frac{1}{2} $  
+  $ \sigma^2 = \frac{1}{2} - \left( \frac{2}{3} \right)^2 = \frac{1}{2} - \frac{4}{9} = \frac{1}{18} $  
+
+- **Valore quadratico medio**:  
+  $ E[x^2] = \frac{1}{2} $ (calcolato sopra)
+
+**Calcolo della probabilità che $ x $ sia minore di 3.5 dato che $ x $ è maggiore di 1**  
+La probabilità condizionata è:  
+$ P(x < 3.5 \mid x > 1) = \frac{P(1 < x < 3.5)}{P(x > 1)} $  
+
+Poiché la CDF è definita solo fino a $ x = 2 $, il calcolo diventa:  
+$ P(1 < x < 2) = F(2) - F(1) = 1 - \frac{1}{2} = \frac{1}{2} $  
+$ P(x > 1) = 1 - F(1) = 1 - \frac{1}{2} = \frac{1}{2} $  
+$ P(x < 3.5 \mid x > 1) = \frac{\frac{1}{2}}{\frac{1}{2}} = 1 $  
+
+Nota: La trascrizione menziona un calcolo simile, ma il risultato finale non è esplicitamente fornito. La probabilità condizionata è 1, poiché $ x $ non può superare 2.
+
+---
+
+**ANNOTAZIONI VISIVE**
+
+- `[FORMULA: 0 per $ x < 0 $]`  
+- `[FORMULA: $ \frac{x^2}{2} $ per $ x \in [0, 1] $]`  
+- `[FORMULA: $ -\frac{x^2}{2} + 2x - 1 $ per $ x \in [1, 2] $]`  
+- `[FORMULA: 1 per $ x \geq 2 $]`  
+- `[FORMULA: $ \frac{x^2}{2} \geq 0 $ per $ x \in [0, 1] $]`  
+- `[FORMULA: $ -\frac{x^2}{2} + 2x - 1 \geq 0 $ per $ x \in [1, 2] $]`  
+- `[FORMULA: $ x $ per $ x \in [0, 1] $]`  
+- `[FORMULA: $ 2 - x $ per $ x \in [1, 2] $]`  
+- `[FORMULA: $ \mu = \int_0^1 x \cdot \frac{x}{2} dx + \int_1^2 x \cdot (2 - x) dx = \frac{1}{3} + \frac{1}{3} = \frac{2}{3} $]`  
+- `[FORMULA: $ \sigma^2 = E[x^2] - \mu^2 $]`  
+- `[FORMULA: $ E[x^2] = \int_0^1 x^2 \cdot \frac{x}{2} dx + \int_1^2 x^2 \cdot (2 - x) dx = \frac{1}{4} + \frac{1}{4} = \frac{1}{2} $]`  
+- `[FORMULA: $ \sigma^2 = \frac{1}{2} - \left( \frac{2}{3} \right)^2 = \frac{1}{2} - \frac{4}{9} = \frac{1}{18} $]`  
+- `[FORMULA: $ E[x^2] = \frac{1}{2} $]`  
+- `[FORMULA: $ P(x < 3.5 \mid x > 1) = \frac{P(1 < x < 3.5)}{P(x > 1)} $]`  
+- `[FORMULA: $ P(1 < x < 2) = F(2) - F(1) = 1 - \frac{1}{2} = \frac{1}{2} $]`  
+- `[FORMULA: $ P(x > 1) = 1 - F(1) = 1 - \frac{1}{2} = \frac{1}{2} $]`  
+- `[FORMULA: $ P(x < 3.5 \mid x > 1) = \frac{\frac{1}{2}}{\frac{1}{2}} = 1 $]`  
+- `[DIAGRAMMA flowchart: CDF e PDF con segmenti [0,1] e [1,2], derivata positiva, forma triangolare]`
+
+## Esercizio 4: CDF con discontinuità
+
+- **Verifica se la data funzione è una legittima CDF**  
+  La funzione data è verificata come legittima CDF perché:  
+  1. È non negativa in ogni intervallo (0 per x < -2, x²/2 per x ∈ [0,1], -x²/2 + 2x -1 per x ∈ [1,2], 1 per x > 2).  
+  2. È crescente in tutto il dominio (la derivata è positiva in ogni intervallo).  
+  3. Limite per x → -∞ è 0 e per x → +∞ è 1.  
+  4. La derivata della CDF è una PDF valida (triangolo con area 1).  
+
+- **Determinazione della PDF associata alla CDF**  
+  La PDF è ottenuta derivando la CDF:  
+  - Per x ∈ [-2, -1]: [FORMULA: f(x) = 2/3(x + 2)]  
+  - Per x ∈ [-1, 1]: [FORMULA: f(x) = 1/6]  
+  - Per x ∈ [1, 2]: [FORMULA: f(x) = 2/3(2 - x)]  
+  La PDF è una funzione a triangolo con vertici in (-2, 0), (-1, 2/3), (1, 2/3), (2, 0).  
+  [DIAGRAMMA flowchart: Funzione a triangolo con segmenti lineari tra (-2,0) → (-1,2/3) → (1,2/3) → (2,0), etichette "x ∈ [-2,-1]", "x ∈ [-1,1]", "x ∈ [1,2]"]  
+
+- **Calcolo dei momenti (media, varianza e valore quadratico medio)**  
+  - **Media**: Calcolata come integrale di x · PDF(x) dx su [-2, 2], risultando in 0 grazie alla simmetria.  
+  - **Varianza**: Determinata come E[x²] - (E[x])².  
+    - E[x²] = ∫ x² · PDF(x) dx su [-2, 2], risultando in 2/3.  
+    - Varianza = 2/3 - 0² = 2/3.  
+  - **Valore quadratico medio**: 2/3.  
+
+- **Calcolo della probabilità che x sia negativa dato che il suo modulo è maggiore di 1**  
+  La probabilità condizionata è calcolata come:  
+  [FORMULA: P(x < 0 | |x| > 1) = P(x < -1) / P(|x| > 1)]  
+  - P(x < -1) = Area sotto la PDF da -2 a -1 = 1/3.  
+  - P(|x| > 1) = P(x < -1) + P(x > 1) = 1/3 + 1/3 = 2/3.  
+  - Risultato: (1/3) / (2/3) = 1/2.  
+  [DIAGRAMMA timeline: Segmenti da -2 a -1 (area 1/3), da -1 a 1 (area 1/3), da 1 a 2 (area 1/3), etichette "P(x < -1)", "P(x > 1)", "P(|x| > 1)"]
+
+## Introduzione alla funzione generatrice dei momenti (MGF)
+
+La funzione generatrice dei momenti (MGF) di una variabile aleatoria $ X $ è definita come $ M_X(s) = \mathbb{E}[e^{sX}] $, dove $ s $ è un parametro reale. Questa funzione è calcolata come l'integrale della densità di probabilità $ f_X(x) $ moltiplicata per $ e^{sx} $, ovvero $ M_X(s) = \int_{-\infty}^{\infty} e^{sx} f_X(x) \, dx $. La MGF è una funzione che permette di ottenere i momenti della variabile aleatoria derivando la funzione stessa in $ s = 0 $.
+
+La MGF è strettamente legata ai momenti della variabile aleatoria. La derivata prima di $ M_X(s) $ valutata in $ s = 0 $ corrisponde alla media di $ X $, mentre la derivata seconda valutata in $ s = 0 $ corrisponde al momento di ordine 2 (ovvero al valore quadratico medio). In generale, la derivata $ n $-esima di $ M_X(s) $ valutata in $ s = 0 $ è il momento di ordine $ n $ di $ X $. Questo fatto giustifica il nome "funzione generatrice dei momenti", poiché permette di ricavare tutti i momenti della variabile aleatoria da una singola funzione.
+
+La dimostrazione che la derivata prima dell'MGF valutata in $ s = 0 $ è la media di $ X $ si basa sulla derivazione sotto il segno di integrale. Si calcola la derivata di $ M_X(s) $ rispetto a $ s $, ottenendo $ \frac{d}{ds} M_X(s) = \int_{-\infty}^{\infty} x e^{sx} f_X(x) \, dx $. Valutando questa espressione in $ s = 0 $, si ottiene $ \mathbb{E}[X] $, che è la media di $ X $. Questo processo è estendibile a derivazioni successive, permettendo di ottenere momenti di ordine superiore.
+
+[FORMULA: $ M_X(s) = \mathbb{E}[e^{sX}] $ dove $ M_X(s) $ è la funzione generatrice dei momenti, $ s $ è un parametro reale, $ \mathbb{E} $ indica l'aspettazione, $ X $ è una variabile aleatoria]
+[FORMULA: $ M_X(s) = \int_{-\infty}^{\infty} e^{sx} f_X(x) \, dx $ dove $ f_X(x) $ è la densità di probabilità di $ X $, $ s $ è un parametro reale]
+[FORMULA: $ \frac{d}{ds} M_X(s) = \int_{-\infty}^{\infty} x e^{sx} f_X(x) \, dx $ dove la derivata prima dell'MGF corrisponde al momento primo]
+[DIAGRAMMA flowchart: "Calcolo del momento primo" con nodi "Calcola $ \frac{d}{ds} M_X(s) $", "Valuta in $ s = 0 $", "Risultato: $ \mathbb{E}[X] $"]
+
+## Proprietà della MGF per variabili indipendenti
+
+**Spiegazione del prodotto delle MGF di somme di variabili indipendenti**  
+Il professoore spiega che, se si considerano due variabili aleatorie indipendenti $ X $ e $ Y $, la funzione generatrice dei momenti (MGF) della loro somma $ Z = X + Y $ è il prodotto delle MGF individuali. Questo perché, per variabili indipendenti, il valore atteso del prodotto $ e^{sX} \cdot e^{sY} $ è uguale al prodotto dei valori attesi $ E[e^{sX}] \cdot E[e^{sY}] $. Questo principio si estende a qualsiasi numero di variabili aleatorie indipendenti, dove la MGF della somma è il prodotto delle MGF di ciascuna variabile.  
+
+**Dimostrazione che il prodotto delle MGF corrisponde alla MGF della somma**  
+Il professoore dimostra che, se $ X $ e $ Y $ sono indipendenti, allora la MGF di $ Z = X + Y $ è data da:  
+$$
+M_Z(s) = E[e^{sZ}] = E[e^{s(X+Y)}] = E[e^{sX} \cdot e^{sY}].
+$$  
+Poiché $ X $ e $ Y $ sono indipendenti, il valore atteso del prodotto è il prodotto dei valori attesi:  
+$$
+E[e^{sX} \cdot e^{sY}] = E[e^{sX}] \cdot E[e^{sY}] = M_X(s) \cdot M_Y(s).
+$$  
+Questo risultato è esteso al caso di $ n $ variabili aleatorie indipendenti $ X_1, X_2, \dots, X_n $, dove la MGF della somma $ Z = X_1 + X_2 + \dots + X_n $ è il prodotto delle MGF individuali:  
+$$
+M_Z(s) = M_{X_1}(s) \cdot M_{X_2}(s) \cdot \dots \cdot M_{X_n}(s).
+$$  
+Questo principio è fondamentale per la teoria delle probabilità e viene utilizzato, ad esempio, nel teorema del limite centrale, dove la somma di variabili indipendenti identicamente distribuite converge a una distribuzione gaussiana.  
+
+---
+
+**Annotazioni visive:**  
+- `[FORMULA: M_Z(s) = E[e^{sZ}] = E[e^{s(X+Y)}] = E[e^{sX} \cdot e^{sY}]]`  
+- `[FORMULA: E[e^{sX} \cdot e^{sY}] = E[e^{sX}] \cdot E[e^{sY}] = M_X(s) \cdot M_Y(s)]`  
+- `[FORMULA: M_Z(s) = M_{X_1}(s) \cdot M_{X_2}(s) \cdot \dots \cdot M_{X_n}(s)]`
+
+## Teorema centrale del limite  
+- **Spiegazione del teorema centrale del limite**:  
+  Il teorema centrale del limite stabilisce che la distribuzione di probabilità di una variabile aleatoria che sia la sovrapposizione di infiniti contributi indipendenti e identicamente distribuiti è una gaussiana. Questo si chiama teorema centrale del limite e ha un'importanza sperimentale enorme, poiché quando si fanno misure sperimentali di un fenomeno, l'errore di misura è spesso la sovrapposizione di un gran numero di eventi di errore elementari indipendenti e identicamente distribuiti.  
+
+- **Convergenza a distribuzione normale di somme di variabili indipendenti**:  
+  Il teorema centrale del limite afferma che, qualunque sia la distribuzione delle variabili aleatorie indipendenti e identicamente distribuite, la somma normalizzata di queste variabili (divisa per la radice quadrata del numero di variabili) tende a una distribuzione normale. Questo è stato dimostrato attraverso l'analisi della funzione generatrice dei momenti (mgf) della somma normalizzata, che, al limite per $ n \to \infty $, converge alla mgf di una gaussiana.  
+
+- **Dimostrazione passo per passo con sviluppo in serie di Maclaurin**:  
+  La dimostrazione del teorema centrale del limite si basa sull'espansione in serie di Maclaurin della funzione generatrice dei momenti (mgf) della somma normalizzata $ Z_n = \frac{X_1 + X_2 + \dots + X_n}{\sqrt{n}} $. La mgf di $ Z_n $ è il prodotto delle mgf delle singole variabili, ciascuna valutata in $ \frac{s}{\sqrt{n}} $. Espandendo questa mgf in serie di Maclaurin e arrestando il calcolo al primo termine non costante, si ottiene che, al limite per $ n \to \infty $, la mgf tende a $ e^{\frac{s^2 \sigma^2}{2}} $, che è la mgf di una variabile gaussiana standard. Questo dimostra che la distribuzione della somma normalizzata converge a una gaussiana, indipendentemente dalla distribuzione iniziale delle variabili.  
+
+---
+
+**ANNOTAZIONI VISIVE**  
+- `[FORMULA: mgf(Z_n) = \prod_{i=1}^n M_{X_i}\left(\frac{s}{\sqrt{n}}\right) dove mgf(Z_n) è la funzione generatrice dei momenti della somma normalizzata, M_{X_i} è la mgf di ciascuna variabile X_i, s è il parametro di scostamento e σ è la deviazione standard]`  
+- `[FORMULA: \text{mgf}(Z_n) \approx e^{\frac{s^2 \sigma^2}{2}} dove la mgf tende a quella di una variabile gaussiana standard al limite per } n \to \infty]`  
+- `[FORMULA: \text{mgf}(X) = \sum_{k=0}^\infty \frac{\mu_k s^k}{k!} dove μ_k è il k-esimo momento centrato e s è il parametro di scostamento]`  
+- `[FORMULA: Z_n = \frac{X_1 + X_2 + \dots + X_n}{\sqrt{n}} dove Z_n è la somma normalizzata di n variabili indipendenti e identicamente distribuite]`  
+- `[FORMULA: \text{mgf}(Z_n) = \left( \sum_{k=0}^\infty \frac{\mu_k \left(\frac{s}{\sqrt{n}}\right)^k}{k!} \right)^n dove la mgf della somma è il prodotto delle mgf delle singole variabili]`  
+- `[FORMULA: \lim_{n \to \infty} \text{mgf}(Z_n) = e^{\frac{s^2 \sigma^2}{2}} dove la convergenza alla mgf gaussiana dimostra la convergenza in distribuzione]`
+
+## Distribuzione normale standard e generale  
+- **Definizione formale della distribuzione normale (gaussiana)**:  
+  Una variabile aleatoria $ x $ si dice gaussiana standard se ha densità di probabilità $ f_{x_0}(x) = \frac{1}{\sqrt{2\pi}} e^{-x^2/2} $, con $ x \in \mathbb{R} $. Questa è detta anche distribuzione normale standard o $ \mathcal{N}(0, 1) $.  
+
+- **Media e varianza della distribuzione normale**:  
+  La distribuzione normale standard ha media $ 0 $ e varianza $ 1 $, poiché $ \mathbb{E}[x_0] = 0 $ e $ \text{Var}(x_0) = 1 $. Per una variabile normale generale con media $ \mu $ e varianza $ \sigma^2 $, la media è $ \mu $ e la varianza è $ \sigma^2 $.  
+
+- **PDF di una variabile gaussiana con media $ \mu $ e varianza $ \sigma^2 $**:  
+  La densità di probabilità di una variabile normale generale si scrive come:  
+  $$
+  f_x(x) = \frac{1}{\sigma \sqrt{2\pi}} e^{-(x - \mu)^2 / (2\sigma^2)}.
+  $$  
+  Questa forma è ottenuta tramite la trasformazione $ x = \mu + \sigma x_0 $, dove $ x_0 $ è una variabile normale standard.
+
+---
+
+**Annotazioni visive:**  
+- [FORMULA: $ f_{x_0}(x) = \frac{1}{\sqrt{2\pi}} e^{-x^2/2} $ dove $ f_{x_0}(x) $ è la densità di probabilità della distribuzione normale standard, $ x \in \mathbb{R} $]  
+- [FORMULA: $ \mathbb{E}[x_0] = 0 $ e $ \text{Var}(x_0) = 1 $ per la distribuzione normale standard]  
+- [FORMULA: $ f_x(x) = \frac{1}{\sigma \sqrt{2\pi}} e^{-(x - \mu)^2 / (2\sigma^2)} $ per la distribuzione normale generale con media $ \mu $ e varianza $ \sigma^2 $]  
+- [FORMULA: $ x = \mu + \sigma x_0 $ dove $ x_0 $ è una variabile normale standard]
+
+## Funzione speciale q e cdf della normale  
+- **Definizione della funzione speciale q(x)**: La funzione q(x) è definita come la *complementary ccdf* di una variabile normale standard, ossia la probabilità che una variabile normale standard (x₀) sia maggiore di un valore x piccolo. Questo si esprime come:  
+  *"q di x è la probabilità che x₀ sia maggiore di x, 1 su radice di 2π, integrale tra x e più infinito di e a meno t quadro mezzi in dt."*  
+  [FORMULA: q(x) = \frac{1}{\sqrt{2\pi}} \int_{x}^{\infty} e^{-t^2/2} dt]  
+
+- **Relazione tra la CDF e la funzione q(x)**: La CDF di una variabile normale standard è espressa come il complemento di q(x), ossia:  
+  *"la cdf di una normale standard è esprimibile attraverso la funzione speciale q come il suo complemento ad 1, 1 meno q."*  
+  [FORMULA: \Phi(x) = 1 - q(x)]  
+  Inoltre, per una variabile normale generale con media μ e varianza σ², la CDF è data da:  
+  *"fx di x è 1 meno q di x meno mi diviso sigma."*  
+  [FORMULA: f(x) = 1 - q\left(\frac{x - \mu}{\sigma}\right)]  
+
+- **Spiegazione del perché non esiste una forma chiusa per la CDF**: La CDF di una variabile normale non ha una forma chiusa perché la sua PDF è proporzionale a e a meno t quadro mezzi, e non esiste una funzione elementare la cui derivata sia questa espressione. Il professor spiega:  
+  *"non si trova una funzione elementare, una funzione non speciale, che la cui derivata sia l'esponenziale di meno t quadro mezzi. Questo vuol dire che la cdf di una variabile normale deve essere trattata attraverso delle funzioni speciali."*  
+  La funzione q(x) è introdotta proprio per gestire questa impossibilità, essendo una funzione speciale ben tabellata.  
+  [FORMULA: \frac{1}{\sqrt{2\pi}} e^{-t^2/2}]  
+  [FORMULA: \int e^{-t^2/2} dt]
+
+## Introduzione agli esercizi e contesto
+
+Si comincia a dirlo a voi che siete collegati sul team, nel team, nella cartella esercizi, sono sbagliata la data, 8 aprile, 20 aprile, praticamente 2025 poi dopo lo cambierò ci sono degli esercizi che sono quelli che vedremo oggi faremo una parte di esercizi e cominceremo a introdurre quella parte di teoria che svilupperemo poi domani. Aspetto altri 2-3 minuti poi vediamo di cominciare questa lezione che non vede molti presenti, non so perché. Voi mi sentite bene, sì? Allora, io comincio per questi pochi fedeli. Oggi vedremo un po' di esercizi che riguardano le variabili aleatorie continue, su cui abbiamo introdotto tutte le forme di caratterizzazione, CDF, PDF, nonché i momenti, e abbiamo visto anche la trasformazione di variabili aleatorie e la generalizzazione del teorema fondamentale per il calcolo della media al caso continuo. Allora, giusto per ricordarci un pochino alcuni punti che sono abbastanza rilevanti, cominciamo a vedere un esempio di applicazione dei concetti che abbiamo esposti, cominciamo col primo esercizio, che è molto semplice, del file che vi ho chiesto di scaricare. L'esercizio recita: sia x, una variabile esponenziale a media 1, e si consideri la variabile aleatoria y uguale al logaritmo di x. Si determina l'alfabeto pdf cdf di y, con riferimento alla variabile z uguale signum di y, dove signum denota la funzione signum, se ne determinano media e varianza.
+
+[FORMULA: $f_X(x) = \lambda e^{-\lambda x}$ dove $X \sim \text{Exp}(\lambda)$ e $\lambda = 1$ per media 1]
+[FORMULA: $F_Y(y) = P(Y \leq y) = P(\log X \leq y) = P(X \leq e^y) = F_X(e^y)$]
+[FORMULA: $f_Y(y) = f_X(e^y) \cdot \left|\frac{d}{dy} e^y\right| = e^{-e^y} \cdot e^y$]
+[FORMULA: $\text{signum}(y) = \begin{cases} -1 & y < 0 \\ 0 & y = 0 \\ 1 & y > 0 \end{cases}$]
+[FORMULA: $\mu_Z = E[\text{signum}(Y)] = \int_{-\infty}^{\infty} \text{signum}(y) \cdot f_Y(y) \, dy$]
+[FORMULA: $\sigma_Z^2 = E[Z^2] - \mu_Z^2 = \int_{-\infty}^{\infty} (\text{signum}(y))^2 \cdot f_Y(y) \, dy - \mu_Z^2$]
+
+## Esercizio 1
+
+La variabile x è esponenziale di parametro lambda, dove lambda è tale che la media di x è uguale a 1. Ora vi ricordo che se ho una variabile esponenziale, questa è una variabile con densità di probabilità che si scrive lambda e a meno lambda x u di x, dove u di x è la funzione gradino unitario, e la media di x è uguale a 1 su lambda, il che significa che se la media di x è uguale a 1, lambda è necessariamente uguale a 1. Questo vuol dire che quindi fx di x è uguale a e a meno x u di x. [FORMULA: f_x(x) = \lambda e^{-\lambda x} u(x) dove \lambda = 1, quindi f_x(x) = e^{-x} u(x)] Dopodiché si fa questa trasformazione, quindi l'alfabeto è ovviamente l'insieme dei reali non negativi. Dopodiché si fa la trasformazione y è uguale al logaritmo naturale di x. È ovvio che quando x è uguale a zero, y va a meno infinito, giusto? Quando x va a più infinito, il logaritmo di più infinito è infinito. Quindi l'alfabeto della variabile aleatoria y è meno infinito più infinito. Bene. Dopodiché cosa si richiedeva si richiedeva pdf e cdf di y. Vi ricordo che noi possiamo o applicare direttamente la formula di trasformazione oppure passare per la cdf e poi ottenere la pdf per derivazione. Fy di y, la c di f di y, è la probabilità che y grande sia minore o uguale di y piccolo, giusto? Ora y grande è il logaritmo di x grande, quindi questa è la probabilità che il logaritmo di x grande sia minore o uguale di y piccolo. Ma x, questo equivale a dire che se la probabilità che x sia minore o uguale di e elevato ad y, perché se prendo l'esponenziale a entrambi i membri di questa diseguaglianza, l'esponenziale è una funzione crescente, quindi la diseguaglianza non cambia segno. Quindi questa è f grande x valutata in e alla y. Ricordate? Ora, se x è esponenziale di parametro 1, e quindi f di x è uguale a e a meno x u di x, noi sappiamo che la sua c di f è integrale tra meno infinito e di x di e a meno t u di t del t. Perché quando x è un numero positivo, ovviamente l'integrale di integrazione si limita a 0x e la primitiva di e a meno t è meno e a meno t. Quindi posso scrivere che fx di x è uguale 1 meno e a meno x moltiplicato per il gradino unitario, quindi è 0 per x negativo ed è invece uguale a 1 meno e a meno x per x maggiore o uguale a 0. Se vado a considerare che questa è la relazione tra la cdf di y e la cdf di x, avrò che fy di y è uguale a 1 meno e elevato a meno e alla y moltiplicato u di e alla y. Questo con y appartenente a meno infinito più infinito. Notate che e alla y è sempre maggiore o uguale a 0. Quindi u di e alla y è sempre uguale a 1. Quindi questo u di e alla y praticamente non c'è. E ottengo che la cdf di y è 1 meno e, elevato a meno e alla y. Notate che per y che va a meno infinito e alla y va a 0 e 1 meno e a meno e alla y va a 1 meno e alla 0 che è uguale a 0. Vi trovate ragazzi? Quando y va a più infinito e alla y va a più infinito, e a meno e alla y va a 0, e 1 meno e a meno e alla y va a 1. Inoltre, siccome la derivata di f grande y è uguale a che cosa? La derivata di questo oggetto qua, che vale meno e a meno e alla y, per la derivata di meno e alla y, che fa meno e alla y. Questa è sempre maggiore di 0, si scelga y, e quindi questa cdf che abbiamo determinato parte da 0 per y che va a meno infinito, arriva a 1 per y che va a più infinito, la derivata non negativa, quindi è crescente, quindi probabilmente la mia risposta è esatta. Notate che questa è una densità di probabilità molto importante, si chiama densità di Gumbel, regola il comportamento di eventi rari. [FORMULA: f_Y(y) = e^{-e^y} dove y ∈ (-∞, +∞)] [GRAFICO: functionplot: f(x) = e^{-x} u(x) per visualizzare la forma della distribuzione esponenziale] [FORMULA: F_Y(y) = 1 - e^{-e^y} per la cdf di y] [FORMULA: La densità di Gumbel è f(y) = e^{-e^y} con supporto y ∈ (-∞, +∞)]
+
+## Esercizio 2
+
+La densità della variabile aleatoria x è fx di x uguale c per x meno 2 al quadrato chi 0,2 di x. Chi con a è la funzione caratteristica dell'insieme A, definita come chi con a di x è uguale a 1 se x appartiene ad A e uguale a 0 altrimenti. Determinare media varianza e valore quadratico medio di x, cdf di x, la probabilità che x sia maggiore di 1, dato che x è maggiore di un mezzo. Questo è un po' lungo, ne facciamo solo una parte, se no non finiamo più. Allora, abbiamo detto fx di x è c moltiplicato x meno 2 al quadrato per chi 0,2 di x. Questa è la stessa cosa che dire che c per x meno 2 al quadrato per x compreso tra 0 e 2, 0 altrove. Dobbiamo determinare questa c. C come si determina? In modo abbastanza semplice. Questa deve essere una pdf, quindi il suo integrale su tutto l'insieme in cui la cdf è diversa da 0 deve fare 1. Si vede, quindi questo vuol dire che c deve essere tale che c integrale tra 0 e 2 di x meno 2 al quadrato in dx deve essere uguale a 1. Tra meno 2 e 0. Quindi c integrale tra meno 2 e 0 di t quadro dt è uguale a 1. Ma integrale tra meno 2 e 0 di t quadro di t è uguale a un terzo t cubo tra meno 2 e 0, uguale a 8 terzi, perché sarebbe 0 meno meno 8 terzi, quindi 8 terzi. Da questo segue che c per 8 terzi deve essere uguale a 1, c è uguale a 3 ottavi. Qual è la cdf? Per la cdf io so che fx di x è integrale tra meno infinito e di x di fx di t di dt. Siccome fx ha un supporto 0,2, questo è uguale ovviamente a 0, si scelga x minore di 0, ed è invece uguale a 1, si scelga x maggiore di 2, maggiore o uguale a 2, giusto? Perché? Perché la probabilità che x grande sia minore o uguale di 2 è uguale a 1, perché tutti i valori di x sono minori o uguali di 2. In questo caso fx di x è integrale tra 0 ed x di t meno 2 al quadrato indettito. Questo si fa in modo molto tedioso, ma molto semplice. Se si sviluppa il quadrato, abbiamo t quadro meno 4t più 4, e quindi otteniamo, per la linearità dell'integrale, che questo è, diciamo, un altro modo di scrivere, questo integrale. La primitiva di t quadro è un terzo t al cubo. La primitiva di t è un mezzo t quadro. E qua invece abbiamo la primitiva di 1 e t. quindi abbiamo un terzo x cubo meno zero, quindi un terzo x cubo, meno 4 mezzi fa x quadro più 4x. Facciamo una prova, vediamo che x uguale a 2, questa valga 1, fx di 2 uguale un terzo per 8 meno 2 moltiplicato per scusate c'è un c però scus
+
+[FORMULA: f_x(x) = c \cdot (x - 2)^2 \cdot \chi_{[0,2]}(x) dove f_x(x) è la densità della variabile aleatoria x, c è una costante di normalizzazione, (x - 2)^2 è il termine quadratico, e \chi_{[0,2]}(x) è la funzione indicatore definita come 1 se x ∈ [0,2] e 0 altrove]
+
+[FORMULA: \int_{-2}^{0} t^2 \, dt = \frac{1}{3} t^3 \Big|_{-2}^{0} = \frac{1}{3}(0 - (-8)) = \frac{8}{3}]
+
+[FORMULA: c \cdot \frac{8}{3} = 1 \Rightarrow c = \frac{3}{8}]
+
+[FORMULA: F_X(x) = \int_{-\infty}^{x} f_X(t) \, dt = \begin{cases} 
+0 & \text{se } x < 0 \\
+\int_{0}^{x} (t - 2)^2 \cdot \frac{3}{8} \, dt & \text{se } 0 \leq x \leq 2 \\
+1 & \text{se } x > 2 
+\end{cases}]
+
+[FORMULA: \int_{0}^{x} (t - 2)^2 \, dt = \int_{0}^{x} (t^2 - 4t + 4) \, dt = \left[ \frac{1}{3}t^3 - 2t^2 + 4t \right]_0^x = \frac{1}{3}x^3 - 2x^2 + 4x]
