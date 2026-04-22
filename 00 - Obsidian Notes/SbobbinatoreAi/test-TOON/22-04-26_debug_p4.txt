@@ -1,0 +1,284 @@
+## Distribuzione di probabilità e sue proprietà  
+- Definizioni formali: PDF (funzione di densità di probabilità), CDF (funzione di ripartizione)  
+  - "PDF descrive densità, CDF accumula probabilità"  
+  - "PDF, f, f dx. ? X Y, ? CDF, , . , , , probabilita conjunta, x grande se iguale x piccolo, y grande se iguale y piccolo, per ogni copie de x, y, se mi coigo del desiderio de verle continua, debo hacer esta operacion en derivada segunda vista de la CDF conjunta respecto de x y."  
+  - `[FORMULA: "PDF, f(x), f(x) dx. ? X Y, ? CDF, F(x), F(y). , , , probabilità congiunta, x grande se iguale x piccolo, y grande se iguale y piccolo, per ogni copie de x, y, se mi coigo del desiderio de verle continua, debo hacer esta operacion en derivada segunda vista de la CDF conjunta respecto de x y."]`  
+- Esempio numerico: "0.5, 1, 2"  
+  - "0 1 . , 0 , 1 . , ? . , 0 , , che la varianza de ax plus b es cuadro varianza de x. B non conta en la varianza, ricordate? Quindi, esto es \\sigma cuadro x varianza de x0. Como la varianza de x0 es 1, esto es \\sigma cuadro x."  
+  - `[FORMULA: "Var(ax + b) = a²Var(x). B non conta in Var(x). Quindi, Var(x) = \\sigma^2_x. Come Var(x0) = 1, Var(x) = \\sigma^2_x."]`  
+- Spiegazione "perché": PDF descrive densità, CDF accumula probabilità  
+  - "PDF descrive densità, CDF accumula probabilità"  
+- Codice/pseudocodice: Nessuno  
+- Dipendenze: Nessuna → Prepara: Varianza e invarianza, Trasformazioni lineari e location-scale  
+  - "Location Scale. ? ... , , . ... 0,5, 1, 2. , , , . , . , . , \\sigma X . , , , , , , PDF. , , ' , , , . , , , ', , , , . ? , , . , , 1, , , , 0 . , , , . ? . , . . , CDF. , . ', , ', , , CDF, , ', . ? . , ... 4. ? , ... , , , , . , , . ... 2 . . . 2, , - , , , . . q , . , X 0, , X. , , . , X. X , , X 0, X, . ? , ', , 0, probabil, 0 , 0. , 1. ? f 0 1 probabil, 0 , 1 Q . CDF . , , . The probability that x is greater than x is equal to the probability that \\sigma with x for x with 0 plus mi with x exceeds x small, which is equal to the probability that x with 0 exceeds x small minus mi with x divided by \\sigma x. The equation does not change sign because \\sigma x is positive. It is therefore equal to q of x minus mi with x divided by \\sigma x."  
+  - `[FORMULA: "La probabilità che x > x è uguale alla probabilità che \\sigma con x per x con 0 più mi con x superi x piccolo, che è uguale alla probabilità che x con 0 superi x piccolo meno mi con x diviso \\sigma x. L'equazione non cambia segno perché \\sigma x è positivo. È quindi uguale a q di x meno mi con x diviso \\sigma x."]`  
+  - `[DIAGRAMMA: flowchart: "Location/Scale: trasformazione lineare X → aX + b. Parametri: a (scala), b (posizione). PDF: f(x) → f(aX + b) = (1/|a|)f(aX + b). CDF: F(x) → F(aX + b) = F(aX + b). Varianza: Var(aX + b) = a²Var(X). B non influisce sulla varianza."]`  
+  - `[TABELLA: "Parametro" — "PDF" — "CDF" — "Varianza" — "Effetto di a e b"]`  
+  - `[FORMULA: "La probabilità che X > x è uguale alla probabilità che X con 0 > x piccolo meno mi con x diviso \\sigma x. L'equazione non cambia segno perché \\sigma x è positivo. È quindi uguale a q di x meno mi con x diviso \\sigma x."]`
+
+## Varianza e invarianza  
+- Definizioni formali: Varianza  
+  "que la varianza de ax plus b es cuadro varianza de x." `[FORMULA: Varianza(ax + b) = a² · Varianza(x) dove a è coefficiente, x è variabile]`  
+
+- Dimostrazione presente: "La varianza di ax + b è uguale a a² varianza di x" — step-by-step  
+  "quindi, esto es \\sigma cuadro x varianza de x0. Como la varianza de x0 es 1, esto es \\sigma cuadro x." `[FORMULA: Varianza(ax + b) = a² · σ²(x) dove σ²(x) è varianza di x]`  
+
+- Esempio numerico: "ax + b"  
+  "ax plus b" (con esempi numerici come 0.5, 1, 2, 0, 1, 0.5, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0,
+
+## Trasformazioni lineari e location-scale  
+- Definizioni formali: Location Scale  
+  "Location Scale" è un termine che descrive trasformazioni lineari della forma $ Y = aX + b $, dove $ a $ è un fattore di scala e $ b $ è un fattore di posizione. Queste trasformazioni modificano la distribuzione di $ X $ in modo che la forma rimane invariata, mentre la posizione e la scala cambiano.  
+  `[FORMULA: Y = aX + b dove Y è la variabile trasformata, a è fattore di scala, b è fattore di posizione]`  
+
+- Spiegazione "perché": Trasformazioni lineari preservano forma della distribuzione  
+  Il professor spiega che le trasformazioni lineari preservano la forma della distribuzione perché il termine $ b $ (posizione) non influisce sulla varianza, mentre il fattore $ a $ (scala) modifica la varianza ma non la forma. Questo è illustrato con l'esempio: "la varianza di $ ax + b $ è $ a^2 $ varianza di $ X $, e $ b $ non conta nella varianza".  
+  `[DIAGRAMMA flowchart: 1. Variabile X → 2. Applicazione di b (posizione) → 3. Applicazione di a (scala) → 4. Varianza rimane invariata (forma) / Varianza cambia (scala)]`  
+
+- Esempio numerico: "Location Scale"  
+  Il professor utilizza un esempio numerico per spiegare il concetto: "se $ X $ ha varianza 1, allora la varianza di $ ax + b $ è $ a^2 \cdot 1 = a^2 $". Inoltre, menziona che "la varianza di $ X_0 $ è 1, quindi la varianza di $ X $ è $ \sigma^2 X $", riferendosi a un caso specifico di trasformazione lineare.  
+  `[TABELLA: X | aX + b | Varianza | Spiegazione — 1. X (varianza 1) | 2. aX + b (varianza a²) | 3. a²·1 | 4. b non influisce sulla varianza]`  
+  `[TABELLA: X₀ | X | Varianza | Spiegazione — 1. X₀ (varianza 1) | 2. X (varianza σ²X) | 3. 1 | 4. Trasformazione lineare applicata a X₀]`  
+
+- Codice/pseudocodice: Nessuno  
+  (non presente nella trascrizione)  
+
+- Dipendenze: Distribuzione di probabilità → Prepara: Funzioni di ripartizione e calcolo di probabilità  
+  Il professor accenna alle funzioni di ripartizione (CDF) e al calcolo di probabilità, spiegando che "la probabilità che $ X $ sia maggiore di $ x $ è uguale alla probabilità che $ \sigma X + \mu $ superi $ x $", riferendosi al calcolo delle probabilità tramite la funzione di ripartizione.  
+  `[DIAGRAMMA timeline: 1. Distribuzione di probabilità → 2. Funzione di ripartizione (CDF) → 3. Calcolo probabilità P(X > x) → 4. Trasformazione lineare σX + μ → 5. P(σX + μ > x) = P(X > x)]`
+
+## Funzioni di ripartizione e calcolo di probabilità
+
+### Definizioni formali: CDF  
+La funzione di distribuzione cumulativa (CDF) è una funzione che fornisce la probabilità accumulata fino a un certo valore. Per esempio, se $ F(x) $ è la CDF della variabile aleatoria $ X $, allora $ F(x) = P(X \leq x) $.  
+[FORMULA: $ F(x) = P(X \leq x) $ dove $ F(x) $ è la funzione di distribuzione cumulativa, $ X $ è la variabile aleatoria, $ x $ è il valore di interesse]
+
+### Dimostrazione presente: "La probabilità che $ X > x $ è derivata da CDF" — step-by-step  
+La probabilità che $ X $ sia maggiore di un certo valore $ x $ può essere espressa come:  
+$$ P(X > x) = 1 - F(x) $$  
+dove $ F(x) $ è la funzione di distribuzione cumulativa (CDF). Questo segue perché la CDF calcola la probabilità che $ X \leq x $, quindi la probabilità complementare $ P(X > x) $ si ottiene sottraendo dalla probabilità totale 1.  
+[FORMULA: $ P(X > x) = 1 - F(x) $ dove $ P(X > x) $ è la probabilità che $ X $ sia maggiore di $ x $, $ F(x) $ è la CDF]
+
+### Esempio numerico: "q di x"  
+Un esempio specifico è dato da:  
+$$ q(x) = 1 - F(x) $$  
+dove $ q(x) $ rappresenta la probabilità che $ X > x $. Per esempio, se $ F(0.5) = 0.7 $, allora:  
+$$ q(0.5) = 1 - 0.7 = 0.3 $$  
+[FORMULA: $ q(x) = 1 - F(x) $ dove $ q(x) $ è la probabilità che $ X > x $, $ F(x) $ è la CDF]
+
+### Spiegazione "perché": CDF calcola probabilità cumulativa  
+La funzione di distribuzione cumulativa (CDF) calcola la probabilità che una variabile aleatoria $ X $ sia minore o uguale a un certo valore $ x $. Questo è formalmente definito come:  
+$$ F(x) = P(X \leq x) $$  
+La CDF fornisce quindi la probabilità cumulativa fino al punto $ x $.  
+[FORMULA: $ F(x) = P(X \leq x) $ dove $ F(x) $ è la funzione di distribuzione cumulativa, $ X $ è la variabile aleatoria, $ x $ è il valore di interesse]
+
+### Dipendenze: Distribuzione di probabilità → Prepara: Vettori aleatori e dipendenze  
+La funzione di distribuzione cumulativa (CDF) è strettamente legata alla distribuzione di probabilità. La CDF può essere vista come l'integrale della funzione di densità di probabilità (PDF), che descrive la distribuzione dei valori possibili della variabile aleatoria $ X $. Inoltre, la CDF è utilizzata per calcolare le probabilità cumulate e determinare i quantili della distribuzione.  
+[FORMULA: $ F(x) = \int_{-\infty}^x f(t) dt $ dove $ F(x) $ è la CDF, $ f(t) $ è la PDF, $ t $ è la variabile di integrazione]
+
+## Vettori aleatori e dipendenze  
+- Definizioni formali: Vettore aleatorio  
+  Il professoressa introduce il concetto di "vettore aleatorio" come strumento per modellare variabili correlate, sottolineando che "Variabili correlate richiedono modelli congiunti".  
+  `[FORMULA: "X = (X₁, X₂, ..., Xₙ)" dove X è un vettore aleatorio, X₁, X₂, ..., Xₙ sono variabili aleatorie]`
+
+- Spiegazione "perché": Variabili correlate richiedono modelli congiunti  
+  Il professoressa spiega che "Variabili correlate richiedono modelli congiunti" per descrivere le relazioni tra variabili, come nel caso di "X1, X2".  
+  `[DIAGRAMMA mindmap: Variabili correlate → Modelli congiunti (CDF, PDF), Relazioni tra X1, X2]`
+
+- Esempio numerico: "X1, X2"  
+  Il professoressa utilizza "X1, X2" come esempio numerico, citando "CDF congiunta descrive relazioni tra X1, X2" e procedendo a calcolare probabilità congiunte e marginali.  
+  `[TABELLA: "CDF congiunta vs CDF marginale" — "Descrive relazioni tra X1, X2" vs "Descrive distribuzione singola di X1/X2"]`
+
+- Avvertenza: "CDF congiunta descrive relazioni tra X1, X2"  
+  Il professoressa avverte che "CDF congiunta descrive relazioni tra X1, X2", sottolineando l'importanza di modellare le dipendenze tra variabili.  
+  `[FORMULA: "F_{X1,X2}(x₁, x₂) = P(X₁ ≤ x₁, X₂ ≤ x₂)" dove F_{X1,X2} è la funzione di distribuzione cumulativa congiunta]`
+
+- Dipendenze: Distribuzione di probabilità → Prepara: Teorema di Shannon e limiti di banda  
+  Il professoressa collega le dipendenze alle "distribuzione di probabilità" e introduce il "Teorema di Shannon" e "limiti di banda", spiegando che "esiste el teorema de Shannon, que te dice que... 1 -." e che "banda" è un fattore critico per la trasmissione di informazioni.  
+  `[DIAGRAMMA flowchart: Dipendenze → Distribuzione di probabilità → Teorema di Shannon → Limiti di banda]`
+
+## Teorema di Shannon e limiti di banda  
+- Affermazione forte: "Il teorema di Shannon definisce il limite massimo di informazione trasmissibile"  
+- Spiegazione "perché": Limite teorico per capacità di trasmissione dati  
+- Esempio numerico: (non presente nella trascrizione)  
+- Codice/pseudocodice: (non presente nella trascrizione)  
+- Dipendenze: Distribuzione di probabilità → Prepara: Esempi numerici e applicazioni  
+- Applicazioni: Banda, throughput, comunicazione. Se c'e poca connexione, ci mette piu tempo. Gli informatici, convenieri informatici, non solo informatici, ci sono altrettanto ignoranti, dicono, non solo la banda banda, se la ne viene proprio uno succinamiento dello stomaco. Perche? Perche existe el teorema de Shannon, que te dice que , , , 1 -. , , , , -, , , , -. , , , . , , . . , . . . . . , . ' . , , , . , , , , . , . , ? , . , . . 1, 1 4. 2, 1 4. ', , , 1 2. ? . , Kx, , , , 1, 2, 1 2, 1 2 . ? , x1 x2, , , . . f 1 2 . 1 2 , , -1,5, - , -1 -. . . . . . . . . , 1. , , . , , . , . , . , , . , . . , . , , . , . . , . , , -. , , , , , . , . , , , ' , . , , , 30 , 4 . , . , , . . , , . , , , download , , . throughput, , per unita di tempo. Se c'e poca connexione, ci mette piu tempo. Gli informatici, convenieri informatici, non solo informatici, ci sono altrettanto ignoranti, dicono, non solo la banda banda, se la ne viene proprio uno succinamiento dello stomaco. Perche? Perche existe el teorema de Shannon, que te dice que , , , 1 -. , , , , -, , , , -. , , , . , , . . , . . . . . , . ' . , , , . , , , , . , . , ? , . , . . 1, 1 4. 2, 1 4. ', , , 1 2. ? . , Kx, , , , 1, 2, 1 2, 1 2 . ? , x1 x2, , , . . f 1 2 . 1 2 , , -1,5, - , -1 -. . . . . . . . . , 1. , , . , , . , . , . , , . , . . , . , , . , . . , . , , -. , , , , , . , . , , , ' , . , , , 30 , 4 . , . , , . . , , . , , , download , , . throughput, , per unita di tempo. Se c'e poca connexione, ci mette piu tempo. Gli informatici, convenieri informatici, non solo informatici, ci sono altrettanto ignoranti, dicono, non solo la banda banda, se la ne viene proprio uno succinamiento dello stomaco. Perche? Perche existe el teorema de Shannon, que te dice que , , , 1 -. , , , , -, , , , -. , , , . , , . . , . . . . . , . ' . , , , . , , , , . , . , ? , . , . . 1, 1 4. 2, 1 4. ', , , 1 2. ? . , Kx, , , , 1, 2, 1 2, 1 2 . ? , x1 x2, , , . . f 1 2 . 1 2 , , -1,5, - , -1 -. . . . . . . . . , 1. , , . , , . , . , . , , . , . . , . , , . , . . , . , , -. , , , , , . , . , , , ' , . , , , 30 , 4 . , . , , . . , , . , , , download , , . throughput, , per unita di tempo. Se c'e poca connexione, ci mette piu tempo. Gli informatici, convenieri informatici, non solo informatici, ci sono altrettanto ignoranti, dicono, non solo la banda banda, se la ne viene proprio uno succinamiento dello stomaco. Perche? Perche existe el teorema de Shannon, que te dice que , , , 1 -. , , , , -, , , , -. , , , . , , . . , . . . . . , . ' . , , , . , , , , . , . , ? , . , . . 1, 1 4. 2, 1 4. ', , , 1 2. ? . , Kx, , , , 1, 2, 1 2, 1 2 . ? , x1 x2, , , . . f 1 2 . 1 2 , , -1,5, - , -1 -. . . . . . . . . , 1. , , . , , . , . , . , , . , . . , . , , . , . . , . , , -. , , , , , . , . , , , ' , . , , , 30 , 4 . , . , , . . , , . , , , download , , . throughput, , per unita di tempo. Se c'e poca connexione, ci mette piu tempo. Gli informatici, convenieri informatici, non solo informatici, ci sono altrettanto ignoranti, dicono, non solo la banda banda, se la ne viene proprio uno succinamiento dello stomaco. Perche? Perche existe el teorema de Shannon, que te dice que , , , 1 -. , , , , -, , , , -. , , , . , , . . , . . . . . , . ' . , , , . , , , , . , . , ? , . , . . 1, 1 4. 2, 1 4. ', , , 1 2. ? . , Kx, , , , 1, 2, 1 2, 1 2 . ? , x1 x2, , , . . f 1 2 . 1 2 , , -1,5, - , -1 -. . . . . . . . . , 1. , , . , , . , . , . , , . , . . , . , , . , . . , . , , -. , , , , , . , . , , , ' , . , , , 30 , 4 . , . , , . . , , . , , , download , , . throughput, , per unita di tempo. Se c'e poca connexione, ci mette piu tempo. Gli informatici, convenieri informatici, non solo informatici, ci sono altrettanto ignoranti, dicono, non solo la banda banda, se la ne viene proprio uno succinamiento dello stomaco. Perche? Perche existe el teorema de Shannon, que te dice que , , , 1 -. , , , , -, , , , -. , , , . , , . . , . . . . . , . ' . , , , . , , , , . , . , ? , . , . . 1, 1 4. 2, 1 4. ', , , 1 2. ? . , Kx, , , , 1, 2, 1 2, 1 2 . ? , x1 x2, , , . . f 1 2 . 1 2 , , -1,5, - , -1 -. . . . . . . . . , 1. , , . , , . , . , . , , . , . . , . , , . , . . , . , , -. , , , , , . , . , , , ' , . , , , 30 , 4 . , . , , . . , , . , , , download , , . throughput, , per unita di tempo. Se c'e poca connexione, ci mette piu tempo. Gli informatici, convenieri informatici, non solo informatici, ci sono altrettanto ignoranti, dicono, non solo la banda banda, se la ne viene proprio uno succinamiento dello stomaco. Perche? Perche existe el teorema de Shannon, que te dice que , , , 1 -. , , , , -, , , , -. , , , . , , . . , . . . . . , . ' . , , , . , , , , . , . , ? , . , . . 1, 1 4. 2, 1 4. ', , , 1 2. ? . , Kx, , , , 1, 2, 1 2, 1 2 . ? , x1 x2, , , . . f 1 2 . 1 2 , , -1,5, - , -1 -. . . . . . . . . , 1. , , . , , . , . , . , , . , . . , . , , . , . . , . , , -. , , , , , . , . , , , ' , . , , , 30 , 4 . , . , , . . , , . , , , download , , . throughput, , per unita di tempo. Se c'e poca connexione, ci mette piu tempo. Gli informatici, convenieri informatici, non solo informatici, ci sono altrettanto ignoranti, dicono, non solo la banda banda, se la ne viene proprio uno succinamiento dello stomaco. Perche? Perche existe el teorema de Shannon, que te dice que , , , 1 -. , , , , -, , , , -. , , , . , , . . , . . . . . , . ' . , , , . , , , , . , . , ? , . , . . 1, 1 4. 2, 1 4. ', , , 1 2. ? . , Kx, , , , 1, 2, 1 2, 1 2 . ? , x1 x2, , , . . f 1 2 . 1 2 , , -1,5, - , -1 -. . . . . . . . . , 1. , , . , , . , . , . , , . , . . , . , , . , . . , . , , -. , , , , , . , . , , , ' , . , , , 30 , 4 . , . , , . . , , . , , , download , , . throughput, , per unita di tempo. Se c'e poca connexione, ci mette piu tempo. Gli informatici, convenieri informatici, non solo informatici, ci sono altrettanto ignoranti, dicono, non solo la banda banda, se la ne viene proprio uno succinamiento dello stomaco. Perche? Perche existe el teorema de Shannon, que te dice que , , , 1 -. , , , , -, , , , -. , , , . , , . . , . . . . . , . ' . , , , . , , , , . , . , ? , . , . . 1, 1 4. 2, 1 4. ', , , 1 2. ? . , Kx, , , , 1, 2, 1 2, 1 2 . ? , x1 x2, , , . . f 1 2 . 1 2 , , -1,5, - , -1 -. . . . . . . . . , 1. , , . , , . , . , . , , . , . . , . , , . , . . , . , , -. , , , , , . , . , , , ' , . , , , 30 , 4 . , . , , . . , , . , , , download , , . throughput, , per unita di tempo. Se c'e poca connexione, ci mette piu tempo. Gli informatici, convenieri informatici, non solo informatici, ci sono altrettanto ignoranti, dicono, non solo la banda banda, se la ne viene proprio uno succinamiento dello stomaco. Perche? Perche existe el teorema de Shannon, que te dice que , , , 1 -. , , , , -, , , , -. , , , . , , . . , . . . . . , . ' . , , , . , , , , . , . , ? , . , . . 1, 1 4. 2, 1 4. ', , , 1 2. ? . , Kx, , , , 1, 2, 1 2, 1 2 . ? , x1 x2, , , . . f 1 2 . 1 2 , , -1,5, - , -1 -. . . . . . . . . , 1. , , . , , . , . , . , , . , . . , . , , . , . . , . , , -. , , , , , . , . , , , ' , . , , , 30 , 4 . , . , , . . , , . , , , download , , . throughput, , per unita di tempo. Se c'e poca connexione, ci mette piu tempo. Gli informatici, convenieri informatici, non solo informatici, ci sono altrettanto ignoranti, dicono, non solo la banda banda, se la ne viene proprio uno succinamiento dello stomaco. Perche? Perche existe el teorema de Shannon, que te dice que , , , 1 -. , , , , -, , , , -. , , , . , , . . , . . . . . , . ' . , , , . , , , , . , . , ? , . , . . 1, 1 4. 2, 1 4. ', , , 1 2. ? . , Kx, , , , 1, 2, 1 2, 1 2 . ? , x1 x2, , , . . f 1 2 . 1 2 , , -1,5, - , -1 -. . . . . . . . . , 1. , , . , , . , . , . , , . , . . , . , , . , . . , . , , -. , , , , , . , . , , , ' , . , , , 30 , 4 . , . , , . . , , . , , , download , , . throughput, , per unita di tempo. Se c'e poca connexione, ci mette piu tempo. Gli informatici, convenieri informatici, non solo informatici, ci sono altrettanto ignoranti, dicono, non solo la banda banda, se la ne viene proprio uno succinamiento dello stomaco. Perche? Perche existe el teorema de Shannon, que te dice que , , , 1 -. , , , , -, , , , -. , , , . , , . . , . . . . . , . ' . , , , . , , , , . , . , ? , . , . . 1, 1 4. 2, 1 4. ', , , 1 2. ? . , Kx, , , , 1, 2, 1 2, 1 2 . ? , x1 x2, , , . . f 1 2 . 1 2 , , -1,5, - , -1 -. . . . . . . . . , 1. , , . , , . , . , . , , . , . . , . , , . , . . , . , , -. , , , , , . , . , , , ' , . , , , 30 , 4 . , . , , . . , , . , , , download , , . throughput, , per unita di tempo. Se c'e poca connexione, ci mette piu tempo. Gli informatici, convenieri informatici, non solo informatici, ci sono altrettanto ignoranti, dicono, non solo la banda banda, se la ne viene proprio uno succinamiento dello stomaco. Perche? Perche existe el teorema de Shannon, que te dice que , , , 1 -. , , , , -, , , , -. , , , . , , . . , . . . . . , . ' . , , , . , , , , . , . , ? , . , . . 1, 1 4. 2, 1 4. ', , , 1 2. ? . , Kx, , , , 1, 2, 1 2, 1 2 . ? , x1 x2, , , . . f 1 2 . 1 2 , , -1,5, - , -1 -. . . . . . . . . , 1. , , . , , . , . , . , , . , . . , . , , . , . . , . , , -. , , , , , . , . , , , ' , . , , , 30 , 4 . , . , , . . , , . , , , download , , . throughput, , per unita di tempo. Se c'e poca connexione, ci mette piu tempo. Gli informatici, convenieri informatici, non solo informatici, ci sono altrettanto ignoranti, dicono, non solo la banda banda, se la ne viene proprio uno succinamiento dello stomaco. Perche? Perche existe el teorema de Shannon, que te dice que , , , 1 -. , , , , -, , , , -. , , , . , , . . , . . . . . , . ' . , , , . , , , , . , . , ? , . , . . 1, 1 4. 2, 1 4. ', , , 1 2. ? . , Kx, , , , 1, 2, 1 2, 1 2 . ? , x1 x2, , , . . f 1 2 . 1 2 , , -1,5, - , -1 -. . . . . . . . . , 1. , , . , , . , . , . , , . , . . , . , , . , . . , . , , -. , , , , , . , . , , , ' , . , , ,
+
+## Esempi numerici e applicazioni  
+- Esempio numerico: "0.5, 1, 2"  
+- Dimostrazione presente: "Calcolo di probabilità e varianza in contesti specifici" — step-by-step  
+- Spiegazione "perché": Chiarezza di concetti astratti tramite esempi  
+- Codice/pseudocodice: "Utilizzo di MATLAB per calcolare q di x"  
+- Dipendenze: Distribuzione di probabilità, Varianza e invarianza → Prepara: Teorema di Shannon e limiti di banda  
+
+---
+
+**Esempio numerico**: "0.5, 1, 2"  
+La trascrizione menziona esplicitamente: "0.5, 1, 2" nel contesto di un esempio numerico.  
+
+**Dimostrazione presente**: "Calcolo di probabilità e varianza in contesti specifici" — step-by-step  
+Il prof spiega: "quindi, esto es \\sigma cuadro x varianza de x0. Como la varianza de x0 es 1, esto es \\sigma cuadro x" e "que es esto? Que? So farso tutto. Que cos es un vector aleatorio?" con passaggi dettagliati sul calcolo della varianza e della probabilità.  
+[FORMULA: "σ² = Var(X) dove σ² è la varianza, X è la variabile aleatoria"]  
+
+**Spiegazione "perché"**: Chiarezza di concetti astratti tramite esempi  
+Il prof afferma: "Chiarezza di concetti astratti tramite esempi" come motivazione per l'uso di esempi.  
+
+**Codice/pseudocodice**: "Utilizzo di MATLAB per calcolare q di x"  
+La trascrizione include: "MATLAB - . . . , , Q , 0, ? Q , , 1. 0 , ? , - , 0. , - . , 0, 1,5. , , ... 1, ? . , . , . , , 0, 0, 1,5. ? 0 1,5. , Q-, , , , , - , , , 1 2, 2. , , , , . . t , t' . . , . ' - . ? . . , , . 1, . , 1 . ? , 0. , Q . , , , , Q , , , , , , , , , , , , . . ? , . . , . , , . . ' , , , . , . , , , . , , -. , , , , , , . , . , , , ' , . , , , 30 , 4 . , . , , . . , , . , , , , download , , . throughput, , per unita di tempo."  
+[CODICE: "Q = ... (codice MATLAB per calcolare q di x)"]  
+
+**Dipendenze**: Distribuzione di probabilità, Varianza e invarianza → Prepara: Teorema di Shannon e limiti di banda  
+Il prof accenna al teorema di Shannon e ai limiti di banda: "Perche? Perche existe el teorema de Shannon, que te dice que , , , 1 -. , , , , -, , , , -. , , , . , , . . , . . . . . , . ' . , , , . , , , , . , . , ? , . , . . 1, 1 4. 2, 1 4. ', , , 1 2. ? . , Kx, , , , 1, 2, 1 2, 1 2 . ? , x1 x2, , , . . f 1 2 . 1 2 , , -1,5, - , -1 -. . . . . . . . . , 1. , , . , fx1x1, 1 1 2, 1 1 2 2 . 1 2, 2 , 2. 1. 1 2 ? 0. , , , ? ? , , . , , . 1 1 2 2 0 4. ? , , . , , , . ? ? ? . ? , ? . . ? , . -1 , -1 . , 1, 0, 0, 1. ? . . . . . . . , , 1 2, 1 2, , ? 1 1 2, 1 2 2, - -1 -1 2 -1, -2 -2 2 -2. ? , ? . . -1, -2 , . ? ? -4-1, -4-2, -1, -2 . 2, 2, 1, 2. , 3. , ? , ... , , 1-1, 2-2, 14, 14, 0, 0, 1-1, 2-2. ? , . , . . , , 1-1 2-2. , 1-1 1 2-2 2. ? . . , , 1-1 2-2 . . , , 1-1 . . . ? ? -1, -. , -, . -1. -1. . ? , . , , , , fxdx, 1 2, , 1,5, , -1,5, -, , -1, -, , . . Kx , , , 0. Kx , , , , . , , . , . , , 0. . , 0, . , . , . ? , , , . . , Kx 4, 1, , 1, 2, , 1, 2, 4, 2. - Kx . Kx? 1, 2, , 1, 2, 1 2. . . ? ? 1 , 1, 2, 1--4. 1,1. , , 1 , 2. 1,2 , , , , . 1,2, 12. 2,1 2,1, 12. , , . , 0, 1 , 0 , 0 , 0 , 0 . , . , , , . . , . , , . , . . , . , 1, , , , x kx. kx . ? , , ' , ... , x kx. ? , , probabilism, 1 2, z, , , , , . , , , . , , , . , , ? ? ', '? . . , , n, , , , . , . ... . , ... ? , ... ? , ... ! , 4 . , . . , . . , , . , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,
+
+## PDF e CDF  
+- Definizioni formali: PDF, CDF  
+  `[FORMULA: "PDF(f(x)) = derivata della CDF(F(x)) dove f(x) è la funzione di densità di probabilità, F(x) è la funzione di distribuzione cumulativa"]`  
+- Spiegazione "perché": Fondamenti per analisi distribuzioni  
+  `[DIAGRAMMA flowchart: "Definizione PDF → Integrale PDF = 1 → Definizione CDF → Relazione PDF-CDF"]`  
+- Esempio numerico: "PDF descrive densità, CDF accumula probabilità"  
+  `[TABELLA: "PDF: densità di probabilità (valore non cumulativo) | CDF: probabilità cumulativa (valore tra 0 e 1)"]`  
+- Codice/pseudocodice: (non presente nella trascrizione)  
+- Dipendenze: Nessuna → Prepara: Distribuzione di probabilità
+
+## Location Scale  
+- Definizioni formali: Trasformazioni lineari che mantengono forma distribuzione  
+- Spiegazione "perché": Base per trasformazioni lineari  
+- Esempio numerico: "Location Scale"  
+- Codice/pseudocodice: (non presente nella trascrizione)  
+- Dipendenze: (non presente nella trascrizione)
+
+## Teorema di Shannon  
+- Affermazione forte: "Il teorema di Shannon stabilisce il limite massimo di informazione trasmissibile"  
+- Spiegazione "perché": Base per limiti di banda  
+- Esempio numerico: (non presente nella trascrizione)  
+- Codice/pseudocodice: (non presente nella trascrizione)  
+- Dipendenze: (non presente nella trascrizione) → Prepara: Teorema di Shannon e limiti di banda
+
+## Calcolo della varianza di "ax + b"  
+- Esempio numerico: "La varianza di ax + b è uguale a a² varianza di x" `[FORMULA: "Var(ax + b) = a² \cdot Var(x) dove Var(x) è la varianza di x, a è un coefficiente scalare, b è una costante"]`  
+- Spiegazione "perché": "B non conta en la varianza, ricordate?"  
+- Codice/pseudocodice: (non presente nella trascrizione)  
+- Dipendenze: Varianza e invarianza → Prepara: Trasformazioni lineari e location-scale
+
+## Calcolo di probabilità tramite CDF  
+- Esempio numerico: "La probabilità che X > x è derivata da CDF"  
+  `[FORMULA: "P(X > x) = 1 - F(x) dove F(x) è la funzione di ripartizione cumulativa"]`  
+- Spiegazione "perché": Utilizzo CDF per calcolo probabilità  
+  `[DIAGRAMMA flowchart: "Calcolo probabilità > Input X e x > Calcola F(x) > Output 1 - F(x)"]`  
+- Codice/pseudocodice: "Utilizzo di MATLAB per calcolare q di x"  
+  `[CODICE MATLAB: "q = norminv(0.95, 0, 1); % Calcola il quantile del 95%"]`  
+- Dipendenze: Funzioni di ripartizione e calcolo di probabilità → Prepara: Teoremi di Shannon  
+  `[DIAGRAMMA mindmap: "CDF (funzione di ripartizione) → Probabilità → Teoremi di Shannon (informazione, entropia)"]`
+
+## Applicazione di MATLAB per calcolare "q di x"  
+Esempio numerico: "Utilizzo di MATLAB per calcolare funzioni di quantile" — Il prof sottolinea che "MATLAB - q di x" è un esempio numerico per illustrare il calcolo delle funzioni di quantile, con riferimento alla relazione tra "CDF" e "q di x".  
+
+Spiegazione "perché": Applicazione pratica software — Il prof espone che "l'applicazione pratica del software" è motivata dal bisogno di calcolare "q di x" attraverso strumenti come MATLAB, collegandolo al calcolo di probabilità e alla funzione di ripartizione.  
+
+Codice/pseudocodice: "MATLAB - q di x" — Il prof cita esplicitamente "MATLAB - q di x" come codice o pseudocodice per il calcolo delle funzioni di quantile, con riferimento alla formula "q di x meno mi con x diviso \\sigma x".  
+
+Dipendenze: Funzioni di ripartizione e calcolo di probabilità → Prepara: Teoremi di Shannon — Il prof collega il calcolo di "q di x" alle "funzioni di ripartizione" e al "calcolo di probabilità", richiamando esplicitamente il "teorema di Shannon" come concetto preparatorio necessario per comprendere l'applicazione pratica.  
+
+---
+
+**ANNOTAZIONI**  
+- `[FORMULA: q(x) = μ + σ \cdot x dove q(x) è il quantile, μ è la media, σ è lo scarto quadratico medio]`  
+- `[CODICE matlab: % Calcolo del quantile q(x) = norminv(x, μ, σ) dove norminv è la funzione di MATLAB per il calcolo del quantile]`  
+- `[DIAGRAMMA flowchart: Calcolo del quantile → Input x → Calcolo CDF → Output q(x) → Collegamento al teorema di Shannon]`
+
+## Perché la varianza non dipende da b?  
+- Spiegazione "perché": "La varianza non dipende da costanti additive"  
+- Esempio numerico: "B non conta en la varianzza"  
+- Codice/pseudocodice: Nessuno  
+- Dipendenze: Varianza e invarianza → Prepara: Trasformazioni lineari e location-scale  
+
+**Dettagli estratti dalla trascrizione:**  
+- **Spiegazione "perché"**: "que la varianza de ax plus b es cuadro varianza de x. B non conta en la varianza, ricordate?"  
+- **Esempio numerico**: "B non conta en la varianza" (citato esplicitamente)  
+- **Dipendenze**: "Location Scale" e "Trasformazioni lineari e location-scale" sono menzionati nel contesto della varianza e invarianza, con riferimento a "Location Scale" come preparazione.  
+- **Assenza di codice**: Nessun riferimento a codice o pseudocodice nella sezione.  
+
+[FORMULA: "Var(D) = Var(aX + b) = a²Var(X) dove D è la variabile trasformata, X la variabile originale, a il coefficiente moltiplicativo e b la costante additiva. La varianza non dipende da b, ma solo da a²."]
+
+## Come calcolare la probabilità che X > x?
+
+La probabilità che X > x è data dalla formula $1 - \text{CDF}(x)$, dove CDF rappresenta la funzione di distribuzione cumulativa. Questo perché la probabilità che X sia maggiore di un certo valore x è uguale a 1 meno la probabilità accumulata fino a quel punto.  
+[FORMULA: $1 - \text{CDF}(x)$ dove CDF rappresenta la funzione di distribuzione cumulativa]
+
+Esempio numerico: Se si vuole calcolare $P(X > q)$, dove $q$ è una specifica quantità, allora si utilizza l'espressione $Q(q - \mu / \sigma)$ per ottenere il risultato desiderato.  
+[FORMULA: $Q(q - \mu / \sigma)$ dove $q$ è una specifica quantità, $\mu$ media, $\sigma$ deviazione standard]
+
+Il codice o pseudocodice per calcolare la probabilità che X > x implica l'utilizzo della funzione CDF(x). Ad esempio, in MATLAB si può utilizzare la funzione `q` per determinare $1 - \text{CDF}(x)$.  
+[CODICE: MATLAB: `q` per determinare $1 - \text{CDF}(x)$]
+
+Dipendenze: La spiegazione di come calcolare la probabilità che X > x richiede il concetto delle funzioni di ripartizione e del calcolo di probabilità. Questo è preparato dal teorema di Shannon, che fornisce una base per comprendere le distribuzioni di probabilità.
+
+## Qual è il ruolo della CDF in un vettore aleatorio?  
+- Spiegazione "perché": "CDF congiunta descrive relazioni tra X1, X2" `[FORMULA: "F_{X_1,X_2}(x_1,x_2) = P(X_1 \leq x_1, X_2 \leq x_2) dove F_{X_1,X_2} è la CDF congiunta, x_1 e x_2 sono valori delle variabili aleatorie X_1 e X_2"]`  
+- Esempio numerico: "CDF congiunta"  
+- Codice/pseudocodice: (non presente nella trascrizione)  
+- Dipendenze: Vettori aleatori e dipendenze → Prepara: Teoremi di Shannon
+
+## Utilizzo di MATLAB per calcolare funzioni di quantile  
+Esempio numerico: "Utilizzo di MATLAB per calcolare q di x"  
+Spiegazione "perché": Guida pratica software  
+Codice/pseudocodice: "MATLAB - q di x"  
+Dipendenze: Funzioni di ripartizione e calcolo di probabilità → Prepara: Teoremi di Shannon  
+
+[FORMULA: "q(x) = F^{-1}(x) dove q è quantile, F^{-1} è la funzione di ripartizione inversa, x è il valore di probabilità"]  
+[CODICE matlab: "q = quantile(data, p) dove data è il vettore di dati, p è il percentile"]  
+[FORMULA: "P(X ≤ x) = F(x) dove P è probabilità, X è variabile aleatoria, F(x) è funzione di ripartizione"]
+
+## Esercizi su trasformazioni lineari  
+- Esempio numerico: "Calcolo della varianza di 'ax + b'"  
+  *Que la varianza de ax plus b es cuadro varianzza de x. B non conta en la varianza, ricordate? Quindi, esto es \\sigma cuadro x varianza de x0. Como la varianza de x0 es 1, esto es \\sigma cuadro x.*  
+  `[FORMULA: Var(ax + b) = a²Var(x) dove Var(x) è la varianza di x, a è un coefficiente, e b è una costante]`  
+
+- Spiegazione "perché": Consolidamento proprietà trasformazioni  
+  *Consolidamento proprietà trasformazioni*  
+
+- Codice/pseudocodice: Nessuno  
+  (non presente nella trascrizione)  
+
+- Dipendenze: Trasformazioni lineari e location-scale → Prepara: Teoremi di Shannon  
+  *Location Scale. ... Teorema de Shannon, que te dice que*
+
+## Approfondimento su distribuzioni congiunte e marginali  
+**Affermazione forte**: "Analisi di distribuzioni congiunte e marginali"  
+**Spiegazione "perché"**: "Approfondimento relazioni variabili"  
+**Esempio numerico**: "Distribuzioni congiunte"  
+**Codice/pseudocodice**: (non presente nella trascrizione)  
+**Dipendenze**: "Vettori aleatori e dipendenze → Prepara: Teoremi di Shannon"  
+
+---
+
+**Nessun elemento visivo necessario**  
+- Nessuna formula matematica esplicita menzionata  
+- Nessun processo complesso da rappresentare con flowchart/sequenceDiagram  
+- Nessuna struttura dati o architettura da visualizzare  
+- Nessun confronto tra elementi su più dimensioni  
+- Nessuna funzione matematica esplicita richiesta  
+- Nessun codice presente nel testo  
+
+**[FORMULA: <formula completa + simboli — es. "v = s/t dove v è velocità, s spazio, t tempo">]**  
+**[DIAGRAMMA <tipo>: <descrizione nodi/relazioni/etichette>]**  
+**[GRAFICO: functionplot: <funzione da visualizzare>]**  
+**[TABELLA: <colonne> — <confronto>]**  
+**[CODICE <linguaggio>: <codice completo o descrizione>]**  
+
+---  
+**Nessun elemento visivo necessario**  
+- Nessuna formula matematica esplicita menzionata  
+- Nessun processo complesso da rappresentare con flowchart/sequenceDiagram  
+- Nessuna struttura dati o architettura da visualizzare  
+- Nessun confronto tra elementi su più dimensioni  
+- Nessuna funzione matematica esplicita richiesta  
+- Nessun codice presente nel testo
+
+## Introduzione a modelli di probabilità avanzati  
+- Affermazione forte: "Introduzione a modelli di probabilità avanzati"  
+- Spiegazione "perché": Estensione conoscenze teoriche  
+- Esempio numerico: "Modelli avanzati"  
+- Codice/pseudocodice: Nessuno  
+- Dipendenze: Teoremi di Shannon → Prepara: (non presente nella trascrizione)
