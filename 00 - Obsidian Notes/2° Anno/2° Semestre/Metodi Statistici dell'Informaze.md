@@ -7,7 +7,24 @@
 Il corso tratta di **probabilità e statistica inferenziale**, con un focus particolare su come l'informazione viene trasmessa nello spazio (telecomunicazioni) e nel tempo (memorizzazione, compressione, correzione degli errori). L'idea chiave è che intrinseco nel concetto di **informazione** c'è l'**incertezza**: se non c'è incertezza su ciò che viene trasmesso, non c'è informazione da trasmettere.
 
 La probabilità è lo strumento formale per modellare questa incertezza. Tutto ciò che rientra sotto il nome di *machine learning*, *statistical learning*, *deep learning* e reti neurali è costruito su questa base teorica.
+```mermaid
+graph TD
+    %% Definizione dello stile per adattarsi all'A4
+    classDef default fill:#e1f5fe,stroke:#01579b,stroke-width:2px,rx:10,ry:10;
+    A["Analisi Combinatoria<br/>Saper contare"] --> B["Probabilità su spazi finiti<br/>Definizione assiomatica"]
+    B --> C["Variabili aleatorie discrete"]
+    C --> D["Estensione al continuo<br/>Integrali al posto di somme"]
+    D --> E["Accenni ai processi aleatori"]
 
+    B --> F["Teoria dell'informazione<br/>Entropia di Shannon, bit"]
+    B --> G["Statistica inferenziale<br/>Bayesiana e non bayesiana"]
+    G --> H["Teoria della decisione<br/>Test di ipotesi"]
+    H --> I["Stima ricorsiva?<br/>Gradiente → ML"]
+
+    style A fill:#4a9eff,color:#fff
+    style F fill:#f0a500,color:#fff
+    style G fill:#f0a500,color:#fff
+```
 #### Testi di riferimento
 
 Per la teoria della probabilità: **Ernesto Conte, *Fenomeni aleatori*** — molto didattico ma richiede una guida (quella del corso).
@@ -427,6 +444,9 @@ Il parametro $\lambda$ rappresenta il **tasso medio** di occorrenze: il valore a
 
 La distribuzione di Poisson modella **eventi rari** che si verificano con frequenza costante: arrivi di auto a un casello, pacchetti che arrivano a un router, clienti che entrano a un ufficio postale. Una proprietà importante è la **chiusura rispetto al subcampionamento**: se $N \sim \text{Poi}(\lambda)$ e si selezionano indipendentemente i risultati con probabilità $p$, il numero di risultati selezionati segue una Poisson di parametro $\lambda p$.
 
+[!info] Proprietà Operativa: Scomposizione (Thinning) Se un flusso di eventi segue una distribuzione di Poisson con parametro λ (es. pacchetti che arrivano a un router) e ogni evento viene classificato indipendentemente in due categorie (es. pacchetti corretti ed errati) con probabilità p e 1−p, allora i due flussi risultanti sono indipendenti e seguono distribuzioni di Poisson con parametri λp e λ(1−p).
+Esempio: Se le auto in coda a un semaforo sono Poissoniane con media 10 e il 20% sono Fiat, le auto Fiat in coda saranno ancora Poissoniane con media 2
+
 ### Distribuzione Geometrica
 
 > [!info] **Definizione: Distribuzione Geometrica**
@@ -491,6 +511,7 @@ Il valore efficace (root mean square) è $x_{\text{rms}} = \sqrt{E[X^2]}$.
 
 La varianza misura il grado di **dispersione** dei valori di $X$ attorno alla media. Una varianza piccola significa che i valori sono concentrati intorno alla media; una varianza grande significa che la variabile è molto "aleatoria".
 
+
 ### Formula alternativa
 
 Sviluppando il quadrato:
@@ -547,6 +568,13 @@ da cui segue direttamente il risultato.
 **Uguaglianza**: $\rho_{XY} = 1$ se e solo se $X$ e $Y$ sono linearmente proporzionali con coefficiente positivo ($Y = a + bX$ con $b > 0$). Analogamente $\rho_{XY} = -1$ per proporzionalità negativa.
 
 Il coefficiente di correlazione misura la **predecibilità lineare** di una variabile rispetto all'altra, non la dipendenza statistica generale.
+>[!info] Interpretazione Geometrica (Spazi di Hilbert) Le variabili aleatorie con varianza finita costituiscono uno spazio lineare. In questo spazio:
+>
+>   - La Covarianza agisce come un prodotto scalare: ⟨X,Y⟩=Cov(X,Y).
+>   - La Deviazione Standard funge da norma del vettore: ∥X∥=σX​.
+>   - Il Coefficiente di Correlazione ρXY​ rappresenta il coseno dell'angolo tra le due variabili centrate.
+>
+> Una correlazione ρ=0 (variabili incorrelate) corrisponde geometricamente all'ortogonalità, mentre ρ=±1 indica che le variabili sono collineari (proporzionali)
 
 ---
 
