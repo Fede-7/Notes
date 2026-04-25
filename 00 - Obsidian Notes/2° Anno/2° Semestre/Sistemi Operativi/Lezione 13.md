@@ -1,5 +1,5 @@
 ---
-date: 2026-04-15
+date: 2026-04-16
 corso: Sistemi Operativi
 lezione: "1 — Thread e Race Condition: Mutex e Lock"
 tags:
