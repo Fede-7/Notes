@@ -4,7 +4,7 @@
 > **Docente:** Prof. Marco Lops · **CFU:** 6 · **Esame:** Scritto + colloquio rapido
 > **Testi:** Conte *Fenomeni Aleatori* (teoria); Ross *Probability and Statistics for Engineers and Scientists* (statistica)
 
----
+
 
 # Capitolo 3 — Elements of Probability
 
@@ -42,7 +42,7 @@ Il corso è organizzato in sei grandi blocchi tematici:
 
 > [!note] **Nota:** Esiste un'integrazione profonda tra teoria dell'informazione e statistica inferenziale, formalizzata dal risultato di Kaila (anni '69–'71, riscoperto negli anni 2000).
 
----
+
 
 ## 3.2 Sample Space and Relationships Between Events
 
@@ -54,10 +54,10 @@ Il corso è organizzato in sei grandi blocchi tematici:
 
 Lo spazio dei campioni può avere diverse nature:
 
-| Tipo | Esempio |
-|------|---------|
-| **Finito** | Lancio di una moneta: $\Omega = \{T, C\}$ |
-| **Infinito numerabile** | Numero di pacchetti in coda a un router: $\Omega = \mathbb{N}_0$ |
+| Tipo                          | Esempio                                                                    |
+| ----------------------------- | -------------------------------------------------------------------------- |
+| **Finito**                    | Lancio di una moneta: $\Omega = \{T, C\}$                                  |
+| **Infinito numerabile**       | Numero di pacchetti in coda a un router: $\Omega = \mathbb{N}_0$           |
 | **Continuo (non numerabile)** | Tensione ai capi di una resistenza (rumore termico): $\Omega = \mathbb{R}$ |
 
 > [!note] **Sul continuo**
@@ -75,9 +75,12 @@ Lo spazio dei campioni può avere diverse nature:
 ### Definizione di Evento
 
 > [!info] **Definizione: Evento**
-> Un **evento** è un sottoinsieme di $\Omega$ definito da una proposizione. Un **evento elementare** è un singolo elemento di $\Omega$.
+> Un **evento** è un sottoinsieme di $\Omega$ definito da una proposizione.
 
-Un evento è **univocamente determinato** dagli elementi di $\Omega$ che lo compongono, ma la **proposizione** che lo descrive non è univoca — la ridondanza del linguaggio naturale permette formulazioni diverse dello stesso evento.
+> [!info] **Definizione: Evento elementare**
+> Un **evento elementare** è un singolo elemento di $\Omega$.
+
+**Proprietà cruciale:** Un evento è **univocamente determinato** dagli elementi di $\Omega$ che lo compongono, ma la **proposizione** che lo descrive **non è univoca** — la ridondanza del linguaggio naturale permette formulazioni diverse.
 
 > [!example] **Esempio: ambiguità della proposizione**
 > Con $\Omega = \{1,2,3,4,5\}$ (euro in tasca), l'evento $A = \{1,3,5\}$ può essere descritto come: "Ho un numero dispari di euro", oppure "Non ho un numero pari di euro", oppure "Ho 1, 3 o 5 euro". L'evento è lo stesso, le proposizioni sono diverse.
@@ -87,29 +90,50 @@ Un evento è **univocamente determinato** dagli elementi di $\Omega$ che lo comp
 
 ### Nomenclatura degli eventi
 
-| Nome | Simbolo | Significato |
-|------|---------|-------------|
-| Evento certo | $\Omega$ | Si verifica sempre |
-| Evento impossibile | $\emptyset$ | Non si verifica mai |
-| Evento complementare | $A^c$ o $\bar{A}$ | Tutti gli $\omega \notin A$ |
-| Evento implicato | $A \subseteq B$ | $A$ accade $\Rightarrow$ $B$ accade |
-| Eventi incompatibili | $A \cap B = \emptyset$ | Non si verificano insieme |
+| Nome                     | Simbolo                | Significato                                         |
+| ------------------------ | ---------------------- | --------------------------------------------------- |
+| **Evento certo**         | $\Omega$               | Si verifica sempre ad ogni esito                    |---
+| **Evento impossibile**   | $\emptyset$            | Non si verifica mai                                 |
+| **Evento complementare** | $A^c$ o $\bar{A}$      | Tutti gli $\omega \in \Omega$ con $\omega \notin A$ |
+| **Evento implicato**     | $A \subseteq B$        | Il verificarsi di $A$ implica $B$, non viceversa    |
+| **Eventi incompatibili** | $A \cap B = \emptyset$ | Non possono verificarsi contemporaneamente          |
 
-### Algebra degli eventi
+**Esempi su lancio di dado:**
+- "Esce 2" $= \{2\}$ implica "esce un numero pari" $= \{2,4,6\}$, ma non viceversa.
 
-Le operazioni fondamentali sugli insiemi sono: **unione** $A \cup B$ (almeno uno), **intersezione** $A \cap B$ (entrambi), **complemento** $A^c$ (negazione), **differenza** $A \setminus B = A \cap B^c$.
+**Esempi su lancio doppio di moneta ($\Omega = \{TT, TC, CT, CC\}$):**
+- "Esce almeno una croce" $D = \{TC, CT, CC\}$
+- $D$ è **incompatibile** con $\{TT\}$ (esce testa-testa → nessuna croce)
 
-Proprietà fondamentali:
+**Esempi con $\Omega = \mathbb{N}_0$ (pacchetti):**
+- "Meno di 6 pacchetti": $\{0,1,2,3,4,5\}$
+- "Numero dispari di pacchetti": $\{1,3,5,7,\ldots\} = \{2k+1 \mid k \in \mathbb{N}_0\}$ — unione **numerabile** di eventi elementari
+- "Numero pari **o** minore di 4": $\{0,1,2,3,4,6,8,\ldots\}$ — include 1 e 3 (dispari ma $< 4$) e 4 (pari e $\leq 4$)
 
-$$\Omega^c = \emptyset, \qquad (A^c)^c = A, \qquad A \cup A^c = \Omega$$
+### Algebra degli eventi — Richiami di teoria degli insiemi
 
-**Leggi di De Morgan:**
+Dati $m$ sottoinsiemi $A_1, A_2, \ldots, A_m$ di $\Omega$:
 
-$$( A \cup B)^c = A^c \cap B^c, \qquad (A \cap B)^c = A^c \cup B^c$$
+**Unione:** $A_1 \cup A_2$ — tutti gli elementi che appartengono ad almeno uno dei due insiemi (comuni contati una sola volta).
 
-Dal punto di vista formale, una collezione $\mathcal{E}$ di sottoinsiemi di $\Omega$ si chiama **algebra** se è chiusa rispetto all'unione e alla complementazione. Da queste due proprietà deriva automaticamente la chiusura rispetto all'intersezione (via De Morgan) e alla differenza. Quando $\Omega$ è infinito numerabile si richiede una proprietà più forte: una **$\sigma$-algebra**, chiusa rispetto a unioni *numerabili*. Questo è necessario per poter assegnare probabilità a eventi come "il numero di pacchetti è dispari" = $\{1,3,5,7,\ldots\}$, che è un'unione infinita di eventi elementari.
+**Intersezione:** $A_1 \cap A_2$ — tutti e soli gli elementi comuni ad entrambi.
 
----
+**Complemento:** $A_1^c$ — tutti gli elementi di $\Omega$ non in $A_1$.
+
+**Sottrazione:** $A_1 \setminus A_2 = A_1 \cap A_2^c$ — gli elementi di $A_1$ che non appartengono ad $A_2$.
+
+| Proprietà                | Formula                       |
+| ------------------------ | ----------------------------- |
+| Doppio complemento       | $(A^c)^c = A$                 |
+| Complemento di $\Omega$  | $\Omega^c = \emptyset$        |
+| Unione con complementare | $A \cup A^c = \Omega$         |
+| De Morgan (unione)       | $(A \cup B)^c = A^c \cap B^c$ |
+| De Morgan (intersezione) | $(A \cap B)^c = A^c \cup B^c$ |
+
+> [!note] **$\sigma$-algebra**
+> Quando $\Omega$ è infinito numerabile, la famiglia degli eventi deve essere una **$\sigma$-algebra**: chiusa non solo rispetto a unioni **finite**, ma rispetto a unioni **numerabili**. Questo è necessario per modellare eventi come $\{k \mid k \text{ dispari}\}$, che sono unioni infinite di eventi elementari.
+
+
 
 ## 3.3 Probability
 
@@ -145,7 +169,7 @@ La probabilità è una **misura** nel senso matematico: la misura di un'unione n
 > [!tip] **Parole del Professore**
 > L'approccio frequentistico — definire $P(A) = \lim_{n\to\infty} N_A/n$ — è intuitivo ma circolare: per garantire la convergenza si deve già assumere l'indipendenza delle prove, che è anch'essa un concetto probabilistico. Si usa quindi la definizione assiomatica di Kolmogorov, che è rigorosa e non circolare. Tuttavia, l'intuizione frequentistica rimane preziosa per capire *perché* le proprietà della probabilità valgono: ogni proprietà corrisponde a una proprietà delle operazioni tra insiemi.
 
----
+
 
 ## 3.4 Sample Spaces Having Equally Likely Outcomes
 
@@ -160,20 +184,40 @@ Questo riduce il problema a un conteggio combinatorio.
 
 ### Analisi Combinatoria
 
-Il principio fondamentale è la **cardinalità del prodotto cartesiano**: dati $k$ insiemi con cardinalità $n_1, n_2, \ldots, n_k$:
+#### Principio del prodotto cartesiano (regola fondamentale)
 
-$$|A_1 \times A_2 \times \cdots \times A_k| = \prod_{i=1}^{k} n_i$$
+> [!abstract] **Teorema: Cardinalità del prodotto cartesiano**
+> Dati $k$ insiemi finiti $A_1, A_2, \ldots, A_k$ con cardinalità $|A_i| = n_i$, la cardinalità del prodotto cartesiano è:
+> $$|A_1 \times A_2 \times \cdots \times A_k| = \prod_{i=1}^{k} n_i$$
 
-Da questa regola si derivano tutti i risultati dell'analisi combinatoria.
+**Giustificazione:** Il primo elemento si sceglie in $n_1$ modi, il secondo in $n_2$ modi **indipendentemente**, …, il $k$-esimo in $n_k$ modi.
 
-| Tipo di selezione | Formula | Nome |
-|-------------------|---------|------|
-| $k$-uple ordinate **con** ripetizione da $n$ | $n^k$ | — |
-| $k$-uple ordinate **senza** ripetizione da $n$ | $\dfrac{n!}{(n-k)!}$ | Disposizioni semplici |
-| $n$-uple ordinate senza ripetizione da $n$ | $n!$ | Permutazioni |
-| $k$-uple **non ordinate** senza ripetizione da $n$ | $\dbinom{n}{k} = \dfrac{n!}{k!\,(n-k)!}$ | Combinazioni |
+> **Attenzione:** Le $k$-uple sono **ordinate** — $(0,1) \neq (1,0)$.
 
-**Sequenze binarie di lunghezza $n$ con esattamente $k$ uni:** se i bit fossero tutti distinti, le permutazioni sarebbero $n!$; ma i $k$ uni sono indistinguibili tra loro (danno $k!$ permutazioni identiche) e così gli $n-k$ zeri (danno $(n-k)!$ permutazioni identiche). Quindi il numero di sequenze distinte è:
+**Esempio:** $\{0,1\} \times \{0,1\} = \{(0,0),(0,1),(1,0),(1,1)\}$ — $2 \times 2 = 4$ elementi.
+
+#### Tabella riassuntiva
+
+| Tipo di selezione                                  | Formula                                  | Nome                            |
+| -------------------------------------------------- | ---------------------------------------- | ------------------------------- |
+| $k$-uple ordinate **con** ripetizione da $n$       | $n^k$                                    | —                               |
+| $k$-uple ordinate **senza** ripetizione da $n$     | $\dfrac{n!}{(n-k)!}$                     | Disposizioni semplici           |
+| $n$-uple ordinate **senza** ripetizione da $n$     | $n!$                                     | Permutazioni                    |
+| $k$-uple **non ordinate** senza ripetizione da $n$ | $\dbinom{n}{k} = \dfrac{n!}{k!\,(n-k)!}$ | Combinazioni (coeff. binomiale) |
+
+#### Derivazione delle formule
+
+**$k$-uple ordinate con ripetizione:** Ogni posizione si riempie in $n$ modi indipendentemente:
+$$\underbrace{n \times n \times \cdots \times n}_{k} = n^k$$
+*Esempio:* le sequenze binarie di lunghezza $k$ sono $2^k$.
+
+**$k$-uple ordinate senza ripetizione:** Ogni volta che si pesca un elemento lo si rimuove:
+$$n \times (n-1) \times (n-2) \times \cdots \times (n-k+1) = \frac{n!}{(n-k)!}$$
+
+**Permutazioni** (caso $k = n$):
+$$P(n) = n! = n(n-1)(n-2)\cdots 1$$
+
+**Combinazioni:** Le $k$-uple **non ordinate** (dove $\{1,2,3\} = \{3,2,1\}$). Tra tutte le $\frac{n!}{(n-k)!}$ disposizioni semplici, ogni gruppo di $k!$ (tutte le permutazioni degli stessi $k$ elementi) corrisponde alla **stessa** combinazione:
 
 $$\binom{n}{k} = \frac{n!}{k!\,(n-k)!}$$
 
@@ -213,7 +257,7 @@ $$|\mathcal{P}(A)| = \sum_{k=0}^{m} \binom{m}{k} = (1+1)^m = 2^m \qquad \square$
 > [!tip] **Parole del Professore**
 > Regola fissa: quando vi chiedono "almeno uno", ragionate sempre sull'evento complementare ("nessuno"), perché è quasi sempre più semplice da calcolare.
 
----
+
 
 ## 3.5 Conditional Probability
 
@@ -235,7 +279,7 @@ $$p_{X \mid C}(k) = \frac{P(X = k,\, C)}{P(C)}$$
 
 Per $k$ incompatibili con $C$ questa probabilità è zero; per i $k$ compatibili, la PMF viene rinormalizzata dividendo per $P(C)$.
 
----
+
 
 ## 3.6 Bayes' Formula
 
@@ -260,7 +304,7 @@ $$P(E_i \mid A) = \frac{P(A \mid E_i) \cdot P(E_i)}{\sum_{j=1}^{m} P(A \mid E_j)
 >
 > La probabilità che il dado sia truccato è scesa dal 50% al 26,5%. Il 5 esce più facilmente con il dado onesto (1/6) che con il truccato (1/10), quindi osservare due 5 è evidenza a favore del dado onesto.
 
----
+
 
 ## 3.7 Independent Events
 
@@ -292,7 +336,7 @@ $$P\!\left(\bigcup_{i=1}^n A_i\right) = 1 - \prod_{i=1}^n (1 - p_i) \qquad \text
 > [!example] **Esercizio: almeno un 6 in 5 lanci**
 > $$P(\text{almeno un 6}) = 1 - P(\text{nessun 6}) = 1 - \left(\frac{5}{6}\right)^5 \approx 0{,}598$$
 
----
+
 
 ## 3.8 Law of Total Probability
 
@@ -306,3 +350,506 @@ $$P(A) = \sum_{i=1}^m P(A \cap E_i) = \sum_{i=1}^m P(A \mid E_i) \cdot P(E_i)$$
 
 Questa legge è fondamentale: permette di scomporre il calcolo di una probabilità difficile condizionando rispetto a una partizione che semplifica il problema.
 
+
+# Capitolo 4 — Random Variables and Expectation
+
+## 4.1 Random Variables
+
+Molti esperimenti fisicamente diversi hanno la stessa struttura probabilistica. Il lancio di una moneta, la lettura di un bit da una sorgente binaria e la parità del lancio di un dado producono tutti un esito binario. Il concetto di **variabile aleatoria** permette di trattare tutti questi esperimenti in modo unificato, lavorando su un alfabeto numerico anziché su spazi campionari eterogenei.
+
+> [!info] **Definizione: Variabile Aleatoria**
+> Dato uno spazio di probabilità $(\Omega, \mathcal{E}, P)$, una **variabile aleatoria** $X$ è un'applicazione misurabile:
+> $$X : \Omega \to \mathcal{X}$$
+> dove $\mathcal{X}$ è l'**alfabeto** della variabile. La misurabilità garantisce che per ogni $x \in \mathcal{X}$, l'insieme $\{\omega : X(\omega) = x\}$ appartenga a $\mathcal{E}$, e quindi si possa calcolare la sua probabilità.
+
+La variabile aleatoria *trasporta* la legge di probabilità da $\Omega$ all'alfabeto:
+$$P(X = x) = P\bigl(\{\omega \in \Omega : X(\omega) = x\}\bigr)$$
+
+> [!tip] **Parole del Professore**
+> Perché sono utili le variabili aleatorie? Perché io posso trattare in un unico modo esperimenti completamente diversi. Il lancio di una moneta, la lettura di un bit, la parità di un dado — tutti esperimenti binari — diventano la stessa variabile aleatoria. In informatica, qualunque insieme discreto (stringhe, pacchetti, simboli di un alfabeto) si può indicizzare con numeri interi: la variabile aleatoria è il puntatore alla locazione di memoria che memorizza il valore corrispondente. Quindi si può sempre farlo.
+
+
+## 4.2 Discrete Random Variables
+
+Una variabile aleatoria si dice **discreta** se il suo alfabeto $\mathcal{X}$ è finito o infinito numerabile.
+
+> [!info] **Definizione: PMF (Probability Mass Function)**
+> La **funzione di massa di probabilità** di $X$ con alfabeto $\mathcal{X} = \{x_1, x_2, \ldots, x_m\}$ è la sequenza:
+> $$p_X(x_i) = P(X = x_i), \quad i = 1, \ldots, m$$
+> Una sequenza è una PMF valida se e solo se:
+> $$p_X(x_i) \geq 0 \;\;\forall i \qquad \text{e} \qquad \sum_{i=1}^{m} p_X(x_i) = 1$$
+
+> [!info] **Definizione: PMF Condizionale**
+> Data una condizione $C$ con $P(C) > 0$, la **PMF condizionale** di $X$ dato $C$ è:
+> $$p_{X \mid C}(k) = P(X = k \mid C) = \frac{P(X = k,\; C)}{P(C)}$$
+> Per i valori $k$ incompatibili con $C$ questa è zero; per i valori compatibili, la PMF originale viene rinormalizzata dividendo per $P(C)$. Si verifica che $p_{X|C}$ è essa stessa una PMF valida (la probabilità condizionale soddisfa gli assiomi di Kolmogorov).
+
+> [!example] **Esempio: PMF condizionale di una Binomiale**
+> Sia $X \sim \text{Bin}(16, 1/3)$. La PMF condizionale "dato $X > 4$" è:
+> $$p_{X \mid X>4}(k) = \begin{cases} \dfrac{p_X(k)}{P(X > 4)} & k = 5, 6, \ldots, 16 \\ 0 & k \leq 4 \end{cases}$$
+> Questo corrisponde a potare i dati, tenendo solo gli esperimenti con almeno 5 successi — la PMF si ridistribuisce su un alfabeto ristretto. Questo è il fondamento della *outlier removal* in analisi dei dati.
+
+
+## 4.3 Expected Value
+
+L'intuizione è immediata: se misuri $n$ volte una quantità e ne fai la media aritmetica, ottieni la *media campionaria*. Man mano che $n$ cresce, questa converge a un numero fisso — la media statistica, o valore atteso.
+
+Formalmente: $\bar{X}_n = \frac{1}{n}\sum_{i=1}^n X(\omega_i) = \sum_{k} x_k \cdot \frac{n_k}{n}$, dove $n_k$ è il numero di volte in cui compare $x_k$. Per la legge dei grandi numeri, $n_k/n \to p_X(x_k)$.
+
+> [!info] **Definizione: Valore Atteso (Expected Value)**
+> $$E[X] = \mu_X = \sum_{x \in \mathcal{X}} x \cdot p_X(x)$$
+> Il valore atteso è il **baricentro probabilistico** della distribuzione: la media ponderata dei valori assunti, pesata con le rispettive probabilità.
+
+> [!abstract] **Proprietà: Linearità del valore atteso**
+> Per qualunque costanti $a, b \in \mathbb{R}$:
+> $$E[aX + b] = a\,E[X] + b$$
+> Questa proprietà vale per *qualunque* legge di probabilità, discreta o continua.
+
+**Media condizionale:** analogamente alla PMF condizionale, si definisce:
+$$E[X \mid C] = \sum_{x \in \mathcal{X}} x \cdot p_{X \mid C}(x)$$
+
+> [!abstract] **Teorema: Media per partizione**
+> Data una partizione $\{E_1, E_2, \ldots, E_m\}$ di $\Omega$:
+> $$E[X] = \sum_{i=1}^{m} P(E_i) \cdot E[X \mid E_i]$$
+> È la versione "pesata" della legge di probabilità totale, applicata ai valori attesi.
+
+
+## 4.4 Expectation of a Function of a Random Variable
+
+Data $X$ e una funzione $g$, la variabile $Y = g(X)$ è anch'essa una variabile aleatoria (è una composizione di applicazioni). Per calcolarne la media, non serve prima ricavare la PMF di $Y$:
+
+> [!info] **Teorema: LOTUS (Law Of The Unconscious Statistician)**
+> Sia $Y = g(X)$. Allora:
+> $$E[g(X)] = \sum_{x \in \mathcal{X}} g(x) \cdot p_X(x)$$
+
+*Dimostrazione (caso non biiettivo):* Se più valori $\{x_{i_1}, \ldots, x_{i_\ell}\}$ collassano sullo stesso $y_j = g(x_{i_s})$ per ogni $s$, allora $p_Y(y_j) = \sum_s p_X(x_{i_s})$. Nella somma $\sum_x g(x) p_X(x)$, tutti questi termini hanno lo stesso valore $g(x_{i_s}) = y_j$, e le loro probabilità si sommano automaticamente a $p_Y(y_j)$. Il risultato finale è $\sum_j y_j p_Y(y_j) = E[Y]$. $\square$
+
+> [!warning] **Disuguaglianza di Jensen**
+> Se $g$ è convessa ($g'' \geq 0$): $E[g(X)] \geq g(E[X])$.
+> Se $g$ è concava ($g'' \leq 0$): $E[g(X)] \leq g(E[X])$.
+> Importante: in generale $E[g(X)] \neq g(E[X])$.
+
+> [!example] **Esempio applicativo**
+> $X$ ha alfabeto $\{-2,-1,1,2\}$ con PMF $\{1/8, 1/4, 1/4, 3/8\}$.
+>
+> *Caso $Y = 4X$:* $E[Y] = 4\,E[X]$ per linearità. L'alfabeto di $Y$ è $\{-8,-4,4,8\}$ con le stesse probabilità.
+>
+> *Caso $Y = |X|$:* L'alfabeto di $Y$ è $\{1,2\}$. In $Y=1$ collassano $X=-1$ e $X=1$: $p_Y(1) = 1/4 + 1/4 = 1/2$. In $Y=2$ collassano $X=-2$ e $X=2$: $p_Y(2) = 1/8 + 3/8 = 1/2$. Quindi $E[Y] = 1 \cdot 1/2 + 2 \cdot 1/2 = 3/2$.
+
+
+## 4.5 Variance
+
+La media da sola non basta a caratterizzare una variabile aleatoria. Se il professore ha mediamente 100€ in tasca con varianza di 1 centesimo, la media è informativa. Se la varianza è 30€, la situazione può essere molto diversa da giorno a giorno. La coppia $(\mu_X, \sigma_X)$ è molto più informativa del solo $\mu_X$.
+
+> [!info] **Definizione: Varianza e Deviazione Standard**
+> La **varianza** di $X$ è il valore quadratico medio dello scarto dalla media:
+> $$\text{Var}(X) = \sigma_X^2 = E\!\left[(X - \mu_X)^2\right] = \sum_{x \in \mathcal{X}} (x - \mu_X)^2\, p_X(x)$$
+> La **deviazione standard** è $\sigma_X = \sqrt{\text{Var}(X)}$.
+
+> [!abstract] **Formula computazionale della varianza**
+> $$\text{Var}(X) = E[X^2] - \bigl(E[X]\bigr)^2$$
+> *Dimostrazione:* $E[(X-\mu)^2] = E[X^2 - 2\mu X + \mu^2] = E[X^2] - 2\mu^2 + \mu^2 = E[X^2] - \mu^2$. $\square$
+
+> [!info] **Definizione: Valore efficace (RMS)**
+> Il **valore quadratico medio** è $E[X^2]$, indicato anche come $x^2_\text{rms}$.
+> Il **valore efficace** è $x_\text{rms} = \sqrt{E[X^2]}$ (dalla sigla inglese *Root Mean Square*).
+
+> [!tip] **Parole del Professore**
+> Se il valore efficace di una presa elettrica è zero, puoi toccarla senza rischi — la presa è spenta. Ma se è zero solo il *valor medio* (come per la corrente alternata sinusoidale, il cui valor medio è sempre zero), ti folgoreresti. Il valore efficace della rete elettrica italiana è 230 V RMS. La varianza cattura l'**energia** del segnale, non la media. Ecco perché nel machine learning si minimizza il *quadrato* dell'errore: è una misura di energia, è convessa, e ammette un unico minimo globale.
+
+> [!abstract] **Proprietà della varianza**
+> $$\text{Var}(aX + b) = a^2\,\text{Var}(X)$$
+> La traslazione $b$ non influenza la varianza (sposta la distribuzione senza allargarla); la scala $a$ la moltiplica per $a^2$.
+
+Il rapporto $\mu_X / \sigma_X$ misura quanto $X$ è "poco aleatoria": se è grande, la distribuzione è concentrata intorno alla media e $\mu_X$ è un buon predittore. Se è piccolo, la distribuzione è molto dispersa.
+
+
+## 4.6 The Bernoulli and Binomial Random Variables
+
+### Variabile di Bernoulli
+
+La variabile di Bernoulli modella il risultato di un singolo esperimento binario (successo/insuccesso, 1/0, testa/croce).
+
+> [!info] **Definizione: Variabile di Bernoulli**
+> $X \sim \text{Ber}(p)$ se $\mathcal{X} = \{0, 1\}$ con:
+> $$p_X(1) = p, \quad p_X(0) = 1 - p, \quad 0 \leq p \leq 1$$
+> $$E[X] = p, \qquad \text{Var}(X) = p(1-p)$$
+
+### Variabile Binomiale (Conteggio Bernulliano)
+
+Conta il numero di successi in $n$ prove **indipendenti**, ognuna con probabilità di successo $p$. Il nome "binomiale" deriva dal binomio di Newton, che compare nella verifica della normalizzazione.
+
+> [!info] **Definizione: Variabile Binomiale**
+> $X \sim \text{Bin}(n, p)$ se $\mathcal{X} = \{0, 1, \ldots, n\}$ con:
+> $$p_X(k) = \binom{n}{k} p^k (1-p)^{n-k}, \quad k = 0, 1, \ldots, n$$
+
+> [!abstract] **Media e Varianza della Binomiale**
+> $$E[X] = np, \qquad \text{Var}(X) = np(1-p)$$
+> *Calcolo della media:* $E[X] = \sum_{k=1}^n k\binom{n}{k}p^k q^{n-k}$. Usando $k\binom{n}{k} = n\binom{n-1}{k-1}$ e la sostituzione $\ell = k-1$:
+> $$E[X] = np \sum_{\ell=0}^{n-1}\binom{n-1}{\ell}p^\ell q^{n-1-\ell} = np(p+q)^{n-1} = np \qquad \square$$
+
+*Verifica normalizzazione:* $\sum_{k=0}^n \binom{n}{k}p^k(1-p)^{n-k} = \bigl(p+(1-p)\bigr)^n = 1$ per il binomio di Newton. ✓
+
+> [!tip] **Parole del Professore**
+> L'intuizione non deve essere abbandonata: data una sorgente che emette 1 con probabilità $p$, in una stringa di $n$ bit mi aspetto mediamente $np$ uni. Non mi serve il calcolo formale. L'indipendenza è però cruciale: senza di essa non posso scrivere la probabilità di una stringa come prodotto delle probabilità dei singoli bit.
+
+> [!example] **Esempi applicativi**
+> - **Vaccini:** 10 bambini, efficacia 90%. $E[\text{immunizzati}] = 10 \cdot 0{,}9 = 9$. Probabilità che tutti e 10 siano immunizzati: $0{,}9^{10} \approx 0{,}349$.
+> - **Compressione:** In 1000 bit con $p = 0{,}3$, mediamente $300$ uni. L'analisi combinatoria di quante sequenze hanno esattamente $k$ uni è la base dell'algoritmo di Huffman.
+> - **Roulette:** 100 puntate al numero 7 ($p = 1/37$). Probabilità di esattamente 5 successi: $\binom{100}{5}(1/37)^5(36/37)^{95}$.
+
+
+## 4.7 The Poisson Random Variable
+
+La Poissoniana è la distribuzione più importante per modellare il **numero di arrivi** in un intervallo di tempo quando gli arrivi sono rari, casuali e indipendenti. È il modello fondamentale per la teoria delle code: code di pacchetti in un router, code di automobili a un semaforo, code agli sportelli.
+
+> [!info] **Definizione: Variabile Poissoniana**
+> $X \sim \text{Poisson}(\lambda)$ se $\mathcal{X} = \mathbb{N}_0 = \{0, 1, 2, \ldots\}$ con:
+> $$p_X(k) = e^{-\lambda}\frac{\lambda^k}{k!}, \quad k = 0, 1, 2, \ldots, \quad \lambda > 0$$
+
+> [!abstract] **Media e Varianza della Poissoniana**
+> $$E[X] = \lambda, \qquad \text{Var}(X) = \lambda$$
+> Il parametro $\lambda$ è sia la media sia la varianza.
+>
+> *Verifica normalizzazione:* $\sum_{k=0}^\infty e^{-\lambda}\frac{\lambda^k}{k!} = e^{-\lambda} \cdot e^\lambda = 1$ (serie di Maclaurin di $e^\lambda$). ✓
+>
+> *Calcolo della media:* $E[X] = e^{-\lambda}\sum_{k=1}^\infty k\frac{\lambda^k}{k!} = e^{-\lambda}\lambda\sum_{\ell=0}^\infty\frac{\lambda^\ell}{\ell!} = \lambda e^{-\lambda}e^\lambda = \lambda$. $\square$
+
+> [!abstract] **Poisson come limite della Binomiale**
+> $\text{Bin}(n, p) \xrightarrow{n \to \infty,\; p \to 0,\; np = \lambda} \text{Poisson}(\lambda)$
+>
+> La Binomiale con $n$ grande e $p$ piccolo (eventi rari) converge alla Poissoniana. Questa è la giustificazione teorica del modello di Poisson per eventi rari in grandi popolazioni.
+
+> [!tip] **Parole del Professore**
+> "La Poissoniana non invecchia" — il numero di arrivi in un intervallo futuro è indipendente da quanti ne sono arrivati nel passato. Questa proprietà di *assenza di memoria* la rende il modello più semplice per le code, ma anche il più limitato: in un'ora di punta, $\lambda$ cambia (più macchine a mezzogiorno che a mezzanotte). Si modella allora con una Poisson non-stazionaria o con processi più complessi.
+
+> [!example] **Esempio: semaforo urbano**
+> Il numero di automobili in coda a un semaforo a mezzogiorno è modellato come $\text{Poisson}(\lambda = 40)$. Si vuole regolare il tempo del verde in modo che la coda non ecceda $K$ macchine con probabilità almeno $0{,}95$:
+> $$P(X \leq K) = \sum_{k=0}^K e^{-40}\frac{40^k}{k!} \geq 0{,}95$$
+> Si trova $K$ per via numerica e si dimensiona di conseguenza il ciclo semaforico.
+
+
+## 4.8 Moment Generating Functions
+
+**Non ancora trattato** nelle lezioni disponibili.
+
+
+## 4.9 The Weak Law of Large Numbers
+
+La legge dei grandi numeri formalizza l'intuizione fondamentale: su molti esperimenti, la media osservata converge alla media statistica.
+
+> [!info] **Teorema: Legge Debole dei Grandi Numeri (WLLN)**
+> Siano $X_1, X_2, \ldots, X_n$ variabili aleatorie **i.i.d.** (*independent and identically distributed*) con media $\mu$ e varianza $\sigma^2 < \infty$. Allora la media campionaria converge **in probabilità** a $\mu$:
+> $$\bar{X}_n = \frac{1}{n}\sum_{i=1}^n X_i \xrightarrow{\;\;P\;\;} \mu$$
+> ovvero: $\lim_{n \to \infty} P\!\left(|\bar{X}_n - \mu| > \varepsilon\right) = 0$ per ogni $\varepsilon > 0$.
+
+> [!abstract] **Dimostrazione tramite Disuguaglianza di Chebyshev**
+> Per qualunque variabile aleatoria $X$ con media $\mu$ e varianza $\sigma^2$:
+> $$P(|X - \mu| \geq \varepsilon) \leq \frac{\sigma^2}{\varepsilon^2}$$
+> *Dimostrazione:* $\sigma^2 = E[(X-\mu)^2] \geq \varepsilon^2 \cdot P(|X-\mu| \geq \varepsilon)$ (spezzando la somma sulle regioni $|x-\mu| \geq \varepsilon$ e $|x-\mu| < \varepsilon$). $\square$
+>
+> Poiché $\bar{X}_n$ ha varianza $\sigma^2/n$:
+> $$P(|\bar{X}_n - \mu| \geq \varepsilon) \leq \frac{\sigma^2}{n\varepsilon^2} \xrightarrow{n \to \infty} 0 \qquad \square$$
+
+> [!tip] **Parole del Professore**
+> La WLLN è la base teorica di ZIP, gzip e tutti gli algoritmi di compressione universale. L'algoritmo di Lempel-Ziv (LZ77/LZ78), che è alla base di tutti i formati compressi che usate ogni giorno, è ottimale nel senso che raggiunge asintoticamente l'entropia della sorgente. La dimostrazione dell'ottimalità usa la legge *forte* dei grandi numeri (convergenza con probabilità 1, non solo in probabilità).
+
+
+
+# Capitolo 5 — Special Random Variables
+
+## 5.1 The Normal Random Variable
+
+**Non ancora trattato** nelle lezioni disponibili.
+
+
+## 5.2 The Exponential Random Variable
+
+La variabile esponenziale descrive il **tempo di attesa** tra eventi in un processo di Poisson. È la versione continua della variabile geometrica, e condivide con essa la fondamentale proprietà di **assenza di memoria**.
+
+> [!info] **Definizione: Variabile Esponenziale**
+> $X \sim \text{Exp}(\lambda)$ con $\lambda > 0$ se ha **densità di probabilità (PDF)**:
+> $$f_X(x) = \lambda e^{-\lambda x}, \quad x \geq 0$$
+> e **funzione di ripartizione (CDF)**:
+> $$F_X(x) = P(X \leq x) = 1 - e^{-\lambda x}, \quad x \geq 0$$
+
+> [!abstract] **Media e Varianza dell'Esponenziale**
+> $$E[X] = \frac{1}{\lambda}, \qquad \text{Var}(X) = \frac{1}{\lambda^2}$$
+> Il parametro $\lambda$ è il *tasso* (numero medio di eventi per unità di tempo); il tempo medio tra eventi è $1/\lambda$.
+
+> [!abstract] **Proprietà di assenza di memoria**
+> $$P(X > s + t \mid X > s) = P(X > t) \quad \forall s, t \geq 0$$
+> Il tempo residuo ha la stessa distribuzione del tempo originale, indipendentemente da quanto si è già aspettato. L'esponenziale è l'**unica** distribuzione continua con questa proprietà.
+>
+> *Dimostrazione:*
+> $$P(X > s+t \mid X > s) = \frac{P(X > s+t)}{P(X > s)} = \frac{e^{-\lambda(s+t)}}{e^{-\lambda s}} = e^{-\lambda t} = P(X > t) \qquad \square$$
+
+
+## 5.3 The Hypergeometric Random Variable
+
+**Non ancora trattato** nelle lezioni disponibili.
+
+
+## 5.4 The Discrete Uniform Random Variable
+
+> [!info] **Definizione: Variabile Uniforme Discreta**
+> $X$ è **uniforme** su $\mathcal{X} = \{x_1, x_2, \ldots, x_m\}$ se:
+> $$p_X(x_i) = \frac{1}{m} \quad \forall i = 1, \ldots, m$$
+> Tutti i valori dell'alfabeto sono equiprobabili.
+
+> [!abstract] **Media della Variabile Uniforme Discreta**
+> $$E[X] = \frac{1}{m}\sum_{i=1}^m x_i \quad \text{(media aritmetica dei valori)}$$
+> Per $\mathcal{X} = \{1, 2, \ldots, m\}$: $E[X] = \dfrac{m+1}{2}$ (usando $\sum_{i=1}^m i = m(m+1)/2$, formula di Gauss).
+
+
+## 5.5 The Poisson Process
+
+**Non ancora trattato** nelle lezioni disponibili.
+
+
+## 5.6 The Uniform Random Variable
+
+> [!info] **Definizione: Variabile Uniforme Continua**
+> $X \sim \text{Unif}(a, b)$ se ha PDF:
+> $$f_X(x) = \frac{1}{b - a}, \quad a \leq x \leq b$$
+> e CDF: $F_X(x) = \dfrac{x-a}{b-a}$ per $a \leq x \leq b$.
+
+> [!abstract] **Media e Varianza dell'Uniforme Continua**
+> $$E[X] = \frac{a + b}{2}, \qquad \text{Var}(X) = \frac{(b-a)^2}{12}$$
+
+
+## 5.7 The Gamma Distribution
+
+**Non ancora trattato** nelle lezioni disponibili.
+
+
+## 5.8 Distributions Arising from the Normal
+
+**Non ancora trattato** nelle lezioni disponibili.
+
+
+## 5.9 The Logistics Distribution
+
+**Non ancora trattato** nelle lezioni disponibili.
+
+
+### Variabile Geometrica *(non nel libro ma trattata a lezione)*
+
+La variabile geometrica modella il **numero di tentativi** fino al primo successo, in una sequenza di prove indipendenti. È la versione discreta dell'esponenziale.
+
+> [!info] **Definizione: Variabile Geometrica**
+> $X \sim \text{Geom}(p)$ se $\mathcal{X} = \{1, 2, 3, \ldots\}$ con:
+> $$p_X(n) = (1-p)^{n-1} \cdot p, \quad n = 1, 2, 3, \ldots$$
+> $X = n$ significa: i primi $n-1$ tentativi sono falliti e il $n$-esimo è un successo.
+
+> [!abstract] **Media e Varianza della Geometrica**
+> $$E[X] = \frac{1}{p}, \qquad \text{Var}(X) = \frac{1-p}{p^2}$$
+> *Calcolo della media:* $E[X] = p\sum_{n=1}^\infty n(1-p)^{n-1} = p \cdot \frac{d}{dq}\left(\sum_{n=0}^\infty q^n\right) = p \cdot \frac{d}{dq}\frac{1}{1-q} = p \cdot \frac{1}{(1-q)^2} = \frac{1}{p}$.
+
+> [!example] **Esempio: roulette**
+> La roulette ha 37 numeri. La probabilità di indovinare il numero puntato è $p = 1/37$. Il tempo atteso al primo successo è $E[X] = 37$ puntate. Tuttavia il banco paga 36 volte la posta (non 37), garantendo un valore atteso negativo per il giocatore.
+
+> [!abstract] **Assenza di memoria della Geometrica**
+> $$P(X > m + n \mid X > m) = P(X > n) \quad \forall m, n \geq 0$$
+> La geometrica è l'**unica** distribuzione discreta con questa proprietà.
+
+
+
+
+# Capitolo 6 — Distributions of Sampling Statistics
+
+## 6.1 Introduction
+
+**Non ancora trattato.**
+
+
+
+## 6.2 The Sample Mean
+
+**Parzialmente trattato** (la convergenza della frequenza alla probabilità è stata accennata nell'approccio frequentistico — §3.4). La distribuzione della media campionaria non è stata sviluppata formalmente.
+
+
+
+## 6.3 The Central Limit Theorem
+
+**Non ancora trattato.**
+
+
+
+## 6.4 Sample Variance
+
+**Non ancora trattato.**
+
+
+
+## 6.5 Sampling Distributions from a Normal Population
+
+**Non ancora trattato.**
+
+
+
+## 6.6 Sampling from a Finite Population
+
+**Non ancora trattato.**
+
+
+
+# Capitolo 7 — Parameter Estimation
+
+## 7.1 Introduction
+
+**Non ancora trattato.**
+
+
+
+## 7.2 Maximum Likelihood Estimators
+
+**Non ancora trattato.**
+
+
+
+## 7.3 Interval Estimates
+
+**Non ancora trattato.**
+
+
+
+## 7.4 Estimating the Difference in Means of Two Normal Populations
+
+**Non ancora trattato.**
+
+
+
+## 7.5 Interval Estimates of Population Variances
+
+**Non ancora trattato.**
+
+
+
+## 7.6 Estimating the Unknown Bernoulli Parameter
+
+**Non ancora trattato.**
+
+
+
+## 7.7 Interval Estimates of the Mean of a Poisson Distribution
+
+**Non ancora trattato.**
+
+
+
+## 7.8 Bayes Estimators
+
+**Non ancora trattato.**
+
+
+
+# Capitolo 8 — Hypothesis Testing
+
+## 8.1 Introduction
+
+**Non ancora trattato.**
+
+
+
+## 8.2 Significance Levels
+
+**Non ancora trattato.**
+
+
+
+## 8.3 Tests Concerning the Mean of a Normal Population
+
+**Non ancora trattato.**
+
+
+
+## 8.4 Testing the Equality of Means of Two Normal Populations
+
+**Non ancora trattato.**
+
+
+
+## 8.5 Tests Concerning the Variance of a Normal Population
+
+**Non ancora trattato.**
+
+
+
+## 8.6 Tests Concerning Bernoulli Parameters
+
+**Non ancora trattato.**
+
+
+
+## 8.7 Tests Concerning Poisson Parameters
+
+**Non ancora trattato.**
+
+
+
+# Capitolo 9 — Regression
+
+## 9.1 Introduction
+
+**Non ancora trattato.**
+
+
+
+## 9.2 Least Squares Estimators of the Regression Parameters
+
+**Non ancora trattato.**
+
+
+
+## 9.3 Distribution of the Estimators
+
+**Non ancora trattato.**
+
+
+
+## 9.4 Statistical Inferences about the Regression Parameters
+
+**Non ancora trattato.**
+
+
+
+## 9.5 The Coefficient of Determination and the Sample Correlation Coefficient
+
+**Non ancora trattato.**
+
+
+
+## 9.6 Analysis of Residuals: Assessing the Model
+
+**Non ancora trattato.**
+
+
+
+## 9.7 Transforming to Linearity
+
+**Non ancora trattato.**
+
+
+
+## 9.8 Weighted Least Squares
+
+**Non ancora trattato.**
+
+
+
+## 9.9 Polynomial Regression
+
+**Non ancora trattato.**
+
+
+
+## 9.10 Multiple Linear Regression
+
+**Non ancora trattato.**
+
+
+
+## 9.11 Logistic Regression Models for Binary Output Data
+
+**Non ancora trattato.**
