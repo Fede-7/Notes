@@ -177,7 +177,7 @@ Quando $\Omega$ è finito e tutti gli eventi elementari sono **equiprobabili**, 
 
 $$\boxed{P(A) = \frac{|A|}{|\Omega|}}$$
 
-Questo riduce il problema a un conteggio combinatorio.
+Questo riduce\ il problema a un conteggio combinatorio.
 
 > [!warning]
 > Questa formula è valida **solo** se gli eventi elementari sono equiprobabili. Se il dado è truccato, contare i casi favorevoli su quelli possibili non funziona.
@@ -208,7 +208,7 @@ Questo riduce il problema a un conteggio combinatorio.
 #### Derivazione delle formule
 
 **$k$-uple ordinate con ripetizione:** Ogni posizione si riempie in $n$ modi indipendentemente:
-$$\underbrace{n \times n \times \cdots \times n}_{k} = n^k$$
+$$\underbrace{\enspace n \times n \times \cdots \times n}_{k} = n^k$$
 *Esempio:* le sequenze binarie di lunghezza $k$ sono $2^k$.
 
 **$k$-uple ordinate senza ripetizione:** Ogni volta che si pesca un elemento lo si rimuove:
