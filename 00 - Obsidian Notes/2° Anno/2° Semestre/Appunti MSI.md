@@ -613,8 +613,19 @@ La variabile esponenziale descrive il **tempo di attesa** tra eventi in un proce
 > $X \sim \text{Unif}(a, b)$ se ha PDF:
 > $$f_X(x) = \frac{1}{b - a}, \quad a \leq x \leq b$$
 > e CDF: $F_X(x) = \dfrac{x-a}{b-a}$ per $a \leq x \leq b$.
+
 > [!abstract] **Media e Varianza dell'Uniforme Continua**
 > $$E[X] = \frac{a + b}{2}, \qquad \text{Var}(X) = \frac{(b-a)^2}{12}$$
+
+
+## 5.7 The Gamma Distribution
+
+**Non ancora trattato** nelle lezioni disponibili.
+
+
+## 5.8 Distributions Arising from the Normal
+
+**Non ancora trattato** nelle lezioni disponibili.
 
 
 ## 5.9 The Logistics Distribution
