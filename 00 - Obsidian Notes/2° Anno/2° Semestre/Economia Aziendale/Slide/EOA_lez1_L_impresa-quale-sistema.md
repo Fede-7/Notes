@@ -1,17 +1,16 @@
 # EOA — Lezione 1: L'Impresa quale Sistema
 
 **Corso:** Economia dell'Organizzazione e dell'Azienda  
-$$
+
 **Docente:** Prof. Giuseppe Piccirillo
-$$
+
 **Programma:** Laurea Triennale in Informatica — II Semestre 2025–2026
 
 ---
 
 ## Definizione di Impresa
-$$
+
 > [!info] **Definizione: Impresa**
-$$
 > Organizzazione economica che mediante l'impiego di un complesso differenziato di risorse, svolge processi di acquisizione e di produzione di beni o servizi da scambiare con entità esterne al fine di conseguire un reddito.
 
 ### Elementi costitutivi dell'impresa
@@ -38,20 +37,16 @@ L'impresa si caratterizza per un insieme di elementi fondamentali che ne definis
 ## L'Impresa come Sistema
 
 ### Concetto di Sistema
-$$
+
 > [!info] **Definizione: Sistema**
-$$
 > Un sistema è una totalità nella quale diverse parti sono in relazione reciproca. Nessuna di queste parti può mancare, pena l'annullamento del carattere del sistema.
 >
 > Un sistema si caratterizza per:
-$$
 > - **Molteplicità di parti componenti**
-$$
 > - **Interrelazione delle parti** rispetto all'obiettivo da raggiungere
 > - **Legame funzionale con un ambiente esterno**
-$$
 > - **Dinamismo** del suo funzionamento
-$$
+
 ### Caratteristiche della visione sistemica dell'impresa
 
 L'impresa è un sistema caratterizzato da:
@@ -182,9 +177,9 @@ Il contesto normativo, giuridico e politico in cui l'impresa opera esercita un'i
 Le caratteristiche della popolazione, i comportamenti dei consumatori, le questioni di welfare e sostenibilità sociale influenzano le strategie dell'impresa.
 
 **Il caso Foxconn:** la fabbrica di componenti per Apple in Cina ha registrato numerosi suicidi tra i lavoratori, evidenziando problematiche critiche nel sistema socio-demografico e nei diritti dei lavoratori.
-$$
+
 **Questioni critiche:**
-$$
+
 - Cambio nei profili demografici dei consumatori
 - Impatto positivo e negativo del lavoro sull'ambiente e sulla società
 - Sostenibilità sociale e responsabilità d'impresa
@@ -206,9 +201,9 @@ L'innovazione tecnologica rappresenta sia un'opportunità che una minaccia per l
 ### Sistema Economico
 
 L'assetto economico globale, il livello di sviluppo, l'integrazione commerciale e le dinamiche di mercato definiscono le opportunità e i vincoli per l'impresa.
-$$
+
 **Globalizzazione e Internazionalizzazione:**
-$$
+
 - Apple nel mercato cinese: una delle maggiori opportunità di crescita, ma anche fonte di complessità geopolitica
 - Guerra commerciale USA-Cina: impatto diretto su supply chain e profittabilità
 - **Big Tech e Antitrust:** le grandi aziende tecnologiche affrontano pressioni normative crescenti per la regolazione dei monopoli digitali

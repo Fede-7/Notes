@@ -29,24 +29,21 @@ Il focus dell'imprenditorialità è da rinvenire nella **promozione dell'innovaz
 ---
 
 ## Imprenditorialità vs Managerialità
-$$
-| **IMPRENDITORIALITÀ** | **MANAGERIALITÀ** |
-$$
-$$
-|---|---|
-$$
+
+| **IMPRENDITORIALITÀ**                                                                              | **MANAGERIALITÀ**                                                                   |
+| -------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
 | Attitudine ad assumere decisioni rischiose finalizzate all'innovazione dei comportamenti aziendali | Capacità di sviluppare le decisioni imprenditoriali e di attuarle in modo razionale |
 
 ### Efficacia vs Efficienza
-$$
+
 **EFFICACIA**
-$$
+
 - È il valore proprio dell'imprenditorialità
 - Riguarda la bontà delle decisioni
 - È l'abilità decisionale di chi governa il sistema aziendale a livello più elevato
-$$
+
 **EFFICIENZA**
-$$
+
 - È il valore proprio della managerialità
 - Intesa quale attitudine a realizzare il massimo rendimento nella fase di attuazione delle scelte aziendali
 - Valuta l'abilità di raggiungere l'obiettivo impiegando le risorse minime indispensabili
@@ -234,16 +231,12 @@ Capace di prendere decisioni su:
 
 ## Differenze tra Capo e Leader
 
-| | CAPO | LEADER |
-$$
-|---|---|---|
-$$
-| **Approccio** | Esercita autorità imposta | Ispira e motiva |
-$$
-| **Decisioni** | Impone | Coinvolge |
-$$
-| **Visione** | A breve termine | A lungo termine |
-| **Relazioni** | Formali e gerarchiche | Autentiche e significative |
+|               | CAPO                      | LEADER                     |
+| ------------- | ------------------------- | -------------------------- |
+| **Approccio** | Esercita autorità imposta | Ispira e motiva            |
+| **Decisioni** | Impone                    | Coinvolge                  |
+| **Visione**   | A breve termine           | A lungo termine            |
+| **Relazioni** | Formali e gerarchiche     | Autentiche e significative |
 
 ---
 
@@ -267,12 +260,9 @@ $$
 **Stakeholder** è ogni individuo o gruppo (interlocutore) che **influenza o è influenzato** dalle finalità perseguite dall'Impresa.
 
 ### Stakeholder vs Shareholder
-$$
-| **STAKEHOLDER** | **SHAREHOLDER/STOCKHOLDER** |
-$$
-$$
-|---|---|
-$$
+
+| **STAKEHOLDER**                     | **SHAREHOLDER/STOCKHOLDER**                                               |
+| ----------------------------------- | ------------------------------------------------------------------------- |
 | Portatore di interesse dell'impresa | Possessore di titoli rappresentativi del capitale di rischio dell'impresa |
 
 ### Chi sono gli Stakeholder?
@@ -284,9 +274,9 @@ Persone od organizzazioni con un interesse speciale in un'impresa (o più impres
 
 ### Stakeholder Interni
 Hanno un interesse nel successo e nel fallimento dell'impresa, in quanto possono essere **ricompensati o danneggiati** in conseguenza dell'andamento dell'impresa stessa.
-$$
+
 **Stakeholder interni sono:**
-$$
+
 - Dipendenti
 - Manager
 - Proprietari
@@ -297,9 +287,9 @@ Persone, gruppi o entità, portatori di interesse "esterno", **influenzati dalle
 Possono:
 - Esercitare differenti tipi di potere sull'organizzazione
 - Provare ad influenzare le decisioni attraverso pressione economica o politica
-$$
+
 **Stakeholder esterni sono:**
-$$
+
 - Consumatori
 - Fornitori
 - Stato

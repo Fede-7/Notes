@@ -110,12 +110,12 @@ Pertanto, il macro-ambiente finisce per essere, per certi versi ed entro certe c
 ---
 
 ## Risorse Video di Approfondimento
-$$
+
 -
-$$https://www.youtube.com/watch?v=doNzIAPn56g
-$$
+https://www.youtube.com/watch?v=doNzIAPn56g
+
 -
-$$https://www.youtube.com/watch?v=7g_bG7MUZSs
+https://www.youtube.com/watch?v=7g_bG7MUZSs
 
 ---
 
