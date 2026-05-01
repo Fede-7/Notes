@@ -490,6 +490,16 @@ Per caratterizzare *parzialmente* come due variabili aleatorie variano insieme s
 
 Se due variabili sono **indipendenti**, la media del prodotto fattorizza ($E[XY] = E[X]E[Y]$), quindi la loro covarianza è *zero* (sono scorrelate). **Attenzione:** Il viceversa in generale non vale! Variabili con covarianza nulla possono essere fortemente dipendenti (l'unico caso in cui l'assenza di correlazione implica indipendenza è nel mondo delle distribuzioni normali/gaussiane).
 
+> [!important] **Correlazione vs. Indipendenza: Distinzione Critica**
+> **L'indipendenza implica correlazione nulla**, ma il viceversa non è vero. Due variabili possono avere $\rho = 0$ (zero covarianza) pur essendo fortemente dipendenti tramite una relazione non lineare. 
+>
+> *Esempio:* Siano $X \sim \text{Unif}(-1, 1)$ e $Y = X^2$. Chiaramente $Y$ è completamente determinato da $X$ (dipendenza perfetta), ma:
+> $$E[XY] = E[X \cdot X^2] = E[X^3] = 0 \quad \text{(per simmetria)}$$
+> $$E[X] = 0, \quad E[Y] = E[X^2] = \frac{1}{3}$$
+> Quindi $\text{Cov}(X,Y) = 0 - 0 = 0$, eppure $X$ e $Y$ sono perfettamente dipendenti.
+>
+> **L'unica eccezione è il caso gaussiano:** Se $(X, Y)$ seguono una distribuzione normale bivariata, allora l'incorrelazione **equivale** a indipendenza.
+
 > [!info] **Definizione: Coefficiente di Correlazione**
 > Per avere un indice adimensionale, la covarianza viene normalizzata rispetto alle deviazioni standard, definendo il coefficiente di correlazione:
 > $$\rho_{X,Y} = \frac{\text{Cov}(X,Y)}{\sigma_X \sigma_Y}$$
@@ -501,13 +511,30 @@ Se due variabili sono **indipendenti**, la media del prodotto fattorizza ($E[XY]
 
 ### Matrice di Covarianza
 
-Se raccogliamo $n$ variabili aleatorie in un vettore colonna $\mathbf{X} = [X_1, X_2, \ldots, X_n]^T$, possiamo definire la **Matrice di Covarianza**:
-$$\mathbf{C_X} = E[\,(\mathbf{X} - \boldsymbol{\mu_X})(\mathbf{X} - \boldsymbol{\mu_X})^T\,]$$
-È una matrice quadrata $n \times n$ che ha:
-- Sulla **diagonale principale**: le varianze delle singole variabili ($\sigma_i^2$).
-- Sulla **diagonale secondaria (antidiagonale)**: le covarianze tra le coppie ($\text{Cov}(X_i, X_j)$).
+Se raccogliamo $n$ variabili aleatorie in un vettore colonna $\mathbf{X} = [X_1, X_2, \ldots, X_n]^T$ con vettore di medie $\boldsymbol{\mu} = E[\mathbf{X}]$, possiamo definire la **Matrice di Covarianza**:
+$$\mathbf{C_X} = \text{Cov}(\mathbf{X}) = E[\,(\mathbf{X} - \boldsymbol{\mu})(\mathbf{X} - \boldsymbol{\mu})^T\,]$$
+È una matrice quadrata $n \times n$ dove l'elemento generico è:
+$$[\mathbf{C_X}]_{ij} = \text{Cov}(X_i, X_j) = E[(X_i - \mu_i)(X_j - \mu_j)]$$
 
-La matrice di covarianza è sempre **definita non negativa**. Questa matrice è il punto di partenza per tecniche avanzate di machine learning, filtraggio predittivo e data analysis (es. l'analisi delle componenti principali (PCA) si basa proprio sugli autovalori/autovettori di questa matrice).
+**Struttura della matrice di covarianza:**
+- Sulla **diagonale principale**: $[\mathbf{C_X}]_{ii} = \text{Var}(X_i) = \sigma_i^2$ (le varianze delle singole variabili).
+- Fuori dalla diagonale: $[\mathbf{C_X}]_{ij} = \text{Cov}(X_i, X_j)$ per $i \neq j$ (le covarianze tra le coppie).
+
+> [!abstract] **Proprietà della Matrice di Covarianza**
+> 1. **Simmetria:** $\mathbf{C_X} = \mathbf{C_X}^T$ (poiché $\text{Cov}(X_i, X_j) = \text{Cov}(X_j, X_i)$).
+> 2. **Semidefinitezza Positiva:** Per ogni vettore $\mathbf{a} \in \mathbb{R}^n$, si ha $\mathbf{a}^T \mathbf{C_X} \mathbf{a} \geq 0$. Questa proprietà garantisce che gli autovalori sono tutti non negativi.
+> 3. **Invertibilità (Condizionata):** Se la matrice non è singolare (determinante non nullo), allora ammette inversa. Una matrice singolare indica dipendenza lineare tra le variabili.
+> 4. **Dimensionalità:** Nel caso $n \times n$, la matrice è completamente determinata da $n(n+1)/2$ parametri indipendenti (n varianze + $\binom{n}{2}$ covarianze uniche).
+
+> [!tip] **Interpretazione Geometrica**
+> La matrice di covarianza caratterizza completamente la forma della nube di probabilità nel spazio $n$-dimensionale:
+> - Gli **autovettori** indicano le direzioni di massima variabilità.
+> - Gli **autovalori** misurano la varianza lungo ciascuna direzione principale.
+
+La matrice di covarianza è il punto di partenza per tecniche avanzate di machine learning, filtraggio predittivo e data analysis:
+- **Analisi delle Componenti Principali (PCA)**: si basa su autovalori/autovettori di questa matrice.
+- **Kalman Filter**: utilizza la matrice di covarianza per ottimizzare la stima.
+- **Stima MMSE** (Minimum Mean Square Error): dipende dalla matrice di covarianza tra le variabili osservate e quelle da stimare.
 
 
 ## 4.6 The Bernoulli and Binomial Random Variables
@@ -577,7 +604,20 @@ La Poissoniana è la distribuzione più importante per modellare il **numero di 
 
 ## 4.8 Moment Generating Functions
 
-**Non ancora trattato** nelle lezioni disponibili.
+> [!info] **Definizione: Funzione Generatrice dei Momenti (MGF)**
+> La **Funzione Generatrice dei Momenti** di una variabile aleatoria $X$ è:
+> $$M_X(s) = E[e^{sX}]$$
+> (quando l'aspettazione esiste in un intorno di $s=0$). Nel caso discreto: $M_X(s) = \sum_x e^{sx} p_X(x)$. Nel caso continuo: $M_X(s) = \int e^{sx} f_X(x) \, dx$.
+
+> [!abstract] **Proprietà: Generazione dei Momenti**
+> Espandendo $M_X(s)$ in serie di Taylor intorno a $s=0$, il coefficiente della potenza $s^n$ fornisce il momento di ordine $n$:
+> $$M_X^{(n)}(0) = E[X^n]$$
+> Esempio: $M_X'(0) = E[X]$ (media), $M_X''(0) = E[X^2]$ (secondo momento).
+
+> [!tip] **Proprietà della MGF**
+> - $M_X(0) = 1$ sempre
+> - Se $X$ e $Y$ sono indipendenti, $M_{X+Y}(s) = M_X(s) \cdot M_Y(s)$ — il prodotto di MGF corrisponde alla somma di variabili indipendenti
+> - Se due variabili aleatorie hanno la stessa MGF, allora hanno la stessa distribuzione (unicità)
 
 
 ## 4.9 The Weak Law of Large Numbers
@@ -727,7 +767,65 @@ La variabile esponenziale descrive il **tempo di attesa** tra eventi in un proce
 
 ## 5.5 The Poisson Process
 
-**Non ancora trattato** nelle lezioni disponibili.
+Il **Processo di Poisson** è un modello fondamentale per contare il numero di eventi (arrivi, click, decadimenti) in intervalli di tempo quando gli arrivi sono rari, casuali e indipendenti.
+
+> [!info] **Definizione: Processo di Poisson**
+> Un **processo di Poisson** con intensità $\lambda$ conta il numero di eventi fino al tempo $t$. Se $N(t)$ è il numero di eventi che si verificano nell'intervallo $[0, t]$, allora:
+> $$P(N(t) = k) = \frac{(\lambda t)^k}{k!} e^{-\lambda t}, \quad k = 0, 1, 2, \ldots$$
+> dove $\lambda$ è il *tasso* medio (numero medio di eventi per unità di tempo).
+
+> [!abstract] **Proprietà Caratteristiche del Processo di Poisson**
+> 
+> 1. **Incrementi Indipendenti**: Il numero di eventi in intervalli disgiunti sono variabili aleatorie indipendenti.
+> 2. **Incrementi Stazionari**: La distribuzione del numero di eventi in $[t, t+s]$ dipende solo dalla durata $s$, non dal tempo assoluto $t$. In altre parole, $P(N(t+s) - N(t) = k) = P(N(s) = k)$ per ogni $s, t \geq 0$.
+> 3. **Assenza di Memoria**: La probabilità di un prossimo evento non dipende dal passato — il processo non "invecchia".
+
+> [!tip] **Parole del Professore**
+> "La Poissoniana non invecchia" — il numero di arrivi in un intervallo futuro è indipendente da quanti ne sono arrivati nel passato. Questa proprietà di *assenza di memoria* la rende il modello più semplice per le code, ma anche il più limitato: in un'ora di punta, $\lambda$ cambia (più macchine a mezzogiorno che a mezzanotte). Si modella allora con una Poisson non-stazionaria o con processi più complessi.
+
+> [!example] **Applicazioni Pratiche**
+> - **Teoria delle code**: numero di clienti agli sportelli, pacchetti in un router, richieste a un server web.
+> - **Affidabilità**: numero di guasti di un componente, decadimenti radioattivi.
+> - **Comunicazioni**: numero di pacchetti trasmessi, fotoni rilevati in ottica quantistica.
+
+
+## 5.5-bis Caratterizzazione Statistica di Processi Stocastici
+
+Un **processo stocastico** (o aleatorio) è una famiglia di variabili aleatorie indicizzate dal tempo. Estende il concetto di variabile aleatoria dal dominio statico al dominio temporale.
+
+> [!abstract] **Definizione Formale**
+> Dato uno spazio di probabilità $(\Omega, \mathcal{F}, P)$, un **processo stocastico** è una famiglia di variabili aleatorie indicizzate dal tempo:
+> $$\{X(t) : t \in \mathcal{T}\}$$
+> dove $\mathcal{T}$ è l'insieme di indici (tipicamente $\mathbb{N}$ per tempo discreto, $\mathbb{R}_{\geq 0}$ per tempo continuo). Per ogni $t$ fissato, $X(t)$ è una variabile aleatoria; per ogni $\omega \in \Omega$ fissato, $X(t, \omega)$ è una **realizzazione** (o **traiettoria**) del processo.
+
+> [!abstract] **Caratterizzazione Statistica di Processi Stocastici**
+> Per caratterizzare un processo aleatorio sono necessari:
+> 
+> 1. **Medie al Primo Ordine**: Per ogni $t$:
+>    - Media: $\mu_X(t) = E[X(t)]$
+>    - Varianza: $\sigma_X^2(t) = \text{Var}(X(t))$
+> 
+> 2. **Medie al Secondo Ordine**: Per ogni coppia di tempi $t_1, t_2$:
+>    - Funzione di autocovarianza: $\gamma(t_1, t_2) = \text{Cov}(X(t_1), X(t_2))$
+>    - Funzione di autocorrelazione: $\rho(t_1, t_2) = \frac{\gamma(t_1, t_2)}{\sigma_X(t_1)\sigma_X(t_2)}$
+> 
+> 3. **Distribuzioni Congiunte Finite-Dimensionali**: Per ogni $n$ e ogni scelta di tempi $t_1, \ldots, t_n$, la PDF (o PMF) congiunta $f_{X(t_1), \ldots, X(t_n)}$.
+
+> [!abstract] **Stazionarietà (Proprietà Fondamentale)**
+> Un processo è **stazionario in senso stretto** se le proprietà statistiche sono invarianti nel tempo.
+> 
+> Un processo è **stazionario in senso lato** (WSS — Wide Sense Stationary) se:
+> - $E[X(t)] = \mu$ (media costante)
+> - $\text{Var}(X(t)) = \sigma^2$ (varianza costante)
+> - $\text{Cov}(X(t_1), X(t_2))$ dipende solo da $\tau = t_1 - t_2$ (autocovarianza dipende solo dal lag)
+> 
+> La stazionarietà semplifica drasticamente l'analisi: molti processi reali (almeno su scale temporali limitate) possono essere approssimati come stazionari.
+
+> [!example] **Processo Gaussiano**
+> Se ogni marginale $X(t)$ è gaussiana e ogni densità congiunta è gaussiana multivariata, il processo si dice **gaussiano**. I processi gaussiani:
+> - Sono completamente caratterizzati dalle loro medie $\mu_X(t)$ e funzione di autocovarianza $\gamma(t_1, t_2)$.
+> - Generalizzano il concetto di distribuzione normale alle funzioni del tempo.
+> - Sono importanti nella teoria del filtraggio (Kalman filter) e nell'apprendimento supervisionato (Gaussian Process regression).
 
 
 ## 5.6 The Uniform Random Variable
@@ -786,6 +884,19 @@ Come si simula al calcolatore una variabile con una distribuzione arbitraria? I 
 > 
 > *Dimostrazione:* $P(X \leq x) = P(F_X^{-1}(U) \leq x)$. Siccome $F_X$ è monotona crescente, applicandola a entrambi i membri otteniamo $P(U \leq F_X(x))$. Ma la CDF di un'uniforme in $(0,1)$ è l'argomento stesso! Quindi $P(U \leq F_X(x)) = F_X(x)$. $\square$
 
+> [!example] **Applicazione: Generazione di Variabili Esponenziali**
+> Una variabile $X \sim \text{Exp}(\lambda)$ ha CDF:
+> $$F_X(x) = 1 - e^{-\lambda x}, \quad x \geq 0$$
+> 
+> Per invertire: se $u = 1 - e^{-\lambda x}$, allora $e^{-\lambda x} = 1 - u$, quindi $x = -\frac{1}{\lambda}\ln(1-u)$.
+> 
+> **Algoritmo:**
+> 1. Genera $U \sim \text{Unif}(0,1)$ usando `rand()`
+> 2. Poni $X = -\frac{1}{\lambda}\ln(1-U)$
+> 3. $X$ segue la distribuzione $\text{Exp}(\lambda)$
+> 
+> *Nota:* Poiché $1-U$ è ancora uniforme in $(0,1)$, è equivalente usare $X = -\frac{1}{\lambda}\ln(U)$.
+
 ## 5.8-bis Legge della Probabilità Totale per le Densità
 
 Così come per le probabilità discrete, se abbiamo una partizione dello spazio campionario $\{E_1, E_2, \ldots, E_m\}$, possiamo condizionare la densità di $X$:
@@ -802,25 +913,74 @@ Nel caso continuo, due variabili aleatorie $X$ e $Y$ sono descritte congiuntamen
 
 > [!info] **Densità di Probabilità Congiunta**
 > $$f_{X,Y}(x,y) = \lim_{\Delta x, \Delta y \to 0} \frac{P\left(x-\frac{\Delta x}{2} < X \leq x+\frac{\Delta x}{2}, \, y-\frac{\Delta y}{2} < Y \leq y+\frac{\Delta y}{2}\right)}{\Delta x \Delta y}$$
-> L'integrale doppio su tutto $\mathbb{R}^2$ fa 1. La probabilità che la coppia $(X,Y)$ appartenga a una regione bidimensionale $A$ è l'integrale doppio della densità su $A$.
+> L'integrale doppio su tutto $\mathbb{R}^2$ fa 1. La probabilità che la coppia $(X,Y)$ appartenga a una regione bidimensionale $A$ è l'integrale doppio della densità su $A$:
+> $$P((X,Y) \in A) = \iint_A f_{X,Y}(x, y) \, dx \, dy$$
+
+> [!info] **Funzione di Distribuzione Cumulativa Congiunta (CDF Congiunta)**
+> Analogamente alle variabili univariate, si definisce la **CDF congiunta**:
+> $$F_{X,Y}(x, y) = P(X \leq x, Y \leq y) = \int_{-\infty}^x \int_{-\infty}^y f_{X,Y}(u, v) \, dv \, du$$
+> 
+> **Proprietà:**
+> - $F_{X,Y}(-\infty, y) = 0$ e $F_{X,Y}(x, -\infty) = 0$ (eventi impossibili)
+> - $F_{X,Y}(+\infty, +\infty) = 1$ (evento certo)
+> - $F_{X,Y}(+\infty, y) = F_Y(y)$ e $F_{X,Y}(x, +\infty) = F_X(x)$ (marginalizzazione)
+> - La PDF congiunta si ricava dalla CDF mediante derivata parziale mista: $f_{X,Y}(x, y) = \frac{\partial^2 F_{X,Y}(x, y)}{\partial x \partial y}$
 
 > [!abstract] **Densità Marginali e Indipendenza**
 > Saturando (integrando) rispetto a una variabile si ottiene la densità (marginale) dell'altra:
-> $$f_X(x) = \int_{-\infty}^{+\infty} f_{X,Y}(x,y) dy$$
+> $$f_X(x) = \int_{-\infty}^{+\infty} f_{X,Y}(x,y) dy, \quad f_Y(y) = \int_{-\infty}^{+\infty} f_{X,Y}(x,y) dx$$
+> Queste sono gli analoghi continui delle distribuzioni marginali nel caso discreto.
+> 
 > Due variabili continue sono **indipendenti** se e solo se la PDF congiunta fattorizza nel prodotto delle marginali:
 > $$f_{X,Y}(x,y) = f_X(x) f_Y(y)$$
+
+> [!info] **Densità Condizionale**
+> Data la PDF congiunta $f_{X,Y}(x, y)$ e un valore $y_0$ di $Y$ con $f_Y(y_0) > 0$, la **densità di probabilità condizionale di $X$ dato $Y = y_0$** è:
+> $$f_{X|Y}(x \mid y_0) = \frac{f_{X,Y}(x, y_0)}{f_Y(y_0)}$$
+> 
+> Geometricamente, questa è la "restrizione" della PDF congiunta al filo di ordinata costante $y = y_0$, riscalata affinché integri a 1. Si verifica che $\int_{-\infty}^{+\infty} f_{X|Y}(x \mid y_0) \, dx = 1$. 
+> 
+> Analogamente, nel caso discreto: $p_{X|Y}(x \mid y) = \frac{p_{X,Y}(x, y)}{p_Y(y)}$. L'unica differenza è che nel caso continuo $P(Y = y) = 0$, quindi la definizione è in senso limite.
+
+> [!abstract] **Cambio di Variabili (Trasformazione Jacobiana)**
+> Se $(X, Y) \to (U, V)$ tramite trasformazione biiettiva $(u, v) = g(x, y)$, la PDF trasformata è:
+> $$f_{U,V}(u, v) = f_{X,Y}(g^{-1}(u,v)) \left| J \right|$$
+> dove $J$ è il **Jacobiano** della trasformazione inversa:
+> $$J = \begin{vmatrix} \frac{\partial x}{\partial u} & \frac{\partial x}{\partial v} \\ \frac{\partial y}{\partial u} & \frac{\partial y}{\partial v} \end{vmatrix}$$
+> Il valore assoluto $|J|$ preserva la positività della densità.
 
 ## 5.10 Somma di Variabili Indipendenti (Convoluzione)
 
 Spesso si è interessati alla PDF della somma $Z = X + Y$, dove $X$ e $Y$ sono variabili aleatorie **indipendenti**.
 
+> [!info] **Definizione: Operazione di Convoluzione**
+> Date due funzioni integrabili $f$ e $g$, il **prodotto di convoluzione** è:
+> $$(f * g)(t) = \int_{-\infty}^{+\infty} f(\tau) \cdot g(t - \tau) \, d\tau = \int_{-\infty}^{+\infty} f(t - \tau) \cdot g(\tau) \, d\tau$$
+> La convoluzione è **commutativa** ($f * g = g * f$), **associativa**, e **distributiva** rispetto alla somma.
+
 > [!info] **Teorema della Convoluzione**
 > La PDF della somma di due variabili aleatorie indipendenti è il **prodotto di convoluzione** delle rispettive PDF:
 > $$f_Z(z) = (f_X * f_Y)(z) = \int_{-\infty}^{+\infty} f_X(z - y) f_Y(y) dy = \int_{-\infty}^{+\infty} f_X(x) f_Y(z - x) dx$$
-> L'operazione di convoluzione gode delle proprietà commutativa, associativa e distributiva.
+> 
+> *Motivazione probabilistica:* Se $X$ e $Y$ sono variabili aleatorie continue indipendenti con densità $f_X$ e $f_Y$, la densità della somma $Z = X + Y$ è data dalla convoluzione perché la convoluzione cattura come la "combinazione" di due fenomeni aleatori indipendenti si riflette nella distribuzione della loro somma.
+
+> [!abstract] **Applicazioni della Convoluzione**
+> 1. **Sistemi Lineari Tempo-Invarianti (LTI)**: La relazione ingresso-uscita di un sistema LTI è descritta dalla convoluzione dell'ingresso con la risposta all'impulso del sistema.
+> 2. **Processamento di Segnali**: Filtraggio di immagini, audio e dati è implementato via convoluzione.
+> 3. **Reti Neurali Convoluzionali (CNN)**: Gli strati convoluzionali eseguono prodotti di convoluzione discreti.
+> 4. **Teorema Centrale del Limite**: La convoluzione ripetuta di distribuzioni elementari converge a una distribuzione Gaussiana.
 
 > [!tip] **Parole del Professore**
 > L'importanza del prodotto di convoluzione è immensa. Esso regola la relazione ingresso-uscita di tutti i sistemi LTI (Lineari Tempo Invarianti). Dal punto di vista della probabilità, la convoluzione ripetuta è il cuore del **Teorema Centrale del Limite**: sovrapponendo un gran numero di variabili aleatorie elementari indipendenti si ottiene una distribuzione Gaussiana (Normale).
+
+> [!info] **Trasformata di Laplace e Convoluzione**
+> La **trasformata di Laplace** di una funzione $f(t)$ è:
+> $$F(s) = \mathcal{L}\{f\}(s) = \int_0^\infty f(t) e^{-st} \, dt$$
+> 
+> Una proprietà fondamentale è che **la convoluzione nel dominio del tempo diventa moltiplicazione nel dominio di Laplace**:
+> $$\mathcal{L}\{f * g\} = \mathcal{L}\{f\} \cdot \mathcal{L}\{g\}$$
+> 
+> Questa proprietà è cruciale per risolvere equazioni differenziali lineari a coefficienti costanti, trasformandole in equazioni algebriche nel dominio di Laplace.
 
 
 ### Variabile Geometrica *(non nel libro ma trattata a lezione)*
@@ -856,13 +1016,73 @@ La variabile geometrica modella il **numero di tentativi** fino al primo success
 
 ## 6.2 The Sample Mean
 
-**Parzialmente trattato** (la convergenza della frequenza alla probabilità è stata accennata nell'approccio frequentistico — §3.4). La distribuzione della media campionaria non è stata sviluppata formalmente.
+La **media campionaria** è uno stimatore fondamentale della media teorica. Comprenderne la distribuzione è essenziale per la statistica inferenziale.
+
+> [!info] **Definizione: Media Campionaria**
+> Data un campione $(X_1, X_2, \ldots, X_n)$ di $n$ osservazioni indipendenti da una distribuzione con media $\mu$ e varianza $\sigma^2$, la **media campionaria** è:
+> $$\bar{X}_n = \frac{1}{n}\sum_{i=1}^n X_i$$
+
+> [!abstract] **Proprietà della Media Campionaria**
+> 1. **Media:** $E[\bar{X}_n] = \mu$ (è uno stimatore non distorto)
+> 2. **Varianza:** $\text{Var}(\bar{X}_n) = \frac{\sigma^2}{n}$ (la varianza decresce con $n$)
+> 3. **Deviazione standard:** $\sigma_{\bar{X}_n} = \frac{\sigma}{\sqrt{n}}$ (errore standard)
+
+> [!abstract] **Convergenza della Media Campionaria**
+> Per grandi valori di $n$, la distribuzione della media campionaria converge in due sensi:
+> 
+> 1. **Legge Debole dei Grandi Numeri (WLLN):** La media campionaria converge **in probabilità** alla media teorica:
+>    $$\bar{X}_n \xrightarrow{P} \mu \quad \text{quando } n \to \infty$$
+>    Questo significa: $\lim_{n \to \infty} P(|\bar{X}_n - \mu| > \varepsilon) = 0$ per ogni $\varepsilon > 0$.
+> 
+> 2. **Teorema Centrale del Limite (CLT):** La media campionaria **standardizzata** converge in distribuzione a una gaussiana standard:
+>    $$\frac{\bar{X}_n - \mu}{\sigma/\sqrt{n}} \xrightarrow{\text{dist}} \mathcal{N}(0, 1) \quad \text{quando } n \to \infty$$
+>    Equivalentemente: la media campionaria è approssimativamente $\mathcal{N}(\mu, \sigma^2/n)$ per $n$ grande.
+
+> [!tip] **Implicazioni Pratiche**
+> - Con il WLLN, sappiamo che la media campionaria converge al valore teorico (è uno stimatore consistente).
+> - Con il CLT, sappiamo quale sia la *distribuzione* della media campionaria, anche se la popolazione non è gaussiana.
+> - Questo permette di costruire intervalli di confidenza e test di ipotesi sulla media, indipendentemente dalla distribuzione della popolazione!
 
 
 
 ## 6.3 The Central Limit Theorem
 
-**Non ancora trattato.**
+Il **Teorema Centrale del Limite (TCL)** è il risultato più importante della teoria della probabilità e della statistica: spiega perché la distribuzione Gaussiana è ubiquitaria in natura.
+
+> [!abstract] **Teorema Centrale del Limite (TCL)**
+> Siano $X_1, X_2, \ldots, X_n$ variabili aleatorie **indipendenti e identicamente distribuite** (i.i.d.) con media finita $\mu$ e varianza finita $\sigma^2$. Allora, per $n \to \infty$, la somma (riscalata e centrata):
+> $$Z_n = \frac{\sum_{i=1}^n X_i - n\mu}{\sigma\sqrt{n}} = \frac{\bar{X}_n - \mu}{\sigma/\sqrt{n}}$$
+> converge **in distribuzione** a una **gaussiana standard** $\mathcal{N}(0, 1)$.
+> 
+> In altre parole: $Z_n \xrightarrow{\text{dist}} \mathcal{N}(0, 1)$ quando $n \to \infty$.
+
+> [!abstract] **Significato Pratico**
+> Il TCL spiega perché la distribuzione gaussiana è ubiquitaria in natura: ogniqualvolta un fenomeno è la sovrapposizione di molti fenomeni elementari indipendenti (ad es., rumore termico come somma di migliaia di eventi di scattering), il risultato è approssimativamente gaussiano, **indipendentemente dalle distribuzioni individuali dei componenti**.
+
+> [!abstract] **Applicazioni del TCL**
+> 1. **Teoria degli errori**: Gli errori di misura frequentista sono generalmente gaussiani, risultato della sovrapposizione di tanti piccoli errori sistematici.
+> 2. **Controllo di qualità**: Il TCL permette di stimare distribuzioni di medie campionarie senza conoscere la distribuzione esatta dei dati.
+> 3. **Propagazione dell'incertezza**: Quando si combinano misure indipendenti, l'incertezza risultante tende alla gaussiana.
+> 4. **Machine Learning**: Molti algoritmi assumono distribuzioni gaussiane sui dati; il TCL giustifica questa ipotesi quando i dati risultano da molteplici fenomeni indipendenti.
+
+> [!tip] **Velocità di Convergenza**
+> La convergenza è più rapida se le distribuzioni individuali sono già **simmetriche**. Se le $X_i$ hanno distribuzioni "pesanti" (con code molto pronunciate), servono più termini per la convergenza.
+> 
+> In pratica: per una variabile uniforme discreta, $n \geq 30$ è già sufficiente; per distribuzioni asimmetriche (ad es. Poisson), potrebbe servire $n > 100$.
+
+> [!example] **Esempio: Media di Uniformi**
+> Siano $X_1, \ldots, X_n$ variabili i.i.d. $\sim \text{Unif}(0, 1)$ con $\mu = 1/2$ e $\sigma^2 = 1/12$. Allora:
+> $$Z_n = \frac{\bar{X}_n - 1/2}{\sqrt{1/(12n)}} \xrightarrow{\text{dist}} \mathcal{N}(0, 1)$$
+> Per $n = 10$, la distribuzione di $\bar{X}_{10}$ è già molto prossima a una gaussiana.
+
+> [!abstract] **Cenno a Estensioni**
+> 
+> 1. **Teorema Centrale del Limite Multivariato**: Se $\mathbf{X}_i$ sono vettori aleatori i.i.d. con media $\boldsymbol{\mu}$ e matrice di covarianza $\mathbf{C}$, allora:
+>    $$\frac{1}{\sqrt{n}}(\bar{\mathbf{X}}_n - \boldsymbol{\mu}) \xrightarrow{\text{dist}} \mathcal{N}(\mathbf{0}, \mathbf{C})$$
+> 
+> 2. **Legge dei Grandi Numeri**: La media campionaria converge alla media teorica quando $n \to \infty$. È il complemento del TCL: mentre il TCL descrive come la *fluttuazione* della media campionaria si comporta, la legge dei grandi numeri dice che la media campionaria stessa converge.
+> 
+> 3. **Teorema di Slutsky**: Regole per combinare limiti di sequenze di variabili aleatorie.
 
 
 
