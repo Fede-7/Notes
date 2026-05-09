@@ -2123,15 +2123,195 @@ Gli indici di bilancio sono indicatori sintetici risultato di calcoli effettuati
 
 **Utilità:** Dato strategico per valutare la redditività di una società in un determinato periodo.
 
+#### Le Quattro Aree di Gestione
+
+| Area | Descrizione | Componenti |
+|------|-------------|-----------|
+| **1. Gestione Caratteristica** | Core business dell'impresa | Ricavi e costi dell'attività principale (acquisto → trasformazione → vendita) |
+| **2. Gestione Accessoria** | Attività continuative non caratteristiche | Affitti da proprietà immobiliari, licenze, vendita scarti |
+| **3. Gestione Finanziaria** | Raccolta e investimento del capitale | Interessi attivi/passivi, dividendi, commissioni bancarie |
+| **4. Gestione Straordinaria** | Operazioni eccezionali non ricorrenti | Plusvalenze/minusvalenze eccezionali, calamità naturali, controversie legali |
+
 ---
 
-## CONCLUSIONE
+### SCHEMA 1: RICLASSIFICAZIONE A FATTURATO E COSTO DEL VENDUTO (Approfondimento)
 
-Questi appunti rappresentano una sintesi fedele dei contenuti delle 10 lezioni del corso di Economia dell'Organizzazione e dell'Azienda. Gli argomenti spaziano dalla definizione di impresa e la sua natura sistemica, attraverso l'analisi dell'ambiente aziendale e dei partecipanti (stakeholder), fino allo studio delle strategie di crescita, delle forme di mercato e di impresa, e infine all'analisi del bilancio aziendale.
+#### Componenti Specifiche del Costo del Venduto
 
-La comprensione di questi argomenti fornisce una base solida per comprendere come le imprese operano, come prendono decisioni strategiche, e come vengono misurate le loro performance economiche, finanziarie e patrimoniali.
+Il costo del venduto è composto da:
+- Variazione scorte (materie prime, semilavorati, prodotti finiti)
+- Costo della manodopera direttamente impegnata in produzione
+- Consumi energetici direttamente riconducibili alla produzione
+- Ammortamenti industriali (impianti e macchinari)
+- Affitti/Leasing di impianti produttivi
+- Lavori effettuati da terzi riconducibili alla produzione
+
+#### Indicatore Chiave: Risultato Lordo Industriale
+
+**Formula:** Ricavi dalle Vendite − Costo del Venduto
+
+**Significato:** Misura la capacità di generare reddito dalla sola attività industriale, senza fattori finanziari o straordinari.
+
+**Benchmark:** In aziende manufatturiere sane, questo margine dovrebbe oscillare tra il **15-20%** dei ricavi.
+
+#### L'Importanza del Reddito Operativo (EBIT)
+
+**Formula:** Risultato Lordo Industriale − Costi Amministrativi, Distributivi, Commerciali e Generali
+
+**Perché è cruciale:**
+- Esprime la capacità dell'azienda di stare sul mercato attraverso l'attività principale
+- Deve rimanere **positivo il più a lungo possibile**
+- È l'indicatore più importante per valutare la **sostenibilità competitiva**
+
+**Benchmark:** In aziende sane, dovrebbe essere tra il **5-10%** dei ricavi.
 
 ---
 
-**Fine Appunti - Economia dell'Organizzazione e dell'Azienda (EOA)**
-**A.A. 2025-2026 | Prof. Giuseppe Piccirillo**
+### SCHEMA 2: RICLASSIFICAZIONE A VALORE AGGIUNTO (Approfondimento)
+
+#### Componenti del Valore della Produzione
+
+**Formula:** Ricavi + Variazione Scorte + Lavori in Economia
+
+**Utilità:** Quantifica il **valore totale prodotto** nel corso dell'esercizio, indipendentemente dalla vendita.
+
+#### Significato del Valore Aggiunto
+
+**Formula:** Valore della Produzione − Costi Esterni
+
+**Costi Esterni Includono:**
+- Acquisti di materie prime e semilavorati
+- Spese per servizi esterni (consulenze, legali, manutenzione)
+- Utenze (energia, acqua, gas)
+- Canoni di affitto per spazi non produttivi
+- Compensi ai fornitori di servizi
+
+**Importanza:** Rappresenta il **contributo netto dell'azienda** alla creazione di valore, distinguendo tra ciò che è generato internamente e ciò che proviene dall'esterno.
+
+#### Margine Operativo Lordo (MOL/EBITDA)
+
+**Formula:** Valore Aggiunto − Costi del Personale
+
+**Sinonimi:** EBITDA (Earnings Before Interest, Taxes, Depreciation, Amortization)
+
+**Caratteristiche Distintive:**
+- Misura della **capacità di generare flussi di cassa** dalla gestione ordinaria
+- Include ancora ammortamenti e accantonamenti
+- Ha valenza più **finanziaria** rispetto al reddito operativo
+- **Non contiene esborsi monetari** (ammortamenti sono costi contabili, non monetari)
+
+**Benchmark:** In aziende sane dovrebbe essere tra il **20-40%** dei ricavi.
+
+#### Differenza Pratica MOL vs EBIT
+
+| Elemento | MOL | EBIT |
+|----------|-----|------|
+| **Ammortamenti** | Inclusi nel calcolo | Esclusi dal calcolo |
+| **Accantonamenti** | Inclusi nel calcolo | Esclusi dal calcolo |
+| **Focus** | Flussi di cassa operativi | Redditività operativa |
+| **Utilità** | Analisi liquidità | Analisi redditività |
+
+---
+
+### INDICATORI PERCENTUALI DI ANALISI
+
+#### Margini Percentuali Fondamentali
+
+| Margine | Formula | Interpretazione |
+|---------|---------|-----------------|
+| **Margine Lordo Industriale %** | (Ricavi − CoV) / Ricavi × 100 | Efficienza produttiva |
+| **Margine Operativo (EBIT) %** | EBIT / Ricavi × 100 | Redditività operativa della gestione caratteristica |
+| **MOL %** | MOL / Ricavi × 100 | Capacità di generare liquidità operativa |
+| **Margine Netto %** | Utile Netto / Ricavi × 100 | Redditività complessiva aziendale |
+
+#### Benchmark di Settore (Industria Manifatturiera)
+
+- **Margine Lordo Industriale:** 15-20%
+- **Margine Operativo:** 5-10%
+- **MOL:** 20-40%
+- **Margine Netto:** 1-5%
+
+---
+
+### CASO STUDIO: ANALISI COMPARATIVA OMNITECH SPA vs FUTURE SPA
+
+#### Diagnostica Rapida: OmniTech
+
+| Indicatore | Valore | Valutazione |
+|-----------|--------|------------|
+| **Ricavi** | 436.000 k€ | Baseline |
+| **Margine Lordo Industriale %** | 51,83% | ✅ **Eccellente** |
+| **Margine Operativo %** | 17,43% | ✅ **Molto Buono** |
+| **Oneri Finanziari** | 34.000 k€ | ✅ Controllati |
+| **Proventi Straordinari** | 8.000 k€ | ✅ Marginali |
+| **Diagnosi** | **Azienda Sana** | 🟢 |
+
+**Conclusione:** OmniTech genera profitti sostenibili dalla gestione ordinaria.
+
+#### Diagnostica Rapida: Future SPA
+
+| Indicatore | Valore | Valutazione |
+|-----------|--------|------------|
+| **Ricavi** | 501.000 k€ | +15% vs OmniTech |
+| **Margine Lordo Industriale %** | 35,53% | ⚠️ **Basso** |
+| **Margine Operativo %** | 4,19% | 🔴 **Critico** |
+| **Oneri Finanziari** | 65.000 k€ | 🔴 Doppi di OmniTech |
+| **Proventi Straordinari** | 115.000 k€ | 🔴 **DIPENDENZA** (23% ricavi) |
+| **Diagnosi** | **Azienda in Difficoltà** | 🔴 |
+
+**Conclusione:** Future non riesce a stare sul mercato con la gestione ordinaria. Dipende da operazioni straordinarie (insostenibili).
+
+#### Problemi Radice Identificati per Future
+
+1. **Costo del Venduto troppo alto** (64,47% vs 48,17% di OmniTech)
+   - Processi produttivi inefficienti
+   - Negoziazione fornitori inadeguata
+   - Supply chain costosa
+
+2. **Struttura finanziaria rischiosa**
+   - Debito elevato
+   - Oneri finanziari quasi doppi
+   - Tassi d'interesse penalizzanti
+
+3. **Totale dipendenza da operazioni straordinarie**
+   - Senza il provento straordinario di 115 milioni, Future chiuderebbe in perdita
+   - Questo è **insostenibile** nel lungo termine
+
+---
+
+### COME LEGGERE UN BILANCIO RICLASSIFICATO
+
+#### Procedura Corretta di Analisi
+
+**Step 1: Separare le Gestioni**
+- Isolate la gestione caratteristica dal resto
+- Valutate il reddito operativo (EBIT)
+
+**Step 2: Verificare la Sostenibilità**
+- Se EBIT > 0 → Azienda sostenibile dal core business
+- Se EBIT < 0 → Azienda in difficoltà strutturali
+
+**Step 3: Analizzare le Componenti Straordinarie**
+- Se Proventi Straordinari sono frequenti → Non sono realmente "straordinari"
+- Se rarissimi → Veramente eccezionali, non incidono sulla valutazione
+
+**Step 4: Confronto con Benchmark**
+- Paragonate i margini percentuali con il settore di riferimento
+- Non usate mai numeri assoluti senza contestualizzazione
+
+#### La Trappola dei Numeri Assoluti
+
+**Esempio Pratico:**
+- OmniTech: Utile Netto 51.600 k€
+- Future: Utile Netto 46.800 k€
+
+A prima vista, sembrano simili (differenza di solo il 10%).
+
+**Ma se analizzate i margini:**
+- OmniTech: 51.600 / 436.000 = **11,84%** del fatturato (sostenibile)
+- Future: 46.800 / 501.000 = **9,34%** del fatturato (di cui 115.000 da straordinario)
+
+**La vera redditività ordinaria di Future:**
+- (46.800 − 115.000) / 501.000 = **−13,60%** (PERDITA SOSTANZIALE!)
+
+---
