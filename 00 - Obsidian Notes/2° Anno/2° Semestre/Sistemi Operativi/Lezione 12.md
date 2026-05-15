@@ -14,7 +14,7 @@ tags:
   - SO1
 ---
 
-# SO Lezione 2 — Variabili di Condizione, Monitor e Deadlock
+# SO Lezione 12 — Variabili di Condizione, Monitor e Deadlock
 
 **Corso:** Sistemi Operativi
 

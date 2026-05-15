@@ -14,7 +14,7 @@ tags:
   - SO1
 ---
 
-# SO Lezione 1 — Thread e Race Condition: Mutex e Lock
+# SO Lezione 13 — Thread e Race Condition: Mutex e Lock
 
 **Corso:** Sistemi Operativi
 
