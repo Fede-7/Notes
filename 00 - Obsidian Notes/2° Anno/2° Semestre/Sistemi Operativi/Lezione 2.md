@@ -1,5 +1,5 @@
 ---
-date: 2026-03-06
+date: 2026-03-05
 corso: Sistemi Operativi
 docente: Alberto Finzi
 lezione: 2

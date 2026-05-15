@@ -1,9 +1,17 @@
 ---
-date: 2026-03-31
+date: 2026-04-01
 corso: Sistemi Operativi
 docente: N/D
 lezione: Scheduling — SJF preemptive, Round-Robin, Priorità e Code Multiple
-tags: [SO, scheduling, SJF, round-robin, priority, code-multiple, starvation, aging]
+tags:
+  - SO
+  - scheduling
+  - SJF
+  - round-robin
+  - priority
+  - code-multiple
+  - starvation
+  - aging
 ---
 
 # SO — Lezione 9: Scheduling — SJF Preemptive, Round-Robin, Priorità e Code Multiple

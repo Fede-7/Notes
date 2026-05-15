@@ -1,5 +1,5 @@
 ---
-date: 2026-04-15
+date: 2026-04-14
 corso: Sistemi Operativi
 lezione: 2 — Variabili di condizione, Monitor e Deadlock
 tags:
