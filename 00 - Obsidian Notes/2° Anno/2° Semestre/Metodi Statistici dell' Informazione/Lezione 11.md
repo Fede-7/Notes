@@ -1,289 +1,136 @@
 ---
 date: 2026-04-16
-corso: Metodi Statistici dell'Informazione
-lezione: "Variabili continue avanzate — Diseguaglianze, Distribuzione Uniforme ed Esponenziale"
-tags: [MSI, variabili-continue, markov, chebyshev, distribuzione-uniforme, distribuzione-esponenziale, varianza]
+corso: Metodi Statistici per l'Informazione
+docente: Marco Lops
+lezione: 12
+tags:
+  - MSI
+  - markov
+  - chebyshev
+  - uniforme
+  - laplace
+  - distribuzione-continua
+  - ineguaglianza-probabilistica
 ---
 
-> [!question] Argomenti trattati
-> - Proprietà di varianza nel cambio di scala: Var(aX + b)
-> - Diseguaglianza di Markov (caso continuo)
-> - Diseguaglianza di Chebyshev (interpretazione geometrica)
-> - Distribuzione uniforme e media
-> - Distribuzione esponenziale: parametri e applicazioni
-> - Quantizzazione e theory of estimation
-> - Separazione tra descrizione algebrica e interpretazione probabilistica
+# 10. Ineguaglianze di Probabilità e Distribuzioni Continue Notevoli
 
----
+## 10.1 Ineguaglianza di Markov
 
-## 1. Trasformazioni di varianza
+Consideriamo una variabile aleatoria $X$ a valori non negativi con media finita $\mu_X = E[X]$. L'ineguaglianza di Markov fornisce un limite superiore alla probabilità che $X$ ecceda una soglia $\delta > 0$:
 
-> [!info] Teorema: Varianza di una trasformazione lineare
-> Se $X$ è una variabile aleatoria e $Y = aX + b$, allora:
-> $$\text{Var}(aX + b) = a^2 \cdot \text{Var}(X)$$
->
-> **Dimostrazione:** La costante $b$ non influisce sulla dispersione (traslazione), mentre il fattore $a$ scala la varianza per il suo quadrato.
-
-### Interpretazione
-
-- Se $a = 2$: la varianza quadruplica (scala del 4x)
-- Se $a = 1/2$: la varianza si riduce a 1/4
-- Se $b = 100$: non cambia nulla (è solo una traslazione)
-
-> [!warning] Errore comune
-> Confondere $\text{Var}(aX)$ con $a \cdot \text{Var}(X)$.
-> 
-> **CORRETTO:** $\text{Var}(aX) = a^2 \cdot \text{Var}(X)$ (il quadrato è essenziale!)
-
----
-
-## 2. Diseguaglianza di Markov
-
-> [!info] Formulazione (caso continuo)
-> Sia $X$ una variabile aleatoria **non negativa** e $\delta > 0$. Allora:
-> $$P(X \geq \delta) \leq \frac{E[X]}{\delta}$$
->
-> Questa diseguaglianza fornisce un **limite superiore** alla probabilità che $X$ superi una soglia, usando solo la media.
-
-### Derivazione intuitiva
-
-Supponiamo di dividere il supporto di $X$ in intervalli di ampiezza $\delta$:
-
-**Per la variabile discreta approssimata:**
-$$E[X_\delta] = \sum_i x_i \cdot P(X_\delta = x_i) = \sum_i x_i \cdot f_X(x_i) \cdot \delta$$
-
-**Considerando solo gli intervalli dove $X \geq \delta$:**
-$$E[X] \geq \sum_{x \geq \delta} x \cdot f_X(x) \cdot \delta \geq \sum_{x \geq \delta} \delta \cdot f_X(x) \cdot \delta = \delta^2 \sum_{x \geq \delta} f_X(x) = \delta^2 \cdot P(X \geq \delta)$$
-
-**Quindi:**
 $$P(X \geq \delta) \leq \frac{E[X]}{\delta}$$
 
-> [!warning] Limitazione della diseguaglianza
-> È un **limite molto approssimato**. Spesso non è stretto (non fornisce informazioni precise).
-> Esempio: se $E[X] = 10$ e $\delta = 100$, otteniamo $P(X \geq 100) \leq 0.1$, ma la probabilità reale potrebbe essere quasi nulla.
+### Dimostrazione
 
-> [!tip] Quando è utile
-> Quando si conosce **solo la media** e nulla della distribuzione. Per distribuzioni specifiche, si ottengono limiti migliori.
+Per ogni $\delta > 0$, definiamo l'evento $A = \{X \geq \delta\}$. Allora:
 
----
+$$E[X] = \int_0^\infty x f_X(x) \, dx \geq \int_\delta^\infty x f_X(x) \, dx \geq \delta \int_\delta^\infty f_X(x) \, dx = \delta \cdot P(X \geq \delta)$$
 
-## 3. Diseguaglianza di Chebyshev
+Dividendo per $\delta$ si ottiene il risultato. La dimostrazione nel caso discreto è analoga, sostituendo l'integrale con una sommatoria.
 
-> [!info] Teorema di Chebyshev
-> Sia $Y$ una variabile aleatoria con media $\mu$ e varianza $\sigma^2$. Allora, per ogni $k > 0$:
-> $$P(|Y - \mu| \geq k\sigma) \leq \frac{1}{k^2}$$
->
-> **Equivalentemente:**
-> $$P(|Y - \mu| < k\sigma) \geq 1 - \frac{1}{k^2}$$
+### Osservazione sulla generalizzazione
 
-### Derivazione da Markov
+L'ineguaglianza di Markov si generalizza a qualsiasi funzione monotona crescente $g : \mathbb{R}_{\geq 0} \to \mathbb{R}_{\geq 0}$:
 
-Applicando Markov a $Z = (Y - \mu)^2$ (non negativa):
+$$P(X \geq \delta) = P(g(X) \geq g(\delta)) \leq \frac{E[g(X)]}{g(\delta)}$$
 
-$$P(|Y - \mu|^2 \geq (k\sigma)^2) \leq \frac{E[(Y - \mu)^2]}{(k\sigma)^2} = \frac{\sigma^2}{k^2\sigma^2} = \frac{1}{k^2}$$
+Questo è il motivo per cui l'ineguaglianza di Chebyshev, che considereremo di seguito, rappresenta una specializzazione della formula di Markov al caso $g(x) = (x - \mu_X)^2$.
 
-Prendendo la radice quadrata: $P(|Y - \mu| \geq k\sigma) \leq \frac{1}{k^2}$
+## 10.2 Ineguaglianza di Chebyshev
 
-### Interpretazione pratica
+Sia $X$ una variabile aleatoria con media $\mu_X$ e varianza $\sigma_X^2$ finita. L'ineguaglianza di Chebyshev limita la probabilità che $X$ devia dalla sua media di più di $k$ volte la deviazione standard:
 
-| k | Probabilità massima | Interpretazione |
-|---|-----|-----|
-| k=1 | P(scostamento ≥ 1σ) ≤ 1 | Non informativo |
-| k=2 | P(scostamento ≥ 2σ) ≤ 1/4 | Al massimo il 25% dei dati oltre 2σ |
-| k=3 | P(scostamento ≥ 3σ) ≤ 1/9 ≈ 0.11 | Al massimo l'11% dei dati oltre 3σ |
-| k=10 | P(scostamento ≥ 10σ) ≤ 1/100 | Al massimo l'1% dei dati |
+$$P(|X - \mu_X| \geq k\sigma_X) \leq \frac{1}{k^2}$$
 
-> [!abstract] Ricordare
-> **La coppia (media, deviazione standard) fornisce una caratterizzazione globale** della variabile aleatoria.
-> Se conosci $\mu$ e $\sigma$, sai che:
-> - Il 75% dei dati cade entro 2 deviazioni standard
-> - Il 99% dei dati cade entro 10 deviazioni standard
-> 
-> Questo vale **indipendentemente dalla forma della distribuzione**.
+equivalentemente,
 
----
+$$P(|X - \mu_X| \geq \delta) \leq \frac{\sigma_X^2}{\delta^2}$$
 
-## 4. Distribuzione Uniforme U(a,b)
+### Derivazione
 
-> [!info] Definizione
-> Una variabile aleatoria continua $X$ è **uniforme sull'intervallo [a,b]** se:
-> $$f_X(x) = \begin{cases} \frac{1}{b-a} & a \leq x \leq b \\ 0 & \text{altrove} \end{cases}$$
+Applichiamo l'ineguaglianza di Markov alla variabile aleatoria $Y = (X - \mu_X)^2$, che è non negativa:
 
-### Funzione di distribuzione cumulativa (CDF)
+$$P(Y \geq \delta^2) \leq \frac{E[Y]}{\delta^2} = \frac{\text{Var}(X)}{\delta^2}$$
 
-$$F_X(x) = \begin{cases} 0 & x < a \\ \frac{x-a}{b-a} & a \leq x \leq b \\ 1 & x > b \end{cases}$$
+Poiché $Y \geq \delta^2$ è equivalente a $|X - \mu_X| \geq \delta$, si ottiene il risultato.
 
-La CDF è una **rampa lineare** da 0 a 1.
+> [!important] Universalità dell'ineguaglianza di Chebyshev
+> A differenza di ineguaglianze specifiche per distribuzioni particolari (come la gaussiana), l'ineguaglianza di Chebyshev vale per qualsiasi distribuzione con varianza finita. Il prezzo è che il limite è spesso molto conservativo.
 
-### Valore atteso
+### Limiti practici
 
-$$E[X] = \int_a^b x \cdot \frac{1}{b-a} \, dx = \frac{a + b}{2}$$
+Nel caso continuo la dimostrazione è identica a quella nel caso discreto: basta sostituire la sommatoria con l'integrale. Per questo motivo, la coppia $(\mu_X, \sigma_X)$ fornisce una caratterizzazione globale di qualsiasi variabile aleatoria, discreta o continua, indipendentemente dalla distribuzione specifica.
 
-> [!tip] Ricordare per l'esame
-> **La media della uniforme è il punto medio dell'intervallo.**
-> Non serve calcolare l'integrale: basta ricordare questa proprietà!
+## 10.3 Distribuzione Uniforme Continua
 
-### Varianza
+La distribuzione uniforme su un intervallo $[a, b]$ ha densità costante:
 
-$$\text{Var}(X) = \frac{(b-a)^2}{12}$$
+$$f_X(x) = \begin{cases} \dfrac{1}{b-a} & a \leq x \leq b \\ 0 & \text{altrove} \end{cases}$$
 
-> [!example] Interpretazione pratica
-> Se $X \sim U(0, 10)$:
-> - Media: $(0 + 10)/2 = 5$
-> - Varianza: $(10-0)^2/12 = 100/12 ≈ 8.33$
-> - Deviazione standard: $\sqrt{8.33} ≈ 2.89$
+**Media:** $E[X] = \frac{a+b}{2}$ (il punto medio dell'intervallo).
 
----
+**Varianza:** $\text{Var}(X) = \frac{(b-a)^2}{12}$.
 
-## 5. Distribuzione Esponenziale Exp(λ)
+### Applicazione: Quantizzazione uniforme
 
-> [!info] Definizione
-> Una variabile aleatoria continua $X$ è **esponenziale di parametro λ > 0** se:
-> $$f_X(x) = \begin{cases} \lambda e^{-\lambda x} & x \geq 0 \\ 0 & x < 0 \end{cases}$$
+Nella rappresentazione numerica di segnali analogici, un quantizzatore uniforme divide un intervallo $[a, b]$ in $M = 2^R$ livelli di ampiezza $\Delta = \frac{b-a}{M}$. L'errore di quantizzazione (differenza tra il valore continuo e il suo rappresentante quantizzato) può essere modellato come uniformemente distribuito su $[-\frac{\Delta}{2}, \frac{\Delta}{2}]$.
 
-### Interpretazione probabilistica
+L'errore quadratico medio (distorsione) risulta:
 
-La distribuzione esponenziale **modella il tempo di attesa di un evento raro** in un processo senza memoria (processo di Poisson):
-- Tempo fino al prossimo guasto di una macchina
-- Tempo tra arrivi consecutivi in una coda
-- Tempo di decadimento radioattivo
+$$\text{Distorsione} = \text{Var}(\text{errore}) = \frac{\Delta^2}{12}$$
 
-### Funzione di distribuzione cumulativa
+Questo risultato è fondamentale nella teoria della codifica. Se le statistiche dei dati non sono uniformi, un quantizzatore non uniforme (quantizzazione adattativa) può ridurre significativamente la distorsione. Tecniche moderne di compressione utilizzano quantizzatori vettoriali, che operano su blocchi di dati invece che su singoli campioni, ottenendo prestazioni teoricamente ottimali.
 
-$$F_X(x) = \begin{cases} 0 & x < 0 \\ 1 - e^{-\lambda x} & x \geq 0 \end{cases}$$
+> [!tip] Osservazione su quantizzazione uniforme vs. adattativa
+> La quantizzazione uniforme è appropriata solo quando i dati seguono una distribuzione uniforme, una situazione rara nella pratica. Se i dati hanno una distribuzione nota (ad esempio gaussiana), è ottimo concentrare i livelli di quantizzazione dove la densità di probabilità è maggiore. Se la distribuzione è sconosciuta, un algoritmo di apprendimento statistico (ad es. k-means clustering) può stimare i livelli di quantizzazione adattativi in modo automatico durante l'addestramento.
 
-**Verifica:**
-$$F_X(x) = \int_0^x \lambda e^{-\lambda t} \, dt = [-e^{-\lambda t}]_0^x = 1 - e^{-\lambda x}$$
+## 10.4 Distribuzione di Laplace (Doppia Esponenziale)
 
-### Valore atteso e varianza
+La distribuzione di Laplace con parametro $\lambda > 0$ ha densità:
 
-$$E[X] = \frac{1}{\lambda}$$
+$$f_X(x) = \frac{\lambda}{2} e^{-\lambda|x|}$$
 
-$$\text{Var}(X) = \frac{1}{\lambda^2}$$
+**CDF:**
 
-> [!tip] Regola: relazione tra parametro e media
-> Se $\lambda$ è **grande**: la media $1/\lambda$ è **piccola** → decadimento veloce
-> 
-> Se $\lambda$ è **piccolo**: la media è **grande** → decadimento lento
->
-> **Esempio:** $\lambda = 0.5$ → media = 2 giorni; $\lambda = 2$ → media = 0.5 giorni
+$$F_X(x) = \begin{cases} \dfrac{1}{2} e^{\lambda x} & x < 0 \\ 1 - \dfrac{1}{2} e^{-\lambda x} & x \geq 0 \end{cases}$$
 
-### Proprietà di "assenza di memoria"
+**Media:** $E[X] = 0$ (per simmetria).
 
-$$P(X > s + t \mid X > s) = P(X > t)$$
+**Varianza:** $\text{Var}(X) = \frac{2}{\lambda^2}$.
 
-Il processo "dimentica" il tempo già trascorso. Questa è l'**unica distribuzione continua** con questa proprietà.
+La distribuzione di Laplace modella fenomeni con code più pesanti dell'esponenziale (asimmetrico), come il rumore impulsivo (ad es. atmosferico) nei sistemi di telecomunicazione. In contrasto, la distribuzione gaussiana (che vedremo in seguito) è più lieve nelle code ed è appropriata per il rumore termico.
+
+### Distribuzioni con varianza infinita
+
+La distribuzione di Cauchy, definita da $f_X(x) = \frac{1}{\pi(1 + x^2)}$, è un esempio notevole di variabile aleatoria continua senza varianza finita. Le sue code decadono così lentamente che $E[X^2] = \infty$. Fenomeni fisici modellati da Cauchy (come il rumore atmosferico da fulmine) hanno potenza infinita e non ammettono caratterizzazione tramite i momenti ordinari.
+
+## 10.5 PDF Condizionata
+
+Data una variabile aleatoria $X$ con PDF $f_X(x)$ e un evento $A$ con $P(A) > 0$, la **PDF condizionata** è:
+
+$$f_{X|A}(x) = \begin{cases} \dfrac{f_X(x)}{P(A)} & x \in A \\ 0 & x \notin A \end{cases}$$
+
+In altri termini, la PDF condizionata è proporzionale alla PDF originale, confinata al supporto di $A$ e riscalata affinché l'integrale faccia 1.
+
+### Esempio: Distribuzione triangolare condizionata
+
+Consideriamo una variabile aleatoria $X$ con supporto $[-3, -1] \cup [1, 3]$, con densità costante $\frac{1}{4}$ su $[-3, -1]$ e triangolare su $[1, 3]$. Calcoliamo la PDF condizionata all'evento $A = \{X \leq 0\}$.
+
+$$P(A) = P(X \in [-3, -1]) = \frac{1}{4} \cdot 2 = \frac{1}{2}$$
+
+Per $x \in [-3, -1]$:
+
+$$f_{X|A}(x) = \frac{1/4}{1/2} = \frac{1}{2}$$
+
+La PDF condizionata è uniforme su $[-3, -1]$ con densità doppia rispetto all'originale, poiché le osservazioni negative rappresentano la metà della probabilità totale. Per $x > 0$, invece, $f_{X|A}(x) = 0$.
+
+La media condizionata è:
+
+$$E[X | A] = \int_{-3}^{-1} x \cdot \frac{1}{2} \, dx = \frac{1}{2} \cdot \frac{x^2}{2} \Big|_{-3}^{-1} = \frac{1}{2} \cdot \frac{9 - 1}{2} = 2$$
+
+Per simmetria, $E[X | X > 0] = 2$ e $E[X] = E[X | A] P(A) + E[X | A^c] P(A^c) = (-2) \cdot \frac{1}{2} + 2 \cdot \frac{1}{2} = 0$.
 
 ---
 
-## 6. Quantizzazione uniforme e applicazioni
-
-> [!info] Quantizzazione
-> **Quantizzare** significa trasformare un segnale continuo in valori discreti (es. conversione analogico-digitale).
-
-### Quantizzatore uniforme
-
-Dividi il range continuo in intervalli di ampiezza $\Delta$ (quantizzazione uniforme).
-
-**Errore quadratico medio (distorsione):**
-$$\text{MSE} = \frac{\Delta^2}{12}$$
-
-Questa formula **ripropone la varianza della distribuzione uniforme**!
-
-> [!example] Applicazione: CD Audio
-> Frequenza di campionamento: 44.1 kHz
-> Risoluzione: 16 bit (2^16 = 65536 livelli)
-> Distorsione: $\Delta^2/12$ dove $\Delta = $ intervallo tra livelli quantizzati
->
-> A 16 bit, la qualità è già eccellente (imperrcettibile all'orecchio umano).
-
-### Quantizzazione vettoriale (cenni)
-
-> [!abstract] Nota storica
-> **Shannon (1948):** è **asintoticamente ottimale** quantizzare **blocchi di dati** simultaneamente (quantizzazione vettoriale), non campione per campione.
->
-> Questa è la base teorica dei moderni sistemi di compressione:
-> - JPEG (immagini)
-> - MP3 (audio)
-> - Video compression
-
-Quantizzare interi vettori anziché singoli campioni fornisce guadagni enormi in efficienza (con poco overhead computazionale).
-
----
-
-## 7. Calcoli sui momenti
-
-> [!example] Esercizio: E[X] per distribuzione uniforme
-> Calcolare $E[X]$ per $X \sim U(a, b)$:
->
-> $$E[X] = \int_a^b x \cdot \frac{1}{b-a} \, dx = \frac{1}{b-a} \int_a^b x \, dx$$
->
-> $$= \frac{1}{b-a} \cdot \left[\frac{x^2}{2}\right]_a^b = \frac{1}{b-a} \cdot \frac{b^2 - a^2}{2}$$
->
-> $$= \frac{1}{b-a} \cdot \frac{(b-a)(b+a)}{2} = \frac{b+a}{2}$$
-
-> [!example] Esercizio: E[X] per distribuzione esponenziale
-> Calcolare $E[X]$ per $X \sim \text{Exp}(\lambda)$:
->
-> $$E[X] = \int_0^{+\infty} x \cdot \lambda e^{-\lambda x} \, dx$$
->
-> **Integrazione per parti:** $u = x$, $dv = \lambda e^{-\lambda x} dx$
->
-> $$= \left[-x e^{-\lambda x}\right]_0^{\infty} + \int_0^{\infty} e^{-\lambda x} \, dx$$
->
-> $$= 0 + \left[-\frac{1}{\lambda} e^{-\lambda x}\right]_0^{\infty} = \frac{1}{\lambda}$$
-
----
-
-## 8. PDF condizionata
-
-> [!info] Definizione
-> Dato un evento $A$, la **PDF condizionata** è:
-> $$f_{X|A}(x) = \frac{d}{dx} F_{X|A}(x) = \frac{d}{dx} \left[\frac{P(X \leq x \cap A)}{P(A)}\right]$$
-
-### Esempio: Uniforme condizionata
-
-Sia $X \sim U(0, 10)$ e $A = \{X > 3\}$.
-
-$$P(A) = 1 - F_X(3) = 1 - \frac{3}{10} = 0.7$$
-
-**Per $x \in (3, 10)$:**
-$$f_{X|A}(x) = \frac{1}{7}$$
-
-> [!abstract] Intuizione
-> La PDF condizionata è una **uniforme su (3, 10)** con altezza $1/7$ (non più $1/10$).
-> L'intervallo si restringe, ma l'area totale rimane 1.
-
----
-
-> [!abstract] Riepilogo: Punti Chiave
-> 1. **Varianza di trasformazioni:** $\text{Var}(aX + b) = a^2 \text{Var}(X)$
-> 2. **Markov:** fornisce limite superiore usando solo la media
-> 3. **Chebyshev:** caratterizza la dispersione con media e varianza
-> 4. **Uniforme:** media = punto medio, varianza = (b-a)²/12
-> 5. **Esponenziale:** media = 1/λ, modella tempi di attesa
-> 6. **Quantizzazione:** errore = Δ²/12 (uniforme), ottimale a blocchi (vettoriale)
-> 7. **PDF condizionata:** restringe il supporto mantenendo normalizzazione
-
----
-
-> [!question] Domande d'esame frequenti
-> - Dimostrare Markov nel caso continuo
-> - Derivare Chebyshev da Markov
-> - Calcolare E[X] e Var(X) per uniforme ed esponenziale
-> - Interpretare l'errore di quantizzazione
-> - Definire e calcolare PDF condizionata
-> - Confrontare proprietà discrete vs continue
-> - Applicazioni della distribuzione esponenziale
-
-> [!todo] Esercizi suggeriti
-> - [ ] Dimostrare che Var(Exp(λ)) = 1/λ²
-> - [ ] Calcolare P(X > 5) per X ~ Exp(0.5)
-> - [ ] Trovare PDF condizionata di esponenziale su intervallo [0, T]
-> - [ ] Progettare un quantizzatore per segnale gaussiano
-> - [ ] Comparare limiti Markov vs Chebyshev per una distribuzione nota
-> - [ ] Implementare quantizzazione uniforme e vettoriale (Python/R)
-
----
-
-#MSI #variabili-continue #markov #chebyshev #distribuzione-uniforme #distribuzione-esponenziale #quantizzazione
+#MSI #ineguaglianza-markov #ineguaglianza-chebyshev #distribuzione-uniforme #distribuzione-laplace #quantizzazione #PDF-condizionata

@@ -1,12 +1,12 @@
 ---
-date: 2026-04-09
+date: 2026-04-08
 corso: Sistemi Operativi
 docente: N/D
-lezione: "Sincronizzazione — Semafori, Monitor, Deadlock e Priority Inversion"
-tags: [SO, semafori, monitor, variabili-condizione, deadlock, priority-inversion, spin-lock, mutex, lock-free]
+lezione: "Valutazione algoritmi di scheduling e introduzione alla sincronizzazione"
+tags: [SO, scheduling, valutazione, sincronizzazione, sezione-critica, peterson, test-and-set, compare-and-swap]
 ---
 
-# SO — Lezione 11: Sincronizzazione Avanzata — Semafori, Monitor, Deadlock e Priority Inversion
+# SO — Lezione 10: Valutazione degli Algoritmi di Scheduling e Sincronizzazione
 
 **Corso:** Sistemi Operativi
 
@@ -14,304 +14,208 @@ tags: [SO, semafori, monitor, variabili-condizione, deadlock, priority-inversion
 
 ## Argomenti trattati
 
-- Bounded waiting con test-and-set e compare-and-swap: riepilogo
-- Lock-free increment tramite compare-and-swap
-- Spin lock vs mutex lock
-- Semafori binari e contatori: definizione, wait, signal
-- Produttore-consumatore con semafori
-- Monitor e variabili di condizione: signal-and-continue vs signal-and-wait
-- Deadlock: definizione e casi tipici
-- Priority inversion: definizione, esempio Pathfinder (1997), soluzione con priority inheritance
-- Strutture dati lock-free: push/pop lock-free con CAS
-- Confronto prestazionale dei meccanismi di sincronizzazione
+- Metodi di valutazione degli algoritmi di scheduling (deterministico, code, simulazione)
+- Il problema del produttore-consumatore e le corse critiche
+- Definizione formale di sezione critica e sue tre proprietà
+- Soluzione di Peterson (2 processi) e generalizzazione a N
+- Problema dell'ordinamento delle assegnazioni da parte del compilatore e memory barriers
+- Supporto hardware: test-and-set e compare-and-swap
+- Bounded waiting tramite compare-and-swap
 
 ---
 
-## 1. Bounded waiting: riepilogo
+## 1. Metodi di valutazione degli algoritmi di scheduling
 
-Dalla lezione precedente: per ottenere il bounded waiting oltre alla mutua esclusione, si usa un array `waiting[N]` e una rotazione circolare. Ogni processo $i$ si marca come in attesa, poi cerca di prendere il lock con CAS. All'uscita dalla sezione critica, invece di sbloccare direttamente il lock, il processo cerca il primo $j$ in attesa (in ordine circolare) e gli cede il testimone impostando `waiting[j] = false` senza sbloccare il lock. Solo se nessuno aspetta, il lock viene liberato.
+Gli algoritmi di scheduling possono essere valutati con approcci di diverso livello di astrazione. È importante capire quale tipo di valutazione viene richiesta nei compiti (quella deterministica) e qual è invece il vero banco di prova pratico.
 
-La stessa logica si può implementare con test-and-set usando un array booleano `waiting[]` e una variabile `key`. Il concetto è identico, cambia solo il tipo primitivo di atomicità usato.
+**Modelli deterministici** — Si assume un carico di lavoro specifico (una distribuzione di arrivi, di CPU burst, ecc.) e si applica l'algoritmo in modo deterministico a quel caso. Gli esercizi proposti a lezione e all'esame rientrano in questa categoria: si fotografa una situazione di processi in arrivo e si calcola il comportamento, i tempi di attesa, il turnaround, ecc. Da un singolo caso non si può inferire il comportamento generale, ma su un dataset di casi dà una prima idea.
 
----
+**Modelli di coda** — Si modella ogni risorsa come una coda con proprietà statistiche sugli arrivi. In stato stazionario (tanti processi entrano, tanti ne escono, le code restano stabili) valgono leggi come la formula di Little: $N = \lambda \cdot W$, dove $N$ è il numero medio di processi in coda, $\lambda$ la frequenza degli arrivi e $W$ il tempo medio di attesa. Questi modelli sono però troppo astratti per un'analisi accurata degli algoritmi reali.
 
-## 2. Lock-free increment con compare-and-swap
+**Simulazione** — Si simulano gli arrivi e i tempi di elaborazione con generatori casuali. Più realistico, ma pur sempre limitato. Il vero banco di prova è l'implementazione diretta nel kernel.
 
-Il CAS non serve solo per costruire lock; può essere usato per rendere atomiche operazioni senza bloccare mai esplicitamente.
+> [!info] Il vero banco di prova
+> L'unico modo per valutare davvero un algoritmo di scheduling sofisticato è inserirlo nel kernel e osservarne il comportamento nel sistema completo. L'algoritmo vive in un ecosistema e interagisce con tutto il resto: un algoritmo teoricamente ottimo può risultare non performante in pratica. Ad esempio, l'EEVDF di Linux è stato proposto come lavoro scientifico diversi anni prima di essere integrato nel kernel, proprio per la cautela necessaria nel sostituire un algoritmo già in produzione.
 
-> [!example] Incremento lock-free
-> ```c
-> void increment(int *v) {
->     int temp;
->     do {
->         temp = *v;                         // salva il valore attuale
->     } while (compare_and_swap(v, temp, temp + 1) != temp);
->     // CAS: se *v è ancora temp, scrivi temp+1 e restituisce temp (esce)
->     //       se *v è cambiato, restituisce il nuovo valore != temp (riprova)
-> }
-> ```
-> L'idea è "rubare il tempo": si tenta l'aggiornamento atomico. Se nel frattempo un altro thread ha modificato `*v`, si accorge che `*v != temp`, riprende il valore aggiornato e riprova. È come se facessero a turno invece di bloccarsi.
-
-Questa tecnica è efficace quando la contesa è **bassa o moderata**. Con alta contesa, molti thread continuano a perdere il CAS e a riprovare, causando starvation. In quel caso conviene il mutex classico.
+> [!quote]
+> "Finché si trattano algoritmi molto semplici, si possono modellare in astratto, però poi per valutare effettivamente l'impatto reale bisogna immergerlo dentro il kernel."
 
 ---
 
-## 3. Spin lock vs mutex lock
+## 2. Il problema della sincronizzazione: motivazione
 
-> [!abstract] Definizione: Spin lock
-> Uno **spin lock** è un lock in cui il processo che aspetta rimane attivo (stato running) in un ciclo di busy waiting, continuando a testare se il lock si è liberato.
+I thread condividono lo stesso spazio di indirizzamento: possono lavorare su stesse strutture dati senza overhead di comunicazione interprocesso, ma devono sincronizzarsi per evitare le **corse critiche** (race condition).
 
-```c
-// Implementazione semplificata di spin lock con CAS
-void spinlock_acquire(int *lock) {
-    while (compare_and_swap(lock, 0, 1) != 0)
-        ;   // busy waiting
-}
-void spinlock_release(int *lock) {
-    *lock = 0;
-}
+### Il problema produttore-consumatore con buffer circolare
+
+Un buffer circolare ha un produttore che scrive in `IN` e un consumatore che legge da `OUT`. Se si usano due thread, sia il buffer che i puntatori `IN` e `OUT` sono variabili condivise soggette a conflitti.
+
+La soluzione con contatore esplicita il problema in modo ancora più chiaro: un thread fa `counter++` e l'altro `counter--`. A livello macchina ogni operazione si traduce in più istruzioni assembly (leggi da memoria, modifica nel registro, scrivi in memoria). Se lo scheduler interviene a metà di questa sequenza, i thread si interfogliano.
+
+> [!example] Corsa critica sul contatore
+> Supponiamo `counter = 5`. Il thread 1 legge 5 nel registro R1, aggiorna R1 a 6. Prima di scrivere in memoria, lo scheduler cede la parola al thread 2, che legge 5 nel registro R2, aggiorna R2 a 4, scrive 4 in memoria. Poi il thread 1 scrive 6. Il risultato finale è 6 invece di 5. Se avessero operato atomicamente, qualunque ordine avrebbe prodotto 5.
+
+> [!quote]
+> "Voi che cosa state ipotizzando, lanciando due thread? Che tutte queste siano operazioni atomiche. Se fossero atomiche, chi arriva prima, chi arriva dopo... non è un problema."
+
+Il problema si amplifica su sistemi **multicore** dove c'è parallelismo reale: i thread girano su core distinti e accedono a memoria condivisa contemporaneamente. In più, le cache possono introdurre ulteriori problemi di consistenza: una modifica tenuta in cache può non essere ancora propagata in memoria globale.
+
+---
+
+## 3. Il problema della sezione critica
+
+Ogni thread o processo ha porzioni di codice dove accede a dati condivisi: queste si chiamano **sezioni critiche**. Quando un processo è in sezione critica, nessun altro dovrebbe poterci entrare contemporaneamente.
+
+La struttura del codice di ogni processo è:
+
+```
+entry section       ← richiesta di ingresso
+critical section    ← accesso esclusivo
+exit section        ← notifica di uscita
+remainder section   ← eseguibile concorrentemente
 ```
 
-| Caratteristica | Spin lock | Mutex lock |
-|---|---|---|
-| Processo in attesa | Rimane in running (busy wait) | Viene sospeso (sleeping) |
-| Context switch | Nessuno durante l'attesa | Uno per sospendere, uno per risvegliare |
-| Efficienza | Alta se l'attesa è **breve** | Alta se l'attesa è **lunga** |
-| Adatto a | Sistemi multicore, kernel | Programmazione applicativa |
-| Analogia | Macchina al semaforo col motore acceso | Macchina che si spegne e si riavvia |
+> [!abstract] Definizione: Sezione critica
+> Una **sezione critica** è una porzione di codice in cui vengono letti o scritti dati condivisi tra più processi o thread. Occorre che al più un processo alla volta esegua la propria sezione critica.
 
-> [!info] Spin lock su sistemi single-core
-> Su un solo core, lo spin lock è dannoso: il processo che aspetta occupa il 100% della CPU, impedendo al processo che tiene il lock di eseguire e liberarlo. Su multicore invece un core può dedicarsi allo spinning mentre un altro esegue il processo che deve rilasciare il lock.
+### Le tre proprietà richieste
+
+Perché un meccanismo di sincronizzazione per la sezione critica sia corretto, deve soddisfare tre proprietà:
+
+**1. Mutua esclusione** — Al più un processo alla volta può essere in sezione critica. È il minimo sindacale, ma da solo non basta.
+
+**2. Progresso** — Se nessun processo è in sezione critica e alcuni vogliono entrarvi, la decisione su chi entra deve dipendere solo dai processi che aspettano, non da altri, e deve avvenire in tempo finito. Impedisce il caso in cui tutti aspettano indefinitamente senza che nessuno entri.
+
+**3. Bounded waiting (attesa limitata)** — Dopo che un processo ha fatto richiesta di entrare in sezione critica, esiste un limite al numero di volte in cui altri processi possono entrare prima che a lui venga concesso l'accesso. Impedisce la starvation.
+
+> [!warning] Mutua esclusione non è sufficiente
+> Un meccanismo che garantisce solo la mutua esclusione può portare a situazioni in cui nessuno entra mai (viola il progresso) o un processo aspetta all'infinito (viola il bounded waiting). I semafori e i mutex a disposizione del programmatore garantiscono tipicamente la mutua esclusione e il progresso, ma il bounded waiting deve essere garantito dal programmatore.
 
 ---
 
-## 4. Semafori
+## 4. Soluzione di Peterson
 
-I semafori sono meccanismi di sincronizzazione di livello più alto dei lock, introdotti storicamente da Dijkstra (che li chiamava con le lettere olandesi P e V).
+La soluzione di Peterson è una soluzione **teorica** per due processi che, nell'ipotesi di operazioni atomiche, soddisfa tutte e tre le proprietà.
 
-> [!abstract] Definizione: Semaforo
-> Un **semaforo** $S$ è una variabile intera su cui sono definite due operazioni atomiche:
+**Variabili condivise:**
+- `turn` — indica il processo che ha il turno (valore 0 o 1)
+- `flag[2]` — array booleano: `flag[i] = true` significa che $P_i$ vuole entrare in sezione critica
+
+**Codice per il processo $P_i$ (con $j = 1 - i$):**
+
+```python
+# Entry section
+flag[i] = True          # dichiaro di voler entrare
+turn = j                # cedo gentilmente il turno all'altro
+
+while flag[j] and turn == j:   # aspetto finché l'altro vuole e ha il turno
+    pass                        # busy waiting
+
+# Critical section
+# ...
+
+# Exit section
+flag[i] = False
+```
+
+> [!example] Come funziona la "gentilezza"
+> Ogni processo dice: "Voglio entrare, ma ti do la precedenza." Il trucco è che l'ultimo a cedere il turno è quello che poi effettivamente aspetta. Se sia P0 che P1 cedono il turno quasi contemporaneamente, solo l'ultima assegnazione a `turn` conta: il processo che ha assegnato per ultimo ha ceduto davvero il turno all'altro, che quindi può entrare.
 >
-> **`wait(S)`** (o P, o "decrementa e aspetta"):
-> $$S \leftarrow S - 1; \quad \text{se } S < 0 \text{ → blocca il processo}$$
+> Esempio: P0 mette `flag[0]=true`, `turn=1`. P1 mette `flag[1]=true`, `turn=0`. `turn` è ora 0, quindi P1 è bloccato nel while. P0 trova `turn==1` falso, esce dal while ed entra. Quando esce, mette `flag[0]=false` e sblocca P1.
+
+Si può dimostrare che questo algoritmo soddisfa mutua esclusione, progresso e bounded waiting.
+
+### Generalizzazione a N processi
+
+La soluzione di Peterson si può estendere a N processi introducendo $N-1$ livelli di competizione. Ogni processo ha un livello che va da 0 (non interessato) a $N-1$ (accede alla sezione critica). In ogni livello c'è una "vittima" che si sacrifica lasciando avanzare gli altri. Il processo che raggiunge il livello $N-1$ entra in sezione critica. Anche questa generalizzazione soddisfa tutte e tre le proprietà, ma rimane teorica per le ragioni hardware discusse di seguito.
+
+---
+
+## 5. Il problema dell'ordinamento delle istruzioni: memory barriers
+
+Anche assumendo l'atomicità delle singole operazioni, la soluzione di Peterson non è implementabile direttamente su hardware moderno perché **il compilatore non garantisce l'ordine delle assegnazioni**. Se nel codice si fa `x = 1; flag = true`, il compilatore può invertire l'ordine, perché dal suo punto di vista le due operazioni non sono correlate e può ottimizzare liberamente.
+
+> [!example] Sincronizzazione casalinga che può fallire
+> Thread 1: `while not flag: pass; print(x)` — aspetta finché flag è true, poi stampa x.
+> Thread 2: `x = 100; flag = true` — scrive 100 in x, poi sblocca.
 >
-> **`signal(S)`** (o V, o "incrementa e sveglia"):
-> $$S \leftarrow S + 1; \quad \text{se } S \leq 0 \text{ → sveglia un processo in attesa}$$
+> Se il compilatore inverte le istruzioni del thread 2, `flag` potrebbe diventare `true` prima che `x = 100` sia scritto. Thread 1 si sblocca e stampa il vecchio valore di x.
 
-### Semaforo binario vs semaforo contatore
-
-**Semaforo binario** — inizializzato a 1. Funziona esattamente come un mutex lock: il primo processo che fa `wait` porta $S$ a 0 e può procedere; il secondo trova $S = 0$, fa `wait` e $S$ diventa $-1$, quindi si blocca. Chi esce fa `signal` e porta $S$ a 0, svegliando uno dei processi in attesa.
-
-**Semaforo contatore** — inizializzato a $k > 1$. Permette a **al più $k$ processi contemporaneamente** di accedere alla risorsa. È uno strumento più flessibile: può contare quanti slot sono disponibili in un buffer, quante connessioni sono aperte, ecc.
-
-> [!tip] Quando usare mutex vs semaforo binario
-> Se si deve solo proteggere una sezione critica, il mutex lock è preferibile: è più leggero computazionalmente del semaforo. Il semaforo è più flessibile (può essere usato per sincronizzazioni non solo di accesso esclusivo) ma più pesante.
-
-### Uso per la sequenzializzazione (punto di sincronizzazione)
-
-I semafori si usano anche per **sequenzializzare** porzioni di codice in thread indipendenti:
-
-```
-SYNC = 0   (inizializzato a 0 → P2 si bloccherà subito)
-
-P1: esegui S1; signal(SYNC)    →  sblocca P2 dopo S1
-P2: wait(SYNC); esegui S2      →  aspetta che P1 abbia fatto S1
-```
-
-Indipendentemente dallo scheduling, S2 eseguirà sempre dopo S1. È come un semaforo stradale auto-gestito dai processi: P2 parte col rosso e aspetta che P1 faccia scattare il verde.
+Per garantire l'ordine si usano le **memory barriers** (`__atomic_thread_fence` in C con `memory_order_release`/`memory_order_acquire`): creano punti di sincronizzazione che forzano la propagazione delle scritture in memoria prima di procedere. Queste sono meccanismi a basso livello che il programmatore di sistema deve conoscere, ma che in genere sono incapsulati nelle primitive di sincronizzazione di alto livello.
 
 ---
 
-## 5. Produttore-consumatore con semafori
+## 6. Supporto hardware: test-and-set e compare-and-swap
 
-Si usano tre semafori per gestire il buffer circolare di $N$ slot:
+Per costruire meccanismi di lock affidabili servono istruzioni che fanno **due cose atomicamente**. Se si fa solo una cosa alla volta, un altro thread può intromettersi nel mezzo.
 
-```c
-semaphore mutex = 1;    // accesso esclusivo al buffer
-semaphore empty = N;    // conta gli slot vuoti
-semaphore full  = 0;    // conta gli slot pieni
+### Test-and-set
+
+```python
+# Operazione atomica
+def test_and_set(target: bool) -> bool:
+    rv = target          # salva il vecchio valore
+    target = True        # setta sempre a True
+    return rv            # restituisce il vecchio valore
 ```
 
-**Produttore:**
-```c
-// produce item
-wait(empty);        // aspetta uno slot vuoto
-wait(mutex);        // prende accesso esclusivo
-buffer[in] = item;
-in = (in + 1) % N;
-signal(mutex);      // rilascia accesso esclusivo
-signal(full);       // avverte che c'è uno slot pieno in più
+Fa due cose in una sola istruzione non interrompibile: legge il valore attuale e lo setta a `True`. Questo permette di implementare un lock:
+
+```python
+# lock inizializzato a False (aperto)
+while test_and_set(lock):   # se era True (chiuso), aspetta
+    pass
+# --- sezione critica ---
+lock = False                # sblocca
 ```
 
-**Consumatore:**
-```c
-wait(full);         // aspetta uno slot pieno
-wait(mutex);        // prende accesso esclusivo
-item = buffer[out];
-out = (out + 1) % N;
-signal(mutex);
-signal(empty);      // avverte che c'è uno slot vuoto in più
+Il primo processo che arriva trova `lock = False`, lo legge (falso → esce dal while), e contemporaneamente lo setta a `True`, sbarrando la strada a tutti gli altri che troveranno `True` e rimarranno nel ciclo. Quando il processo in sezione critica esce, setta `lock = False` e sblocca il primo che riesce a fare il test.
+
+Questa implementazione garantisce mutua esclusione e progresso, ma **non** il bounded waiting.
+
+### Compare-and-swap (CAS)
+
+Versione più generale e flessibile, disponibile come istruzione hardware su x86 (`LOCK CMPXCHG`):
+
+```python
+# Operazione atomica
+def compare_and_swap(value, expected, new_val) -> int:
+    rv = value
+    if value == expected:
+        value = new_val
+    return rv    # restituisce il VECCHIO valore
 ```
 
-La simmetria è elegante: `empty` e `full` si complementano. Il `mutex` protegge le operazioni sul buffer dalla corsa critica. Lo stesso schema si potrebbe implementare con soli mutex, ma richiederebbe contatori espliciti protetti da ulteriori mutex.
+Confronta `value` con `expected` e, solo se sono uguali, lo setta a `new_val`. Restituisce sempre il vecchio valore. Si usa analogamente al test-and-set per costruire lock (con 0 per falso e 1 per vero).
+
+> [!tip] Differenza tra test-and-set e compare-and-swap
+> Il test-and-set è binario e setta sempre a True. Il compare-and-swap è più flessibile: lo swap avviene solo se il valore attuale è quello atteso. Questo permette usi più sofisticati, come gli aggiornamenti lock-free e la costruzione di meccanismi di bounded waiting.
 
 ---
 
-## 6. Monitor
+## 7. Bounded waiting tramite compare-and-swap
 
-Il **monitor** è uno strumento di sincronizzazione di livello ancora più alto: è un tipo di dato astratto che incapsula dati condivisi e operazioni che li accedono, garantendo automaticamente la mutua esclusione.
+Per ottenere il bounded waiting con CAS si introduce un array `waiting[N]` e una rotazione circolare. Ogni processo $i$ imposta `waiting[i] = True` per dichiarare che vuole entrare, poi cerca di prendere il lock con CAS. Quando un processo esce dalla sezione critica, invece di sbloccare direttamente il lock, scorre circolarmente i processi in attesa e, trovandone uno, mette `waiting[j] = False` senza sbloccare il lock: passa il testimone al prossimo in ordine. Solo se nessuno è in attesa sblocca il lock.
 
-> [!abstract] Definizione: Monitor
-> Un **monitor** è una struttura dati con:
-> - **dati interni condivisi** (accessibili solo tramite i metodi del monitor)
-> - **procedure** che operano sui dati
-> - **garanzia strutturale** che al più un processo alla volta esegua una procedura del monitor
+Questo garantisce che ogni processo che aspetta verrà servito nell'ordine circolare, evitando la starvation.
 
-Se un processo invoca `monitor.operazione()`, non deve dichiarare esplicitamente un lock: la mutua esclusione è garantita dalla struttura del monitor.
-
-### Variabili di condizione
-
-La sola mutua esclusione è insufficiente: a volte un processo deve aspettare che si verifichi una **condizione** prima di continuare. Le **variabili di condizione** permettono di sospendersi temporaneamente nel monitor, lasciando entrare altri processi.
-
-Su una variabile di condizione `x` si possono fare due operazioni:
-- **`x.wait()`** — il processo si autosospende su `x` e lascia il monitor
-- **`x.signal()`** — sveglia uno dei processi sospesi su `x`
-
-### Signal-and-continue vs signal-and-wait
-
-Quando un processo fa `signal` su una variabile di condizione, si pone la domanda: chi va avanti, chi ha mandato la signal o chi è stato svegliato?
-
-| Meccanismo | Chi procede dopo la signal | Note |
-|---|---|---|
-| **Signal-and-continue** | Chi ha mandato la signal; chi si è svegliato aspetta che il primo esca | Più naturale, più semplice da implementare |
-| **Signal-and-wait** | Chi si è svegliato; chi ha mandato la signal si sospende | Utile quando la condizione ha una scadenza: si vuole reattività immediata |
-
-### Implementazione con semafori
-
-Un monitor si può implementare con un semaforo `mutex = 1` per la mutua esclusione e un semaforo `next = 0` per la porta di servizio (processo che ha fatto signal e si è sospeso). Ogni variabile di condizione $x$ ha un semaforo associato `x_sem = 0` e un contatore `x_count` dei processi sospesi su di essa.
-
-L'operazione `x.signal()` (nella variante signal-and-wait):
-1. Se `x_count > 0`: incrementa `next_count`, fa `signal(x_sem)` (sveglia il sospeso) e poi si autosospende su `next`.
-2. Quando riprende, decrementa `next_count`.
-
----
-
-## 7. Deadlock
-
-> [!abstract] Definizione: Deadlock
-> Un **deadlock** è una situazione in cui un insieme di processi è bloccato in attesa circolare: ognuno aspetta che un altro rilasci una risorsa, ma nessuno può avanzare.
-
-> [!example] Deadlock banale con due semafori
-> ```
-> P0: wait(S); wait(Q); signal(S); signal(Q)
-> P1: wait(Q); wait(S); signal(Q); signal(S)
-> ```
-> Sequenza che causa deadlock: P0 fa `wait(S)` (S=0), P1 fa `wait(Q)` (Q=0). P0 prova `wait(Q)` ma Q=0, si blocca. P1 prova `wait(S)` ma S=0, si blocca. Si incrociano e rimangono bloccati per sempre.
-
-Casi tipici di deadlock:
-- Un processo chiama due volte `wait` sullo stesso semaforo senza un `signal` nel mezzo.
-- Due processi acquisiscono lock nello stesso ordine invertito.
-- Con $n$ processi che formano un ciclo di attesa.
-
-> [!warning] Consigli pratici
-> Evitare di annidare troppi mutex. Se si devono acquisire più lock, farlo sempre nello stesso ordine in tutti i processi. Mantenere le sezioni critiche il più brevi possibile. I meccanismi di sincronizzazione non garantiscono l'assenza di deadlock: è responsabilità del programmatore.
-
-### Problemi correlati alla liveness
-
-La **liveness** è la proprietà che garantisce che tutti i processi possano eventualmente progredire. Il deadlock è una violazione della liveness. Altre violazioni sono:
-- **Starvation** — un processo aspetta indefinitamente perché altri vengono sempre preferiti
-- **Priority inversion** (vedi sotto)
-- **Ciclo infinito** — un processo non termina mai
-
----
-
-## 8. Priority inversion
-
-La **priority inversion** (inversione di priorità) è un problema subdolo che si manifesta nei sistemi con scheduling a priorità e meccanismi di sincronizzazione.
-
-> [!abstract] Definizione: Priority inversion
-> Si ha inversione di priorità quando un processo a **media** priorità (M) blocca indirettamente un processo ad **alta** priorità (H), a causa di un lock detenuto da un processo a **bassa** priorità (L). Servono almeno tre processi.
-
-**Come si manifesta:**
-1. L (bassa priorità) entra nella sezione critica e prende un lock che serve a H.
-2. H (alta priorità) arriva e vuole il lock: si blocca perché L lo tiene.
-3. Nel frattempo, M (media priorità) viene schedulato e prelaziona L.
-4. M si prende tutto il tempo che vuole. Nel frattempo L non può liberare il lock.
-5. H rimane bloccato indirettamente da M, nonostante H abbia priorità più alta di M.
-
-> [!example] Il caso Pathfinder (Marte, 1997)
-> Il rover Pathfinder, dopo l'atterraggio su Marte, continuava a fare reset senza riuscire a completare il suo ciclo operativo nominale di 8 Hz. Il problema era esattamente una priority inversion:
->
-> - Un task di lettura dati meteo (bassa priorità) teneva un lock condiviso con il task di distribuzione dati.
-> - Un task di media priorità prelazionava il task meteo mentre teneva il lock.
-> - Il task scheduler (alta priorità) non riusciva ad acquisire il lock in tempo e andava fuori dalla sua deadline, causando il reset.
->
-> **Soluzione:** abilitando da remoto la **priority inheritance** nel sistema operativo real-time, il problema fu risolto senza dover inviare nulla fisicamente a Marte. Bastò un semplice flag via comunicazione radio.
-
-### Soluzione: Priority Inheritance
-
-> [!abstract] Soluzione: Priority Inheritance
-> Quando un processo H ad alta priorità si blocca aspettando un lock tenuto da L a bassa priorità, L **eredita temporaneamente la priorità di H**. Questo impedisce a M di prelazionare L, che può così liberare rapidamente il lock e consentire a H di procedere.
-
-La priority inheritance non è abilitata di default: va configurata esplicitamente nel sistema operativo.
-
----
-
-## 9. Strutture dati lock-free
-
-Analogamente all'incremento lock-free, si possono implementare operazioni su strutture dati concatenate senza bloccare mai esplicitamente.
-
-> [!example] Push lock-free su una pila
-> ```c
-> void push(Node *new_node) {
->     do {
->         new_node->next = top;   // prepara il collegamento
->     } while (compare_and_swap(&top, new_node->next, new_node) != new_node->next);
->     // Se top è ancora uguale a quello che mi aspettavo, faccio lo swap atomico.
->     // Se nel frattempo un altro ha modificato top, riprovo.
-> }
-> ```
-> È la stessa logica "ruba bandiera": si prepara l'operazione, si tenta atomicamente. Se qualcuno si è infilato nel mezzo, si ricomincia.
-
-**Quando usare lock-free vs mutex:**
-
-| Condizione | Approccio consigliato |
-|---|---|
-| Nessuna contesa | Lock-free è più veloce |
-| Contesa moderata | Lock-free batte il mutex |
-| Alta contesa | Mutex conviene: i lock-free perdono continuamente e c'è rischio di starvation |
-| Programmazione applicativa comune | Sempre mutex: più leggibili e manutenibili |
-
----
-
-## 10. Riepilogo: peso dei meccanismi di sincronizzazione
-
-Dal più leggero al più pesante:
-
-```mermaid
-%%{init: {'flowchart': {'curve': 'linear', 'useMaxWidth': true, 'htmlLabels': true}, 'theme': 'base', 'themeVariables': {'fontSize': '14px', 'primaryColor': '#e1f5fe', 'primaryBorderColor': '#01579b'}}}%%
-flowchart TD
-    %% Definizione dello stile per adattarsi all'A4
-    classDef default fill:#e1f5fe,stroke:#01579b,stroke-width:2px,rx:10,ry:10;
-    A["Istruzioni atomiche<br/>(test-and-set, CAS)"] --> B["Spin lock"] --> C["Mutex lock"] --> D["Semafori"] --> E["Monitor"]
-```
-
-Gli spin lock non fanno context switch ma sprecano CPU. I mutex sospendono il processo (context switch). I semafori sono più pesanti perché più flessibili. I monitor sono il meccanismo più alto livello e più pesante. Per la programmazione applicativa ordinaria si usano i mutex lock.
+> [!warning] Limite pratico del bounded waiting
+> Questa soluzione assume di conoscere a priori il numero N di processi in competizione. In pratica, con mutex e semafori standard, il bounded waiting non è sempre garantito formalmente: lo è statisticamente, o quando il programmatore introduce esplicitamente meccanismi di turnazione. Garantire rigorosamente tutte e tre le proprietà è possibile con soluzioni teoriche come Peterson, ma richiede meccanismi hardware precisi.
 
 ---
 
 > [!abstract] Punti chiave della lezione
-> - I semafori generalizzano i mutex: un semaforo binario equivale a un mutex, un semaforo contatore permette $k$ accessi contemporanei.
-> - Il problema produttore-consumatore si risolve elegantemente con tre semafori (`mutex`, `empty`, `full`).
-> - I monitor garantiscono mutua esclusione strutturalmente; le variabili di condizione permettono ai processi di sospendersi in attesa di una condizione, lasciando entrare altri.
-> - Il deadlock richiede attesa circolare; si previene acquisendo i lock sempre nello stesso ordine.
-> - La priority inversion blocca un processo ad alta priorità attraverso un processo a media priorità che prelaziona chi tiene il lock. Si risolve con la priority inheritance.
-> - I meccanismi lock-free sono efficienti con bassa contesa, ma con alta contesa il mutex classico è preferibile.
+> - La valutazione deterministica degli algoritmi di scheduling è quella richiesta ai compiti; il vero banco di prova è l'implementazione nel kernel.
+> - Le corse critiche nascono dall'interfogliamento di istruzioni macchina su variabili condivise: anche `counter++` non è atomica.
+> - Un corretto meccanismo per la sezione critica deve garantire mutua esclusione, progresso e bounded waiting.
+> - La soluzione di Peterson soddisfa tutte e tre le proprietà (per due processi), ma non è implementabile direttamente senza memory barriers perché il compilatore può riordinare le assegnazioni.
+> - Test-and-set e compare-and-swap sono istruzioni hardware che fanno due operazioni atomicamente: sono le fondamenta di tutti i meccanismi di sincronizzazione di alto livello.
 
 ## Prossimi argomenti
 
-- [ ] Esercitazioni pratiche con POSIX pthread: mutex e condition variables
-- [ ] Gestione dei deadlock: prevenzione, rilevamento, recupero
-- [ ] Memory management: introduzione
+- [ ] Spin lock e mutex lock di alto livello
+- [ ] Semafori: binari e contatori
+- [ ] Monitor e variabili di condizione
+- [ ] Deadlock e priority inversion
 
-#SO #semafori #monitor #variabili-condizione #deadlock #priority-inversion #spin-lock #mutex #lock-free
+#SO #scheduling #valutazione #sincronizzazione #sezione-critica #peterson #test-and-set #compare-and-swap

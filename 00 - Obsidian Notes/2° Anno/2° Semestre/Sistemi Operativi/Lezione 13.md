@@ -1,20 +1,20 @@
 ---
-date: 2026-04-15
+date: 2026-04-14
 corso: Sistemi Operativi
-lezione: "1 — Thread e Race Condition: Mutex e Lock"
+lezione: 2 — Variabili di condizione, Monitor e Deadlock
 tags:
   - SO
-  - thread
-  - race-condition
-  - mutex
-  - lock
+  - condition-variables
+  - monitor
+  - 5-filosofi
+  - deadlock
   - sincronizzazione
-  - pthread
-  - sezione-critica
+  - signal
+  - broadcast
   - SO1
 ---
 
-# SO Lezione 13 — Thread e Race Condition: Mutex e Lock
+# SO Lezione 12 — Variabili di Condizione, Monitor e Deadlock
 
 **Corso:** Sistemi Operativi
 
@@ -22,342 +22,393 @@ tags:
 
 ## Argomenti trattati
 
-- Concetto di thread e libreria pthread
-- Race condition: definizione pratica e osservazione sperimentale
-- Sezione critica e necessità di protezione
-- Mutex: dichiarazione, inizializzazione, lock/unlock
-- Compilazione con supporto multi-threaded (flag `-pthread`)
-- Esercitazione pratica: riproduzione e risoluzione di race condition
-- Analisi del comportamento non deterministico
+- Variabili di condizione: definizione e operazioni (wait, signal, broadcast)
+- Accoppiamento mutex + condition variable
+- Pattern del monitor per sincronizzazione avanzata
+- Problema dei 5 filosofi: formulazione e soluzione con condition variable
+- Differenza tra `signal()` e `broadcast()`
+- Deadlock: definizione e cause
+- Esempi di deadlock: inversione di mutex, cicli di attesa
 
 ---
 
-## 1. Thread e libreria pthread
+## 1. Variabili di condizione (Condition Variable)
 
-> [!info] Definizione di thread
-> Un **thread** (filo di esecuzione) è l'unità di esecuzione sequenziale all'interno di un processo. A differenza dei processi separati, i thread dello stesso processo **condividono memoria**: heap, variabili globali, file descriptor.
+> [!info] Definizione: Condition Variable
+> Una **variabile di condizione** è una primitiva di sincronizzazione che consente ai thread di **aspettare il verificarsi di una condizione** e essere svegliati quando la condizione diventa vera.
 
-**Caratteristiche:**
-- Ogni thread ha il proprio **stack di esecuzione**
-- **Condividono:** heap, dati globali, file, risorse del processo
-- Su sistemi **multicore**, i thread eseguono **veramente in parallelo**
-- Lo scheduler assegna il tempo di CPU ai thread
+A differenza di un mutex (mutua esclusione), una condition variable fornisce **comunicazione tra thread**.
 
-> [!info] Libreria pthread
-> Per gestire thread in C/C++, si usa la libreria POSIX **pthread** (POSIX threads).
+### Operazioni principali
+
+| Operazione | Descrizione |
+|---|---|
+| `pthread_cond_wait(&cond, &mutex)` | Thread si addormenta; rilascia temporaneamente il mutex |
+| `pthread_cond_signal(&cond)` | Sveglia **uno** dei thread in attesa (arbitrariamente) |
+| `pthread_cond_broadcast(&cond)` | Sveglia **tutti** i thread in attesa |
+
+### Invariante fondamentale
+
+> [!warning] Una condition variable deve essere associata a un mutex
 > ```c
-> #include <pthread.h>
+> pthread_mutex_lock(&mutex);
+> while (!condition) {
+>     pthread_cond_wait(&cond, &mutex);
+> }
+> // Ora la condizione è vera e il mutex è acquisito
+> // ... sezione critica ...
+> pthread_mutex_unlock(&mutex);
 > ```
 
-### Compilazione con supporto multi-threaded
-
-```bash
-gcc file.c -pthread -o eseguibile
-```
-
-Il flag `-pthread` **comunica al compilatore** che il codice è multi-threaded, collega le librerie necessarie, e abilita il supporto per i thread user-level.
+**Nota:** si usa un **while loop**, non un if, perché il thread potrebbe svegliarsi spuriamente.
 
 ---
 
-## 2. Esempio pratico: race condition su contatore
-
-### Codice di base (con race condition)
-
-```c
-#include <pthread.h>
-#include <stdio.h>
-
-int counter = 0;  // VARIABILE GLOBALE CONDIVISA
-
-void* thread_function(void* arg) {
-    for (int i = 0; i < 100000; i++) {
-        counter = counter + 1;  // ← NON ATOMICO!
-    }
-    return NULL;
-}
-
-int main() {
-    pthread_t t1, t2;
-    
-    pthread_create(&t1, NULL, thread_function, NULL);
-    pthread_create(&t2, NULL, thread_function, NULL);
-    
-    pthread_join(t1, NULL);
-    pthread_join(t2, NULL);
-    
-    printf("Counter: %d\n", counter);
-    // Atteso: 200.000 | Reale: ???
-    
-    return 0;
-}
-```
-
-### Comportamento osservato
-
-```bash
-$ gcc race.c -pthread -o race && ./race
-Counter: 156996
-$ ./race
-Counter: 187524
-$ ./race
-Counter: 200000
-$ ./race
-Counter: 142837
-```
-
-> [!warning] Risultati non deterministici
-> Ogni esecuzione produce un valore **diverso**, generalmente **inferiore** a 200.000. Il risultato dipende dallo **scheduler indeterminato**.
-
-### Perché accade?
-
-L'operazione `counter = counter + 1` è composta da **tre istruzioni macchina**:
-
-```
-1. LOAD   r0, counter    // Carica il valore in un registro
-2. ADD    r0, 1          // Incrementa il registro
-3. STORE  r0, counter    // Scrive il nuovo valore in memoria
-```
-
-> [!example] Timeline di race condition
-> ```
-> Thread 1: LOAD counter (legge 0)      → r1 = 0
-> Thread 2: LOAD counter (legge 0)      → r2 = 0
-> Thread 1: ADD r1, 1                   → r1 = 1
-> Thread 2: ADD r2, 1                   → r2 = 1
-> Thread 1: STORE 1 → counter           counter = 1
-> Thread 2: STORE 1 → counter           counter = 1 (SOVRASCRITTO!)
-> ```
-
-Entrambi leggono 0, incrementano a 1, uno sovrascrive l'altro. **Perdita di aggiornamento.**
-
-> [!warning] Non è un problema di velocità
-> Aumentare la velocità della CPU non risolve il problema. È un problema **logico di coordinamento** dovuto all'indeterminatezza dello scheduler e alla non-atomicità.
-
----
-
-## 3. Sezione critica
-
-> [!info] Sezione critica
-> Una **sezione critica** è una porzione di codice dove uno o più thread accedono a **risorse condivise**. Solo **un thread alla volta** deve eseguire una sezione critica.
-
-Nel nostro esempio:
-```c
-counter = counter + 1;  // ← SEZIONE CRITICA
-```
-
-### Soluzione: Mutex (Mutual Exclusion Lock)
-
-> [!info] Mutex
-> Un **mutex** è una variabile di sincronizzazione che garantisce **mutua esclusione**: solo un thread può "possedere" il mutex in un dato momento.
-
-**Operazioni:**
-- **`pthread_mutex_lock(&mutex)`**: acquisisce il mutex (attende se occupato)
-- **`pthread_mutex_unlock(&mutex)`**: rilascia il mutex (sveglia un thread in attesa)
-
----
-
-## 4. Implementazione con mutex
-
-### Dichiarazione e inizializzazione
+## 2. Dichiarazione e inizializzazione
 
 **Statica:**
 ```c
+pthread_cond_t cond = PTHREAD_COND_INITIALIZER;
 pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
 ```
 
 **Dinamica:**
 ```c
-pthread_mutex_t mutex;
-pthread_mutex_init(&mutex, NULL);
+pthread_cond_t cond;
+pthread_cond_init(&cond, NULL);
 // ... uso ...
-pthread_mutex_destroy(&mutex);
+pthread_cond_destroy(&cond);
 ```
-
-### Codice corretto
-
-```c
-#include <pthread.h>
-#include <stdio.h>
-
-int counter = 0;
-pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
-
-void* thread_function(void* arg) {
-    for (int i = 0; i < 100000; i++) {
-        pthread_mutex_lock(&mutex);      // INIZIO SEZIONE CRITICA
-        counter = counter + 1;
-        pthread_mutex_unlock(&mutex);    // FINE SEZIONE CRITICA
-    }
-    return NULL;
-}
-
-int main() {
-    pthread_t t1, t2;
-    
-    pthread_create(&t1, NULL, thread_function, NULL);
-    pthread_create(&t2, NULL, thread_function, NULL);
-    
-    pthread_join(t1, NULL);
-    pthread_join(t2, NULL);
-    
-    printf("Counter: %d\n", counter);  // SEMPRE 200.000 ✓
-    
-    return 0;
-}
-```
-
-### Comportamento garantito
-
-```bash
-$ ./race_fixed
-Counter: 200000
-$ ./race_fixed
-Counter: 200000
-$ ./race_fixed
-Counter: 200000
-```
-
-**Il risultato è DETERMINISTICO** — sempre 200.000.
 
 ---
 
-## 5. Semantica del mutex
+## 3. Pattern del monitor
 
-### Acquisizione (lock)
+> [!info] Monitor: struttura di sincronizzazione completa
+> Un **monitor** combina:
+> - Un **mutex** (mutua esclusione)
+> - Una o più **condition variable** (comunicazione)
+> - **Dati condivisi** (protetti dal mutex)
 
-```c
-pthread_mutex_lock(&mutex);
-```
-
-- Se il mutex è **libero**: lo acquisisci subito e continui
-- Se è **occupato**: **attendi** in una coda finché non si libera
-- Una volta acquisito, nessun altro thread può acquisirlo fino al `unlock`
-
-### Rilascio (unlock)
-
-```c
-pthread_mutex_unlock(&mutex);
-```
-
-- Libera il mutex (transizione da acquisito a libero)
-- Se ci sono thread in attesa, uno di loro viene **svegliato** e può acquisire il mutex
-
-### Pattern atomico
-
-> [!tip] Protezione standard di sezione critica
+> [!example] Implementazione di un monitor
 > ```c
-> pthread_mutex_lock(&mutex);
-> // SEZIONE CRITICA: solo questo thread esegue qui
-> // ...operazioni sulla risorsa condivisa...
-> pthread_mutex_unlock(&mutex);
-> ```
-
----
-
-## 6. Esercitazione pratica
-
-> [!question] Compito 1: Riprodurre la race condition
-> 1. Copia il codice di base in `race_condition.c`
-> 2. Compila: `gcc race_condition.c -pthread -o race_condition`
-> 3. Esegui più volte: `./race_condition`
-> 4. **Osserva** i risultati non deterministici
-
-> [!question] Compito 2: Proteggere con mutex
-> 1. Modifica il codice aggiungendo un mutex
-> 2. Aggiungi `pthread_mutex_lock()` **prima** di `counter = counter + 1`
-> 3. Aggiungi `pthread_mutex_unlock()` **dopo**
-> 4. Compila e esegui
-> 5. **Verifica** che il risultato sia sempre 200.000
-
----
-
-## 7. Implementazione naive (SBAGLIATO!)
-
-> [!warning] Tentativo naïve: spin lock senza atomicità
-> ```c
-> int my_lock = 0;
+> typedef struct {
+>     pthread_mutex_t mutex;
+>     pthread_cond_t cond;
+>     int data;  // Risorsa condivisa
+> } Monitor;
 >
-> void acquire_lock() {
->     while (my_lock == 1) {
->         // Busy waiting
+> void monitor_operation(Monitor* m) {
+>     pthread_mutex_lock(&m->mutex);
+>     
+>     // Aspettare finché la condizione non è vera
+>     while (m->data < 10) {
+>         pthread_cond_wait(&m->cond, &m->mutex);
 >     }
->     my_lock = 1;  // ← NON ATOMICO! Ancora race condition!
+>     
+>     // Sezione critica
+>     m->data = 0;
+>     
+>     // Svegliare eventuali thread
+>     pthread_cond_signal(&m->cond);
+>     
+>     pthread_mutex_unlock(&m->mutex);
 > }
 > ```
-
-Il problema persiste: tra il test e l'assegnamento, un altro thread può acquisire il lock. **Non è una soluzione.**
-
-### Soluzione hardware: primitiva atomica
-
-Gli hardware moderni forniscono istruzioni **atomiche** come `test_and_set` o `compare_and_swap` (CAS):
-
-```
-test_and_set(address):
-    temp ← memory[address]
-    memory[address] ← 1
-    return temp
-```
-
-Legge il vecchio valore e scrive 1 **in un'unica operazione indivisibile**.
-
-Pthread usa internamente queste primitive, quindi `pthread_mutex_lock()` è implementata correttamente.
 
 ---
 
-## 8. Prestazioni e contesa
+## 4. Problema dei 5 filosofi (Dining Philosophers)
 
-> [!info] Overhead del mutex
-> Ogni volta che acquisiamo un mutex, c'è un **costo**:
-> - Se è libero: overhead minimale (poche istruzioni)
-> - Se è occupato: il thread si blocca (context switch costoso)
+> [!info] Formulazione classica
+> **5 filosofi** seduti attorno a un tavolo:
+> - Alternano tra **pensare** e **mangiare**
+> - Per mangiare, hanno bisogno di **2 bacchette**: una a destra, una a sinistra
+> - Ci sono **5 bacchette**, una tra ogni coppia di filosofi
+> - La bacchetta è **condivisa** tra due filosofi
+> 
+> **Obiettivo:** trovare un protocollo **senza deadlock** e **senza starvation**.
 
-> [!info] Contesa (contention)
-> La **contesa** è il grado in cui più thread cercano simultaneamente di acquisire lo stesso mutex.
-> - **Bassa contesa**: pochi thread in attesa → buone prestazioni
-> - **Alta contesa**: molti thread in attesa → prestazioni scarse
+### Approccio naïve (SBAGLIATO)
 
-### Miglioramento: accumulo locale
-
-Nel nostro esempio con 2 thread che incrementano 100.000 volte, c'è **alta contesa**: ogni iterazione richiede lock/unlock.
-
-> [!example] Soluzione ottimizzata
+> [!warning] Questo approccio causa deadlock
 > ```c
-> void* thread_function(void* arg) {
->     int local_counter = 0;
->     
->     // Incrementa LOCALMENTE (senza lock)
->     for (int i = 0; i < 100000; i++) {
->         local_counter++;
->     }
->     
->     // Aggiorna il contatore globale UNA SOLA VOLTA
->     pthread_mutex_lock(&mutex);
->     counter += local_counter;
->     pthread_mutex_unlock(&mutex);
->     
->     return NULL;
+> while (1) {
+>     think();
+>     take_fork(i);              // Prende bacchetta sinistra
+>     take_fork((i+1) % 5);      // Prende bacchetta destra
+>     eat();
+>     put_fork(i);
+>     put_fork((i+1) % 5);
 > }
 > ```
 
-**Un solo lock/unlock per thread** invece di 100.000. Prestazioni drasticamente migliori.
+> [!example] Timeline di deadlock
+> ```
+> Filosofo 0: prende fork 0 ✓
+> Filosofo 1: prende fork 1 ✓
+> Filosofo 2: prende fork 2 ✓
+> Filosofo 3: prende fork 3 ✓
+> Filosofo 4: prende fork 4 ✓
+> 
+> Filosofo 0: aspetta fork 1 (Filosofo 1 ce l'ha)
+> Filosofo 1: aspetta fork 2 (Filosofo 2 ce l'ha)
+> ... DEADLOCK! Ciclo circolare.
+> ```
+
+### Soluzione con condition variable
+
+**Idea:**
+- Ogni filosofo ha uno **stato**: THINKING, HUNGRY, EATING
+- Ogni filosofo ha una **condition variable** su cui aspettare
+- Un filosofo mangia solo se **entrambi i vicini NON stanno mangiando**
+
+> [!example] Implementazione corretta
+> ```c
+> typedef enum { THINKING, HUNGRY, EATING } State;
+>
+> State state[5];
+> pthread_cond_t cond[5];
+> pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
+>
+> void test(int i) {
+>     // Se ho fame E i vicini non mangiano → mangio
+>     if (state[i] == HUNGRY && 
+>         state[(i-1) % 5] != EATING && 
+>         state[(i+1) % 5] != EATING) {
+>         state[i] = EATING;
+>         pthread_cond_signal(&cond[i]);
+>     }
+> }
+>
+> void take_forks(int i) {
+>     pthread_mutex_lock(&mutex);
+>     
+>     state[i] = HUNGRY;
+>     test(i);  // Verifico se posso mangiare
+>     
+>     // Se non posso, aspetto
+>     while (state[i] != EATING) {
+>         pthread_cond_wait(&cond[i], &mutex);
+>     }
+>     
+>     pthread_mutex_unlock(&mutex);
+> }
+>
+> void put_forks(int i) {
+>     pthread_mutex_lock(&mutex);
+>     
+>     state[i] = THINKING;
+>     
+>     // Sveglio i vicini se sono affamati
+>     test((i-1) % 5);
+>     test((i+1) % 5);
+>     
+>     pthread_mutex_unlock(&mutex);
+> }
+> ```
+
+### Proprietà garantite
+
+> [!info] Correttezza della soluzione
+> 1. **Mutua esclusione:** al massimo uno mangia per volta (protetto da mutex)
+> 2. **Deadlock-free:** nessun ciclo di attese
+> 3. **Starvation-free:** ogni filosofo affamato finisce per mangiare
+
+---
+
+## 5. Signal vs Broadcast
+
+### `signal()`: sveglia un thread
+
+> [!info] Signal sveglia uno
+> ```c
+> pthread_cond_signal(&cond);  // Sveglia UNO dei thread in attesa
+> ```
+
+**Uso:** quando sappiamo che esattamente **un thread** è in attesa, o quando non importa quale si svegli.
+
+**Nel problema dei 5 filosofi:** ogni filosofo ha la **sua condition variable** `cond[i]`. Quando il filosofo $i$ finisce di mangiare, chiama `test(i-1)` e `test(i+1)`, che chiamano `signal(&cond[vicino])`, svegliando il filosofo specifico.
+
+### `broadcast()`: sveglia tutti
+
+> [!info] Broadcast sveglia tutti
+> ```c
+> pthread_cond_broadcast(&cond);  // Sveglia TUTTI i thread in attesa
+> ```
+
+**Uso:** quando la condizione riguarda **più thread** e non sappiamo quanti.
+
+### Differenza nel contesto dei 5 filosofi
+
+Se usassimo **una sola** condition variable per tutti:
+
+```c
+pthread_cond_t cond;  // Una per tutti
+
+void put_forks(int i) {
+    // ...
+    pthread_cond_broadcast(&cond);  // Sveglia TUTTI
+}
+```
+
+Con `broadcast`, tutti i filosofi si svegliano e verificano se possono mangiare. È inefficiente (false awakenings), ma corretto.
+
+Con `signal()` e una sola variable, potremmo svegliare il filosofo sbagliato.
+
+> [!tip] Regola pratica
+> Con la soluzione originale (una variable per filosofo), `signal` e `broadcast` sono **equivalenti**. Con una sola variable, meglio usare `broadcast`.
+
+---
+
+## 6. Deadlock: definizione e cause
+
+> [!info] Definizione: Deadlock (stallo)
+> Una situazione in cui **due o più thread si aspettano mutuamente** in modo circolare, e **nessuno può procedere**. Il sistema è bloccato **permanentemente**.
+
+### Condizioni necessarie (Coffman, 1971)
+
+Tutte e quattro devono essere vere:
+
+1. **Mutua esclusione:** la risorsa non può essere condivisa (mutex)
+2. **Hold and wait:** un thread tiene una risorsa e aspetta un'altra
+3. **Non-preemption:** non si può strappare una risorsa a un thread
+4. **Circular wait:** c'è un ciclo di attese
+
+> [!tip] Prevenzione: eliminare una sola condizione
+> Basta eliminare **UNA** di queste quattro per prevenire il deadlock.
+
+---
+
+## 7. Esempio 1: Inversione di mutex
+
+> [!example] Due mutex in ordine invertito
+> ```c
+> pthread_mutex_t mutex1, mutex2;
+>
+> void* thread1(void* arg) {
+>     pthread_mutex_lock(&mutex1);
+>     sleep(1);
+>     pthread_mutex_lock(&mutex2);  // Aspetta mutex2
+>     // ...
+>     pthread_mutex_unlock(&mutex2);
+>     pthread_mutex_unlock(&mutex1);
+> }
+>
+> void* thread2(void* arg) {
+>     pthread_mutex_lock(&mutex2);  // Prende PRIMA mutex2
+>     sleep(1);
+>     pthread_mutex_lock(&mutex1);  // Aspetta mutex1 (Thread1 ce l'ha!)
+>     // ...
+>     pthread_mutex_unlock(&mutex1);
+>     pthread_mutex_unlock(&mutex2);
+> }
+> ```
+
+> [!warning] Timeline di deadlock
+> ```
+> Thread 1: lock(mutex1) ✓
+> Thread 2: lock(mutex2) ✓
+> Thread 1: lock(mutex2) → ATTESA (Thread 2 ce l'ha)
+> Thread 2: lock(mutex1) → ATTESA (Thread 1 ce l'ha)
+> DEADLOCK! ↔ Attesa circolare.
+> ```
+
+---
+
+## 8. Esempio 2: Ciclo di attese (3+ thread)
+
+> [!example] Ciclo di tre thread
+> ```c
+> void* thread1(void* arg) {
+>     pthread_mutex_lock(&mutex1);
+>     pthread_mutex_lock(&mutex2);
+> }
+>
+> void* thread2(void* arg) {
+>     pthread_mutex_lock(&mutex2);
+>     pthread_mutex_lock(&mutex3);
+> }
+>
+> void* thread3(void* arg) {
+>     pthread_mutex_lock(&mutex3);
+>     pthread_mutex_lock(&mutex1);  // Aspetta mutex1
+> }
+> ```
+
+> [!warning] Ciclo di attesa
+> ```
+> Thread 1 aspetta mutex2 ← Thread 2 aspetta mutex3 ← Thread 3 aspetta mutex1 ← Thread 1
+> DEADLOCK! Ciclo di tre.
+> ```
+
+---
+
+## 9. Prevenzione del deadlock
+
+### Strategia 1: Ordinamento totale dei mutex
+
+Acquisire **sempre** i mutex nello **stesso ordine**:
+
+> [!tip] Soluzione semplice e pratica
+> ```c
+> void* thread1(void* arg) {
+>     pthread_mutex_lock(&mutex1);
+>     pthread_mutex_lock(&mutex2);
+>     // ...
+> }
+>
+> void* thread2(void* arg) {
+>     pthread_mutex_lock(&mutex1);  // Stesso ordine!
+>     pthread_mutex_lock(&mutex2);
+>     // ...
+> }
+> ```
+
+Questo **elimina l'inversione** e il ciclo.
+
+### Strategia 2: Acquisizione atomica
+
+Prendi **tutte** le risorse necessarie in una sola operazione atomica, invece di una per volta.
+
+Nel problema dei 5 filosofi: prendere **entrambe le bacchette** senza interleaving (già implementato nella soluzione).
+
+### Strategia 3: Timeout
+
+Se un mutex non viene acquisito entro un tempo limite, rilascia tutti e riprova:
+
+```c
+if (pthread_mutex_timedlock(&mutex, &timeout) == ETIMEDOUT) {
+    // Timeout: rilascia altre risorse e riprova
+}
+```
+
+Evita attese infinite, ma non garantisce correttezza.
 
 ---
 
 > [!abstract] Riepilogo: Punti Chiave
-> 1. I thread **condividono memoria** — senza sincronizzazione, c'è **race condition**
-> 2. Una race condition genera **risultati non deterministici** — dipendono dallo scheduler
-> 3. La soluzione è proteggere le **sezioni critiche** con un **mutex**
-> 4. **Mutex:** `lock()` acquisisce, `unlock()` rilascia; solo un thread alla volta
-> 5. Pthread garantisce **atomicità** del mutex (usa primitive hardware come test-and-set)
-> 6. **Contesa:** molti lock/unlock = context switch = prestazioni scarse. Minimizzare!
+> 1. **Condition variable:** permette ai thread di aspettare un evento e essere svegliati
+> 2. **Pattern monitor:** mutex + condition variable per sincronizzazione complessa
+> 3. **Problema dei 5 filosofi:** classico problema; soluzione: una variable per thread, test su vicini
+> 4. **Signal vs broadcast:** signal sveglia uno, broadcast tutti; equivalenti con una variable per thread
+> 5. **Deadlock:** attesa circolare. Cause: mutua esclusione, hold-and-wait, non-preemption, circular wait
+> 6. **Prevenzione:** ordinamento totale dei mutex, acquisizione atomica, timeout
 
 ---
 
-> [!todo] Letture consigliate
-> - [ ] POSIX Threads Programming: https://computing.llnl.gov/tutorials/pthreads/
-> - [ ] Intel Threading Building Blocks (TBB) documentation
-> - [ ] Capitolo su sincronizzazione in un testo di Sistemi Operativi
+> [!question] Domande d'esame frequenti
+> - Perché il problema naïve dei 5 filosofi causa deadlock?
+> - Quale è la differenza tra signal e broadcast?
+> - Quali sono le 4 condizioni di Coffman?
+> - Come si previene il deadlock con ordinamento totale?
+
+> [!todo] Esercizi suggeriti
+> - [ ] Implementare i 5 filosofi da zero
+> - [ ] Modificare la soluzione per eliminare starvation
+> - [ ] Simulare il deadlock con inversione di mutex
+> - [ ] Misurare le performance: signal vs broadcast
 
 ---
 
-#SO #thread #race-condition #mutex #lock #sincronizzazione #sezione-critica #pthread
+#SO #condition-variables #monitor #deadlock #sincronizzazione #5-filosofi #signal-broadcast
