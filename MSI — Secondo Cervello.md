@@ -428,3 +428,118 @@
 - Nodo Lama: La condizione blocca una variabile tagliando trasversalmente il volume spaziale.
 - Nodo Gonfiaggio: La divisione forza l'area della sezione compressa a gonfiarsi fino al valore base uno.
 - Nodo Disconnessione: Il blocco congiunto si disintegra in frammenti isolati se le variabili sottostanti si ignorano.
+
+## Vettori, Processi e Inferenza Statistica
+
+### Vettore Gaussiano
+> [!ABSTRACT] 
+> Il vettore Gaussiano è un ecosistema compatto di variabili normali. Se le sue componenti smettono di rincorrersi linearmente, diventano matematicamente indipendenti in modo assoluto.
+> [!QUOTE] 
+> Parametri: Vettore media $\mathbf{\mu}$ e matrice di covarianza $K_X$. Formula: $f_{\mathbf{X}}(\mathbf{x}) = \frac{1}{\sqrt{(2\pi)^n |K_X|}} \exp\left(-\frac{1}{2}(\mathbf{x}-\mathbf{\mu})^T K_X^{-1} (\mathbf{x}-\mathbf{\mu})\right)$.
+> [!EXAMPLE] 
+> Disegna un bersaglio circolare per le freccette. Se tiri bendato, i colpi si accumulano formando una campana tridimensionale concentrata al centro. Questa è una Gaussiana bivariata perfetta.
+> [!DANGER] 
+> Dimenticare la potenza distruttiva della matrice di covarianza. Se la matrice $K_X$ diventa puramente diagonale (covarianze zero), le variabili si scollegano immediatamente e la funzione esponenziale si spezza in blocchi autonomi.
+
+- Nodo Ecosistema: Il vettore raggruppa campane singole in una rigida struttura multivariata.
+- Nodo Matrice: La covarianza detta la rotazione spaziale e lo schiacciamento della campana 3D.
+- Nodo Scorciatoia: L'incorrelazione garantisce automaticamente l'indipendenza statistica totale.
+
+### Processi Casuali e Stazionarietà
+> [!ABSTRACT] 
+> Un processo casuale spara non un singolo numero, ma un intero film continuo nel tempo. La stazionarietà impone che la trama del film non cambi mai, indipendentemente da quando inizi a guardarlo.
+> [!QUOTE] 
+> Stazionarietà Senso Stretto (SSS): $f_{X}(x_1, \dots, x_n; t_1, \dots, t_n) = f_{X}(x_1, \dots, x_n; t_1+\tau, \dots, t_n+\tau)$. Stazionarietà Senso Lato (WSS): $\mu_X(t)$ costante, $R_X(t, t+\tau) = R_X(\tau)$.
+> [!EXAMPLE] 
+> Sintonizza una radio rotta sul rumore bianco. Ascolta il fischio oggi, o ascoltalo domani. Suona identico. Le statistiche del suono non invecchiano minimamente. Questo è un processo stazionario.
+> [!DANGER] 
+> Confondere SSS e WSS. La WSS blocca e stabilizza solo i primi due momenti base (media e autocorrelazione). La SSS blocca rigorosamente tutta la densità di probabilità infinita, rendendole identiche in ogni istante.
+
+- Nodo Segnale: L'esperimento genera un'intera funzione imprevedibile variabile nel tempo continuo.
+- Nodo Invecchiamento: Il processo stazionario congela temporalmente le leggi statistiche impedendone l'evoluzione.
+- Nodo Rilassamento: La stazionarietà debole controlla esclusivamente media e forma dell'autocorrelazione.
+
+### Ergodicità
+> [!ABSTRACT] 
+> L'ergodicità scambia miracolosamente il tempo con lo spazio. Osservare un singolo processo per un tempo infinito equivale a osservare infiniti processi diversi nello stesso istante.
+> [!QUOTE] 
+> Condizione Ergodica: La media temporale infinita del singolo segnale $\langle x(t) \rangle$ converge in probabilità alla media statistica canonica d'insieme $E[X(t)]$.
+> [!EXAMPLE] 
+> Vuoi calcolare il lancio medio di un dado per mille persone. Puoi chiedere a mille persone di lanciare un dado adesso. Oppure puoi chiudere una singola persona in una stanza e farle lanciare un dado mille volte di fila. Il risultato finale coincide.
+> [!DANGER] 
+> Assumere ergodicità automatica per sistemi bloccati. Se tiri una moneta truccata una volta sola e tieni in mano quel risultato per sempre (es. segnale costante $X(t)=A$), il segnale nel tempo non esplora il mondo circostante. Fallisce l'ergodicità.
+
+- Nodo Scambio: L'infinito temporale della singola traccia sostituisce l'infinito spaziale dell'universo.
+- Nodo Esplorazione: Il singolo segnale deve visitare fisicamente tutte le combinazioni probabilistiche possibili.
+- Nodo Praticità: Il teorema sblocca il calcolo statistico teorico usando una singola misurazione empirica pratica.
+
+### Inferenza Statistica: La Sfida
+> [!ABSTRACT] 
+> L'inferenza inverte il lavoro della probabilità classica. Non prevede i risultati avendo in mano il modello matematico, ma ricostruisce il modello cieco guardando i risultati fisici.
+> [!QUOTE] 
+> Elementi: Spazio dei parametri nascosti $\Theta$. Vettore osservazione concreta $\mathbf{x}$. Stimatore deduttivo $\hat{\theta}(\mathbf{x})$.
+> [!EXAMPLE] 
+> Trovi un dado scalfito per strada. Lo lanci cento volte e scrivi i numeri (dati). L'algoritmo di inferenza osserva i cento numeri e indovina esattamente i grammi di piombo nascosti nel dado (parametro).
+> [!DANGER] 
+> Confondere la stima calcolata con il parametro reale. Il parametro è la verità divina, fissa, statica e invisibile. La stima è la nostra congettura umana, calcolata, variabile e dipendente dal campione.
+
+- Nodo Ricostruzione: L'algoritmo matematico deduce la causa invisibile direttamente dall'effetto visibile.
+- Nodo Parametro: Il numero fisso governa segretamente l'intera generazione dei dati empirici.
+- Nodo Stimatore: La funzione algoritmica tenta di indovinare chirurgicamente il parametro occulto.
+
+### Distorsione (Bias) e Consistenza
+> [!ABSTRACT] 
+> Il Bias misura freddamente se la tua pistola spara storta di fabbrica. La Consistenza garantisce che, pompando infiniti dati, la stima distruggerà ogni incertezza collassando sul parametro perfetto.
+> [!QUOTE] 
+> Bias: $B(\hat{\theta}) = E[\hat{\theta}] - \theta$. Stimatore Corretto: $B(\hat{\theta}) = 0$. Consistenza asintotica in probabilità: $\lim_{n \to \infty} P(|\hat{\theta}_n - \theta| > \epsilon) = 0$.
+> [!EXAMPLE] 
+> Usa una bilancia collaudata male in fabbrica che aggiunge sempre un chilo netto. Pesa mille persone diverse e fai la media temporale. Otterrai una stima stabilissima, ma sbagliata inesorabilmente di un chilo. Questo è il Bias sistemico.
+> [!DANGER] 
+> Fissarsi rigidamente sul singolo campione empirico. Uno stimatore perfettamente corretto può sbagliare miseramente ogni singola misurazione pratica. Garantisce matematicamente solo che la media degli infiniti errori si annulli al centro.
+
+- Nodo Distorsione: L'errore sistematico devia costantemente l'algoritmo dal centro esatto.
+- Nodo Correttezza: L'operatore centra matematicamente il parametro occulto compensando infiniti tentativi.
+- Nodo Consistenza: L'accumulo infaticabile di dati annienta inesorabilmente la varianza e l'incertezza residua.
+
+### Errore Quadratico Medio (MSE)
+> [!ABSTRACT] 
+> L'MSE penalizza ferocemente gli errori grossolani. Valuta in un colpo solo sia la mira storta della pistola (Bias) sia il tremore insicuro della mano che spara (Varianza).
+> [!QUOTE] 
+> Definizione: $MSE(\hat{\theta}) = E[(\hat{\theta} - \theta)^2]$. Scomposizione aurea infallibile: $MSE(\hat{\theta}) = \text{Var}(\hat{\theta}) + [B(\hat{\theta})]^2$.
+> [!EXAMPLE] 
+> Valuta un arciere. Non guardi solo se colpisce il centro in media (Bias nullo). Guardi anche se le frecce formano un gruppo strettissimo o cadono sparse a caso (Varianza elevata). L'MSE boccia inflessibilmente l'arciere incostante.
+> [!DANGER] 
+> Ignorare il fatale compromesso Bias-Varianza. Sovente conviene progettare uno stimatore leggermente fuori centro (piccolo Bias) ma d'acciaio (bassissima Varianza), rifiutando uno stimatore precisissimo ma totalmente inaffidabile.
+
+- Nodo Penalità: Il quadrato punisce severamente e asimmetricamente gli scarti massicci.
+- Nodo Scomposizione: Il punteggio somma matematicamente il difetto cronico di mira e l'instabilità del braccio.
+- Nodo Bilanciamento: L'algoritmo sacrifica strategicamente la correttezza pura per abbattere la varianza distruttiva.
+
+### Stima di Massima Verosimiglianza (MLE)
+> [!ABSTRACT] 
+> L'MLE abbraccia il parametro che rende i dati osservati la cosa meno sorprendente dell'universo. Sceglie l'ipotesi che massimizza brutalmente l'ovvietà dei fatti.
+> [!QUOTE] 
+> Funzione Likelihood: $L(\theta) = f_{\mathbf{X}}(\mathbf{x}; \theta)$. Calcolo log-MLE: $\hat{\theta}_{ML} = \arg\max_\theta \ln L(\theta)$.
+> [!EXAMPLE] 
+> Entri in salotto e vedi il vaso in frantumi. Opzione A: il gatto saltato sul tavolo. Opzione B: un meteorite. L'MLE seleziona istantaneamente il gatto, perché l'ipotesi "gatto" rende il vaso rotto infinitamente più probabile dell'ipotesi "meteorite".
+> [!DANGER] 
+> Trattare la verosimiglianza Likelihood come una probabilità diretta del parametro. Il parametro non oscilla, non è una variabile aleatoria in questo mondo frequentista. Tu calcoli la probabilità passata *dei dati* fissando il parametro, non il contrario.
+
+- Nodo Ovvietà: Il calcolo seleziona l'ipotesi teorica che giustifica i dati inoppugnabili già raccolti.
+- Nodo Logaritmo: L'operatore inietta la monotonia per trasformare scomodi prodotti in pratiche somme, disinnescando gli esponenziali.
+- Nodo Gradiente: L'azzeramento della derivata prima individua matematicamente il picco massimo della collina.
+
+### Stima MAP (Maximum A Posteriori) e MMSE
+> [!ABSTRACT] 
+> Il MAP aggiunge prepotentemente i tuoi antichi pregiudizi all'MLE. L'MMSE rinuncia ai picchi e si concentra sul baricentro dell'area probabilistica per minimizzare lo scarto quadrato.
+> [!QUOTE] 
+> Teorema Bayes: $f_{\Theta|\mathbf{X}}(\theta|\mathbf{x}) \propto f_{\mathbf{X}|\Theta}(\mathbf{x}|\theta) \cdot f_{\Theta}(\theta)$. Formula MAP: $\arg\max_\theta f_{\Theta|\mathbf{X}}(\theta|\mathbf{x})$. Formula MMSE: $\hat{\theta}_{MMSE} = E[\Theta | \mathbf{X} = \mathbf{x}]$.
+> [!EXAMPLE] 
+> Il radar individua un veicolo estremamente veloce in cielo. L'MLE grida: "Vola a Mach 3, è un UFO alieno". Il MAP analizza il registro di volo e risponde: "In quest'area testano aerei segreti (pregiudizio a priori massiccio). È solo un caccia militare".
+> [!DANGER] 
+> Ignorare l'impatto della PDF a priori $f_{\Theta}(\theta)$. Se il tuo pregiudizio iniziale è totalmente piatto (ignoranza completa e uniforme), il MAP perde la sua bussola a priori e collassa diventando l'ombra matematica esatta dell'MLE.
+
+- Nodo Pregiudizio: L'informazione storica pregressa inquina volontariamente l'oggettività dei dati correnti.
+- Nodo Vetta: L'algoritmo MAP scala e pianta la bandiera sul picco più alto della nuova probabilità a posteriori.
+- Nodo Equilibrio: L'algoritmo MMSE calcola e inchioda il baricentro esatto della nuova massa probabilistica.
+- Nodo Fusione: Il modello Gaussiano allinea magicamente il picco estetico MAP col baricentro solido MMSE.

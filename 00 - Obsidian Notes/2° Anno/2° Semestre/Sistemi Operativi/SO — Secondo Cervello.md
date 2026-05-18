@@ -1,1267 +1,754 @@
----
-tags: [SO, MemoVia, secondo-cervello]
----
-
-# 🧠 SO — Secondo Cervello
-
-> [!abstract] Come leggere questo file
-> Ogni sezione è una **parcella autonoma**. Leggi dall'alto. I link `[[ ]]` ti portano al concetto collegato. I callout colorano il tipo di informazione: **Ciano = essenza**, **Verde = formula/dato esatto**, **Viola = metafora/esempio**, **Rosso = trappola da evitare**.
-
----
-
-# 🏛️ PILASTRO 1 — CHE COS'È UN SISTEMA OPERATIVO
-*Lezioni 0 → 2*
-
----
-
-## L1 — Il SO è un intermediario
-
-> [!abstract] Nodo Nucleare
-> Il SO è il **primo strato software** tra hardware e applicazioni. Fa due cose: **gestisce le risorse** (CPU, RAM, disco) e **nasconde la complessità** dell'hardware all'utente.
-
-> [!example] Metafora: il SO è il direttore d'orchestra
-> L'hardware sono i musicisti: ognuno fa la sua cosa. Il SO è il direttore: decide chi suona quando, evita che si pestino i piedi, e dà un'interfaccia semplice al pubblico (le applicazioni).
-
-**Struttura a cipolla:**
-- Hardware → Kernel → System Programs → Applicazioni Utente
-
-**Modalità operative (Dual-Mode):**
-- `User Mode` (bit=1) — programmi normali, istruzioni privilegiate vietate
-- `Kernel Mode` (bit=0) — pieno controllo hardware, tutto permesso
-
-> [!quote] Regola fondamentale
-> Il passaggio da User a Kernel Mode avviene **solo** tramite: Interrupt hardware | Trap (errore) | System Call
-
-> [!danger] Trappola R.I.P.
-> Non confondere "kernel" con "SO". Il SO include anche shell, librerie, utility. Il kernel è solo il nucleo sempre in RAM.
-
----
-
-## L1 — System Call: il portone del kernel
-
-> [!abstract] Nodo
-> La **System Call** è l'unico modo legale per un programma utente di chiedere servizi al kernel. È una trap controllata: il programma dice "voglio leggere un file" e il kernel lo fa per lui.
-
-> [!example] Metafora: sportello bancario
-> Tu (user mode) non entri nel caveau (kernel). Passi la richiesta allo sportellista (syscall), lui va nel caveau e ti riporta il risultato. Non sai *come* lo fa, e va bene così.
-
-**Flusso di una syscall:**
-1. Programma carica il numero della syscall in un registro (es. `rax`)
-2. Esegue `syscall` / `int 0x80` → la CPU entra in kernel mode
-3. Il kernel legge il numero, esegue la funzione
-4. Ritorna in user mode con il risultato
-
-> [!quote] Gerarchia delle interfacce
-> `API` (alta astrazione, portabile) → `ABI` (livello binario, dipende dall'architettura) → `System Call` (livello hardware)
-> Esempio: `printf()` [API C] → `write()` [ABI POSIX] → `sys_write` [syscall Linux]
-
----
-
-## L2 — Struttura interna del kernel
-
-> [!abstract] Nodo
-> Esistono 3 filosofie per organizzare il kernel. La scelta influenza velocità, stabilità e manutenibilità.
-
-| Tipo | Logica | Pro | Contro |
-|---|---|---|---|
-| **Monolitico** (Linux) | Tutto in kernel mode | Velocissimo | Un bug in un driver → crash totale |
-| **Microkernel** (Mach) | Solo IPC + mem in kernel | Stabile, modulare | Lento (troppe syscall) |
-| **Modulare** (Linux moderno) | Monolitico + LKM caricabili | Flessibile | Compromesso |
-
-> [!example] Metafora: monolitico = palazzo, microkernel = modulare IKEA
-> Il palazzo è solido ma se crolla un muro, crolla tutto. IKEA: monti, smonti, sostituisci un modulo senza buttare tutto.
-
-> [!danger] Trappola
-> Linux è **monolitico modulare**: non è un microkernel anche se ha i moduli. I moduli girano ancora in kernel mode.
-
----
-
-# 🔄 PILASTRO 2 — PROCESSI E THREAD
-*Lezioni 2 → 7*
-
----
-
-## L2 — Il Processo: programma in esecuzione
-
-> [!abstract] Nodo
-> Un **processo** è un programma caricato in RAM più tutto il suo stato. Due esecuzioni dello stesso programma = due processi diversi.
-
-**Layout di memoria di un processo (dal basso verso l'alto):**
-```
-[ Stack ]   ← cresce verso il basso (variabili locali, return address)
-    ↕
-  [vuoto]
-    ↕  
-[ Heap  ]   ← cresce verso l'alto (malloc, new)
-[ BSS   ]   ← variabili globali non inizializzate
-[ Data  ]   ← variabili globali inizializzate
-[ Text  ]   ← codice eseguibile (read-only)
-```
-
-> [!quote] PCB — Process Control Block
-> Il kernel tiene traccia di ogni processo con una struttura C chiamata PCB (in Linux: `task_struct`). Contiene: PID, stato, PC, registri, info scheduling, tabella file aperti, mappa memoria.
-
-**Ciclo di vita di un processo:**
-`New` → `Ready` → `Running` → `Waiting` → `Terminated`
-
-> [!example] Metafora: Context Switch = cambio turno in cucina
-> Due cuochi (processi) usano lo stesso forno (CPU). Quando il cuoco A smette, il caposala (scheduler) salva il suo stato (cosa stava cucinando, a che punto era) nel suo quaderno (PCB), poi lo riprende il cuoco B.
-
----
-
-## L2 — fork, exec, wait: la trinità POSIX
-
-> [!abstract] Nodo
-> Questi tre comandi sono la base per creare qualsiasi processo su Unix/Linux.
-
-> [!quote] Come funzionano
-> - `fork()` → duplica il processo corrente. Ritorna **0 al figlio**, **PID_figlio al padre**
-> - `exec()` → sostituisce lo spazio di memoria con un nuovo programma (non crea un nuovo processo)
-> - `wait()` → il padre si blocca finché il figlio non termina, raccoglie l'exit status
-
-> [!example] Metafora: fork = fotocopiatrice, exec = sovrascrittura
-> `fork()` fotocopiamo il processo (stessa memoria, stesso codice). Il figlio poi chiama `exec()` e "sovrascrive" se stesso con un nuovo programma. La shell funziona esattamente così: fork → exec → wait.
-
-> [!danger] Trappola critica: Zombie e Orfani
-> - **Zombie**: il figlio è morto ma il padre non ha fatto `wait()`. Il PCB resta in RAM (spreco). Fix: chiama `wait()`.
-> - **Orfano**: il padre muore prima del figlio. Il figlio viene adottato da `init`/`systemd` (PID=1) che farà la `wait()` per lui.
-
-**Copy-on-Write (COW):** dopo `fork()`, padre e figlio condividono le stesse pagine fisiche in sola lettura. Solo alla prima **scrittura** il kernel duplica quella pagina. → fork() è quasi gratuita.
-
----
-
-## L3 — IPC: come parlano i processi
-
-> [!abstract] Nodo
-> I processi sono **isolati per design** (memoria separata). Per comunicare, usano l'IPC (Inter-Process Communication). Due famiglie: **Shared Memory** (veloce, manuale) e **Message Passing** (sicuro, automatico).
-
-### Shared Memory
-
-> [!quote] API POSIX
-> `shm_open(name, flags, mode)` → crea/apre oggetto
-> `ftruncate(fd, size)` → imposta dimensione
-> `mmap(addr, len, prot, MAP_SHARED, fd, 0)` → mappa nello spazio virtuale
-> `munmap()` + `shm_unlink()` → pulizia
-
-> [!example] Metafora: lavagna condivisa
-> Due processi scrivono sulla stessa lavagna (memoria fisica). Velocissimo. Ma se scrivono insieme, si sovrascrivono → serve un semaforo (vedi [[#L11 — Semafori]])
-
-### Pipe Anonime
-
-> [!quote] Regole d'oro
-> - `pipe(fd[2])` → `fd[0]` = lettura, `fd[1]` = scrittura
-> - Solo tra processi **imparentati** (padre-figlio)
-> - Chiudere sempre il lato non usato → altrimenti `read()` non vede mai EOF
-
-> [!example] Metafora: tubo dell'acqua in un palazzo
-> Uno scrive dall'alto (fd[1]), l'altro legge dal basso (fd[0]). Il tubo è nel kernel. Se non chiudi il rubinetto (il lato di scrittura non usato), il lettore aspetta acqua che non arriverà mai → deadlock.
-
-### Named Pipe (FIFO) e Socket
-
-> [!quote] Differenza chiave
-> - **FIFO**: `mkfifo("nome", 0666)` → appare nel filesystem, funziona tra processi non imparentati
-> - **Socket**: comunicazione di rete o locale. `SOCK_STREAM` (TCP, affidabile) vs `SOCK_DGRAM` (UDP, pacchetti)
-
----
-
-## L4 — Shell e Compilazione C
-
-> [!abstract] Nodo
-> La shell è un processo come gli altri. Ogni comando che lanci è un `fork() + exec()`. La compilazione C è una pipeline a 4 stadi.
-
-**Pipeline di compilazione:**
-```
-sorgente.c  →[cpp]→  sorgente.i  →[cc1]→  sorgente.s  →[as]→  sorgente.o  →[ld]→  eseguibile
-            Preprocessing    Compilazione      Assembly          Linking
-```
-
-> [!quote] Formato ELF (Executable and Linkable Format)
-> Il file `.o` e l'eseguibile finale sono in formato ELF. Contiene:
-> - **Header**: tipo file, architettura, entry point
-> - **.text**: codice macchina
-> - **.data**: variabili globali inizializzate
-> - **.bss**: variabili globali non inizializzate (spazio riservato, non scritto su disco)
-> - **Symbol Table**: nomi di funzioni/variabili per il linker
-
-> [!example] Metafora: linking = assemblare un mobile IKEA
-> Hai più sacchetti di viti (file .o). Il linker (ld) li unisce seguendo le istruzioni (symbol table) e produce il mobile finito. Le librerie dinamiche (.so) sono pezzi condivisi che monti solo quando usi il mobile.
-
-> [!danger] Statico vs Dinamico
-> - Linking **statico**: tutto il codice della libreria finisce nell'eseguibile → grosso, ma funziona ovunque
-> - Linking **dinamico**: l'eseguibile dice "usa libX.so" → piccolo, ma la libreria deve esistere a runtime
-
----
-
-## L5 — Thread: processi leggeri
-
-> [!abstract] Nodo
-> Un thread è un flusso di esecuzione **dentro** un processo. Più thread = stesso codice/heap/dati, ma **stack e registri separati**.
-
-**Cosa condividono i thread dello stesso processo:**
-- ✅ Codice (Text segment)
-- ✅ Heap e variabili globali
-- ✅ File descriptor
-- ❌ Stack (ogni thread ha il suo)
-- ❌ Registri / Program Counter
-
-> [!quote] Legge di Amdahl — il limite del parallelismo
-> $$S \leq \frac{1}{S_{seq} + \frac{1-S_{seq}}{N}}$$
-> - $S_{seq}$ = frazione di codice **non parallelizzabile**
-> - $N$ = numero di core
-> - Se $S_{seq} = 0.1$ (10% seriale), con ∞ core → max speedup = 10x. Mai.
-
-> [!example] Metafora: Amdahl = autostrada con pedaggi
-> Puoi aggiungere quante corsie vuoi, ma il pedaggio (parte seriale) è un collo di bottiglia a 1 corsia. Il guadagno totale è limitato dalla parte che non puoi parallelizzare.
-
-**Modelli di mapping thread user ↔ kernel:**
-- **1:1** (Linux) → ogni user thread = 1 kernel thread. Vero parallelismo su multicore.
-- **M:N** → N user thread su M kernel thread (complesso, raro oggi)
-
----
-
-## L5/L7 — Pthreads: API POSIX per i thread
-
-> [!quote] Funzioni fondamentali
-> ```c
-> pthread_create(&tid, NULL, funzione, argomento); // crea thread
-> pthread_join(tid, NULL);    // aspetta terminazione
-> pthread_self();             // ritorna TID user-level
-> syscall(SYS_gettid);        // ritorna TID kernel-level (Linux-only)
-> pthread_cancel(tid);        // invia richiesta cancellazione
-> pthread_testcancel();       // punto di cancellazione manuale (CPU-bound)
-> ```
-
-> [!abstract] Cancellazione Thread: 3 modalità
-> - **Disabled**: la richiesta resta pending, il thread ignora tutto
-> - **Deferred** (default): il thread termina solo al prossimo *cancellation point* (sleep, I/O, pthread_cond_wait…)
-> - **Asynchronous**: il thread muore immediatamente → pericoloso se tiene lock
-
----
-
-## L7 — Signal Handling nei Thread
-
-> [!abstract] Nodo
-> I segnali in ambiente multi-thread seguono regole precise sulla *maschera*.
-
-> [!quote] Regole d'oro sui segnali
-> 1. `pthread_kill(tid, SIG)` → manda segnale a un thread specifico
-> 2. `kill(pid, SIG)` → manda a tutto il processo → il kernel lo consegna a un thread che non lo maschera
-> 3. La maschera impostata **prima** del `pthread_create` → **ereditata** dal figlio
-> 4. La maschera impostata **dopo** → vale solo per il thread corrente
-> 5. Segnali ordinari (SIGUSR1, SIGINT): **non si accumulano** → N invii = 1 handler invocato
-
-> [!example] Metafora: eredità della maschera
-> Se papà mette i tappi alle orecchie (maschera) PRIMA di fare figli → i figli nascono già con i tappi. Se li mette dopo → i figli sentono tutto.
-
----
-
-# ⚡ PILASTRO 3 — CPU SCHEDULING
-*Lezioni 6 → 9*
-
----
-
-## L6 — Lo Scheduler: chi va in CPU?
-
-> [!abstract] Nodo
-> Lo scheduler decide quale processo nella coda **Ready** prende la CPU. L'obiettivo è massimizzare l'utilizzo della CPU eliminando i momenti in cui è idle.
-
-**CPU burst vs I/O burst:** i processi alternano burst di CPU intenso con attese di I/O. La maggior parte dei processi ha burst di CPU **brevi** (distribuzione iperbolica).
-
-> [!quote] Criteri di valutazione (da massimizzare o minimizzare)
-> - **Throughput** ↑ = più job finiti per unità di tempo
-> - **Turnaround Time** ↓ = fine - arrivo
-> - **Waiting Time** ↓ = tempo in coda Ready
-> - **Response Time** ↓ = tempo alla prima risposta (critico per sistemi interattivi)
-
-**Scheduling con o senza prelazione:**
-- **Non-preemptive**: il processo gira fino a terminazione o blocco volontario
-- **Preemptive**: il kernel può interromperlo forzatamente (timeout, priorità più alta)
-
----
-
-## L6/L7 — Algoritmi Classici
-
-### FCFS — First Come First Served
-
-> [!abstract] Logica
-> Coda FIFO. Chi arriva prima, serve prima. Non-preemptive.
-
-> [!danger] Effetto Convoglio
-> Un processo lungo (es. burst 24ms) blocca N processi brevi (3ms) in coda. Il waiting time medio esplode.
-> Con P1=24, P2=3, P3=3: media attesa = **17ms**. Con ordine inverso → **3ms**. FCFS non considera la lunghezza.
-
-### SJF — Shortest Job First
-
-> [!abstract] Logica
-> Serve il processo con il burst più breve. **Ottimale** per minimizzare il waiting time medio. Non-preemptive.
-
-> [!quote] Stima del burst: Media Esponenziale
-> $$\tau_{n+1} = \alpha \cdot t_n + (1-\alpha) \cdot \tau_n$$
-> - $t_n$ = burst reale osservato
-> - $\tau_n$ = stima precedente
-> - $\alpha$ = peso del recente (tipicamente 0.5)
-> I burst lontani nel tempo **sfumano esponenzialmente** → si "dimenticano" da soli.
-
-> [!danger] SJF è teorico
-> Non si può sapere a priori quanto durerà il prossimo burst. In pratica lo si stima, ma non è implementabile in modo puro.
-
-### SRTF — Shortest Remaining Time First
-
-> [!abstract] Logica
-> Versione **preemptive** di SJF. Ogni volta che arriva un nuovo processo, il kernel confronta il suo burst con il **tempo rimanente** del processo in esecuzione. Se il nuovo è più corto → prelazione.
-
-> [!quote] Formula del waiting time
-> $\text{attesa}_i = \text{fine}_i - \text{arrivo}_i - \text{burst}_i$
-
-### Round-Robin (RR)
-
-> [!abstract] Logica
-> Ogni processo riceve un **quanto di tempo** (quantum, tipicamente 10-100ms). Se non finisce → torna in fondo alla coda. Equo, nessuna starvation.
-
-> [!quote] Taratura del quanto
-> - Quanto **troppo grande** → degenera in FCFS
-> - Quanto **troppo piccolo** → overhead di context switch enorme
-> - Regola empirica: 80% dei CPU burst < quanto → buona calibrazione
-
-### Priorità + Aging
-
-> [!abstract] Logica
-> Ogni processo ha una priorità numerica. Chi ha priorità più alta prende la CPU. Rischio: **starvation** per le priorità basse.
-
-> [!quote] Soluzione: Aging
-> La priorità di un processo aumenta col tempo di attesa. Dopo abbastanza tempo, anche il processo "scarso" diventa prioritario e viene servito.
-
-### MLFQ — Multi-Level Feedback Queue
-
-> [!abstract] Logica
-> Code multiple (es. Q0, Q1, Q2) con algoritmi diversi. I processi si muovono tra le code in base al comportamento:
-> - Usa tutto il quanto → declassamento (CPU-bound affonda nelle code basse)
-> - Aspetta troppo → promozione (aging)
-
-> [!example] Schema tipico a 3 livelli
-> - Q0: RR quantum=8ms (processi nuovi entrano qui)
-> - Q1: RR quantum=16ms
-> - Q2: FCFS (processi CPU-bound lunghi finiscono qui)
-> Un processo I/O-bound finisce spesso nel suo quanto → rimane in Q0 → risposta rapida.
-
----
-
-## L8 — Scheduling Real-Time
-
-> [!abstract] Nodo
-> I sistemi real-time hanno processi con **scadenze (deadline)**. L'obiettivo non è massimizzare il throughput, ma **rispettare le deadline**.
-
-> [!quote] Soft vs Hard Real-Time
-> - **Soft**: il SO dà massima priorità, ma senza garanzie formali (Linux standard)
-> - **Hard**: le deadline sono garantite matematicamente (serve RTOS: VxWorks, RT-Linux)
-
-**Task periodici:** ogni task ha periodo $T$, burst $t$, deadline $d \leq T$. Utilizzo CPU: $u_i = t_i/T_i$.
-
-### Rate Monotonic Scheduling (RMS)
-
-> [!quote] Regola e limite
-> - Priorità **statica**: più alta frequenza ($1/T$) → più alta priorità
-> - Garantisce deadline se: $\sum \frac{t_i}{T_i} \leq n(2^{1/n}-1)$
-> - Per $n \to \infty$: limite = $\ln 2 \approx$ **69%** di utilizzo CPU
-
-> [!danger] Limite di RMS
-> Con utilizzo > 69% (per n∞), RMS buca alcune deadline. Usa solo la frequenza, ignora le deadline reali.
-
-### Earliest Deadline First (EDF)
-
-> [!quote] Regola e proprietà
-> - Priorità **dinamica**: la deadline più vicina → priorità più alta
-> - **Ottimale**: se esiste uno scheduling fattibile, EDF lo trova
-> - Garantisce deadline finché utilizzo totale ≤ 100%
-
-> [!example] RMS vs EDF: quando RMS fallisce
-> P1(T=50,t=25) + P2(T=80,t=35) → utilizzo = 50%+43.75% = 93.75% < 100%.
-> EDF: rispetta tutte le deadline. RMS: P2 buca la deadline perché ha solo priorità statica sulla frequenza.
-
----
-
-## L8 — Linux Scheduling: CFS e EEVDF
-
-### CFS — Completely Fair Scheduler (Linux 2.6.23)
-
-> [!abstract] Nodo
-> CFS mira alla **fairness**: ogni processo riceve $1/n$ del tempo CPU. Lo realizza con un "orologio truccato" (virtual runtime).
-
-> [!quote] Meccanismo Virtual Runtime
-> - Ogni processo accumula **virtual runtime** ($v_r$) man mano che usa CPU
-> - Alta priorità (nice basso) → orologio scorre **lento** → $v_r$ cresce poco → viene scelto spesso
-> - Bassa priorità → orologio scorre **veloce** → viene scelto meno
-> - Lo scheduler sceglie sempre il processo con **$v_r$ minore** (ha "avuto meno soddisfazione")
-> - Struttura dati: **albero Rosso-Nero** → il processo con $v_r$ minore è sempre il nodo più a sinistra → accesso O(1)
-
-### EEVDF — Earliest Eligible Virtual Deadline First (Linux 6.6+)
-
-> [!abstract] Nodo
-> Aggiunge la dimensione **futuro** (deadline virtuale) e **equità attiva** (eligibilità/lag).
-
-> [!quote] Due criteri combinati
-> - **Eligibilità**: un processo è eligibile se non ha consumato *troppo* più di quanto spettava (lag non troppo negativo). Chi ha "rubato" CPU va in quarantena.
-> - **Virtual Deadline**: tra gli eligibili, vince chi ha la deadline virtuale più ravvicinata → più reattività
-> - Risultato: meglio di CFS per i processi interattivi.
-
----
-
-## L9 — Scheduling Multicore
-
-> [!abstract] Nodo
-> Con più core, lo scheduler deve decidere **chi** va in CPU **e su quale core**.
-
-> [!quote] Architetture di coda
-> - **Coda comune**: tutti i core pescano dalla stessa Ready Queue. Semplice, ma contention sulla struttura dati.
-> - **Code private per core** (comune): ogni core ha la sua coda. Migliore cache affinity, ma serve bilanciamento.
-
-**Load Balancing:**
-- **Push**: un processo monitora il carico e spinge task ai core scarichi
-- **Pull**: un core idle va a "rubare" task dalla coda di un core occupato
-
-**CPU Affinity:**
-- **Soft**: preferenza a restare sullo stesso core (cache calda), ma migrazione permessa
-- **Hard**: il thread è fissato a un sottoinsieme di core (`taskset` su Linux)
-
-> [!example] Metafora: core idle che ruba task = cassiere senza clienti che prende dalla fila del collega
-> Il core idle non aspetta: va attivamente a prendere lavoro dagli altri core sovraccarichi.
-
-**NUMA (Non-Uniform Memory Access):** su sistemi multi-socket, ogni socket ha RAM "più vicina". Migrare un thread tra socket = cache invalida + dati lontani → costo alto.
-
----
-
-# 🔒 PILASTRO 4 — SINCRONIZZAZIONE E CONCORRENZA
-*Lezioni 10 → 13*
-
----
-
-## L10 — Il Problema: Race Condition
-
-> [!abstract] Nodo
-> Quando due thread accedono alla stessa variabile condivisa e almeno uno scrive, il risultato dipende dall'ordine di esecuzione → **non deterministico**. Si chiama Race Condition.
-
-> [!example] Metafora: due persone che modificano lo stesso documento senza Google Docs
-> Thread1 legge "counter=5", Thread2 legge "counter=5", entrambi aggiungono 1, entrambi scrivono "6". Il risultato è 6 invece di 7. Un aggiornamento è perso.
-
-> [!quote] Perché counter++ non è atomica
-> A livello macchina è 3 istruzioni: `LOAD r, counter` → `ADD r, 1` → `STORE counter, r`. Lo scheduler può interrompere tra una e l'altra.
-
----
-
-## L10 — Sezione Critica: le 3 proprietà
-
-> [!abstract] Nodo
-> Una **sezione critica** è il blocco di codice che accede a dati condivisi. Un meccanismo di protezione è corretto se e solo se garantisce tutte e 3 queste proprietà:
-
-> [!quote] Le 3 proprietà (da sapere a memoria)
-> 1. **Mutua Esclusione**: al più 1 processo alla volta dentro la sezione critica
-> 2. **Progresso**: se nessuno è dentro e qualcuno vuole entrare, la scelta avviene in tempo finito (non aspettano all'infinito)
-> 3. **Bounded Waiting**: esiste un limite al numero di volte in cui altri processi entrano prima di te (no starvation)
-
-> [!danger] Mutua Esclusione da sola NON basta
-> Puoi avere mutua esclusione e violare progresso (tutti si bloccano senza che nessuno entri). Servono tutte e 3.
-
----
-
-## L10 — Soluzione di Peterson (teorica)
-
-> [!abstract] Nodo
-> Soluzione software per 2 processi. Usa 2 variabili condivise: `flag[2]` (voglio entrare) e `turn` (a chi tocca). Soddisfa tutte e 3 le proprietà.
-
-> [!quote] Codice per processo i (j = 1-i)
-> ```c
-> flag[i] = true;   // dichiaro di voler entrare
-> turn = j;         // cedo gentilmente il turno all'altro
-> while (flag[j] && turn == j);  // aspetto se l'altro vuole E ha il turno
-> // --- SEZIONE CRITICA ---
-> flag[i] = false;  // esco, non voglio più entrare
-> ```
-
-> [!example] La logica della "gentilezza"
-> Ogni processo dice: "voglio entrare, ma ti do la precedenza." L'ultimo a cedere il turno è quello che aspetta. Se entrambi cedono quasi contemporaneamente, vince chi ha ceduto per primo (turn = j dell'ultimo assegnamento).
-
-> [!danger] Peterson non funziona su hardware moderno
-> Il compilatore può **riordinare** le istruzioni (`flag[i]=true` e `turn=j` potrebbero invertirsi). Servono **memory barriers** per forzare l'ordine.
-
----
-
-## L10 — Supporto Hardware: Test-and-Set e CAS
-
-> [!abstract] Nodo
-> Il kernel usa istruzioni hardware **atomiche** (indivisibili): eseguono due operazioni come se fossero una sola, senza possibilità di interruzione.
-
-### Test-and-Set
-
-> [!quote] Pseudo-codice atomico
-> ```c
-> bool test_and_set(bool *target) {
->     bool rv = *target;
->     *target = true;   // setta sempre a true
->     return rv;        // ritorna il vecchio valore
-> }
-> // Uso:
-> while (test_and_set(&lock));  // aspetta finché lock era false
-> // SEZIONE CRITICA
-> lock = false;
-> ```
-
-> [!danger] TAS garantisce mutua esclusione ma NON bounded waiting
-> Chi vince il TAS è casuale. Un processo può aspettare per sempre se altri continuano a "rubargli" il lock.
-
-### Compare-and-Swap (CAS)
-
-> [!quote] Pseudo-codice atomico
-> ```c
-> int compare_and_swap(int *value, int expected, int new_val) {
->     int rv = *value;
->     if (*value == expected) *value = new_val;
->     return rv;  // ritorna il vecchio valore
-> }
-> ```
-
-> [!abstract] Uso lock-free: incremento atomico
-> ```c
-> void increment(int *v) {
->     int temp;
->     do { temp = *v; }
->     while (compare_and_swap(v, temp, temp+1) != temp);
-> }
-> ```
-> "Tenta l'aggiornamento. Se nel frattempo qualcun altro ha cambiato v, riprova." Nessun lock, ma con alta contesa = starvation possibile.
-
----
-
-## L11 — Spin Lock vs Mutex Lock
-
-> [!quote] Tabella comparativa
-> | | Spin Lock | Mutex Lock |
-> |---|---|---|
-> | Processo in attesa | Rimane in Running (busy wait) | Viene sospeso (sleeping) |
-> | Context switch | Nessuno | Uno per sospendere, uno per svegliare |
-> | Usa se... | Attesa **breve**, multicore | Attesa **lunga**, qualsiasi sistema |
-> | Analogia | Macchina ferma col motore acceso | Macchina spenta che si riavvia |
-
-> [!danger] Spin lock su single-core = deadlock di fatto
-> Il processo che aspetta occupa il 100% della CPU → il processo che tiene il lock non può mai girare per liberarlo.
-
----
-
-## L11 — Semafori
-
-> [!abstract] Nodo
-> Il semaforo è una variabile intera $S$ con due operazioni **atomiche**. Permette sincronizzazione più ricca del semplice mutex.
-
-> [!quote] Operazioni wait(P) e signal(V)
-> - `wait(S)`: $S \leftarrow S-1$. Se $S < 0$ → il processo si blocca in coda
-> - `signal(S)`: $S \leftarrow S+1$. Se $S \leq 0$ → sveglia un processo dalla coda
-
-**Semaforo Binario** (inizializzato a 1): equivale a un mutex.
-**Semaforo Contatore** (inizializzato a N): permette N accessi contemporanei.
-
-> [!example] Produttore-Consumatore con 3 semafori
-> ```c
-> semaphore mutex = 1;   // accesso esclusivo al buffer
-> semaphore empty = N;   // slot vuoti (inizia con N)
-> semaphore full  = 0;   // slot pieni (inizia con 0)
->
-> // PRODUTTORE:
-> wait(empty); wait(mutex);
-> // metti item nel buffer
-> signal(mutex); signal(full);
->
-> // CONSUMATORE:
-> wait(full); wait(mutex);
-> // prendi item dal buffer
-> signal(mutex); signal(empty);
-> ```
-> `empty` e `full` si complementano perfettamente.
-
-> [!danger] Ordine dei wait conta!
-> Invertire `wait(mutex)` e `wait(empty)` nel produttore → deadlock: il produttore tiene mutex, aspetta empty; il consumatore aspetta mutex → ciclo.
-
----
-
-## L12 — Monitor e Variabili di Condizione
-
-> [!abstract] Nodo
-> Il monitor è un ADT (tipo di dato astratto) che **incapsula** dati condivisi + operazioni che li accedono, garantendo mutua esclusione **automaticamente**. Il programmatore non dichiara lock esplicitamente.
-
-> [!quote] API POSIX per condition variables
-> ```c
-> pthread_mutex_t m = PTHREAD_MUTEX_INITIALIZER;
-> pthread_cond_t cond = PTHREAD_COND_INITIALIZER;
->
-> // Aspettare una condizione:
-> pthread_mutex_lock(&m);
-> while (!condizione) pthread_cond_wait(&cond, &m);
-> // ... sezione critica ...
-> pthread_mutex_unlock(&m);
->
-> // Segnalare:
-> pthread_cond_signal(&cond);    // sveglia 1 thread
-> pthread_cond_broadcast(&cond); // sveglia tutti i thread
-> ```
-
-> [!danger] SEMPRE while, mai if
-> `pthread_cond_wait` può svegliarsi **spuriamente** (senza che nessuno abbia fatto signal). Con `if` entreresti nella sezione critica senza che la condizione sia vera. Con `while` ri-controlli sempre.
-
----
-
-## L12 — I 5 Filosofi: deadlock classico
-
-> [!abstract] Nodo
-> 5 filosofi, 5 bacchette, 1 tra ogni coppia. Per mangiare servono 2 bacchette (sinistra + destra). Problema: tutti prendono la sinistra → nessuno ha la destra → deadlock circolare.
-
-> [!quote] Soluzione corretta con condition variable per filosofo
-> ```c
-> // Ogni filosofo ha: stato (THINKING/HUNGRY/EATING) + sua cond var
-> void take_forks(int i) {
->     lock(); state[i] = HUNGRY; test(i);
->     while (state[i] != EATING) cond_wait(&cond[i], &mutex);
->     unlock();
-> }
-> void put_forks(int i) {
->     lock(); state[i] = THINKING;
->     test((i-1)%5); test((i+1)%5); // controlla i vicini
->     unlock();
-> }
-> void test(int i) { // mangio solo se entrambi i vicini non mangiano
->     if (state[i]==HUNGRY && state[(i-1)%5]!=EATING && state[(i+1)%5]!=EATING)
->         { state[i]=EATING; cond_signal(&cond[i]); }
-> }
-> ```
-
-> [!example] signal vs broadcast
-> - Con 1 cond var per filosofo → `signal`: sveglio esattamente il filosofo giusto
-> - Con 1 cond var globale → `broadcast`: sveglio tutti, ognuno ri-controlla la sua condizione
-
----
-
-## L12 — Deadlock: condizioni di Coffman
-
-> [!abstract] Nodo
-> Il deadlock richiede tutte e 4 queste condizioni **simultaneamente**. Basta eliminarne una per prevenirlo.
-
-> [!quote] Le 4 condizioni di Coffman (1971)
-> 1. **Mutua Esclusione**: la risorsa è esclusiva (un processo alla volta)
-> 2. **Hold and Wait**: un processo tiene una risorsa mentre aspetta un'altra
-> 3. **No Preemption**: non si può strappare una risorsa a forza
-> 4. **Circular Wait**: P1 aspetta P2, P2 aspetta P3, … Pn aspetta P1
-
-> [!quote] Prevenzione pratica: ordinamento totale dei lock
-> Se tutti i processi acquisiscono i lock **sempre nello stesso ordine** (es. sempre mutex1 prima di mutex2), il circular wait è impossibile per costruzione.
-
----
-
-## L11 — Priority Inversion (caso Pathfinder 1997)
-
-> [!abstract] Nodo
-> Problema subdolo: un processo ad **alta priorità** H viene bloccato indirettamente da uno a **media priorità** M, attraverso un lock tenuto da uno a **bassa priorità** L.
-
-> [!quote] Scenario
-> 1. L entra in sezione critica (prende lock)
-> 2. H arriva, vuole il lock → si blocca
-> 3. M arriva, prelaziona L (M ha priorità > L)
-> 4. M gira quanto vuole. L non gira. Il lock resta a L. H aspetta M.
-> → H è bloccato da M, anche se H > M. Inversione di priorità.
-
-> [!quote] Soluzione: Priority Inheritance
-> Quando H si blocca aspettando un lock di L → L eredita **temporaneamente** la priorità di H. M non può più prelazionare L. L finisce in fretta, libera il lock, H riparte.
-> Su Pathfinder: bastò abilitare un flag nel RTOS via radio da Terra.
-
----
-
-# 🧩 PILASTRO 5 — GESTIONE DELLA MEMORIA
-*Lezioni 14 → 19*
-
----
-
-## L14 — Indirizzo Logico vs Fisico
-
-> [!abstract] Nodo
-> Un processo non vede mai gli indirizzi fisici della RAM. Vede solo indirizzi **logici (virtuali)** che partono da 0. La traduzione è trasparente e avviene in hardware.
-
-> [!quote] I 3 momenti del Binding
-> - **Compile time**: indirizzo fisso nel codice (obsoleto, rigido)
-> - **Load time**: il loader aggiunge un offset base all'avvio (flessibile ma non rilocabile a runtime)
-> - **Runtime** (moderno): la traduzione avviene a ogni accesso tramite MMU → il processo può essere spostato in RAM
-
-**MMU (Memory Management Unit)**: chip hardware (integrato nella CPU moderna) che intercetta ogni indirizzo logico generato dalla CPU e lo traduce in fisico.
-
----
-
-## L14 — Frammentazione e Paging
-
-> [!abstract] Nodo
-> Il paging risolve la frammentazione esterna dell'allocazione contigua dividendo la memoria in blocchi fissi uguali.
-
-**Frammentazione esterna**: spazio libero frammentato in tanti piccoli buchi inutilizzabili.
-**Soluzione — Paging:**
-- Memoria fisica: divisa in **Frame** (blocchi fissi, es. 4KB)
-- Memoria logica del processo: divisa in **Pagine** (stessa dimensione dei frame)
-- Una pagina logica può finire in qualsiasi frame fisico libero → niente frammentazione esterna
-
-> [!quote] Traduzione dell'indirizzo logico
-> Indirizzo logico = `(p, d)` dove p = numero pagina, d = offset
-> La **Page Table** mappa `p → f` (numero frame).
-> Indirizzo fisico = `(f, d)` = `f * DimFrame + d`
-
-> [!example] Calcolo veloce dei bit
-> Spazio logico $2^m$ byte, pagine da $2^n$ byte:
-> - Bit per l'offset: $n$
-> - Bit per il numero di pagina: $m - n$
-> - Numero di pagine: $2^{m-n}$
-
-> [!danger] Frammentazione interna (residua)
-> L'ultima pagina di un file/processo raramente è piena → spreco medio = metà pagina per processo. Con pagine da 4KB = al max 2KB sprecati.
-
----
-
-## L15 — TLB: cache delle traduzioni
-
-> [!abstract] Nodo
-> Senza TLB: ogni accesso logico → 2 accessi fisici (1 per leggere la page table, 1 per il dato). Lentissimo. La TLB è una cache hardware che memorizza le traduzioni più recenti.
-
-> [!quote] Meccanismo TLB Hit/Miss
-> - **Hit**: la traduzione è in TLB → 1 solo accesso (alla velocità della cache)
-> - **Miss**: la TLB non ha la traduzione → leggi la page table in RAM (accesso lento) → aggiorna TLB → poi accedi al dato
-> Hit rate moderno: >99%
-
-> [!quote] EAT — Effective Access Time
-> $$EAT = \alpha(\epsilon + T_M) + (1-\alpha)(\epsilon + 2T_M)$$
-> - $\alpha$ = hit rate TLB
-> - $\epsilon$ = tempo accesso TLB
-> - $T_M$ = tempo accesso RAM
-> Esempio: $\alpha=0.99$, $\epsilon=20ns$, $T_M=100ns$ → EAT ≈ 121ns (vs 200ns senza TLB)
-
-**ASID (Address Space Identifiers):** estensione delle TLB moderne. Ogni entry include il PID → non serve svuotare la TLB a ogni context switch.
-
----
-
-## L15 — Strutture delle Page Table per spazi grandi
-
-> [!abstract] Nodo
-> Con 64-bit, una page table lineare sarebbe enorme (terabyte). Si usano strutture più efficienti.
-
-> [!quote] 3 approcci
-> 1. **Gerarchica (Multi-Level)**: l'indirizzo logico è suddiviso in più indici di tabella. Linux x86-64 usa 4 livelli (PML4 → PDPT → PD → PT → offset). Si alloca solo la parte usata.
-> 2. **Hashed**: funzione hash sul numero di pagina → tabella hash di dimensione fissa. Usata per spazi sparsi enormi.
-> 3. **Inverted Page Table**: 1 entry per ogni frame fisico (non per ogni pagina logica). Dimensione dipende dalla RAM, non dallo spazio virtuale. Contro: ricerca lenta (hash aiuta), condivisione difficile.
-
----
-
-## L16 — Memoria Virtuale e Demand Paging
-
-> [!abstract] Nodo
-> La memoria virtuale disaccoppia lo spazio di indirizzamento del processo dalla RAM disponibile. Un processo può essere più grande della RAM → alcune pagine sono su disco.
-
-> [!quote] Demand Paging: carica solo quello che serve
-> - All'avvio: tutte le pagine marcate **Invalid** nella page table
-> - Al primo accesso: **Page Fault** → il SO carica la pagina dal disco al RAM → aggiorna la page table → riavvia l'istruzione
-
-> [!quote] Flusso del Page Fault (7 passi)
-> 1. MMU vede bit Invalid → genera Trap
-> 2. SO salva il contesto del processo
-> 3. SO controlla se l'accesso è legale (via PCB)
-> 4. SO trova un frame libero
-> 5. SO legge la pagina dal disco (operazione I/O lenta)
-> 6. SO aggiorna la page table (Valid, numero frame)
-> 7. SO riavvia l'istruzione interrotta
-
-> [!quote] EAT con Page Fault
-> $$EAT = (1-p) \cdot T_{RAM} + p \cdot T_{fault}$$
-> Con $T_{RAM}=200ns$ e $T_{fault}=8ms$: per degradazione < 10% serve $p < 1/400000$.
-
-**Copy-on-Write (COW):** dopo `fork()`, le pagine sono condivise in sola lettura. Solo alla prima scrittura una pagina viene duplicata. → `exec()` dopo `fork()` non copia quasi nulla.
-
----
-
-## L17 — Algoritmi di Sostituzione Pagina
-
-> [!abstract] Nodo
-> Quando la RAM è piena e serve un frame, il SO sceglie una **pagina vittima** da espellere. Se il **Dirty Bit** è 1 (modificata), va scritta su disco (costoso). Se è 0 (clean), si sovrascrive (la copia su disco è ancora valida).
-
-### FIFO
-
-> [!quote] Logica e problema
-> Sostituisce la pagina più vecchia. Semplice. Soffre dell'**Anomalia di Belady**: più frame → più page fault (possibile per FIFO).
-
-### OPT (Ottimale)
-
-> [!quote] Logica
-> Sostituisce la pagina che non sarà usata per più tempo in futuro. **Impossibile** da implementare (richiede preveggenza). Serve come **benchmark**.
-
-### LRU — Least Recently Used
-
-> [!quote] Logica e proprietà
-> Sostituisce la pagina non usata da più tempo nel **passato**. Non soffre anomalia di Belady (è uno Stack Algorithm). Il problema: implementazione costosa.
-> - Timestamp: ogni accesso aggiorna un campo → hardware dedicato
-> - Lista doppiamente collegata: ad ogni accesso si sposta la pagina in testa → O(1) ma costante alta
-
-### Clock (Second Chance) — approssimazione LRU
-
-> [!abstract] Nodo
-> La TLB/MMU setta il **Reference Bit** a 1 ad ogni accesso. L'algoritmo usa una lancetta circolare.
-
-> [!quote] Funzionamento
-> - Lancetta punta a una pagina: controlla il Reference Bit
-> - **R=1**: dai seconda chance → azzera R, avanza la lancetta
-> - **R=0**: questa è la vittima → sostituiscila
-
-**Enhanced Clock (con Dirty Bit):** 4 classi di priorità:
-1. R=0, M=0 → vittima ideale (non usata, non sporca)
-2. R=0, M=1 → non usata ma sporca (richiede I/O)
-3. R=1, M=0 → usata ma clean
-4. R=1, M=1 → ultima scelta (usata e sporca)
-
----
-
-## L18 — Thrashing
-
-> [!abstract] Nodo
-> Il thrashing è il collasso del sistema: i processi generano così tanti page fault che il SO passa più tempo a fare I/O su disco che a eseguire codice utile.
-
-> [!example] Metafora: un ristorante che cucina velocissimamente ma aspetta sempre il forno
-> Troppi cuochi (processi), un solo forno (RAM). Tutti aspettano di cuocere. Nessuno serve clienti. Il ristorante collassa.
-
-> [!quote] Causa e sintomi
-> - **Causa**: somma dei Working Set dei processi > RAM fisica disponibile
-> - **Sintomi**: CPU idle (tutti i processi in Waiting I/O), coda disco lunghissima, page fault rate altissimo
-> - **Soluzione**: ridurre la multiprogrammazione (sospendere processi)
-
-**Working Set $W(t, \Delta)$**: l'insieme delle pagine distinte a cui un processo ha fatto accesso negli ultimi $\Delta$ istanti. Se $\sum |W_i| >$ RAM → pericolo thrashing.
-
----
-
-## L18 — Allocazione Memoria Kernel: Buddy + Slab
-
-### Buddy System
-
-> [!abstract] Nodo
-> Gestisce la memoria fisica in blocchi di dimensione **potenza di 2**. Serve per allocare pagine contigue richieste da operazioni hardware (DMA) o grandi strutture kernel.
-
-> [!quote] Allocazione e merge
-> - Richiesta K byte → trova il blocco libero più piccolo $\geq$ K (potenza di 2)
-> - Se troppo grande → lo divide in 2 "buddy" uguali → ripete
-> - Liberazione → controlla se il buddy è libero → fonde i due in un blocco doppio
-
-### Slab Allocator
-
-> [!abstract] Nodo
-> Gestisce oggetti specifici del kernel (PCB, inode, socket…) eliminando l'overhead di inizializzazione e la frammentazione.
-
-> [!quote] Struttura a 3 livelli
-> - **Cache**: contiene oggetti dello stesso tipo (es. cache degli inode)
-> - **Slab**: gruppo di pagine fisicamente contigue (dal Buddy) → contiene N istanze dell'oggetto
-> - **Oggetto**: istanza pre-inizializzata, pronta all'uso
-
-> [!example] Vantaggio pratico
-> Creare un nuovo PCB = prendere un oggetto già inizializzato dallo slab (O(1)) invece di allocare e azzerare memoria da zero ogni volta.
-
----
-
-## L19 — LRU nei SO reali: approssimazioni pratiche
-
-> [!abstract] Nodo
-> LRU puro è troppo costoso. Ogni SO lo approssima con varianti basate sul Reference Bit.
-
-### Linux — Active/Inactive Lists
-
-> [!quote] Meccanismo
-> - **Active List**: pagine con Reference Bit = 1 (usate di recente)
-> - **Inactive List**: pagine con Reference Bit = 0 (candidate all'espulsione)
-> - `kswapd` (demone kernel): controlla la memoria libera; se scende sotto soglia → scandisce Inactive List e libera pagine (le sporca → swap; le clean → sovrascrive)
-> - Una pagina nella Inactive List può essere "resuscitata" se vi si accede prima di essere sovrascritta
-
-### Windows — Working Set Trimmer
-
-> [!quote] Meccanismo
-> - Ogni processo ha un Working Set Min e Max (limiti euristici)
-> - Se RAM scende sotto soglia → il Trimmer rimuove pagine dai processi che eccedono il loro minimo
-> - Prima vengono sacrificati i processi **grandi e inattivi**
-
-### Solaris — Two-Hand Clock
-
-> [!quote] Meccanismo
-> - **Front Hand (Scout)**: scorre veloce, azzera il Reference Bit (rende le pagine vulnerabili)
-> - **Back Hand (Reaper)**: segue a distanza (Hand Spread); se trova R=0 → vittima
-> - Sotto pressione: velocità di scansione aumenta, Hand Spread si riduce → meno seconda chance data
-
----
-
-# 💾 PILASTRO 6 — STORAGE, FILE SYSTEM E I/O
-*Lezioni 19 → 25*
-
----
-
-## L19 — HDD vs SSD
-
-> [!abstract] Nodo
-> Il SO vede entrambi come array lineare di blocchi logici (LBA). La differenza fisica è enorme.
-
-> [!quote] HDD — Anatomia e tempi
-> - **Struttura**: piatti magnetici, tracce, settori, cilindri
-> - **Tempo di accesso** = Seek Time (testina si sposta) + Rotational Latency (aspetta il settore) + Transfer Time
-> - Seek Time è il dominante: 3–12ms
-> - 7200 RPM → latenza rotazionale media ≈ **4.17ms**
-> - ZBR: tracce esterne hanno più settori → maggiore velocità di trasferimento
-
-> [!quote] SSD — Caratteristiche chiave
-> - Nessun Seek Time (accesso random quasi istantaneo)
-> - NAND Flash: si **cancella a blocchi** (lento), si **scrive a pagine** (veloce)
-> - Numero limitato di cicli P/E → usura
-> - **FTL (Flash Translation Layer)**: gestisce Wear Leveling (distribuisce le scritture), Garbage Collection (compatta dati validi, libera blocchi invalidi), Bad Block Management
-
-> [!danger] Disk Scheduling sugli SSD è inutile
-> Per HDD ha senso ridurre il movimento della testina. Per SSD l'ordine fisico non conta → si usa NOOP (FIFO semplice) o deadline.
-
----
-
-## L19 — Disk Scheduling (per HDD)
-
-> [!abstract] Nodo
-> Minimizza il movimento totale della testina (Seek Time) ottimizzando l'ordine di servizio delle richieste in coda.
-
-> [!quote] Confronto algoritmi
-> | Algoritmo | Logica | Problema |
-> |---|---|---|
-> | **FCFS** | Ordine d'arrivo | Movimento erratico, seek time alto |
-> | **SSTF** | Più vicina alla testina | Starvation per le richieste lontane |
-> | **SCAN** (Ascensore) | Va da un estremo all'altro, poi inverte | Attesa doppia per le richieste agli estremi |
-> | **C-SCAN** | Solo in una direzione, poi torna veloce all'inizio | Più equo di SCAN |
-> | **LOOK** | Come SCAN ma si ferma all'ultima richiesta | Evita movimenti inutili verso estremi vuoti |
-> | **C-LOOK** | Come C-SCAN ma con l'ottimizzazione LOOK | Ottimale nella pratica |
-
-> [!example] Metafora SCAN = ascensore
-> L'ascensore non torna indietro per ogni piano richiesto: va su fino all'ultimo piano richiesto, poi scende raccogliendo chi aspetta nel verso contrario.
-
----
-
-## L20 — Bootstrap: BIOS+MBR vs UEFI+GPT
-
-> [!abstract] Nodo
-> Il bootstrap è la sequenza di eventi che porta il kernel in RAM da zero. Due standard: legacy (BIOS) e moderno (UEFI).
-
-### BIOS + MBR (Legacy)
-
-> [!quote] Flusso
-> 1. BIOS esegue POST (Power-On Self Test)
-> 2. Legge **MBR** (Master Boot Record) = primi 512 byte del disco:
->    - 446 byte: Boot Code
->    - 64 byte: Partition Table (max 4 partizioni primarie)
->    - 2 byte: Firma magica `0x55AA`
-> 3. Boot Code carica il Bootloader di 2° livello (GRUB stage2)
-> 4. GRUB carica il kernel in RAM
-
-> [!danger] Limiti BIOS+MBR
-> - Max disco: ~2.2TB (indirizzamento 32-bit)
-> - Max 4 partizioni primarie
-
-### UEFI + GPT (Moderno)
-
-> [!quote] Flusso
-> 1. UEFI fa POST + legge **GPT** (GUID Partition Table, 64-bit → dischi enormi, >128 partizioni)
-> 2. UEFI trova l'**ESP** (EFI System Partition) → partizione FAT32 speciale
-> 3. Carica il Boot Manager dall'ESP (es. `grubx64.efi`, `bootx64.efi`)
-> 4. Boot Manager presenta menu, carica kernel specifico
-
-> [!example] Dual Boot
-> Ogni SO installa il suo bootloader nell'ESP. Il Boot Manager sceglie quale caricare. Windows Update può resettare il boot order → Linux sparisce dal menu. Fix: `efibootmgr`.
-
----
-
-## L20 — Swap Space
-
-> [!abstract] Nodo
-> Lo swap è l'area su disco che estende la memoria virtuale oltre la RAM fisica (Backing Store per le pagine espulse).
-
-> [!quote] Raw Partition vs Swap File
-> - **Raw Partition** (es. `/dev/sda3` come swap): accesso diretto, più veloce, nessun overhead FS
-> - **Swap File** (`/swapfile` in Linux, `pagefile.sys` in Windows): più flessibile (ridimensionabile), overhead trascurabile su SSD
-
-> [!quote] Cosa finisce nello swap
-> - **Memoria anonima**: stack, heap, dati modificabili → va sullo swap
-> - **Codice (Text segment)**: NON va sullo swap → viene ricaricato direttamente dall'eseguibile su disco (è già lì, read-only)
-
-> [!danger] SSD e swap
-> Le scritture continue sullo swap consumano il ciclo P/E degli SSD. iOS/Android preferiscono **compressione in RAM** (zswap) invece di swap su flash.
-
----
-
-## L20 — RAID: Affidabilità e Performance
-
-> [!abstract] Nodo
-> RAID combina più dischi fisici in uno logico per ottenere affidabilità (ridondanza) o performance (striping) o entrambe.
-
-> [!quote] Concetti chiave
-> - **Striping**: dati divisi a blocchi su più dischi → parallelismo I/O → velocità
-> - **Mirroring**: stessa copia su 2+ dischi → ridondanza → sicurezza
-> - **Parità**: bit XOR extra permette di ricostruire un disco guasto → compromesso
-
-> [!quote] Livelli RAID principali
-> | RAID | Tecnica | Tollera guasti | Capacità utile | Uso tipico |
-> |---|---|---|---|---|
-> | **0** | Striping puro | **0** | 100% | Performance pura (video editing) |
-> | **1** | Mirroring | 1 | 50% | SO, dati critici |
-> | **5** | Stripe + parità distribuita | 1 | N-1 | Server generici |
-> | **6** | Stripe + doppia parità | **2** | N-2 | Ambienti ad alta criticità |
-> | **10 (1+0)** | Mirror poi Stripe | 1 per specchio | 50% | Database ad alte prestazioni |
-
-> [!example] Metafora RAID 5 = libretto di risparmio + fotocopia
-> Ogni blocco ha una "fotocopia" (parità) distribuita sugli altri dischi. Se un disco muore, la fotocopia ricostruisce i dati mancanti. Ma durante la ricostruzione sei vulnerabile → RAID 6 (doppia fotocopia) è più sicuro.
-
-> [!danger] RAID 0: zero tolleranza
-> Con N dischi in RAID 0, la probabilità che almeno uno si rompa è N volte quella del singolo disco. RAID 0 **amplifica** il rischio di perdita dati.
-
----
-
-## L21/L22 — Struttura del File System: le 3 tabelle
-
-> [!abstract] Nodo
-> Quando apri un file, il kernel crea una catena di 3 strutture dati in RAM per tracciare ogni accesso. Capire queste 3 tabelle risolve il 90% dei dubbi sul comportamento dei file.
-
-> [!quote] Le 3 tabelle (da più vicina al processo a più vicina al disco)
-> 1. **Per-Process File Descriptor Table** (nel PCB): array indicizzato dai FD (0=stdin, 1=stdout, 2=stderr, 3…n). Ogni entry punta alla tabella globale.
-> 2. **System-wide Open File Table** (kernel): 1 entry per ogni `open()` attiva. Contiene: flag di accesso (r/w/append), **offset corrente** (File Pointer), puntatore all'inode.
-> 3. **In-Memory Inode Table**: copie degli inode caricati dal disco. Contiene i metadati reali (dimensione, permessi, blocchi disco).
-
-> [!example] Perché l'offset si sposta dopo fork()
-> `open()` prima di `fork()` → padre e figlio **condividono la stessa entry** nella Open File Table → condividono lo stesso offset. Se il figlio scrive, l'offset avanza anche per il padre. Per leggere dall'inizio, il padre deve fare `lseek(fd, 0, SEEK_SET)`.
->
-> `open()` separati dopo `fork()` → entry indipendenti → offset indipendenti.
-
----
-
-## L21 — Inode: il cuore del file
-
-> [!abstract] Nodo
-> L'**Inode** (Index Node) è la struttura dati che rappresenta un file nel filesystem. Contiene tutto **tranne il nome**.
-
-> [!quote] Contenuto dell'Inode
-> - Inode Number (identificatore univoco nel FS)
-> - Tipo (file regolare, directory, link, dispositivo…)
-> - Dimensione in byte
-> - UID/GID (proprietario)
-> - Permessi rwx per owner/group/others
-> - Timestamps (creazione, modifica dati, modifica metadati)
-> - **Puntatori ai blocchi dati** (la parte cruciale)
-> - Contatore hard link
-
-> [!danger] Il nome NON è nell'inode
-> Il nome del file sta nella **directory** che mappa `nome → numero inode`. Un inode può avere più nomi (hard link).
-
-### Struttura dei puntatori (Unix/ext4)
-
-> [!quote] Puntatori ibridi per coprire file piccoli e grandi
-> - **12 Direct Pointers**: puntano direttamente ai blocchi dati → velocissimi per file piccoli
-> - **1 Single Indirect**: punta a un blocco pieno di puntatori → 2 accessi disco
-> - **1 Double Indirect**: blocco → blocco di puntatori → dato → 3 accessi
-> - **1 Triple Indirect**: 4 accessi → file enormi
-
-> [!example] Calcolo dimensione massima
-> Con blocchi da 4KB e puntatori da 8 byte: 512 puntatori per blocco indiretto.
-> - Direct: 12 × 4KB = 48KB
-> - Single indirect: 512 × 4KB = 2MB
-> - Double: 512² × 4KB = 1GB
-> - Triple: 512³ × 4KB = 512GB
-
----
-
-## L21 — Hard Link vs Symbolic Link
-
-> [!quote] Tabella comparativa
-> | | Hard Link | Symbolic Link |
-> |---|---|---|
-> | Cos'è | Altro nome per lo stesso Inode | File speciale che contiene un path |
-> | Inode | Condiviso | Proprio (diverso dal target) |
-> | Cross-filesystem | ❌ No | ✅ Sì |
-> | Se cancelli il target | Il link funziona ancora | Link rotto (dangling) |
-> | Cicli | Impossibile | Possibili (loop) |
-> | Comando | `ln src dest` | `ln -s src dest` |
-
-> [!abstract] Contatore link nell'Inode
-> Il file viene fisicamente eliminato **solo quando**: contatore hard link = 0 **E** nessun processo lo tiene aperto. Questo è perché `rm` non è "delete" ma "unlink": decrementa il contatore.
-
----
-
-## L22 — I/O di Basso Livello: le Syscall fondamentali
-
-> [!quote] API POSIX per I/O su file
-> ```c
-> // Apri/crea un file → ritorna FD
-> int fd = open("file.txt", O_RDWR | O_CREAT | O_TRUNC, 0644);
->
-> // Scrivi N byte dal buffer → ritorna byte scritti
-> ssize_t n = write(fd, buffer, count);
->
-> // Leggi fino a N byte nel buffer → ritorna byte letti, 0=EOF
-> ssize_t n = read(fd, buffer, count);
->
-> // Sposta l'offset di lettura/scrittura
-> off_t pos = lseek(fd, offset, SEEK_SET | SEEK_CUR | SEEK_END);
->
-> // Chiudi il FD
-> close(fd);
-> ```
-
-> [!quote] Flag di open()
-> - `O_RDONLY` / `O_WRONLY` / `O_RDWR`: modalità accesso
-> - `O_CREAT`: crea il file se non esiste (richiede il terzo argomento `mode`)
-> - `O_TRUNC`: tronca il file a 0 byte se esiste
-> - `O_APPEND`: ogni `write()` va automaticamente in fondo al file
-
-> [!example] Sparse File — buchi nel file
-> ```c
-> fd = open("sparse.bin", O_WRONLY | O_CREAT, 0644);
-> write(fd, "INIZIO", 6);
-> lseek(fd, 100000, SEEK_CUR);  // salta 100KB senza scrivere
-> write(fd, "FINE", 4);
-> close(fd);
-> ```
-> `ls -l`: dimensione logica ≈ 100KB. `du`: spazio fisico ≈ pochi KB.
-> Il FS non alloca blocchi per il "buco" → legge come zero automaticamente.
-
-> [!danger] read() su file vs Pipe: comportamento diverso
-> - `read()` su **file**: ritorna 0 (EOF) se hai raggiunto la fine. Non blocca.
-> - `read()` su **pipe**: si **blocca** se non ci sono dati, finché qualcuno non scrive o chiude il write-end.
-
----
-
-## L23 — Metodi di Allocazione dei File
-
-> [!abstract] Nodo
-> Come il FS mappa un file ai suoi blocchi fisici su disco. 3 approcci, ognuno con trade-off diversi.
-
-### Allocazione Contigua
-
-> [!quote] Logica
-> Il file occupa blocchi fisicamente consecutivi. Metadati: blocco iniziale + numero blocchi.
-> - ✅ Accesso sequenziale ottimale (minimo seek)
-> - ✅ Accesso diretto banale: blocco = $\lfloor B / \text{BlockSize} \rfloor$
-> - ❌ Frammentazione esterna (buchi sparsi nel disco)
-> - ❌ Difficile espandere il file
-
-### Allocazione Concatenata (FAT)
-
-> [!quote] Logica
-> Ogni blocco contiene un puntatore al blocco successivo (lista concatenata). FAT sposta i puntatori in una tabella centrale in RAM.
-> - ✅ Nessuna frammentazione esterna
-> - ✅ Espansione facile
-> - ❌ Accesso random lento (bisogna scorrere la catena)
-> - FAT12/16/32 usata ancora oggi per chiavette USB, schede SD, ESP
-
-### Allocazione Indicizzata (Unix Inode)
-
-> [!quote] Logica
-> Un blocco indice contiene l'array di puntatori ai blocchi dati (o usa la struttura ibrida dell'inode con indiretti multipli).
-> - ✅ Accesso random efficiente (leggi il blocco indice, salta direttamente al dato)
-> - ✅ Nessuna frammentazione esterna
-> - ❌ Overhead per file piccoli (1 blocco indice sprecato)
-
----
-
-## L23 — Gestione Spazio Libero e Evoluzione ext
-
-> [!quote] Metodi per tracciare i blocchi liberi
-> 1. **Bitmap**: 1 bit per blocco (0=occupato, 1=libero). Facile trovare blocchi contigui. Serve RAM (32MB per 1TB con blocchi 4KB).
-> 2. **Lista concatenata**: i blocchi liberi si collegano tra loro. Zero overhead RAM, lenta per trovare blocchi contigui.
-> 3. **Raggruppamento (Grouping)**: il primo blocco libero contiene N indirizzi di altri blocchi liberi. Compromise.
-
-> [!quote] Evoluzione Linux ext
-> - **ext2**: introduce i **Block Groups** (metadati vicini ai dati → meno seek HDD)
-> - **ext3**: aggiunge il **Journaling** per il recovery rapido
-> - **ext4**: aggiunge gli **Extents** (una entry descrive una sequenza contigua invece di un singolo blocco), Delayed Allocation, supporto file grandi
-
----
-
-## L24/L25 — Journaling: protezione da crash
-
-> [!abstract] Nodo
-> Un crash durante la scrittura di metadati (directory, inode, bitmap) lascia il FS inconsistente. Il journaling previene questo con una **transazione atomica**.
-
-> [!quote] 4 fasi del journaling
-> 1. **Write to Journal**: scrivi le modifiche nel log circolare (area dedicata e veloce del disco)
-> 2. **Commit**: marca la transazione come "committed" nel journal
-> 3. **Checkpoint**: applica le modifiche ai metadati reali sul disco
-> 4. **Cleanup**: rimuovi la voce dal journal
-
-> [!quote] Recovery dopo crash
-> - Crash prima del Commit → transazione ignorata (Undo implicito)
-> - Crash dopo Commit ma prima del Checkpoint → il SO rilegge il journal e completa (Redo)
-> - Vantaggio: recovery in secondi (legge solo il piccolo journal) vs `fsck` che scandisce tutto il disco (minuti/ore)
-
-> [!danger] Il journaling protegge i METADATI, non i dati
-> Di default, ext3/4 garantisce la consistenza strutturale del FS (inode, directory). I dati del file potrebbero comunque essere persi o corrotti in caso di crash durante la scrittura. Modalità `data=journal` protegge anche i dati ma è più lenta.
-
----
-
-## L24/L25 — VFS: l'astrazione universale
-
-> [!abstract] Nodo
-> Il VFS (Virtual File System) è lo strato del kernel che permette di usare ext4, FAT32, NTFS, tmpfs, proc… con la stessa identica API (`open`, `read`, `write`). L'applicazione non sa su quale FS sta lavorando.
-
-> [!quote] Architettura a 4 strati
-> 1. **Logical File System**: API utente (open/close/read/write), gestisce metadati e permessi
-> 2. **File Organization Module**: traduce indirizzi logici blocco → fisici, gestisce spazio libero
-> 3. **Basic File System**: I/O generico sui settori, gestisce il buffer cache
-> 4. **I/O Control (Device Drivers)**: codice specifico per ogni hardware
-
-> [!quote] Strutture dati VFS su disco vs in RAM
-> | Su Disco (persistente) | In RAM (volatile/cache) |
-> |---|---|
-> | Superblock | Mount Table |
-> | Directory Structure | Directory Cache (dentry cache) |
-> | FCB/Inode | System-wide Open File Table |
-> | Data Blocks | Per-Process FD Table |
-> | | In-Memory Inode Table |
-
----
-
-## L24/L25 — Sottosistema I/O: dispositivi e driver
-
-> [!abstract] Nodo
-> Il kernel gestisce periferiche eterogenee (disco, tastiera, scheda di rete) tramite un'architettura uniforme. Il segreto: i **Device Driver** come strato di traduzione.
-
-> [!quote] 3 categorie di dispositivi
-> - **Block Devices**: accesso random a blocchi fissi (HDD, SSD, USB storage) → supportano `seek`
-> - **Character Devices**: flusso sequenziale di byte (tastiera, mouse, stampante, porte seriali) → no seek
-> - **Network Devices**: comunicazione tramite socket (TCP/UDP) → API speciale: `send`, `recv`, `bind`, `listen`
-
-> [!quote] Device Driver
-> - Gira in **Kernel Mode (Ring 0)**: un bug in un driver → kernel panic potenziale
-> - Implementa una tabella di function pointer standard (`open`, `read`, `write`, `ioctl`) che il kernel invoca
-> - `ioctl()`: syscall "pass-partout" per comandi non standardizzati (es. espellere CD, configurare interfaccia di rete)
-
-> [!quote] Gestione Interrupt (I/O asincrono)
-> 1. Driver invia comando al dispositivo
-> 2. Processo si sospende (Waiting)
-> 3. Dispositivo finisce → genera **Hardware Interrupt**
-> 4. **Interrupt Handler** si sveglia → notifica il driver → il driver sveglia il processo → torna Ready
-
-> [!example] TTY e Line Discipline: perché il backspace funziona
-> Il terminale è un character device speciale. La **Line Discipline** è uno strato software sopra il driver grezzo che:
-> - Interpreta Backspace → cancella l'ultimo carattere nel buffer
-> - Converte `\r` in `\n`
-> - `Ctrl+C` → invia SIGINT al processo in foreground
-> - `Ctrl+Z` → invia SIGTSTP (stop)
-> Senza Line Discipline, ogni programma dovrebbe gestire questi caratteri da solo.
-
----
-
-# 🗺️ MAPPA DELLE CONNESSIONI
-
-| Concetto           | Si collega a                                       |
-| ------------------ | -------------------------------------------------- |
-| System Call        | → Dual Mode, Kernel vs User                        |
-| fork() + COW       | → Demand Paging, Page Fault                        |
-| Page Fault         | → Algoritmi Sostituzione, Dirty Bit, Swap          |
-| Semafori           | → Sezione Critica, Produttore-Consumatore          |
-| Deadlock           | → Condizioni Coffman, 5 Filosofi, Ordinamento Lock |
-| Priority Inversion | → Scheduling a Priorità, Semafori                  |
-| TLB                | → Page Table, EAT, Context Switch                  |
-| Thrashing          | → Working Set, Multiprogrammazione                 |
-| Inode              | → Directory, Hard Link, Allocazione Blocchi        |
-| Journaling         | → Crash Recovery, Metadati, ext3/ext4              |
-| Device Driver      | → Interrupt, Kernel Mode, VFS                      |
-| RAID               | → Affidabilità, Striping, Parità                   |
-
+# Sistemi Operativi (SO)
+
+## Fondamenti e Architettura
+
+### Il Sistema Operativo
+> [!ABSTRACT] 
+> Il Sistema Operativo è il primo strato software isolante. Nasconde la complessità dell'hardware grezzo e distribuisce equamente le risorse fisiche tra le applicazioni concorrenti.
+> [!QUOTE] 
+> Struttura: $\text{SO} = \text{Kernel} + \text{Programmi di Sistema}$. Il Kernel opera in modalità privilegiata (Ring 0), i programmi di sistema estendono le funzioni in user mode.
+> [!EXAMPLE] 
+> Considera un direttore d'orchestra. I musicisti (hardware) sanno suonare, ma senza il direttore (SO) che dà i tempi e gestisce gli spazi, il risultato è rumore caotico.
+> [!DANGER] 
+> Confondere il Kernel con l'intero SO. La shell o la GUI sono programmi utente (software di sistema), non fanno parte del Kernel isolato.
+
+- Nodo Intermediario: Il software maschera l'hardware fisico sottostante all'utente finale.
+- Nodo Allocatore: Il sistema risolve conflitti assegnando democraticamente risorse limitate.
+- Nodo Kernel: Il nucleo esegue operazioni hardware esclusive in regime di massimo privilegio.
+
+### Storia ed Evoluzione
+> [!ABSTRACT] 
+> I sistemi operativi evolvono per massimizzare l'uso della CPU. L'hardware più potente spinge il software a gestire più task simultaneamente.
+> [!QUOTE] 
+> Generazioni: Valvole (singolo utente) $\to$ Transistor (Batch) $\to$ Circuiti Integrati (Multiprogrammazione) $\to$ PC (GUI) $\to$ Mobile.
+> [!EXAMPLE] 
+> Immagina una lavanderia. Prima si lavava un calzino alla volta. Poi si è passati ai lotti (batch). Oggi la lavanderia lava, asciuga e stira capi di cento persone diverse contemporaneamente saltando da uno all'altro (Time Sharing).
+> [!DANGER] 
+> Sottovalutare l'impatto del disco rigido. Il passaggio dal nastro sequenziale al disco ad accesso casuale ha sbloccato fisicamente lo spooling e la multiprogrammazione reale.
+
+- Nodo Batch: L'operatore raggruppa lavori simili per ottimizzare i tempi morti.
+- Nodo Multiprogrammazione: La memoria ospita simultaneamente processi multipli in esecuzione alternata.
+- Nodo Time Sharing: Il timer suddivide matematicamente l'uso CPU garantendo interattività continua.
+
+### Architettura Hardware e Cicli Macchina
+> [!ABSTRACT] 
+> La CPU non agisce nel vuoto, ma orchestra un flusso continuo di dati attraverso il bus di sistema. Il ciclo di vita di un'istruzione è una sequenza meccanica e immutabile di fasi hardware.
+> [!QUOTE] 
+> Bus Principale: PCIe (Peripheral Component Interconnect Express) gestisce la concorrenza tra CPU e Controller per l'accesso alla memoria condivisa.
+> Ciclo Macchina: Fetch (PC punta alla memoria, porta l'istruzione nell'IR) $\to$ Decode (Unità di controllo interpreta) $\to$ Execute (ALU calcola) $\to$ Store.
+> [!EXAMPLE] 
+> Il Bus PCIe è l'autostrada a più corsie. Il ciclo Fetch-Decode-Execute è il casellante: legge la targa (Fetch nel PC), capisce la classe del veicolo (Decode nell'IR), alza la sbarra (Execute).
+> [!DANGER] 
+> Credere che la CPU gestisca l'I/O direttamente byte per byte. Il Controller DMA (Direct Memory Access) sul bus PCIe ruba cicli di memoria (Cycle Stealing) trasferendo blocchi in RAM senza disturbare la CPU, avvisandola solo alla fine con un Interrupt.
+
+- Nodo Interconnessione: Il bus PCIe multiplexa l'accesso fisico concorrente verso la RAM.
+- Nodo Acquisizione: Il Program Counter (PC) indirizza inesorabilmente la prossima istruzione da caricare.
+- Nodo Decodifica: L'Instruction Register (IR) trattiene il codice operativo durante l'interpretazione fisica.
+
+### Interruzioni (Interrupt)
+> [!ABSTRACT] 
+> L'interruzione spezza il normale flusso del processore. Permette al sistema di reagire immediatamente a eventi esterni senza sprecare cicli in attese cieche (polling).
+> [!QUOTE] 
+> Tre varianti: Hardware Interrupt (asincrono da periferiche), Exception (sincrono da errori CPU), Trap (sincrono volontario da software).
+> [!EXAMPLE] 
+> Stai leggendo un libro. Se controlli la porta ogni secondo (polling) non leggi nulla. Se metti un campanello (interrupt), leggi in pace e alzi la testa solo quando suona.
+> [!DANGER] 
+> Lasciare il vettore delle interruzioni in user space. Un hacker potrebbe sovrascrivere l'indirizzo e dirottare la CPU verso codice maligno ad ogni click del mouse.
+
+- Nodo Asincronia: Il segnale hardware interrompe imprevedibilmente il codice in esecuzione.
+- Nodo Servizio: L'hardware esegue istantaneamente la routine specifica puntata dal vettore.
+- Nodo Trap: L'applicazione software invoca deliberatamente l'intervento del Kernel privilegiato.
+
+### Modalità Duale (Dual Mode) e Transizioni di Stato
+> [!ABSTRACT] 
+> La modalità duale blinda il sistema con un muro hardware. Divide l'universo in cittadini comuni (User Mode) e dittatori assoluti (Kernel Mode). Il passaggio di confine è regolato da rigidi protocolli di sicurezza.
+> [!QUOTE] 
+> Meccanismo hardware: Un bit di stato nella CPU (Mode Bit). 
+> Dinamica del passaggio (Trap/Syscall): 1) Salvataggio completo dello stato utente nei registri del kernel. 2) Impostazione del Mode Bit a 0 (Kernel). 3) Consultazione della Tabella dei Vettori di Interruzione per saltare all'indirizzo sicuro della routine. 4) Ritorno a User Mode (Mode Bit a 1).
+> [!EXAMPLE] 
+> Entri in banca. Tu (User Mode) puoi compilare moduli nella hall. Se vuoi prendere i soldi dal caveau, chiedi al cassiere (Trap). Il cassiere fotografa la tua richiesta (salvataggio stato), consulta un registro blindato (Vettore Interruzioni) per sapere chi ha le chiavi, entra nel caveau (Kernel Mode) e torna da te coi soldi.
+> [!DANGER] 
+> Usare MS-DOS come riferimento. MS-DOS mancava del bit di modalità: un programma utente poteva formattare il disco direttamente aggirando ogni controllo.
+
+- Nodo Barriera: Il bit hardware isola fisicamente l'esecuzione non sicura.
+- Nodo Privilegio: Il Kernel Mode sblocca istruzioni macchina altrimenti inibite.
+- Nodo Passaggio: L'eccezione controllata trasferisce temporaneamente il potere al sistema tramite vettori sicuri.
+
+### Gerarchia delle Chiamate: API, ABI e Syscall
+> [!ABSTRACT] 
+> Le chiamate di sistema (Syscall) sono i portoni fisici del Kernel. Le API e le ABI sono i traduttori che rendono il passaggio comodo per i programmatori umani.
+> [!QUOTE] 
+> Stack: Codice C $\to$ API POSIX (funzione standard) $\to$ ABI (registri CPU) $\to$ Syscall (Trap). Argomenti passati tramite registri hardware.
+> [!EXAMPLE] 
+> Usi `printf` (API). La libreria standard traduce in `write` (POSIX). L'assembly carica `1` nel registro RAX (ABI) e spara il comando `syscall`. Il Kernel si sveglia e legge i registri.
+> [!DANGER] 
+> Credere che l'API coincida col Kernel. Una API come `printf` esplode in decine di piccole system call sottostanti o nessuna, operando puro formatting in user space.
+
+- Nodo Astrazione: L'API POSIX standardizza brutalmente interfacce diverse tra sistemi operativi.
+- Nodo Passaggio: L'architettura inietta parametri direttamente nei registri CPU fisici.
+- Nodo Trap: L'istruzione macchina innesca la commutazione forzata di privilegio.
+
+### Policy e Meccanismo
+> [!ABSTRACT] 
+> Il Meccanismo costruisce l'ingranaggio fisico. La Policy decide quando e come quell'ingranaggio deve girare.
+> [!QUOTE] 
+> Teorema del Design: Separare rigorosamente "Cosa" (Meccanismo) dal "Come" (Policy) garantisce flessibilità assoluta.
+> [!EXAMPLE] 
+> Il timer hardware (Meccanismo) scatta e blocca la CPU. Dare 10 millisecondi al Gioco e 2 millisecondi al Browser è la Policy.
+> [!DANGER] 
+> Cablare la policy nel codice sorgente del meccanismo. Invalida l'intero modulo per usi futuri o prioritizzazioni differenti.
+
+- Nodo Strumento: L'hardware offre funzionalità grezze totalmente agnostiche.
+- Nodo Decisione: L'algoritmo distribuisce logicamente i pesi sulle funzionalità grezze.
+
+## Virtualizzazione e Struttura del Kernel
+
+### Emulazione vs Virtualizzazione
+> [!ABSTRACT] 
+> L'emulazione finge l'hardware via software riga per riga. La virtualizzazione aggancia il sistema operativo ospite direttamente ai circuiti reali sfruttando supporti hardware.
+> [!QUOTE] 
+> Tipi: Virtualizzazione Tipo 1 (Bare Metal, Hypervisor domina l'HW) e Tipo 2 (Hosted, Hypervisor gira su un OS preesistente). Ring -1 inventato per Hypervisor.
+> [!EXAMPLE] 
+> Emulare è leggere uno spartito e cantare i suoni degli strumenti a bocca (lentissimo). Virtualizzare è mettere i musicisti veri nella stanza affittata, guidati dal tuo direttore.
+> [!DANGER] 
+> Dimenticare il Ring -1. Lo hypervisor Bare Metal deve comandare persino sui Kernel guest (che si credono Ring 0). Serve un livello fisico sotterraneo superiore.
+
+- Nodo Emulazione: Il software traduce chirurgicamente ogni singola istruzione macchina incompatibile.
+- Nodo Bare-Metal: L'ipervisore soppianta il SO originario prendendo controllo hw totale.
+- Nodo Hosted: L'applicazione virtuale sfrutta pesantemente il sistema operativo ospitante.
+
+### Architetture del Kernel
+> [!ABSTRACT] 
+> Il design del Kernel è una lotta eterna tra velocità brutale (Monolitico) e stabilità compartimentata (Microkernel).
+> [!QUOTE] 
+> Monolitico (Linux): tutto in kernel mode, massima velocità, alto rischio crash. Microkernel (Mach): solo IPC e scheduling in kernel, alta stabilità, pessimo overhead. Modulare: caricamento dinamico nel kernel.
+> [!EXAMPLE] 
+> Monolitico: un enorme palazzo di cemento armato; se cede un pilastro (driver audio), cade tutto. Microkernel: un villaggio di tende; se brucia una tenda, le altre restano, ma scambiarsi il sale richiede un messo postale (IPC).
+> [!DANGER] 
+> Ignorare i Kernel Ibridi. macOS unisce Mach (microkernel) con BSD (monolitico) per bilanciare i due estremi fallimentari in produzione.
+
+- Nodo Monolitico: Il blocco unito massimizza spietatamente le prestazioni d'esecuzione.
+- Nodo Microkernel: Il sistema espelle servizi superflui proteggendo blindatamente il nucleo.
+- Nodo Modulare: Il blocco accetta estensioni dinamiche in runtime mantenendo privilegi massimi.
+
+## Gestione dei Processi
+
+### Il Concetto di Processo (RAM vs Eseguibile)
+> [!ABSTRACT] 
+> Un programma è un cadavere formattato su disco (ELF). Il processo è la sua resurrezione dinamica in memoria, dove il layout statico si trasforma in un'entità viva dotata di stack e heap.
+> [!QUOTE] 
+> Eseguibile Statico: Sezioni `.text` (RAW code) e `.rodata` (costanti Read-Only). 
+> Layout in RAM: Text $\to$ Data $\to$ BSS $\to$ Heap (sale) $\to \dots \leftarrow$ Stack (scende). Il Loader in User Space legge la sezione `.dynamic` per agganciare le librerie condivise a runtime.
+> [!EXAMPLE] 
+> Il programma statico è un mobile IKEA nello scatolone (RAW/RODATA). Il processo è il mobile montato (RAM), ma per aggiungere i cassetti (librerie dinamiche), il Loader legge le istruzioni `.dynamic` e li monta all'ultimo secondo.
+> [!DANGER] 
+> Confondere le sezioni del file con la memoria in esecuzione. Lo Stack e l'Heap NON esistono nel file su disco; vengono creati dal Kernel solo durante il caricamento in RAM.
+
+- Nodo Mappatura: Il Loader traduce il file statico ELF proiettandone le sezioni in memoria logica.
+- Nodo Dinamismo: La direttiva `.dynamic` innesca il caricamento ritardato delle dipendenze a runtime.
+- Nodo Espansione: L'allocazione contrapposta di heap e stack ottimizza lo spazio virtuale residuo.
+
+### Ciclo di Vita del Processo e Stati Linux
+> [!ABSTRACT] 
+> Un processo non vive in uno stato eterno. Alterna raffiche di calcolo matematico a lunghi letarghi, governato spietatamente dallo Scheduler.
+> [!QUOTE] 
+> Stati generici: New $\to$ Ready $\leftrightarrow$ Running $\to$ Waiting $\to$ Terminated.
+> Flag Linux reali (`top`/`ps`): `R` (Running/Runnable), `S` (Interruptible Sleep), `D` (Uninterruptible Sleep, I/O critico), `T` (Stopped da segnale), `Z` (Zombie).
+> [!EXAMPLE] 
+> Sei in pizzeria. `R`: Mangi o sei in fila. `S`: Aspetti la pizza ma puoi andartene (Ctrl+C). `D`: Hai già pagato e non puoi andartene finché non ti danno la ricevuta. `T`: Un vigile ti ha immobilizzato.
+> [!DANGER] 
+> Confondere Ready e Running in Linux. Linux li accorpa entrambi sotto il flag `R`. Se vedi 100 processi `R`, non stanno girando tutti, 99 sono in coda Ready e 1 solo è nella CPU.
+
+- Nodo Coda: Lo scheduler confina il processo pronto nel limbo della lista Runnable.
+- Nodo Sospensione: Il blocco I/O sgancia il processo scaraventandolo nello stato Sleep (S/D).
+- Nodo Interdizione: Il segnale SIGSTOP congela brutalmente il task forzando lo stato Stopped (T).
+
+### PCB e Context Switch
+> [!ABSTRACT] 
+> Il Process Control Block è la scatola nera del processo. Conserva esattamente i pensieri della CPU al momento in cui al processo viene strappata la parola.
+> [!QUOTE] 
+> Contenuto PCB: PID, State, Program Counter, Registri CPU, Limiti Memoria, File Aperti. Il Context Switch salva tutto e ripristina un altro PCB nel Kernel Stack.
+> [!EXAMPLE] 
+> Stai leggendo un libro e squilla il telefono. Metti un segnalibro (salvi PC e Registri nel PCB). Parli al telefono. Torni al libro aprendolo esattamente dal segnalibro (ripristini PCB).
+> [!DANGER] 
+> Sottovalutare l'overhead. Il Context Switch brucia tempo macchina reale. Durante lo scambio, la CPU produce zero lavoro utile per i programmi.
+
+- Nodo Registro: Il blocco strutturato mappa l'intera anatomia funzionale del programma.
+- Nodo Salvataggio: Lo scheduler fotografa brutalmente lo stato istantaneo dei registri HW.
+- Nodo Spreco: L'operazione di scambio dissolve preziosi cicli macchina in logistica pura.
+
+### Fork, Exec e Wait
+> [!ABSTRACT] 
+> La trinità della riproduzione dei processi POSIX. Fork clona il corpo, Exec fa il lavaggio del cervello, Wait raccoglie il testamento.
+> [!QUOTE] 
+> `fork()`: 1 chiamata, 2 ritorni (0 al figlio, PID al padre). Il figlio riceve una copia esatta dello spazio logico, ma da quel momento modificano variabili in percorsi separati e indipendenti. 
+> `exec()`: Il Kernel distrugge Text, Heap e Stack attuali. Interviene il Loader (in User Space) che prepara la memoria e il nuovo Stack prima di chiamare il `main()`.
+> [!EXAMPLE] 
+> Fork: Il padre ha $X=5$. Fa la fork. Ora padre e figlio hanno entrambi $X=5$. Se il figlio fa $X++$, solo il suo diventerà 6. La memoria è fisicamente disaccoppiata (spesso tramite Copy-on-Write).
+> [!DANGER] 
+> Dimenticare il ruolo del Loader post-exec. L'eseguibile lanciato dall'exec non parte da solo: è il Loader in spazio utente che inietta gli argomenti `argc`/`argv` nello stack vergine prima di passare l'esecuzione al nuovo `main()`.
+
+- Nodo Clonazione: La chiamata biforca chirurgicamente l'albero d'esecuzione in due coscienze logiche parallele e asincrone.
+- Nodo Sostituzione: L'istruzione `exec` annienta l'identità operativa mentre il Loader innesca la nuova istanza.
+- Nodo Sincronizzazione: L'attesa genitoriale recupera l'informazione finale prevenendo la generazione di Zombie.
+
+### Zombie e Orfani
+> [!ABSTRACT] 
+> Un processo morto non sparisce immediatamente. Deve passare i suoi ultimi dati al padre. Se il padre ignora il cadavere, il processo infesta il sistema.
+> [!QUOTE] 
+> Equazione Zombie: $Zombie = \text{Stato Terminated} \land \text{Padre non ha chiamato } wait()$. 
+> Il processo occupa 0 byte di memoria dati, ma trattiene ostinatamente la sua entry nel PCB per l'Exit Status. Orfano: padre morto prima, figlio adottato da `init/systemd` (PID 1).
+> [!EXAMPLE] 
+> Mangi una caramella (figlio termina). La carta vuota è lo Zombie. Finché non la butti nel cestino (`wait`), occupa fisicamente spazio nella tua tasca (tabella processi).
+> [!DANGER] 
+> Pensare che uno Zombie usi CPU. Non esegue nulla, ma consuma uno slot critico nella tabella del Kernel (PID exhaustion). Se i PID finiscono, il sistema si paralizza: non puoi più lanciare nemmeno `kill`.
+
+- Nodo Relitto: Il kernel preserva forzatamente il PCB guscio per la lettura differita.
+- Nodo Adozione: Il demone radice (PID 1) eredita l'orfano spazzando i residui tramite `wait()` automatica.
+
+## Comunicazione Inter-Processo (IPC)
+
+### Shared Memory vs Message Passing
+> [!ABSTRACT] 
+> O due processi scrivono sulla stessa lavagna, rischiano di scontrarsi, ma vanno veloci (Shared Memory). O si spediscono lettere formali tramite il postino del Kernel (Message Passing).
+> [!QUOTE] 
+> Shared Memory: zona RAM condivisa, setup syscall, dopo no overhead kernel, richiede sincronizzazione. Message Passing: syscall per ogni invio, lento ma sicuro.
+> [!EXAMPLE] 
+> Shared Memory: condividi l'accesso a un Google Doc. Message Passing: invii un allegato via email al collega.
+> [!DANGER] 
+> Dimenticare la sincronizzazione in Shared Memory. Due processi che alterano simultaneamente un contatore si corrompono a vicenda. Il Kernel si fa da parte e lascia esplodere il conflitto.
+
+- Nodo Lavagna: Il kernel dischiude un'area RAM annullando l'isolamento nativo.
+- Nodo Messaggero: L'operatore intercetta sistematicamente e bufferizza ogni singolo pacchetto in transito.
+- Nodo Contesa: La memoria condivisa scarica drammaticamente l'onere sincronizzativo sugli attori.
+
+### Produttore e Consumatore
+> [!ABSTRACT] 
+> Il modello classico di cooperazione. Uno sputa dati nel tubo, l'altro li beve. Il tubo ha una fine e un inizio (Bounded Buffer circolare).
+> [!QUOTE] 
+> Implementazione: buffer circolare size N. Indici `in` (dove scrivo) e `out` (dove leggo). Pieno se `(in+1)%N == out`. Vuoto se `in == out`.
+> [!EXAMPLE] 
+> Un nastro trasportatore di sushi. Il cuoco (Produttore) lo riempie ma si ferma se non c'è spazio. Il cliente (Consumatore) mangia ma si ferma se non ci sono piattini.
+> [!DANGER] 
+> Utilizzare il Busy Waiting (while vuoto) per attendere lo spazio. Blocca il processo in un ciclo infinito che divora CPU al 100% senza generare alcun dato utile.
+
+- Nodo Ciclicità: L'operatore modulo incolla la fine dell'array all'inizio fisico.
+- Nodo Saturazione: Il sistema blocca brutalmente l'inserimento escludendo l'ultimo slot utile.
+- Nodo Spreco: L'attesa attiva brucia aggressivamente risorse preziose.
+
+### API POSIX Shared Memory e Permessi Binari
+> [!ABSTRACT] 
+> L'API POSIX manipola la memoria RAM come se fosse un file invisibile. Crei il file virtuale e lo dimensioni, imponendo rigidi permessi crittografici di accesso in stile Unix.
+> [!QUOTE] 
+> Flusso: `shm_open("nome", O_CREAT | O_RDWR, 0666)` $\to$ `ftruncate(FD, size)` $\to$ `mmap()`.
+> Permessi POSIX (Ottali/Binari): $0666$ significa `rw-rw-rw-` (User=4+2, Group=4+2, Others=4+2).
+> [!EXAMPLE] 
+> È come noleggiare un magazzino. `shm_open` crea la stanza con un lucchetto (0666 = tutti possono leggere e scriverci), `ftruncate` butta giù i muri per allargarlo, `mmap` ti crea una porta teletrasporto dal tuo salotto.
+> [!DANGER] 
+> Dimenticare che i puntatori ritornati da mmap sono diversi. Se il Processo A mette un puntatore assoluto nella shared memory, il Processo B lo leggerà, cercherà quell'indirizzo nel SUO spazio e causerà un SegFault. Usa solo offset (interi).
+
+- Nodo Creazione: La chiamata `shm_open` alloca l'oggetto persistente applicando la maschera ottale dei permessi.
+- Nodo Espansione: L'operatore dilata violentemente la dimensione del segmento grezzo.
+- Nodo Proiezione: La primitiva `mmap` incastra stabilmente i blocchi fisici nel layout virtuale locale.
+
+### Message Passing: Diretta vs Indiretta e Buffering
+> [!ABSTRACT] 
+> Nei messaggi puoi parlare a una persona precisa, oppure appendere il messaggio a una bacheca pubblica (Mailbox). E puoi aspettare risposte (Sincrono) o fuggire (Asincrono).
+> [!QUOTE] 
+> Diretta: `send(P, msg)`. Indiretta: `send(Porta_A, msg)`. Sincrono: bloccante (Rendezvous se entrambi bloccati). Capacità canale: Zero (forza Rendezvous), Bounded, Unbounded.
+> [!EXAMPLE] 
+> Diretta: metti la lettera in mano a Marco. Indiretta: lasci la lettera nella buca delle lettere 101, chi passa la prende. Asincrono Unbounded: infili lettere nella buca all'infinito e te ne vai.
+> [!DANGER] 
+> Sbagliare la capacità del canale in progettazione. Un canale Unbounded (illimitato) in presenza di un produttore molto più veloce del consumatore causerà un letale esaurimento (OOM) della RAM del sistema.
+
+- Nodo Esplicito: L'invio incatena rigidamente l'identità crittografica di emittente e destinatario.
+- Nodo Mailbox: La porta astratta disaccoppia ferocemente chi scrive da chi legge.
+- Nodo Rendezvous: Il blocco bidirezionale paralizza la coppia forzando la sincronizzazione assoluta.
+
+## Interfacce Utente e Shell
+
+### La Shell Unix e le Variabili
+> [!ABSTRACT] 
+> La Shell non è il sistema operativo, è un traduttore. Legge il testo umano, lo analizza e orchestra chiamate di sistema per conto dell'utente, fornendo un micro-ambiente di esecuzione programmabile.
+> [!QUOTE] 
+> Esecuzione: Loop principale $\to$ Parse $\to$ Se Built-in (eseguito internamente) $\to$ Se Esterno (fork + exec usando la variabile d'ambiente `$PATH`).
+> Variabili: Locali (valide solo nella shell corrente) vs Ambiente (`export`, ereditate da tutti i processi figli).
+> [!EXAMPLE] 
+> Definire `X=5` crea una variabile locale: un programma C lanciato da shell non vedrà mai $X$. Fare `export X=5` la eleva ad Ambiente, rendendola visibile al programma tramite le API di sistema.
+> [!DANGER] 
+> Confondere il comando `cd` con gli eseguibili. Il comando `cd` deve essere un Built-in che manipola la shell stessa. Se fosse esterno (eseguito tramite fork), cambierebbe la directory di un processo figlio fantasma che poi morirebbe, lasciando la shell originaria inalterata.
+
+- Nodo Ciclo: L'interprete intercetta, analizza ed esegue ciclicamente i comandi testuali.
+- Nodo Interno: Le funzioni built-in manipolano direttamente lo stato del processo shell (es. `cd`).
+- Nodo Ereditarietà: Il comando export inietta forzatamente le configurazioni nello spazio dei processi discendenti.
+
+### Redirezione e Pipeline
+> [!ABSTRACT] 
+> L'ecosistema Unix si basa su processi monouso connessi tra loro come tubi idraulici. L'output di uno diventa l'input vitale del successivo.
+> [!QUOTE] 
+> File Descriptors standard: 0 (stdin), 1 (stdout), 2 (stderr). Operatori: `>` (sovrascrive), `>>` (appende), `<` (legge), `2>` (errori), `|` (pipe).
+> [!EXAMPLE] 
+> `ls -la | grep ".c" > output.txt`. Il listato non appare a schermo, entra nel tubo `|`, viene filtrato da `grep`, e il risultato cade definitivamente nel file `>`.
+> [!DANGER] 
+> Usare `>` invece di `>>` per i log. Un singolo `>` distrugge irreparabilmente l'intero contenuto precedente del file ripartendo da zero.
+
+- Nodo Standard: Il sistema alloca tre flussi primari ad ogni nuovo task lanciato.
+- Nodo Concatenazione: La pipe fonde l'output sorgente con l'input destinazione in RAM.
+- Nodo Deviazione: L'operatore sovrascrive fisicamente il flusso verso l'archivio permanente.
+
+## Compilazione e Linking
+
+### La Pipeline del Compilatore (GCC)
+> [!ABSTRACT] 
+> Il compilatore non è una scatola nera magica, ma una catena di montaggio a quattro stadi. Il codice passa da testo umano a linguaggio macchina puro.
+> [!QUOTE] 
+> Fasi: Preprocessore (risolve `#include`/`#define`, `.i`) $\to$ Compilatore (traduce in Assembly, `.s`) $\to$ Assemblatore (codice macchina, `.o`) $\to$ Linker (risolve riferimenti e librerie, `a.out`).
+> [!EXAMPLE] 
+> Preprocessore: inserisce la farina. Compilatore: impasta (assembly). Assemblatore: cuoce il pane (oggetto). Linker: ci mette dentro il prosciutto (librerie esterne) e chiude il panino (eseguibile).
+> [!DANGER] 
+> Confondere errore di compilazione con errore di linking. Syntax error = colpa del compilatore (fase 2). `Undefined reference to` = colpa del linker (fase 4), manca la libreria!
+
+- Nodo Espansione: Il preprocessore ingloba spietatamente macro e librerie testuali.
+- Nodo Traduzione: Il compilatore degrada il sorgente ad architettura mnemonica assembly.
+- Nodo Saldatura: Il linker fonde oggetti disparati in un'unica entità eseguibile.
+
+### Formato ELF e Librerie
+> [!ABSTRACT] 
+> I file eseguibili su Linux parlano la lingua ELF. Un dizionario rigoroso che insegna al loader come mappare le sezioni in memoria RAM.
+> [!QUOTE] 
+> Sezioni ELF: `.text` (istruzioni), `.data` (globali inizializzate), `.bss` (globali vuote). Librerie: Statiche (`.a`, copiate dentro) vs Dinamiche (`.so`, caricate a runtime).
+> [!EXAMPLE] 
+> Statico: Ti stampi la mappa di Roma su carta e la metti nello zaino (pesante, ma sicura). Dinamico: Usi Google Maps sul telefono (leggero, ma se manca la connessione/libreria, sei perso).
+> [!DANGER] 
+> L'inferno delle dipendenze (Dependency Hell). Aggiornare una libreria dinamica `.so` incompatibile distrugge istantaneamente tutti i programmi del sistema che vi fanno affidamento.
+
+- Nodo Mappatura: L'header eseguibile istruisce il sistema operativo sull'allocazione spaziale.
+- Nodo Statico: Il linker ingoia brutalmente l'intero codice dipendente nell'output.
+- Nodo Dinamico: Il sistema risolve i puntatori di libreria esclusivamente in esecuzione.
+
+### Automazione con Make
+> [!ABSTRACT] 
+> Make è uno strumento intelligente che compila solo il minimo indispensabile. Risparmia ore di attesa ricompilando unicamente i file modificati.
+> [!QUOTE] 
+> Logica: Legge il `Makefile`. Analizza il grafo delle dipendenze confrontando i Timestamp (data di modifica). Sintassi: `target: dipendenze \n \t comandi`.
+> [!EXAMPLE] 
+> Se cambi i tergicristalli, il meccanico (Make) cambia solo i tergicristalli, non rismonta l'intero motore.
+> [!DANGER] 
+> Indentare con gli spazi. La regola di Make esige un TAB reale e fisico. Uno spazio manderà in crash incomprensibile la build.
+
+- Nodo Dipendenza: Il motore controlla ossessivamente le date di modifica dei sorgenti.
+- Nodo Ricompilazione: Lo script innesca selettivamente i comandi sui nodi alterati.
+
+## Comunicazione Avanzata
+
+### Pipe Anonime e Named Pipe (FIFO)
+> [!ABSTRACT] 
+> Le pipe sono tubazioni idrauliche tra processi. Le anonime servono solo a parenti stretti (padre-figlio). Le FIFO sono canali pubblici nel filesystem.
+> [!QUOTE] 
+> Pipe: Array `[0]` per lettura, `[1]` per scrittura (Half-Duplex). FIFO: file fisico creato con `mkfifo`, vi si accede tramite `open` standard.
+> [!EXAMPLE] 
+> Pipe anonima: un walkie-talkie lasciato a tuo figlio. Named Pipe: la cassetta della posta fuori casa, accessibile da chiunque sappia l'indirizzo.
+> [!DANGER] 
+> Dimenticare di chiudere i lati inutilizzati. Se il padre non chiude il suo lato di lettura, la pipe non emetterà mai EOF e il lettore si bloccherà in attesa infinita.
+
+- Nodo Flusso: Il kernel bufferizza i dati veicolandoli rigidamente in modo unidirezionale.
+- Nodo Parentela: La pipe anonima richiede stretta discendenza biologica dei processi.
+- Nodo Persistenza: La FIFO sopravvive nel filesystem garantendo accessi estranei.
+
+## Thread e Concorrenza
+
+### Processi vs Thread
+> [!ABSTRACT] 
+> Il processo è egoista: tiene la memoria per sé. I thread sono coinquilini: dividono tutto (Codice, Dati, File) tranne lo spazzolino (Registri e Stack).
+> [!QUOTE] 
+> Thread = flusso di controllo. Condivide col processo genitore: Memoria Virtuale, Text, Data, Heap. Ha di privato: Program Counter, CPU Registers, Stack.
+> [!EXAMPLE] 
+> Processo: Due cucine separate, due chef separati. Thread: Uno chef che taglia le carote e uno che bolle l'acqua nella STESSA cucina. Se uno sbaglia, brucia la cucina di entrambi.
+> [!DANGER] 
+> Conflitti in Heap. Poiché le variabili globali sono condivise, due thread che scrivono simultaneamente sulla stessa variabile generano una Race Condition mortale.
+
+- Nodo Coabitazione: Il filo esecutivo respira l'identico spazio d'indirizzamento genitoriale.
+- Nodo Privatizzazione: L'architettura riserva stack esclusivi per le variabili locali thread.
+- Nodo Leggerezza: Il context switch tra thread polverizza l'overhead d'un cambio processo.
+
+### Concorrenza, Parallelismo e Amdahl
+> [!ABSTRACT] 
+> Aggiungere mille processori non rende un programma mille volte più veloce, perché la parte che va eseguita in fila indiana fa da collo di bottiglia.
+> [!QUOTE] 
+> Concorrenza: task intercalati nel tempo (anche 1 core). Parallelismo: esecuzione fisica simultanea (N core). Legge di Amdahl: $Speedup = 1 / (S + (1-S)/N)$ dove S è la frazione Seriale.
+> [!EXAMPLE] 
+> 9 donne incinte (9 core in parallelo) non partoriscono un bambino in 1 mese (limite seriale incompressibile).
+> [!DANGER] 
+> Illusione multicore. Spendere soldi in hardware a 64 core per un algoritmo intrinsecamente seriale ($S=1$) restituisce uno speedup matematico identico a 1.
+
+- Nodo Sovrapposizione: Lo scheduler illude l'utente con scambi d'esecuzione fulminei.
+- Nodo Simultaneità: L'hardware fisico macina flussi istruttivi su silicio distinto.
+- Nodo Limite: La componente algoritmica sequenziale strozza il potenziale scalare.
+
+### Mapping: User Thread e Kernel Thread
+> [!ABSTRACT] 
+> Il Sistema Operativo non sa nulla dei thread creati puramente in user space. Per sfruttare il parallelismo reale, serve un ponte verso il Kernel.
+> [!QUOTE] 
+> Many-to-One: N user su 1 kernel. One-to-One: 1 user su 1 kernel (costoso ma parallelo). Many-to-Many: N user su M kernel. 
+> Two-Level Model (Ibrido): Permette sia il many-to-many, sia di legare indissolubilmente ("Bound") uno specifico user-thread critico a un kernel-thread dedicato (es. Solaris/HP-UX).
+> [!EXAMPLE] 
+> Many-to-One: Un biglietto dell'autobus per 10 persone. One-to-One: Ognuno compra il suo. Two-Level: Ognuno compra il suo (1:1 per VIP), ma la plebe condivide i biglietti (M:N).
+> [!DANGER] 
+> La proliferazione (One-to-One). Generare migliaia di thread costringe il Kernel a creare migliaia di Kernel-Thread, causando collasso sistemico da overhead (esaurimento risorse Kernel).
+
+- Nodo Oscurità: La libreria utente occulta i thread leggeri alla vista del sistema.
+- Nodo Trasparenza: Il modello diretto accoppia ogni entità utente ad un'istanza kernel.
+- Nodo Ibridazione: Il modello a due livelli protegge i thread prioritari con canali hw dedicati.
+
+### Lightweight Process (LWP) e Upcall
+> [!ABSTRACT] 
+> Nel modello Many-to-Many, il Kernel non può parlare direttamente con la libreria utente. Serve una struttura dati intermedia e un citofono speciale per gestire i blocchi.
+> [!QUOTE] 
+> LWP (Lightweight Process): Struttura dati virtuale fornita dal kernel che funge da "processore virtuale" per gli user-thread.
+> Upcall: Il citofono bottom-up. Quando un LWP si blocca su I/O, il Kernel fa una "Upcall" allo Scheduler User-Space dicendogli: "L'LWP è fermo, sgancia il thread e dammene un altro su un nuovo LWP!".
+> [!EXAMPLE] 
+> LWP è il cameriere. Se il cuoco (thread) si blocca perché manca il sale (I/O), il direttore del ristorante (Kernel) chiama il capo cuoco con l'Upcall dicendo: "Manda qualcun altro a fare i dolci su un altro bancone!".
+> [!DANGER] 
+> Ignorare le Upcall nel Many-to-Many. Senza l'Upcall, l'intero processo andrebbe in deadlock se tutti gli LWP si bloccassero su I/O, perché la libreria utente non saprebbe mai di dover rimpiazzare i thread bloccati.
+
+- Nodo Interfaccia: Il Lightweight Process disaccoppia la libreria di user-space dal thread fisico del Kernel.
+- Nodo Inversione: L'Upcall sovverte la direzione comunicativa classica notificando eventi dal Kernel all'Utente.
+
+### Libreria POSIX (pthreads) e la Trappola della Fork
+> [!ABSTRACT] 
+> Le API `pthreads` creano e distruggono flussi esecutivi. Ma mescolare thread e processi (`fork`) crea mostri logici che distruggono la coerenza della memoria.
+> [!QUOTE] 
+> `pthread_create()` lancia thread; `pthread_join()` aspetta. 
+> Regola della Fork: Se un thread chiama `fork()`, viene duplicato SOLO IL THREAD CHIAMANTE, creando un processo figlio single-threaded. L' `exec()` invece pialla l'intero processo sovrascrivendo l'area Text.
+> [!EXAMPLE] 
+> Un processo ha 4 thread (4 chef). Se uno chef fa `fork`, crea un ristorante clone con LUI SOLO dentro. Le 3 pentole degli altri chef rimangono sul fuoco (Lock bloccati) nel nuovo ristorante, senza nessuno a spegnerle.
+> [!DANGER] 
+> Chiamare `fork` in un thread ignorando le risorse condivise. Il figlio clonato eredita tutti i Mutex bloccati dagli altri thread (che non esistono nel figlio). Deadlock immediato alla prima chiamata al Mutex. Serve la funzione di pulizia `pthread_atfork()` prima di duplicare.
+
+- Nodo Instanziazione: L'invocazione distacca un frammento asincrono sul puntatore funzione.
+- Nodo Amputazione: La duplicazione tramite fork esclude ferocemente i rami esecutivi fratelli, copiandone però gli stati di blocco.
+- Nodo Sostituzione: La chiamata exec annienta totalmente il multithreading rimpiazzando l'intero spazio di memoria.
+
+## CPU Scheduling (Breve e Medio Termine)
+
+### Scheduler e Dispatcher
+> [!ABSTRACT] 
+> Lo Scheduler decide democraticamente chi sarà il prossimo a sedersi sul trono. Il Dispatcher è il boia che esegue lo sfratto fisico.
+> [!QUOTE] 
+> Scheduler (Short-term): sceglie da coda Ready. Preemptive (interrompe a forza) vs Non-preemptive. Dispatcher: esegue Context Switch, cambia in User Mode, fa saltare il PC.
+> [!EXAMPLE] 
+> L'infermiera del triage (Scheduler) decide l'ordine dei pazienti. Il barelliere (Dispatcher) sposta materialmente i letti. Se il barelliere è lento (Dispatch Latency), l'ospedale si blocca.
+> [!DANGER] 
+> Sottovalutare la Latenza di Dispatch. Se lo scheduler assegna 1 millisecondo a task, ma il context switch costa 1 millisecondo, l'efficienza reale della CPU crolla a zero.
+
+- Nodo Selezione: L'algoritmo scruta la coda individuando il candidato ottimale.
+- Nodo Materializzazione: L'operatore inietta forzatamente il contesto nei registri fisici.
+- Nodo Prelazione: Il timer spodesta tirannicamente il processo dominante.
+
+### Metriche di Scheduling
+> [!ABSTRACT] 
+> Non esiste l'algoritmo perfetto, solo compromessi. Massimizzare i lavori completati danneggia il tempo di reazione dell'utente, e viceversa.
+> [!QUOTE] 
+> CPU Util (%), Throughput (task/s). Da minimizzare: Turnaround (tempo totale vita), Waiting time (attesa fissa in Ready), Response time (tempo primissima reazione).
+> [!EXAMPLE] 
+> Batch server $\to$ Punta al Throughput, non importa se risponde dopo 2 ore. Desktop UI $\to$ Punta al Response time, il mouse deve muoversi all'istante (bassa varianza).
+> [!DANGER] 
+> Fissarsi sulla media del Response Time ignorando la varianza. Un lag di 5 secondi una volta al minuto manda ai matti un utente desktop molto più di un ritardo costante di 100ms.
+
+- Nodo Occupazione: Il parametro satura i cicli disponibili annientando i tempi morti.
+- Nodo Conclusione: Il ciclo cronometra brutalmente nascita e morte del task.
+- Nodo Reazione: La tolleranza utente impone risposte nervose immediate.
+
+### Algoritmi Tradizionali ed Exponential Averaging
+> [!ABSTRACT] 
+> La storia dello scheduling è la ricerca della formula magica per indovinare il futuro. L'SJF è ottimale ma incalcolabile, quindi si usano modelli matematici predittivi che sfumano il passato.
+> [!QUOTE] 
+> FCFS (Effetto convoglio). SJF (Ottimale, stima necessaria). Round Robin (Time sharing, $q$ critica).
+> Formula Exponential Averaging (per SJF): $\tau_{n+1} = \alpha t_n + (1 - \alpha)\tau_n$.
+> ($\tau_{n+1}$ è il burst previsto, $t_n$ l'ultimo burst reale, $\alpha$ il peso della storia recente).
+> [!EXAMPLE] 
+> Se $\alpha = 1$, guardiamo solo l'ultima operazione (mi baso solo sull'istante fa). Se $\alpha = 0$, guardiamo solo il passato remoto (sono sordo ai cambiamenti recenti). L'esponenziale fa decadere il peso del passato lontano rapidamente, seguendo i cambi di fase I/O del processo.
+> [!DANGER] 
+> Round Robin con $q$ minuscolo. Genera un letale trashing di contesto (Dispatch Latency dominante) dove la CPU spende più tempo a cambiare processo che a eseguire codice matematico utile.
+
+- Nodo Ordine: La coda ingenua FCFS privilegia ciecamente il primo arrivato, causando il letale Effetto Convoglio.
+- Nodo Previsione: La media esponenziale interpola dinamicamente i burst bilanciando l'attualità.
+- Nodo Alternanza: Il quanto circolare trancia inesorabilmente i monopoli prolungati.
+- Nodo Promozione: L'invecchiamento artificiale (Aging) aumenta la priorità e scongiura la Starvation.
+
+### Code Multiple (Multilevel Queue e Feedback)
+> [!ABSTRACT] 
+> Non tutti i processi nascono uguali. I processi di sistema vanno nell'attico VIP, i processi background in cantina. Il Feedback Queue li fa salire e scendere.
+> [!QUOTE] 
+> Multilevel Queue: Code stagne con policy diverse (RR per foreground, FCFS per background). Multilevel Feedback Queue: Dinamica. Se usi troppa CPU cadi in basso, se aspetti troppo sali in alto.
+> [!EXAMPLE] 
+> Un videogioco è nel girone VIP per reattività. Se il videogioco comincia a compilare shader al 100% CPU, lo Scheduler Feedback lo sbatte nel girone dei minatori (background) per far respirare il mouse.
+> [!DANGER] 
+> Usare code statiche fisse. Rischiano di affamare permanentemente i task background se il foreground è incessantemente saturo. Il feedback è obbligatorio.
+
+- Nodo Segregazione: Il recinto partiziona le categorie operative in silos invalicabili.
+- Nodo Dinamismo: L'algoritmo declassa brutalmente gli ingordi promuovendo gli affamati.
+
+### Real-Time CPU Scheduling
+> [!ABSTRACT] 
+> Nel mondo Real-Time, completare un calcolo in ritardo non è "lento", è "sbagliato". Un airbag che si apre in ritardo è mortale.
+> [!QUOTE] 
+> Soft Real-Time (Priorità garantita, no certezza matematica) vs Hard Real-Time (Deadline garantita o fallimento). Algoritmi: RMS (priorità statica su Periodo) vs EDF (priorità dinamica su Deadline Imminente).
+> [!EXAMPLE] 
+> Soft RT: Streaming video (un frame perso fa scattare l'immagine). Hard RT: Pilota automatico di un Boeing (un frame perso fa schiantare l'aereo).
+> [!DANGER] 
+> Rate Monotonic (RMS) su carichi superiori al 69%. Oltre quella soglia di utilizzo teorica, l'assegnazione statica fallisce matematicamente e le deadline vengono violate. Serve EDF.
+
+- Nodo Flessibilità: Il compromesso tollera scostamenti ritardando l'esecuzione critica.
+- Nodo Assolutezza: Il vincolo temporale spezza irrevocabilmente la computazione tardiva.
+- Nodo Imminenza: L'algoritmo premia dinamicamente i task vicini alla scadenza (EDF).
+
+### Multiprocessor e Affinità
+> [!ABSTRACT] 
+> Schedulare su un core è un cruciverba, schedulare su multicore è una partita a scacchi su tre tavoli. Spostare processi da un core all'altro svuota preziosissime memorie cache.
+> [!QUOTE] 
+> SMP (Symmetric): Ogni core si auto-schedula su coda privata. Load Balancing: Push (spingo via) e Pull (rubo task). Processor Affinity: Tendenza a non cambiare core per non invalidare la Cache (cruciale per NUMA).
+> [!EXAMPLE] 
+> Coda privata: 4 casse al supermercato. Pull migration: Se la mia cassa finisce i clienti, vado a pescarne uno dalla coda lunghissima del collega.
+> [!DANGER] 
+> Bilanciare troppo. Spostare ossessivamente un task da Core 0 a Core 1 per "equilibrio" distrugge l'hit-rate della Cache L1/L2, paralizzando le prestazioni per colpa del miss-rate di memoria.
+
+- Nodo Simmetria: L'architettura clona i decisori rendendo ogni chip autonomo.
+- Nodo Bilanciamento: I migratori intercettano gli squilibri travasando carichi computazionali.
+- Nodo Radicamento: L'affinità inchioda il task al processore preservando la cache locale.
+
+### Sistemi Operativi Moderni
+> [!ABSTRACT] 
+> Linux e Windows hanno abbandonato i tempi fissi ingenui per modelli probabilistici e calcoli virtuali complessi per garantire equità suprema.
+> [!QUOTE] 
+> Linux (CFS $\to$ EEVDF): Usa il Vruntime (tempo virtuale). Chi ha lavorato meno, gira per primo. Windows: 32 livelli di priorità Preemptive (boost interattivi, real-time in alto).
+> [!EXAMPLE] 
+> Linux CFS: Un registro dei debiti. Il processo in esecuzione matura debiti di CPU. Appena un processo in attesa risulta meno indebitato, prende il posto.
+> [!DANGER] 
+> Confondere i thread utente con lo scheduling reale. I moderni SO (SCS - System Contention Scope) schedulano ESCLUSIVAMENTE Kernel-Threads. Il concetto di "Processo" è solo un contenitore per il SO.
+
+- Nodo Equità: Il cronometro virtuale pesa implacabilmente il tempo d'uso pregresso (Linux).
+- Nodo Prioritizzazione: I livelli stratificati sorpassano le code imponendo gerarchie militari (Windows).
+
+## Segnali e Terminazione (Thread)
+
+### Segnali in Contesto Multi-Thread
+> [!ABSTRACT] 
+> In un processo multi-thread, i segnali inviati al PID globale colpiscono un thread a caso che non li ha bloccati. Per avere il controllo, ogni thread deve gestire esplicitamente la propria maschera.
+> [!QUOTE] 
+> Comportamento: `pthread_sigmask(HOW, &set, &oldset)` modifica la maschera del singolo thread. Se chiamata PRIMA della `pthread_create`, i thread figli ereditano la maschera.
+> Accodamento (Pending): I segnali ordinari (es. `SIGUSR1`) NON si accodano. Se ne arrivano 3 mentre sono mascherati, quando si sbloccano l'handler scatta UNA sola volta. I segnali Real-Time (`SIGRTMIN` a `SIGRTMAX`) invece vengono accodati e smaltiti in sequenza.
+> [!EXAMPLE] 
+> Se invii 5 email a un collega con la casella piena (segnali ordinari), lui vede "Hai nuove email" e legge l'ultima. Se sono pacchi postali tracciati (Real-Time), il corriere gli consegna 5 pacchi in fila.
+> [!DANGER] 
+> Confondere l'ereditarietà delle maschere. Impostare la maschera prima di lanciare i thread silenzia l'intero programma: nessun thread gestirà il segnale e rimarrà in pending perpetuo. L'ordine di dichiarazione è vitale.
+
+- Nodo Isolamento: La maschera locale scherma chirurgicamente il singolo flusso d'esecuzione ignorando lo stato globale.
+- Nodo Ereditarietà: La clonazione del thread duplica inesorabilmente la configurazione dei segnali del genitore.
+- Nodo Accorpamento: Il kernel collassa istanze multiple dello stesso segnale ordinario in un unico evento pending.
+
+### Cancellazione dei Thread e Identificatori (TID)
+> [!ABSTRACT] 
+> Uccidere brutalmente un thread lascia risorse appese (lock, socket). La terminazione deve essere cooperativa, concordando dei punti sicuri (cancellation points) in cui il thread accetta di morire.
+> [!QUOTE] 
+> Cancellazione: `pthread_cancel(tid)`. Stati: Asynchronous (morte istantanea, pericolosa), Deferred (default, aspetta un cancellation point), Disabled (richiesta in pending).
+> Cancellation points: Syscall bloccanti (`sleep`, I/O, `wait`). Punto artificiale: `pthread_testcancel()`.
+> TID User vs Kernel: `pthread_self()` restituisce il TID enorme della libreria POSIX. `syscall(SYS_gettid)` restituisce l'intero progressivo del Kernel LWP. Visibile in bash con `ps -T -p <PID>` o in `/proc/<PID>/task/`.
+> [!EXAMPLE] 
+> Asynchronous è un cecchino che ti spara mentre cucini (il gas rimane aperto). Deferred è un cameriere che ti chiede di uscire, e tu accetti solo dopo aver spento i fornelli (cancellation point).
+> [!DANGER] 
+> Cicli CPU-bound senza `pthread_testcancel`. Un thread che calcola $\pi$ per ore in stato Deferred non incontrerà mai una syscall bloccante. La `pthread_cancel` verrà ignorata all'infinito e il programma non riuscirà mai a terminare.
+
+- Nodo Differimento: La libreria posticipa la terminazione letale fino all'invocazione di istruzioni di sistema bloccanti.
+- Nodo Iniezione: La funzione testcancel introduce artificialmente un varco di terminazione nei cicli puramente matematici.
+- Nodo Dualismo: L'architettura Linux mappa 1:1 l'identificatore utente virtuale sul Lightweight Process fisico del kernel.
+
+### Valutazione degli Algoritmi di Scheduling
+> [!ABSTRACT] 
+> La matematica non basta per giudicare uno scheduler. Un algoritmo perfetto sulla carta può devastare le performance a causa dei costi nascosti di esecuzione nel sistema operativo.
+> [!QUOTE] 
+> Metodi: Deterministico (valutazione su un set di arrivi noto, es. Gantt), Modelli a Code (formula di Little $N = \lambda W$), Simulazione (generatori casuali).
+> La Verità: L'unico vero test è l'implementazione intra-Kernel. L'algoritmo vive nell'ecosistema reale con overhead di Context Switch, Cache Miss e Contention.
+> [!EXAMPLE] 
+> Il modello deterministico è testare un'auto in galleria del vento (perfetta ma finta). Il kernel è testare l'auto in autostrada in mezzo al traffico, ai sassi e alla pioggia (l'unica metrica che conta).
+> [!DANGER] 
+> L'ossessione teorica per il turnaround. Disegnare uno scheduler super-intelligente (O(n)) che però impiega millisecondi per decidere chi mandare in CPU causa Trashing: la potenza globale viene bruciata solo per prendere decisioni, non per calcolare.
+
+- Nodo Astrazione: Il modello a code semplifica matematicamente flussi statistici astratti.
+- Nodo Pragmatismo: L'immersione nel nucleo espone l'algoritmo all'imponderabile latenza architetturale fisica.
+
+## Sincronizzazione e Lock
+
+### Il Problema: Race Condition e Atomicità
+> [!ABSTRACT] 
+> I thread condividono la memoria globale. Se due tentano di modificare contemporaneamente la stessa variabile senza protezione, i loro calcoli si incrociano distruggendo la coerenza del dato.
+> [!QUOTE] 
+> Il problema: L'istruzione ad alto livello `counter++` esplode in 3 istruzioni macchina (Atomicità mancante): 1) Load registro, 2) Incrementa registro, 3) Store memoria.
+> Il Context Switch fatale: Se il Dispatcher interrompe il Thread A subito dopo la Load, il Thread B leggerà il valore vecchio. Quando A riprende, sovrascrive il lavoro di B.
+> [!EXAMPLE] 
+> Due persone aggiornano il saldo del conto leggendo l'estratto conto cartaceo. Entrambi leggono 100€, entrambi aggiungono 50€. Entrambi scrivono 150€. Il totale reale doveva essere 200€, ma un versamento è svanito nel nulla (Race Condition).
+> [!DANGER] 
+> Testare il codice multi-thread credendo sia sicuro perché "funziona 99 volte su 100". Le Race Condition sono insetti stocastici: si manifestano solo quando lo Scheduler taglia i tempi esecutivi nell'esatto nanosecondo tra una Load e una Store assembly.
+
+- Nodo Disgregazione: L'istruzione software unitaria si scompone in un micro-ciclo hardware vulnerabile alle interruzioni.
+- Nodo Interfogliamento: La prelazione dello scheduler incrocia caoticamente i registri fisici sovrascrivendo l'avanzamento logico.
+- Nodo Incoerenza: L'accesso parallelo non sincronizzato corrompe irreversibilmente le strutture dati globali.
+
+### La Sezione Critica (Le Tre Proprietà)
+> [!ABSTRACT] 
+> Per evitare le Race Condition, il codice che tocca dati condivisi viene isolato in un bunker (Sezione Critica). Ma il bunker deve seguire regole matematiche per non paralizzare l'intero sistema.
+> [!QUOTE] 
+> Proprietà obbligatorie: 
+> 1) Mutua Esclusione: Max 1 processo nel bunker. 
+> 2) Progresso: Se il bunker è vuoto e qualcuno vuole entrare, la decisione avviene in tempo finito e partecipano solo i richiedenti. 
+> 3) Bounded Waiting: Limite massimo al numero di volte che altri possono sorpassare un processo in attesa (niente Starvation).
+> [!EXAMPLE] 
+> 1) Mutua esclusione: Nel bagno entra uno alla volta. 2) Progresso: Se il bagno è vuoto, non serve il voto di tutto l'ufficio per decidere chi entra. 3) Bounded Waiting: Non puoi farti superare da 100 VIP all'infinito, prima o poi tocca a te.
+> [!DANGER] 
+> Progettare algoritmi che garantiscono solo la Mutua Esclusione. L'approccio ingenuo che blocca tutto rispetta l'esclusione, ma viola il Bounded Waiting (affama i task deboli) o il Progresso (Deadlock perpetuo dove nessuno decide chi deve entrare).
+
+- Nodo Isolamento: La barriera logica confina spietatamente le operazioni di mutazione condivisa.
+- Nodo Risoluzione: L'algorithm sblocca le contese escludendo dalla decisione le entità estranee al conflitto.
+- Nodo Equità: Il limite superiore di sorpasso garantisce matematicamente l'accesso differito eliminando la fame da risorse.
+
+### Soluzione di Peterson e Memory Barriers
+> [!ABSTRACT] 
+> La soluzione di Peterson è l'algoritmo teorico perfetto per sincronizzare due processi usando solo software. Sfrutta il concetto di "gentilezza aggressiva" per evitare collisioni.
+> [!QUOTE] 
+> Codice: Variabili condivise `int turn` e `bool flag[2]`. 
+> Per entrare: `flag[i] = true; turn = j; while(flag[j] && turn == j);`
+> Il fallimento moderno: L'algoritmo fallisce sui processori attuali perché il compilatore riordina le istruzioni (`flag=true` e `turn=j`) rompendo la logica. 
+> Soluzione: Memory Barriers (`__atomic_thread_fence`), istruzioni HW che impediscono al compilatore e alla CPU di riordinare le memorie oltre il recinto.
+> [!EXAMPLE] 
+> La regola è: "Voglio entrare (flag), ma prego prima tu (turn)". Se entrambi arrivano insieme, l'ultimo che dice "prego prima tu" sovrascrive il turno, bloccandosi e facendo passare l'altro.
+> [!DANGER] 
+> Fidarsi della logica sequenziale del codice C. Il compilatore considera `flag` e `turn` variabili indipendenti e, per ottimizzare l'uso dei registri, inverte le assegnazioni riga per riga, disintegrando completamente l'algoritmo di Peterson a runtime.
+
+- Nodo Intenzione: Il marcatore booleano dichiara irrevocabilmente la volontà d'accesso alla zona contesa.
+- Nodo Concessione: Il passaggio di turno sblocca gli stalli garantendo matematicamente il progresso esecutivo.
+- Nodo Barriera: L'istruzione di recinzione blocca l'ottimizzatore hardware imponendo l'ordine cronologico assoluto delle scritture.
+
+### Supporto Hardware: Test-And-Set e CAS
+> [!ABSTRACT] 
+> Il software non può garantire l'atomicità senza aiuto fisico dal silicio. I processori moderni forniscono istruzioni hardware speciali che bloccano il bus di memoria, eseguendo lettura e scrittura in un singolo ciclo inscindibile.
+> [!QUOTE] 
+> Istruzione `Test-And-Set`: Setta un booleano a `True` e restituisce il valore vecchio atomicamente.
+> Istruzione `Compare-And-Swap (CAS)`: (x86 `LOCK CMPXCHG`) Confronta un indirizzo col valore atteso; se corrispondono, inietta il nuovo valore. Restituisce sempre il valore originario.
+> [!EXAMPLE] 
+> Immagina un lucchetto fisico. Il CAS è un ingranaggio: "Se la combinazione è 0 (libero), metti a 1 (chiuso) in un solo scatto". Se provano in 10 nello stesso nanosecondo, l'hardware garantisce che solo uno scatta.
+> [!DANGER] 
+> Il Bounded Waiting non garantito. I lock base costruiti su CAS o Test-And-Set proteggono la Sezione Critica (Mutua Esclusione), ma se 100 processi fanno polling nel `while`, l'hardware sceglie pseudo-casualmente chi passa. Serve un array circolare `waiting[N]` esplicito (CAS generalizzato) per forzare il Bounded Waiting ed evitare starvation fatali.
+
+- Nodo Atomicità: L'hardware fonde inesorabilmente la lettura e la mutazione bloccando l'interferenza esterna.
+- Nodo Confronto: L'architettura inietta il dato nuovo esclusivamente se la precondizione logica combacia perfettamente.
+- Nodo Stallo: L'attesa attiva (Spinning) costringe il processore a interrogare ossessivamente la memoria bruciando cicli macchina.
+
+### Spin Lock, Mutex e Semafori
+> [!ABSTRACT] 
+> Non tutti i lucchetti sono uguali. L'hardware fornisce atomicità grezza, su cui i Sistemi Operativi costruiscono gerarchie di sincronizzazione con trade-off opposti tra spreco di CPU (Spinning) e costo di Context Switch (Sleeping).
+> [!QUOTE] 
+> Spin Lock: Busy waiting puro (`while(CAS(lock,0,1)!=0)`). Zero context switch, ma brucia cicli. Usato internamente nel Kernel sui Multicore per attese piccolissime. Dannoso in Single-core.
+> Mutex: Locking con sospensione. Se chiuso, il SO fa una `sleep()` al thread (Context Switch costoso) e lo parcheggia in una Wait Queue.
+> Semaforo Contatore (Dijkstra): Variabile $S$ con `wait()` (se $S < 0$ blocca) e `signal()` (se $S \leq 0$ sveglia un bloccato). Se inizializzato a $k>1$, permette $k$ accessi simultanei.
+> [!EXAMPLE] 
+> Spin lock è tenere il motore su di giri al semaforo aspettando il verde (consumi benzina ma scatti subito). Mutex è spegnere il motore, farsi svegliare dal clacson e riaccendere (risparmi benzina ma ci metti un secondo a ripartire).
+> [!DANGER] 
+> Usare Spin Lock in user space. Un processo utente prelazionato mentre tiene uno Spin Lock paralizzerà tutti gli altri thread core in attesa attiva fino al ritorno del suo time slice, azzerando le prestazioni della CPU.
+
+- Nodo Spinning: Il ciclo di interrogazione continua elimina la latenza di riattivazione a costo di paralisi architetturale temporanea.
+- Nodo Sospensione: Il mutex delega l'attesa allo scheduler disattivando forzatamente l'esecuzione del processo richiedente.
+- Nodo Sequenzializzazione: Inizializzando un semaforo a 0, si impone matematicamente a un thread di non procedere prima della `signal` di un altro.
+
+### Ottimizzazione della Contention e Lock-Free
+> [!ABSTRACT] 
+> Sincronizzare è lento. L'ossessione per i mutex su operazioni ad alta frequenza devasta il parallelismo. Esistono tecniche per minimizzare le contese o eliminarle alla radice tramite algoritmi Lock-Free.
+> [!QUOTE] 
+> Accumulo Locale: Invece di fare 100.000 `lock()` su una variabile globale, si incrementa un `local_counter` privato e si fa 1 sola `lock()` per sommare il totale alla fine.
+> Lock-Free Increment: `do { temp = *v; } while(CAS(v, temp, temp+1) != temp)`. Zero lock. Il thread "ruba il tempo": se il CAS fallisce, ricarica il valore nuovo e riprova.
+> [!EXAMPLE] 
+> Accumulo: Non vai in banca (mutex) ogni volta che trovi 1€ a terra. Li metti nel salvadanaio (locale) e vai in banca una volta al mese.
+> [!DANGER] 
+> Lock-Free sotto alta contesa. Se 10 thread fanno push su uno stack lock-free contemporaneamente, 9 falliranno il CAS e riproveranno in loop. Il throughput crolla sotto il livello di un singolo Mutex classico a causa dei continui retry falliti (Starvation).
+
+- Nodo Elusione: La privatizzazione del contatore disaccoppia il calcolo massivo dall'aggiornamento critico ritardato.
+- Nodo Tentativo: L'algoritmo non bloccante proietta speculativamente la modifica e la commit atomica annullando i conflitti.
+- Nodo Degrado: L'eccesso di concorrenza sui sistemi CAS-based innesca tempeste di collisioni e ritentativi perpetui.
+
+### Monitor, Condition Variables e 5 Filosofi
+> [!ABSTRACT] 
+> Il Monitor è una classe ad alto livello che garantisce strutturalmente la Mutua Esclusione. Le Variabili di Condizione colmano una lacuna: permettere a un thread di "uscire temporaneamente dal bunker" se la risorsa non è pronta, senza bloccare gli altri.
+> [!QUOTE] 
+> Operazioni CV: `pthread_cond_wait(&cond, &mutex)` (rilascia atomicamente il mutex e dorme), `signal` (sveglia 1), `broadcast` (sveglia tutti).
+> Invariante d'uso: Chiamare la wait sempre dentro un `while(!condizione)`, per difendersi dai **Spurious Wakeups** (sveglie fantasma dal SO).
+> Pattern 5 Filosofi: Array `State state[5]`. La `test(i)` controlla: `if(state[i]==HUNGRY && left!=EATING && right!=EATING)`. Senza condizione, il codice naïve (`lock(left), lock(right)`) provoca deadlock simmetrico garantito.
+> [!EXAMPLE] 
+> Entri nel Monitor della cucina (Mutex preso), ma non c'è il pane. Invece di restare fermo paralizzando il fornaio, fai `cond_wait`: esci dalla cucina e ti metti in sala d'attesa (Mutex rilasciato). Il fornaio entra, fa il pane, e chiama `signal`. Tu rientri in cucina con il Mutex.
+> [!DANGER] 
+> Signal vs Broadcast distruttivi. Nel problema dei filosofi, avere UNA singola condition variable per tutti e usare `signal` è letale: il filosofo A potrebbe finire di mangiare e svegliare il filosofo C (invece dei suoi vicini), condannando B alla starvation. Serve `broadcast` o array di condition.
+
+- Nodo Rilascio: L'operazione di attesa inietta una deroga alla mutua esclusione per disinnescare vicoli ciechi operativi.
+- Nodo Risveglio: Il broadcast irradia globalmente lo sblocco costringendo i riceventi a rivalutare individualmente il proprio predicato.
+- Nodo Spurio: L'iterazione condizionale `while` filtra a basso livello i risvegli involontari generati dal controller hardware.
+
+### Deadlock e Priority Inversion
+> [!ABSTRACT] 
+> Il parallelismo genera patologie incurabili. Il Deadlock è lo stallo circolare immortale; la Priority Inversion è il paradosso in cui un processo spazzatura paralizza il sistema vitale tenendo in ostaggio un lock.
+> [!QUOTE] 
+> Condizioni Deadlock (Coffman): 1) Mutua esclusione 2) Hold-and-wait 3) Non-preemption 4) Attesa circolare (Es. Thread1 ha M1, vuole M2; Thread2 ha M2, vuole M1).
+> Priority Inversion: Thread H (Alta prio) aspetta un Mutex tenuto da Thread L (Bassa prio). Nel frattempo, Thread M (Media prio) entra, prelaziona L (perché M > L). Risultato: H è bloccato indirettamente da M.
+> Soluzioni: Deadlock prevenuto con *Ordinamento Totale dei Lock* (prendere sempre M1 prima di M2). Prio Inversion prevenuta attivando la *Priority Inheritance* nel RTOS.
+> [!EXAMPLE] 
+> Prio Inversion (Caso Pathfinder, Marte 1997): Il task Meteo (L) legge i sensori e blocca il Bus Dati. Il task di Sistema Vitale (H) non può usare il Bus e va in panico, mentre un task secondario di Comunicazione (M) prelaziona beatamente il task Meteo. H muore per colpa di M.
+> [!DANGER] 
+> Progettare gerarchie di Lock non ordinate. Scrivere codice in cui il Modulo A prende il Lock 1 e poi il 2, e il Modulo B prende il Lock 2 e poi l'1, garantisce matematicamente che l'applicativo congelerà in produzione non appena lo scheduler interleaverà le chiamate.
+
+- Nodo Interdipendenza: Il ciclo di attesa incatena reciprocamente le risorse in un collasso logico insanabile.
+- Nodo Allineamento: La standardizzazione sequenziale delle richieste spezza a priori la chiusura del grafo delle assegnazioni.
+- Nodo Ereditarietà: L'innalzamento temporaneo della priorità di esecuzione (Inheritance) scherma il possessore del lock dalle prelazioni intermedie.
+
+## Gestione della Memoria e Paging
+
+### Binding degli Indirizzi e MMU
+> [!ABSTRACT] 
+> Un programma non sa dove risiederà in RAM. Usare indirizzi fisici assoluti limiterebbe l'esecuzione a un singolo blocco predefinito. La CPU ragiona in uno spaziotempo fittizio, mentre l'hardware piega la realtà fisica.
+> [!QUOTE] 
+> Fasi di Binding: Compilazione (Codice assoluto), Caricamento (Codice rilocabile, offset base), Esecuzione (Indirizzi Logici/Virtuali).
+> MMU (Memory Management Unit): L'hardware che traduce in tempo reale (runtime) l'indirizzo logico CPU nell'indirizzo fisico RAM.
+> [!EXAMPLE] 
+> L'indirizzo logico è il "capitolo 5" di un libro. L'indirizzo fisico è "lo scaffale 3, ripiano B" della biblioteca. La MMU è il bibliotecario velocissimo che sa in ogni istante su quale scaffale ha temporaneamente appoggiato il capitolo 5.
+> [!DANGER] 
+> Credere che array `malloc` adiacenti logicamente lo siano anche fisicamente. Grazie alla MMU, un array gigante contiguo nello spazio virtuale (logico) potrebbe essere frammentato in blocchi distanti chilometri sulla RAM di silicio reale.
+
+- Nodo Astrazione: Il binding dinamico scinde inesorabilmente l'identificatore simbolico dalla coordinata elettronica effettiva.
+- Nodo Traduzione: La circuiteria integrata della MMU intercetta silenziosamente ogni operazione sul bus dati.
+- Nodo Illusione: Il processo viene ingannato ricevendo una mappa di memoria perfettamente contigua e azzerata.
+
+### Allocazione e Frammentazione
+> [!ABSTRACT] 
+> Gestire la memoria come un lungo nastro continuo è un fallimento matematico. Allocare e deallocare processi di dimensioni diverse bucherella irreparabilmente lo spazio utilizzabile.
+> [!QUOTE] 
+> Frammentazione Esterna: Buchi vuoti troppo piccoli tra i processi. Con algoritmo *First Fit*, fino al 50% della memoria va sprecata. Compattare (spostare tutto) bloccherebbe il SO.
+> Frammentazione Interna: Lo spreco *dentro* un blocco allocato, se il programma non lo riempie totalmente.
+> [!EXAMPLE] 
+> Frammentazione Esterna: Nel parcheggio ci sono 10 posti liberi sparsi, ma arriva un autobus che occupa 3 posti adiacenti e non può parcheggiare.
+> [!DANGER] 
+> Allocazione contigua nei sistemi moderni. Nessun SO di questo secolo alloca memoria fisica in modo sequenziale puro, perché il blocco del sistema per la De-frammentazione della RAM sarebbe inaccettabile.
+
+- Nodo Dispersione: L'allocazione eterogenea lacera il nastro di memoria creando inservibili micro-segmenti vuoti.
+- Nodo Spreco: L'assegnazione rigida di blocchi genera fisiologicamente avanzi invisibili al sistema (frammentazione interna).
+
+### Paging e Indirizzamento (Matematica Hardware)
+> [!ABSTRACT] 
+> Il Paging annienta la frammentazione esterna tagliando l'universo in cubetti microscopici identici. La memoria fisica e quella logica vengono separate brutalmente in griglie sovrapponibili.
+> [!QUOTE] 
+> Page (Logica) e Frame (Fisica): Entrambi hanno la stessa identica grandezza fissa (potenze di 2, es. 4 KB o Huge Pages 2MB).
+> Traduzione Hardware: Indirizzo logico diviso in `p` (Page Number, che diventa indice per la Page Table) e `d` (Offset). La Page Table mappa `p` $\to$ `f` (Frame). L'indirizzo fisico finale è `f` incollato a `d`.
+> Formula Bit: Spazio Logico $2^m$, Pagina $2^n$. L'offset occupa $n$ bit. Il numero pagina $p$ occupa $m-n$ bit. La Page table ha $2^{m-n}$ entries.
+> [!EXAMPLE] 
+> Dividere un libro in dispense da 4 pagine. L'indice logico dice "Pagina 1, Riga 10". La Page Table dice che la dispensa 1 si trova nel faldone fisico 8. L'indirizzo fisico sarà "Faldone 8, Riga 10". (La riga, l'offset `d`, non cambia mai).
+> [!DANGER] 
+> La trappola delle Huge Pages. Usare pagine da 1GB rimpicciolisce enormemente la Page Table, alleggerendo la cache della TLB, ma massimizza la Frammentazione Interna: se un processo alloca solo 10 byte, butterà via interi 1GB di RAM.
+
+- Nodo Scissione: Il partizionamento geometrico frantuma lo spazio fisico in unità di archiviazione standardizzate.
+- Nodo Corrispondenza: La tabella di routing in memoria accoppia la coordinata virtuale al quadrante in silicio (p $\to$ f).
+- Nodo Invarianza: Lo scostamento relativo (offset) scavalca la traduzione hardware conservando intatta l'indicizzazione intra-pagina.
