@@ -475,7 +475,7 @@
 - Nodo Previsione: La media esponenziale interpola dinamicamente i burst bilanciando l'attualità.
 - Nodo Alternanza: Il quanto circolare trancia inesorabilmente i monopoli prolungati.
 - Nodo Promozione: L'invecchiamento artificiale (Aging) aumenta la priorità e scongiura la Starvation.
-
+*
 ### Code Multiple (Multilevel Queue e Feedback)
 > [!ABSTRACT] 
 > Non tutti i processi nascono uguali. I processi di sistema vanno nell'attico VIP, i processi background in cantina. Il Feedback Queue li fa salire e scendere.
@@ -752,3 +752,214 @@
 - Nodo Scissione: Il partizionamento geometrico frantuma lo spazio fisico in unità di archiviazione standardizzate.
 - Nodo Corrispondenza: La tabella di routing in memoria accoppia la coordinata virtuale al quadrante in silicio (p $\to$ f).
 - Nodo Invarianza: Lo scostamento relativo (offset) scavalca la traduzione hardware conservando intatta l'indicizzazione intra-pagina.
+
+### TLB, Access Time e Protezione (Hardware)
+> [!ABSTRACT] 
+> La paginazione raddoppia i tempi di accesso alla memoria (un accesso per leggere la Page Table, uno per il dato). La TLB (Translation Lookaside Buffer) è la cache hardware associativa che salva il sistema dal collasso prestazionale.
+> [!QUOTE] 
+> EAT (Effective Access Time): Formula matematica dell'accesso reale. $EAT = \alpha(\epsilon + T_M) + (1-\alpha)(\epsilon + 2T_M)$. $\alpha$ è l'Hit Rate, $\epsilon$ il tempo TLB, $T_M$ il tempo RAM.
+> Bit della Page Table: Valid/Invalid (legalità), Present/Absent (se 0 -> Page Fault), R/W/X (permessi), Dirty (Modificata? Se 0, si scarta senza Write-back su disco), Reference (Accesso recente).
+> [!EXAMPLE] 
+> La TLB è una rubrica telefonica rapida. Se cerchi un numero di frequente c'è (Hit), lo chiami in un secondo. Se non c'è (Miss), devi aprire l'elenco telefonico completo (Page Table in RAM), copiarlo nella rubrica, e poi chiamare.
+> [!DANGER] 
+> Context Switch e TLB Flush. Quando lo Scheduler cambia processo, la Page Table cambia (CR3 su Intel). Se la TLB non supporta gli ASID (Address Space Identifiers), va svuotata (Flush) completamente, causando un picco di miss massivo rallentando il nuovo processo al riavvio.
+
+- Nodo Caching: La matrice associativa bypassa la latenza della RAM fornendo la traduzione logico-fisica in nanosecondi.
+- Nodo Sorveglianza: I flag binari hardware intercettano e abortiscono ogni accesso illegale o incompatibile con il segmento.
+- Nodo Storicizzazione: Il processore altera silenziosamente i bit Dirty e Reference per telegrafare al Kernel le abitudini d'uso della pagina.
+
+### Architetture Intel, PAE e Strutture PT
+> [!ABSTRACT] 
+> Indirizzare grandi memorie fisiche senza far esplodere la dimensione delle Page Table in RAM richiede magie matematiche e gerarchie hardware complesse.
+> [!QUOTE] 
+> x86 (32-bit): Paging a 2 livelli (10 bit directory, 10 bit table, 12 bit offset). Usa il registro `CR3`.
+> PAE (Physical Address Extension): Trucco Intel. Aumenta le entry a 64-bit per dare 24 bit al Frame Fisico e indirizzare 64GB di RAM, pur mantenendo 32-bit virtuali (4GB per processo).
+> x86-64 (AMD64): 48 bit virtuali effettivi. Struttura gerarchica a 4 livelli (PML4 $\to$ PDPT $\to$ PD $\to$ PT).
+> Page Tables alternative: Hashed PT (gestisce spazi immensi hashando il Virtual Page Number) e Inverted PT (IPT - 1 sola tabella proporzionale alla RAM fisica, non ai processi. Lenta da cercare O(N)).
+> [!EXAMPLE] 
+> La PT Gerarchica è come l'indice di un'enciclopedia divisa in volumi. Non tieni tutta l'enciclopedia sul comodino, ma solo l'indice principale (Directory), portando in camera solo il volume che ti serve.
+> [!DANGER] 
+> La Inverted Page Table rompe la Shared Memory. Dato che c'è 1 sola entry per Frame fisico mappato a `(PID, Page)`, è impossibile mappare lo stesso Frame a due PID diversi contemporaneamente senza sovrastrutture pesanti.
+
+- Nodo Gerarchizzazione: L'indicizzazione ad albero evita di stoccare tabelle vuote frammentando la traduzione.
+- Nodo Estensione: Il trucco del PAE allarga il bus di indirizzamento fisico scavalcando il limite logico del processo a 32-bit.
+- Nodo Inversione: L'architettura IPT rovescia il paradigma mappando l'hardware reale anziché le proiezioni virtuali.
+
+### Memoria Virtuale, Demand Paging e COW
+> [!ABSTRACT] 
+> I programmi mentono: allocano Giga di memoria che non useranno mai. Il Demand Paging asseconda la menzogna caricando in RAM solo i frame che la CPU tocca fisicamente.
+> [!QUOTE] 
+> Page Fault: L'interruzione estrema. La MMU trova `Absent=1`, ferma la CPU, il Kernel cerca su disco (Swap), carica il frame, aggiorna la PT, riavvia l'istruzione. Costo: da 200 ns a 8 ms (Latenza I/O x40.000).
+> COW (Copy-On-Write): Ottimizzazione della `fork()`. Il figlio punta agli STESSI frame fisici (Read-Only) del genitore. Il SO duplica fisicamente il frame solo quando uno dei due tenta una Write (causando un Trap di protezione).
+> [!EXAMPLE] 
+> Demand Paging: Vai in biblioteca per studiare 10 libri. Invece di portarli tutti sul tavolo (Full Load), ne prendi uno alla volta solo quando ti serve (Demand Paging).
+> [!DANGER] 
+> Overhead da Page Fault. Se la probabilità di Fault $p$ supera 1 su 400.000 accessi, le prestazioni della macchina crollano di oltre il 10% a causa dei tempi geologici delle memorie magnetiche/flash.
+
+- Nodo Intercettazione: La trap asincrona delega al Kernel l'approvvigionamento del blocco mancante dal disco rigido.
+- Nodo Pigrizia: Il COW posticipa l'allocazione fisica della ramificazione fino alla mutazione esplicita del dato condiviso.
+- Nodo Riavvio: Il processore riavvolge il microcodice dell'istruzione abortita per rieseguirla con il frame installato.
+
+### Algoritmi di Sostituzione e Thrashing
+> [!ABSTRACT] 
+> Quando la RAM è piena, il Kernel deve decidere chi sacrificare (Vittima). Sbagliare significa innescare un ciclo di agonia I/O chiamato Thrashing.
+> [!QUOTE] 
+> Algoritmi: FIFO (soffre l'Anomalia di Belady: più RAM = PIÙ fault), OPT (preveggenza impossibile), LRU (Stack o Timestamp, troppo costoso HW).
+> Second Chance (Clock Algorithm): Approssimazione geniale di LRU. Un puntatore circolare guarda il `Reference Bit`. Se 1, dà seconda chance (lo mette a 0) e avanza. Se 0, uccide la pagina. Priorità assoluta a uccidere pagine `(R=0, Dirty=0)` perché non richiedono Write-Back su disco.
+> Thrashing: Livelock dove $\sum Working\ Set > RAM$. Il SO passa il 100% del tempo a fare Swap In/Out. La CPU va in idle totale.
+> [!EXAMPLE] 
+> Clock Algorithm è la ronda della guardia giurata. Se la porta è aperta (R=1), la chiude (R=0) e prosegue. Se la trova già chiusa (R=0), scardina la porta e sbatte fuori l'inquilino (Sostituzione).
+> [!DANGER] 
+> Aumentare il multiprogramming sotto Thrashing. L'errore fatale del SO: vede la CPU in idle, pensa "ci sono pochi processi attivi", e avvia NUOVI processi, aggravando matematicamente la congestione della RAM e distruggendo la macchina.
+
+- Nodo Ottimizzazione: L'espulsione predilige blocchi non modificati per annullare il costo di sincronizzazione su disco.
+- Nodo Approssimazione: L'orologio scandisce la recenza di utilizzo evitando i pesanti aggiornamenti hardware dell'LRU puro.
+- Nodo Collasso: Il difetto di RAM innesca una cascata di sostituzioni circolari che paralizza la potenza computazionale (Thrashing).
+
+### Allocazione Memoria Kernel (Slab e Buddy)
+> [!ABSTRACT] 
+> Il Kernel non usa la paginazione utente. Ha bisogno di allocazioni fisicamente contigue (per DMA/Hardware) e di azzerare la frammentazione interna per micro-strutture.
+> [!QUOTE] 
+> Buddy System: Alloca RAM fisica a blocchi di $2^n$. Se chiedi 21KB, prende 32KB e lo splitta. Se liberato, si fonde col "gemello" (Buddy). Soffre di Frammentazione Interna.
+> Slab Allocator: Lavora SOPRA il Buddy. Crea "Cache" di oggetti prefabbricati (es. `task_struct`, inode) eliminando il tempo di init e annientando la frammentazione interna.
+> [!EXAMPLE] 
+> Buddy System vende tronchi tagliandoli a metà finché basta. Slab Allocator è Ikea: compra i tronchi dal Buddy e produce centinaia di sedie già sagomate, pronte da prendere al volo.
+> [!DANGER] 
+> Pagine Bloccate per I/O (Locked). Se un controller DMA sta copiando dati di rete in una pagina fisica in RAM, il SO NON PUÒ sostituirla. Deve avere il "Lock Bit", altrimenti il disco sovrascriverà roba vitale di un altro processo.
+
+- Nodo Gemellaggio: Il partizionatore binario fonde o fende la RAM fisica per servire macro-blocchi contigui.
+- Nodo Prefabbricazione: Lo strato superiore stocca le istanze immutabili delle strutture Kernel annullando i delay di allocazione.
+- Nodo Vincolo: Il flag di blocco hardware inibisce l'espulsione della pagina garantendo l'integrità del trasferimento DMA.
+
+## Sottosistema I/O, Storage e File System
+
+### Implementazioni della Memoria nei SO Moderni
+> [!ABSTRACT] 
+> Gli algoritmi accademici (LRU puro) sono perfetti sulla carta ma inapplicabili in silicio. I SO reali usano approssimazioni aggressive basate sul Reference Bit.
+> [!QUOTE] 
+> Linux: Approximated LRU con due code: Active List e Inactive List. Il demone `kswapd` degrada le pagine da Active a Inactive, e poi espelle (Swap) quelle Inactive quando i frame liberi scendono sotto la soglia.
+> Windows: Automatic Working Set Trimmer. Taglia le pagine dei processi che eccedono il loro *Minimum Working Set* usando policy locali-globali ibride.
+> Solaris: Two-Hand Clock Algorithm. Una lancetta veloce (Scout) azzera i reference bit. Una lancetta lenta (Reaper) la segue. Se la Reaper trova un bit ancora a 0, la pagina muore. La distanza (Hand Spread) e la velocità di scan si adattano al carico.
+
+- Nodo Degradazione: Il declassamento progressivo in liste separate ammortizza i colpi di calore del sistema prevenendo espulsioni frettolose.
+- Nodo Trimming: La potatura dei working set inattivi mantiene artificialmente gonfi i pool di frame liberi a disposizione del kernel.
+
+### Storage: HDD, SSD e Scheduling del Disco
+> [!ABSTRACT] 
+> La gravità dell'I/O risiede nel ritardo meccanico. Spostare fisicamente testine magnetiche costa millisecondi, un'eternità per la CPU. L'ottimizzazione dell'ordinamento delle letture è questione di vita o di morte per il throughput.
+> [!QUOTE] 
+> Latenza HDD = Seek Time (Spostamento braccio sul Cilindro) + Rotational Latency (Attesa del Settore sotto la testina).
+> Scheduling HDD (Coda I/O):
+> - SSTF (Shortest Seek Time First): Minimizza il movimento, ma genera Starvation per i cilindri estremi.
+> - SCAN (Ascensore): Spazza da un estremo all'altro. Equo.
+> - C-SCAN / C-LOOK: Spazza in una direzione, poi torna all'inizio senza servire (circolare). Sfrutta la ZBR (Zone Bit Recording) dei dischi.
+> SSD (Solid State Drive): Zero parti mobili. Nessun Seek Time. Scrive a "Pagine", ma per sovrascrivere deve cancellare a "Blocchi" (lento). Il controller interno FTL fa Wear Leveling per non bruciare le celle Flash. Lo scheduling SSD è banale (FIFO/NOOP).
+> [!EXAMPLE] 
+> SSTF è un postino che consegna solo alle case vicine: se continua a ricevere lettere per la via attuale, la via periferica non riceverà mai la posta (Starvation). L'Ascensore (SCAN) invece va dal piano 0 al 10 e poi scende, garantendo di passare da tutti.
+> [!DANGER] 
+> Fare Scheduling C-SCAN su un disco SSD. I vecchi kernel che non riconoscevano gli SSD accodavano le richieste per ottimizzare il movimento di una testina meccanica inesistente, sprecando solo cicli CPU.
+
+### Architettura File System: Inode e Tabelle
+> [!ABSTRACT] 
+> Un File non ha un nome. Ha un Inode Number. Il nome è solo una stringa in una Directory che punta a quell'Inode. Aprire un file costruisce un ponte a tre livelli tra il Processo e il Disco.
+> [!QUOTE] 
+> Le 3 Tabelle dell'Open:
+> 1. Per-Process File Descriptor Table (Nel PCB): Mappa un intero (`fd`) a una entry della Open File Table.
+> 2. System-wide Open File Table: Entry creata ad ogni singola `open()`. Contiene il flag di accesso e, soprattutto, l'**Offset corrente (File Pointer)**.
+> 3. In-Memory Inode Table: Copia in RAM dei metadati del file (proprietario, size, puntatori ai blocchi). Condivisa.
+> Struttura Inode: Puntatori ai blocchi dati divisi in: Diretti (12 blocchi), Indiretto Singolo (punta a un blocco di puntatori), Doppio (indice di indice) e Triplo.
+> [!EXAMPLE] 
+> Array di Puntatori nell'Inode. Se i blocchi sono di 4KB e i puntatori di 4B, un Indiretto Singolo mappa 1024 blocchi (4MB). Un Triplo Indiretto mappa $1024^3$ blocchi (4 Terabyte). Tutto partendo da un FCB di pochi byte.
+> [!DANGER] 
+> Ignorare la System-wide Open File Table dopo una `fork()`. Il figlio eredita il File Descriptor e PUNTA ALLA STESSA ENTRY nella System-wide table. Se il figlio fa `read()` di 10 byte, sposta l'Offset Condiviso. Se il Padre fa `read()` dopo, partirà dall'undicesimo byte! Per leggere dall'inizio serve resettare l'offset con `lseek()`.
+
+- Nodo Scissione Nomi: La separazione assoluta tra il catalogo umano (Directory) e la struttura di controllo (Inode) permette la creazione di Hard Link (più nomi, stesso Inode, stessi dati fisici).
+- Nodo Derivazione: La diramazione gerarchica dei puntatori (Indiretti) ottimizza i file piccoli con cache O(1) e rende infinitamente espandibili quelli immensi.
+
+### Hard Link vs Soft Link e Sparse Files
+> [!ABSTRACT] 
+> Non tutto lo spazio dichiarato su disco è realmente occupato fisicamente. I Sistemi Operativi usano trucchi di mapping per eludere il calcolo lineare.
+> [!QUOTE] 
+> Hard Link: `ln file1 file2`. Due path diversi che puntano allo STESSO Inode. Cancellare `file1` non distrugge i dati, finché il *link count* dell'Inode non scende a zero. (Vietato su directory per evitare cicli).
+> Symbolic (Soft) Link: File speciale che contiene il testo del path di destinazione. Ha un proprio Inode. Se il target muore, diventa "dangling" (rotto).
+> Sparse File: Creato facendo `lseek()` oltre la fine del file e scrivendo un byte. Il FS segna un "buco" nei metadati. Un `ls -l` segnerà 1 GB di grandezza, ma `du -sh` (spazio fisico su disco) segnerà pochi Kilobyte allocati.
+
+- Nodo Ologramma: L'allocazione parsimoniosa dei buchi (Hole) annienta il tempo di scrittura e il consumo su disco di matrici dati interamente composte da zeri.
+
+### Affidabilità: Boot, Journaling e RAID
+> [!ABSTRACT] 
+> I dischi si rompono e la corrente salta. Senza ridondanza e log di commit, un blackout durante un aggiornamento di un Inode disintegra la partizione.
+> [!QUOTE] 
+> MBR vs UEFI/GPT: Il BIOS Legacy leggeva 512 byte (MBR) per avviare il bootloader limitando le partizioni. UEFI usa GPT con indirizzi a 64-bit, partizioni infinite e l'EFI System Partition (ESP).
+> Journaling (FS Log): Prima di mutare dati o metadati in blocco, il FS scrive l'intenzione su un "Journal". Se il PC crasha, al riavvio rilegge il Journal: se il log era completo lo applica (Redo), se rotto lo annulla (Undo). Addio ai controlli FS infiniti (`fsck`).
+> RAID: 
+> - RAID 0: Striping (Velocità 2x, Affidabilità zero. Se muore un disco si perde tutto).
+> - RAID 1: Mirroring (Duplicato 1:1, Costo spazio 2x).
+> - RAID 5: Striping con Parità Distribuita. Tolleranza a 1 guasto. Overhead in scrittura per il calcolo bit di parità (XOR).
+> - RAID 6: Doppia parità. Sopravvive a 2 dischi rotti.
+> [!DANGER] 
+> Ricostruzione RAID 5. Se un disco di un RAID 5 si rompe, il sistema entra in degrado. Per ricostruire i dati sul disco nuovo, deve leggere a pieno carico TUTTI gli altri dischi. Lo stress è immenso e la probabilità che muoia un *secondo* disco durante la rebuild (polverizzando definitivamente i dati) è molto alta. Da qui l'importanza del RAID 6.
+
+- Nodo Resilienza: Il replay semantico delle transazioni incomplete sul file system evita la corruzione fatale dell'albero delle directory.
+- Nodo Calcolo: L'inserimento logico della doppia parità sacrifica cicli di calcolo per blindare la sopravvivenza matematica contro guasti catastrofici multipli.
+- Nodo Striping: L'interleaving spaziale dei dati amplifica il throughput I/O aggregando la banda meccanica dei dischi isolati.
+
+### Metodi di Allocazione e Spazio Libero
+> [!ABSTRACT] 
+> Salvare un file non significa scrivere un nastro continuo. I blocchi vengono sparsi sul disco per evitare la frammentazione. Il metodo di allocazione decide il compromesso tra velocità di scansione sequenziale e velocità di accesso casuale.
+> [!QUOTE] 
+> Allocazione Contigua: Dati scritti in blocchi fisicamente adiacenti. Accesso random $O(1)$, zero latenza. Rischio: Frammentazione Esterna estrema.
+> Allocazione Concatenata (Linked): Ogni blocco contiene un puntatore al successivo. Niente frammentazione esterna. Accesso random impossibile senza leggere tutto in sequenza. La variante **FAT (File Allocation Table)** risolve spostando tutti i puntatori in una tabella centrale in RAM.
+> Allocazione Indicizzata: L'Inode punta ai blocchi. Accesso random $O(1)$. Metodo ibrido Unix: 12 puntatori diretti, 1 Indiretto Singolo (blocco di puntatori), Doppio e Triplo.
+> Gestione Spazio Libero: Bitmap (vettore di bit 0/1, costa molta RAM ma velocizza la ricerca di blocchi contigui) o Linked List (nessun overhead RAM ma lento).
+> [!EXAMPLE] 
+> La FAT è come la caccia al tesoro: ogni blocco ti dice dove trovare il prossimo. L'Allocazione Indicizzata è l'Indice di un libro: vai alla pagina iniziale e sai esattamente dove sono tutti i capitoli senza doverli cercare uno per uno.
+> [!DANGER] 
+> Limitazioni della FAT. Se un disco è da 2TB e si usa FAT32 (puntatori a 32-bit), la FAT in RAM diventa gigantesca. Mantenere la tabella in cache diventa critico, e se un solo settore della FAT si corrompe, l'intero File System diventa irrecuperabile perché si perde la concatenazione logica di ogni singolo file.
+
+- Nodo Contiguità: La linearità spaziale annienta il seek time meccanico ma impone rilocazioni costose per file in espansione.
+- Nodo Estensione: L'uso dei puntatori indiretti garantisce velocità immediata per i file microscopici e capienza teoricamente infinita per i database giganti.
+
+### VFS, Double Caching ed Evoluzione Ext
+> [!ABSTRACT] 
+> Il Kernel non parla con i dischi fisici. Parla con un'interfaccia virtuale che traduce operazioni astratte in comandi hardware specifici per ogni formato logico.
+
+> [!QUOTE] 
+> VFS (Virtual File System): Strato di astrazione. Fornisce l'oggetto `Vnode` al posto dell'Inode specifico, permettendo al kernel di montare partizioni ext4, NTFS e FAT32 contemporaneamente sotto lo stesso albero (root `/`).
+> Famiglia Ext: Ext2 introduce i Block Groups per la località (dati vicini all'Inode). Ext3 aggiunge il Journaling. Ext4 aggiunge gli *Extents* (allocate blocchi contigui anziché block-by-block) e la Delayed Allocation.
+> Unified Page Cache: Risolve il problema letale del **Double Caching**. Prima esistevano la Buffer Cache (Virtual Memory) e la FS Cache (per I/O). Ora `read/write` e `mmap` puntano alle STESSE pagine fisiche in RAM gestite dal memory manager.
+
+
+> [!EXAMPLE] 
+> Il VFS è il traduttore universale. Il processo utente dice "Apri file", e il VFS lo traduce al volo in "Esegui routine Ext4_Open" o "Esegui routine NTFS_Open" a seconda di quale disco è stato montato in quella specifica cartella.
+
+
+> [!DANGER] 
+> La piaga del Double Caching. Lasciare che la memoria virtuale (`mmap`) e il modulo di I/O standard (`read/write`) usino due cache separate per lo stesso file porta inevitabilmente a un'incoerenza dei dati in memoria, oltre a dimezzare la RAM utile del sistema.
+
+- Nodo Astrazione: Il VFS disaccoppia irrevocabilmente l'interfaccia utente POSIX dall'implementazione fisica dei driver di partizione.
+- Nodo Unificazione: La fusione delle cache in un'unica Page Cache globale garantisce l'atomicità e la coerenza degli accessi eterogenei allo stesso dato.
+
+### Dispositivi I/O, Driver e Interrupt
+> [!ABSTRACT] 
+> Il mondo esterno è lento, caotico e diviso in tipologie hardware incompatibili. Il Kernel deve incapsulare questa anarchia in flussi standard di byte e gestirla tramite interruzioni asincrone.
+
+
+> [!QUOTE] 
+> Dispositivi a Blocchi (Block Devices): HDD, SSD. Consentono accesso casuale tramite LBA (Logical Block Address). Supportano il `seek` e sono gestiti pesantemente dalla Buffer Cache.
+> Dispositivi a Carattere (Char Devices): Tastiera, Mouse, Seriale. Flusso sequenziale di byte. Zero caching strutturato, zero possibilità di fare `seek`.
+> Driver (I/O Control Layer): Software in Kernel Mode. Riceve richieste, avvia DMA verso l'hardware, e mette il processo in attesa (Waiting).
+> Interrupt: L'hardware di I/O finisce il lavoro e "spara" un segnale elettrico. L'Interrupt Handler della CPU ferma l'esecuzione corrente e risveglia il driver.
+> TTY e Line Discipline: I Terminali applicano una "disciplina" ai byte grezzi: gestiscono il backspace, convertono i Carriage Return e intercettano `Ctrl+C` per iniettare segnali software (`SIGINT`).
+
+
+> [!EXAMPLE] 
+> Il Block Device è un magazzino Amazon (puoi andare esattamente allo scaffale B3 e prendere un pacco). Il Char Device è un nastro trasportatore in fabbrica (prendi il pezzo che passa in quel preciso momento, non puoi tornare indietro). L'`ioctl` è il telecomando per fare operazioni hardware fuori standard (es. "Apri vassoio del CD").
+
+
+> [!DANGER] 
+> Driver in Kernel Space (Ring 0). Inserire un Driver in Kernel Mode lo fa viaggiare alla massima velocità verso l'hardware, ma se lo sviluppatore del driver inserisce un pointer buggato, distruggerà l'intero sistema operativo generando un Kernel Panic irreversibile.
+
+- Nodo Interruzione: L'architettura asincrona delega il carico del trasferimento all'hardware isolando i core della CPU dai ritardi meccanici.
+- Nodo Grezzo: La Line Discipline inietta logica di interazione umana (segnali, cancellazioni testuali) all'interno di un flusso binario altrimenti inintelligibile.
+- Nodo Passpartout: L'interfaccia `ioctl` garantisce una backdoor standardizzata per inviare istruzioni proprietarie direttamente al firmware del controller.
