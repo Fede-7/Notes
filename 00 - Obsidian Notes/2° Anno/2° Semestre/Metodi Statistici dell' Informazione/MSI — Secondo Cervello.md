@@ -316,6 +316,78 @@ status: in-progress
 
 ---
 
+---
+
+# 🔵 PILASTRO IV — Variabili Aleatorie Continue
+
+## L'Abisso del Continuo: CDF e PDF
+> [!ABSTRACT] 
+> Nel dominio continuo, la probabilità di un singolo punto è rigorosamente zero. La probabilità diventa una massa distribuita su un intervallo, calcolabile solo tramite l'area sottesa a una curva di densità.
+> [!QUOTE] 
+> Funzione di Distribuzione Cumulativa (CDF): $F_X(x) = P(X \leq x)$. È universale, monotona crescente, vale 0 a $-\infty$ e 1 a $+\infty$.
+> Densità di Probabilità (PDF): $f_X(x) = \frac{d}{dx} F_X(x)$.
+> Probabilità di un intervallo: $P(a \leq X \leq b) = \int_a^b f_X(x) \, dx = F_X(b) - F_X(a)$.
+> Valore Atteso (tramite somme di Riemann): $E[X] = \int_{-\infty}^{+\infty} x f_X(x) \, dx$.
+> [!EXAMPLE] 
+> Quantizzazione: Shannon dimostrò che digitalizzare dati analogici richiede di raggrupparli. Una variabile continua viene approssimata dividendo il supporto in intervalli di ampiezza $\delta$. Al limite per $\delta \to 0$, la sommatoria discreta diventa l'integrale di Riemann.
+> [!DANGER] 
+> L'errore letale all'esame: dire che $f_X(x)$ è una probabilità. **LA PDF NON È UNA PROBABILITÀ!** È una densità. Può tranquillamente assumere valori maggiori di 1 (es. un'Uniforme su $[0, 0.1]$ ha densità costante pari a 10).
+
+- Nodo Zero: Un evento con probabilità 0 non è fisicamente impossibile nel continuo; è semplicemente un punto senza larghezza, ergo senza area.
+
+## Distribuzioni Continue Fondamentali
+
+### Uniforme Continua $U(a,b)$
+> [!ABSTRACT] 
+> Spande la probabilità in modo perfettamente omogeneo su un intervallo chiuso. È il modello dell'ignoranza massima e dell'errore di quantizzazione.
+> [!QUOTE] 
+> PDF: $f_X(x) = \frac{1}{b-a}$ per $x \in [a,b]$.
+> CDF: Rampa lineare da 0 a 1 ($F_X(x) = \frac{x-a}{b-a}$).
+> Media: $E[X] = \frac{a+b}{2}$ (Punto medio).
+> Varianza: $\text{Var}(X) = \frac{(b-a)^2}{12}$.
+> [!EXAMPLE] 
+> Rumore di Quantizzazione: In un convertitore analogico-digitale (ADC), l'errore commesso per arrotondamento è modellato come Uniforme tra $-\Delta/2$ e $+\Delta/2$. La potenza del rumore di quantizzazione è la varianza: $\Delta^2/12$.
+
+- Nodo Piattezza: La varianza dell'Uniforme è la base della teoria della codifica analogico-digitale.
+
+### Esponenziale $\text{Exp}(\lambda)$
+> [!ABSTRACT] 
+> L'estensione continua della distribuzione Geometrica. È l'unica variabile continua che gode della proprietà di assenza di memoria (Markov).
+> [!QUOTE] 
+> PDF: $f_X(x) = \lambda e^{-\lambda x}$ (per $x \geq 0$).
+> CDF: $F_X(x) = 1 - e^{-\lambda x}$.
+> Media: $E[X] = \frac{1}{\lambda}$.
+> [!EXAMPLE] 
+> Tempi di attesa: Modella il tempo prima del decadimento di una particella radioattiva o il tempo tra due arrivi consecutivi in un server (coda di Poisson).
+> [!DANGER] 
+> Attenzione all'inganno di $\lambda$: Se $\lambda$ (tasso di guasto/arrivo) è molto alto, il tempo medio di attesa $E[X] = 1/\lambda$ è bassissimo. La curva decade istantaneamente.
+
+- Nodo Amnesia Continua: Il fatto che l'autobus non sia passato negli ultimi 10 minuti non cambia la distribuzione del tempo rimanente prima che passi.
+
+### Laplace e l'Abisso di Cauchy
+> [!ABSTRACT] 
+> Laplace modella rumori asimmetrici con code più "pesanti" dell'esponenziale; Cauchy distrugge la matematica stessa avendo momento d'inerzia infinito.
+> [!QUOTE] 
+> Laplace (Doppia Esponenziale): $f_X(x) = \frac{\lambda}{2} e^{-\lambda|x|}$. Ha media 0 e varianza $\frac{2}{\lambda^2}$. Modella il rumore impulsivo (es. fulmini, scariche atmosferiche).
+> Distribuzione di Cauchy: $f_X(x) = \frac{1}{\pi(1+x^2)}$.
+> [!EXAMPLE] 
+> L'Anomalia di Cauchy: Modella la risonanza fisica. Le code decadono talmente lentamente che l'integrale della varianza diverge: $E[X^2] = \infty$. La deviazione standard non esiste. La media campionaria non convergerà MAI (legge dei grandi numeri infranta).
+
+- Nodo Code Pesanti: Più le code decadono lentamente, più i valori estremi (outlier) dominano il fenomeno fisico.
+
+## PDF Condizionata nel Continuo
+> [!ABSTRACT] 
+> Condizionare nel continuo significa ritagliare la PDF originale sull'intervallo dell'evento noto e amplificarla affinché l'area ritorni a valere 1.
+> [!QUOTE] 
+> Data $P(A) > 0$:
+> $f_{X|A}(x) = \begin{cases} \frac{f_X(x)}{P(A)} & x \in A \\ 0 & x \notin A \end{cases}$
+> [!EXAMPLE] 
+> Triangolo Mozzato: Se ho una densità che va da -3 a 3 e condiziono all'evento $A = \{X \leq 0\}$ (la cui probabilità è 0.5), la densità per $x > 0$ si polverizza, mentre la densità nella parte negativa si raddoppia (diviso per 0.5 = moltiplicato per 2) per conservare l'area totale.
+
+- Nodo Lente di Ingrandimento: Il condizionamento zooma sull'intervallo dell'evento e ne dilata verticalmente la densità.
+
+---
+
 # 🔵 PILASTRO V — Vettori, Trasformazioni e Teoremi Limite
 
 ## Estensione Bivariata e Vettori Aleatori
@@ -414,71 +486,3 @@ status: in-progress
 
 - Nodo Baricentro vs Cima: Il MAP si posiziona sulla vetta del monte (più facile da calcolare tramite derivata). L'MMSE cerca il baricentro del monte (richiede l'integrale). L'MMSE garantirà sempre (per definizione) l'errore quadratico medio inferiore.
 ---
-
-# 🔵 PILASTRO IV — Variabili Aleatorie Continue
-
-## L'Abisso del Continuo: CDF e PDF
-> [!ABSTRACT] 
-> Nel dominio continuo, la probabilità di un singolo punto è rigorosamente zero. La probabilità diventa una massa distribuita su un intervallo, calcolabile solo tramite l'area sottesa a una curva di densità.
-> [!QUOTE] 
-> Funzione di Distribuzione Cumulativa (CDF): $F_X(x) = P(X \leq x)$. È universale, monotona crescente, vale 0 a $-\infty$ e 1 a $+\infty$.
-> Densità di Probabilità (PDF): $f_X(x) = \frac{d}{dx} F_X(x)$.
-> Probabilità di un intervallo: $P(a \leq X \leq b) = \int_a^b f_X(x) \, dx = F_X(b) - F_X(a)$.
-> Valore Atteso (tramite somme di Riemann): $E[X] = \int_{-\infty}^{+\infty} x f_X(x) \, dx$.
-> [!EXAMPLE] 
-> Quantizzazione: Shannon dimostrò che digitalizzare dati analogici richiede di raggrupparli. Una variabile continua viene approssimata dividendo il supporto in intervalli di ampiezza $\delta$. Al limite per $\delta \to 0$, la sommatoria discreta diventa l'integrale di Riemann.
-> [!DANGER] 
-> L'errore letale all'esame: dire che $f_X(x)$ è una probabilità. **LA PDF NON È UNA PROBABILITÀ!** È una densità. Può tranquillamente assumere valori maggiori di 1 (es. un'Uniforme su $[0, 0.1]$ ha densità costante pari a 10).
-
-- Nodo Zero: Un evento con probabilità 0 non è fisicamente impossibile nel continuo; è semplicemente un punto senza larghezza, ergo senza area.
-
-## Distribuzioni Continue Fondamentali
-
-### Uniforme Continua $U(a,b)$
-> [!ABSTRACT] 
-> Spande la probabilità in modo perfettamente omogeneo su un intervallo chiuso. È il modello dell'ignoranza massima e dell'errore di quantizzazione.
-> [!QUOTE] 
-> PDF: $f_X(x) = \frac{1}{b-a}$ per $x \in [a,b]$.
-> CDF: Rampa lineare da 0 a 1 ($F_X(x) = \frac{x-a}{b-a}$).
-> Media: $E[X] = \frac{a+b}{2}$ (Punto medio).
-> Varianza: $\text{Var}(X) = \frac{(b-a)^2}{12}$.
-> [!EXAMPLE] 
-> Rumore di Quantizzazione: In un convertitore analogico-digitale (ADC), l'errore commesso per arrotondamento è modellato come Uniforme tra $-\Delta/2$ e $+\Delta/2$. La potenza del rumore di quantizzazione è la varianza: $\Delta^2/12$.
-
-- Nodo Piattezza: La varianza dell'Uniforme è la base della teoria della codifica analogico-digitale.
-
-### Esponenziale $\text{Exp}(\lambda)$
-> [!ABSTRACT] 
-> L'estensione continua della distribuzione Geometrica. È l'unica variabile continua che gode della proprietà di assenza di memoria (Markov).
-> [!QUOTE] 
-> PDF: $f_X(x) = \lambda e^{-\lambda x}$ (per $x \geq 0$).
-> CDF: $F_X(x) = 1 - e^{-\lambda x}$.
-> Media: $E[X] = \frac{1}{\lambda}$.
-> [!EXAMPLE] 
-> Tempi di attesa: Modella il tempo prima del decadimento di una particella radioattiva o il tempo tra due arrivi consecutivi in un server (coda di Poisson).
-> [!DANGER] 
-> Attenzione all'inganno di $\lambda$: Se $\lambda$ (tasso di guasto/arrivo) è molto alto, il tempo medio di attesa $E[X] = 1/\lambda$ è bassissimo. La curva decade istantaneamente.
-
-- Nodo Amnesia Continua: Il fatto che l'autobus non sia passato negli ultimi 10 minuti non cambia la distribuzione del tempo rimanente prima che passi.
-
-### Laplace e l'Abisso di Cauchy
-> [!ABSTRACT] 
-> Laplace modella rumori asimmetrici con code più "pesanti" dell'esponenziale; Cauchy distrugge la matematica stessa avendo momento d'inerzia infinito.
-> [!QUOTE] 
-> Laplace (Doppia Esponenziale): $f_X(x) = \frac{\lambda}{2} e^{-\lambda|x|}$. Ha media 0 e varianza $\frac{2}{\lambda^2}$. Modella il rumore impulsivo (es. fulmini, scariche atmosferiche).
-> Distribuzione di Cauchy: $f_X(x) = \frac{1}{\pi(1+x^2)}$.
-> [!EXAMPLE] 
-> L'Anomalia di Cauchy: Modella la risonanza fisica. Le code decadono talmente lentamente che l'integrale della varianza diverge: $E[X^2] = \infty$. La deviazione standard non esiste. La media campionaria non convergerà MAI (legge dei grandi numeri infranta).
-
-- Nodo Code Pesanti: Più le code decadono lentamente, più i valori estremi (outlier) dominano il fenomeno fisico.
-
-## PDF Condizionata nel Continuo
-> [!ABSTRACT] 
-> Condizionare nel continuo significa ritagliare la PDF originale sull'intervallo dell'evento noto e amplificarla affinché l'area ritorni a valere 1.
-> [!QUOTE] 
-> Data $P(A) > 0$:
-> $f_{X|A}(x) = \begin{cases} \frac{f_X(x)}{P(A)} & x \in A \\ 0 & x \notin A \end{cases}$
-> [!EXAMPLE] 
-> Triangolo Mozzato: Se ho una densità che va da -3 a 3 e condiziono all'evento $A = \{X \leq 0\}$ (la cui probabilità è 0.5), la densità per $x > 0$ si polverizza, mentre la densità nella parte negativa si raddoppia (diviso per 0.5 = moltiplicato per 2) per conservare l'area totale.
-
-- Nodo Lente di Ingrandimento: Il condizionamento zooma sull'intervallo dell'evento e ne dilata verticalmente la densità.
