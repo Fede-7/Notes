@@ -26,14 +26,14 @@ status: in-progress
 > L'informazione nasce esclusivamente dall'incertezza. Se non c'è incertezza a priori, non c'è informazione da trasferire. La probabilità è il framework matematico che modella l'incertezza.
 
 > [!QUOTE] 
-> Spazio dei Campioni ($\Omega$): L'insieme di tutti i possibili esiti di un esperimento. Può essere finito (moneta: $\{T,C\}$), numerabile (pacchetti in coda: $\mathbb{N}_0$) o continuo (rumore term[...]
+> Spazio dei Campioni ($\Omega$): L'insieme di tutti i possibili esiti di un esperimento. Può essere finito (moneta: $\{T,C\}$), numerabile (pacchetti in coda: $\mathbb{N}_0$) o continuo (rumore termico: $\mathbb{R}$).
 > Evento: Un sottoinsieme di $\Omega$.
 
 > [!EXAMPLE] 
-> Telecomunicazioni vs Informatica: Entrambe trattano l'informazione. Le telecomunicazioni la trasferiscono *nello spazio* (canale rumoroso), l'informatica la trasferisce *nel tempo* (hard disk, compr[...]
+> Telecomunicazioni vs Informatica: Entrambe trattano l'informazione. Le telecomunicazioni la trasferiscono *nello spazio* (canale rumoroso), l'informatica la trasferisce *nel tempo* (hard disk, compressione).
 
 > [!DANGER] 
-> Confondere probabilità zero con impossibilità fisica. In uno spazio continuo o infinito numerabile, un evento con probabilità 0 (es. estrarre esattamente $\pi$ da un generatore continuo) può com[...]
+> Confondere probabilità zero con impossibilità fisica. In uno spazio continuo o infinito numerabile, un evento con probabilità 0 (es. estrarre esattamente $\pi$ da un generatore continuo) può comunque verificarsi.
 
 - Nodo Radice: L'incertezza è la valuta dell'informazione.
 - Nodo Evento: Un evento è univoco, ma la proposizione linguistica che lo descrive no (riformulare l'evento è il 90% del lavoro).
@@ -64,7 +64,7 @@ status: in-progress
 ## Approccio Frequentistico vs Assiomatico
 
 > [!ABSTRACT] 
-> L'approccio frequentistico definisce $P(A) = \lim_{n \to \infty} \frac{N_A}{n}$. È intuitivo ma circolarmente difettoso (il limite richiede indipendenza, che è un concetto probabilistico). L'appro[...]
+> L'approccio frequentistico definisce $P(A) = \lim_{n \to \infty} \frac{N_A}{n}$. È intuitivo ma circolarmente difettoso (il limite richiede indipendenza, che è un concetto probabilistico). L'approccio assiomatico salva la teoria imponendo regole insiemistiche.
 
 > [!QUOTE] 
 > Assiomi di Kolmogorov per lo Spazio di Probabilità $(\Omega, \mathcal{E}, P)$:
@@ -74,7 +74,7 @@ status: in-progress
 > 3.5. $\sigma$-Additività: Valida per successioni numerabili di eventi disgiunti.
 
 > [!EXAMPLE] 
-> Misurare con l'Ape: La probabilità è una misura geometrica anomala. In una stanza di 50mq, ogni mq vale geometricamente $1/50$. Ma se metti un fiore in un angolo, la "probabilità" di trovarvi un'[...]
+> Misurare con l'Ape: La probabilità è una misura geometrica anomala. In una stanza di 50mq, ogni mq vale geometricamente $1/50$. Ma se metti un fiore in un angolo, la "probabilità" di trovarvi un'ape è sbilanciata.
 
 > [!DANGER] 
 > Usare l'approccio frequentistico (rapporto di casi) se gli eventi NON sono equiprobabili. Un dado truccato rende invalido $P(E) = \frac{|E|}{|\Omega|}$.
@@ -109,7 +109,7 @@ status: in-progress
 > - Differenza: $P(A \setminus B) = P(A) - P(A \cap B)$
 
 > [!EXAMPLE] 
-> Dimostrazione Subadditività: Scomponiamo $A \cup B$ negli insiemi disgiunti $A$ e $(B \setminus A)$. Per l'Assioma 3: $P(A \cup B) = P(A) + P(B \setminus A)$. Sostituendo la differenza, si ottiene [...]
+> Dimostrazione Subadditività: Scomponiamo $A \cup B$ negli insiemi disgiunti $A$ e $(B \setminus A)$. Per l'Assioma 3: $P(A \cup B) = P(A) + P(B \setminus A)$. Sostituendo la differenza, si ottiene la regola.
 
 - Nodo Geometria: La probabilità di un'unione sottrae sempre l'intersezione per non contarla due volte.
 
@@ -123,7 +123,7 @@ status: in-progress
 > Legge Composta: $P(A \cap B) = P(A)P(B \mid A) = P(B)P(A \mid B)$
 
 > [!EXAMPLE] 
-> Il Database: Vuoi $P(\text{peso}>70 \mid \text{altezza}>170)$. Prendi il database di 60 milioni di italiani, applichi il filtro `altezza > 170`, e dividi il numero di persone $>70kg$ rimaste per la [...]
+> Il Database: Vuoi $P(\text{peso}>70 \mid \text{altezza}>170)$. Prendi il database di 60 milioni di italiani, applichi il filtro `altezza > 170`, e dividi il numero di persone $>70kg$ rimaste per la dimensione del database filtrato.
 
 > [!DANGER] 
 > Credere che $P(A \mid B)$ sia uguale a $P(B \mid A)$. "Probabilità di avere l'ombrello dato che piove" è diversa da "Probabilità che piova dato che hai l'ombrello".
@@ -145,7 +145,7 @@ status: in-progress
 
 > [!DANGER] 
 > Indipendenza a coppie $\neq$ Indipendenza Congiunta! 
-> **Controesempio del Bit di Parità**: $X_3 = X_1 \oplus X_2$. $X_1$ e $X_2$ sono indipendenti. Anche le altre coppie lo sono. Ma se conosci $X_1$ e $X_2$, $X_3$ è *determinato* (probabilità 1). La[...]
+> **Controesempio del Bit di Parità**: $X_3 = X_1 \oplus X_2$. $X_1$ e $X_2$ sono indipendenti. Anche le altre coppie lo sono. Ma se conosci $X_1$ e $X_2$, $X_3$ è *determinato* (probabilità 1). La congiunta non è il prodotto delle marginali.
 
 - Nodo Moltiplicazione: L'intersezione di eventi indipendenti è il semplice prodotto delle marginali.
 - Nodo Inganno: L'indipendenza su scala inferiore non garantisce l'indipendenza strutturale globale.
@@ -162,7 +162,7 @@ status: in-progress
 > $P(\text{esattamente uno}) = \sum_{i=1}^n p_i \prod_{j \neq i} (1 - p_j)$
 
 > [!EXAMPLE] 
-> Paradosso del Compleanno: Invece di calcolare la probabilità complessa che due, tre o dieci persone condividano il compleanno, si calcola la probabilità che *tutti* siano diversi: $1 - (\frac{365}[...]
+> Paradosso del Compleanno: Invece di calcolare la probabilità complessa che due, tre o dieci persone condividano il compleanno, si calcola la probabilità che *tutti* siano diversi: $1 - (\frac{365}{365} \cdot \frac{364}{365} \cdots)$
 
 - Nodo Specchio: La negazione inverte il problema trasformandolo da impossibile a banale.
 
@@ -180,7 +180,7 @@ status: in-progress
 > [!EXAMPLE] 
 > Il Dado Truccato: Ho 2 dadi onesti e 1 truccato (esce 6 al 50%). Pesco a caso e lancio: esce 6. Qual è la probabilità di aver pescato il truccato?
 > A Priori: $P(T) = 1/3 \approx 33\%$.
-> A Posteriori: $P(T \mid \text{esce 6}) = \frac{P(\text{6} \mid T)P(T)}{P(\text{6})} = \frac{(1/2)(1/3)}{(1/6)(2/3) + (1/2)(1/3)} = 60\%$. L'evidenza empirica ha aggiornato la credenza dal 33% al 60%[...]
+> A Posteriori: $P(T \mid \text{esce 6}) = \frac{P(\text{6} \mid T)P(T)}{P(\text{6})} = \frac{(1/2)(1/3)}{(1/6)(2/3) + (1/2)(1/3)} = 60\%$. L'evidenza empirica ha aggiornato la credenza dal 33% al 60%.
 
 > [!DANGER] 
 > Omettere il denominatore della Probabilità Totale. Il Teorema di Bayes è inutile se non si pesa l'effetto contro tutte le altre cause possibili della partizione.
@@ -218,7 +218,7 @@ status: in-progress
 > Media degli stipendi: Se 9 operai guadagnano 30k e 1 CEO guadagna 300k, la media è 57k. Ma 57k non rappresenta nessuno!
 
 > [!DANGER] 
-> Confondere la media statistica (pesata) con la media aritmetica. Coincidono **esclusivamente** nella distribuzione Uniforme. Inoltre, la media è drasticamente sensibile ai valori anomali (Outlier);[...]
+> Confondere la media statistica (pesata) con la media aritmetica. Coincidono **esclusivamente** nella distribuzione Uniforme. Inoltre, la media è drasticamente sensibile ai valori anomali (Outlier); per questo la statura media ha senso, ma la ricchezza media inganna.
 
 - Nodo Baricentro: Il valore atteso subisce un tiraggio inerziale dalle masse di probabilità estreme.
 
@@ -287,7 +287,7 @@ status: in-progress
 > Roulette: Scommessa sul rosso ($p=18/37$). Tempo medio per vincere: $1/p = 37/18 \approx 2.06$ giocate.
 
 > [!DANGER] 
-> Il Fallacy del Giocatore (Assenza di Memoria): $P(X > n+m \mid X > n) = P(X > m)$. Se lanci una moneta 10 volte ed esce croce, la probabilità di successo all'undicesimo è SEMPRE $1/2$. Il passato [...]
+> Il Fallacy del Giocatore (Assenza di Memoria): $P(X > n+m \mid X > n) = P(X > m)$. Se lanci una moneta 10 volte ed esce croce, la probabilità di successo all'undicesimo è SEMPRE $1/2$. Il passato non conta.
 
 - Nodo Amnesia: Il processo rinasce vergine ad ogni istante temporale. 
 - Nodo Attesa: L'inverso della probabilità genera il raggio medio di attesa del successo.
@@ -303,7 +303,7 @@ status: in-progress
 > [!EXAMPLE] 
 > Se $Y = X^2$, non serve mappare $X \to Y$ (caso molti-a-uno, dove le probabilità collassano). Sommi semplicemente $x^2 \cdot p_X(x)$.
 
-- Nodo Biiettivo vs Molti-a-uno: Una trasformazione biiettiva fa un semplice *reflagging* delle etichette (le probabilità restano intatte). Una molti-a-uno somma le probabilità degli eventi che coll[...]
+- Nodo Biiettivo vs Molti-a-uno: Una trasformazione biiettiva fa un semplice *reflagging* delle etichette (le probabilità restano intatte). Una molti-a-uno somma le probabilità degli eventi che collassano sullo stesso output.
 
 ## Varianza, Dispersione e Disuguaglianze
 
@@ -318,12 +318,19 @@ status: in-progress
 > Disuguaglianza di Markov ($Y \geq 0$): $P(Y \geq \delta) \leq \frac{E[Y]}{\delta}$
 > Disuguaglianza di Chebyshev: $P(|X-\mu_X| \geq k\sigma_X) \leq \frac{1}{k^2}$
 
+> [!QUOTE] Dimostrazione: Disuguaglianze di Markov e Chebyshev
+> **Markov:** Sia $X \geq 0$. Spezzando l'integrale del valore atteso:
+> $E[X] = \int_{0}^{a} x f_X(x) dx + \int_{a}^{+\infty} x f_X(x) dx \geq \int_{a}^{+\infty} a f_X(x) dx = a \int_{a}^{+\infty} f_X(x) dx = a \cdot P(X \geq a)$.
+> Dividendo per $a$ si ottiene: $P(X \geq a) \leq \frac{E[X]}{a}$.
+> **Chebyshev:** Posto $Y = (X - \mu)^2$ (con $Y \geq 0$) e scelto $a = k^2\sigma^2$, si applica Markov a $Y$: 
+> $P((X - \mu)^2 \geq k^2\sigma^2) \leq \frac{E[(X-\mu)^2]}{k^2\sigma^2} = \frac{\sigma^2}{k^2\sigma^2} = \frac{1}{k^2}$. Facendo la radice si ottiene il risultato. $\blacksquare$
+
 > [!EXAMPLE] 
 > RMS e Corrente Efficace: La corrente alternata ha media zero, ma la potenza dissipata dipende dall'RMS ($E[X^2]$). Una presa con $\mu = 0$ ti folgora lo stesso.
 > La Potenza di Chebyshev: Metti $k=10$. Qualsiasi sia la distribuzione al mondo, la probabilità di trovare un valore oltre 10 deviazioni standard dalla media è inferiore all'1%.
 
 > [!DANGER] 
-> Il paradosso della Martingala (Raddoppio della posta). Il limite del guadagno per $S \to \infty$ diverge, ma fare il limite di $S$ e puntare all'infinito non sono la stessa cosa (convergenza in prob[...]
+> Il paradosso della Martingala (Raddoppio della posta). Il limite del guadagno per $S \to \infty$ diverge, ma fare il limite di $S$ e puntare all'infinito non sono la stessa cosa (convergenza in probabilità vs quasi certa).
 
 - Nodo Inerzia: Se $\sigma^2 = 0$, la variabile è deterministica (collassa sulla media).
 - Nodo Universalità: Chebyshev non richiede di conoscere la distribuzione. Ti dà un bound assoluto usando solo media e varianza.
@@ -344,7 +351,7 @@ status: in-progress
 > Regola della Catena: $p_{XYZ}(x,y,z) = p_Z(z) p_{Y|Z}(y|z) p_{X|YZ}(x|y,z)$
 
 > [!EXAMPLE] 
-> Terne di Bit e l'Illusione delle Marginali: Prendi 3 bit i.i.d e 3 bit in cui il terzo è il Bit di Parità ($X_1 \oplus X_2$). Entrambi i sistemi hanno marginali identiche ($P(X_i=1) = p$). Ma le l[...]
+> Terne di Bit e l'Illusione delle Marginali: Prendi 3 bit i.i.d e 3 bit in cui il terzo è il Bit di Parità ($X_1 \oplus X_2$). Entrambi i sistemi hanno marginali identiche ($P(X_i=1) = p$). Ma le congiunte rivelano che nel secondo sistema 4 combinazioni su 8 hanno probabilità 0.
 
 > [!DANGER] 
 > Congiunta $\implies$ Marginali. Ma Marginali $\cancel{\implies}$ Congiunta (salvo indipendenza). Dalle ombre non puoi ricostruire l'oggetto 3D originale.
@@ -362,7 +369,7 @@ status: in-progress
 > Indipendenza Condizionale: $X_1 \perp X_3 \mid X_2 \iff p_{X_1 X_3 | X_2} = p_{X_1|X_2} p_{X_3|X_2}$
 
 > [!EXAMPLE] 
-> Coda in Banca (Markov): Il numero di clienti al tempo $n+1$ dipende matematicamente SOLO dal numero di clienti al tempo $n$. La storia pregressa di come si è formata la coda è condizionalmente irr[...]
+> Coda in Banca (Markov): Il numero di clienti al tempo $n+1$ dipende matematicamente SOLO dal numero di clienti al tempo $n$. La storia pregressa di come si è formata la coda è condizionalmente irrilevante.
 
 - Nodo Affettatrice: Nella tabella $p_{X|Y}(x|y)$, la somma su $x$ fa 1, ma la somma su $y$ no.
 - Nodo Amnesia Storica: Markov taglia il cordone ombelicale col passato remoto. Il presente contiene tutta l'informazione necessaria per predire il futuro.
@@ -378,10 +385,10 @@ status: in-progress
 > Caso Peggiore: $\varepsilon = 1/2$ (rumore puro, $P(X \mid Y) = P(X)$).
 
 > [!EXAMPLE] 
-> Compressione File: Un file ZIP ideale ha 0 e 1 equiprobabili e indipendenti. Trasporta esattamente 1 bit di entropia per bit fisico. È incompressibile. Se $p \neq 0.5$, l'entropia crolla e Huffman [...]
+> Compressione File: Un file ZIP ideale ha 0 e 1 equiprobabili e indipendenti. Trasporta esattamente 1 bit di entropia per bit fisico. È incompressibile. Se $p \neq 0.5$, l'entropia crolla e Huffman può comprimerlo.
 
 > [!DANGER] 
-> Se $\varepsilon = 1$ in un BSC, il canale è perfetto! Basta invertire il bit ricevuto. L'abisso dell'informazione è $\varepsilon = 0.5$, dove l'entropia del rumore è massima e distrugge ogni trac[...]
+> Se $\varepsilon = 1$ in un BSC, il canale è perfetto! Basta invertire il bit ricevuto. L'abisso dell'informazione è $\varepsilon = 0.5$, dove l'entropia del rumore è massima e distrugge ogni traccia dell'input.
 
 - Nodo Sorpresa: $I(A) = -\log_2 P(A)$. Evento certo = 0 bit (ovvietà).
 - Nodo Rumore Massimo: La distruzione dell'informazione si ottiene quando l'entropia del disturbo satura a 1 bit ($\varepsilon=1/2$).
@@ -395,7 +402,7 @@ status: in-progress
 ## L'Abisso del Continuo: CDF e PDF
 
 > [!ABSTRACT] 
-> Nel dominio continuo, la probabilità di un singolo punto è rigorosamente zero. La probabilità diventa una massa distribuita su un intervallo, calcolabile solo tramite l'area sottesa a una curva d[...]
+> Nel dominio continuo, la probabilità di un singolo punto è rigorosamente zero. La probabilità diventa una massa distribuita su un intervallo, calcolabile solo tramite l'area sottesa a una curva di densità.
 
 > [!QUOTE] 
 > Funzione di Distribuzione Cumulativa (CDF): $F_X(x) = P(X \leq x)$. È universale, monotona crescente, vale 0 a $-\infty$ e 1 a $+\infty$.
@@ -404,10 +411,10 @@ status: in-progress
 > Valore Atteso (tramite somme di Riemann): $E[X] = \int_{-\infty}^{+\infty} x f_X(x) \, dx$.
 
 > [!EXAMPLE] 
-> Quantizzazione: Shannon dimostrò che digitalizzare dati analogici richiede di raggrupparli. Una variabile continua viene approssimata dividendo il supporto in intervalli di ampiezza $\delta$. Al li[...]
+> Quantizzazione: Shannon dimostrò che digitalizzare dati analogici richiede di raggrupparli. Una variabile continua viene approssimata dividendo il supporto in intervalli di ampiezza $\delta$. Al limite $\delta \to 0$, si genera la densità differenziale.
 
 > [!DANGER] 
-> L'errore letale all'esame: dire che $f_X(x)$ è una probabilità. **LA PDF NON È UNA PROBABILITÀ!** È una densità. Può tranquillamente assumere valori maggiori di 1 (es. un'Uniforme su $[0, 0.1[...]
+> L'errore letale all'esame: dire che $f_X(x)$ è una probabilità. **LA PDF NON È UNA PROBABILITÀ!** È una densità. Può tranquillamente assumere valori maggiori di 1 (es. un'Uniforme su $[0, 0.1]$ ha densità 10).
 
 - Nodo Zero: Un evento con probabilità 0 non è fisicamente impossibile nel continuo; è semplicemente un punto senza larghezza, ergo senza area.
 
@@ -425,7 +432,7 @@ status: in-progress
 > Varianza: $\text{Var}(X) = \frac{(b-a)^2}{12}$.
 
 > [!EXAMPLE] 
-> Rumore di Quantizzazione: In un convertitore analogico-digitale (ADC), l'errore commesso per arrotondamento è modellato come Uniforme tra $-\Delta/2$ e $+\Delta/2$. La potenza del rumore di quantiz[...]
+> Rumore di Quantizzazione: In un convertitore analogico-digitale (ADC), l'errore commesso per arrotondamento è modellato come Uniforme tra $-\Delta/2$ e $+\Delta/2$. La potenza del rumore di quantizzazione è $\Delta^2/12$.
 
 - Nodo Piattezza: La varianza dell'Uniforme è la base della teoria della codifica analogico-digitale.
 
@@ -457,7 +464,7 @@ status: in-progress
 > Distribuzione di Cauchy: $f_X(x) = \frac{1}{\pi(1+x^2)}$.
 
 > [!EXAMPLE] 
-> L'Anomalia di Cauchy: Modella la risonanza fisica. Le code decadono talmente lentamente che l'integrale della varianza diverge: $E[X^2] = \infty$. La deviazione standard non esiste. La media campion[...]
+> L'Anomalia di Cauchy: Modella la risonanza fisica. Le code decadono talmente lentamente che l'integrale della varianza diverge: $E[X^2] = \infty$. La deviazione standard non esiste. La media campionaria oscillerà all'infinito senza mai convergere.
 
 - Nodo Code Pesanti: Più le code decadono lentamente, più i valori estremi (outlier) dominano il fenomeno fisico.
 
@@ -471,9 +478,22 @@ status: in-progress
 > $f_{X|A}(x) = \begin{cases} \frac{f_X(x)}{P(A)} & x \in A \\ 0 & x \notin A \end{cases}$
 
 > [!EXAMPLE] 
-> Triangolo Mozzato: Se ho una densità che va da -3 a 3 e condiziono all'evento $A = \{X \leq 0\}$ (la cui probabilità è 0.5), la densità per $x > 0$ si polverizza, mentre la densità nella parte [...]
+> Triangolo Mozzato: Se ho una densità che va da -3 a 3 e condiziono all'evento $A = \{X \leq 0\}$ (la cui probabilità è 0.5), la densità per $x > 0$ si polverizza, mentre la densità nella parte sinistra raddoppia d'altezza per preservare area = 1.
 
 - Nodo Lente di Ingrandimento: Il condizionamento zooma sull'intervallo dell'evento e ne dilata verticalmente la densità.
+
+## Trasformazioni di Variabili Continue (Jacobiano)
+
+> [!ABSTRACT] 
+> A differenza del caso discreto dove si sommano le masse, nel continuo una trasformazione $Y=g(X)$ stira o comprime l'asse, richiedendo un fattore di scala (lo Jacobiano) per preservare l'area unitaria della probabilità.
+
+> [!QUOTE] Dimostrazione: Teorema di Trasformazione (Jacobiano 1D)
+> **Tesi:** Se $Y = g(X)$ con $g$ monotona, allora $f_Y(y) = f_X(x) \left| \frac{dx}{dy} \right|$ valutata in $x = g^{-1}(y)$.
+> **Dimostrazione (Caso Crescente):** Partiamo dalla CDF: $F_Y(y) = P(Y \leq y) = P(g(X) \leq y)$. 
+> Essendo invertibile, otteniamo $P(X \leq g^{-1}(y)) = F_X(g^{-1}(y))$.
+> Derivando ambo i lati rispetto a $y$ usando la regola della catena: 
+> $f_Y(y) = \frac{d}{dy} F_X(g^{-1}(y)) = f_X(g^{-1}(y)) \cdot \frac{d}{dy} [g^{-1}(y)]$. 
+> Il modulo si aggiunge per garantire la positività della PDF anche per funzioni decrescenti. $\blacksquare$
 
 ---
 
@@ -482,7 +502,7 @@ status: in-progress
 ## Estensione Bivariata e Vettori Aleatori
 
 > [!ABSTRACT] 
-> Due variabili continue sono accoppiate dalla loro PDF congiunta. La matrice di covarianza fotografa la correlazione tra le componenti, ma l'indipendenza è una condizione molto più forte dell'incor[...]
+> Due variabili continue sono accoppiate dalla loro PDF congiunta. La matrice di covarianza fotografa la correlazione tra le componenti, ma l'indipendenza è una condizione molto più forte dell'incorrelazione.
 
 > [!QUOTE] 
 > Densità Congiunta: $f_{X,Y}(x,y) \geq 0$, il volume sotteso fa 1.
@@ -491,10 +511,16 @@ status: in-progress
 > Matrice di Covarianza ($K$): Simmetrica e semidefinita positiva. Sulla diagonale ha le varianze $\sigma_i^2$, fuori le covarianze.
 > Correlazione Normalizzata: $\rho_{12} = \frac{\text{Cov}(X_1, X_2)}{\sigma_1 \sigma_2}$ (compresa in $[-1, 1]$).
 
-> [!EXAMPLE] 
-> Sfera vs Ellissoide: Se due variabili gaussiane sono indipendenti (e hanno stessa varianza), la loro densità congiunta nel piano forma circonferenze perfette. Se sono correlate, diventano ellissi i[...]
+> [!QUOTE] Dimostrazione: Incorrelazione $\implies$ Indipendenza (Caso Gaussiano)
+> L'esponente della Gaussiana Bivariata contiene il termine misto:
+> $- \frac{1}{2(1-\rho^2)} \left[ \frac{(x-\mu_X)^2}{\sigma_X^2} - 2\rho \frac{(x-\mu_X)(y-\mu_Y)}{\sigma_X \sigma_Y} + \frac{(y-\mu_Y)^2}{\sigma_Y^2} \right]$
+> Se $\rho = 0$, il termine centrale scompare e $(1-\rho^2) = 1$. L'esponenziale si disaccoppia nella somma di due quadrati perfetti:
+> $f_{X,Y}(x,y) = \left( \frac{1}{\sqrt{2\pi\sigma_X^2}} e^{-\frac{(x-\mu_X)^2}{2\sigma_X^2}} \right) \cdot \left( \frac{1}{\sqrt{2\pi\sigma_Y^2}} e^{-\frac{(y-\mu_Y)^2}{2\sigma_Y^2}} \right) = f_X(x) f_Y(y)$, che prova l'Indipendenza Statistica. $\blacksquare$
 
-- Nodo Incorrelazione vs Indipendenza: Se $\rho=0$, non c'è legame *lineare*. Ma potrebbero essere perfettamente legate da una legge quadratica ($Y = X^2$). Solo per le Gaussiane $\rho=0 \implies$ In[...]
+> [!EXAMPLE] 
+> Sfera vs Ellissoide: Se due variabili gaussiane sono indipendenti (e hanno stessa varianza), la loro densità congiunta nel piano forma circonferenze perfette. Se sono correlate, diventano ellissi inclinate.
+
+- Nodo Incorrelazione vs Indipendenza: Se $\rho=0$, non c'è legame *lineare*. Ma potrebbero essere perfettamente legate da una legge quadratica ($Y = X^2$). Solo per le Gaussiane $\rho=0 \implies$ Indipendenza.
 
 ## Convoluzione e Somma di Variabili
 
@@ -524,14 +550,14 @@ status: in-progress
 ## Il Miracolo Matematico: Teorema Centrale del Limite (TCL)
 
 > [!ABSTRACT] 
-> Il TCL spiega perché l'Universo è gaussiano. Quando un fenomeno macroscopico è il risultato della somma di innumerevoli fenomeni microscopici microscopici indipendenti, la distribuzione complessi[...]
+> Il TCL spiega perché l'Universo è gaussiano. Quando un fenomeno macroscopico è il risultato della somma di innumerevoli fenomeni microscopici microscopici indipendenti, la distribuzione complessiva converge fatalmente alla campana di Gauss.
 
 > [!QUOTE] 
 > Siano $X_i$ variabili i.i.d. con media $\mu$ e varianza $\sigma^2$. La somma normalizzata converge in distribuzione a $\mathcal{N}(0,1)$:
 > $$Z_n = \frac{\sum X_i - n\mu}{\sigma\sqrt{n}} \xrightarrow{d} \mathcal{N}(0, 1)$$
 
 > [!DANGER] 
-> La convergenza dipende dalla varianza, ma richiede che questa sia FINITA. Se sommiamo infinite variabili di Cauchy (varianza infinita), il teorema crolla miseramente e la curva non diventerà mai ga[...]
+> La convergenza dipende dalla varianza, ma richiede che questa sia FINITA. Se sommiamo infinite variabili di Cauchy (varianza infinita), il teorema crolla miseramente e la curva non diventerà mai gaussiana.
 
 - Nodo Attrazione: La Gaussiana è il buco nero delle distribuzioni. Tutte le distribuzioni convolute infinite volte collassano dentro di essa.
 
@@ -560,14 +586,14 @@ status: in-progress
 > ML (Maximum Likelihood): Se le probabilità a priori $\pi_i$ sono equiprobabili (la natura non ha preferenze), MAP collassa nella Massima Verosimiglianza.
 
 > [!EXAMPLE] 
-> Classificazione di Sorgenti Binarie: Per distinguere due monete con $p_1 > p_2$, il Likelihood Ratio Test (LRT) si riduce a contare il numero di '1' (peso di Hamming $w_H$) e confrontarlo con una so[...]
+> Classificazione di Sorgenti Binarie: Per distinguere due monete con $p_1 > p_2$, il Likelihood Ratio Test (LRT) si riduce a contare il numero di '1' (peso di Hamming $w_H$) e confrontarlo con una soglia dipendente dai costi.
 
 - Nodo Rasoio di Occam: La regola MAP sposta le soglie di decisione a favore dell'evento che è a priori più probabile.
 
 ## Test di Ipotesi Continui (Media e Varianza) e Neyman-Pearson
 
 > [!ABSTRACT] 
-> Nel mondo reale spesso non conosciamo i costi né le probabilità a priori delle minacce (es. attacco missilistico, radar). Neyman-Pearson offre un framework basato sul controllo rigido dei Falsi Al[...]
+> Nel mondo reale spesso non conosciamo i costi né le probabilità a priori delle minacce (es. attacco missilistico, radar). Neyman-Pearson offre un framework basato sul controllo rigido dei Falsi Allarmi.
 
 > [!QUOTE] 
 > Errore di I Specie (Falso Allarme - $P_{FA} = \alpha$): Dire che c'è segnale quando c'è solo rumore.
@@ -575,16 +601,23 @@ status: in-progress
 > Potenza del Test (Detection - $P_D = 1-\beta$).
 > Lemma di Neyman-Pearson: Il LRT $L(\mathbf{x}) \geq \eta$ è il test più potente (massimizza $P_D$) per un dato livello tollerabile di $P_{FA} \leq \alpha_0$.
 
+> [!QUOTE] Dimostrazione dell'Ottimalità dell'LRT (Neyman-Pearson)
+> Vogliamo massimizzare $P_D = \int_{Z_1} f(x|H_1) dx$ con il vincolo $P_{FA} = \int_{Z_1} f(x|H_0) dx \leq \alpha$.
+> Tramite moltiplicatori di Lagrange, il funzionale da massimizzare su $Z_1$ è: 
+> $F(Z_1) = P_D - \lambda (P_{FA} - \alpha) = \lambda \alpha + \int_{Z_1} [f(x|H_1) - \lambda f(x|H_0)] dx$.
+> Affinché $F(Z_1)$ sia massimo, l'integrale va calcolato solo sui punti dove l'integrando è positivo: 
+> $f(x|H_1) - \lambda f(x|H_0) > 0 \implies \frac{f(x|H_1)}{f(x|H_0)} > \lambda$. Questo è esattamente l'LRT. $\blacksquare$
+
 > [!EXAMPLE] 
-> Test di Ipotesi su media Gaussiana (LRT): Per decidere se le osservazioni provengono da una media $\mu_1$ o $\mu_2$, è inutile testare tutti gli $n$ campioni. Il test collassa nella sola *Media Cam[...]
+> Test di Ipotesi su media Gaussiana (LRT): Per decidere se le osservazioni provengono da una media $\mu_1$ o $\mu_2$, è inutile testare tutti gli $n$ campioni. Il test collassa nella sola *Media Campionaria* usata come statistica sufficiente.
 
 - Nodo Trade-off fatale: Aumentare la potenza (ridurre le mancate rivelazioni) aumenta sempre inevitabilmente i falsi allarmi. Non esiste il pranzo gratis.
-- Nodo Rumore Laplaciano e Soglie: Se la soglia del rapporto di verosimiglianza eccede il limite strutturale del segnale, il decisore andrà in cecità totale (rifiuterà sempre di dichiarare il segna[...]
+- Nodo Rumore Laplaciano e Soglie: Se la soglia del rapporto di verosimiglianza eccede il limite strutturale del segnale, il decisore andrà in cecità totale (rifiuterà sempre di dichiarare il segnale).
 
 ## Stima Parametrica Bayesiana: MMSE vs MAP
 
 > [!ABSTRACT] 
-> Quando il parametro $\theta$ da indovinare è continuo, la probabilità di indovinarlo esattamente è zero. Cambiamo obiettivo: minimizziamo l'errore quadratico medio (MSE) o troviamo il punto più [...]
+> Quando il parametro $\theta$ da indovinare è continuo, la probabilità di indovinarlo esattamente è zero. Cambiamo obiettivo: minimizziamo l'errore quadratico medio (MSE) o troviamo il punto più probabile (MAP).
 
 > [!QUOTE] 
 > Stimatore MAP (Maximum A Posteriori): Il picco (moda) della densità a posteriori. Risponde a "qual è il valore più probabile della natura?".
@@ -592,8 +625,15 @@ status: in-progress
 > Bias (Polarizzazione): $B(\theta) = E[\hat{\theta} | \theta] - \theta$.
 > Consistenza: Un buon stimatore deve avere la varianza che decay a zero asintoticamente.
 
-> [!EXAMPLE] 
-> Moneta Truccata (Beta-Binomiale): Usando la MAP, la stima della probabilità $p$ è pari esattamente alla frequenza empirica $w_H/n$ (Unbiased). Usando la MMSE, viene $(w_H+1)/(n+2)$ (Biased ma a mi[...]
+> [!QUOTE] Dimostrazione del Teorema MMSE
+> **Obiettivo:** Trovare $\hat{\theta}$ che minimizza $J = \int (\theta - \hat{\theta})^2 f_{\Theta|X}(\theta|x) d\theta$.
+> Deriviamo $J$ rispetto a $\hat{\theta}$ e poniamo a 0:
+> $\frac{\partial J}{\partial \hat{\theta}} = \int -2(\theta - \hat{\theta}) f_{\Theta|X}(\theta|x) d\theta = 0 \implies \int \theta f_{\Theta|X}(\theta|x) d\theta = \hat{\theta} \int f_{\Theta|X}(\theta|x) d\theta$.
+> Poiché l'integrale della PDF condizionata fa 1, isolando $\hat{\theta}$ otteniamo: 
+> $\hat{\theta}_{MMSE} = \int \theta f_{\Theta|X}(\theta|x) d\theta = E[\Theta|X=x]$. $\blacksquare$
 
-- Nodo Baricentro vs Cima: Il MAP si posiziona sulla vetta del monte (più facile da calcolare tramite derivata). L'MMSE cerca il baricentro del monte (richiede l'integrale). L'MMSE garantirà sempre [...]
+> [!EXAMPLE] 
+> Moneta Truccata (Beta-Binomiale): Usando la MAP, la stima della probabilità $p$ è pari esattamente alla frequenza empirica $w_H/n$ (Unbiased). Usando la MMSE, viene $(w_H+1)/(n+2)$ (Biased ma a minimo errore).
+
+- Nodo Baricentro vs Cima: Il MAP si posiziona sulla vetta del monte (più facile da calcolare tramite derivata). L'MMSE cerca il baricentro del monte (richiede l'integrale). L'MMSE garantirà sempre l'errore di stima più basso possibile.
 ---
