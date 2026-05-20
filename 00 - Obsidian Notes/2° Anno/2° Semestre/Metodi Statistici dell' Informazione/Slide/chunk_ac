@@ -1,0 +1,300 @@
+- It can be shown that both estimators are strongly consistent, in the sense that $\hat{B}(X^n) \to B$ almost surely.
+
+---
+
+## Pagina 33
+
+General definitions
+
+- Consider a sample $x^n$ drawn from a random vector $X^n \in \mathcal{X}^n \subseteq \mathbb{R}^n$;
+- $\mathcal{X}^n$ may be discrete or continuous, but we assume that $X^n$ has a pdf (pmf, in the discrete case) known to belong to a family with known prior. Thus, we assume knowledge of the joint pdf $f_{X^n,\Theta}(x^n,\theta)$ and of the parameter prior $f_\Theta(\theta)$.
+- We want to infer the parameter value of $\theta$ for the observed realization $x^n$. The MMSE estimate and the MAP estimate are thus defined as
+
+$$\hat{\theta}_{\text{MMSE}}(x^n) = \mathbb{E} \left[ \Theta|X^n = x^n \right] = \int \theta f_{\Theta|X^n}(\theta|x^n) \, d\theta, \quad \hat{\theta}_{\text{MAP}}(x^n) = \arg \max_{\theta} f_{\Theta|X^n}(\theta|x^n)
+
+- An estimator is **unbiased** if $\mathbb{E} \left[ \hat{\Theta}(X^n) - \Theta \right] = 0$;
+- An estimator is **asymptotically unbiased** if it is unbiased only in the limit of infinite sample size;
+- An estimator is consistent if $\hat{\Theta}(X^n) \rightarrow \Theta$ **in probability**;
+- An estimator is MS consistent if $\hat{\Theta}(X^n) \rightarrow \Theta$ **in mean square**;
+- An estimator is strongly consistent if $\hat{\Theta}(X^n) \rightarrow \Theta$ **almost surely**.
+
+---
+
+## Pagina 34
+
+An example: Gaussian observations with random mean
+
+- Let $x^n$ be drawn from $X^n$ with:
+  $$f_{X^n|M}(x^n|\mu) = \prod_{i=1}^{n} \frac{1}{\sqrt{2\pi\sigma^2}} \exp\left[-\frac{(x_i - \mu)^2}{2\sigma^2}\right]$$
+- Let $\mu$ be a realization of $M \sim \mathcal{N}(0, \sigma_M^2)$;
+- We want to infer the value $\mu$ of $M$ pertaining to the observation $x^n$ of $X^n$.
+- Remark that the posterior density of the mean reads:
+  $$f_{M|X^n}(\mu|x^n) = \frac{f_{X^n|M}(x^n|\mu) f_M(\mu)}{f_X^n(x^n)} = \mathcal{N}\left(\frac{\sum_{i=1}^{n} x_i}{n + \frac{\sigma^2}{\sigma_M^2}}, \frac{1}{n + \frac{\sigma^2}{\sigma_M^2}}\right)$$
+- Otherwise said, the conjugate prior of the mean of a Gaussian distribution is again Gaussian;
+- We thus have that the MMSE estimate of the mean reads
+  $$\hat{\mu}_{\text{MMSE}}(x^n) = \frac{\sum_{i=1}^{n} x_i}{n + \frac{\sigma^2}{\sigma_M^2}} \iff \hat{M}_{\text{MMSE}}(X^n) = \frac{\sum_{i=1}^{n} x_i}{n + \frac{\sigma^2}{\sigma_M^2}}$$
+
+---
+
+## Pagina 35
+
+MAP Estimator
+
+Let us now consider the MAP estimate. We can obviously write
+
+$$\ln f_M(x^n) (\mu | x^n) = \ln f_{X^n}|M(x^n | \mu) + \ln f_M(\mu) - \ln f_{X^n}(x^n)$$
+
+By maximizing with respect to $\mu$ we obtain the MAP estimator
+
+$$\hat{\mu}_{\text{MAP}}(x^n) = \frac{\sum_{i=1}^{n} x_i}{n + \frac{\sigma^2}{\sigma_M^2}} \iff \hat{M}_{\text{MAP}}(X^n) = \frac{\sum_{i=1}^{n} X_i}{n + \frac{\sigma^2}{\sigma_M^2}}$$
+
+which is coincident with the MMSE!!
+
+Question: Is this casual or there is a deeper reason for the coincidence of these two estimators?
+
+---
+
+## Pagina 36
+
+Uniqueness of Bayes estimators
+
+- Let $C(\cdot)$ be an arbitrary cost function of the estimation error;
+- Assume that $C(\cdot)$ is even and convex and that $f_{\Theta|X^n}(\theta|x^n)$ is symmetrical with respect to its mean $\mathbb{E}[\Theta|X^n = x^n]$, i.e.:
+  $$f_{\Theta|X^n}(\theta - \mathbb{E}[\Theta|X^n = x^n])|x^n) = f_{\Theta|X^n}(-\theta + \mathbb{E}[\Theta|X^n = x^n])|x^n)$$
+- Then the MMSEE minimizes the Bayes risk for any cost function in this class.
+- The proof is simple, and is omitted here.
+- Remark that, strictly speaking, the 0–1 cost function leading to a MAP estimator is not differentiable.
+- Nonetheless, it can be shown that, under the above symmetry condition on the posterior, we have
+  $$\hat{\mu}_{\text{MAP}}(x^n) = \hat{\mu}_{\text{MMSE}}(x^n)$$
+
+---
+
+## Pagina 37
+
+Non-Bayesian inference: Non-random parameter estimation
+
+- Assume now that the observations $x^n \in \mathcal{X}^n$ are drawn from a family of pdf’s, $f_{X^n}(x^n; \theta)$;
+- Assume that $\theta$ is deterministic and unknown: equivalently, we may assume that we do not have enough prior information to assign a prior $f_\Theta(\theta)$;
+- Assume that the parameter space is $S$;
+- We define likelihood of the parameter $\theta$, given that the observations $x^n$ are available, the function:
+
+$$L(\theta; x^n) = f_{X^n}(x^n; \theta)$$
+
+or, equivalently, log-likelihood the function
+
+$$\Lambda(\theta; x^n) = \log f_{X^n}(x^n; \theta)$$
+
+- A Maximum Likelihood (ML) estimate of $\theta$ is
+
+$$\hat{\theta}_{\text{ML}}(x^n) = \arg \max_{\theta \in S} \log f_{X^n}(x^n; \theta)$$
+
+and it is a realization of the Maximum Likelihood Estimator (MLE):
+
+$$\hat{\Theta}_{\text{ML}}(X^n) = \arg \max_{\theta \in S} \log f_{X^n}(X^n; \theta)$$
+
+---
+
+## Pagina 38
+
+Given an estimator $\Theta(X^n)$ of the non-random parameter $\theta$, we have:
+
+$$\mathbb{E}[\Theta(X^n)] = \theta + b_n(\theta)$$
+
+with $b_n(\theta)$ the estimator bias;
+
+The estimator is unbiased if $b_n(\theta) = 0$, while being only asymptotically unbiased if $b_n(\theta)$ becomes vanishingly small with $n$;
+
+The casual error of the estimator is usually quantified via its Mean Square value, i.e.:
+
+$$\mathbb{E}[(\Theta(X^n) - \theta)^2] = \frac{e_n^2}{2}$$
+
+An unbiased MMSE estimator of $\theta$ is an estimator which minimizes the variance:
+
+$$\text{Var}[\Theta(X^n)] = \mathbb{E}[\Theta^2(X^n)] - \theta^2$$
+
+An estimator is weakly consistent if $\Theta(X^n) \to \theta$ in probability, strongly consistent if $\Theta(X^n) \to \theta$ almost surely, MS consistent if $\frac{e_n^2}{2} \to 0$.
+
+---
+
+## Pagina 39
+
+Cramér-Rao Bound - Preliminary facts
+
+- Let $x^n$ a sample drawn from a random vector $X^n \sim f_X(x^n; \theta)$ with $\theta$ non-random;
+- Consider the identity
+  $$\int_{\mathbb{R}^n} f_X(x^n; \theta) dx^n = 1$$
+- Upon differentiation with respect to $\theta$ of the above we have
+  $$\int_{\mathbb{R}^n} \frac{\partial f_X(x^n; \theta)}{\partial \theta} dx^n = \int_{\mathbb{R}^n} \frac{\partial \log f_X(x^n; \theta)}{\partial \theta} f_X(x^n; \theta) dx^n$$
+  $$= \mathbb{E} \left[ \frac{\partial \log f_X(x^n; \theta)}{\partial \theta} \right] = 0$$
+- Differentiating again we have:
+  $$\mathbb{E} \left[ \left( \frac{\partial \log f_X(x^n; \theta)}{\partial \theta} \right)^2 \right] = \text{var} \left[ \frac{\partial \log f_X(x^n; \theta)}{\partial \theta} \right] = - \mathbb{E} \left[ \frac{\partial^2 \log f_X(x^n; \theta)}{\partial \theta^2} \right]$$
+
+---
+
+## Pagina 40
+
+Cramér-Rao Bound - Derivation
+
+- Let $\hat{\Theta}(X^n)$ be an estimator of the non-random parameter $\theta$ with:
+  $$\mathbb{E} \left[ \Theta(X^n) \right] = \int_{\mathbb{R}^n} \hat{\Theta}(X^n) f_X^n(x^n; \theta) dx^n = \theta + b_n(\theta)
+
+- Differentiating with respect to $\theta$ the above identity we have
+  $$\int_{\mathbb{R}^n} \Theta(x^n) \frac{\partial f_X^n(x^n; \theta)}{\partial \theta} dx^n = \int_{\mathbb{R}^n} \frac{\partial \log f_X^n(x^n; \theta)}{\partial \theta} f_X^n(x^n; \theta) dx^n$$
+  $$\text{COV} \left[ \Theta(X^n), \frac{\partial \log f_X^n(X^n; \theta)}{\partial \theta} \right] = 1 + b_n'(\theta)
+
+- Applying Cauchy-Schwartt’s inequality, we finally have
+  $$\left| \text{COV} \left[ \Theta(X^n), \frac{\partial \log f_X^n(X^n; \theta)}{\partial \theta} \right] \right|^2 = \left[ 1 + b_n'(\theta) \right]^2 \leq \text{Var} \left[ \Theta(X^n) \right] \text{Var} \left[ \frac{\partial \log f_X^n(X^n; \theta)}{\partial \theta} \right]$$
+
+---
+
+## Pagina 41
+
+Elaborating the previous derivations, we obtain an unbeatable lower bound to the variance of any estimator of the non-random parameter $\theta$ in the form:
+
+$$\text{Var} \left[ \Theta(X^n) \right] \geq \frac{[1 + b'_n(\theta)]^2}{\mathbb{E} \left[ \left( \frac{\partial \log f_X^n(X^n; \theta)}{\partial \theta} \right)^2 \right]} = \frac{[1 + b'_n(\theta)]^2}{I_n(\theta)}$$
+
+The quantity $I_n(\theta)$ is defined as the Fisher Information, and obeys the following identity:
+
+$$I_n(\theta) = \mathbb{E} \left[ \left( \frac{\partial \log f_X^n(X^n; \theta)}{\partial \theta} \right)^2 \right] = -\mathbb{E} \left[ \frac{\partial^2 \log f_X^n(X^n; \theta)}{\partial \theta^2} \right]$$
+
+---
+
+## Pagina 42
+
+Cramér-Rao Bound - Unbiased Estimators
+
+- As anticipated, the estimator $\Theta(X^n)$ is **unbiased** if $\mathbb{E}[\Theta(X^n)] = \theta$;
+- In this situation, we have that
+$$\mathbb{E}[(\Theta(X^n) - \theta)^2] = \text{Var}[\Theta(X^n)] \geq \frac{1}{l_n(\theta)}$$
+
+- Thus the Cramér-Rao Bound (CRB) becomes an unbeatable lower bound to the MSE of any estimator.
+- An unbiased estimator whose MSE is equal to the CRB is defined **efficient**.
+- **Important fact**: If an efficient estimator for a given non-Bayesian estimation problem exists, this necessarily coincides with the ML estimator.
+
+---
+
+## Pagina 43
+
+An example: inferring the cipher frequency of a memoryless source
+
+- Let us consider initially $x^n \in \{0,1\}^n$, drawn from $X^n \sim \mathcal{B}(1,\beta)$, $\beta$ unknown;
+- We saw that, if $w(x^n)$ is the Hamming weight of the observed sequence, then:
+  $$p_{X^n}(x^n) = \beta^{w(x^n)}(1 - \beta)^{n-w(x^n)}$$
+
+- The ML estimate is thus found as:
+  $$\frac{\partial \log p_{X^n}(x^n)}{\partial \beta} = 0 \implies \hat{\beta}_{\text{ML}}(x^n) = \frac{w(x^n)}{n}$$
+
+- The estimator $\beta(X^n) = \frac{w(X^n)}{n}$ is such that:
+  $$\mathbb{E}\left[\frac{w(X^n)}{n}\right] = \beta, \quad \text{var}\left[\frac{w(X^n)}{n}\right] = \frac{\beta(1-\beta)}{n}$$
+
+As a consequence, it is unbiased and MS consistent. Is it efficient?
+
+---
+
+## Pagina 44
+
+Notice that we have:
+
+$$\log p_{X^n}(X^n; \beta) = w(X^n) \log \beta + [n - w(X^n)] \log(1 - \beta)$$
+
+Thus we have:
+
+$$\frac{\partial p_{X^n}(X^n; \beta)}{\partial \beta} = \frac{w(X^n)}{\beta} - \frac{n - w(X^n)}{1 - \beta}$$
+
+$$\frac{\partial^2 p_{X^n}(X^n; \beta)}{\partial \beta^2} = -\frac{w(X^n)}{\beta^2} - \frac{n - w(X^n)}{(1 - \beta)^2}$$
+
+Since $\mathbb{E}[w(X^n)] = n\beta$, we have:
+
+$$l_n(\beta) = \frac{n}{\beta} + \frac{n}{1 - \beta} = \frac{n}{\beta(1 - \beta)} \implies \text{CRB} = \frac{\beta(1 - \beta)}{n}$$
+
+We conclude that the MLE of the cipher frequency is efficient.
+
+---
+
+## Pagina 45
+
+Assume now that we have $m$ random parameters, $\theta[\theta_1, \ldots, \theta_m]^T$ drawn from a known pdf $f_{\Theta}(\theta)$ and a data set $x^n$ drawn from a conditional pdf $f_{X^n|\theta}(x^n|\theta)$;
+
+Define a cost function
+
+$$C(\theta - \hat{\theta}) = C(\theta_1 - \hat{\theta}_1, \ldots, \theta_m - \hat{\theta}_m)$$
+
+A Bayes-optimal estimator can be found by solving the minimization problem:
+
+$$\hat{\theta}(x^n) : \mathbb{E}\left[C(\Theta - \hat{\Theta}(X^n))\right] = 0$$
+
+Using the same procedure as for the single-parameter case we thus obtain:
+
+$$\hat{\Theta}(X^n) = \arg \min_{\mathbb{R}^m} C(\theta - \hat{\theta}(X^n))f_{\Theta|X^n}(\theta|X^n)d\theta$$
+
+---
+
+## Pagina 46
+
+The MMSE estimator
+
+- Assume that the cost function is
+  $$C(\theta - \hat{\theta}) = \sum_{i=1}^{m} \left( \theta_i - \hat{\theta}_i(x^n) \right)$$
+- Since the minimization problem is disjoint (i.e., separable), we have:
+  $$\hat{\theta}_i(x^n) = \mathbb{E} \left[ \Theta_i | X^n = x^n \right] = \int \theta_i f_{\theta_i} x^n \left( \theta_i | x^n \right) d\theta_i$$
+  whereby the vector MMSE estimator reads:
+  $$\hat{\Theta}(X^n) = \mathbb{E} \left[ \Theta | X^n \right]$$
+
+---
+
+## Pagina 47
+
+The MAP estimator
+
+- If we assume
+  $$C(\theta - \hat{\theta}) = \sum_{i=1}^{m} \Pi \left( \frac{\theta_i - \hat{\theta}_i(x^n)}{\epsilon} \right)$$
+- considering the same procedure we have
+  $$\hat{\theta}_i(x^n) : \left. \frac{\partial f_{\Theta}|x^n(\theta|x^n)}{\partial \theta_i} \right|_{\theta_i = \hat{\theta}_i(x^n)} = 0$$
+- Equivalently, we have that the MAP estimate solves the equation:
+  $$\nabla_{\theta} f_{\Theta}|x^n(\theta|x^n) |_{\theta = \hat{\theta}(x^n)} = 0$$
+
+---
+
+## Pagina 48
+
+Non-Bayesian estimation of multiple parameters
+
+- Assume now that the parameter vector $\theta$ is real and deterministic;
+- We may define the log-likelihood function of the observed data, assumed drawn from a distribution family $f_{X^n}(x^n; \theta)$ as:
+  $$\Lambda(\theta; x^n) = \log f_{X^n}(x^n, \theta)$$
+- We define Maximum-Likelihood estimate of the vector $\theta$ the solution to the equation:
+  $$\nabla_\theta \Lambda(\theta; x^n)|_{\theta = \hat{\theta}(x^n)} = 0$$
+- The corresponding estimator $\hat{\Theta}(X^n)$ is again defined a Maximum Likelihood (ML) estimator and enjoys a number of fundamental properties.
+
+---
+
+## Pagina 49
+
+Linear MMSE estimators
+
+- Let us start with a simple scalar problem. Assume $x^n$ is the observed sample, drawn from $X^n$, and assume that we want to design a linear estimator of a random parameter $\Theta$, distributed according a known law, in the form:
+
+$$\hat{\Theta}(X^n) = a^T X^n + b \quad a \in \mathbb{R}^n$$
+
+- A Linear MMSE (LMMSE) estimator selects the vector $a$ and the constant $b$ so as to minimize the MMSE
+
+$$\mathbb{E} \left[ (\hat{\Theta}(X^n) - \Theta)^2 \right] = \mathbb{E} \left[ (a^T X^n + b - \Theta)^2 \right]
+
+which is equal to
+
+$$a^T Ra + b^2 + \mathbb{E} \left[ \Theta^2 \right] - 2b(\overline{\Theta}) - 2a^T \mathbb{E} \left[ X^n \Theta \right] - 2ba^T \mathbb{E} \left[ X^n \right]
+
+where $R = \mathbb{E} \left[ X^n X^{nT} \right]$ is the correlation matrix of the random vector $X^n$.
+
+---
+
+## Pagina 50
+
+Nullifying the gradient with respect to $a$ and the derivative with respect to $b$ we obtain:
+
+$$\nabla_a \mathbb{E} \left[ \left( a^T X^n + b - \Theta \right)^2 \right] = 2 M a - 2 \mathbb{E} \left[ X^n \Theta \right] = 0$$
+
+$$\frac{\partial \mathbb{E} \left[ \left( a^T X^n + b - \Theta \right)^2 \right]}{\partial b} = 2 b - 2 \overline{\Theta} - 2 a^T \mathbb{E} \left[ X^n \right] = 0$$
+
+Solving for $b$ yields
+

@@ -1,0 +1,224 @@
+$$b_{\text{LMMSE}} = \mathbb{E} \left[ \Theta \right] - a^T \mathbb{E} \left[ X^n \right]$$
+
+$$\widehat{\Theta} \left( X^n \right) = a^T \left( X^n - \mathbb{E} \left[ X^n \right] \right) + \mathbb{E} \left[ \Theta \right]$$
+
+which, placed back into the MSE demonstrates that $a$ should minimize
+
+$$\| a^T \left( X^n - \mathbb{E} \left[ X^n \right] \right) + \left( \Theta - \mathbb{E} \left[ \Theta \right] \right) \|^2$$
+
+As a consequence, denoting $M = \mathbb{E} \left[ \left( X^n - \mathbb{E} \left[ X^n \right] \right) \left( X^n - \mathbb{E} \left[ X^n \right] \right)^T \right]$ the covariance matrix of $X^n$, the LMMSE estimator reads
+
+$$a_{\text{LMMSE}} = M^{-1} \mathbb{E} \left[ \left( X^n - \mathbb{E} \left[ X^n \right] \right) \left( \Theta - \mathbb{E} \left[ \Theta \right] \right) \right] = M^{-1} s$$
+
+---
+
+## Pagina 51
+
+The gradient algorithm
+
+- Assume that we want to solve iteratively the LMMSE problem outlined before;
+- We saw that the gradient of the MSE is written as
+  $$\nabla_a \mathbb{E} \left[ (a^T X^n + b - \Theta)^2 \right] = 2Ma - 2s$$
+  with $\mathbb{E}[X^n \Theta] = s$ known;
+- Consider the following iteration to determine $a_{\text{LMMSE}}$:
+  $$a^{(n+1)} = a^{(n)} - \gamma \left( Ma^{(n)} - s \right)$$
+  which can be rewritten as
+  $$a^{(n+1)} = a^{(n)} - \gamma M \left( a^{(n)} - \underbrace{M^{-1} s}_{a_{\text{LMMSE}}} \right)$$
+
+---
+
+## Pagina 52
+
+The Gradient algorithm - cont’d
+
+- The error at the $(n+1)$-th iteration reads
+  $$\epsilon^{(n+1)} = a^{(n+1)} - a_{\text{LMMSE}} = a^{(n)} - a_{\text{LMMSE}} - \gamma M \left( a^{(n)} - a_{\text{LMMSE}} \right) = (I - \gamma M) \epsilon^{(n)}$$
+
+- As a consequence we have
+  $$\epsilon^{(n+1)} = (I - \gamma M)^n \epsilon^{(1)} = U (I - \gamma \Lambda)^n U^T$$
+
+where $\Lambda$ is the diagonal matrix of the eigenvalues of $M$ and $U$ contains its eigenvectors.
+
+- The error thus converges to zero if the maximum modulus of the eigenvalues of $I - \gamma M$ is smaller than one, i.e.:
+  $$-1 < 1 - \gamma \lambda_{\text{MAX}} < 1 \implies 0 < \gamma < \frac{2}{\lambda_{\text{MAX}}}$$
+
+---
+
+## Pagina 53
+
+A different approach: descriptive statistics
+
+- Let us now forget about probability. Let us assume instead to shift to descriptive statistics, wherein the samples count for what they are and are not considered realizations of random vectors:
+- We define a training dataset as a collection of $p$ $n$-dimensional samples, which can be organized in the $n \times p$ matrix:
+
+$$X = \begin{bmatrix}
+x_1(1) & \cdots & x_1(p) \\
+\cdots & \cdots & \cdots \\
+x_n(1) & \cdots & x_n(p)
+\end{bmatrix} \in \mathbb{R}^{n \times p}$$
+
+- Assume we know $p$ measured values of the parameter $\theta$, each corresponding to one of the $p$ $n$-dimensional samples of the training set, i.e.:
+
+$$y = [\theta(1), \ldots, \theta(p)] \in \mathbb{R}^p$$
+
+- We want to fit the data to a linear model in the form:
+
+$$\theta(i) = a^T x^n(i) + \epsilon_n$$
+
+with $\epsilon_n$ encapsulating the error.
+
+---
+
+## Pagina 54
+
+The Least Squares estimator
+
+Since we have a $p$-dimensional dataset, we want to select $a$ in such a way to minimize:
+
+$$\|\epsilon_n\|^2 = \sum_{i=1}^{p} \left[ a^T x^n(i) - \theta(i) \right]^2$$
+
+Our problem is to select $a$ and $b$ in an optimized way. Notice preliminarily that
+
+$$\sum_{i=1}^{p} \left[ a^T x^n(i) - \theta(i) \right]^2 = \| X^T a - y \|^2$$
+
+Notice that
+
+$$\| X^T a - y \|^2 = a^T X X^T a + \| y \|^2 - 2 a^T X y$$
+
+---
+
+## Pagina 55
+
+The Least Squares estimator - cont’d
+
+- Differentiating with respect to $a$ thus yields
+  $$\nabla_a \| X^T a - y \|^2 = 2 X X^T a - 2 X y = 0$$
+  which yields
+  $$a_{\text{LS}} = (X X^T)^{-1} X y$$
+  requiring $(X X^T)$ to be invertible (i.e., $p \ge n$).
+
+- For future reference, let us denote this estimate based on a $p$-dimensional sample as
+  $$a_{\text{LS}}(p) = (X(p) X^T(p))^{-1} X(p) y(p)$$
+
+---
+
+## Pagina 56
+
+Assume that we have an infinite-horizon observation of the environment, so that the sample size $p$ may increase;
+
+We consider two scenarios, i.e.:
+
+a. We want to progressively improve our estimate by adding more observations;
+
+b. We want to adapt to possibly changing conditions by "forgetting" old observations in order to weigh new observations more significantly.
+
+We can adjust the LS estimator in such a way as to account for both situations above, and we can do it with limited complexity.
+
+---
+
+## Pagina 57
+
+Assume $p \geq n$ and assume we have evaluated
+
+$$a_{LS}(p) = \left[ X(p) X^T(p) \right]^{-1} X(p) y(p)$$
+
+Assume we have a new vector in the dataset, $x^n(p+1)$ say, and a new observation, $\theta(p+1)$.
+
+The new estimate would be
+
+$$a_{LS}(p+1) = \left[ X(p+1) X^T(p+1) \right]^{-1} X(p+1) y(p+1)$$
+
+Question: Do we have to recompute everything from scratch?
+
+Notice that the inversion operation involves a $\mathcal{O}(n^3)$ complexity, while the matrix product operation has a complexity $\mathcal{O}(np)$ (in terms of multiplications).
+
+---
+
+## Pagina 58
+
+The Sherman-Morrison Formula
+
+- Let $R$ be an invertible matrix of order $n$;
+- Let $u$ and $v$ be $n$-dimensional column vectors;
+- We have the following matrix inversion lemma with rank-1 update:
+
+$$\left( R + uv^T \right)^{-1} = R^{-1} - \frac{R^{-1}uv^T R^{-1}}{1 + u^T R^{-1}v}$$
+
+---
+
+## Pagina 59
+
+Notice that
+
+$$\underbrace{X(p+1)X^T(p+1)}_{R(p+1)} = \sum_{i=1}^{p+1} x^n(i)x^{nT}(i) = \underbrace{X(p)X^T(p)}_{R(p)} + x^n(p+1)x^{nT}(p+1)$$
+
+As a consequence
+
+$$R^{-1}(p+1) = R^{-1}(p) - \frac{R^{-1}(p)x^n(p+1)x^{nT}(p+1)R^{-1}(p)}{1 + K(p+1)}$$
+
+with
+
+$$K(p+1) = x^{nT}(p+1)R^{-1}(p)x^n(p+1)$$
+
+---
+
+## Pagina 60
+
+On the other hand we have
+
+$$X(p+1) = [X(p) x^n(p+1)] , \quad y(p+1) = [y(p) \theta(p+1)]^T$$
+
+implying
+
+$$X(p+1) y(p+1) = X(p) y(p) + \theta(p+1) x^n(p+1)$$
+
+Since $a(p+1) = R^{-1}(p+1)X(p+1)y(p+1)$, we have
+
+$$a(p+1) = \left[ I_n - \frac{R^{-1}(p) x^n(p+1)}{1 + K(p+1)} x^n T(p+1) \right]$$
+
+$$\left[ a(p) + \theta(p+1) R^{-1}(p) x^n(p+1) \right]$$
+
+which has complexity $\mathcal{O}(n^2)$, independent (and not scaling with $p$).
+
+---
+
+## Pagina 61
+
+In order to cope with situations where the surrounding environment may be (slowly) time-varying, we may want to force "old data" to weigh less than "fresh" data.
+
+A possible way to do so is via exponential smoothing, whose main idea is to adopt the following cost function:
+
+$$\sum_{i=1}^{p} w^{p-i} \left[ a^T x^n(i) - \theta(i) \right]^2$$
+
+The weight $w < 1$ regulates how fast the past is forgotten.
+
+Minimizing with respect to $a$ yields the exponentially smoothed LS:
+
+$$a = \left[ \sum_{i=1}^{p} w^{p-i} x^n(i) x^{nT}(i) \right]^{-1} \sum_{i=1}^{p} w^{p-i} x^n(i) \theta(i)$$
+
+itself amenable to a recursive implementation in the light of Sherman-Morrison lemma.
+
+---
+
+## Pagina 62
+
+Generalization
+
+Assume now that, under the same conditions seen above, we want to find an LS in the more general form
+
+$$\widehat{\theta}(\mathbf{x}^n) = \mathbf{a}^T \mathbf{x}^n + b$$
+
+Lengthy, albeit simple, calculations lead to the general LMS form
+
+$$\mathbf{a}_{\text{LMS}} = \left( X_0 X_0^T \right)^{-1} X_0 y_0, \quad b_{\text{LMS}} = \underbrace{\frac{1}{p} \sum_{i=1}^{p} \theta(i)}_{\widehat{\theta}} - \frac{1}{p} \mathbf{1}_p^T \mathbf{X}^T \mathbf{a}_{\text{LMS}}$$
+
+where $\mathbf{1}_p$ is an all-one $p$-dimensional vector and
+
+$$\mathbf{X}_0 = \begin{bmatrix} x_1(1) - \bar{x}_1 & \dots & x_1(p) - \bar{x}_1 \\ \dots & \dots & \dots \\ x_n(1) - \bar{x}_n & \dots & x_n(p) - \bar{x}_n \end{bmatrix} \in \mathbb{R}^{n \times p}, \quad \mathbf{y}_0 = \left[ y_1 - \bar{\theta}, \dots, y_p - \bar{\theta} \right]^T$$
+
+with
+
+$$\bar{x}_k = \frac{1}{p} \sum_{i=1}^{p} x_k(i) \iff \bar{x} = \frac{1}{p} \sum_{i=1}^{p} x^n(i), \quad \mathbf{X}_0 = \mathbf{X} - \bar{x} \mathbf{1}_p^T$$
+
+---
+
