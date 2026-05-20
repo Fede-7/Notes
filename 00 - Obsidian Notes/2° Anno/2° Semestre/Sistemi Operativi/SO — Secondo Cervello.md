@@ -1085,6 +1085,23 @@
 > [!DANGER] 
 > Fare Scheduling C-SCAN su un disco SSD. I vecchi kernel che non riconoscevano gli SSD accodavano le richieste per ottimizzare il movimento di una testina meccanica inesistente, sprecando solo cicli CPU.
 
+### API POSIX per l'I/O (System Call)
+
+> [!ABSTRACT] 
+> Le operazioni fondamentali sui file non manipolano percorsi su disco, ma interi chiamati File Descriptor (FD). L'I/O in Unix è un flusso continuo di byte interrotto solo dall'end-of-file.
+
+> [!QUOTE] 
+> System Call principali: `open` (crea/apre, restituisce FD), `read` (legge blocco byte), `write` (scrive blocco), `close` (libera FD), `lseek` (modifica l'offset senza I/O).
+
+> [!EXAMPLE] 
+> Usare `lseek(fd, -1, SEEK_END)` per scorrere un file a ritroso. Oppure usare `lseek` per saltare 100MB in avanti prima di scrivere, creando un "buco" (Sparse File) che consuma 0 byte su disco.
+
+> [!DANGER] 
+> Usare file standard per sincronizzazione IPC. A differenza delle Pipe, la `read()` su un file normale non si blocca in attesa che l'altro processo scriva dati (legge quello che c'è o l'EOF). Senza lock espliciti, due scritture concorrenti si sovrascrivono annientando i dati.
+
+- Nodo Standardizzazione: Il descrittore numerico nasconde la complessità del driver astraendo l'oggetto periferico.
+- Nodo Posizionamento: La primitiva lseek disattiva la lettura sequenziale forzata manipolando direttamente l'offset in RAM.
+
 ### Architettura File System: Inode e Tabelle
 
 > [!ABSTRACT] 
@@ -1158,6 +1175,27 @@
 
 - Nodo Contiguità: La linearità spaziale annienta il seek time meccanico ma impone rilocazioni costose per file in espansione.
 - Nodo Estensione: L'uso dei puntatori indiretti garantisce velocità immediata per i file microscopici e capienza teoricamente infinita per i database giganti.
+
+### Architettura a Strati del File System
+
+> [!ABSTRACT] 
+> Il File System non è un blocco monolitico di codice. È impilato in livelli gerarchici di astrazione, partendo dalle API umane fino ai segnali elettrici del controller hardware.
+
+> [!QUOTE] 
+> Livelli (Dall'alto in basso):
+> 1. Logical FS: Gestisce le API POSIX, la sicurezza, gli Inode e l'albero delle directory.
+> 2. File Organization Module: Traduce blocchi logici in fisici (da offset a LBA) e gestisce l'allocazione.
+> 3. Basic FS: Legge/scrive settori grezzi appoggiandosi alla Buffer Cache.
+> 4. I/O Control Layer: I Device Driver che inviano i comandi ai registri fisici della periferica.
+
+> [!EXAMPLE] 
+> Fai un bonifico (Logical FS verifica chi sei e il saldo). Il direttore decide su quale filiale appoggiarsi (Organization). L'impiegato processa la transazione interna (Basic FS). Il furgone portavalori sposta i contanti veri (I/O Control Layer).
+
+> [!DANGER] 
+> Latenza tra i livelli in caso di Crash. Se la corrente salta mentre il Basic FS sta scrivendo i dati su disco, ma il Logical FS non ha ancora scritto l'Inode, i dati fisici sono intatti ma logicamente orfani, risultando invisibili al sistema operativo. (Da qui la necessità del Journaling).
+
+- Nodo Strutturazione: L'architettura a cipolla frammenta le responsabilità isolando l'alta amministrazione dall'hardware meccanico.
+- Nodo Conversione: Lo strato organizzativo incrocia il tracciato astratto dell'utente coi settori fisici dell'hardware magnetico.
 
 ### VFS, Double Caching ed Evoluzione Ext
 
