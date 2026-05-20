@@ -894,6 +894,27 @@
 - Nodo Allineamento: La standardizzazione sequenziale delle richieste spezza a priori la chiusura del grafo delle assegnazioni.
 - Nodo Ereditarietà: L'innalzamento temporaneo della priorità di esecuzione (Inheritance) scherma il possessore del lock dalle prelazioni intermedie.
 
+### Prevenzione, Avoidance e Algoritmo del Banchiere
+
+> [!ABSTRACT] 
+> Se prevenire il deadlock irrigidendo il sistema (es. vietando risorse multiple) distrugge le performance, l'Avoidance usa la statistica e la simulazione. Il sistema concede la risorsa solo se la mossa successiva non lo condanna matematicamente a una strada senza uscita (Unsafe State).
+
+> [!QUOTE] 
+> Livelock: I processi cambiano stato in continuazione per evitarsi, ma nessuno fa progresso utile (es. due persone in un corridoio che si spostano sempre dallo stesso lato).
+> Grafo di Allocazione Risorse: Ciclo $\implies$ Deadlock garantito (se istanza singola) o possibile (se istanze multiple).
+> Algoritmo del Banchiere (Dijkstra): Basato su 4 matrici: `Available` (libere), `Max` (richiesta massima futura), `Allocation` (assegnate ora), `Need` (`Max - Allocation`).
+> Stato Sicuro (Safe State): Esiste una sequenza di esecuzione in cui tutti i processi possono terminare. Se una richiesta porta a uno stato Unsafe, la risorsa viene negata e il thread parcheggiato.
+
+> [!EXAMPLE] 
+> L'Algoritmo del Banchiere fa quello che fa una banca. Il Banchiere ha 100€ (Available). Tu (Processo) hai fido massimo 100€ (Max) e ne hai presi 50€ (Allocation). Il Banchiere ti presterà gli altri 50€ (Need) *solo* se è matematicamente sicuro che tu glieli ridia prima che il prossimo cliente reclami i suoi soldi (Safe State). Se c'è rischio di fallimento a catena (Unsafe State), non ti dà il prestito oggi.
+
+> [!DANGER] 
+> Confondere Unsafe State con Deadlock. Uno Stato Unsafe non è un Deadlock attuale, ma è il punto di non ritorno: il sistema *potrebbe* andare in deadlock se i processi chiedono il loro `Max` simultaneamente. Evitare lo Stato Unsafe è la garanzia di sopravvivenza.
+
+- Nodo Simulazione: Il decisore proietta matematicamente l'esito della concessione prima di confermarla, bloccando mosse pericolose.
+- Nodo Ciclismo: La rilevazione a istanza singola si riduce al trivialissimo ritrovamento di loop chiusi nel grafo orientato di dipendenza.
+- Nodo Agitazione: Il Livelock paralizza il sistema bruciando attivamente cicli CPU in mutazioni di stato futili.
+
 ## Gestione della Memoria e Paging
 
 ### Binding degli Indirizzi e MMU
@@ -992,6 +1013,25 @@
 - Nodo Gerarchizzazione: L'indicizzazione ad albero evita di stoccare tabelle vuote frammentando la traduzione.
 - Nodo Estensione: Il trucco del PAE allarga il bus di indirizzamento fisico scavalcando il limite logico del processo a 32-bit.
 - Nodo Inversione: L'architettura IPT rovescia il paradigma mappando l'hardware reale anziché le proiezioni virtuali.
+
+### Segmentazione e Segmentazione Paginata
+
+> [!ABSTRACT] 
+> A differenza della paginazione (che affetta la memoria ciecamente in blocchi uguali), la segmentazione divide la memoria logicamente secondo le strutture del programma (codice, stack, variabili globali), offrendo protezione semantica al costo della frammentazione esterna.
+
+> [!QUOTE] 
+> Indirizzo Logico: `<numero_segmento, offset>`.
+> Tabella dei Segmenti: Ogni entry contiene `Base` (indirizzo fisico di partenza) e `Limit` (lunghezza). Se l'offset supera il Limit, si genera un Trap (Segmentation Fault).
+> Segmentazione Paginata (Intel IA-32/x86): Un ibrido. L'indirizzo logico passa per la Segment Unit (che crea un Indirizzo Lineare) e poi per la Paging Unit (che lo trasforma in Indirizzo Fisico). Unisce la protezione semantica dei segmenti all'eliminazione della frammentazione esterna delle pagine.
+
+> [!EXAMPLE] 
+> Paginazione è tagliare una torta in 10 fette quadrate perfette, tagliando a metà le fragole. Segmentazione è tagliare seguendo il disegno: una fetta per la crema, una per la base. È più logico, ma le fette hanno forme irregolari (Frammentazione Esterna).
+
+> [!DANGER] 
+> Ignorare il Segmentation Fault. Non è un errore generico, è un intervento hardware della MMU che intercetta un offset che matematicamente supera il registro `Limit` della Tabella dei Segmenti. È l'hardware che "para" il colpo prima che distrugga altra memoria.
+
+- Nodo Semantica: Il partizionamento variabile asseconda l'intenzione del programmatore isolando blocchi logici (Stack, Text, Data) con permessi indipendenti.
+- Nodo Ibridazione: L'architettura Intel fonde le due filosofie, paginando internamente i segmenti per azzerare i difetti spaziali della segmentazione pura.
 
 ### Memoria Virtuale, Demand Paging e COW
 
