@@ -637,3 +637,24 @@ status: in-progress
 
 - Nodo Baricentro vs Cima: Il MAP si posiziona sulla vetta del monte (più facile da calcolare tramite derivata). L'MMSE cerca il baricentro del monte (richiede l'integrale). L'MMSE garantirà sempre l'errore di stima più basso possibile.
 ---
+### 🔵 PILASTRO VII — Stima Non-Bayesiana e Limiti di Precisione
+#### Il Parametro Deterministico e la Massima Verosimiglianza
+[!ABSTRACT] Se non disponiamo di una densità *a priori* (es. sincronizzazione fase 5G), il parametro $\theta$ non è più una variabile aleatoria ma una **costante deterministica ignota**. Cade il framework Bayesiano e nasce l'approccio frequentista.
+[!QUOTE] **Stima di Massima Verosimiglianza (ML):** Si sceglie il valore di $\theta$ che massimizza la probabilità (o densità) dei dati osservati:
+$$\hat{\theta}_{ML} = \arg\max_{\theta} f(\mathbf{x}^n | \theta)$$
+**Proprietà Invariante:** Lo stimatore ML commuta con trasformazioni arbitrarie: $\widehat{g(\theta)}_{ML} = g(\hat{\theta}_{ML})$.
+[!EXAMPLE] Sorgente Binomiale: Lo stimatore ML della probabilità di successo è la frequenza relativa $\hat{\theta}_{ML} = $w_H$/n$. 
+Media di Gaussiane: Lo stimatore ML coincide con la media campionaria $\bar{X}_n$.
+[!DANGER] La stima ML è il limite della stima MAP quando la conoscenza *a priori* è nulla (distribuzione uniforme su tutto il dominio), ovvero in condizioni di massima incertezza.
+
+#### Informazione di Fisher e Limite di Cramér-Rao (CRB)
+[!ABSTRACT] Esiste un limite fisico alla precisione di uno stimatore. Non possiamo ridurre la varianza dell'errore a piacere: la "curvatura" della verosimiglianza stabilisce il confine invalicabile della risoluzione.
+[!QUOTE] **Informazione di Fisher ($I_n(\theta)$):** Misura quanta informazione i dati portano sul parametro. È legata alla derivata seconda del logaritmo della verosimiglianza:
+$$I_n(\theta) = -E\left[\frac{\partial^2 \ln f(\mathbf{x}^n|\theta)}{\partial \theta^2}\right]$$
+**Limite di Cramér-Rao:** La varianza di un qualunque stimatore non polarizzato non può essere inferiore all'inverso dell'Informazione di Fisher:
+$$\text{Var}(\hat{\theta}) \geq \frac{1}{I_n(\theta)}$$
+[!EXAMPLE] Efficienza Binomiale: Per una sorgente binaria, lo stimatore ML raggiunge esattamente il CRB ($\text{Var} = \frac{\theta(1-\theta)}{n}$), quindi è uno **stimatore efficiente**.
+[!DANGER] **ML e Ottimalità:** Lo stimatore ML non è garantito essere efficiente per $n$ finito. Tuttavia, se non lo è lui, non lo è nessun altro. Inoltre, l'ML è **sempre asintoticamente efficiente** (raggiunge il CRB per $n \to \infty$).
+
+*   **Nodo Curvatura:** L'Informazione di Fisher è la misura della ripidità del picco di verosimiglianza: picco stretto = alta informazione = bassa varianza.
+*   **Nodo Efficienza:** Uno stimatore è efficiente solo se "spreme" tutta l'informazione disponibile dai dati, toccando il limite di Cramér-Rao.
