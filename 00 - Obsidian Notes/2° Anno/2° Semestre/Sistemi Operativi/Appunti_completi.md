@@ -40,19 +40,20 @@ La CPU opera sempre in una di due modalità, distinte da un **bit hardware**:
 > La transizione tra le modalità è **sempre controllata dal kernel**. Sistemi storici come MS-DOS non implementavano questo bit, rendendo l'intero sistema vulnerabile a programmi utente maliziosi.
 
 ### 1.3 Evoluzione Storica dei Sistemi Operativi
-| Generazione | Periodo | Tecnologia | Caratteristiche SO |
-|---|---|---|---|
-| **I** | 1940-1950 | Valvole | Nessun SO; operatore = programmatore; nasce FORTRAN |
-| **II** | 1950-1960 | Transistor | Batch processing, spooling, primo monitor residente |
-| **III** | 1960-1970 | Circuiti Integrati | Multiprogrammazione, time-sharing, dual mode, UNIX |
-| **IV** | 1980 | Personal Computer | MS-DOS, GUI (Xerox PARC → Apple → Windows) |
-| **V** | 2000-Oggi | Mobile/Cloud | iOS, Android, virtualizzazione massiva, cloud OS |
+| Generazione | Periodo   | Tecnologia         | Caratteristiche SO                                  |
+| ----------- | --------- | ------------------ | --------------------------------------------------- |
+| **I**       | 1940-1950 | Valvole            | Nessun SO; operatore = programmatore; nasce FORTRAN |
+| **II**      | 1950-1960 | Transistor         | Batch processing, spooling, primo monitor residente |
+| **III**     | 1960-1970 | Circuiti Integrati | Multiprogrammazione, time-sharing, dual mode, UNIX  |
+| **IV**      | 1980      | Personal Computer  | MS-DOS, GUI (Xerox PARC → Apple → Windows)          |
+| **V**       | 2000-Oggi | Mobile/Cloud       | iOS, Android, virtualizzazione massiva, cloud OS    |
 
 ### 1.4 Meccanismo delle Interruzioni
 Le **interruzioni** permettono alla CPU di sospendere temporaneamente l'esecuzione corrente per gestire eventi asincroni, evitando il costoso *polling*.
 
 **Tipologie di interrupt**:
-| Tipo | Origine | Sincronia | Esempio |
+
+|Tipo | Origine | Sincronia | Esempio |
 |---|---|---|---|
 | **Hardware Interrupt** | Periferica esterna | Asincrono | Fine trasferimento dati, pressione tasto |
 | **Eccezione** | CPU (errore esecuzione) | Sincrono | Division by zero, Segmentation Fault |
@@ -114,6 +115,7 @@ La creazione e gestione dei processi in Unix si basa su tre primitive POSIX:
 Unità di esecuzione sequenziale all'interno di un processo. Condividono heap, dati globali e file descriptor, ma possiedono stack e registri dedicati.
 
 **Modelli di Mapping User/Kernel Thread**:
+
 | Modello | Descrizione | Vantaggi | Svantaggi |
 |---|---|---|---|
 | **Many-to-One** | Molti user thread → 1 kernel thread | Leggero, gestione in user space | Blocco totale se un thread fa I/O; nessun parallelismo |
@@ -755,5 +757,580 @@ $$2^r \geq k + r + 1$$
 
 ---
 
+# 23. Gestione della Memoria e Paging
+*(Basato sulla Lezione 15: Memoria Principale, Binding degli Indirizzi, Frammentazione e Paging)*
+
+> **Introduzione**:
+> La **gestione della memoria** è una delle funzioni critiche del Sistema Operativo. Mentre la CPU esegue istruzioni, i programmi e i dati devono risiedere nella **memoria principale** (RAM). In questo capitolo, analizzeremo la distinzione tra memoria logica e fisica, il problema storico del **binding degli indirizzi**, le forme di **frammentazione** e come il meccanismo di **paginazione** (paging) risolva definitivamente il problema della contiguità fisica.
+
+---
+
+## 23.1 Background: Accesso alla Memoria e Protezione
+La CPU può interagire direttamente solo con i propri **registri** e la **memoria principale**. Ogni processo, per essere eseguito, deve essere caricato (almeno parzialmente) in RAM.
+
+**Ciclo di esecuzione ad alto livello**:
+1. La CPU carica le istruzioni indicate dal **Program Counter**.
+2. Le decodifica ed esegue.
+3. Scrive risultati in memoria principale o effettua chiamate di I/O.
+
+La memoria principale può essere vista come un grande **array di byte**, dove ogni byte ha un indirizzo unico. Per garantire la stabilità del sistema, il SO deve assicurare:
+- **Protezione**: Ogni processo ha l'uso esclusivo delle proprie zone di memoria. Questo è garantito da supporti hardware (bit di modalità kernel/user e registri di limite).
+- **Accelerazione**: L'accesso alla RAM è lento rispetto alla CPU; si utilizzano strutture intermedie (cache) per ottimizzare le prestazioni.
+
+> **Osservazione**:
+> Un processo utente standard non può violare le protezioni strutturali della memoria. Eventuali condivisioni (es. *Shared Memory*) devono essere esplicitamente concesse e gestite dal kernel.
+
+---
+
+## 23.2 Il Problema del Binding degli Indirizzi
+Il **binding** è l'associazione degli indirizzi simbolici/logici agli indirizzi fisici reali nella RAM.
+
+### 23.2.1 Momenti del Binding
+Il binding può avvenire in tre momenti distinti:
+1. **Tempo di Compilazione**: Si genera codice assoluto. Richiede che la posizione in memoria sia nota a priori (rigido e raro).
+2. **Tempo di Caricamento**: Si genera codice rilocabile. Il *Loader* somma l'indirizzo base all'indirizzo relativo durante il caricamento.
+3. **Tempo di Esecuzione (Runtime)**: Metodo usato nei sistemi moderni. Gli indirizzi rimangono logici fino all'accesso effettivo, richiedendo supporto hardware speciale.
+
+### 23.2.2 Indirizzi Logici vs Fisici e la MMU
+Nei sistemi moderni esiste una netta separazione:
+- **Indirizzi Logici (Virtuali)**: Generati dalla CPU. Il processo vede uno spazio di indirizzamento contiguo che parte da 0.
+- **Indirizzi Fisici**: Gli indirizzi reali della RAM.
+
+La traduzione avviene tramite la **MMU (Memory Management Unit)**, un modulo hardware integrato nella CPU. La traduzione è trasparente per il processo utente e avviene in tempo reale.
+
+---
+
+## 23.3 Allocazione Contigua e Frammentazione
+Prima dell'avvento del paging, si utilizzava l'**allocazione contigua**. La memoria era suddivisa in blocchi contigui assegnati ai processi.
+
+### 23.3.1 Strategie di Allocazione
+- **First Fit**: Assegna il primo "buco" libero sufficientemente grande.
+- **Best Fit**: Assegna il buco più aderente alla richiesta.
+- **Worst Fit**: Assegna il buco più grande disponibile.
+
+### 23.3.2 Tipi di Frammentazione
+| Tipo | Descrizione | Conseguenza |
+|------|-------------|-------------|
+| **Frammentazione Esterna** | La memoria libera è frammentata in piccoli buchi sparsi, insufficienti per nuove allocazioni anche se la somma totale è adeguata. | Fino al 50% di memoria persa a regime. Richiederebbe *compattazione* (costosa a runtime). |
+| **Frammentazione Interna** | Lo spazio inutilizzato *all'interno* di un blocco allocato (es. l'ultimo blocco non viene riempito completamente). | Spreco di spazio proporzionale alla granularità dell'allocazione. |
+
+---
+
+## 23.4 La Paginazione (Paging)
+Il **Paging** elimina la necessità di contiguità fisica, risolvendo la frammentazione esterna.
+
+### 23.4.1 Definizione
+- La memoria fisica è divisa in blocchi fissi di uguale dimensione chiamati **Frame** (es. 4KB, 2MB).
+- La memoria logica è divisa in blocchi della stessa dimensione chiamati **Pagine**.
+
+**Vantaggi**:
+- Una pagina logica può essere mappata in qualsiasi frame fisico libero.
+- **Elimina la frammentazione esterna**.
+- Rimane solo la frammentazione interna (massimo un frame meno 1 byte per processo).
+
+### 23.4.2 Traduzione degli Indirizzi
+L'indirizzo logico è suddiviso in:
+1. **Numero di Pagina ($p$)**: Indice nella **Page Table**.
+2. **Offset ($d$)**: Spostamento all'interno della pagina.
+
+**Meccanismo di traduzione**:
+1. La CPU genera `<p, d>`.
+2. La MMU usa $p$ per cercare il numero di **Frame ($f$)** nella Page Table.
+3. L'indirizzo fisico diventa `<f, d>`. L'offset rimane invariato.
+
+> **Esempio di calcolo bit**:
+> Se lo spazio logico è $2^{30}$ byte (1 GB) e la pagina è $2^{12}$ byte (4 KB):
+> - Bit per l'offset = $12$.
+> - Bit per il numero di pagina = $30 - 12 = 18$.
+> - Numero di pagine totali = $2^{18}$.
+
+```mermaid
+graph TD
+  A[CPU genera Indirizzo Logico] --> B{MMU}
+  B -- |Estrae Numero Pagina (p)| --> C[Page Table]
+  C --|Restituisce Numero Frame (f)| --> B
+  B --|Unisce f con Offset (d)| --> D[Indirizzo Fisico]
+  D --> E[Memoria Principale]
+```
+
+---
+
+## 23.5 Esercizi Proposti
+1. **Calcolo Entry Page Table**: Dato uno spazio di indirizzi logici a 14 bit e pagine di 2 KB, quante entry avrà la tabella delle pagine? *(Soluzione: $2^{14-11} = 8$ entry)*.
+2. **Dimensione Pagina**: Se lo spazio logico è a 15 bit e il sistema ha 8 pagine, quanto sono grandi le pagine? *(Soluzione: $2^{15}/2^3 = 2^{12} = 4$ KB)*.
+3. **Bit per Frame**: Dati frame di 4 MB e memoria fisica di 128 GB, calcolare il numero minimo di bit per indicizzare tutti i frame. *(Soluzione: $2^{37}/2^{22} = 2^{15}$ frame, servono 15 bit)*.
+
+---
+
+# 24. Gestione Avanzata della Memoria e TLB
+*(Basato sulla Lezione 16: Allocazione Frame, TLB, Strutture Page Table, Protezione)*
+
+> **Introduzione**:
+> La semplice esistenza di una Page Table non basta per garantire prestazioni accettabili. Ogni accesso in memoria richiederebbe due letture (una per la tabella, una per il dato). In questa sezione introduciamo la **TLB**, i bit di protezione, le strutture gerarchiche per spazi di indirizzamento vasti e il concetto di **swapping**.
+
+---
+
+## 24.1 Translation Lookaside Buffer (TLB)
+La **TLB** è una cache hardware associativa ad alta velocità integrata nella MMU che memorizza le traduzioni indirizzo logico $\rightarrow$ fisico più recentemente utilizzate.
+
+### 24.1.1 Funzionamento e Principio di Località
+1. La CPU genera un indirizzo logico.
+2. La MMU cerca nella TLB:
+   - **TLB Hit**: La traduzione è trovata. Tempo di accesso ridotto drasticamente.
+   - **TLB Miss**: La MMU accede alla Page Table in RAM, recupera il frame e aggiorna la TLB.
+
+L'efficacia della TLB si basa sul **principio di località**: i processi tendono ad accedere ripetutamente alle stesse pagine o a pagine vicine.
+
+### 24.1.2 Calcolo dell'Effective Access Time (EAT)
+L'EAT è il tempo medio di accesso alla memoria considerando hit e miss della TLB.
+
+$$ EAT = \alpha \cdot (\epsilon + T_M) + (1 - \alpha) \cdot (\epsilon + 2T_M) $$
+
+Dove:
+- $\alpha$: Probabilità di Hit nella TLB.
+- $\epsilon$: Tempo di accesso alla TLB.
+- $T_M$: Tempo di accesso alla memoria principale.
+
+> **Esempio Pratico**:
+> Con $\alpha = 0.8$, $\epsilon = 20$ ns, $T_M = 100$ ns:
+> $EAT = 0.8(120) + 0.2(220) = 96 + 44 = 140$ ns.
+> Senza TLB, il tempo sarebbe $2 \cdot 100 = 200$ ns.
+
+---
+
+## 24.2 Protezione e Bit di Stato nella Page Table
+Ogni entry della Page Table contiene bit di controllo fondamentali:
+
+| Bit | Descrizione |
+|-----|-------------|
+| **Valid/Invalid** | Indica se l'accesso alla pagina è legale. Spesso la Pagina 0 è *Invalid* per catturare puntatori NULL. |
+| **Present/Absent** | Indica se la pagina è in RAM o nel backing store. Se *Absent*, genera un **Page Fault**. |
+| **Read/Write/Execute** | Definisce i permessi di accesso (es. codice in sola esecuzione). |
+| **Dirty (Modified)** | Segnala se la pagina è stata modificata in RAM. Se *Dirty=0*, può essere sovrascritta senza scrivere su disco. |
+| **Reference (Accessed)** | Segnala se la pagina è stata letta/scritta recentemente. Utile per algoritmi di rimpiazzo (es. LRU). |
+
+---
+
+## 24.3 Strutture delle Page Table per Spazi Grandi
+Con architetture a 32 o 64 bit, una Page Table lineare diventerebbe enormemente grande (es. 4 MB per processo a 32-bit).
+
+### 24.3.1 Page Table Gerarchica (Multi-Level)
+L'indirizzo logico viene partizionato in più indici (es. P1, P2) che attraversano livelli di tabelle.
+- **Vantaggio**: Si allocano solo le parti della struttura effettivamente usate dal processo.
+- **Svantaggio**: Aumenta gli accessi in memoria per la traduzione (mitigato dalla TLB).
+
+### 24.3.2 Inverted Page Table (IPT)
+Esiste **una sola tabella globale** per tutta la memoria fisica, con tante entry quanti sono i frame fisici.
+- **Vantaggio**: Risparmio enorme di memoria.
+- **Svantaggio**: La ricerca della coppia `(PID, Pagina Virtuale)` è lineare (lenta) e la gestione della memoria condivisa è complessa.
+
+---
+
+## 24.4 Swapping e Demand Paging
+Storicamente, lo **Swapping** spostava interi processi tra RAM e disco (*Swap-in/Swap-out*), operazione costosissima.
+Nei sistemi moderni si usa il **Demand Paging**: si spostano solo singole pagine quando necessario. Il **Dirty Bit** è cruciale per risparmiare I/O: se una pagina è *Clean*, non viene scritta su disco durante il replacement.
+
+> **Nota sui Sistemi Mobile**:
+> Nelle memorie Flash, le scritture hanno un ciclo di vita limitato. Per evitare l'usura (wear leveling), i sistemi mobile spesso preferiscono la **compressione delle pagine in RAM** invece dello swap su disco.
+
+---
+
+## 24.5 Esercizi Proposti
+1. Calcolare l'EAT dato un Hit Rate del 99%, tempo TLB di 10 ns e tempo memoria di 150 ns.
+2. Spiegare perché il *Dirty Bit* è fondamentale per le prestazioni del sistema di paging.
+3. Confrontare i pro e i contro della *Page Table Gerarchica* rispetto all'*Inverted Page Table*.
+
+---
+
+# 25. Architetture di Memoria e Demand Paging
+*(Basato sulla Lezione 17: Intel x86/ARM, Memoria Virtuale, Page Fault, Copy-on-Write)*
+
+---
+
+## 25.1 Segmentazione e Paging nelle Architetture Intel
+### 25.1.1 Intel a 32-bit (x86)
+Utilizza un meccanismo ibrido:
+1. **Segmentation Unit**: L'indirizzo logico (Selettore 16-bit + Offset 32-bit) viene tradotto in un **Indirizzo Lineare** a 32 bit. Nei SO moderni, la segmentazione è spesso in *flat mode* (base = 0).
+2. **Paging Unit**: L'indirizzo lineare viene paginato (es. paging a due livelli per pagine da 4 KB). Il registro **CR3** punta alla Page Directory Base.
+
+### 25.1.2 Intel a 64-bit (x86-64)
+Supporta teoricamente $2^{64}$ byte, ma implementa **48 bit** per gli indirizzi virtuali.
+- Utilizza una **struttura gerarchica a 4 livelli** (PML4, PDPT, PD, PT).
+- Supporta **Huge Pages** (2 MB, 1 GB) per ridurre i livelli di gerarchia e migliorare il *TLB Reach*.
+
+---
+
+## 25.2 Memoria Virtuale e Demand Paging
+La **Memoria Virtuale** disaccoppia lo spazio di indirizzamento logico dalla RAM fisica, permettendo di eseguire processi più grandi della RAM disponibile.
+
+### 25.2.1 Gestione del Page Fault
+Quando la CPU accede a una pagina non presente in RAM (bit *Invalid* o *Absent*):
+1. La MMU genera un trap al Sistema Operativo.
+2. Il SO verifica la legalità dell'accesso. Se illegale $\rightarrow$ Abort.
+3. Il SO cerca la pagina nel **Backing Store**.
+4. Trova un **Frame Libero** in RAM e schedula l'I/O.
+5. Aggiorna la Page Table e **riavvia l'istruzione** che ha causato il fault.
+
+> **⚠️ Attenzione**:
+> Il Page Fault è estremamente costoso (~8 ms) rispetto all'accesso in RAM (~200 ns). Per mantenere una degradazione < 10%, la probabilità di page fault deve essere inferiore a 1 ogni 400.000 accessi.
+
+---
+
+## 25.3 Copy-on-Write (COW) e Fork
+La chiamata `fork()` duplica un processo. Duplicare fisicamente tutte le pagine è inefficiente.
+- **Soluzione COW**: Padre e figlio condividono inizialmente le stesse pagine fisiche in modalità **Read-Only**.
+- Solo quando uno dei due tenta di **scrivere**, scatta un fault di protezione. Il SO alloca un nuovo frame, copia la pagina e aggiorna la Page Table del processo scrivente.
+- Questo ottimizza drasticamente le prestazioni se il figlio esegue subito `exec()`.
+
+---
+
+## 25.4 Esercizi Proposti
+1. Descrivere passo-passo cosa accade nel kernel durante un Page Fault legale.
+2. Spiegare il vantaggio del *Copy-on-Write* rispetto alla duplicazione fisica della memoria durante un `fork()`.
+3. Calcolare quanti bit servono per l'offset e quanti per gli indici di pagina in un sistema a 48 bit con paging a 4 livelli e pagine da 4 KB.
+
+---
+
+# 26. Algoritmi di Sostituzione di Pagina e Thrashing
+*(Basato sulla Lezione 18: FIFO, OPT, LRU, Clock, Allocazione Frame)*
+
+---
+
+## 26.1 Algoritmi di Sostituzione di Pagina
+Quando i frame liberi si esauriscono, il SO deve scegliere una **Pagina Vittima**.
+
+### 26.1.1 FIFO (First-In, First-Out)
+Sostituisce la pagina caricata da più tempo.
+- **Problema**: Soffre dell'**Anomalia di Belady**, dove aumentare i frame disponibili porta a un *aumento* dei Page Fault.
+
+### 26.1.2 Optimal (OPT)
+Sostituisce la pagina che non verrà utilizzata per il periodo più lungo nel futuro.
+- **Utilizzo**: Algoritmo teorico di riferimento (benchmark), non implementabile nella pratica per la sua preveggenza.
+
+### 26.1.3 LRU (Least Recently Used)
+Sostituisce la pagina non utilizzata da più tempo nel passato.
+- **Proprietà**: È uno **Stack Algorithm** (non soffre di Belady).
+- **Implementazione**: Costosa in hardware (richiede timestamp o liste doppiamente linkate aggiornate ad ogni accesso).
+
+### 26.1.4 Algoritmo Clock (Second Chance)
+Approssimazione di LRU basata sul **Bit di Riferimento (R)**.
+- Le pagine sono in una lista circolare. Un puntatore ("lancetta") le scandisce.
+- Se $R=1$, si resetta a $0$ e si passa alla successiva (*second chance*).
+- Se $R=0$, la pagina viene scelta come vittima.
+- **Enhanced Clock**: Considera anche il *Dirty Bit (M)*, classificando le pagine in 4 classi di priorità per minimizzare l'I/O di scrittura.
+
+---
+
+## 26.2 Allocazione dei Frame
+### 26.2.1 Locale vs Globale
+- **Allocazione Locale**: Ogni processo ha frame dedicati. Isolamento garantito, ma possibile sottoutilizzo.
+- **Allocazione Globale**: Tutti i frame sono condivisi. Efficienza massima, ma rischio di interferenza tra processi.
+
+### 26.2.2 Thrashing (Satellamento)
+Il **Thrashing** si verifica quando il sistema spende più tempo a scambiare pagine che a eseguire istruzioni.
+- **Cause**: Grado di multiprogrammazione troppo elevato; somma dei *working set* > RAM disponibile.
+- **Sintomi**: Elevatissimo tasso di Page Fault, coda di I/O lunga, crollo dell'utilizzo della CPU.
+- **Soluzione**: Ridurre il grado di multiprogrammazione o aumentare la RAM fisica.
+
+---
+
+## 26.3 Esercizi Proposti
+1. Data la stringa di riferimenti `7, 0, 1, 2, 0, 3, 0, 4, 2, 3, 0, 3, 2, 1, 2, 0, 1, 7, 0, 1` e 3 frame, simulare gli algoritmi FIFO e LRU contando i Page Fault.
+2. Spiegare perché l'Anomalia di Belady invalida l'uso di FIFO in sistemi ad alte prestazioni.
+3. Descrivere come l'*Enhanced Clock Algorithm* decide quale pagina espellere considerando i bit R e M.
+
+---
+
+# 27. Thrashing, Working Set e Memoria del Kernel
+*(Basato sulla Lezione 19: Working Set, Buddy System, Slab Allocator, Ottimizzazioni)*
+
+---
+
+## 27.1 Il Modello del Working Set
+Il **Working Set** $W(t, \Delta)$ è l'insieme delle pagine diverse a cui un processo ha fatto riferimento negli ultimi $\Delta$ istanti.
+- Il SO monitora gli accessi (usando interrupt periodici e i *Bit di Riferimento*) per stimare la località.
+- Se $\sum |W_i|$ supera la memoria fisica, il sistema è in sofferenza (rischio thrashing).
+
+---
+
+## 27.2 Gestione della Memoria del Kernel
+La memoria del kernel ha requisiti diversi (piccole dimensioni, contiguità fisica per DMA). Linux usa due allocatori complementari:
+
+### 27.2.1 Buddy System
+Gestisce la memoria fisica a livello di pagine/frame.
+- Fornisce blocchi di dimensione potenza di 2 ($2^n$).
+- Se il blocco disponibile è più grande, viene suddiviso in due "buddy".
+- Alla deallocazione, i buddy liberi vengono fusi ("merged").
+- **Svantaggio**: Frammentazione interna.
+
+### 27.2.2 Slab Allocator
+Gestisce strutture dati specifiche del kernel (es. PCB, Inode) sopra il Buddy System.
+- **Struttura**: Cache $\rightarrow$ Slab (pagine contigue) $\rightarrow$ Oggetti pre-inizializzati.
+- **Vantaggi**: Nessun overhead di inizializzazione, cache-friendly, elimina la frammentazione interna per oggetti piccoli.
+
+---
+
+## 27.3 Ottimizzazioni: Compressione e Pre-paging
+- **Compressione della Memoria**: Invece di scrivere pagine *dirty* su disco (lento e usurante per le Flash), il SO le comprime in RAM. La decompressione in CPU è spesso più veloce dell'I/O su disco.
+- **Pre-paging**: Anticipare il caricamento di pagine adiacenti ($P+1, P+2...$) assumendo località spaziale. Utile per codice sequenziale, controproducente per dati casuali.
+
+---
+
+## 27.4 Esercizi Proposti
+1. Confrontare il *Buddy System* e lo *Slab Allocator* in termini di granularità e tipo di frammentazione gestita.
+2. Spiegare perché la compressione in RAM è preferita allo swap su disco nei dispositivi mobili moderni.
+3. Calcolare la dimensione massima di un file gestibile da un inode con 10 puntatori diretti, 1 singolo, 1 doppio e 1 triplo indiretto, assumendo blocchi da 4KB e puntatori da 4 byte.
+
+---
+
+# 28. Implementazioni SO e Storage Secondario
+*(Basato sulla Lezione 20: Linux/Windows/Solaris Replacement, HDD vs SSD, Disk Scheduling, ECC)*
+
+---
+
+## 28.1 Implementazione della Sostituzione nei SO Moderni
+- **Linux (Active/Inactive Lists)**: Pagine con Reference Bit=1 sono *Active*. Periodicamente, quelle non riferite diventano *Inactive*. Un demone (*kswapd*) libera pagine dalla lista *Inactive* quando la RAM scarseggia.
+- **Windows (Working Set Trimmer)**: Monitora la memoria libera globale. Se scende sotto soglia, rimuove pagine dai processi che eccedono il loro *Minimum Working Set*, sacrificando prima i processi grandi e inattivi.
+- **Solaris (Two-Hand Clock)**: Usa due lancette (*Front Hand* azzer i bit di riferimento, *Back Hand* raccoglie le vittime). La distanza tra le lancette (*Hand Spread*) si adatta dinamicamente alla pressione di memoria.
+
+---
+
+## 28.2 Memoria Secondaria: HDD vs SSD
+| Caratteristica | HDD (Magnetico) | SSD (NAND Flash) |
+|----------------|-----------------|------------------|
+| **Accesso** | Meccanico (testine, piatti rotanti) | Elettronico (celle di memoria) |
+| **Latenza** | Alta (Seek Time + Rotational Latency) | Bassissima (nessuna parte mobile) |
+| **Limiti** | Usura meccanica | Cicli di scrittura limitati (P/E cycles) |
+| **Gestione SO** | Disk Scheduling complesso | Scheduling semplice (NOOP/Deadline) |
+
+---
+
+## 28.3 Algoritmi di Disk Scheduling (Per HDD)
+L'obiettivo è minimizzare il **Seek Time** totale.
+
+| Algoritmo | Descrizione | Svantaggio |
+|-----------|-------------|------------|
+| **FCFS** | Serve in ordine di arrivo. | Movimento erratico, prestazioni scadenti. |
+| **SSTF** | Serve la richiesta più vicina. | Rischio di *Starvation* per richieste lontane. |
+| **SCAN** | Movimento lineare avanti e indietro (ascensore). | Attesa doppia per gli estremi. |
+| **C-SCAN** | Movimento unidirezionale, ritorno vuoto all'inizio. | Tempo di attesa più uniforme. |
+| **LOOK/C-LOOK** | Varianti ottimizzate che si fermano all'ultima richiesta. | - |
+
+---
+
+## 28.4 Rilevamento e Correzione Errori (ECC)
+I dispositivi di storage usano codici per garantire l'integrità dei dati.
+- **Parity Bit**: Rileva errori a singolo bit, ma non li corregge.
+- **Codice di Hamming (ECC)**: Aggiunge bit di ridondanza per correggere errori.
+  $$ 2^r \geq k + r + 1 $$
+  Dove $k$ sono i bit di dati e $r$ i bit di ridondanza. I codici **SEC-DED** correggono 1 bit e rilevano 2 bit.
+
+---
+
+## 28.5 Esercizi Proposti
+1. Data una sequenza di richieste disco e una posizione iniziale, calcolare il movimento totale della testina per SCAN e C-SCAN.
+2. Spiegare il ruolo del *Flash Translation Layer (FTL)* negli SSD e perché lo scheduling tradizionale è inutile per essi.
+3. Calcolare il numero minimo di bit di ridondanza $r$ necessari per proteggere 8 bit di dati usando il codice di Hamming.
+
+---
+
+# 29. Bootstrap, Swap Space e Architetture RAID
+*(Basato sulla Lezione 21: Partizionamento, Boot Process, Swap, RAID)*
+
+---
+
+## 29.1 Il Processo di Bootstrap
+### 29.1.1 Architettura Legacy: BIOS + MBR
+- **BIOS**: Esegue il POST e carica il **Master Boot Record** (primi 512 byte del disco).
+- **MBR**: Contiene il Boot Code e la tabella delle partizioni (max 4 primarie). Limitato a dischi da ~2.2 TB.
+
+### 29.1.2 Architettura Moderna: UEFI + GPT
+- **UEFI**: Firmware avanzato con interfaccia grafica e networking pre-boot.
+- **GPT**: Supporta partizioni a 64-bit (dischi enormi) e include un backup della tabella per ridondanza.
+- **ESP (EFI System Partition)**: Partizione FAT32 contenente i bootloader `.efi`.
+
+---
+
+## 29.2 Gestione dello Swap Space
+Lo **Swap Space** è l'area su disco usata come backing store per la memoria virtuale.
+- Può essere una **Raw Partition** (più veloce, meno overhead) o un **Swap File** (più flessibile).
+- Contiene principalmente **Memoria Anonima** (stack, heap). Il codice eseguibile (read-only) viene ricaricato direttamente dal file sorgente se necessario.
+
+---
+
+## 29.3 Architetture RAID
+**RAID** combina più dischi per migliorare performance e affidabilità.
+
+| Livello | Tecnica | Pro | Contro | Min Dischi |
+|---------|---------|-----|--------|------------|
+| **RAID 0** | Striping | Massima velocità, 100% capacità. | Zero tolleranza ai guasti. | 2 |
+| **RAID 1** | Mirroring | Alta affidabilità, lettura parallela. | Costo spazio 50%. | 2 |
+| **RAID 5** | Striping + Parità Distribuita | Tolleranza a 1 guasto, efficienza spazio. | Write penalty, ricostruzione lenta. | 3 |
+| **RAID 6** | Doppia Parità | Tolleranza a 2 guasti. | Overhead scrittura maggiore. | 4 |
+| **RAID 10**| Mirror + Stripe | Alta performance + alta affidabilità. | Costo spazio 50%. | 4 |
+
+---
+
+## 29.4 Esercizi Proposti
+1. Confrontare i flussi di avvio BIOS/MBR e UEFI/GPT evidenziando i limiti del primo.
+2. Spiegare perché il codice eseguibile (Text segment) solitamente non viene swappato su disco.
+3. Scegliere il livello RAID più adatto per un database ad alte prestazioni che non può permettersi la perdita di dati, giustificando la scelta.
+
+---
+
+# 30. Strutture del File System e Directory
+*(Basato sulla Lezione 22: FCB, Tabelle File Aperti, Locking, Link, Journaling, Inode)*
+
+---
+
+## 30.1 Architettura Logica del File System
+Il File System astrae i blocchi fisici del disco in sequenze di byte. I metadati di ogni file sono gestiti nel **File Control Block (FCB)**, noto come **Inode** in Unix/Linux.
+- **Contenuto dell'Inode**: Tipo, dimensione, permessi, timestamp, puntatori ai blocchi dati.
+- **Nota Importante**: L'Inode **NON** contiene il nome del file. Il nome è gestito separatamente nelle Directory.
+
+---
+
+## 30.2 Gestione dei File Aperti: Le Tre Tabelle
+1. **Tabella dei File Descriptor (Per-Process)**: Nel PCB, mappa gli interi FD (0, 1, 2...) alle entry globali.
+2. **System-wide Open File Table**: Globale al kernel. Contiene flag di stato, **Current Offset** (file pointer) e puntatore all'Inode in memoria.
+3. **Inode Table (In-Memory)**: Copie degli Inode caricati dal disco per i file attivi.
+
+---
+
+## 30.3 Directory e Link
+Le Directory sono file speciali che mappano **Nome File $\leftrightarrow$ Inode Number**.
+
+| Caratteristica | Hard Link | Symbolic Link (Soft) |
+|----------------|-----------|----------------------|
+| **Natura** | Altro nome per lo stesso Inode. | File speciale contenente il percorso del target. |
+| **Inode** | Condiviso. | Proprio e distinto. |
+| **Cross-FS** | No. | Sì. |
+| **Cicli** | Impossibili. | Possibili (dangling links). |
+
+---
+
+## 30.4 Affidabilità: Journaling
+Il **Journaling** previene la corruzione del FS in caso di crash.
+- Prima di modificare i metadati reali, il FS scrive l'intento in un **Journal** (log circolare).
+- Al riavvio, il FS *replaya* le operazioni *committed* e annulla quelle incomplete, garantendo la consistenza strutturale rapidamente.
+
+---
+
+## 30.5 Esercizi Proposti
+1. Descrivere il flusso completo di una chiamata `open()`, dall'accesso alla directory fino all'allocazione del FD.
+2. Spiegare la differenza tra `flock()` e `fcntl()` nella gestione del file locking.
+3. Analizzare i vantaggi e gli svantaggi di Hard Link rispetto a Symbolic Link in un ambiente multi-utente.
+
+---
+
+# 31. I/O di Basso Livello e System Call POSIX
+*(Basato sulla Lezione 23: `open`, `read`, `write`, `lseek`, Fork & FD, Sparse Files)*
+
+---
+
+## 31.1 System Call Fondamentali
+- **`open(pathname, flags, mode)`**: Restituisce un FD. Flag comuni: `O_CREAT`, `O_TRUNC`, `O_APPEND`.
+- **`read(fd, buf, count)`** e **`write(fd, buf, count)`**: Operano su blocchi di byte, aggiornando l'offset nel kernel.
+- **`lseek(fd, offset, whence)`**: Modifica l'offset senza effettuare I/O. Permette accessi randomici.
+- **`close(fd)`**: Libera le risorse nel kernel e flush dei buffer.
+
+---
+
+## 31.2 Condivisione di File Descriptor (Fork)
+Se `open()` avviene *prima* di `fork()`, padre e figlio condividono la stessa entry nella *System-wide Open File Table*.
+- Condividono lo stesso **offset**.
+- Se il figlio scrive, l'offset comune si sposta. Il padre deve usare `lseek(fd, 0, SEEK_SET)` per rileggere dall'inizio.
+- Se `open()` avviene *dopo* il `fork()`, gli offset sono indipendenti.
+
+---
+
+## 31.3 Sparse Files (Creazione di "Buchi")
+I file system moderni supportano gli **Sparse Files**.
+- Se si fa `lseek` oltre la fine del file e si scrive, il FS non alloca blocchi fisici pieni di zeri per la regione intermedia.
+- **Dimensione Logica** (`ls -l`) $\neq$ **Dimensione Fisica** (`du`).
+- I "buchi" leggono come caratteri nulli (`\0`) e non occupano spazio su disco.
+
+---
+
+## 31.4 Esercizi Proposti
+1. Scrivere uno snippet C che apre un file, scrive una stringa, usa `lseek` per tornare all'inizio e legge il contenuto.
+2. Spiegare perché la `read()` su file non è bloccante in attesa di nuovi dati, a differenza delle Pipe.
+3. Dimostrare con un esempio pratico come `lseek` possa creare uno Sparse File e come verificarne la dimensione fisica.
+
+---
+
+# 32. Allocazione dei File e Caching Unificato
+*(Basato sulla Lezione 24: Contigua, Concatenata, Indicizzata, FAT, Ext2/3/4, Double Caching)*
+
+---
+
+## 32.1 Metodi di Allocazione dei File
+| Metodo | Descrizione | Pro | Contro |
+|--------|-------------|-----|--------|
+| **Contigua** | Blocchi adiacenti. | Accesso sequenziale/diretto ottimale. | Frammentazione esterna, difficile espansione. |
+| **Concatenata** | Lista di blocchi sparsi. | Nessuna frammentazione esterna, espansione facile. | Accesso diretto lento, overhead puntatori. |
+| **Indicizzata** | Blocco indice con puntatori. | Accesso diretto efficiente, nessuna frammentazione. | Overhead indice, limite dimensione file. |
+
+---
+
+## 32.2 Implementazioni Moderne: Unix Inode vs NTFS MFT
+- **Unix Inode**: Usa puntatori diretti, singoli, doppi e tripli indiretti per bilanciare velocità (file piccoli) e capacità (file grandi).
+- **NTFS MFT**: Database centralizzato contenente un record per ogni file. Usa *Extents* per mappare blocchi contigui efficientemente.
+
+---
+
+## 32.3 Caching e Performance: Unified Page Cache
+Storicamente, Linux usava una *Buffer Cache* per i blocchi disco e una *Page Cache* per la memoria virtuale, causando il **Double Caching** (duplicazione dei dati).
+- **Soluzione**: I moderni kernel usano una **Page Cache unificata**. Sia `read/write` che `mmap` accedono alle stesse pagine in RAM.
+- **Read-Ahead**: Il kernel legge blocchi successivi anticipatamente durante accessi sequenziali per nascondere la latenza del disco.
+
+---
+
+## 32.4 Esercizi Proposti
+1. Confrontare l'allocazione concatenata classica con la **FAT (File Allocation Table)** in termini di affidabilità e velocità di accesso diretto.
+2. Spiegare come l'evoluzione da Ext2 a Ext4 abbia migliorato la gestione dei file grandi (introduzione degli *Extents*).
+3. Descrivere il problema del *Double Caching* e come la *Unified Page Cache* lo risolva.
+
+---
+
+# 33. Consistenza del File System e Sottosistema I/O
+*(Basato sulla Lezione 25: Crash Recovery, VFS, Device Drivers, Line Discipline)*
+
+---
+
+## 33.1 Architettura a Strati del File System
+Il File System è organizzato in livelli gerarchici per favorire l'astrazione:
+1. **Logical File System**: Interfaccia utente, permessi, directory.
+2. **File Organization Module**: Traduce indirizzi logici in fisici, allocazione blocchi.
+3. **Basic File System**: I/O generico sui blocchi fisici, buffering.
+4. **I/O Control Layer**: Driver specifici per l'hardware.
+
+### Virtual File System (VFS)
+Strato di astrazione che permette al kernel di supportare molteplici file system (ext4, NTFS, FAT) contemporaneamente, fornendo un'interfaccia uniforme alle applicazioni tramite i **Vnode**.
+
+---
+
+## 33.2 Sottosistema di Input/Output (I/O)
+### 33.2.1 Classificazione dei Dispositivi
+- **Block Devices**: Accesso randomico a blocchi fissi (HDD, SSD). Supportano `seek`.
+- **Character Devices**: Flusso sequenziale di byte (Tastiera, Mouse). Nessun `seek`.
+- **Network Devices**: Comunicazione tramite socket (TCP/UDP).
+
+### 33.2.2 Device Drivers e Interrupt
+I driver traducono chiamate generiche del kernel in comandi hardware. Eseguono in **Kernel Mode (Ring 0)**, quindi un driver buggy può compromettere l'intero sistema.
+L'I/O è prevalentemente **asincrono**: il driver invia un comando e si sospende; quando il dispositivo finisce, genera un **Hardware Interrupt** che sveglia il driver.
+
+### 33.2.3 Terminali e Line Discipline
+I terminali (TTY) implementano una **Line Discipline**: un livello software che interpreta il flusso di byte grezzo, gestendo l'editing della riga (backspace), la conversione di caratteri speciali e i segnali (es. `Ctrl+C` invia SIGINT).
+
+---
+
+## 33.3 Esercizi Proposti
+1. Descrivere il ruolo del **VFS** in un sistema operativo multi-file system.
+2. Spiegare la differenza tra *Block Devices* e *Character Devices* fornendo un esempio di system call specifica per ciascuno.
+3. Analizzare il flusso di un'operazione di I/O asincrono, dal momento in cui il driver invia il comando al dispositivo fino al completamento segnalato dall'Interrupt.
+
+---
+
 > **Nota Finale per lo Studio**:
-> Per l'esame scritto, concentratevi sulla capacità di **tracciare l'esecuzione** di algoritmi di scheduling (disegnare il Gantt chart) e di gestione della memoria (calcolare indirizzi fisici da logici). Per l'orale, preparate bene le differenze concettuali (es. Mutex vs Semaforo, Hard Link vs Soft Link, Process vs Thread) e le motivazioni architetturali (es. perché si usa la TLB, perché si usa il Journaling).
+> Per l'esame scritto, concentratevi sulla capacità di **tracciare l'esecuzione** di algoritmi di scheduling disco (calcolare il seek time totale) e di gestione della memoria (calcolare indirizzi fisici da logici e simulare la TLB). Per l'orale, preparate bene le differenze concettuali (es. Hard Link vs Soft Link, FIFO vs LRU, HDD vs SSD) e le motivazioni architetturali (es. perché si usa il Journaling, perché si usa la Unified Page Cache).
