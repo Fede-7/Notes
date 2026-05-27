@@ -1,7 +1,6 @@
 # LEZIONE - STIMA BAYESIANA E MASSIMA VEROSIMIGLIANZA
 
 **Corso:** Calcolo della Probabilità e Teoria dell'Informazione
-**Docente:** Prof. Giuseppe Piccirillo
 **Programma:** Laurea Triennale in Informatica — II Semestre 2025–2026
 
 ---

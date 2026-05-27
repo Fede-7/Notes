@@ -53,11 +53,12 @@
   3. **Context Switch** (se necessario).
   4. **Ripristino dello stato** e ritorno in User Mode.
 - **Differenza tra Interrupt e Polling**:
-  | **Interrupt** | **Polling** |
-  |---------------|--------------|
-  | La CPU è **interrotta** dal dispositivo. | La CPU **interroga** periodicamente il dispositivo. |
-  | Efficiente (CPU libera per altri task). | Inefficiente (CPU occupata a controllare). |
-  | Usato nei SO moderni. | Usato in sistemi embedded semplici.
+
+| **Interrupt** | **Polling** |
+|---|---|
+| La CPU è **interrotta** dal dispositivo. | La CPU **interroga** periodicamente il dispositivo. |
+| Efficiente (CPU libera per altri task). | Inefficiente (CPU occupata a controllare). |
+| Usato nei SO moderni. | Usato in sistemi embedded semplici.
 
 **📌 Domande tipiche**:
 - *Spiegare la differenza tra interrupt e polling.*
@@ -522,11 +523,12 @@ P1 (0-4) → P2 (4-8) → P1 (8-12) → P3 (12-14) → P1 (14-16)
 - **Partizioni fisse**: Memoria divisa in partizioni statiche.
 - **Partizioni variabili**: Memoria allocata dinamicamente.
 - **Algoritmi di allocazione**:
-  | **Algoritmo** | **Descrizione**                                                                 | **Vantaggi**               | **Svantaggi**                     |
-  |--------------|---------------------------------------------------------------------------------|----------------------------|------------------------------------|
-  | **First Fit** | Alloca la **prima partizione libera** sufficientemente grande.              | Veloce.                    | Frammentazione esterna.            |
-  | **Best Fit**  | Alloca la **partizione libera più piccola** che soddisfa la richiesta.      | Minimizza frammentazione.  | Lento (deve scansionare tutte).     |
-  | **Worst Fit** | Alloca la **partizione libera più grande**.                                   | Può ridurre frammentazione.| Frammentazione esterna peggiore. |
+
+| **Algoritmo** | **Descrizione**                                                                 | **Vantaggi**               | **Svantaggi**                     |
+|--------------|---------------------------------------------------------------------------------|----------------------------|------------------------------------|
+| **First Fit** | Alloca la **prima partizione libera** sufficientemente grande.              | Veloce.                    | Frammentazione esterna.            |
+| **Best Fit**  | Alloca la **partizione libera più piccola** che soddisfa la richiesta.      | Minimizza frammentazione.  | Lento (deve scansionare tutte).     |
+| **Worst Fit** | Alloca la **partizione libera più grande**.                                   | Può ridurre frammentazione.| Frammentazione esterna peggiore. |
 
 **📌 Esempio: First Fit**
 - **Partizioni libere**: 100 KB, 500 KB, 200 KB, 300 KB, 600 KB.
@@ -590,13 +592,14 @@ P1 (0-4) → P2 (4-8) → P1 (8-12) → P3 (12-14) → P1 (14-16)
 - **Demand Paging**: Carica le pagine **solo quando servono** (lazy loading).
 - **Page Fault**: Eccezione quando una pagina non è in RAM → **caricala dal disco**.
 - **Algoritmi di sostituzione**:
-  | **Algoritmo** | **Descrizione**                                                                 | **Vantaggi**               | **Svantaggi**                     |
-  |--------------|---------------------------------------------------------------------------------|----------------------------|------------------------------------|
-  | **FIFO**      | Sostituisce la pagina **più vecchia**.                                         | Semplice.                  | Anomalia di Belady.                 |
-  | **LRU**       | Sostituisce la pagina **meno recentemente usata**.                              | Ottimale.                  | Costoso da implementare.           |
-  | **LFU**       | Sostituisce la pagina **meno frequentemente usata**.                            | Buono per pattern statici. | Costoso.                          |
-  | **Clock**     | Approssimazione di LRU con un **puntatore circolare**.                          | Efficiente.                | Approssimazione.                   |
-  | **Optimal**   | Sostituisce la pagina che **non verrà usata più a lungo**.                      | Teoricamente ottimale.    | Non implementabile (non si conosce il futuro). |
+
+| **Algoritmo** | **Descrizione**                                                                 | **Vantaggi**               | **Svantaggi**                     |
+|--------------|---------------------------------------------------------------------------------|----------------------------|------------------------------------|
+| **FIFO**      | Sostituisce la pagina **più vecchia**.                                         | Semplice.                  | Anomalia di Belady.                 |
+| **LRU**       | Sostituisce la pagina **meno recentemente usata**.                              | Ottimale.                  | Costoso da implementare.           |
+| **LFU**       | Sostituisce la pagina **meno frequentemente usata**.                            | Buono per pattern statici. | Costoso.                          |
+| **Clock**     | Approssimazione di LRU con un **puntatore circolare**.                          | Efficiente.                | Approssimazione.                   |
+| **Optimal**   | Sostituisce la pagina che **non verrà usata più a lungo**.                      | Teoricamente ottimale.    | Non implementabile (non si conosce il futuro). |
 
 **📌 Thrashing**:
 - **Definizione**: Eccesso di **page fault** → il sistema spende più tempo in I/O che in esecuzione.
