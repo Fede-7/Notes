@@ -210,6 +210,7 @@ flowchart LR
 | **Response Time** | `Tempo prima risposta - AT` | Tempo da arrivo a **prima esecuzione** sulla CPU. |
 
 **📌 Esempio Pratico (FCFS)**:
+
 | Processo | AT | BT | CT | TT | WT |
 |----------|----|----|----|----|----|
 | P1 | 0 | 5 | 5 | 5 | 0 |
@@ -224,18 +225,20 @@ flowchart LR
 ```mermaid
 gantt
     title Diagramma di Gantt - Round Robin (Quantum=2)
-    dateFormat X
-    section Processi
-    P1 :a1, 0, 2
-    P2 :a2, 1, 2
-    P3 :a3, 2, 2
-    P1 :a4, 4, 2
-    P2 :a5, 5, 1
-    P3 :a6, 6, 2
-    P1 :a7, 8, 2
-    P3 :a8, 10, 2
-    P3 :a9, 12, 2
+    dateFormat YYYY-MM-DD
+    
+    section CPU
+    P1 (0-2)   :p1a, 2024-01-01, 2d
+    P2 (2-4)   :p2a, 2024-01-03, 2d
+    P3 (4-6)   :p3a, 2024-01-05, 2d
+    P1 (6-8)   :p1b, 2024-01-07, 2d
+    P2 (8-9)   :p2b, 2024-01-09, 1d
+    P3 (9-11)  :p3b, 2024-01-10, 2d
+    P1 (11-13) :p1c, 2024-01-12, 2d
+    P3 (13-15) :p3c, 2024-01-14, 2d
+    P3 (15-17) :p3d, 2024-01-16, 2d
 ```
+
 
 **Processi**: P1 (AT=0, BT=5), P2 (AT=1, BT=3), P3 (AT=2, BT=8)
 **Calcoli**:
@@ -251,14 +254,14 @@ gantt
 ### **Rate Monotonic (RM)**
 - **Priorità fissa** basata sul **periodo** (più breve = priorità più alta).
 - **Test di Schedulabilità (Liu & Layland)**:
-  \[\sum_{i=1}^{n} \frac{C_i}{T_i} \leq n(2^{1/n} - 1)\]
-  - **Max Utilizzo CPU**: ~69% (per \[n \to \infty\] → \[\ln(2) \approx 0.693\])
-  - **Esempio (2 task)**: \[\frac{C_1}{T_1} + \frac{C_2}{T_2} \leq 0.828\]
+  $$\sum_{i=1}^{n} \frac{C_i}{T_i} \leq n(2^{1/n} - 1)$$
+  - **Max Utilizzo CPU**: ~69% (per $n \to \infty$ → $\ln(2) \approx 0.693$)
+  - **Esempio (2 task)**: $\frac{C_1}{T_1} + $\frac{C_2}{T_2}$ \leq 0.828$
 
 ### **Earliest Deadline First (EDF)**
 - **Priorità dinamica** basata sulla **scadenza più vicina**.
 - **Test di Schedulabilità**:
-  \[\sum_{i=1}^{n} \frac{C_i}{D_i} \leq 1\]
+  $$\sum_{i=1}^{n} \frac{C_i}{D_i} \leq 1$$
   - **Max Utilizzo CPU**: **100%** (ottimale).
 
 | **Criterio** | **RM** | **EDF** |
