@@ -19,37 +19,17 @@ status: completo
 ---
 
 ## Indice Generale
-
-**PARTE I — Fondamenti di Probabilità**
-- Capitolo 1 — Analisi Combinatoria
-- Capitolo 2 — Teoria Formale della Probabilità
-- Capitolo 3 — Proprietà della Probabilità dagli Assiomi
-- Capitolo 4 — Probabilità Condizionata e Inferenza
-- Capitolo 5 — Indipendenza Stocastica
-
-**PARTE II — Variabili Aleatorie Discrete**
-- Capitolo 6 — Variabili Aleatorie Discrete e PMF
-- Capitolo 7 — Valore Atteso e Momenti
-- Capitolo 8 — Distribuzioni Discrete Notevoli
-- Capitolo 9 — Funzioni di Variabili Aleatorie
-
-**PARTE III — Disuguaglianze e Convergenza**
-- Capitolo 10 — Disuguaglianze di Probabilità
-- Capitolo 11 — Legge dei Grandi Numeri
-
-**PARTE IV — Coppie e n-uple di Variabili Aleatorie Discrete**
-- Capitolo 12 — PMF Congiunta e Indipendenza
-- Capitolo 13 — Covarianza, Correlazione e Media Condizionale
-
-**PARTE V — Variabili Aleatorie Continue**
-- Capitolo 14 — Variabili Continue: CDF e PDF
-- Capitolo 15 — Distribuzioni Continue Notevoli
-- Capitolo 16 — PDF Condizionata e Variabili Continue Bivariate
-
-**PARTE VI — Argomenti Avanzati**
-- Capitolo 17 — Canale Binario Simmetrico ed Entropia di Shannon
-- Capitolo 18 — Vettori Aleatori, Convoluzione e Teorema Centrale del Limite
-- Capitolo 19 — Processi Stocastici
+```table-of-contents
+title: 
+style: nestedList # TOC style (nestedList|nestedOrderedList|inlineFirstLevel)
+minLevel: 0 # Include headings from the specified level
+maxLevel: 0 # Include headings up to the specified level
+include: 
+exclude: /Appunti Completi - Metodi Statistici per l'Informazione/i
+includeLinks: true # Make headings clickable
+hideWhenEmpty: false # Hide TOC if no headings are found
+debugInConsole: false # Print debug info in Obsidian console
+```
 
 ---
 
