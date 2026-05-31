@@ -2038,12 +2038,12 @@ Previsioni flussi di cassa, profitti/perdite, costi, conto economico previsional
 ---
 
 ## 13.5 Analisi SWOT — Strumento Strategico Critico
-
-| Interno | Esterno |
-|---------|---------|
-| **Strengths** (controllabili) | **Opportunities** (non controllabili) |
-| **Weaknesses** (controllabili) | **Threats** (non controllabili) |
-
+```markdown
+| Interno                        | Esterno                               |
+| ------------------------------ | ------------------------------------- |
+| **Strengths** (controllabili)  | **Opportunities** (non controllabili) |
+| **Weaknesses** (controllabili) | **Threats** (non controllabili)       |
+```
 **Utilizzo:** Strategia aggressiva (Forze+Opportunità) vs Strategia difensiva (Debolezze+Minacce).
 
 ---
