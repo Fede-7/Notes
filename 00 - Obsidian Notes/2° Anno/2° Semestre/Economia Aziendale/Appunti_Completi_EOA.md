@@ -18,6 +18,7 @@ status: completo
 ---
 
 ## Indice Generale
+
 ```table-of-contents
 title: 
 style: nestedList # TOC style (nestedList|nestedOrderedList|inlineFirstLevel)
