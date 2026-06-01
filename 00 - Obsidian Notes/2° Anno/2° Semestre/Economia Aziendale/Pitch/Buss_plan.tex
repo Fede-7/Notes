@@ -1,0 +1,925 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SmartIrrigate Home - Business Plan
+% Allineato alla struttura del Prof. Giuseppe Piccirillo (Lezioni 12-14)
+% Autori: Federico Dellini, Danilo Amalfitano (CEO, SmartIrrigate)
+% Data: 1 Giugno 2026
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[11pt,a4paper]{report}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[italian]{babel}
+\usepackage{geometry}
+\geometry{left=2.5cm,right=2.5cm,top=2.5cm,bottom=2.5cm,headheight=14pt,headsep=25pt}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{array}
+\usepackage{longtable}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    urlcolor=blue,
+    citecolor=black,
+    pdfencoding=auto
+}
+\usepackage{parskip}
+\setlength{\parskip}{0.8em}
+\usepackage{enumitem}
+\setlist[itemize]{noitemsep,topsep=0pt,parsep=0pt,partopsep=0pt,leftmargin=*}
+\setlist[enumerate]{noitemsep,topsep=0pt,parsep=0pt,partopsep=0pt,leftmargin=*}
+
+%===== COLORS =====
+\usepackage{xcolor}
+\definecolor{warningcolor}{HTML}{FF6B6B}
+\definecolor{successcolor}{HTML}{51CF66}
+\definecolor{infocolor}{HTML}{4C6EF5}
+
+%===== INTESTAZIONI =====
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{\thepage}
+\lhead{SmartIrrigate Home - Business Plan}
+\rfoot{}
+\lfoot{}
+
+%===== STILI SEZIONI =====
+\usepackage{sectsty}
+\chapterfont{\fontsize{14pt}{16pt}\selectfont\bfseries\centering}
+\sectionfont{\fontsize{12pt}{14pt}\selectfont\bfseries}
+\subsectionfont{\fontsize{11pt}{13pt}\selectfont\bfseries\itshape}
+
+%===== SIMBOLI PER SOSTITUIRE UNICODE =====
+\usepackage{amssymb}
+\newcommand{\checkmarkbold}{\textbf{\checkmark}}
+\newcommand{\crossbold}{\textbf{\texttimes}}
+\newcommand{\warningtext}{\textbf{! AVVERTENZA: }}
+\newcommand{\newtext}{\textbf{NUOVO: }}
+
+%===== ALLINEAMENTO TABELLE =====
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
+\newcolumntype{C}[1]{>{\centering\arraybackslash}p{#1}}
+
+\begin{document}
+
+%===== COPERTINA =====
+\title{
+    \begin{figure}[H]
+       \centering
+       \includegraphics[width=0.5\linewidth]{Image/Logo_SmartIrrigate_Home_v2.png}
+    \end{figure}
+    \textbf{SmartIrrigate Home} \\ \Large Business Plan \\ 
+    \vspace{1cm}
+    \small Allineato alla struttura del Prof. Giuseppe Piccirillo (Lezioni 12-14)
+}
+\author{Federico Dellini (CEO, SmartIrrigate) \\ Danilo Amalfitano (CTO, SmartIrrigate)}
+\date{1 Giugno 2026}
+
+\maketitle
+\thispagestyle{empty}
+\newpage
+
+\tableofcontents
+\thispagestyle{empty}
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% CAPITOLO 1: EXECUTIVE SUMMARY
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Executive Summary}
+\label{ch:executive-summary}
+
+\section{Value Proposition}
+SmartIrrigate Home è il {\bf primo sistema di irrigazione wireless con energy harvesting e algoritmo predittivo} per balconi, terrazzi e orti urbani (B2C).
+
+\begin{itemize}
+\item {\bf Risparmio idrico}: Fino al {\bf 40\%} vs. sistemi tradizionali (algoritmo basato su $ET_0 \times K_c$).
+\item {\bf Autonomia energetica}: {\bf 5-7 anni} senza ricarica (pannello solare + batteria Li-ion).
+\item {\bf Installazione Plug \& Play}: {\bf <1 ora} per 20 m$^2$ (mesh topology LoRa/Zigbee, 50m di copertura).
+\item {\bf Monitoraggio in tempo reale}: App iOS/Android con allarmi e report.
+\end{itemize}
+
+\section{Market Opportunity}
+\begin{table}[H]
+\centering
+\caption{Dimensione del Mercato (Europa) - {\bf TAM in MILIARDI}}
+\label{tab:market-opportunity}
+\begin{tabular}{L{3cm} C{2cm} L{4cm} L{3cm}}
+\toprule
+{\bf Metrica} & {\bf Valore} & {\bf Fonte} & {\bf Note} \\
+\midrule
+TAM (Europa) & 1.2B euro/anno & 70\% Statista + 30\% Coldiretti & Mercato totale sistemi irrigazione smart \\
+SAM (B2C Europa) & 500M euro/anno & MarketsandMarkets & Segmento balconi/terrazzi/orti urbani \\
+SOM (3 anni) & 25M euro/anno & Stima interna & 5\% di SAM (obiettivo SmartIrrigate) \\
+CAGR (2020-2026) & 13.5\% & MarketsandMarkets & Crescita settore \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Financial Highlights}
+\begin{table}[H]
+\centering
+\caption{Proiezioni Finanziarie (2026-2028)}
+\label{tab:financial-highlights}
+\begin{tabular}{L{2.5cm} C{2cm} C{2cm} C{2cm}}
+\toprule
+{\bf Anno} & {\bf Ricavi} & {\bf Margine Lordo} & {\bf Utile Netto} \\
+\midrule
+2026 & 750K euro & 20\% & -30K euro \\
+2027 & 2.2M euro & 30\% & 573.8K euro \\
+2028 & 4M euro & 35\% & {\bf 1.3M euro} \\
+\bottomrule
+\end{tabular}
+\end{table}
+\begin{itemize}
+\item Break-even: {\bf Q3 2027} (18 mesi).
+\item Driver di crescita: Scaling B2C + ricavi ricorrenti SaaS.
+\end{itemize}
+
+\section{Competitive Advantage}
+\begin{table}[H]
+\centering
+\caption{Confronta con i Competitor}
+\label{tab:competitive-advantage}
+\begin{tabular}{L{3cm} C{1.5cm} L{3cm} L{3cm} L{2.5cm}}
+\toprule
+{\bf Feature} & {\bf SI} & {\bf Gardena} & {\bf Orbit B-hyve} & {\bf Sonoff} \\
+\midrule
+Energy Harvesting & \checkmarkbold & \crossbold & \crossbold & \crossbold \\
+Algoritmo Predittivo & \checkmarkbold & \crossbold Timer & \crossbold Sensori & \crossbold \\
+Mesh Topology & \checkmarkbold & \crossbold & \crossbold & \crossbold \\
+Prezzo (kit base) & {\bf 225 euro} & 300-500 euro & 250-400 euro & 80-150 euro \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Obiettivi a 3 Anni}
+\begin{itemize}
+\item {\bf 2026}: Lancio MVP B2C (500 pre-order Q2, 3.300 unità annuali).
+\item {\bf 2027}: Scaling nazionale + break-even (9.800 unità, 2.2M euro ricavi).
+\item {\bf 2028}: Espansione Europa (Germania, Francia) + SmartIrrigate Pro B2B.
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% CAPITOLO 2: INFORMAZIONI SULL'AZIENDA
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Informazioni sull'Azienda}
+\label{ch:company-overview}
+
+\section{Mission}
+"Rivoluzionare l'irrigazione domestica con {\bf tecnologia smart, sostenibile e accessibile}, riducendo lo spreco idrico del 40\% e l'impatto ambientale."
+
+\section{Vision}
+Diventare il {\bf leader europeo} nei sistemi di irrigazione smart per B2C (2026-2028) e B2B (2029+).
+
+\section{Storia}
+\warningtext NOTA: MANCA DETTAGLIO - AGGIUNGERE BREVE STORIA DELL'AZIENDA (ES. ANNO DI FONDAZIONE, MOTIVAZIONE).
+
+\section{Headquarters}
+\begin{itemize}
+\item {\bf Sede legale}: Milano, Italia.
+\item {\bf Produzione}: Partner in Cina (componenti) + Italia (assemblaggio).
+\end{itemize}
+
+\section{Team}
+\begin{longtable}{|L{2cm}|L{2.5cm}|L{2.5cm}|C{1.4cm}|L{2cm}|}
+\hline
+{\bf Ruolo} & {\bf Nome} & {\bf Esperienza} & {\bf Stipendio} & {\bf Bonus} \\
+\hline
+\endfirsthead
+\hline
+{\bf Ruolo} & {\bf Nome} & {\bf Esperienza} & {\bf Stipendio} & {\bf Bonus} \\
+\hline
+\endhead
+\endfoot
+\endlastfoot
+CEO & Federico Dellini & 10 anni & 80K euro & 10\% utile netto \\
+CTO & Danilo Amalfitano & 8 anni & 70K euro & 5\% margine lordo \\
+CMO & Laura Bianchi & 7 anni & 60K euro & 10\% lead generated \\
+COO & Alessandro Verdi & 6 anni & 55K euro & 5\% logistica savings \\
+Ing. Software & Luca Neri & 5 anni & 45K euro & 5\% app uptime \\
+Ing. Hardware & Sofia Moretti & 4 anni & 40K euro & 5\% costi produzione \\
+Support & Elena Contini & 3 anni & 30K euro & 10\% satisfaction score \\
+\hline
+{\bf TOTALE} & & & {\bf 330K euro} & {\bf Variable} \\
+\hline
+\end{longtable}
+
+\section{Advisory Board}
+\begin{longtable}{|L{2.5cm}|L{3.5cm}|L{2.5cm}|L{2cm}|}
+\hline
+{\bf Ruolo} & {\bf Nome} & {\bf Compenso} & {\bf Note} \\
+\hline
+\endfirsthead
+\hline
+{\bf Ruolo} & {\bf Nome} & {\bf Compenso} & {\bf Note} \\
+\hline
+\endhead
+\endfoot
+\endlastfoot
+Consulente Strategico & Prof. Giuseppe Piccirillo (Politecnico Milano) & Stock Options 0.5\% + Rimborsi & 4 ore/mese \\
+Advisor Settore Irrigazione & Dott. Paolo Ferrari (ex Gardena Italia) & Stock Options 1\% + Rimborsi & 4 ore/mese \\
+\hline
+\end{longtable}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% CAPITOLO 3: ANALISI DI MERCATO
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Analisi di Mercato}
+\label{ch:market-analysis}
+
+\section{Dimensione del Mercato}
+\label{sec:market-size}
+\begin{longtable}{|L{3cm}|C{2cm}|L{4.5cm}|L{4cm}|}
+\hline
+{\bf Metrica} & {\bf Valore} & {\bf Calcolo} & {\bf Fonte} \\ \hline
+TAM (Europa) & 1.2B euro & 70\% x Statista (1.85B) + 30\% x Coldiretti (800M) & Statista, Coldiretti \\
+SAM (B2C) & 500M euro & 40\% di TAM & MarketsandMarkets \\
+SOM (2026) & 0.75M euro & 0.15\% di SAM & Stima interna \\
+SOM (2028) & 25M euro & 5\% di SAM & Stima interna \\
+CAGR & 13.5\% & Crescita annua & MarketsandMarkets \\ \hline
+\end{longtable}
+
+\section{Segmentazione Cliente}
+\warningtext NOTA: MANCA DETTAGLIO - AGGIUNGERE CRITERI DEMOGRAFICI/COMPORTAMENTALI. ES.:
+\begin{itemize}
+\item {\bf Millennial (25-35 anni)}: Reddito 25K-40K euro, interessati a sostenibilità.
+\item {\bf Pensionati (60-75 anni)}: Reddito 20K-30K euro, appassionati di giardinaggio.
+\item {\bf Condomini (35-50 anni)}: Reddito 40K-60K euro, bisogno di soluzioni scalabili.
+\end{itemize}
+
+\section{Analisi Competitiva}
+\subsection{Posizionamento Competitivo Verificato}
+Dopo ricerca approfondita sul mercato italiano ed europeo dei sistemi di irrigazione smart, abbiamo identificato che:
+
+\begin{itemize}
+\item Energy harvesting {\bf esiste} sul mercato (Netatmo, Raindrip, Netro)
+\item Algoritmi predittivi {\bf esistono} (Gardena Smart Irrigation, Orbit B-hyve)
+\item Mesh topology {\bf esiste} (sistemi professionali)
+\item {\bf MA NESSUNO} offre il {\bf COMBO} di tutte e tre le feature in un prodotto B2C accessibile
+\end{itemize}
+
+\begin{table}[H]
+\centering
+\caption{Confronto Competitivo - Feature per Feature}
+\label{tab:competitive-comparison}
+\begin{tabular}{L{3cm} C{1.2cm} C{1.2cm} C{1.2cm} C{1.2cm} C{1.2cm}}
+\toprule
+{\bf Feature} & {\bf SmartIrrigate} & {\bf Gardena} & {\bf Orbit} & {\bf Netatmo} & {\bf Unico?} \\
+\midrule
+Energy Harvesting (5-7 anni) & \checkmarkbold & \crossbold & \crossbold & \checkmarkbold & Parziale \\
+Algoritmo $ET_0 + K_c$ (predittivo) & \checkmarkbold & \crossbold & \crossbold & \crossbold & {\bf \checkmarkbold} \\
+Mesh Topology (LoRa, 50m) & \checkmarkbold & \crossbold & \crossbold & \crossbold & {\bf \checkmarkbold} \\
+App Mobile (iOS/Android) & \checkmarkbold & \checkmarkbold & \checkmarkbold & \checkmarkbold & \crossbold \\
+Prezzo kit base & 199-225 euro & 300-500 euro & 250-400 euro & 150-250 euro & {\bf \checkmarkbold} \\
+Brevetto algoritmo & \checkmarkbold (UE) & \crossbold & \crossbold & \crossbold & {\bf \checkmarkbold} \\
+\midrule
+{\bf COMBO (tutti e 3)} & {\bf \checkmarkbold \checkmarkbold \checkmarkbold} & \crossbold & \crossbold & \crossbold & {\bf \checkmarkbold \checkmarkbold \checkmarkbold} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{center}
+{\bf USP REALE:} \\
+{\large \textbf{Energy harvesting + Algoritmo predittivo $ET_0 + K_c$ + Mesh topology LoRa}}
+\end{center}
+
+\subsection{Analisi SWOT}
+\subsubsection{SWOT Classica}
+
+\begin{longtable}{|L{5.2cm}|L{5.2cm}|}
+\hline
+\multicolumn{2}{|c|}{\bf SWOT RIVISTA - AGGIORNATA CON TRACTION DATA} \\ \hline
+{\bf Forze} & {\bf Debolezze} \\ \hline
+\endfirsthead
+\hline
+{\bf Forze} & {\bf Debolezze} \\ \hline
+\endhead
+\endfoot
+\endlastfoot
+\begin{itemize}\itemsep0pt\parsep0pt
+\item COMBO unico (EH + Algo + Mesh)
+\item Team esperto (IoT, hardware, ML)
+\item Margini scalabili (20\% -> 50\%)
+\item Brevetto UE (IP protection)
+\item Costi operativi bassi
+\item MVP completato Q1 2026
+\item Traction validata beta (NPS >50 target)
+\end{itemize} &
+\begin{itemize}\itemsep0pt\parsep0pt
+\item Brand nuovo (awareness zero)
+\item Dipendenza fornitori cinesi (supply chain risk)
+\item R and D investment alto (100K euro 2026)
+\item Runway tight (4-5 mesi Gen-Mag senza PNRR)
+\item Canali limitati (no retail consolidato)
+\item Scala produzione bassa (vs. Gardena)
+\item Team piccolo (7 FTE, no backup)
+\end{itemize} \\ \hline
+{\bf Opportunita'} & {\bf Minacce} \\ \hline
+\begin{itemize}\itemsep0pt\parsep0pt
+\item CAGR 11-12\% (mercato in crescita)
+\item PNRR 10M euro (bandi comuni)
+\item Detrazioni fiscali 50-65\% (riduce prezzo cliente)
+\item Trend ESG + orti urbani (+18.5\% dal 2020)
+\item 44\% italiani interessati (Osservatorio STIGA)
+\item Espansione EU 2027+ (TAM 1.2B euro)
+\item Partnership retail (Leroy Merlin, Amazon)
+\end{itemize} &
+\begin{itemize}\itemsep0pt\parsep0pt
+\item Gardena/Orbit lanciano EH (imitate strategy)
+\item Sonoff scala aggressiva (prezzo pressure)
+\item Supply chain volatility (inflazione +15\% 2026)
+\item Softness e-commerce 2026 (recessione risk)
+\item Regulatory barriers (CE, privacy GDPR)
+\item Customer acquisition cost inflation
+\item Churn SaaS (if product not sticky)
+\end{itemize} \\ \hline
+\end{longtable}
+
+\subsubsection{Validazione Mercato (Traction Strategy)}
+\textbf{Milestones 2026:}
+
+\begin{table}[H]
+\centering
+\caption{Traction Milestones 2026}
+\label{tab:traction-milestones}
+\begin{tabular}{L{2.5cm} L{4.5cm} C{2cm} L{2cm}}
+\toprule
+{\bf Milestone} & {\bf Descrizione} & {\bf Data} & {\bf Status} \\
+\midrule
+M1 & MVP completato e testato & 31 Mar 2026 & Critico \\
+M2 & Beta NPS >50 & 30 Giu 2026 & Validazione prodotto \\
+M3 & 500 pre-order soft launch & 30 Giu 2026 & Validazione mercato \\
+M4 & Amazon live & 31 Ago 2026 & Scaling canale \\
+M5 & 3.300 unità cumulative & 31 Dic 2026 & Target annuale \\
+M6 & CAC <100 euro & 31 Dic 2026 & Unit economics ok \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{Strategia Q1-Q4 2026:}
+\begin{itemize}
+\item {\bf Q1}: Sviluppo MVP (prototipo funzionale, testing interno).
+\item {\bf Q2}: Soft launch (500 pre-order, validazione modello).
+\item {\bf Q3-Q4}: Scale-up graduale (1.000 unità/mese entro fine 2026).
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% CAPITOLO 4: L'IMPRESA
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{L'Impresa}
+\label{ch:company}
+
+\section{Tecnologia e Brevetti}
+\begin{itemize}
+\item {\bf Algoritmo}: $ET_0 \times K_c$ (evapotraspirazione + coefficiente colturale).
+\item {\bf Energy Harvesting}: Pannello solare 5W + batteria Li-ion 5000mAh (autonomia 5-7 anni).
+\item {\bf Mesh Topology}: Rete LoRa/Zigbee (copertura 50m).
+\item {\bf Brevetto}: EP2026123456 (UE) – Algoritmo predittivo $ET_0 + K_c$ con energy harvesting.
+\end{itemize}
+
+\section{Linea Prodotti}
+\begin{longtable}{|L{2.5cm}|L{3.5cm}|C{1.3cm}|C{1.3cm}|C{1.3cm}|L{1.8cm}|}
+\hline
+{\bf Prodotto} & {\bf Descrizione} & {\bf Prezzo} & {\bf Costo} & {\bf Margine} & {\bf Target 2026} \\ \hline
+\endfirsthead
+\hline
+{\bf Prodotto} & {\bf Descrizione} & {\bf Prezzo} & {\bf Costo} & {\bf Margine} & {\bf Target 2026} \\ \hline
+\endhead
+\endfoot
+\endlastfoot
+Kit Starter & 1 hub + 4 sensori + 1 valvola (20 m2) & 199 euro & 110 euro & 45\% & 2.000 unità \\
+Kit Premium & 1 hub + 8 sensori + 2 valvole (50 m2) + SaaS 1anno & 299 euro & 160 euro & 46\% & 1.000 unità \\
+Kit Condominiale & 1 hub + 12 sensori + 4 valvole (100 m2) & 899 euro & 450 euro & 50\% & 300 unità \\
+Sensori Add-on & 2 sensori umidità + pioggia & 49 euro & 20 euro & 59\% & 500 pacchi \\
+Hub Add-on & Estensione copertura mesh (50m range) & 99 euro & 50 euro & 49\% & 200 unità \\ \hline
+\end{longtable}
+
+{\small \bf Note:}
+\begin{itemize}
+\item {\bf Prezzo ridotto} da 225 euro a 199 euro (Kit Starter) per competere con Netatmo 150-250 euro.
+\item {\bf Margine lordo} consistente 45-50\%, in linea con benchmark IoT.
+\end{itemize}
+
+\section{Servizi Ricorrenti (SaaS + Maintenance)}
+\begin{longtable}{|L{2.5cm}|L{3.5cm}|C{1.3cm}|C{1.3cm}|L{2cm}|}
+\hline
+{\bf Servizio} & {\bf Descrizione} & {\bf Prezzo} & {\bf Margine} & {\bf Ricorrenza} \\ \hline
+\endfirsthead
+\hline
+{\bf Servizio} & {\bf Descrizione} & {\bf Prezzo} & {\bf Margine} & {\bf Ricorrenza} \\ \hline
+\endhead
+\endfoot
+\endlastfoot
+SaaS Premium & Dashboard avanzata, API, report settimanali, supporto prioritario & 4.99 euro/mese & 85\% & Mensile \\
+Manutenzione Annuale & Controllo hardware + batteria replacement (se necessario) & 29 euro/anno & 75\% & Annuale \\
+Installazione Professionale & Setup remoto + ottimizzazione algoritmo & 49 euro (one-time) & 60\% & Una tantum \\
+Extended Warranty & 2 anni copertura (vs. 1 anno standard) & 19 euro/anno & 70\% & Annuale \\ \hline
+\end{longtable}
+
+\section{Business Model}
+\subsection{Revenue Streams}
+\begin{itemize}
+\item Vendita hardware (kit base/premium).
+\item SaaS (5 euro/mese).
+\item Manutenzione e installazione.
+\item B2B (gare pubbliche, condomini).
+\end{itemize}
+
+\subsection{Cost Structure}
+\begin{itemize}
+\item Costi variabili: {\bf 53\%} (produzione, logistica).
+\item Costi fissi: {\bf 44\%} (team, marketing, R\&D).
+\item Contingency: {\bf 17\%}.
+\end{itemize}
+
+\subsection{Ciclo Produttivo}
+\begin{longtable}{|L{3cm}|L{2.5cm}|L{2cm}|L{2cm}|C{1.5cm}|}
+\hline
+{\bf Fase} & {\bf Fornitore} & {\bf Location} & {\bf Lead Time} & {\bf Costo} \\ \hline
+Componenti & Yosemitech & Cina & 8-12 sett. & 50 euro \\
+Chip LoRa & Nordic Semi. & Norvegia & 12-16 sett. & 20 euro \\
+Assemblaggio & Partner Locale & Italia & 2 sett. & 30 euro \\
+QA & Interno & Italia & 1 sett. & 10 euro \\ \hline
+{\bf Totale} & & & & {\bf 110 euro} \\ \hline
+\end{longtable}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% CAPITOLO 5: STRATEGIA DI MARKETING
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Strategia di Marketing}
+\label{ch:marketing}
+
+\section{Marketing Mix (4P)}
+\subsection{Product}
+Kit smart con energy harvesting, algoritmo predittivo, mesh topology.
+
+\subsection{Price}
+\begin{itemize}
+\item {\bf Kit Starter}: 199 euro (con detrazioni fiscali: {\bf 70-99.50 euro}).
+\item {\bf Kit Premium}: 299 euro.
+\item {\bf Posizionamento}: Premium mid-market (miglior rapporto qualità/prezzo vs. Gardena/Orbit).
+\end{itemize}
+
+\subsection{Place}
+\begin{itemize}
+\item {\bf Canali}:
+  \begin{itemize}
+  \item Amazon (40\% vendite 2026 → 35\% 2028).
+  \item E-commerce proprio (25\% → 30\%).
+  \item Leroy Merlin/Brico (20\% → 25\%).
+  \item Influencer (10\% → 5\%).
+  \item B2B (5\%).
+  \end{itemize}
+\end{itemize}
+
+\subsection{Promotion}
+\begin{itemize}
+\item {\bf Google Ads}: 15K euro (CTR 5\%, conversione 2\%).
+\item {\bf Meta Ads}: 10K euro (ROAS 3:1).
+\item {\bf Influencer}: 12K euro (50K reach, engagement 5\%).
+\item {\bf SEO/Content}: 6K euro (top 5 keywords con volume >1K/mese).
+\item {\bf PR/Media}: 2K euro (5-10 articoli, earned media 50K+ reach).
+\item {\bf Fiere/Events}: 2K euro (200 lead qualificati).
+\end{itemize}
+
+\section{Canali di Vendita}
+\begin{longtable}{|L{2.5cm}|L{3cm}|C{1.2cm}|C{1.2cm}|C{1.5cm}|L{1.5cm}|}
+\hline
+{\bf Canale} & {\bf Strategia} & {\bf 2026 \%} & {\bf 2028 \%} & {\bf CAC (euro)} & {\bf LTV (euro)} \\ \hline
+\endfirsthead
+\hline
+{\bf Canale} & {\bf Strategia} & {\bf 2026 \%} & {\bf 2028 \%} & {\bf CAC (euro)} & {\bf LTV (euro)} \\ \hline
+\endhead
+\endfoot
+\endlastfoot
+Amazon & SEO + Sponsored Ads, review optimization & 40\% & 35\% & 70 & 350 \\
+Sito E-commerce & Own digital property, SEO organic, email nurture & 25\% & 30\% & 60 & 400 \\
+Leroy Merlin / Brico & In-store demo, partnership, staff training & 20\% & 25\% & 90 & 350 \\
+Influencer & Partnerships @OrtoDaColtivare, YouTube, TikTok & 10\% & 5\% & 50 & 300 \\
+B2B (Gare Pubbliche) & PNRR, comuni, condomini (bulk) & 5\% & 5\% & 150 & 1500 \\ \hline
+{\bf BLENDED CAC} & & & & {\bf 78 euro} & {\bf 380 euro} \\ \hline
+\end{longtable}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% CAPITOLO 6: PIANO LOGISTICO E GESTIONALE
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Piano Logistico e Gestionale}
+\label{ch:operations}
+
+\section{Produzione e Fornitori}
+\begin{itemize}
+\item {\bf Fornitori chiave}:
+  \begin{itemize}
+  \item {\bf Yosemitech} (sensori, Cina).
+  \item {\bf Nordic Semiconductor} (chip LoRa, Norvegia).
+  \item {\bf Partner locale} (assemblaggio, Italia).
+  \end{itemize}
+\item {\bf Lead Time}:
+  \begin{itemize}
+  \item Componenti: {\bf 8-16 settimane} (dipendenza da Cina/Norvegia).
+  \item Assemblaggio: {\bf 2 settimane} (Italia).
+  \item QA: {\bf 1 settimana} (interno).
+  \end{itemize}
+\end{itemize}
+
+\section{Logistica}
+\begin{longtable}{|L{2.5cm}|L{2.5cm}|C{1.5cm}|L{2cm}|}
+\hline
+{\bf Voce} & {\bf Partner} & {\bf Costo} & {\bf Tempo} \\ \hline
+Magazzino & Amazon FBA & 2 euro & 1-2 giorni \\
+Spedizione & DHL & 5-10 euro & 2-3 giorni \\
+Resi & Interno & 15 euro & 5 giorni \\ \hline
+\end{longtable}
+
+\section{Piano di Contingenza}
+\begin{longtable}{|L{3cm}|C{1.5cm}|C{1.5cm}|L{3.5cm}|C{1.5cm}|}
+\hline
+{\bf Rischio} & {\bf Prob.} & {\bf Impatto} & {\bf Mitigazione} & {\bf Costo} \\ \hline
+Supply Chain & Alto & Alto & Fornitori alternativi & 50K euro \\
+Aumento Costi & Medio & Alto & Stockpiling 3 mesi & 75K euro \\
+Concorrenza & Medio & Medio & Brevetto + NDA & 20K euro \\
+Burocrazia & Alto & Medio & Team dedicato & 30K euro \\ \hline
+{\bf Totale} & & & & {\bf 125K euro} \\ \hline
+\end{longtable}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% CAPITOLO 7: ANALISI ECONOMICO-FINANZIARIA
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Analisi Economico-Finanziaria}
+\label{ch:financial}
+
+\section{Proiezioni Finanziarie (2026-2028)}
+\begin{longtable}{|L{2.5cm}|C{1.5cm}|C{1.5cm}|C{1.5cm}|C{1.5cm}|C{1.5cm}|}
+\hline
+{\bf Voce} & {\bf 2026} & {\bf 2027} & {\bf 2028} & {\bf \%} & {\bf Note} \\ \hline
+Ricavi & 750K euro & 2.2M euro & 4M euro & - & - \\
+Costo Venduto & 600K euro & 1.54M euro & 2.6M euro & 80\% & - \\
+{\bf Margine Lordo} & {\bf 20\%} & {\bf 30\%} & {\bf 35\%} & - & - \\
+Costi Operativi & 480K euro & 1.2M euro & 1.8M euro & - & Incl. marketing, R and D \\
+EBITDA & -130K euro & 460K euro & {\bf 1.2M euro} & - & - \\
+Ammortamento & 50K euro & 50K euro & 50K euro & - & - \\
+{\bf Utile Netto} & {\bf -30K euro} & {\bf 573.8K euro} & {\bf 1.3M euro} & - & - \\
+{\bf ROI} & {\bf -4\%} & {\bf 26\%} & {\bf 22.5\%} & - & - \\ \hline
+\end{longtable}
+
+\section{Driver di Crescita}
+\begin{itemize}
+\item {\bf Scaling B2C}: +200\% vendite 2027 vs 2026.
+\item {\bf SaaS}: 5 euro/mese x 10.000 utenti = {\bf 500K euro/anno}.
+\item {\bf B2B}: SmartIrrigate Pro = {\bf 1M euro} (2028).
+\item {\bf Efficienza}: -15\% costi unitari.
+\end{itemize}
+
+\section{Break-Even Analysis}
+\begin{itemize}
+\item {\bf Punto Pareggio}: {\bf Q3 2027} (18 mesi).
+\item {\bf Ricavi Necessari}: {\bf 1.8M euro/anno} (2.400 unità).
+\item {\bf Margine Sicurezza}: {\bf 25\%} (2028).
+\end{itemize}
+
+\section{Finanziamenti}
+\begin{longtable}{|L{2.5cm}|C{1.5cm}|L{3cm}|L{2cm}|}
+\hline
+{\bf Fonte} & {\bf Importo} & {\bf Utilizzo} & {\bf Termini} \\ \hline
+Seed Round & 250K euro & R and D + Marketing & Equity 10\% \\
+PNRR Smart City & 100K euro & Pilot Comuni & Grant \\
+Prestito Bancario & 50K euro & Working Capital & 5 anni, 3\% \\ \hline
+\end{longtable}
+
+\section{Liquidità e Runway}
+\subsection{Fonti di Finanziamento Totale}
+\begin{table}[H]
+\centering
+\caption{Fonti di Finanziamento - Totale 400K euro}
+\label{tab:funding-sources}
+\begin{tabular}{L{3.5cm} C{2cm} L{4cm} L{3cm}}
+\toprule
+{\bf Fonte} & {\bf Importo} & {\bf Utilizzo} & {\bf Termini} \\
+\midrule
+Seed Round & 250K euro & R and D + Marketing Q1-Q2 & Equity 10\%, senza liquidation preference \\
+PNRR Smart City & 100K euro & Pilot comuni (gare d'appalto) & Grant, no repayment, 6 mesi rilascio \\
+Prestito Bancario & 50K euro & Working capital operativo & 5 anni, 3\% tasso, 6 mesi grace period \\
+\midrule
+{\bf TOTALE} & {\bf 400K euro} & & \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Costi Fissi Mensili 2026}
+\begin{table}[H]
+\centering
+\caption{Burn Rate 2026 - Analisi Mensile}
+\label{tab:burn-rate}
+\begin{tabular}{L{2.5cm} C{1.5cm} C{1.5cm} C{1.5cm} C{1.5cm}}
+\toprule
+{\bf Categoria} & {\bf Mensile} & {\bf Annuale} & {\bf \%} & {\bf Note} \\
+\midrule
+Team (7 FTE) & 27.5K euro & 330K euro & 69\% & Stipendi + contributi \\
+Marketing & 4.2K euro & 50K euro & 10\% & Google Ads, Meta, influencer \\
+Operazioni & 8.3K euro & 100K euro & 21\% & Logistica, server, tools SaaS \\
+Contingency & 10.4K euro & 125K euro & - & Imprevisti + variabilità \\
+\midrule
+{\bf TOTALE BURN RATE} & {\bf 40K euro} & {\bf 480K euro} & {\bf 100\%} & {\bf Senza contingency} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Ricavi 2026 per Trimestre}
+\begin{table}[H]
+\centering
+\caption{Ricavi Trimestrali 2026}
+\label{tab:quarterly-revenue}
+\begin{tabular}{L{2cm} C{2cm} C{2.5cm}}
+\toprule
+{\bf Trimestre} & {\bf Ricavi} & {\bf Note} \\
+\midrule
+Q1 (Gen-Mar) & 0K euro & Sviluppo MVP, nessun ricavo \\
+Q2 (Apr-Giu) & 75K euro & Soft launch (500 pre-order) \\
+Q3 (Lug-Sett) & 200K euro & Ramp-up vendite \\
+Q4 (Ott-Dic) & 475K euro & Scaling completo \\
+\midrule
+{\bf TOTALE 2026} & {\bf 750K euro} & {\bf Media 62.5K euro/mese} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Runway Analysis}
+\begin{table}[H]
+\centering
+\caption{Runway Mensile 2026 - Cash Flow}
+\label{tab:runway-monthly}
+\begin{tabular}{L{2cm} C{1.8cm} C{1.8cm} C{1.8cm} C{1.8cm} C{1.5cm}}
+\toprule
+{\bf Periodo} & {\bf Cash In} & {\bf Burn} & {\bf Net} & {\bf Cash End} & {\bf Runway} \\
+\midrule
+Gen-Mar & Seed 250K & -120K & +130K & 130K euro & >9 mesi \\
+Apr-Giu & PNRR 100K + Prestito 50K & -75K & +75K & 205K euro & >16 mesi \\
+Lug-Dic & Ricavi 750K & -240K & +510K & 715K euro & >17 mesi \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{itemize}
+\item {\bf Gen-Mar:} Burn 120K euro (3 mesi x 40K euro) coperto da seed 250K euro
+\item {\bf Apr-Giu:} Burn 75K euro (3 mesi) coperto da PNRR 100K + Prestito 50K
+\item {\bf Lug-Dic:} Cash-flow positivo (ricavi 750K > burn 240K)
+\item {\warningtext CRITICO:} Gennaio-Giugno è il periodo più rischioso. Necessario hit targets di soft launch (500 pre-order Q2) per mantenere runway.
+\end{itemize}
+
+\section{Scenario Planning}
+\subsection{Scenario BASE (Probabilità: 50\%)}
+\label{sec:base-case}
+{\bf Assumzioni:}
+\begin{itemize}
+\item Beta Q2 hit NPS >50 (prodotto validato).
+\item Soft launch 500 pre-order (trazione iniziale confermata).
+\item Amazon launch Agosto hit target (4-5\% conversion rate).
+\item Gardena/Orbit {\bf non} lanciano energy harvesting nel 2026.
+\item Economia stabile (nessuna recessione).
+\item Supply chain senza interruzioni maggiori.
+\end{itemize}
+
+\begin{table}[H]
+\centering
+\caption{Scenario BASE - Proiezioni 2026-2028}
+\label{tab:base-case}
+\begin{tabular}{L{2cm} C{1.5cm} C{1.8cm} C{1.5cm} C{1.5cm}}
+\toprule
+{\bf Anno} & {\bf Unità} & {\bf Ricavi} & {\bf Margine Lordo} & {\bf Utile Netto} \\
+\midrule
+2026 & 3.300 & 750K euro & 20\% & -30K euro \\
+2027 & 9.800 & 2.2M euro & 30\% & 573.8K euro \\
+2028 & 17.700 & 4M euro & 35\% & 1.3M euro \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{itemize}
+\item {\bf Break-even:} Q3 2027 (cumulative).
+\item {\bf ROI 2028:} 22.5\%.
+\item {\bf Valutazione:} Scenario realistico e prudente.
+\end{itemize}
+
+\subsection{Scenario BULLISH (Probabilità: 25\%)}
+\label{sec:bull-case}
+{\bf Assumzioni:}
+\begin{itemize}
+\item Campagna influencer virale (TikTok/Instagram reach >1M).
+\item Soft launch 1.000 pre-order (2x target).
+\item Partnership Leroy Merlin confermata Q3 (shelf space esclusivo).
+\item Amazon attrae >10\% market share urban gardeners.
+\item Adozione SaaS al 50\% (vs 20\% base case).
+\item Economia in crescita (+5\% vs previsioni).
+\end{itemize}
+
+\begin{table}[H]
+\centering
+\caption{Scenario BULLISH - Proiezioni 2026-2028}
+\label{tab:bull-case}
+\begin{tabular}{L{2cm} C{1.5cm} C{1.8cm} C{1.5cm} C{1.5cm}}
+\toprule
+{\bf Anno} & {\bf Unità} & {\bf Ricavi} & {\bf Margine Lordo} & {\bf Utile Netto} \\
+\midrule
+2026 & 5.500 & 1.24M euro & 22\% & +120K euro \\
+2027 & 15.000 & 3.4M euro & 32\% & 950K euro \\
+2028 & 28.000 & 6.3M euro & 36\% & 2.1M euro \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{itemize}
+\item {\bf Break-even:} Q1 2027 (3 mesi prima del base case).
+\item {\bf ROI 2028:} 28\% (5.5\% in più del base case).
+\item {\bf Valutazione:} Scenario ottimistico ma realistico con viral growth.
+\end{itemize}
+
+\subsection{Scenario BEARISH (Probabilità: 25\%)}
+\label{sec:bear-case}
+{\bf Assumzioni:}
+\begin{itemize}
+\item Beta NPS 40-45 (prodotto accettabile, non eccellente).
+\item Soft launch solo 200 pre-order (60\% sotto target).
+\item Gardena/Orbit lanciano prodotti con energy harvesting (price war).
+\item CAC inflation +40\% (da 80 euro a 112 euro).
+\item Slowdown e-commerce 2026 (-20\% traffico).
+\item Supply chain delay (+8 settimane lead time).
+\end{itemize}
+
+\begin{table}[H]
+\centering
+\caption{Scenario BEARISH - Proiezioni 2026-2028}
+\label{tab:bear-case}
+\begin{tabular}{L{2cm} C{1.5cm} C{1.8cm} C{1.5cm} C{1.5cm}}
+\toprule
+{\bf Anno} & {\bf Unità} & {\bf Ricavi} & {\bf Margine Lordo} & {\bf Utile Netto} \\
+\midrule
+2026 & 1.800 & 405K euro & 15\% & -210K euro \\
+2027 & 5.000 & 1.12M euro & 25\% & 150K euro \\
+2028 & 8.500 & 1.9M euro & 30\% & 280K euro \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{itemize}
+\item {\bf Break-even:} Q4 2027 (1 anno dopo il base case).
+\item {\bf ROI 2028:} 8\% (14.5\% in meno del base case).
+\item {\warningtext CRISI:} 2026 perde 210K euro (seed capital deficit).
+\item {\bf Azioni necessarie:}
+\begin{itemize}
+\item Pivot canale (focus B2B gare d'appalto invece B2C).
+\item Cost cutting (team ridotto a 5 FTE).
+\item Fundraising urgente Q3 2026 (convertible note 200K euro).
+\item Rinegoziazione con fornitori per ridurre costi.
+\end{itemize}
+\end{itemize}
+
+\subsection{Sintesi Scenari}
+\begin{table}[H]
+\centering
+\caption{Sintesi Scenari - Probabilità e Risultati}
+\label{tab:scenario-summary}
+\begin{tabular}{L{2.5cm} C{1.5cm} C{1.8cm} C{1.5cm} C{1.5cm}}
+\toprule
+{\bf Scenario} & {\bf Probabilità} & {\bf Utile 2028} & {\bf ROI 2028} & {\bf Break-even} \\
+\midrule
+BASE & 50\% & 1.3M euro & 22.5\% & Q3 2027 \\
+BULLISH & 25\% & 2.1M euro & 28\% & Q1 2027 \\
+BEARISH & 25\% & 280K euro & 8\% & Q4 2027 \\
+\midrule
+{\bf Expected Value} & & {\bf 1.19M euro} & {\bf 20.9\%} & {\bf Q2 2027} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+{\bf Valutazione complessiva:} Il business model è {\bf robusto} nello scenario base e bullish, ma {\bf vulnerabile} nello scenario bearish. La probabilità combinata di successo (BASE + BULLISH) è del {\bf 75\%}, con un expected ROI del {\bf 20.9\%}. La chiave per mitigare il rischio bearish è {\bf validare la traction nel Q2 2026} (500 pre-order) e {\bf assicurare il rilascio PNRR entro Maggio 2026}.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% APPENDIX
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Appendix}
+\label{ch:appendix}
+
+\section{Business Model Canvas}
+\begin{table}[H]
+\centering
+\caption{Business Model Canvas - Rappresentazione Visiva}
+\label{tab:bmc}
+\footnotesize
+\begin{tabular}{|L{3.2cm}|L{3.2cm}|L{3.2cm}|}
+\hline
+\multicolumn{3}{|c|}{\bf \large BUSINESS MODEL CANVAS} \\ \hline
+\hline
+\multicolumn{1}{|c|}{\bf KEY PARTNERS} & \multicolumn{1}{|c|}{\bf KEY ACTIVITIES} & \multicolumn{1}{|c|}{\bf VALUE PROPOSITIONS} \\ \hline
+\begin{itemize}\itemsep0pt\parsep0pt
+\item Yosemitech (sensori, Cina)
+\item Nordic Semi. (chip LoRa)
+\item Amazon/Shopify
+\item Vivai locali
+\item Comuni (PNRR)
+\end{itemize} &
+\begin{itemize}\itemsep0pt\parsep0pt
+\item R and D algoritmo
+\item Produzione moduli
+\item Marketing digitale
+\item Supporto 24/7
+\item Logistica
+\end{itemize} &
+\begin{itemize}\itemsep0pt\parsep0pt
+\item Risparmio idrico 40\%
+\item Energy harvesting
+\item Installazione <1h
+\item App mobile
+\item Mesh topology
+\end{itemize} \\ \hline
+\multicolumn{1}{|c|}{\bf CUSTOMER RELATIONSHIPS} & \multicolumn{1}{|c|}{\bf CUSTOMER SEGMENTS} & \multicolumn{1}{|c|}{\bf CHANNELS} \\ \hline
+\begin{itemize}\itemsep0pt\parsep0pt
+\item Self-service
+\item Community online
+\item Assistenza
+\item Account manager
+\end{itemize} &
+\begin{itemize}\itemsep0pt\parsep0pt
+\item Millennial (25-35, 25K-40K euro)
+\item Pensionato (60-75, 20K-30K euro)
+\item Condominio (35-50, 40K-60K euro)
+\end{itemize} &
+\begin{itemize}\itemsep0pt\parsep0pt
+\item E-commerce
+\item Amazon
+\item Vivai
+\item PNRR
+\end{itemize} \\ \hline
+\multicolumn{1}{|c|}{\bf KEY RESOURCES} & \multicolumn{1}{|c|}{\bf COST STRUCTURE} & \multicolumn{1}{|c|}{\bf REVENUE STREAMS} \\ \hline
+\begin{itemize}\itemsep0pt\parsep0pt
+\item Brevetto (UE)
+\item Team (7 FTE)
+\item Supply Chain
+\item Brand
+\item App mobile
+\item PNRR (10M/anno)
+\end{itemize} &
+\begin{itemize}\itemsep0pt\parsep0pt
+\item Variabili: 53\%
+\item Fissi: 44\%
+\item R and D: 13\%
+\item Marketing: 7\%
+\item Contingency: 17\%
+\end{itemize} &
+\begin{itemize}\itemsep0pt\parsep0pt
+\item Kit Base: 225 euro
+\item Kit Premium: 450 euro
+\item Sensori: 50 euro
+\item SaaS: 5 euro/mese
+\item Manutenzione: 30 euro
+\item Installazione: 80 euro
+\item B2B: Custom
+\end{itemize} \\ \hline
+\end{tabular}
+\end{table}
+
+\section{Fonti e Citazioni}
+\begin{longtable}{|L{3cm}|L{3cm}|L{4cm}|}
+\hline
+{\bf Dato} & {\bf Fonte} & {\bf Link} \\ \hline
+TAM (1.2B euro) & Statista + Coldiretti & \href{https://www.statista.com}{Statista} \\ \hline
+CAGR (13.5\%) & MarketsandMarkets & \href{https://www.marketsandmarkets.com}{Report} \\ \hline
+PNRR Smart City & Agenzia Coesione & \href{https://www.pnrr.gov.it}{PNRR} \\ \hline
+Bonus 50\% & Agenzia Entrate & \href{https://www.agenziaentrate.gov.it}{Guida} \\ \hline
+\end{longtable}
+
+\section{Documenti di Supporto}
+\begin{itemize}
+\item {\bf Brevetto}: EP2026123456 (UE).
+\item {\bf Certificazioni}: CE, RoHS, IP67.
+\item {\bf Contratti}: NDA con Yosemitech, Nordic.
+\item {\bf Studio Mercato}: Disponibile su richiesta.
+\end{itemize}
+
+\section{Specifiche Tecniche}
+\begin{longtable}{|L{3cm}|L{4cm}|L{3cm}|}
+\hline
+{\bf Componente} & {\bf Specifiche} & {\bf Fornitore} \\ \hline
+Sensore Umidità & YL-69 + Yosemitech YS-SOIL & Yosemitech \\
+Sensore Pioggia & RG-11 & Yosemitech \\
+Hub & ESP32 + LoRa (868 MHz) & Nordic Semi. \\
+Pannello Solare & 5W, 6V & SunPower \\
+Batteria & Li-ion 3.7V, 5000mAh & Panasonic \\
+Valvola & 24V DC, 1.5W & Hunter \\ \hline
+\end{longtable}
+
+\section{Glossario}
+\begin{longtable}{|L{2cm}|L{7cm}|}
+\hline
+{\bf Termine} & {\bf Descrizione} \\ \hline
+$ET_0$ & Evapotraspirazione di riferimento (dati meteo). \\
+$K_c$ & Coefficiente colturale (tipologia pianta). \\
+Mesh Topology & Rete in cui ogni nodo può comunicare. \\
+Energy Harvesting & Raccolta energia dall'ambiente. \\
+SOM & Serviceable Obtainable Market. \\ \hline
+\end{longtable}
+
+\end{document}
