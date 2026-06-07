@@ -61,7 +61,7 @@ L'impresa impiega un mix diverso di risorse:
 
 ### Obiettivi Economici
 
-L'impresa persegue tre obiettivi fondamentali:
+L'impresa persegue tre obiettivi fondamentali:\n\n1. **Creazione di ricchezza:** Aumentare il valore delle risorse utilizzate attraverso processi di trasformazione.\n2. **Produzione di utile:** Generare reddito dallo scambio dei beni/servizi prodotti per:\n   - Coprire il costo delle risorse impiegate;\n   - Ripagare chi ha investito capitali;\n   - Creare le condizioni per lo sviluppo futuro in linea con l'evoluzione dell'ambiente.\n3. **Sviluppo sostenibile:** Creare le condizioni per lo sviluppo futuro in linea con l'evoluzione dell'ambiente.
 
 1. **Creazione di ricchezza:** Aumentare il valore delle risorse utilizzate attraverso processi di trasformazione
 2. **Produzione di utile:** Generare reddito dallo scambio dei beni/servizi prodotti

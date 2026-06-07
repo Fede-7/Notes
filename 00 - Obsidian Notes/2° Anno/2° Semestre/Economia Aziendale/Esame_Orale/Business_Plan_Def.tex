@@ -1,36 +1,100 @@
-\documentclass[12pt,a4paper]{article}
-\usepackage[utf8]{inputenc}
-\usepackage[italian]{babel}
-\usepackage{geometry}
-\geometry{a4paper, margin=1in}
-\usepackage{graphicx}
-\usepackage{booktabs}
-\usepackage{array}
-\usepackage{multirow}
-\usepackage{hyperref}
-\usepackage{enumitem}
-\usepackage{verbatim}
-\usepackage{amsmath}
-\usepackage{amssymb}
-\usepackage{textcomp}
-\usepackage{longtable}
-\usepackage{tikz}
-\usetikzlibrary{trees}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SmartIrrigate Home - Business Plan
+% Autori: Federico Dellini, Danilo Amalfitano (CEO, SmartIrrigate)
+% Data: 1 Giugno 2026
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\title{PIANO AZIENDALE - SMARTIRRIGATE HOME}
-\author{}
-\date{}
+\documentclass[11pt,a4paper]{report}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+% Use English babel if Italian support is not available on the system
+\usepackage[english]{babel}
+\usepackage{geometry}
+\geometry{left=2.5cm,right=2.5cm,top=2.5cm,bottom=2.5cm,headheight=14pt,headsep=25pt}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{array}
+\usepackage{longtable}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    urlcolor=blue,
+    citecolor=black,
+    pdfencoding=auto
+}
+\usepackage{parskip}
+\setlength{\parskip}{0.8em}
+\usepackage{enumitem}
+\setlist[itemize]{noitemsep,topsep=0pt,parsep=0pt,partopsep=0pt,leftmargin=*}
+\setlist[enumerate]{noitemsep,topsep=0pt,parsep=0pt,partopsep=0pt,leftmargin=*}
+
+%===== COLORS =====
+\usepackage{xcolor}
+\definecolor{warningcolor}{HTML}{FF6B6B}
+\definecolor{successcolor}{HTML}{51CF66}
+\definecolor{infocolor}{HTML}{4C6EF5}
+
+%===== INTESTAZIONI =====
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{\thepage}
+\lhead{SmartIrrigate Home - Business Plan}
+\rfoot{}
+\lfoot{}
+
+%===== STILI SEZIONI =====
+\usepackage{sectsty}
+\chapterfont{\fontsize{14pt}{16pt}\selectfont\bfseries\centering}
+\sectionfont{\fontsize{12pt}{14pt}\selectfont\bfseries}
+\subsectionfont{\fontsize{11pt}{13pt}\selectfont\bfseries\itshape}
+
+%===== SIMBOLI PER SOSTITUIRE UNICODE =====
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{tikz}
+\usepackage{textcomp}
+\usepackage{eurosym}
+\newcommand{\checkmarkbold}{\textbf{\checkmark}}
+\newcommand{\crossbold}{\textbf{\texttimes}}
+\newcommand{\textwarning}{\textcolor{warningcolor}{$\blacktriangle$}}
+
+%===== ALLINEAMENTO TABELLE =====
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
+\newcolumntype{C}[1]{>{\centering\arraybackslash}p{#1}}
 
 \begin{document}
 
+%===== COPERTINA =====
+\title{
+     \begin{figure}[H]
+         \centering
+         \IfFileExists{Image/Logo_SmartIrrigate_Home_v2.png}{%
+            \includegraphics[width=0.5\linewidth]{Image/Logo_SmartIrrigate_Home_v2.png}%
+         }{}
+     \end{figure}
+    \textbf{SmartIrrigate Home} \\ \Large Business Plan
+}
+\author{Federico Dellini (CEO, SmartIrrigate) \\ Danilo Amalfitano (CTO, SmartIrrigate)}
+\date{1 Giugno 2026}
+
 \maketitle
+\thispagestyle{empty}
+\newpage
 
-\section{SINTESI ESECUTIVA}
+\tableofcontents
+\thispagestyle{empty}
+\newpage
 
-\subsection{Opportunità di Mercato}
+\chapter{SINTESI ESECUTIVA}
+
+\section{Opportunità di Mercato}
 SmartIrrigate Home opera nel mercato italiano dell'irrigazione intelligente per balconi, terrazze e giardini urbani. Il Mercato Totale Indirizzabile (TAM) è di \textbf{€400-500M/anno} per i sistemi di irrigazione domestici, con un Mercato Disponibile Servibile (SAM) di \textbf{€40-50M/anno} per le soluzioni intelligenti. Il mercato dimostra un forte potenziale di crescita con un CAGR del \textbf{11-12\%} previsto dal 2020 al 2026.
 
-\subsection{Servizi}
+\section{Servizi}
 Il nostro prodotto combina la tecnologia IoT all'avanguardia con la precisione agronomica:
 \begin{itemize}
     \item \textbf{Raccolta di Energia}: Sistema alimentato a energia solare con 5-7 anni di autonomia (vs. 6-12 mesi per i concorrenti)
@@ -39,7 +103,7 @@ Il nostro prodotto combina la tecnologia IoT all'avanguardia con la precisione a
     \item \textbf{Installazione Plug \& Play}: Configurazione completa in meno di 1 ora
 \end{itemize}
 
-\subsection{Strategie di Marketing e Vendita}
+\section{Strategie di Marketing e Vendita}
 \textbf{Proposta di Vendita Unica (USP)}: SmartIrrigate Home è l'unico sistema di irrigazione intelligente con 5-7 anni di autonomia energetica, algoritmo predittivo ET\textsubscript{0}+Kc e irrigazione personalizzata per ogni pianta.
 
 \textbf{Segmenti di Mercato di Riferimento}:
@@ -52,7 +116,7 @@ Pensionato con Orto & 100-200 & Negozi fisici (35\%) & Fatica fisica, artrite \\
 Condominio Eco-Sostenibile & 500-2.000 & Gare B2B & Spreco d'acqua nei sistemi centralizzati \\ \hline
 \end{longtable}
 
-\subsection{Dati Finanziari Principali}
+\section{Dati Finanziari Principali}
 \textbf{Indicatori Chiave di Prestazione}:
 \begin{itemize}
     \item \textbf{CAC}: €80-100 (obiettivo: €80)
@@ -72,9 +136,9 @@ Condominio Eco-Sostenibile & 500-2.000 & Gare B2B & Spreco d'acqua nei sistemi c
 2028 & 30.000 & 5,0-8,0 & 70 & 400 & 50\% \\ \hline
 \end{longtable}
 
-\section{PANORAMICA AZIENDALE}
+\chapter{PANORAMICA AZIENDALE}
 
-\subsection{Struttura di Proprietà}
+\section{Struttura di Proprietà}
 SmartIrrigate Home è strutturata come una società a responsabilità limitata (S.r.l.) con la seguente distribuzione della proprietà:
 \begin{itemize}
     \item \textbf{Fondatori}: 60\% (John Doe - AD, Jane Doe - Direttore Operativo)
@@ -82,22 +146,22 @@ SmartIrrigate Home è strutturata come una società a responsabilità limitata (
     \item \textbf{Stock Options per Dipendenti}: 10\%
 \end{itemize}
 
-\subsection{Dichiarazione di Missione}
+\section{Dichiarazione di Missione}
 Rivoluzionare il giardinaggio urbano in Italia combinando l'innovazione tecnologica con la sostenibilità ambientale, rendendo l'irrigazione intelligente accessibile, conveniente e senza sforzo per ogni famiglia.
 
-\subsection{Storia Aziendale}
+\section{Storia Aziendale}
 Fondata all'inizio del 2026, SmartIrrigate è nata da un team di ingegneri IoT, agronomi e imprenditori che hanno identificato una lacuna critica nel mercato italiano: i sistemi di irrigazione intelligente esistenti o mancavano di una vera autonomia energetica o non fornivano precisione a livello di singola pianta. La visione fondante dell'azienda era creare un sistema che elimini i cicli di sostituzione delle batterie fornendo al contempo un'intelligenza di irrigazione di livello professionale agli utenti residenziali.
 
-\subsection{Obiettivi Futuri}
+\section{Obiettivi Futuri}
 \textbf{Breve termine (2026)}: Lancio del MVP con 5.000 unità vendute, ottenere un punteggio NPS >50, ridurre il CAC da €100 a €80 attraverso programmi di referenza e partenariati con influencer.
 
 \textbf{Medio termine (2027-2028)}: Raggiungere il punto di pareggio, espandersi nei mercati francese e spagnolo, lanciare l'abbonamento SaaS SmartIrrigate a €4,99/mese per analisi avanzate e archiviazione storica dei dati.
 
 \textbf{Lungo termine (2029+)}: Ottenere una quota di mercato del 5\% nel SAM italiano (€2M-2,5M di ricavi), introdurre SmartIrrigate Pro per l'agricoltura commerciale, perseguire la certificazione ISO 9001 e il riconoscimento del marchio ecologico dell'UE.
 
-\section{ANALISI DI MERCATO}
+\chapter{ANALISI DI MERCATO}
 
-\subsection{Mercato di Riferimento}
+\section{Mercato di Riferimento}
 Il mercato italiano dell'irrigazione intelligente serve tre segmenti principali con caratteristiche distinte:
 
 \textbf{Giovane Giardiniere Urbano (60\% delle vendite)}
@@ -127,7 +191,7 @@ Il mercato italiano dell'irrigazione intelligente serve tre segmenti principali 
     \item Comportamento d'acquisto: Gare B2B, valuta sostenibilità e ROI collettivo
 \end{itemize}
 
-\subsection{Dimensione del Mercato e Potenziale di Crescita}
+\section{Dimensione del Mercato e Potenziale di Crescita}
 
 \textbf{Segmentazione del Mercato}:
 
@@ -147,7 +211,7 @@ Condomini con aree verdi & ~4,2M condomini & 12\% & €750M \\ \hline
     \item \textbf{Preoccupazioni per la Scarsità d'Acqua}: 62\% degli italiani si preoccupa delle condizioni di siccità estrema
 \end{itemize}
 
-\subsection{Analisi della Concorrenza}
+\section{Analisi della Concorrenza}
 
 \textbf{Concorrenti Diretti}:
 
@@ -170,7 +234,7 @@ Prezzo Base Kit (€) & 150-250 & 250-350 & 100-200 & 95-180 & 45-80 \\ \hline
     \item \textbf{Implementazione Rapida}: Installazione in meno di 1 ora elimina le barriere tecniche
 \end{enumerate}
 
-\subsection{Tendenze di Mercato}
+\section{Tendenze di Mercato}
 \textbf{Disruzioni Tecnologiche}:
 \begin{itemize}
     \item Adozione IoT in accelerazione con la standardizzazione del protocollo Matter
@@ -192,9 +256,9 @@ Prezzo Base Kit (€) & 150-250 & 250-350 & 100-200 & 95-180 & 45-80 \\ \hline
     \item Ecobonus Verde Tecnologico (50-65\%) disponibile per tecnologie certificate di risparmio idrico
 \end{itemize}
 
-\section{PRODOTTI E SERVIZI}
+\chapter{PRODOTTI E SERVIZI}
 
-\subsection{Kit e Servizi}
+\section{Kit e Servizi}
 
 \textbf{Kit Base (10 m\textsuperscript{2}, 5 piante)} - €199
 \begin{itemize}
@@ -222,7 +286,7 @@ Prezzo Base Kit (€) & 150-250 & 250-350 & 100-200 & 95-180 & 45-80 \\ \hline
     \item Fatturazione B2B compatibile con la reportistica di sostenibilità aziendale
 \end{itemize}
 
-\subsection{Servizi a Valore Aggiunto}
+\section{Servizi a Valore Aggiunto}
 
 \textbf{Servizio di Trasferimento da/a Aeroporto} - A partire da €30 a tratta
 \begin{itemize}
@@ -254,7 +318,7 @@ Prezzo Base Kit (€) & 150-250 & 250-350 & 100-200 & 95-180 & 45-80 \\ \hline
     \end{itemize}
 \end{itemize}
 
-\subsection{Enfasi sull'Esperienza Clienti}
+\section{Enfasi sull'Esperienza Clienti}
 Tutti i prodotti SmartIrrigate danno priorità a un'eccellente esperienza clienti attraverso:
 \begin{itemize}
     \item \textbf{Supporto Tecnico 24/7}: Team di supporto dedicato disponibile 24 ore su 24
@@ -264,9 +328,9 @@ Tutti i prodotti SmartIrrigate danno priorità a un'eccellente esperienza client
     \item \textbf{Garanzia di Soddisfazione}: Garanzia di rimborso di 30 giorni su tutti i kit
 \end{itemize}
 
-\section{STRATEGIE DI VENDITA E MARKETING}
+\chapter{STRATEGIE DI VENDITA E MARKETING}
 
-\subsection{Proposta di Vendita Unica (USP)}
+\section{Proposta di Vendita Unica (USP)}
 \textbf{Messaggio Principale}: SmartIrrigate Home: L'unico sistema di irrigazione intelligente con 5-7 anni di autonomia energetica, algoritmo predittivo ET\textsubscript{0}+Kc e irrigazione personalizzata per ogni pianta.
 
 \textbf{USP di Supporto}:
@@ -280,7 +344,7 @@ Irrigazione Selettiva & Irrigazione individuale per pianta (vs. zone generiche) 
 Installazione Plug \& Play & <1 ora vs. 2-4 ore di Gardena/Orbit & Installazione in 30 minuti, senza competenze tecniche! \\ \hline
 \end{longtable}
 
-\subsection{Strategia di Prezzo}
+\section{Strategia di Prezzo}
 \textbf{Struttura dei Prezzi a Livelli}:
 \begin{itemize}
     \item \textbf{Kit Base}: €199 (livello base, copertura 10 m\textsuperscript{2})
@@ -297,7 +361,7 @@ Installazione Plug \& Play & <1 ora vs. 2-4 ore di Gardena/Orbit & Installazione
     \item Programma di permuta: credito di €50 verso l'aggiornamento per i clienti che restituiscono vecchi sistemi
 \end{itemize}
 
-\subsection{Strategie di Marketing}
+\section{Strategie di Marketing}
 
 \textbf{Canali Online}:
 
@@ -317,23 +381,23 @@ Content Marketing & Articoli blog su giardinaggio urbano, consigli di sostenibil
     \item \textbf{Fiere di Settore}: Partecipazione a Garden Show Milano, Agritechnica Bologna
 \end{itemize}
 
-\subsection{Strategie di Vendita}
+\section{Strategie di Vendita}
 \textbf{Sconti Stagionali}: Tariffe speciali durante i periodi di bassa stagione (ottobre-novembre, febbraio-marzo) per mantenere il flusso di cassa durante tutto l'anno.
 
 \textbf{Collaborazioni con Marchi}: Partenariati con ristoranti locali e aziende di tour che offrono offerte esclusive per i clienti SmartIrrigate.
 
 \textbf{Esperienze Locali}: Offrire agli ospiti opportunità come tour dei mercati o workshop artigianali per esperienze immersive di giardinaggio italiano.
 
-\subsection{Fidelizzazione dei Clienti}
+\section{Fidelizzazione dei Clienti}
 \textbf{Programmi di Fedeltà}: Sistema a punti che premia gli acquisti ripetuti, le segnalazioni e le recensioni dei prodotti.
 
 \textbf{Servizio Clienti Eccellente}: Formazione di un team di supporto dedicato per rispondere alle esigenze degli ospiti, garantendo soggiorni memorabili attraverso una comunicazione proattiva.
 
 \textbf{Esperienza Personalizzata per gli Ospiti}: Offrire esperienze su misura come decorazioni personalizzate delle stanze o tour della città curati in base alle preferenze raccolte durante l'acquisto.
 
-\section{PIANO OPERATIVO}
+\chapter{PIANO OPERATIVO}
 
-\subsection{Personale e Formazione}
+\section{Personale e Formazione}
 \textbf{Struttura del Team Principale}:
 \begin{itemize}
     \item \textbf{AD/Fondatore}: Supervisione strategica, relazioni con gli investitori, sviluppo aziendale
@@ -351,7 +415,7 @@ Content Marketing & Articoli blog su giardinaggio urbano, consigli di sostenibil
     \item Abilitazione alle vendite per i partner di vendita al dettaglio (aggiornamenti trimestrali)
 \end{itemize}
 
-\subsection{Processi Operativi}
+\section{Processi Operativi}
 \textbf{Gestione della Catena di Fornitura}:
 \begin{itemize}
     \item Produzione primaria: Produttori appaltatori a Shenzhen, Cina (economici, capacità di produzione IoT consolidata)
@@ -372,7 +436,7 @@ Content Marketing & Articoli blog su giardinaggio urbano, consigli di sostenibil
 Ricezione Ordine $\rightarrow$ Verifica Pagamento $\rightarrow$ Assegnazione Inventario $\rightarrow$ Controllo Qualità $\rightarrow$ Imballaggio $\rightarrow$ Spedizione $\rightarrow$ Conferma Consegna $\rightarrow$ Supporto Post-Vendita $\rightarrow$ Raccolta Feedback Clienti
 \end{center}
 
-\subsection{Tecnologia e Sistemi}
+\section{Tecnologia e Sistemi}
 \textbf{Piattaforme Principali}:
 \begin{itemize}
     \item \textbf{Software di Gestione Prodotto}: Jira per il tracciamento dello sviluppo, Confluence per la documentazione
@@ -388,9 +452,9 @@ Ricezione Ordine $\rightarrow$ Verifica Pagamento $\rightarrow$ Assegnazione Inv
     \item Integrazioni API: OpenWeatherMap, servizi meteorologici regionali Arpa, supporto protocollo Matter
 \end{itemize}
 
-\section{TEAM DI GESTIONE}
+\chapter{TEAM DI GESTIONE}
 
-\subsection{Manager Chiave}
+\section{Manager Chiave}
 
 \textbf{John Doe - AD \& Co-fondatore}
 \begin{itemize}
@@ -424,7 +488,7 @@ Ricezione Ordine $\rightarrow$ Verifica Pagamento $\rightarrow$ Assegnazione Inv
     \item \textbf{Esperienza}: 8 anni nel marketing tecnologico B2C, lancio di successo di più prodotti IoT per consumatori
 \end{itemize}
 
-\subsection{Struttura Organizzativa}
+\section{Struttura Organizzativa}
 \begin{center}
 \begin{tikzpicture}[level distance=1.5cm, level 1/.style={sibling distance=2cm}]
   \node {AD (John Doe)}
@@ -436,10 +500,10 @@ Ricezione Ordine $\rightarrow$ Verifica Pagamento $\rightarrow$ Assegnazione Inv
 \end{tikzpicture}
 \end{center}
 
-\subsection{Piano di Compensazione}
+\section{Piano di Compensazione}
 \textbf{Leadership Esecutiva}:
 \begin{itemize}
-    \item AD: €150.000 base + opzioni azionarie (200.000 azioni a $0,05 prezzo di esercizio)
+    \item AD: €150.000 base + opzioni azionarie (200.000 azioni a \euro{}0,05 prezzo di esercizio)
     \item Direttore Operativo: €120.000 base + opzioni azionarie (150.000 azioni)
     \item Responsabile Prodotto: €100.000 base + opzioni azionarie (100.000 azioni)
     \item Responsabile Marketing: €90.000 base + opzioni azionarie (80.000 azioni)
@@ -447,7 +511,7 @@ Ricezione Ordine $\rightarrow$ Verifica Pagamento $\rightarrow$ Assegnazione Inv
 
 \textbf{Bonus di Prestazione}: Bonus annuali legati al raggiungimento dei KPI (obiettivi di ricavi, punteggi di soddisfazione del cliente, traguardi di lancio del prodotto).
 
-\subsection{Consiglio di Amministrazione}
+\section{Consiglio di Amministrazione}
 
 \textbf{Dott.ssa Emily Clark - Esperta di Ospitalità}
 \begin{itemize}
@@ -465,9 +529,9 @@ Ricezione Ordine $\rightarrow$ Verifica Pagamento $\rightarrow$ Assegnazione Inv
     \item \textbf{Ruolo}: Strategia di acquisizione immobiliare, guida alla conformità normativa
 \end{itemize}
 
-\section{PIANO FINANZIARIO}
+\chapter{PIANO FINANZIARIO}
 
-\subsection{Conto Economico (Proiezione a 3 Anni)}
+\section{Conto Economico (Proiezione a 3 Anni)}
 
 \textbf{Suddivisione dei Ricavi}:
 
@@ -524,7 +588,7 @@ Costi Operativi & 565 & 922,5 & 1.309 \\ \hline
 \textbf{Reddito Operativo} & \textbf{-302,5 a -127,5} & \textbf{-59 a 465} & \textbf{598,5 a 1.941} \\ \hline
 \end{longtable}
 
-\subsection{Rendiconto Finanziario (Anno 1)}
+\section{Rendiconto Finanziario (Anno 1)}
 
 \textbf{Flussi di Cassa in Entrata}:
 \begin{itemize}
@@ -551,7 +615,7 @@ Tariffe Professionali & 30 \\ \hline
 
 \textbf{Flusso di Cassa Netto}: €135.000-€635.000 (positivo fin dall'inizio)
 
-\subsection{Stato Patrimoniale (Fine Anno 1)}
+\section{Stato Patrimoniale (Fine Anno 1)}
 
 \textbf{Attività}:
 
@@ -594,7 +658,7 @@ Utile (Perdita) Accumulato & -95 a +50 \\ \hline
 \textbf{TOTALE PASSIVITÀ E PATRIMONIO NETTO} & \textbf{780-1.280} \\ \hline
 \end{longtable}
 
-\subsection{Analisi del Punto di Pareggio}
+\section{Analisi del Punto di Pareggio}
 
 \textbf{Allineamento dei parametri usati per il BEP}: per coerenza con il capitolo sui costi fissi (Burn Rate 2026) usiamo i seguenti valori di riferimento:
 \begin{itemize}
@@ -614,14 +678,14 @@ V &= C / U \approx 600\,000 / 3\,300 \approx 181.82\,\euro\\
 Calcolo BEP:
 \begin{itemize}
     \item BEP\_units = $F / m \approx 480\,000 / 45.45 \approx 10\,560$ unit\`a
-    \item BEP\_value = BEP\_units \times P \approx 10\,560 \times 227.27 \approx 2\,400\,000\,\euro
+    \item BEP\_value = \(\mathrm{BEP\_units}\times P \approx 10\,560 \times 227.27 \approx 2\,400\,000\,\euro\)
 \end{itemize}
 
 \textbf{Risultato}: con i parametri coerenti tra tabelle (prezzo medio ~227\,\euro, COGS medio ~182\,\euro, costi fissi 480\,k\,\euro) il punto di pareggio si ottiene a circa \textbf{10.6k unit\`a} (~\textbf{€2.4M} di ricavi). La versione precedente che riportava 7.647 unit\`a (es. il calcolo basato su costi fissi €650k) era incongruente rispetto al Burn Rate: ora i numeri sono allineati.
 
 \textbf{Implicazioni operative}: con l'obiettivo di portare vendite a 15.000 unit\`a nel 2027 si supera il BEP stimato (15.000 > 10.560), garantendo redditività operativa sotto le assunzioni correnti.
 
-\subsection{Fabbisogno di Finanziamento}
+\section{Fabbisogno di Finanziamento}
 
 \textbf{Requisiti di Capitale per l'Avvio}:
 
@@ -643,9 +707,9 @@ Riserva di Capitale Circolante & 350 \\ \hline
     \item Potenziale Serie A: €2-5M previsti per il 2027 in base alla trazione
 \end{itemize}
 
-\section{ANALISI SWOT}
+\chapter{ANALISI SWOT}
 
-\subsection{Punti di Forza (Fattori Interni)}
+\section{Punti di Forza (Fattori Interni)}
 
 \begin{longtable}{|p{3cm}|p{4.5cm}|p{3cm}|}
 \hline
@@ -657,7 +721,7 @@ Riserva di Capitale Circolante & 350 \\ \hline
 \textbf{Team Dirigenziale Esperto} & Esperienza combinata di 40+ anni in IoT, agronomia e tecnologia consumer & Track record di lanci di prodotto di successo \\ \hline
 \end{longtable}
 
-\subsection{Punti di Debolezza (Fattori Interni)}
+\section{Punti di Debolezza (Fattori Interni)}
 
 \begin{longtable}{|p{3cm}|p{4.5cm}|p{3cm}|}
 \hline
@@ -668,7 +732,7 @@ Riserva di Capitale Circolante & 350 \\ \hline
 \textbf{Scala di Produzione Limitata} & Prima tiratura di produzione di sole 5.000 unità & Partenariati strategici con produttori IoT consolidati per la scalabilità \\ \hline
 \end{longtable}
 
-\subsection{Opportunità (Fattori Esterni)}
+\section{Opportunità (Fattori Esterni)}
 
 \begin{longtable}{|p{3cm}|p{4.5cm}|p{3cm}|}
 \hline
@@ -680,7 +744,7 @@ Riserva di Capitale Circolante & 350 \\ \hline
 \textbf{Espansione Internazionale} & Mercati simili in Francia, Spagna, Germania pronti per l'ingresso & Potenziale di ricavi di €5M-10M entro il 2029 \\ \hline
 \end{longtable}
 
-\subsection{Minacce (Fattori Esterni)}
+\section{Minacce (Fattori Esterni)}
 
 \begin{longtable}{|p{3cm}|p{3.5cm}|p{2cm}|p{3.5cm}|}
 \hline
@@ -691,9 +755,9 @@ Riserva di Capitale Circolante & 350 \\ \hline
 \textbf{Recessione Economica} & Riduzione della spesa dei consumatori su tecnologia non essenziale & Medio & Enfatizzare il ROI del risparmio idrico, introdurre fasce di prezzo entry-level \\ \hline
 \end{longtable}
 
-\section{ROADMAP STRATEGICA (2026-2029)}
+\chapter{ROADMAP STRATEGICA (2026-2029)}
 
-\subsection{Anno 1: Lancio e Validazione (Q1-Q4 2026)}
+\section{Anno 1: Lancio e Validazione (Q1-Q4 2026)}
 \textbf{Obiettivi}:
 \begin{itemize}
     \item Lancio del MVP con 5.000 unità vendute (sotto BEP, coperto da capitale investito)
@@ -721,7 +785,7 @@ Q4 2026 & Ottimizzazione & Integrazione feedback clienti, perfezionamento prezzi
     \item Contingenza: €50.000
 \end{itemize}
 
-\subsection{Anno 2: Scala e Punto di Pareggio (Q1-Q4 2027)}
+\section{Anno 2: Scala e Punto di Pareggio (Q1-Q4 2027)}
 \textbf{Obiettivi}:
 \begin{itemize}
     \item Raggiungere il punto di pareggio (15.000 unità > 10.560 BEP)
@@ -749,7 +813,7 @@ Q4 2027 & Ottimizzazione Finanziaria & Iniziative di riduzione dei costi, miglio
     \item Scala delle Operazioni: €250.000
 \end{itemize}
 
-\subsection{Anno 3: Crescita e Leadership di Mercato (Q1-Q4 2028)}
+\section{Anno 3: Crescita e Leadership di Mercato (Q1-Q4 2028)}
 \textbf{Obiettivi}:
 \begin{itemize}
     \item Raggiungere 30.000 unità vendute annualmente (4x BEP)
@@ -778,7 +842,7 @@ Q4 2028 & Dominio del Mercato & Quota di mercato 5\% nel SAM italiano, €7,5M r
     \item Contingenza: €350.000
 \end{itemize}
 
-\subsection{Anno 4+: Consolidamento ed Espansione Globale (Q1-Q4 2029)}
+\section{Anno 4+: Consolidamento ed Espansione Globale (Q1-Q4 2029)}
 \textbf{Obiettivi}:
 \begin{itemize}
     \item Raggiungere 50.000+ unità vendute annualmente
@@ -795,9 +859,9 @@ Q4 2028 & Dominio del Mercato & Quota di mercato 5\% nel SAM italiano, €7,5M r
     \item Leadership nella Sostenibilità: Pubblicare report annuale sull'impatto ambientale, perseguire la neutralità carbonica
 \end{itemize}
 
-\section{STRATEGIE DI MITIGAZIONE DEL RISCHIO}
+\chapter{STRATEGIE DI MITIGAZIONE DEL RISCHIO}
 
-\subsection{Rischi Finanziari}
+\section{Rischi Finanziari}
 
 \begin{longtable}{|p{3.5cm}|p{2cm}|p{2cm}|p{3.5cm}|}
 \hline
@@ -807,7 +871,7 @@ Interruzioni del flusso di cassa dovute a pagamenti ritardati & Bassa & Medio & 
 Fluttuazioni dei tassi di cambio & Media & Media & Copertura naturale attraverso vendite internazionali, contratti a termine \\ \hline
 \end{longtable}
 
-\subsection{Rischi Operativi}
+\section{Rischi Operativi}
 
 \begin{longtable}{|p{3.5cm}|p{2cm}|p{2cm}|p{3.5cm}|}
 \hline
@@ -817,7 +881,7 @@ Interruzioni della catena di fornitura & Media & Alto & Buffer strategici di inv
 Ritardi logistici che influenzano la soddisfazione del cliente & Media & Medio & Partenariati con più corrieri, sistemi di tracciamento in tempo reale, protocolli di comunicazione proattiva \\ \hline
 \end{longtable}
 
-\subsection{Rischi di Mercato}
+\section{Rischi di Mercato}
 
 \begin{longtable}{|p{3.5cm}|p{2cm}|p{2cm}|p{3.5cm}|}
 \hline
@@ -827,7 +891,7 @@ Obsolescenza tecnologica che riduce la rilevanza del prodotto & Media & Media & 
 Cambiamenti nelle preferenze dei consumatori che spostano la domanda & Media & Medio & Cicli di sviluppo prodotto agili, loop di feedback regolari con i clienti, investimenti nella ricerca di mercato \\ \hline
 \end{longtable}
 
-\subsection{Rischi Normativi}
+\section{Rischi Normativi}
 
 \begin{longtable}{|p{3.5cm}|p{2cm}|p{2cm}|p{3.5cm}|}
 \hline
@@ -836,9 +900,9 @@ Cambiamenti nei programmi di incentivi fiscali che riducono il vantaggio di prez
 Regolamentazioni sulla privacy dei dati che influenzano la funzionalità IoT & Bassa & Alto & Programma di conformità GDPR proattiva, audit di sicurezza regolari, pratiche di trasparenza dei dati comunicati ai clienti \\ \hline
 \end{longtable}
 
-\section{CONCLUSIONI E RACCOMANDAZIONI FINALI}
+\chapter{CONCLUSIONI E RACCOMANDAZIONI FINALI}
 
-\subsection{Sintesi del Posizionamento Strategico}
+\section{Sintesi del Posizionamento Strategico}
 SmartIrrigate Home rappresenta un'opportunità convincente nel mercato italiano in rapida espansione dell'irrigazione intelligente. Con un TAM di €400-500M/anno e forti driver di crescita (CAGR 11-12\%, boom del giardinaggio post-pandemia, sensibilizzazione ambientale), le condizioni di mercato sono altamente favorevoli per un nuovo entrante ben posizionato.
 
 \textbf{Vantaggi Competitivi Chiave}:
@@ -848,7 +912,7 @@ SmartIrrigate Home rappresenta un'opportunità convincente nel mercato italiano 
     \item \textbf{Implementazione Rapida}: L'installazione in <1 ora elimina le barriere tecniche che hanno storicamente limitato l'adozione delle tecnologie smart home
 \end{enumerate}
 
-\subsection{Raccomandazioni Finali (2026-2029)}
+\section{Raccomandazioni Finali (2026-2029)}
 
 \textbf{Priorità 1: Posizionamento del Prodotto e Comunicazione dell'USP}
 \begin{itemize}
@@ -882,7 +946,7 @@ Marketing con Influencer & 10\% & Alta & Immediata (in corso) \\ \hline
     \item \textbf{Opportunità Emergente}: Settore dell'agricoltura commerciale tramite la linea SmartIrrigate Pro
 \end{itemize}
 
-\subsection{Verdetto}
+\section{Verdetto}
 SmartIrrigate Home dimostra un forte potenziale commerciale e tecnico nel mercato B2C italiano, con un modello di business sostenibile e una differenziazione unica rispetto ai concorrenti. La combinazione di tecnologia proprietaria (raccolta di energia + algoritmo predittivo), team dirigenziale esperto e condizioni di mercato favorevoli crea un'opportunità di investimento attraente.
 
 \textbf{Raccomandazione Finale}: Lanciare SmartIrrigate Home nel 2026 con focus sulla comunicazione dell'USP (raccolta di energia + algoritmo predittivo), prezzi a €199-249 (prezzo medio €225), e sfruttando gli incentivi fiscali (50-65\%) per ridurre il costo effettivo per il cliente a €70-130. 
