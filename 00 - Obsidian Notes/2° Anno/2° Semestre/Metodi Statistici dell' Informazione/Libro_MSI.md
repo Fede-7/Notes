@@ -10,35 +10,35 @@ tags: [MSI, libro, probabilità, variabili-aleatorie, inferenza]
 ## Indice
 
 **PARTE I — Fondamenti di Probabilità**
-- [Capitolo 1 — Analisi Combinatoria](#capitolo-1--analisi-combinatoria)
-- [Capitolo 2 — Teoria Formale della Probabilità](#capitolo-2--teoria-formale-della-probabilità)
-- [Capitolo 3 — Proprietà della Probabilità dagli Assiomi](#capitolo-3--proprietà-della-probabilità-dagli-assiomi)
-- [Capitolo 4 — Probabilità Condizionata e Inferenza](#capitolo-4--probabilità-condizionata-e-inferenza)
-- [Capitolo 5 — Indipendenza Stocastica](#capitolo-5--indipendenza-stocastica)
+- [Capitolo 1 — Analisi Combinatoria](Libro_MSI.md#capitolo-1--analisi-combinatoria)
+- [Capitolo 2 — Teoria Formale della Probabilità](Libro_MSI.md#capitolo-2--teoria-formale-della-probabilità)
+- [Capitolo 3 — Proprietà della Probabilità dagli Assiomi](Libro_MSI.md#capitolo-3--proprietà-della-probabilità-dagli-assiomi)
+- [Capitolo 4 — Probabilità Condizionata e Inferenza](Libro_MSI.md#capitolo-4--probabilità-condizionata-e-inferenza)
+- [Capitolo 5 — Indipendenza Stocastica](Libro_MSI.md#capitolo-5--indipendenza-stocastica)
 
 **PARTE II — Variabili Aleatorie Discrete**
-- [Capitolo 6 — Variabili Aleatorie Discrete e PMF](#capitolo-6--variabili-aleatorie-discrete-e-pmf)
-- [Capitolo 7 — Valore Atteso e Momenti](#capitolo-7--valore-atteso-e-momenti)
-- [Capitolo 8 — Distribuzioni Discrete Notevoli](#capitolo-8--distribuzioni-discrete-notevoli)
-- [Capitolo 9 — Funzioni di Variabili Aleatorie](#capitolo-9--funzioni-di-variabili-aleatorie)
+- [Capitolo 6 — Variabili Aleatorie Discrete e PMF](Libro_MSI.md#capitolo-6--variabili-aleatorie-discrete-e-pmf)
+- [Capitolo 7 — Valore Atteso e Momenti](Libro_MSI.md#capitolo-7--valore-atteso-e-momenti)
+- [Capitolo 8 — Distribuzioni Discrete Notevoli](Libro_MSI.md#capitolo-8--distribuzioni-discrete-notevoli)
+- [Capitolo 9 — Funzioni di Variabili Aleatorie](Libro_MSI.md#capitolo-9--funzioni-di-variabili-aleatorie)
 
 **PARTE III — Disuguaglianze e Convergenza**
-- [Capitolo 10 — Disuguaglianze di Probabilità](#capitolo-10--disuguaglianze-di-probabilità)
-- [Capitolo 11 — Legge dei Grandi Numeri](#capitolo-11--legge-dei-grandi-numeri)
+- [Capitolo 10 — Disuguaglianze di Probabilità](Libro_MSI.md#capitolo-10--disuguaglianze-di-probabilità)
+- [Capitolo 11 — Legge dei Grandi Numeri](Libro_MSI.md#capitolo-11--legge-dei-grandi-numeri)
 
 **PARTE IV — Coppie e n-uple di Variabili Aleatorie Discrete**
-- [Capitolo 12 — PMF Congiunta e Indipendenza](#capitolo-12--pmf-congiunta-e-indipendenza)
-- [Capitolo 13 — Covarianza, Correlazione e Media Condizionale](#capitolo-13--covarianza-correlazione-e-media-condizionale)
+- [Capitolo 12 — PMF Congiunta e Indipendenza](Libro_MSI.md#capitolo-12--pmf-congiunta-e-indipendenza)
+- [Capitolo 13 — Covarianza, Correlazione e Media Condizionale](Libro_MSI.md#capitolo-13--covarianza-correlazione-e-media-condizionale)
 
 **PARTE V — Variabili Aleatorie Continue**
-- [Capitolo 14 — Variabili Continue: CDF e PDF](#capitolo-14--variabili-continue-cdf-e-pdf)
-- [Capitolo 15 — Distribuzioni Continue Notevoli](#capitolo-15--distribuzioni-continue-notevoli)
-- [Capitolo 16 — PDF Condizionata e Variabili Continue Bivariate](#capitolo-16--pdf-condizionata-e-variabili-continue-bivariate)
+- [Capitolo 14 — Variabili Continue: CDF e PDF](Libro_MSI.md#capitolo-14--variabili-continue-cdf-e-pdf)
+- [Capitolo 15 — Distribuzioni Continue Notevoli](Libro_MSI.md#capitolo-15--distribuzioni-continue-notevoli)
+- [Capitolo 16 — PDF Condizionata e Variabili Continue Bivariate](Libro_MSI.md#capitolo-16--pdf-condizionata-e-variabili-continue-bivariate)
 
 **PARTE VI — Argomenti Avanzati**
-- [Capitolo 17 — Canale Binario Simmetrico ed Entropia di Shannon](#capitolo-17--canale-binario-simmetrico-ed-entropia-di-shannon)
-- [Capitolo 18 — Vettori Aleatori, Convoluzione e Teorema Centrale del Limite](#capitolo-18--vettori-aleatori-convoluzione-e-teorema-centrale-del-limite)
-- [Capitolo 19 — Processi Stocastici](#capitolo-19--processi-stocastici)
+- [Capitolo 17 — Canale Binario Simmetrico ed Entropia di Shannon](Libro_MSI.md#capitolo-17--canale-binario-simmetrico-ed-entropia-di-shannon)
+- [Capitolo 18 — Vettori Aleatori, Convoluzione e Teorema Centrale del Limite](Libro_MSI.md#capitolo-18--vettori-aleatori-convoluzione-e-teorema-centrale-del-limite)
+- [Capitolo 19 — Processi Stocastici](Libro_MSI.md#capitolo-19--processi-stocastici)
 
 ---
 
