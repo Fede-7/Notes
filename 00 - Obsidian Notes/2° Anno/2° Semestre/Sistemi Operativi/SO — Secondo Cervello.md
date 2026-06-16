@@ -112,6 +112,23 @@
 - Nodo Passaggio: L'architettura inietta parametri direttamente nei registri CPU fisici.
 - Nodo Trap: L'istruzione macchina innesca la commutazione forzata di privilegio.
 
+### Confronto System Call POSIX vs Windows
+> [!ABSTRACT] 
+> POSIX e Windows raggiungono lo stesso kernel con strade API diverse: libc/POSIX da un lato, Win32 dall'altro.
+> [!QUOTE] 
+> POSIX classico: `fork()` + `execve()` separano creazione e sostituzione del processo. Windows Win32: `CreateProcess()` fa tutto in una singola chiamata.
+> I/O file: POSIX usa `open(path, flags, mode)` e restituisce un file descriptor intero. Windows usa `CreateFile(path, access, share, security, creation, flags, template)` e restituisce un `HANDLE`.
+> Passaggio parametri: in entrambi i casi l'API utente prepara strutture/argomenti (registri + stack secondo ABI), poi una trap trasferisce il controllo alla Nt layer/syscall del kernel.
+> [!EXAMPLE] 
+> Aprire un file in Linux: `fd = open("log.txt", O_CREAT|O_WRONLY, 0644)`. In Windows: `h = CreateFile("log.txt", GENERIC_WRITE, 0, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL)`.
+> Creare processo in Linux: `pid = fork(); if(pid==0) execve(...)`. In Windows: `CreateProcess(NULL, cmdline, ...)` con `STARTUPINFO` e `PROCESS_INFORMATION`.
+> [!DANGER] 
+> Trattare `HANDLE` e file descriptor come equivalenti perfetti. In Windows i tipi/permessi di condivisione sono più espliciti e, se sbagliati, causano errori sottili (file lock e access denied).
+
+- Nodo Dicotomia API: POSIX espone primitive minimali composabili; Win32 concentra più policy dentro singole chiamate.
+- Nodo Parametri: L'ABI impone come serializzare argomenti, ma Win32 usa spesso strutture corpose oltre ai parametri scalari.
+- Nodo Semantica: Le coppie `fork/exec` e `CreateProcess` implementano lo stesso obiettivo con compromessi progettuali opposti.
+
 ### Policy e Meccanismo
 
 > [!ABSTRACT] 
@@ -166,6 +183,21 @@
 - Nodo Monolitico: Il blocco unito massimizza spietatamente le prestazioni d'esecuzione.
 - Nodo Microkernel: Il sistema espelle servizi superflui proteggendo blindatamente il nucleo.
 - Nodo Modulare: Il blocco accetta estensioni dinamiche in runtime mantenendo privilegi massimi.
+
+### Sistemi Ibridi Moderni: macOS XNU e Android
+> [!ABSTRACT] 
+> I sistemi moderni reali sono ibridi stratificati: combinano più modelli per bilanciare performance, sicurezza e portabilità.
+> [!QUOTE] 
+> macOS usa XNU (`X is Not Unix`): base Mach (IPC, task/thread, VM) + componenti BSD (process model POSIX, stack rete, file system) + I/O Kit per i driver.
+> Android usa Linux Kernel come fondazione (scheduler, memoria, driver), sopra uno strato HAL (Hardware Abstraction Layer), poi framework Java/Kotlin e runtime ART (Android Runtime) per eseguire app.
+> [!EXAMPLE] 
+> In macOS una `pthread_create` passa da API POSIX, ma il kernel sottostante usa primitive Mach thread/task. In Android l'app chiama API del framework (`LocationManager`), il framework passa dalla HAL e infine arriva al driver nel kernel Linux.
+> [!DANGER] 
+> Ridurre Android a "solo Linux" o macOS a "solo BSD". Nei sistemi ibridi, capire i confini tra layer è vitale per debugging, performance tuning e sicurezza.
+
+- Nodo Fusione: XNU salda microkernel Mach e sottosistema BSD in un singolo nucleo operativo.
+- Nodo Stratificazione: Android separa kernel, HAL, framework e runtime ART per isolare responsabilità.
+- Nodo Astrazione: Le API alte nascondono dettagli hardware, ma i colli di bottiglia emergono sempre negli strati bassi.
 
 ## Gestione dei Processi
 
@@ -544,6 +576,21 @@
 - Nodo Instanziazione: L'invocazione distacca un frammento asincrono sul puntatore funzione.
 - Nodo Amputazione: La duplicazione tramite fork esclude ferocemente i rami esecutivi fratelli, copiandone però gli stati di blocco.
 - Nodo Sostituzione: La chiamata exec annienta totalmente il multithreading rimpiazzando l'intero spazio di memoria.
+
+### Multithreading in Windows (C)
+> [!ABSTRACT] 
+> In ambiente Windows i thread in C non si gestiscono con `pthread_*`, ma con API Win32 basate su `HANDLE`.
+> [!QUOTE] 
+> Creazione: `CreateThread(...)` (o `_beginthreadex` quando serve integrazione robusta con CRT). Attesa: `WaitForSingleObject(threadHandle, INFINITE)` o `WaitForMultipleObjects`. Terminazione/cleanup: `ExitThread` e `CloseHandle`.
+> Ogni thread ha un `DWORD` Thread ID e uno stack privato; lo scheduling è one-to-one sui kernel thread, con priorità configurabili via Win32.
+> [!EXAMPLE] 
+> Pattern base: `HANDLE th = CreateThread(NULL, 0, ThreadFn, arg, 0, &tid); ... WaitForSingleObject(th, INFINITE); CloseHandle(th);`
+> [!DANGER] 
+> Dimenticare `CloseHandle`: il thread può essere terminato ma il handle resta aperto, causando leak di risorse kernel. In più, usare API C runtime non thread-safe senza `_beginthreadex` può creare comportamenti anomali.
+
+- Nodo API: pthreads è lo standard POSIX, Win32 usa primitive native con `HANDLE`.
+- Nodo Vita: In Windows il ciclo vita logico del thread e quello del suo handle sono distinti.
+- Nodo Scheduling: Le priorità Win32 impattano direttamente il comportamento del kernel scheduler.
 
 ## CPU Scheduling (Breve e Medio Termine)
 
