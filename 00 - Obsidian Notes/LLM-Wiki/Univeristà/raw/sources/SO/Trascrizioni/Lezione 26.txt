@@ -1,0 +1,1234 @@
+[00:09] Professore: c'è una faccia standard che permette poi appunto di andare a implementare delle funzioni che poi appunto vengono effettivamente registrate dal sistema
+
+[00:35] Professore: e vengono invocate attraverso questa interfaccia standard.
+
+[00:42] Professore: C'è un sistema per mappare tutti i nomi.
+
+[00:45] Professore: Abbiamo detto che ci sono una serie di operazioni che possono essere implementate.
+
+[00:51] Professore: Quindi magari oggi faremo anche un piccolo esempio per vedere come effettivamente si può implementare un driver dummy
+
+[01:04] Professore: fatto attraverso appunto le implementazioni delle funzioni read e bright una cosa semplice visto che c'era stata una domanda cerchiamo di venire incontro alle esigenze e questo appunto serve anche per far capire un po' che cosa
+
+[01:26] Professore: perché è importante non sta a finire la tipologia di dispositivo che viene appunto classificato in diverse tipologie e queste diverse tipologie, per esempio Charter Stream Lock, poi sono associate a diversi tipi di funzionalità e di interfaccia che poi a seconda del dispositivo specifico devono essere appunto specializzate.
+
+[01:52] Sconosciuto: Ok?
+
+[01:57] Professore: quindi questo l'avevamo già visto l'altra volta ne ho parlato appunto di questi dispositivi che sono qui a disposizione ci concentreremo soprattutto magari oggi sui Charter e Block sui dispositivi appunto a carattere, a stream e a blocco e magari la prima cosa che possiamo andare a vedere
+
+[02:28] Professore: se avete visto facciamo un po di cose interattive dalla scella se ce l'avete davanti potete cominciare a vedere ls-l qui tab sda asterisco ok cominciate a vedere e vedete che c'è un listing proprio di file
+
+[02:56] Professore: come se fosse un listing di file, ma questi sono file speciali che corrispondono effettivamente ai diversi dispositivi di tipo SSD.
+
+[03:07] Professore: Dove la B sta per?
+
+[03:11] SPEAKER_01: No.
+
+[03:12] Professore: Qui, vedete?
+
+[03:13] Professore: Qui di solito c'è la file regolare, la directory, link simbolico, la B, per cosa sta secondo voi?
+
+[03:20] SPEAKER_06: Per...
+
+[03:22] Professore: Abbiamo detto ci sono diversi tipi di dispositivi.
+
+[03:27] SPEAKER_03: Blocco.
+
+[03:27] SPEAKER_03: Ci sono dispositivi a blocco.
+
+[03:31] Professore: E quindi, vedete, già da qui abbiamo un dispositivo a blocco.
+
+[03:34] Professore: Quindi è come se fosse un file.
+
+[03:36] Professore: Vi ho detto che è tutto in Unix.
+
+[03:39] Professore: Linux viene, diciamo così, assimilato a un file.
+
+[03:42] Professore: Quindi anche il dispositivo, dal punto di vista del...
+
+[03:47] Professore: diciamo così, dallo strato astratto del file system, quindi il virtual file system, nelle sue interfacce vedrà questo come un, diciamo così, file.
+
+[03:57] Professore: Quindi alcune operazioni saranno simili a quelle che si fanno da un punto di vista dell'API che si fanno su un file.
+
+[04:06] Professore: Allora, qui abbiamo appunto le caratteristiche, vedete che
+
+[04:12] Professore: Quindi dopo il tipo, che è questo blocco, quindi dispositivo a blocco, abbiamo readwrite, che sono i permessi, cioè quello che si può fare e chi lo può fare.
+
+[04:21] Professore: Quindi lo può fare quello che è il documentario, ok, e poi il gruppo.
+
+[04:31] Professore: Vedete qui il proprietario è root e poi il gruppo è disk.
+
+[04:36] Professore: quindi non solo quelli che sono root ma anche quelli che sono nel gruppo disk possono fare queste operazioni di read and write poi qui avete questo 8 che qui si diceva
+
+[04:53] Professore: sarebbe un indice che indica il driver specifico e poi sul driver specifico cioè sul driver qui abbiamo il tipo di driver e poi qui abbiamo le distanze che servono per riferirsi ai diversi dischi e questo è quando è stato chiamato
+
+[05:23] Professore: il mystic quindi adesso diciamo che quello che si può quindi qui abbiamo vedete questo è il major number che è 8 sarebbe il driver minor number l'istanza SDA sta per quello che era storicamente lo scasi disk poi è diventato praticamente un
+
+[05:51] Professore: un nome che si dà per gli ssd usb sata eccetera eccetera quindi questo è l'origine del nome quindi sd a è per il disco intero e poi le istanze 1 n sono le diverse partizioni del disco
+
+[06:19] Professore: allora andiamo a vedere adesso un altro diciamo così dispositivo in realtà che è il dev null il dev null sarebbe un dispositivo nullo potete andare a vedere questo dispositivo quindi fate ls-l dev null allora la prima lettera che vedete è una c che sta per
+
+[06:49] Professore: Prima era blocco, quindi questo è il dispositivo a?
+
+[06:53] SPEAKER_06: Con la G?
+
+[06:54] Professore: Con la C. Carattere.
+
+[06:59] Professore: Quindi è un dispositivo a carattere, perché questo è un dispositivo che praticamente è un dispositivo che manda al nulla, quindi va a scartare questo flusso di byte.
+
+[07:13] Professore: Quindi vedete che i permessi sono re-drive per tutti,
+
+[07:18] Professore: il gruppo è diciamo il possessore, il gruppo è root e quindi abbiamo poi attenzione un major quindi questo significa che questo dispositivo comunque ha un driver associato che avrebbe quindi major number 1 e poi il minor number è il comportamento perché il driver
+
+[07:46] Professore: Abbiamo un driver, però questo driver può avere diversi comportamenti che sono specificati dal numero minore.
+
+[07:55] Professore: Per vedere in questo caso il comportamento è quello del null device, quindi scarta i dati.
+
+[08:05] Professore: Quindi per esempio se voi volete fare una ridirezione dei file sul nulla,
+
+[08:16] Professore: potete fare echo qualcosa del genere di una ciao mondo e poi lo ridirezionate con il maggiore su il dev nulla che cosa significa?
+
+[08:30] Professore: significa che voi state mandando lo stream dei dati verso questo dispositivo che semplicemente li scatta ok?
+
+[08:39] Professore: però per farlo comunque avete dovuto invocare un driver ok?
+
+[08:44] Professore: quindi
+
+[08:45] Professore: Questo è qualcosa che poi possiamo andare ad analizzare.
+
+[08:53] Professore: Oppure potete fare il cat, sempre di un file che avete, e potete andare a ridirezionarlo sul dep nulla.
+
+[09:03] Professore: Quindi questo significa scarpare questi dati.
+
+[09:07] Professore: Un altro tipo di
+
+[09:08] Professore: qui per esempio di un altro tipo di driver è associato a questo zero dispositivo zero che cosa fa questo?
+
+[09:21] Professore: questo restituisce degli zeri semplicemente e serve in lettura per poter ricevere degli zeri e poi farci qualche cosa quindi se uno deve inizializzare qualche cosa a zero
+
+[09:39] Professore: può chiamare questo dev0.
+
+[09:41] Professore: Quindi potete fare ls-l, sempre dev0.
+
+[09:45] Professore: Vedete, è sempre uno stream, perché produce uno stream, questo di zeri.
+
+[09:51] Professore: Come vedete, anche qua, la cosa interessante è che, guardate qual è il major, è sempre 1.
+
+[10:01] Professore: Quindi lo stesso driver che mi scartava, è utilizzato per il dev0.
+
+[10:08] Professore: solo che qui il minor è 5 quindi quello stesso driver con un altro comportamento mi genera degli zeri poi un altro ancora di driver vedete questo dev random l'avete mai utilizzato genera appunto dei numeri randomici questo qui
+
+[10:36] Professore: quindi ls-l dev random quindi potete vedere ancora dispositivo a caratteri read write questi sono i diciamo così questo è il proprietario il gruppo e questo diciamo che è di nuovo stesso driver ok tipo 1 e poi invece il comportamento 8 quindi qui abbiamo diciamo così uno spettro
+
+[11:04] Professore: di comportamenti che sono associati a diversi dispositivi che vengono gestiti dalla stessa tipologia di driver cambiandone il sottocomportamento.
+
+[11:14] SPEAKER_04: Scusi ma se deve generare un numero random perché gli serve la possibilità di leggere?
+
+[11:23] Professore: Se si tratta solo di generazione.
+
+[11:26] Professore: Sì, in effetti, in realtà dovrebbe dare la possibilità di leggere sicuramente.
+
+[11:36] Professore: Questo genera e poi lui scrive.
+
+[11:41] Professore: Però c'è la possibilità di...
+
+[11:45] Professore: per interagire con questo device.
+
+[11:51] Professore: Bisogna vedere come sono state implementate, perché ognuno di questi poi ha implementato in modo diverso, eventualmente anche non standard, le primitive di Read&Write.
+
+[12:04] Professore: Quindi eventualmente può darsi pure che la read o la write sono state fatte semplicemente per avere dei accessi al kernel, perché poi ovviamente da qui si parla con il kernel.
+
+[12:16] Professore: Quindi potrebbe essere che la serve, perché ci sono due comunicazioni, uno lato utente, utente che scrive, e poi invece l'utente che legge.
+
+[12:28] Professore: E quindi a seconda di quello, magari potrebbe scrivere per impostare,
+
+[12:34] Professore: per richiedere un'impostazione e poi leggere per ottenere il dato quindi potrebbe ulteriormente specificare il comportamento quindi questa è una diciamo così sono di solito ci sono comunque queste di solito sono le impostazioni di default indipendentemente poi dalle possibili implementazioni dell'interfaccia allora
+
+[13:02] Professore: Cominciamo a fare così, facciamo questo esempio, ecco, ciao mondo, e lo mandate in dev null, ok?
+
+[13:10] Professore: Questa è una prima cosa, e poi vedete questo s trace, meno e, questo mi permette di fare il tracciamento di alcune delle funzioni che vengono utilizzate durante
+
+[13:30] Professore: l'esecuzione di questo programma.
+
+[13:33] Professore: Quindi andiamo a vedere soltanto, per esempio, openat sarebbe la open specializzata, ok?
+
+[13:39] Professore: Quindi è una versione open più, diciamo così, natura.
+
+[13:43] Professore: Comunque è una open, quindi si vede l'operazione di aprire un file.
+
+[13:48] Professore: E poi andiamo a vedere la read, ok?
+
+[13:51] Professore: La parte di read, perché questo è il... che cosa abbiamo qui?
+
+[13:55] Professore: Abbiamo un echo, quindi c'è l'utente.
+
+[13:58] Professore: Che cosa stiamo facendo?
+
+[14:00] Professore: l'utente sta mandando lo stream lo sta ridirezionando sul dev null quindi dobbiamo cercare appunto di vedere che cosa sta succedendo allora possiamo un attimo vederlo vediamo proprio qui voi anche fatelo
+
+[14:32] Professore: Vedete?
+
+[14:33] Professore: Facciamo così.
+
+[14:34] Professore: Ovviamente slash.
+
+[14:38] Professore: Allora, qui ci sono tutta una serie di operazioni che vengono fatte.
+
+[14:43] Professore: Vedete?
+
+[14:43] Professore: Qui ho fatto la trace.
+
+[15:07] Professore: dove vediamo una serie di operazioni che vengono invocate per poter effettivamente fare appunto questa operazione.
+
+[15:18] Professore: Ci sono delle aperture, qui vedete il file descriptor legato alla directory,
+
+[15:34] Professore: Ci sono una serie di read che vengono fatte.
+
+[15:37] Professore: Vedete quante operazioni?
+
+[15:58] Professore: vengono praticamente invocate quindi sono tutte aperture di file una serie di aperture di file che vengono che vengono controllate che servono per gestire la comunicazione ovviamente questa è soltanto diciamo perché ci siamo concentrati soltanto su questo perché
+
+[16:23] Professore: se vogliamo vedere solo la read quindi tracciamo solo la read magari così quindi che cosa è successo qui vedere read 3 quindi questo è il file descritto 3 quindi qui si sono letti questo è il
+
+[16:53] Professore: quello che è stato letto qui.
+
+[17:04] Professore: Queste sono le ride che sono state praticamente lette.
+
+[17:07] Professore: Vediamo un attimo.
+
+[17:09] Professore: Volevo vedere l'MS.
+
+[17:34] Professore: qui si apre probabilmente il file descriptor è praticamente il file descriptor che si è ottenuto con la read at ok per parlare con il dev quindi quando si è aperto il canale sul dev null
+
+[17:47] Professore: si è aperto questo canale e si è ricevuto questo file descriptor 3 perché i primi due sono quelli che abbiamo 0, 1 e 2 che sono i canali che erano già aperti di standard sul terzo si è aperto il canale per parlare con il dev null e quindi su questo poi sono state fatte una serie di operazioni
+
+[18:16] Professore: sono in rv le operazioni non sono in rv le operazioni ma queste sono ridonli per vedere tutto quello che viene fatto possiamo pure provare a tracciare se c'è una bright
+
+[18:47] Professore: eccola qua c'è la bright infatti è giusto perché viene poi su guardate un po su cosa viene fatta la bright sullo standard output ok quindi c'è soltanto effettivamente l'operazione che corrisponde insieme a tre perché poi ci sono le operazioni che sta tracciando anche quello che sta facendo il trace se vogliamo quindi è un po complicato però il
+
+[19:14] Professore: quindi l'operazione in questo caso l'unica operazione di scrittura è questa e poi tutto il resto invece sono aperture di file, aperture di file speciali at file descriptor quindi qui utilizza questo file descriptor che ottiene
+
+[19:48] Professore: sono tutti i file su cui appunto va a lavorare per prendere le informazioni che gli servono per fare dei controlli anche durante le operazioni in effetti non è molto leggibile questa qui l'altra cosa che si può andare a fare
+
+[20:15] Professore: per esempio cat file dev null, quindi ogni volta sbaglio, ho messo nelle slide, ah perché non c'è il file giustamente, lo devo creare, vabbè, giustamente,
+
+[20:50] SPEAKER_05: Comunque Linux avrà deciso di santiare la GPU.
+
+[21:06] Professore: Queste poi sono delle cose che peraltro vi ho messo su Teams, avete una cartella dove ci sono alcuni file da provare, però facciamo questa
+
+[21:21] Professore: Invece così prendiamo, ridirezioniamo e ovviamente sappiamo già che è questo, ovviamente non fa nulla, lo sapevamo,
+
+[21:50] Professore: e questo sarebbe praticamente il file l'altra cosa che possiamo andare a vedere è questo vedete con add-c16 per leggere i primi 16 caratteri di questo dev0
+
+[22:17] Professore: che lo vado a dare in pipe a questo che mi legge questi dati in esadecimale perché devono essere in qualche modo visualizzati altrimenti non si vede effettivamente il risultato cioè questo che genererà 16 zeri e vedete questo sarebbe il
+
+[22:46] Professore: Allora, i 16 zeri sono rappresentati a coppie, vedete questo praticamente sarebbero 1, 2, 3, 4, 5, 6, 7, 8, perché ognuno di questi sono due, quindi diventano 16, 16 zeri.
+
+[23:03] Professore: Questo è il, indica, dovrebbe essere l'off set.
+
+[23:16] Professore: Da qui abbiamo praticamente i 16 zeri e questi puntini qua sarebbe il tentativo da parte del sistema di tradurli in codice ASCII.
+
+[23:27] Professore: Lì dove non riesce a tradurli, perché questa xd che cosa fa?
+
+[23:32] Professore: Mi dà, diciamo così, una parte, diciamo, mi dice da dove comincia a leggere, mi dà i file, mi dà i caratteri tradotti in esa decimale e poi dovrebbe dare il corrispettivo in codice ASCII.
+
+[23:48] Professore: Soltanto che lì dove non c'è un corrispettivo, allora mette un punto per dire che non lo sa.
+
+[23:54] Professore: Quindi questo è il corrispettivo.
+
+[23:56] Professore: semplicemente un modo per visualizzare quello che succede la stessa cosa la possiamo fare per esempio con dev random vedete questi sono numeri random ancora una volta abbiamo presi 16
+
+[24:26] Professore: Questi sono 1, 2, 3, 4, 5, 6, 7, 8.
+
+[24:31] Professore: Questi sono i numeri che vanno presi a coppie, sempre.
+
+[24:35] Professore: Quindi questi sono 2, 2, 2, 2, che sono stati praticamente visualizzati.
+
+[24:41] Professore: E questi, vedete, quelli che stanno qua, questa è sempre la funzionalità di questo x, 2,
+
+[24:48] Professore: prova a far vedere quale sarebbe il corrispettivo in ASCII quando riesce quando non riesce mette il punto perché lì non c'è un corrispettivo ok?
+
+[24:59] Professore: quindi questo è per farvi vedere un attimo che effettivamente quindi che cosa sta succedendo qui quindi andiamo a vedere che cosa sta succedendo quindi abbiamo che vi ricordate cosa faceva ED sui file?
+
+[25:17] Professore: leggeva la testa, ok?
+
+[25:19] Professore: Quindi andiamo a vedere su un file ed cosa fa, così andiamo a vedere la differenza.
+
+[25:25] Professore: Allora, non so, un file, vediamo ed-c, 16, qui c'era meglio, file pt, y, donna, qualcosa, vediamo, precise, no, quello c. Ok?
+
+[25:46] Professore: Quindi che cosa legge qua?
+
+[25:49] Professore: I primi 16 byte, i primi 16 caratteri di questo.
+
+[25:55] Professore: Quindi invece qua, che cosa gli abbiamo passato?
+
+[25:58] Professore: Invece di questo, che era un file, gli abbiamo passato dev random, che viene quindi assimilato ad un file, quindi ha lo stesso comportamento, quindi head non sa di parlare, se sta parlando con un file che lo sta aprendo,
+
+[26:14] Professore: oppure se sta parlando con questo che è, diciamo così, un generatore.
+
+[26:19] Professore: Quindi in un certo senso, add, quando parla con questo random, che cosa succede?
+
+[26:30] Professore: Prova, lo apre, quindi fa proprio una open per poterlo andare così a leggere, e va ad estrapolare i primi 16 byte di questo qui, ok?
+
+[26:43] Professore: poi ovviamente quello che parerebbe in standard output lo andiamo a visualizzare perché se noi non mettiamo la visualizzazione si vede soltanto il corrispettivo diciamo così ASCII che viene, vedete?
+
+[27:04] Professore: o comunque sono dei caratteri strani che vengono visualizzati
+
+[27:11] Professore: non so se è corrispettivo effettivamente perché il corrispettivo viene visto qua questo è corrispettivo dipende dai gusti veneri a questo viene in un certo senso ulteriormente interpretato viene interpretato qui in modo ah no perché scusatemi sono random quindi giustamente ho detto una cavolata sono random quindi ogni volta sono diversi
+
+[27:40] SPEAKER_03: Ok?
+
+[27:43] Professore: Ogni volta saranno diversi, quindi per fare il controllo diventa più complicato.
+
+[27:49] Professore: Ok?
+
+[27:50] Professore: Quindi ci siete fino a qui?
+
+[27:52] Professore: Quindi anche qui, volendo, si può fare il trace per vedere tutto quello che viene aperto, tutto quello che viene scritto, eccetera, eccetera.
+
+[27:59] Professore: Ok?
+
+[28:00] Professore: Potremmo... Allora... Adesso...
+
+[28:13] Professore: Torniamo a vedere altri esempi.
+
+[28:30] Professore: Finora abbiamo visto degli esempi di dispositivi a carattere e abbiamo visto che vengono trattati come se fossero dei file.
+
+[28:38] Professore: Possiamo scrivere come se fossero dei file.
+
+[28:41] Professore: Nel caso del dev null abbiamo scritto sul dev null e nel caso precedente abbiamo letto questi numeri random, l'utente ha letto questi numeri random che vengono prodotti.
+
+[29:03] Professore: Adesso andiamo a vedere i terminali.
+
+[29:08] Professore: Quindi il terminale è quello su cui adesso voi state lavorando, quello su cui abbiamo visto questi esempi, quelli da cui lanciamo la shell.
+
+[29:18] Professore: La shell è un programma, quindi un processo in esecuzione,
+
+[29:23] Professore: che si riferisce ad un terminale perché lavorano con i dispositivi di input e di output e quando dobbiamo comunicare sui dispositivi di input e di output c'è un terminale e quindi c'è il driver associato a questi terminali quindi voi potete per esempio andare a verificare potete fare il listing
+
+[29:52] Professore: per vedere le caratteristiche appunto dei dispositivi legati al pseudo, allora potete fare innanzitutto TTY, TTY che cosa mi dà?
+
+[30:07] Professore: Mi dà il terminale corrente, ok?
+
+[30:10] Professore: Quindi andate a vedere qual è il terminale corrente, andiamo a vedere qui, facciamo clear,
+
+[30:25] Professore: Ok?
+
+[30:26] Professore: Per me è questo qui.
+
+[30:28] Professore: Questo è il terminale che sto usando io.
+
+[30:32] Professore: Ok?
+
+[30:34] Professore: Ora, quello che si può andare a vedere, quindi, è fare il listing su questo.
+
+[30:40] Professore: Quindi, vi ho detto che tutto qui veramente non si vede più.
+
+[30:43] Professore: Non so, non so.
+
+[30:45] Professore: Non so.
+
+[30:45] Professore: Non so.
+
+[30:46] Professore: Non so.
+
+[30:46] Professore: Non so.
+
+[30:48] Professore: Non so.
+
+[30:48] Professore: Non so.
+
+[30:49] Professore: Non so.
+
+[30:49] Professore: Non so.
+
+[30:51] Professore: Quindi andiamo a fare ls-l proprio su questo qui, come se fosse un file, ok?
+
+[30:56] SPEAKER_03: Abbiamo capito che tutto è un file.
+
+[30:58] SPEAKER_03: Siamo sui dispositivi.
+
+[31:01] SPEAKER_03: Ci arrivo?
+
+[31:03] SPEAKER_03: Ci arrivo.
+
+[31:35] Professore: guardate che tipo di dispositivo è la C dispositivo a carattere read write l'utente sono io poi il gruppo è TTY
+
+[31:50] Professore: Abbiamo visto che il tipo di driver è 136, appunto 0, e quello praticamente è il driver.
+
+[31:59] Professore: Quindi major number e minor number che stabilisce il comportamento di quel driver.
+
+[32:05] Professore: Quindi quel driver è registrato sotto il numero 136.
+
+[32:08] Professore: Allora, adesso possiamo per esempio andare a fare un echo,
+
+[32:20] Professore: su questo e ridirezionarlo quindi su questo terminale quindi possiamo fare ecco ciao ok lo andiamo a ridirezionare secondo voi che succede?
+
+[32:48] Professore: cosa vi aspettate che accada?
+
+[33:06] Professore: Sto ridirezionando, lo sto dando in ingresso a questo terminale.
+
+[33:12] Professore: Sto dicendo a questo terminale di stampare ciao.
+
+[33:18] Professore: E quindi cosa mi aspetto?
+
+[33:20] SPEAKER_04: Che esce scritto ciao.
+
+[33:23] Professore: Quindi praticamente la stessa cosa che fare direttamente l'eco.
+
+[33:28] SPEAKER_04: Però così posso far comunicare due terminali.
+
+[33:31] Professore: Esattamente.
+
+[33:32] Professore: Quindi io potrei, a questo punto, far comparire qualche cosa su un altro terminale.
+
+[33:38] Professore: Quindi se voi, per esempio, qui... Io adesso mi apro... No, non è vero.
+
+[33:45] SPEAKER_03: Perché tu... Devo vedere qual è il... Ok?
+
+[34:02] Professore: quindi a questo punto io vado di qua questo abbiamo detto che è pps 2 quindi vado di qua e ci metto il 2 qui non appare niente sotto il mio compare ciao e qui vedete che c'è il ciao ok c'è anche un mercato che è venuto ah compare come comando
+
+[34:31] Professore: Quindi potrebbe fare eseguire i comandi di un terminale sull'altro terminale?
+
+[34:35] Professore: Questo, diciamo, in realtà appare come scritta per ora, quindi è una scritta.
+
+[34:40] SPEAKER_04: Ma ipoteticamente si potrebbe fare?
+
+[34:41] Professore: Però ipoteticamente si possono fare delle operazioni, sì.
+
+[34:44] SPEAKER_04: Quindi se ipoteticamente passo all'altro terminale, ecco ciao, l'altro terminale dovrebbe poi eseguire ecco ciao e quindi stampare?
+
+[34:55] Professore: C'è il modo per lanciare effettivamente attraverso...
+
+[35:02] Professore: i comandi sull'altro terminale quindi far comunicare tra di loro i terminali perché appunto a questo punto stiamo lavorando sui driver quindi questo terminale qui stiamo ridirezionando delle operazioni tra i terminali fa un check i requisiti minimi se non li installa
+
+[35:34] Professore: Questa è un eco poi si possono fare altre operazioni che possono essere diciamo così ridirezionate sull'altro terminale però per ora è solo un flusso di byte quello che si sta mandando da una parte e dall'altra quindi si sta comunicando che deve fare questo tipo di operazione
+
+[35:58] Professore: anche qua possiamo fare quindi vedete anche qua il qual è il driver il driver è sempre lo stesso vedete
+
+[36:29] Professore: qui in questo caso l'istanza è direttamente uguale all'istanza del terminale vedete qua questo è il terminale 2 e quella è l'istanza 0 quindi abbiamo questa corrispondenza quindi anche il terminale è assimilato ad un file e in questo caso stiamo mandando un flusso di byte
+
+[36:57] Professore: lo stiamo diciamo ridirezionando sull'ingresso di questo su questo terminale ok un attimo solo ecco qua un secondo momento
+
+[37:28] Professore: Allora, visto che stiamo parlando sempre di character device, qui abbiamo questa situazione, il kernel di solito non fa pre-processing delle richieste di read or write, nel caso dei character device, però c'è l'eccezione proprio dei terminal device,
+
+[37:50] Professore: perché i terminal device hanno qualcosa in più, ok?
+
+[37:54] Professore: Sono potenziati perché hanno quella che avevamo chiamato l'altra volta una gestione appunto della linea, ok?
+
+[38:06] Professore: Quindi hanno un'interfaccia che consente di avere questo interprete, quella che si chiama online discipline, che consente di
+
+[38:18] Professore: in un certo senso andare a elaborare quello che viene passato al terminale facendogli fare determinate operazioni, quindi
+
+[38:31] Professore: il terminale, quindi quando noi passiamo i dati al terminale, come abbiamo fatto prima, abbiamo passato i dati, il flusso di pipe e il terminale, non passa così direttamente, quindi non è solo un flusso come una pipe che passano i dati direttamente, questi dati vengono praticamente passati da un interprete, quindi c'è un'elaborazione che è governata da questa line discipline, quindi quella della
+
+[39:01] Professore: TTY in particolare, quindi prende questo data stream e fa una serie di editing locali.
+
+[39:12] Professore: Adesso magari ne vediamo qualcuno, perché questi possono essere abilitati o disabilitati.
+
+[39:18] Professore: Quindi io posso andare a vedere la differenza che c'è quando si lavora con una line discipline e quando non si lavora con una line discipline.
+
+[39:37] Professore: Allora, per fare questo, se avete davanti sempre il vostro terminale, quindi da Shell, che cosa potete provare?
+
+[39:50] Professore: Allora, provate, diciamo così, con cat, ok?
+
+[39:58] Professore: Quindi, vediamo un attimo, potete scrivere...
+
+[40:06] Professore: cat ciao poi mettete una x e poi andate in backslash quindi andate in cancellazione tornando indietro e mettetela ok voi potete vedere che effettivamente potete scrivere cat ciao ok oppure verrà chiaramente non c'è un file che si chiama
+
+[40:36] Professore: che si chiama ciao, oppure potete fare un, dopo cat, fare un control, un control C, per esempio potete mettere il cat, andate su cat, da solo, invio, no?
+
+[40:51] Professore: Poi fate il control C, e effettivamente avete l'interruzione, no?
+
+[40:56] Professore: Del cat.
+
+[40:58] Professore: Ora, questa control C, per esempio, chi è che lo...
+
+[41:05] Professore: interpreta come segnale ok chi è che lo fa diventare un segnale di interruzione direttamente perché da solo ctrl c è semplicemente una diciamo così sono dei tasti no che io vado a premere quindi è un sono dei caratteri che vanno praticamente vengono catturati proprio dall'interprete della line discipline così come il backslash che avete visto prima
+
+[41:34] Professore: viene interpretato come cancellazione proprio perché c'è un interprete di linea che fa questa operazione qua ok perché altrimenti adesso proviamo un attimo a disabilitarlo vedete c'è questa funzione che si chiama set tty questa qua quindi è un'applicazione che è user space che configura tty
+
+[42:04] Professore: allora per esempio se io faccio se si fa set tty meno echo vuol dire che praticamente mi toglie la possibilità di vedere sullo schermo quello che vado a digitare ok?
+
+[42:24] Professore: provate un attimo set tty meno echo e poi provate a digitare dopo cosa succede?
+
+[42:38] Professore: Non si vede ecco.
+
+[42:39] Professore: Non vedere i caratteri poi dopo.
+
+[42:42] Professore: Allora, come fate?
+
+[42:42] Professore: Dovete fare alla cieca set di TTY eco, ok?
+
+[42:48] Professore: Come comando.
+
+[42:49] Professore: Per poi riabilitare.
+
+[42:53] Professore: Non vorrei che... Se no aprite un'altra cella.
+
+[42:56] Professore: Se l'avete persa.
+
+[42:57] Professore: Chiudete e aprite.
+
+[42:58] Professore: Fate prima.
+
+[42:59] Professore: Comunque, quello che volevo invece farvi vedere è questa set di TTY meno i...
+
+[43:06] Professore: canon che serve per disabilitare il buffering e l'interprete di linea ok?
+
+[43:20] Professore: questo potete provare a farlo e potete andare a vedere a fare la stessa cosa che avete fatto prima cioè con ciao quando andate a scriverlo e vedete che quando andate a fare il backslash quindi ci siete?
+
+[43:33] Professore: vi siete?
+
+[43:35] SPEAKER_06: no no ci sono
+
+[43:37] Professore: Quindi questo qui, questa è un'applicazione che serve per comandare e configurare il TTY.
+
+[43:43] Professore: Con questo si disabilitano alcune funzionalità di questa, diciamo così, line discipline.
+
+[43:49] Professore: Quindi si comanda la line discipline e quindi si rende il vostro terminale TTY, si...
+
+[44:01] Professore: si disabilitano appunto in particolare l'interprete di linea e anche il buffer quindi quando per esempio andate a fare non so il backslash tutte operazioni che voi date per scontato quelle vengono lette direttamente come i caratteri equivalenti raw quindi non funziona più questa cosa quindi per riabilitarlo dovete mettere togliere il meno
+
+[44:33] SPEAKER_04: Qual è l'utilità di poter disattivare certe cose in un terminale?
+
+[44:41] Professore: in alcuni casi può essere utile avere un terminale raw per togliere proprio l'interfacciamento della linea e far passare direttamente tutti i byte senza un intermediario per velocizzare delle operazioni tipo eco mi viene in mente quando vuoi installare qualcosa e ti chiede la password e non te la fa visualizzare
+
+[45:10] Professore: In alcuni casi serve proprio per quello, per non far vedere quello che uno digita.
+
+[45:15] Professore: Quando uno digita, avete presente, si digita al buio, allora quello che sta succedendo è esattamente questo.
+
+[45:24] Professore: Ci sono vari modi per manipolarlo, che possono essere localmente utili.
+
+[45:30] Professore: Magari RAW serve in un momento che devi mandare tutto per disabilitare, non so, magari ti serve esattamente CTRL-C per dire, no?
+
+[45:38] Professore: Non lo vuoi far interpretare come segnale, ma vuoi proprio CTRL-C, puoi mandare, allora localmente lo disabiliti e poi lo riabiliti.
+
+[45:47] Professore: Quindi può servire per cose, è un po' tecnico.
+
+[45:51] Professore: L'altra cosa potete fare per riabilitare,
+
+[45:56] Professore: da un altro terminale qui per riabilitarlo, se per esempio non vedete niente, avete disabilitato tutto, non si capisce più niente, volete riabilitare da un altro terminale il vostro, quindi aprite un altro terminale e questo sarebbe SEIN, SEIN vuol dire ritorna alla situazione di default.
+
+[46:20] Professore: E potete, diciamo qui in questo caso, darglielo come in standard input questo.
+
+[46:25] Professore: Questo è il terminale su cui devi fare questa operazione.
+
+[46:28] Professore: Ok?
+
+[46:29] Professore: Quindi potete lavorare anche tra terminali trattandoli come se fossero delle operazioni su file, ma in realtà sono operazioni sul terminale.
+
+[46:39] Professore: E state lavorando su...
+
+[46:42] Professore: praticamente sui driver di questi terminali, perché ogni terminale è associato praticamente ad un driver.
+
+[46:49] Professore: Ok?
+
+[46:51] Professore: Chiaro?
+
+[46:58] Professore: Allora, qui una piccola parentesi, ve l'avevo già accennato.
+
+[47:04] Professore: Allora, TTY sta per telescrivente in un certo senso, perché...
+
+[47:12] Professore: questi erano terminali veri, quando nelle macchine di una volta c'era un terminale fisico con una tastiera e uno schermo e quindi aveva un'interfaccia proprio reale con il sistema operatore.
+
+[47:31] Professore: Quindi c'era un collegamento seriale e
+
+[47:35] Professore: quindi senza nessun tipo di virtualizzazione, c'era proprio un problema di connettere una periferica con il sistema, e quindi c'era un driver che serviva proprio per comunicare con questa periferica, quindi con collegamento seriale, a proposito TTYSO, S0, qui è la seriale,
+
+[48:02] Professore: Oggi, invece, come funziona?
+
+[48:04] Professore: È leggermente diverso, perché siamo in ambiente grafico.
+
+[48:08] Professore: Quindi, infatti, voi non vedete, non lavorate, quando fate il TTY come comando, avete visto che vi viene il PTY.
+
+[48:21] Professore: Il PTY è praticamente una sorta di emulazione, perché...
+
+[48:29] Professore: voi state lavorando in una finestra grafica quindi abbiamo una finestra grafica che viene gestita dall'ambiente grafico innanzitutto e quindi quello che viene fatto dal kernel viene creata una coppia di pty master e pty slave pty slave è proprio quello che è
+
+[48:58] Professore: associato al driver, quindi che parla proprio con le periferiche.
+
+[49:06] Professore: Mentre invece il PTY master è quello che è legato all'ambiente grafico.
+
+[49:13] Professore: Quindi si crea questa comunicazione master-slave tra l'ambiente grafico e proprio il terminale connesso all'hardware e la shell che
+
+[49:26] Professore: Quando si interfaccia, perché la shell è un programma che si interfaccia con un driver, la shell vede solo lo slave che si comporta come i vecchi terminali.
+
+[49:47] Professore: Quindi in un certo senso c'è questo disaccoppiamento, quindi la shell che sarebbe
+
+[49:53] Professore: appunto il gestore dei comandi eccetera ok e parla con lo slave e poi invece il dall'altra parte la parte diciamo così più grafica quella è gestita dal master quindi se vogliamo quello che succede questo vedete mettiamo che c'è un input dell'utente quindi quando voi mettete un input voi state in ambiente grafico
+
+[50:23] Professore: quindi qui abbiamo la GUI, sul master c'è una BRIGHT che poi comunica col kernel TTY subsystem, da qui c'è la gestione della line discipline, sullo slave c'è la READ, ok, perché è quello che è stato scritto
+
+[50:49] Professore: livello grafico, qui viene letto, e poi questo viene passato al processo BUSH, ok?
+
+[50:57] Professore: Perché BUSH è un processo.
+
+[50:59] Professore: Dall'altra parte, invece, quando si viene richiesto appunto l'input dall'utente.
+
+[51:12] Professore: Qui invece, quando abbiamo l'output della BUSH, quindi da BUSH
+
+[51:19] Professore: Si parte con lo slave, lo write, lo slave write insiste sul dty subsystem, qui quello che è stato scritto dallo slave viene letto dal master read e poi questo viene scritto come testo.
+
+[51:35] Professore: Ok?
+
+[51:35] Professore: Quindi quello che magari la bash dà un risultato e questi sono i passaggi, ok?
+
+[51:43] Professore: Quindi il master cattura tastiera, disegna finestra, eccetera, eccetera.
+
+[51:47] Professore: In realtà disegna finestra, la finestra viene disegnata dalla gui, eccetera.
+
+[51:52] Professore: Però cattura, se vogliamo, la parte grafica.
+
+[51:55] Professore: Lo slave invece si comporta proprio come un terminale vecchio stampo.
+
+[52:01] Professore: E quindi la shell vuole parlare con quello.
+
+[52:05] Professore: Storicamente parla con quello.
+
+[52:12] Professore: Quindi...
+
+[52:14] Professore: Che cosa succede a questo punto?
+
+[52:19] Professore: Quando viene lanciato un terminale, viene lanciato un terminale emulator, quindi l'utente lancia un terminale, viene lanciato un emulatore di terminale, viene creato dal kernel questa coppia e poi la bash si riferisce allo slator, qui c'è una freccia sbagliata.
+
+[52:42] Professore: però questa è solo la sequenza di quello che succede.
+
+[52:45] Professore: Quindi prima c'è questa parte di terminale ovulato, poi si crea questa coppia e poi è la bash che si aggancia al terminale.
+
+[53:03] Professore: Se volete vedere qual è la vostra shell di default potete andare a vedere
+
+[53:11] Professore: con eco, dollaro, shell e lì c'è la shell di default e poi oppure grep user edge password quindi voi siete quell'utente in edge password anche ci sono i dati dell'utente tra cui anche vedete la shell che viene praticamente utilizzata ok
+
+[53:38] Professore: Adesso andiamo ancora un po' avanti.
+
+[53:47] Professore: Allora, vi avevo introdotto questo strumento che è IO Control.
+
+[54:00] Professore: Vedete, è uno strumento che permette di fare delle operazioni
+
+[54:07] Professore: direttamente su dei device, può permettere di configurarli.
+
+[54:15] Professore: Si passa il file descriptor di un device che deve essere aperto, quindi abbiamo detto che tutto è associato ad un file, quindi i device stessi sono file, sono associati a dei file descriptor,
+
+[54:34] Professore: Quindi si passa il file descriptor del device, poi ci avete una richiesta che è un comando e poi si possono passare delle operazioni.
+
+[54:46] Professore: Per esempio, vedete, qui c'è un esempio che vi ho lasciato da provare, lo trovate su Teams,
+
+[55:02] Professore: Qui vedete, c'è la possibilità, per esempio, di un device di andare a leggere la dimensione del terminale.
+
+[55:13] Professore: Ok?
+
+[55:13] Professore: Attraverso questa, diciamo, richiesta.
+
+[55:19] Professore: T.O.C.G.
+
+[55:22] Professore: Windows Size sarebbe.
+
+[55:24] Professore: Ok?
+
+[55:25] Professore: Qual è il Windows Size?
+
+[55:26] Professore: Cioè, ti dice qual è in quel momento il size...
+
+[55:30] Professore: del terminale che stai utilizzando, quindi quanto è grande questa finestra che stai utilizzando.
+
+[55:36] Professore: Ok, credo in pixel, oppure proprio qui bisognerebbe controllare.
+
+[55:45] SPEAKER_04: Solitamente erano in pixel di base.
+
+[55:47] Professore: Sì, doveva essere, su delle due coordinate.
+
+[55:50] Professore: Sì, sì.
+
+[55:52] Professore: non credo di impercettuale rispetto allo schermo come viene proprio disegnata e quindi questo è un esempio molto semplice dove potete vedere effettivamente come si può andare a fare delle operazioni in questo caso di lettura vedete quindi
+
+[56:19] Professore: extract win size, qui c'è questo tipo di dato che viene in questo caso riempito da questa funzione, ok?
+
+[56:34] Professore: Andiamo a vedere il codice.
+
+[56:43] Professore: Allora, questo è il codice
+
+[56:47] Professore: è un po' sbilecco.
+
+[56:48] Professore: Comunque vedete, ci sono gli include, tra cui appunto c'è la sys.io.control.h, che è a disposizione.
+
+[57:00] Professore: Poi avete, vedete, lo strength inside,
+
+[57:07] Professore: e qui abbiamo semplicemente la richiesta e a questo punto qua sono il numero di righe e il numero di colonne quindi non pizze numero di righe e numero di colonne di cui è composto il terminale quindi voi potete provare a compilare
+
+[57:33] Professore: Quindi trovate il programma proprio, ok?
+
+[57:37] Professore: Lo trovate sulla... Adesso vediamo come l'avevo chiamato.
+
+[57:43] Professore: Quindi proprio per avere una percezione... Adesso ce la dovete avere qua.
+
+[57:52] SPEAKER_01: Vediamo qui dove siamo.
+
+[57:53] SPEAKER_01: Aperto.
+
+[58:00] SPEAKER_01: Aperto.
+
+[58:03] SPEAKER_06: come si chiama?
+
+[58:15] SPEAKER_06: io ho file hello drivers come si chiama?
+
+[58:21] SPEAKER_03: file no scusi infatti lo sto guardando non c'è ah driver si hello driver
+
+[58:33] SPEAKER_00: No, non è quello, quello è un altro.
+
+[58:38] SPEAKER_00: Non c'è il... Resize?
+
+[58:40] SPEAKER_00: Resize?
+
+[58:41] SPEAKER_04: Sì.
+
+[58:41] SPEAKER_04: Ttresize.to do.
+
+[58:44] SPEAKER_00: Esatto.
+
+[58:44] SPEAKER_00: No, resize, prima resize.
+
+[58:46] SPEAKER_04: Ttresize.c.
+
+[58:48] SPEAKER_00: Sì, esatto.
+
+[58:50] SPEAKER_05: Non c'è.
+
+[58:51] SPEAKER_05: C'è solo il to do.
+
+[58:52] Professore: Ah, ok.
+
+[58:53] Professore: Allora, facciamo questo e poi vi lascio il to do da fare.
+
+[59:01] Professore: Tanto questo è abbastanza...
+
+[59:03] Professore: Allora, vedete?
+
+[59:06] Professore: Qui abbiamo... Ah, no, questa è la... Questa è la soluzione.
+
+[59:13] Professore: Un attimo solo.
+
+[59:17] SPEAKER_03: Allora, per noi le size... Ah, eccolo qua, forse è T, T, Y, V-sides.
+
+[59:34] Professore: eccolo questo qua, questo non ve l'ho dato comunque vedete questa è la... è molto semplice ok?
+
+[59:47] Professore: vi ho detto è proprio una cosa minima per far vedere questo IO-Control che cosa fa?
+
+[59:53] Professore: non fa altro che prendere dallo standard
+
+[59:58] Professore: prende nello standard output, va a valutare attraverso quella funzionalità qual è la dimensione del size e poi stampa le righe, stampa le colonne ed esce.
+
+[01:00:15] Professore: Quindi questo si può compilare direttamente, quindi con 2cc
+
+[01:00:25] SPEAKER_03: grazie a tutti
+
+[01:00:54] SPEAKER_03: ok e poi lanciandolo vedete?
+
+[01:00:54] Sconosciuto: queste sono questa è l'attuale
+
+[01:01:23] Professore: dimensione, se poi voi potete provare a stringere.
+
+[01:01:39] SPEAKER_03: Riga e colonne.
+
+[01:01:44] Professore: Dovrebbe essere la dimensione in righe e colonne della finestra.
+
+[01:01:52] SPEAKER_03: Le righe e colonne sono insieme di pixel?
+
+[01:01:54] SPEAKER_03: Come se contasse il pixel?
+
+[01:02:00] Professore: 28 pixel no sono praticamente righe e colonne probabilmente il tese come caratteri come colonne di caratteri se fa una clear e poi riavvia questo è lo stesso
+
+[01:02:27] SPEAKER_01: Però se io restringo... Non è di carattere, allora.
+
+[01:02:32] SPEAKER_00: ...la finestra.
+
+[01:02:35] SPEAKER_00: Così.
+
+[01:02:38] SPEAKER_00: Ok.
+
+[01:02:39] Sconosciuto: 72.
+
+[01:02:39] Professore: Sì, allora sono insieme di pixel.
+
+[01:02:41] Professore: Sì, insieme di pixel che definiscono... Questo dovrebbe essere appunto... Bisogna vedere cosa corrisponde una... una colonna.
+
+[01:02:49] Professore: Possiamo farla veramente stretta.
+
+[01:02:54] Professore: No, che di questo non va.
+
+[01:02:58] Professore: 43 sarà diviso 10 il 280 deve essere una percentuale di pixel c'è una divisione sul numero di pixel adesso un po' di difficoltà ok riproviamo 12 quindi sappiamo che questo è 12
+
+[01:03:28] Professore: Vediamo se.
+
+[01:03:29] Professore: Ecco, questo è 10.
+
+[01:03:30] Professore: Ok?
+
+[01:03:30] Professore: 10 e 43.
+
+[01:03:31] Professore: Sono le righe che ci sono di testo in questo momento?
+
+[01:03:35] SPEAKER_00: 1, 2, 3, 4, 3, 4, 3, 4, 5, 6, 7, 8, 9, 10, sì.
+
+[01:03:36] SPEAKER_00: Sono 10 righe.
+
+[01:03:36] Professore: Ma non so che un po' di pixel.
+
+[01:03:39] Professore: La quantità di caratteri saranno 43, forse.
+
+[01:03:41] Professore: Sì, esatto.
+
+[01:03:53] Professore: Quindi questi sono i caratteri che in termini di caratteri.
+
+[01:03:58] Professore: I caratteri che in termini di caratteri.
+
+[01:04:02] SPEAKER_04: Quelli visibili.
+
+[01:04:04] Professore: Ma infatti, infatti, adesso ovviamente, nell'esercizio che vi ho lasciato, c'è proprio un controllo di questo tipo.
+
+[01:04:18] Professore: Prevede appunto di leggere la dimensione del terminale.
+
+[01:04:23] Professore: riceve quindi da linea di comando un numero di ricche di una matrice, un numero di colonna di una matrice e verifica se la matrice entra nel terminale.
+
+[01:04:34] Professore: Per esempio una cosa del genere può essere utilizzata se uno deve disegnare, non so, qualche cosa, una figura in caratteri apti e se per esempio la finestra è troppo piccola dice
+
+[01:04:50] Professore: allarga la finestra e poi te la proietto.
+
+[01:04:55] Professore: Cioè, finché la finestra non ha la dimensione giusta, si rifiuta, per esempio.
+
+[01:05:01] Professore: Questo è un esempio stupido, però se volete provarlo, diciamo così, vi ho lasciato il to do, potete magari trovare con, diciamo così,
+
+[01:05:17] Professore: a lanciare questo programma.
+
+[01:05:25] Professore: Per poter fare questo tipo di operazione deve dialogare con l'emulatore del terminale per avere queste informazioni.
+
+[01:05:47] Professore: Questo non è standard BOSIX, però è un interfacciamento che comunque funziona sui diversi terminali.
+
+[01:06:21] SPEAKER_06: andiamo a vederlo magari così vediamo insieme il tutto
+
+[01:06:50] SPEAKER_03: Buongiorno.
+
+[01:06:51] SPEAKER_03: Buongiorno.
+
+[01:07:15] SPEAKER_01: E' bruttissima, veramente bruttissima.
+
+[01:07:44] SPEAKER_03: Vabbè questo dovete... ve lo lascio così andate a mettere.
+
+[01:08:20] SPEAKER_03: L'avete fatto?
+
+[01:08:23] SPEAKER_03: Sì.
+
+[01:08:28] SPEAKER_03: Perché l'aprete in giro?
+
+[01:08:30] SPEAKER_03: Io.
+
+[01:08:30] SPEAKER_03: Perché?
+
+[01:08:31] SPEAKER_03: No, no, no.
+
+[01:08:34] SPEAKER_06: Ma non si dice.
+
+[01:08:36] SPEAKER_06: Non lo prendiamo in giro.
+
+[01:08:37] Professore: Adesso vediamone.
+
+[01:08:39] Professore: Entriamo in quest'altro.
+
+[01:08:43] Professore: Così facciamo...
+
+[01:08:45] Professore: questo altro esempio che trovate sempre su Teams.
+
+[01:08:57] Professore: Quindi andiamo a vedere come effettivamente funziona un driver.
+
+[01:09:08] Professore: E lo driver.c.
+
+[01:09:10] Professore: Quindi questo è proprio un driver dummy molto semplice.
+
+[01:09:16] Professore: che cosa fa questo driver?
+
+[01:09:18] Professore: essenzialmente scrive hello o hello world quindi proprio una cosa molto semplice allora dovete scaricare quindi creare una directory in cui c'è sia attenzione però attenzione meglio se lavorate su una macchina virtuale vabbè non è pericoloso a volte che esploso sto coso
+
+[01:09:48] Professore: Siccome qui stiamo, diciamo così, lavorando, stiamo facendo un'operazione kernel, il driver, quindi la cosa interessante è che appunto il driver si lavora su kernel, quindi nello spazio kernel, quindi non siete user space ma siete kernel space.
+
+[01:10:14] Professore: Quindi bisogna ragionare kernel space.
+
+[01:10:17] Professore: E questo, diciamo, quindi è comunque, diciamo, vabbè, si crea un modulo, ok?
+
+[01:10:24] Professore: Quello che bisogna creare è essenzialmente un modulo.
+
+[01:10:27] Professore: E questo modulo poi va registrato, ok, nel kernel, e poi a quel punto, una volta registrato, può essere effettivamente utilizzato.
+
+[01:10:37] Professore: Quindi i passaggi sono questi.
+
+[01:10:40] Professore: Un attimo solo, vediamo un po' adesso.
+
+[01:10:46] Professore: l'esercizio è questo cominciate a scaricare quindi create una cartella una cartella separata in questa cartella dovete mettere l'hello driver .c
+
+[01:11:15] Professore: e poi il make file.
+
+[01:11:17] Professore: Andiamo a vedere... Andiamo a vedere...
+
+[01:11:52] SPEAKER_01: La cartella potete chiamarla Hello Drive, come vi pare?
+
+[01:11:57] SPEAKER_01: Grazie.
+
+[01:12:22] Professore: professore scusi ma questo è il makefile ma il makefile non era senza estensione quindi non c'è estensione c'è un'estensione nel makefile?
+
+[01:12:38] SPEAKER_06: makefile.c no, non ci dovrebbe essere è stato il team, io non c'entro niente vabbè dovete toglierla non so come ci è finita
+
+[01:12:54] SPEAKER_04: Cancella.
+
+[01:12:56] Professore: Ah, perché forse ho usato un editor veloce, che l'ha aggiunto lui.
+
+[01:13:02] Professore: Comunque, un makefile senza C. Scusatemi.
+
+[01:13:07] SPEAKER_06: Ah, beh.
+
+[01:13:09] Professore: Comunque, qualche cosa deve fare.
+
+[01:13:13] Professore: Qui, vedete, abbiamo innanzitutto tra gli oggetti del modulo, deve mettere l'ello driver,
+
+[01:13:22] Professore: come come oggetto qui avete il chiamai make su il diciamo così nella directory di build del sistema e quindi bisogna prima compilare se non va
+
+[01:13:49] Professore: e poi dall'altra parte invece ci avete il clean per fare la make clean ok?
+
+[01:13:54] Professore: per togliere tutto quindi però lì essenzialmente chiamo un make del modulo nella dei directory che viene indicata quella dei moduli ok?
+
+[01:14:15] Professore: quindi la cosa importante è indicare
+
+[01:14:21] Professore: Dove deve essere fatta questa?
+
+[01:14:49] SPEAKER_03: E poi invece... C'è una cosa strana.
+
+[01:14:50] SPEAKER_03: C'è una cosa strana?
+
+[01:14:52] SPEAKER_03: No, no, no, è... Allora...
+
+[01:15:18] Professore: Essenzialmente comunque se vedete, se aprite il file, che cosa vedete?
+
+[01:15:24] Professore: Vedete che è stata istanziata questa hello read, che è essenzialmente la read di questo driver, che è tutto.
+
+[01:15:39] SPEAKER_06: dove gli viene dato le indicazioni appunto del file, del buffer, della lunghezza, dell'offset il professore mi da un errore nell'include uaccess mi dice fatal error uaccess.it dice non ha non esiste secondo vabbè la metto su bs perchè l'avevo messo sull'editor
+
+[01:16:12] SPEAKER_00: Gli altri sono riusciti a fare il make?
+
+[01:16:17] Professore: Sì, io ho dovuto trovare l'estensione.
+
+[01:16:21] Professore: L'estensione è venuta dalla serie.
+
+[01:16:23] Professore: Allora, una volta fatto questo, adesso vediamo qual è il...
+
+[01:16:37] SPEAKER_06: la cosa interessante sono l'inizializzazione professore scusi per compilare il gcc no devi fare il make compila direttamente?
+
+[01:16:49] SPEAKER_06: make?
+
+[01:16:50] Professore: make e basta ah con il nome?
+
+[01:16:52] Professore: senza niente make quale problema magari fai il make e basta secondo
+
+[01:17:04] Professore: pensavo che dovete mettere tutto dentro una directory e poi mettete il mail magari pulisce tutti i file che hai creato così gestisce tutto il mail cancella tutto e rimetti tutto in una nuova cartella
+
+[01:17:30] Professore: Perché non devi invocare il GCC, devi chiamare il make.
+
+[01:17:34] SPEAKER_06: Però è fallita la compilazione, quindi in teoria... Qualcuno l'ha fatto?
+
+[01:17:42] Professore: Make?
+
+[01:17:43] Professore: No?
+
+[01:17:44] Professore: Dovete... Makefile e il file, questo che appunto... ElloDriver?
+
+[01:17:54] Professore: devono stare su una stessa cartella, create una cartella chiamata Hello Drive, ok?
+
+[01:17:59] SPEAKER_06: Intanto la metti, secondo vediamo se magari ho sbagliato qualcosa io, tanto penso che è così, non è stato fatto quindi non credo di star facendo chissà che.
+
+[01:18:09] SPEAKER_04: Vuoi scegliere il giornale il bio stesso?
+
+[01:18:15] Professore: vedete che quello che state facendo in questo momento state compilando quindi dipendentemente dalla adesso che hai chiamato il gcc ma doveva essere lasciato fare al make però quello che state facendo state compilando un modulo del kernel quindi questo è un modulo del kernel che state compilando appunto attraverso il compilatore
+
+[01:18:43] SPEAKER_06: Penso il Macfile deve essere con la M maiuscola.
+
+[01:18:46] Professore: Il Macfile è M maiuscola, sì.
+
+[01:18:48] SPEAKER_06: Ho sbagliato io, ho sbagliato io.
+
+[01:18:50] SPEAKER_06: Vediamo.
+
+[01:18:53] Professore: Sì, io non ho controllo, ho fatto rapidamente, ho messo i file... No, no, è maiuscolo.
+
+[01:18:57] Professore: È maiuscolo.
+
+[01:18:58] SPEAKER_06: È maiuscolo, però ho creato io il file con touch, quindi non... E infatti... È uno stupo, si riaffina.
+
+[01:19:08] Professore: Vedete, guardate qui il food, c'è module.h, kernel.h, ok?
+
+[01:19:15] Professore: Filesystem, tutta una serie di cose che riguardano il kernel.
+
+[01:19:19] SPEAKER_06: Infatti mi diceva cosa è strana.
+
+[01:19:20] SPEAKER_06: Il compiler differisce da quello usato per buildare il kernel.
+
+[01:19:27] Professore: Però il make, lascia stare i warning, guarda se ti ha creato... Ti ha creato i...
+
+[01:19:37] SPEAKER_06: Skipping e BTF.
+
+[01:19:37] SPEAKER_06: Mancanza di VM Linux.
+
+[01:19:38] SPEAKER_06: Leggimelo, leggimelo, leggimelo.
+
+[01:19:39] SPEAKER_06: Leggimelo.
+
+[01:19:39] Sconosciuto: Anacomability.
+
+[01:19:39] Sconosciuto: Leggilo tu bene.
+
+[01:19:39] Sconosciuto: Vai, vai, vai.
+
+[01:20:04] Professore: la directory dopo la compilazione dovrebbe venire fuori una serie di file .oggetto eccetera quello che ci interessa a noi è hellodriver.ko ok?
+
+[01:20:21] Professore: ok, ce l'ho l'oggetto se hai quel file indipendentemente dai warning stai messo ok, l'ho caricato vediamo se...
+
+[01:20:35] Professore: Se da errore, è errore, però se ci sono i warning... Login il kernel, ce l'ho?
+
+[01:20:43] SPEAKER_06: Non questo.
+
+[01:20:45] SPEAKER_06: Questo per un hello world.
+
+[01:20:47] SPEAKER_06: No, mi dice che non è permesso.
+
+[01:20:50] SPEAKER_06: Ma io sto in... Allora, qui...
+
+[01:20:55] SPEAKER_06: E lo è sposo il computer.
+
+[01:20:57] SPEAKER_06: E lo... Beh, può essere... Io ti consiglio, non spegnerlo, perché non sa mai se faccio il video.
+
+[01:21:04] SPEAKER_06: No, no.
+
+[01:21:04] SPEAKER_06: Un cielo.
+
+[01:21:16] SPEAKER_04: Siamo problematici noi pursi.
+
+[01:21:17] SPEAKER_01: Però, però, da cose diverse.
+
+[01:21:21] Professore: Ma avete tolto tutto e messo in una nuova directory.
+
+[01:21:26] SPEAKER_06: Poi, allora, faccio make e poi con make devo fare ls, giusto?
+
+[01:21:30] Professore: No, no, no, devi fare... Ah, sì, dopo make... E ci vuole lo driver.ko, poi come lo invoco?
+
+[01:21:35] Professore: Ah, ok, perfetto.
+
+[01:21:36] Professore: Adesso ci siete.
+
+[01:21:37] SPEAKER_06: Sì.
+
+[01:21:38] SPEAKER_06: Ok, ci siamo.
+
+[01:21:39] SPEAKER_06: Almeno...
+
+[01:21:42] SPEAKER_01: Ok, un attimo solo.
+
+[01:21:44] SPEAKER_01: Ma è stato di minuto?
+
+[01:21:45] SPEAKER_01: No, QVSL.
+
+[01:21:47] Professore: No, QVSL non va.
+
+[01:21:48] Professore: Ah, ecco perché non va.
+
+[01:21:51] Professore: No, no, no, perché avete bisogno dell'intero sistema, non basta.
+
+[01:21:57] SPEAKER_03: Al butto, per caso.
+
+[01:21:59] SPEAKER_03: Tra parentesi.
+
+[01:22:06] SPEAKER_06: Non c'è problema, non è che esplode tutto, la sezione di Windows si fa di Windows.
+
+[01:22:10] SPEAKER_04: Il dual boot lo puoi avere pure su una pen drive.
+
+[01:22:13] SPEAKER_01: Allora, quello che dovete fare, poi dopo, dovete andare, quindi il modulo che vi serve è quello .ko.
+
+[01:22:18] SPEAKER_01: E c'è.
+
+[01:22:31] Professore: Quindi dovete poi fare, per inserire il modulo, cioè per registrare il modulo, c'è un comando che è insmod e dovete invocare quello hello driver.co.
+
+[01:22:49] SPEAKER_06: Insmod, solo insmod?
+
+[01:22:51] Professore: No, sì, insmod, però dovete farlo in modalità su.
+
+[01:22:56] Professore: Sudo insmod.
+
+[01:22:58] Professore: Insmod, hello driver, eccetera.
+
+[01:23:01] SPEAKER_06: Ok.
+
+[01:23:02] Professore: Ok?
+
+[01:23:03] Professore: Quindi ti chiederà la password.
+
+[01:23:05] Professore: Sì, sì, sì.
+
+[01:23:07] Professore: Ok.
+
+[01:23:07] Professore: A questo punto è stato registrato, però bisogna andare... Un attimo solo che qui... Poi bisogna andare a leggere qual è il meglio number associato a questo, ok?
+
+[01:23:22] Professore: Perché state creando un nuovo... Avete creato un nuovo driver.
+
+[01:23:27] Professore: E questo nuovo driver, nel momento in cui l'avete registrato...
+
+[01:23:31] Professore: ha un suo numero il numero maggiore ok e quindi dovete fare dmessg quindi dmessg e in realtà dovete andare a vedere soltanto la fine di quello che fa questo quindi pipe tail pipe staccato tail
+
+[01:23:54] SPEAKER_06: Ok, sudo dm... Non penso che devo fare l'invio, no?
+
+[01:23:56] SPEAKER_06: Eccolo qua.
+
+[01:23:56] SPEAKER_06: Devi fare l'invio per vedere qual è il major number.
+
+[01:24:22] SPEAKER_06: ok 509 perfetto a questo punto sudo make note dev hello driver con il numero
+
+[01:24:52] Professore: questo vuol dire make cioè crea il nodo di questo driver e qui c'è il numero maggiore minore quindi devo fare c il numero mio 0 ok a questo punto puoi controllare con ls-l dev hello driver
+
+[01:25:21] Professore: Ok ragazzi stiamo praticamente installando, abbiamo prima compilato il driver, l'abbiamo registrato, con la registrazione abbiamo il numero e a questo punto l'abbiamo creato come il proprio driver sotto dev.
+
+[01:25:40] SPEAKER_06: Ok perfetto, a questo punto
+
+[01:25:46] Professore: Si può fare, diciamo così, un test.
+
+[01:25:49] Professore: Per esempio, abbiamo detto che questo è un driver che fa una cosa stupidissima, cioè stampa soltanto Hello World.
+
+[01:25:56] Professore: Quindi, abbiamo detto, se stampa Hello World, il cat lo interpreta come un file e va a leggere, ok?
+
+[01:26:04] Professore: Quindi lo apre, fa una open, e va a leggere quello che ha da dirgli, ok?
+
+[01:26:10] Professore: E quindi provate a fare cat, dev, hello driver.
+
+[01:26:14] SPEAKER_06: Andata, andata.
+
+[01:26:15] SPEAKER_06: Hello from kernel driver.
+
+[01:26:17] SPEAKER_06: Esatto.
+
+[01:26:18] Professore: Quindi in questo momento hai creato un driver.
+
+[01:26:23] Professore: Quindi l'altra volta hai chiesto come si programma.
+
+[01:26:26] Professore: Questo è un esempio proprio stupidissimo, dammi, di come effettivamente si programma.
+
+[01:26:31] Professore: Se andate ad aprire il file,
+
+[01:26:38] Professore: potete andare a vedere che c'è una funzione che è quella appunto che va a leggere, che va a leggere, sarebbe la read che è implementata e va a leggere esattamente quel diciamo hello eccetera eccetera.
+
+[01:26:57] Professore: Quindi quella è una callback che viene in un certo senso impostata e viene registrata associandola alla read.
+
+[01:27:08] Professore: quindi dell'interfaccia per quel modulo, ok?
+
+[01:27:13] Professore: Quindi adesso possiamo andare a vedere, qui nel retorno, qui c'è un po' di difficoltà a lavorare, devo uniformare gli schermi,
+
+[01:27:28] Professore: Ho perso il pulsore, un attimo solo che non lo preoccupi.
+
+[01:27:30] SPEAKER_03: Dove sta il pulsore?
+
+[01:27:32] SPEAKER_03: Sotto.
+
+[01:27:32] SPEAKER_03: Sotto.
+
+[01:27:32] SPEAKER_01: Sforzo.
+
+[01:27:32] SPEAKER_01: Scusate.
+
+[01:28:00] SPEAKER_01: Stavo, stavo, stavo, stavo, stavo, stavo, stavo, stavo, stavo, stavo, stavo, stavo, stavo, stavo, stavo, stavo, stavo, stavo, stavo, stavo, stavo, stavo, stavo, stavo, stavo, stavo, stavo, stavo, stavo, stavo, stavo, stavo, stavo, stavo, stavo, stavo, stavo, stavo, stavo, stavo, stavo, stavo, stavo, stavo, stavo, stavo, stavo, stavo, stavo, stavo, stavo, stavo, stavo, stavo, stavo, stavo, stavo, stavo, stavo, stavo, stavo, stavo, stavo, stavo, stavo, stavo, stavo, stavo, stavo, stavo, stavo, stavo, stavo, stavo, stavo
+
+[01:28:25] SPEAKER_06: guarda, non sei un albero con pericolo.
+
+[01:28:28] SPEAKER_06: Allora, lo mettiamo così.
+
+[01:28:29] SPEAKER_06: Dipende.
+
+[01:28:30] SPEAKER_06: Qual è il modo efficiente per muoverlo?
+
+[01:28:34] SPEAKER_03: Allora, qui si vede malissimo.
+
+[01:28:59] Professore: allora queste sono le strutture questa è l'inizializzazione con l'inizializzazione si sta registrando il device queste sono le funzioni di registrazione questa è la funzione di uscita e queste sono
+
+[01:29:24] Professore: l'invocazione dell'init ed exit.
+
+[01:29:34] SPEAKER_03: Questa è l'Ello World.
+
+[01:29:41] SPEAKER_03: Questa è l'Ello World.
+
+[01:29:47] SPEAKER_03: Questa è la cosa interessante.
+
+[01:29:55] Professore: Questa HelloRead che cosa fa?
+
+[01:29:59] Professore: Questa va a copiare l'informazione, cioè quella stringa che voi visualizzate deve essere visualizzata dallo user, quindi deve essere passata nello spazio utente dallo spazio kernel e per fare questa operazione ci vuole un
+
+[01:30:21] Professore: una funzionalità speciale che va a fare questa perché sono spazi di indirizzamento differenti quindi bisogna passare da uno spazio di indirizzamento all'altro e qui si utilizza questa copy to user così come per la write bisognerà fare l'opposto quando lo user deve scrivere sullo spazio kernel dovrà comunicare quindi con il driver dovrà
+
+[01:30:50] Professore: parlare con lo spazio di indirizzamento del kernel e quindi lì ci sarà un copy verso il kernel.
+
+[01:30:59] Professore: Quindi qui c'è un buffer, il messaggio, la lunghezza, ma essenzialmente l'operazione viene delegata a questa operazione.
+
+[01:31:08] Professore: Quindi prima si prepara il buffer, si prepara questo nello spazio kernel, quindi voi dovete ragionare con la testa del kernel qui dentro.
+
+[01:31:18] Professore: Infatti, per esempio, qui non si usano cose come la malloc, ma la k-malloc, ok?
+
+[01:31:26] Professore: Cioè, la kernel malloc.
+
+[01:31:29] Professore: Esattamente, cioè, sono operazioni che vengono fatte così come... Vediamo un attimo se vi faccio vedere alcune.
+
+[01:31:38] Professore: Sono operazioni che si fanno lato kernel, quindi sono proprio... Ecco, questa... Qui c'è il... Ecco, questa è il...
+
+[01:31:48] Professore: l'associazione della callback e lo read con l'invocazione della read quindi nell'interfacciamento il modulo espone delle interfacce standard che sono per esempio quelle read, write e tutte quelle altre e qui in questo caso viene stabilito per quell'interfaccia che la read quando viene invocata è l'invocazione di quella e lo read che avete definito sopra e questa praticamente sono
+
+[01:32:17] Professore: le file operations, cioè file operations che sarebbero?
+
+[01:32:21] Professore: Sono tutte quelle operazioni che andreste a fare sul file, ma le state facendo sullo special file che è la centralità di controllo, se vogliamo, del dispositivo, ok?
+
+[01:32:31] Professore: Attraverso queste che sono le API che vengono associate a delle callback che avete preparato sopra.
+
+[01:32:39] Professore: Questa è l'idea essenzialmente.
+
+[01:32:42] Professore: E poi vengono inizializzate, ok?
+
+[01:32:45] Professore: con appunto delle funzioni che appunto sono quelle di inizializzazione che poi vengono invocate successivamente che permettono la registrazione però essenzialmente diciamo questo è per farvi vediamo se c'è ecco guardate per esempio qua questa è una print k è la print del kernel cioè quindi ci sono delle libbrecette
+
+[01:33:14] Professore: il kernel non usa le librerie che siete abituati ad usare lato user quelle sono le librerie user ma se uno deve ragionare programmare kernel programma kernel ok?
+
+[01:33:29] Professore: quindi poi i moduli del kernel si possono compilare separatamente quindi voi come utenti potete compilare il modulo kernel e poi attraverso delle diciamo così comandi li potete registrare o comunque ci sono delle modalità per far sì che questi
+
+[01:33:44] Professore: moduli vengano integrati nel kernel.
+
+[01:33:48] Professore: Questo è un esempio per dare un'idea un po' più concreta di come effettivamente poi i driver ma anche altri moduli possono essere effettivamente definiti.
+
+[01:33:58] Professore: Così avete più chiaro cosa significa quel virtual file system che si riferisce a quelle chiamate astratte
+
+[01:34:07] Professore: E poi c'è il driver che le va a implementare e vengono invocate e vengono associate attraverso meccanismi di questo tipo.
+
+[01:34:16] Professore: Il GCC può gestire sia questa compilazione di qualunque tipo di codice, basta che gli si dica che cosa deve andare a fare.
+
+[01:34:29] Professore: si può compilare codice kernel come si può compilare codice utente questo è un esempio di codice kernel quindi è forse il primo codice kernel che avete mai compilato attenzione che poi vi rimane questa cosa quindi se la volete eliminare quindi un attimo solo
+
+[01:34:58] Professore: Quindi sudo, sempre bisogna andare in super user, remove il Hello Driver e poi va tolto il modulo, va rimosso il modulo, perché sennò vi rimane praticamente il modulo.
+
+[01:35:23] Professore: perché se voi adesso spegnete la macchina e la riaccendete ovviamente vi ritroverete questo driver da meno non dà fastidio non incide su niente però se magari uno non vuole avere questo driver ok può effettivamente andare a rimuoverlo io vi avevo lasciato magari lo vediamo possiamo continuare domani su questo vi avevo lasciato anche una modifica da fare quindi da fare voi
+
+[01:35:53] Professore: Perché così come questo è un driver che permette di leggere, si può aggiungere a questo driver anche l'implementazione del write.
+
+[01:36:06] Professore: E quindi la modifica che vi avevo lasciato to do prevedeva appunto, ecco questo qua, eccola ho.
+
+[01:36:19] Professore: scaricare questo hello driver in una nuova inventory, il make va anche questo banalmente sistemato magari se lo richiamate in un altro modo magari driver read write e va in qualche modo va adattato andando
+
+[01:36:45] Professore: a definire il messaggio quindi è andato a implementare anche una write in modo tale che quindi il cat farebbe la stessa cosa farebbe una read per la write non vi ho lasciato però che cosa deve fare
+
+[01:37:10] Professore: Vabbè, ve lo scrivo meglio, tanto qui è finito il tempo, quindi vi scrivo, quindi vi lascio questa cosa, la vedremo domani, e faremo come esercizio, vi lascerò a voi, cioè riprendere questa qui con l'implementazione della RID, sulla falsa riga della RID faremo fare una pride a questo driver.
+
+[01:37:29] Professore: Quindi sarà un driver che potrà essere sia interrogato in lettura, sia in scrittura.
+
+[01:37:38] Professore: Cioè di città, praticamente, si fa leggere qua.
+
+[01:37:42] SPEAKER_03: Il trappello è stato utilizzato per il 28?
+
+[01:37:47] Professore: Il 28, sì.
+
+[01:37:48] SPEAKER_03: Mi hanno appena detto che il 28 dovrebbe esserci il job per il programma.
+

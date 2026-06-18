@@ -1,0 +1,908 @@
+[00:09] Professore: Ieri i principali device che ci interessano dal punto di vista fisico della memoria secondaria per lo storage e abbiamo visto quindi più o meno come sono strutturati gli hard disk drive e la memoria a stato solido mettendo in evidenza così a grandi linee gli aspetti che ci interessano principalmente.
+
+[00:35] Professore: Quindi dal punto di vista invece del sistema operativo, chiaramente il sistema operativo deve interagire con questi dispositivi e abbiamo visto proprio ieri un aspetto importante di questa interazione che riguardava lo scheduling delle operazioni che vengono mandate per fare letture e scritture su questi dispositivi e abbiamo visto appunto che si possono
+
+[01:02] Professore: ottimizzare soprattutto per quanto riguarda gli hard disk drive le operazioni di accesso alla memoria schedulando quelle che sono le richieste che vengono ad accumularsi su questi dispositivi con l'obiettivo di minimizzare il sync time totale cioè il tempo di spostamento della testina
+
+[01:28] Professore: e abbiamo presentato alcuni appunto di questi algoritmi facendo il confronto tra le prestazioni di algoritmi per scan per serped rispetto ad altri come lo short sick time first, lo scan e poi le varie famiglie appunto di scan, lo scan circolare, il C-look che è un'altra diciamo circular look che è un'altra evoluzione appunto del C-scan
+
+[01:56] Professore: e appunto abbiamo discusso quali sono le varie vantaggi e svantaggi dei diversi scheduling del disco e abbiamo anche detto che invece per la memoria non volatile visto che è elettronica non ha problemi di spostamento di componenti meccaniche non abbiamo bisogno di schedulare e quindi lo scheduler in realtà è molto semplice
+
+[02:24] Professore: prende direttamente le richieste nell'ordine in cui queste vengono ad accumularsi.
+
+[02:33] Professore: Adesso andiamo a vedere altre caratteristiche che coinvolgono il sistema operativo, altre operazioni, nell'interazione con i dispositivi di memoria secondaria.
+
+[02:51] Professore: Innanzitutto vediamo
+
+[02:53] Professore: aspetti di inizializzazione, discutiamo un po' di bootstrap e poi aspetti di recovery.
+
+[03:00] Professore: Questo fa parte del programma quindi dobbiamo in qualche modo andarlo a vedere.
+
+[03:11] Professore: Diciamo così, innanzitutto i dischi devono essere formattati a basso livello, come abbiamo detto l'altra volta, e questa formattazione a basso livello fisica è gestita dal disco stesso, cioè il controller del disco che praticamente ha accesso a questa formattazione,
+
+[03:33] Professore: e il sistema operativo per poter parlare con il disco si rifà al controller del disco e ragiona in termini di blocchi logici questa è l'altra cosa che abbiamo detto l'altra volta mentre invece il controller del disco sa che effettivamente nel caso degli hard disk drive
+
+[03:59] Professore: su quali tracce, quali rischi e quali settori effettivamente si trova un determinato blocco e dall'altra parte la memoria non volatile ragiona in termini di chip, di pagine e di blocchi su cui è memorizzata l'informazione quindi
+
+[04:27] Professore: Abbiamo detto poi che ogni settore può essere associato poi con dei codici, con il check sum che è praticamente un codice di parità e poi un codice di error detection, quindi i rischi moderni almeno hanno queste caratteristiche e quindi hanno già delle intrinseche, diciamo ridondasse, che permettono la correzione di pochi errori.
+
+[04:54] Professore: Il sistema operativo, questo è tutto, fa parte della struttura interna del disco, invece il sistema operativo deve avere una sua strutturazione del disco più ad alto livello.
+
+[05:08] Professore: Innanzitutto il disco lo può cominciare a partizionare in sottodischi, quindi in uno o più gruppi, per esempio nel caso dell'hard disk drive, possiamo partizionarlo in più gruppi di cilindri,
+
+[05:23] Professore: e questo viene trattato come un disco logico separato.
+
+[05:29] Professore: Questa è la prima strutturazione che vede il sistema operativo.
+
+[05:35] Professore: Questo lo avevamo visto ieri, abbiamo introdotto il concetto di pari di bit error correction.
+
+[05:40] Professore: Questo è sempre nel disco.
+
+[05:50] Professore: questo l'avevamo già visto ieri, tornando sempre all'aspetto fisico, quindi sotto il sistema operativo, il controllore deve mantenere la vista di quelli che sono i blocchi che sono marcati come non validi e quindi eventualmente deve però mantenere attraverso dei opportuni algoritmi
+
+[06:12] Professore: la vicinanza tra gli indirizzi logici che mantiene il sistema che espone al sistema operativo e gli indirizzi proprio fisici di dove effettivamente, fisici nel senso sempre di rappresentazione di dove sta in termini di settore, traccia e appunto
+
+[06:31] Professore: disco deve mantenere questa prossimità proprio soprattutto per quanto riguarda l'hard disk drive proprio perché deve quando il sistema operativo fa lo scheduling farà lo scheduling sugli indirizzi logici ok non su quelli fisici e ci si fida del fatto che se è schedulato bene rispetto agli indirizzi logici allora
+
+[06:56] Professore: funzionerà bene lo scheduling anche sugli indirizzi fisici.
+
+[07:00] Professore: Quindi la prossimità tra indirizzi logici deve anche corrispondere a bassa movimento della testina, se vogliamo.
+
+[07:08] Professore: Questo è il concetto.
+
+[07:10] Professore: Adesso andiamo a vedere di nuovo il sistema operativo.
+
+[07:17] Professore: Cosa deve fare?
+
+[07:17] Professore: Deve strutturare innanzitutto il disco.
+
+[07:21] Professore: Quindi lo struttura in uno o più gruppi di blocchi o pagine dette appunto partizioni e poi con le partizioni crea e gestisce i volumi che è un'ulteriore astrazione, quindi la partizione sapete tutti cos'è, è una suddivisione
+
+[07:41] Professore: del disco fisico in dischi logici che però sono molto vicini a quello fisico sono praticamente delle suddivisioni della quantità di memoria ok rigida e poi sopra questi può creare dei volumi questo per esempio su ogni partizione io posso creare un volume ok oppure potrei avere più volumi dentro una partizione oppure anche partizioni più partizioni possono essere accorpate in un unico volume quindi è una vista
+
+[08:10] Professore: che è più flessibile rispetto alla partizione.
+
+[08:14] Professore: La partizione è una divisione della quantità di memoria che voi avete in blocchi.
+
+[08:20] Professore: Il volume può lavorare sopra queste partizioni.
+
+[08:24] Professore: per dargli un'ulteriore strutturazione.
+
+[08:27] SPEAKER_01: Dato che negli hard disk c'è proprio una struttura fisica di dove vengono sistemati i dati, partizioni diverse e più in fondo possono rendere quella partizione più lenta rispetto a quelle iniziali oppure però può sapere degli hard disk vecchi?
+
+[08:39] Professore: Questo ci può essere un effetto a seconda di dove viene
+
+[08:44] Professore: Cioè se andiamo a vedere, effettivamente a seconda di dove è posizionata poi fisicamente la partizione, questo può avere un effetto sulla velocità di accesso.
+
+[08:53] Professore: Ovviamente solo per gli hard disk perché gli altri sono accesso... Sì esatto, ovviamente questo non per le memorie appunto a stato solido, però per gli hard disk diciamo effettivamente di nuovo tutto quello che viene più esterno di solito ha maggiore velocità di accesso, infatti
+
+[09:10] Professore: appunto per esempio tutta l'informazione che si serve più rapidamente quella di routine, quella che deve utilizzare il sistema eccetera si cerca di esporre proprio sulla parte più esterna chiaramente e poi invece la parte più interna se si tratta di file di cose di questo tipo che non devono che non hanno un impatto enorme sul runtime sull'esecuzione
+
+[09:35] Professore: Allora questo si sente ovviamente di meno, però certamente il sistema, tutto quello che cerca, che vuole velocizzare, lo porta verso l'esterno, proprio per quel motivo lì, per quelle differenze, sì, giusta osservazione.
+
+[09:48] Professore: E poi, diciamo, una volta che noi abbiamo una formattazione logica, abbiamo un'ulteriore strutturazione della...
+
+[09:59] Professore: un'ulteriore astrazione poi ne avremo altre vedremo sempre però che mi permette per esempio di creare cose come un file system ok il file system è un'ulteriore strutturazione della memoria secondaria che viene vista viene fatta appunto dal dal sistema operativo ok questo poi lo vedremo in seguito quindi ritroviamo cominciamo a vedere un po questi aspetti quindi
+
+[10:27] Professore: Strutturazione logica, partizione del disco in uno più gruppi, nel caso dell'hard disk abbiamo più gruppi di cilindri, quindi c'è proprio la prossimità fisica come si diceva prima, ci sono una serie di utilities che fanno parte dell'ecosistema dei sistemi operativi, chiaramente non sono kernel,
+
+[10:49] Professore: sono dei programmi che però sono programmi di sistema che permettono appunto di avere informazioni del disco e poi permettono di creare queste posizioni di lavorare sulle partizioni eccetera quindi il sistema deve però mantenere chiaramente delle strutture dati che tengono traccia di
+
+[11:20] Professore: di queste partizioni del disco.
+
+[11:23] Professore: Quindi il disco comincia ad essere in qualche modo strutturato dal sistema operativo con questo primo livello di organizzazione che sono appunto le partizioni.
+
+[11:38] Professore: Poi il secondo step, come abbiamo detto, è l'abiazione di un volume, questo è un drive logico, che
+
+[11:47] Professore: In alcuni casi questa creazione del volume può essere anche implicita, nel senso che nel momento in cui si crea una partizione si crea già direttamente il volume associato a quella partizione oppure può essere fatta in modalità esplicita.
+
+[12:03] Professore: quando per esempio, non so, si vogliono creare, come ho detto, accorpare, non so, più partizioni sotto un unico volume o fare cose un po' più sofisticate, restringere o allargare questi volumi e ci sono anche qui dei programmi che permettono appunto di fare questo.
+
+[12:19] Professore: E poi il terzo step è quello di formattare appunto logicamente, quindi un ulteriore
+
+[12:26] Professore: livello di astrazione è quello di strutturare ulteriormente questa memoria che per il momento fino a qui è organizzata abbiamo detto in blocchi ok
+
+[12:37] Professore: e questi blocchi poi vengono organizzati secondo una struttura gerarchica organizzata a file dove appunto il concetto stesso di file è una strazione che viene gestita dal sistema operativo praticamente il sistema operativo organizza blocchi di informazione
+
+[12:58] Professore: raggruppati sotto file e poi questi file vengono a loro volta mantenuti e organizzati anche gerarchicamente secondo lo schema a voi noto, quello noto dell'organizzazione in directory eccetera.
+
+[13:11] Professore: Questa strutturazione anche
+
+[13:14] Professore: è figlia dei sistemi operativi perché in teoria uno potrebbe anche immaginare un sistema operativo che lavora su una struttura completamente diversa di file system potrebbe lavorare su un file system organizzapiatto per esempio oppure fatto a grafo cioè il fatto che siamo arrivati alla strutturazione del file system che noi conosciamo è dovuto semplicemente al fatto che
+
+[13:38] Professore: i sistemi operativi sono andati in quella direzione.
+
+[13:41] Professore: Il primo a proporla in quella forma, diciamo probabilmente già si andava in quella direzione, però Multics è stato il primo a formalizzare quest'idea del sistema gerarchico, l'organizzazione in cartelle, sotto cartelle, eccetera.
+
+[13:56] Professore: Quindi prima di Unix, almeno il primo che l'ha formalizzato proprio, poi magari già da prima si
+
+[14:03] Professore: è abbastanza naturale organizzare i dati in quella forma.
+
+[14:11] Professore: Quindi i file system organizzano i dati in blocchi in cluster, però attenzione che
+
+[14:29] Professore: ogni volta che si fanno le operazioni di input output le operazioni di input output sono fatte diciamo in blocchi quindi vuol dire che non è che io posso chiedere al disco al controller del disco non gli posso chiedere un byte gli devo chiedere un blocco ok?
+
+[14:46] Professore: e dall'altra parte appunto le operazioni invece per essere più veloci le operazioni invece sul file system
+
+[14:55] Professore: comportano raggruppamenti di questi blocchi, quindi si chiedono più blocchi.
+
+[15:02] Professore: Una domanda, secondo voi che rapporto c'è tra i blocchi in cui è organizzato la memoria secondaria e le pagine?
+
+[15:20] Professore: Perché le pagine
+
+[15:23] Professore: Per esempio, una tipica organizzazione di pagina, abbiamo detto 4KB.
+
+[15:31] Professore: Una pagina 4KB sta in un frame di 4KB.
+
+[15:36] Professore: Il blocco, secondo voi, deve essere più grande o più piccolo?
+
+[15:39] SPEAKER_01: Chiaramente più grande, però immagino proporzionale.
+
+[15:42] Professore: Più grande vuol dire che ogni volta io devo scaricarmi più pagine.
+
+[15:48] Professore: Se io voglio una pagina sola dal disco,
+
+[15:51] Professore: allora dovrà essere uguale o più piccolo eventualmente in modo tale che io ho una granularità minore cioè minore nel senso più grana fina immaginavo per un contenimento maggiore però effettivamente c'è un problema di raggiungibilità diciamo poi ci può essere il fatto che eventualmente uno si scarica sempre le pagine a contigue e allora diciamo va bene anche avere però di solito
+
+[16:21] Professore: si cerca di bilanciare, il dimensionamento è minore o uguale, per proprio questo discorso di poter comunicare, perché le operazioni di input output servono anche per implementare i meccanismi di page in, page out.
+
+[16:37] Professore: Quindi ogni volta che si fa un page in, page out, si sfrutta il disco, quindi dobbiamo mandare quello che abbiamo chiamato packing store, questa sorta di parcheggio,
+
+[16:47] Professore: che poi sarebbe l'area di swap, che viene riservata sul disco, e quindi il bilanciamento di questi blocchi deve tenere conto anche di queste operazioni.
+
+[17:02] Professore: Poi invece sui file si può andare più, diciamo così,
+
+[17:08] Professore: si può essere meno raffinati, quindi si possono fare delle richieste in cluster, non è necessariamente che io chiedo il blocco proprio singolo, posso chiedere dei cluster per scaricare maggiore memoria.
+
+[17:26] Professore: L'altra cosa importante per quanto riguarda questa organizzazione del disco, che poi andremo a vedere, è anche gestire quelle partizioni che consentono il bootstrap.
+
+[17:41] Professore: Il bootstrap è il caricamento del sistema operativo.
+
+[17:48] Professore: All'accensione, voi avete tutto quel processo
+
+[17:52] Professore: che parte perché appunto si carichi il sistema operativo.
+
+[17:57] Professore: E quindi da dove si carica il sistema operativo?
+
+[18:00] Professore: Chiaramente c'è un firmware che gestisce proprio le prime operazioni, fa i vari controlli e poi dopo aver fatto il controllo che tutto va bene, che se succede qualcosa uno si mette paura, no?
+
+[18:11] Professore: Non so se qualcuno ha sperimentato cose gravi... Gravi e dicono no.
+
+[18:20] Professore: comunque quella fase iniziale poi vengono richiamate poi fasi successive che corrispondono alla fine al caricamento del kernel perché il kernel deve essere caricato
+
+[18:34] Professore: e poi può cominciare a lanciare i vari processi, dove il primo processo che viene lanciato è il processo init, però prima di arrivare al lancio del processo, il system daemon se vogliamo, nel caso di Linux, ci sarà tutta la fase in cui all'inizio il firmware andrà a cercare sul disco put
+
+[18:59] Professore: la partizione a partire dalla quale deve far partire dei codici.
+
+[19:04] Professore: Questo poi a seconda dei sistemi operativi funziona in un modo più o meno diretto.
+
+[19:10] Professore: Vediamo degli esempi, però ci sono delle fasi in cui in una prima fase il sistema operativo, il firmware, ha comunque la possibilità di andare su una parte del fisco in cui
+
+[19:29] Professore: cioè una rappresentazione di come è formattato questo disco.
+
+[19:34] Professore: E soprattutto in queste regioni si deve sapere poi qual è il blocco, quindi nella partizione, qual è il blocco da cui bisogna partire per trovare quei programmi che si occupano del caricamento del sistema operativo.
+
+[19:59] Professore: Per quanto riguarda la gestione del disco ci sono le varie utility per i partizionamenti, possiamo fare un esempio in Windows 10, 11, vedete che abbiamo una serie di
+
+[20:16] Professore: Per esempio in Windows i volumi sono indicati con le lettere C, D, ecc.
+
+[20:22] Professore: E quindi si possono prima fare le partizioni, poi nelle partizioni si creano i volumi, all'interno dei volumi si possono creare appunto dei diversi file system.
+
+[20:37] SPEAKER_01: Tra l'altro per alcuni motivi Windows non legge tutte le partizioni, tipo quella per Linux non la legge.
+
+[20:42] Professore: Vabbè perché le partizioni vede che si riconosce che sono delle partizioni, però dentro quelle partizioni poi c'è
+
+[20:58] Professore: una formattazione che dipende dai vari sistemi operativi.
+
+[21:02] Professore: Quindi i sistemi operativi possono gestire più partizioni, quindi per esempio Linux ha una sua principale, più file system,
+
+[21:20] Professore: però altri file system non sono così visibili, quindi non si ha accesso diretto almeno dal sistema a quel tipo di file system, almeno in modo nativo.
+
+[21:38] Professore: C'è Grab che fa tutto.
+
+[21:40] Professore: Sì, quello è nella fase, il grab è nella fase di bootstrap, adesso andiamo a vedere un attimo come si mappa questa cosa.
+
+[21:50] Professore: Allora, sì, noi abbiamo un... Poi, ripeto, qui ci sono diverse filosofie a seconda anche di come è organizzato il disco, perché appunto prima avevamo i whisky,
+
+[22:09] Professore: che erano organizzati in modo tale che la fase di inizio, il bootstrap, di caricamento del sistema operativo, passava attraverso proprio questo master boot record, che è il record in testa, il record iniziale sul disco.
+
+[22:33] Professore: Quindi all'inizio i dischi infatti ancora conservano
+
+[22:38] Professore: questo blocco iniziale per compatibilità rispetto alle vecchie organizzazioni mentre invece i dischi moderni sono strutturati in modo GPT si dice con questa GUID Partition Table che mantiene il Master Boot Record all'inizio e però sotto hanno appunto un'altra organizzazione
+
+[23:09] Professore: perché che cosa succedeva nei vecchi dischi questo appunto manteniamo come memoria storica se vogliamo avevamo i blocchi vedete che erano organizzati in 512 byte ok ogni blocco era di 512 byte quindi e dentro nel master boot record ok avevamo quindi uno spazio molto ridotto ok
+
+[23:38] Professore: per poter gestire questa fase, diciamo così, di bootstrap, quindi di caricamento del sistema operativo.
+
+[23:45] Professore: E avveniva quindi in varie fasi, vedete, in questi 512 byte iniziali che venivano in qualche modo dove c'è un codice, un codice che è il bootcode di 446 byte, quindi pochissimo.
+
+[24:05] Professore: E poi subito dopo c'era una tabella delle partizioni di 64 byte, in realtà questi 64 byte servivano per rappresentare 4 entries.
+
+[24:20] Professore: Quindi avevamo quattro entries in cui si aveva una descrizione delle partizioni per far sì che il bootcode sapesse dove doveva andare per trovare il resto del codice che serviva per fare il bootstrap completo.
+
+[24:35] Professore: Quindi avevamo prima il firmware, quindi quando si accende proprio, si attiva il firmware.
+
+[24:43] Professore: fa i suoi controlli e poi dopo aver visto che va tutto più o meno bene, cioè tutte le periferiche rispondono come, diciamo così, dove è fatto appunto il suo check sulle periferiche e il funzionamento dell'hardware, va a...
+
+[25:00] Professore: passare, se vogliamo, la parola al bootcode.
+
+[25:04] Professore: Il bootcode chiaramente per poter funzionare deve essere caricato in RAM e il program counter deve puntare lì sopra perché deve diventare un programma che gira.
+
+[25:16] Professore: Il bootcode viene caricato questo master boot record in RAM, il bootcode è l'inizio da cui si parte per fare la fase di bootstrap, quella software, quella non gestita dal firmware.
+
+[25:37] Professore: Quindi utilizza la tabella delle partizioni,
+
+[25:41] Professore: per andare a leggere le partizioni e a quel punto cercare i boot blocks quindi cercare quella partizione a partire dalla quale si può fare il resto del boot quindi la partizione diciamo di caricamento quindi a questo punto dentro questa partizione abbiamo
+
+[26:10] Professore: quindi la possibilità di più spazio, ok?
+
+[26:15] Professore: E quindi si può caricare una seconda parte, no?
+
+[26:18] Professore: Che è il bootloader.
+
+[26:21] Professore: Il bootloader quindi è praticamente un programma che può, a questo punto, che sta nel bootblock e può fare il bootstrap, ok?
+
+[26:31] Professore: E poi da qui parte il resto del caricamento del kernel.
+
+[26:37] Professore: quindi vedete ci abbiamo praticamente ci avevamo queste tre fasi e con uno spazio via via sempre maggiore di informazioni quindi c'è primo un programma molto leggero con una rappresentazione molto leggera di come è organizzato il disco dal punto di vista delle partizioni poi
+
+[26:58] Professore: Questo primo programma praticamente a questo punto ha la possibilità di rintracciarne un altro un po' più grande che è il Bootloader Program.
+
+[27:06] Professore: A questo punto il Bootloader Program è un programma che effettivamente ha la possibilità di gestire il resto del Bootstrap.
+
+[27:23] Professore: Quindi questo è l'esempio come funzionava con Windows.
+
+[27:27] Professore: Windows aveva prima appunto questa firmware che era il BIOS, non so se voi l'avete mai... perché voi siete giovani quindi non so se... Vabbè diciamo... Ok.
+
+[27:41] Professore: Quindi il basic input output server, quindi input inizia... quindi prima c'è questa fase che è gestita appunto dal firmware che fa test di avvio, questo che si chiama appunto power on self test,
+
+[27:58] Professore: post e poi questo programma appunto va nel primo blotto logico del hard disk drive oppure la prima pagina della memoria non volatile e appunto carica il master boot record nella RAM in modo tale che si ha il codice di avvio e la tabella delle partizioni da questa quindi si risale in appunto il bootloader si risale al bootloader bootloader carica care
+
+[28:28] Professore: questa era diciamo così l'organizzazione quindi vedete possiamo vedere una situazione di questo tipo quindi proprio nella prima prima partizione primo settore questi pipe e qui dentro c'è questo bootcode da qui si risale a una delle partizioni che è quella diciamo bootable e poi da qui parte tutto il resto qui c'è subito un problema perché
+
+[28:55] Professore: perché qui con le architetture a 32, per esempio a 32 bit, avevamo la possibilità di indirizzare 2 alla 32 indirizzi e quindi con settori piccoli, 512, allora abbiamo che possiamo in qualche modo indirizzare
+
+[29:25] Professore: 2.2 terabyte massimo di memoria ok questo era un limite proprio fisico questo con le architetture a 32 con diciamo e con settori di questa porta vedete qui il settore questo è il blocco 512 è molto più piccolo di una pagina ok è un blocco quindi per avere una pagina per esempio bisogna
+
+[29:52] Professore: caricarsi più blocchi e quindi la granularità è più fine ok questo è quello che in un certo senso succedeva con Linux abbiamo una situazione di questo tipo quindi abbiamo anche qui nel caso sempre del BIOS quindi firmware di nuovo all'arrivo quindi anche con Linux
+
+[30:21] Professore: con questa organizzazione abbiamo sempre il BIOS Basic Input Output System che è firmware quindi legato proprio all'architettura il firmware fa sempre il solito test lancio del master boot record quindi master boot record da lì abbiamo di nuovo un bootloader
+
+[30:45] Professore: il bootloader del master boot record è quello diciamo simile a quello che abbiamo visto prima sempre piccolo codice ha la visione di quali sono le partizioni su cui si va si può fare il boot ok e andava a caricarsi diciamo un bootloader di secondo livello appunto il grab per esempio oppure grab 2 e poi da qui
+
+[31:15] Professore: c'era la possibilità di scegliere su quale dei sistemi andare, per esempio su multipli sistemi, quindi se vuoi fare il dual boot, il triplo boot, eccetera, qui c'è una possibilità di scelta e quindi questo è
+
+[31:32] Professore: diventa ancora più flessibile perché io posso scegliere di lanciare appunto il kernel Linux oppure il kernel Windows oppure il kernel Mac OS quello che voglio e poi da qui una volta che parte il kernel il kernel dà l'avvio al processo system daemon una volta che il kernel è caricato può ramificare poi la struttura dei processi questo prima
+
+[32:02] Professore: Adesso, proprio per i limiti di cui abbiamo parlato prima, si è passati a dei dischi che hanno un'altra organizzazione, cioè i dischi moderni.
+
+[32:15] Professore: Si dice che il boot viene gestito con UEFI e col disco appunto strutturato in GPT.
+
+[32:24] Professore: Quindi questi sarebbero un disco con questi identificatori licoci globali per le partizioni, quindi Guit, Partition Table, questo significa.
+
+[32:36] Professore: E quindi qui si può supportare ovviamente dischi con capacità ben superiori ai limiti che abbiamo visto prima.
+
+[32:45] Professore: Prima avevo parlato di dischi che avevano appunto una massima possibilità di utilizzare
+
+[32:51] Professore: due terabyte con i dischi precedenti, quelli organizzati secondo il Master Boot Record e con la gestione anche del firmware, perché poi anche il firmware ovviamente deve cambiare, no?
+
+[33:08] Professore: Perché il firmware è fatto rispetto anche al disco che viene utilizzato, perché avete visto prima il firmware
+
+[33:15] Professore: doveva sapere dove stava il master boot record e quindi caricava il master boot record.
+
+[33:20] Professore: Se cambia il disco deve cambiare anche il firmware perché il firmware come minimo deve gestire la fase di avvio della macchina quindi deve sapere dove andare a cercare quello che serve sul disco.
+
+[33:35] Professore: Questo come minimo serve ovviamente tante altre cose.
+
+[33:41] Professore: Abbiamo quindi questo nuovo firmware, quello che sicuramente voi conoscete meglio, che è il UEFI, Unified Extensible Firmware Interface, che sostituisce il BIOS, ok?
+
+[33:56] Professore: Quindi questi vostri dischi su cui lavorate hanno tutti questa caratteristica qua e quindi il UEFI a questo va a sostituire appunto il BIOS e che cosa succede?
+
+[34:10] Professore: Succede che
+
+[34:12] Professore: nel nuovo disco il master boot record rimane ok qui sopra per compatibilità rispetto ai vecchi dischi ok quindi abbiamo questo questa parte questo blocco iniziale solo che lì a questo punto c'è scritto praticamente che deve essere schippato adesso ok quindi l'informazione che qui
+
+[34:35] Professore: è scritto, diciamo, quello viene chiamato appunto in questo, vedete, ad indirizzo 0, vedete, questi qui che vedete qui, LPA sta Logical Block Address, quindi quegli indirizzi logici di cui vi parlavo, no?
+
+[34:54] Professore: Quindi qui si va a dare un indirizzo logico per ogni blocco, ok?
+
+[35:00] Professore: Al contrario della RAM dove si indirizzano
+
+[35:04] Professore: ogni byte, qui ogni blocco si indirizza, il blocco 0 rimane questo master boot record, però lì appunto ci si codifica il fatto che è un disco GPT.
+
+[35:24] Professore: Quindi dice, devi schippare questo, non lo devi guardare, perché anche se il firmware va a puntare lì, gli si dice, guarda, questo è un disco GPT, quindi devi andare sotto.
+
+[35:36] Professore: E sotto, vedete, abbiamo questo blocco 1, quindi si spreca in qualche modo per compatibilità un blocco, si va all'indirizzo 1, indirizzo logico 1,
+
+[35:50] Professore: dove c'è l'intestazione GPT primaria e qua si descrive la struttura delle partizioni, quindi questo blocco, cioè si dà la possibilità di avere questa descrizione delle partizioni.
+
+[36:09] Professore: Però la tabella delle partizioni, quindi qui è come se c'esse l'elenco delle partizioni, quindi più o meno quali sono le partizioni,
+
+[36:18] Professore: però poi le informazioni sulle partizioni cioè le varie entry che descrivono come sono fatte tutte le partizioni magari qui si darà un iter che dice più o meno quante sono le partizioni e quali caratteristiche hanno qui sotto invece si danno su ogni entry si spiega esattamente cosa mantengono queste partizioni quindi c'è una tabella delle partizioni dove c'è una entry per ogni partizione
+
+[36:48] Professore: che appunto è molto più grande, vedete?
+
+[36:52] Professore: Nel Master Boot Record prima qui ci doveva essere sia il codice di lancio, il bootloader di primo livello,
+
+[37:03] Professore: e sia appunto una tabellina delle partizioni qui invece adesso si schiffa questo si va subito a vedere che si tratta di un GPT quindi si vede come è organizzato a livello di partizioni e poi la specifica su come sono organizzate queste partizioni viene subito dopo vedete qui per esempio dal blocco 2 al blocco 33 in questo esempio e quindi abbiamo che
+
+[37:31] Professore: mentre prima avevamo 64 byte che cosa?
+
+[37:40] Professore: riguarda questo?
+
+[37:40] Professore: è arrivato un messaggio che c'è un casino per venerdì il professore invece non l'ha voluta spostare
+
+[37:58] SPEAKER_02: A me me l'ha spostato, vado con quelli dell'altro.
+
+[38:02] SPEAKER_01: Scusi, professore ci ha mandato solo l'avvisato che è arrivato il messaggio.
+
+[38:06] SPEAKER_02: No, prima me l'ha mandato.
+
+[38:08] SPEAKER_02: Ah, economia.
+
+[38:12] Professore: Scusi.
+
+[38:13] Professore: Si organizza il professore, si sfida di voi che la fate da casa.
+
+[38:19] SPEAKER_01: No, no, perché chi può venire viene, chi non può venire non viene, però a questo punto neanche è giusto.
+
+[38:24] Professore: Ah, ok.
+
+[38:27] Professore: Ah, perché è blended?
+
+[38:28] Professore: Non è da remoto, è blended, ovvero?
+
+[38:31] Professore: Ah, sì.
+
+[38:31] Professore: Ah, ok.
+
+[38:31] Professore: Eh, no, c'è un problema in quel caso.
+
+[38:36] Professore: Quindi chi viene lo fa, chi non viene lo fa.
+
+[38:39] Professore: Solo due di dopo hanno dato conferma che vengono.
+
+[38:45] Professore: Vabbè, ragazzi, ognuno... Ma voi stai anche bloccati, quindi... E quel problema?
+
+[38:52] SPEAKER_00: C'è il Papa?
+
+[38:52] SPEAKER_00: Eh, sì, il Papa.
+
+[38:56] Professore: Allora, quello che vi stavo dicendo è semplicemente, quindi vedete la differenza tra quella informazione che c'è sul Master Boot Record e la tabella invece GPT che è molto più grande, quindi ha molte più entri.
+
+[39:15] Professore: non solo ma poi ovviamente avendo più entry qui si possono andare ad indirizzare quindi nell'entry si possono andare a mettere indirizzi anche più grandi che sono indirizzi da 64 pit mentre invece prima avevamo in questa prima tabella 64 byte in tutto ok per avere
+
+[39:41] Professore: Quindi quattro partizioni con indirizzi a 32 bit, ok?
+
+[39:47] Professore: Qui in questo caso gli indirizzi servono per indirizzare i blocchi, non i byte come nel caso della RAM, però abbiamo sempre lo stesso problema, se finiscono...
+
+[39:57] Professore: cioè se possiamo indirizzarne pochi possiamo arrivare fino a un pezzo cioè la coperta diventa corta per coprire tutta la memoria chiaramente quando arriviamo a 64 bit copriamo tutto quello che vogliamo e quindi non abbiamo più problemi e poi la tabella iniziale quindi può essere molto più espansa e poi dopo questi blocchi iniziali da qui in poi partono le diverse partizioni quindi le partizioni
+
+[40:25] Professore: che chiaramente saranno nel caso del disco partizioni fisiche che però poi corrispondono a partizioni logiche dove c'è prossimità, contiguità tra l'indirizzo tenuto dal controller che è quello fisico e l'indirizzo logico quindi questo è il modo di gestire la situazione quindi a questo punto diciamo come funziona il put con
+
+[40:56] Professore: con questa nuova firma e con il disco con la diciamo così global global univoc quindi gli identificatori univoci adesso non mi ricordo in inglese qual era la traduzione se qualcuno mi controlla
+
+[41:25] Professore: Unique, Global Unique Identifiers, credo.
+
+[41:31] Professore: Comunque, utilizza quindi questa, questo l'abbiamo visto, quindi che cosa fa?
+
+[41:40] Professore: Firmware UEFI, quindi fa di nuovo il suo test, quindi Power on self test, quindi
+
+[41:51] Professore: E questo è uguale più o meno a prima, il firmware adesso consulta la GPT e cerca appunto un file di avvio dove in questo API System Partition, quindi una particolare partizione, consulta la GPT.
+
+[42:19] Professore: quindi nella GPT ha la tabella di come sono organizzate con tutti i dettagli tutte le partizioni a questo punto dice però qual è la partizione diciamo di avvio dovrebbe cercare qui in questa partizione questa appunto l'efi system partition il file di avvio a questo punto quindi il boot manager
+
+[42:49] Professore: viene letto da qui, viene caricato nella ram quindi il put manager a questo punto gestisce direttamente questo put manager web, legge le configurazioni di avvio e gestisce il caricamento appunto del server quindi questo vale per tutti per tutti diciamo così
+
+[43:17] Professore: i sistemi che effettivamente più o meno, questa cosa, vale per tutti i sistemi che gestiscono il disco di questo tipo e con questo firmware.
+
+[43:30] Professore: Quindi questo significa che ogni sistema operativo ha una sua directory
+
+[43:38] Professore: Se io ho più sistemi operativi che devo fare più boot, ogni sistema operativo ha una sua directory in questa partizione, la partizione EFI, e abbiamo Windows che ha Microsoft Boot e questo è il suo bootloader.
+
+[44:00] Professore: poi abbiamo Linux che ha il suo bootloader, questo è il group, poi dal group eventualmente si può anche recuperare le altre, quindi si può di nuovo riscegliere quale kernel andare, e poi Mac OS ha il suo a sua volta, quindi in un certo senso è
+
+[44:24] Professore: Con questa configurazione, quindi con le architetture, in un certo senso a 64 bit, viene la necessità, e anche con l'espansione delle memorie, viene la necessità di gestire dischi più grandi e quindi questa che era un'organizzazione, questa qui iniziale, obsoleta, di qualche anno fa, non è più sufficiente.
+
+[44:52] Professore: si mantiene comunque vedete una corrispondenza per cui visto mai che qualcuno voglia ritornare alla vecchia organizzazione diciamo comunque c'è il Master Boot Record che volendo appunto si può andare ad utilizzare ok diciamo fino a qui tutto chiaro ok?
+
+[45:17] SPEAKER_02: tutto a posto?
+
+[45:18] SPEAKER_02: conoscevate già tutto?
+
+[45:19] SPEAKER_02: sapevate già tutto?
+
+[45:20] SPEAKER_02: no?
+
+[45:22] Professore: che poi magari uno quando deve installare i sistemi si scontra, no?
+
+[45:28] SPEAKER_01: Specialmente Windows con EFI è un problema perché c'è il Safeboot che va disabilitato, c'è proprio Windows che dice di non voler far installare gli altri sistemi.
+
+[45:40] Professore: Infatti poi c'è questo problema che quando vai in SP se poi vanno a interferire il sistema va ad interferire sugli altri, ok?
+
+[45:50] Professore: e allora a quel punto va a rovinare l'organizzazione del boot perché tutti quanti devono in qualche modo gestire la stessa cosa e quindi ci sono dei sistemi che sono particolarmente nemici di altri e quindi si fanno un po' la guerra anche in questo modo magari
+
+[46:16] Professore: fanno finta che siano delle smiste che poi invece rendono più complicata la vita per guerre economiche insomma.
+
+[46:26] Professore: Comunque adesso vediamo quindi dopo aver visto quindi questo legame stretto che c'è tra firmware disco e bootstrap e diciamo questa storia che ci porta dal Master Boot Record ai dischi
+
+[46:43] Professore: andiamo a vedere invece un altro aspetto che riguarda le aree di swap quindi abbiamo detto che il disco serve anche per supportare la memoria virtuale e quindi innanzitutto cominciamo a dire che esistono delle diciamo così partizioni appunto dove
+
+[47:10] Professore: Abbiamo un volume, il volume può contenere il file system, si dice che quella è una partizione cotta perché c'è il file system, altrimenti possiamo avere la partizione cruda dove praticamente rimangono questa sequenza di blocchi che non sono organizzati.
+
+[47:28] Professore: I blocchi ci sono perché sono quelli organizzati dal disco e quindi appunto
+
+[47:38] Professore: si dice raw partition quando non è strutturata in un file system.
+
+[47:44] Professore: Allora, come abbiamo detto, nel meccanismo di boot si trova la partizione dell'albio che carica il kernel, però appunto il kernel si trova
+
+[48:05] Professore: i suoi file i file del kernel proprio perché quanto file devono essere contenuti in un file system quindi ogni volta che voi dovete scaricare dei file o comunque lanciare dei file qualunque cosa sia un file il suo ecosistema è un file system quella roba lì è organizzata dentro un file system e va ricercata dentro un file system quindi dentro una porzione che è cotta
+
+[48:35] Professore: quindi quando abbiamo il bootloader quando si avvierà e dovrà caricare pezzi del kernel dovrà andare a navigare il file system quindi dovrà entrare in un'altra regione della memoria dove recuperare i file del kernel che sono organizzati su un file system allora
+
+[49:03] Professore: Qui abbiamo una partizione cosiddetta root che contiene poi il sistema operativo nel file system e altre partizioni possono contenere altri sistemi, altri file system oppure possono essere appunto root.
+
+[49:21] Professore: La partizione root, quindi prima di arrivare lo swap, riattiviamo l'arte dell'avvio e del montaggio.
+
+[49:32] Professore: Ci sono alcune partizioni che devono essere agganciate, poi lo faremo meglio quando parleremo del file system.
+
+[49:41] Professore: Quando parte il sistema operativo, il kernel deve anche creare dei primi file system.
+
+[49:54] Professore: e questi file system vengono in qualche modo, alcuni montati si dice quindi vengono resi abilitati per esempio nella partizione principale quella di root vengono montati a tempo di boot poi altre partizioni si possono montare o automaticamente o manualmente per esempio quando voi mettete una pennetta USB tape oppure la memoria la flaggate
+
+[50:23] Professore: lì state agganciando un file system e lo state estendendo a quella pennetta quindi vuol dire che state montando un file system su un altro ok?
+
+[50:35] Professore: quindi lo state montando seconda del file system può essere visto come un altro volume come per esempio in Windows oppure può essere visto come un aggancio proprio
+
+[50:50] Professore: sull'albero del file system di quel sotto file system.
+
+[50:56] Professore: Vedete?
+
+[50:58] Professore: Su Windows viene montato a un volume differente e quindi a cui viene dato un namespace differente, quindi uno spazio dei nomi differente perché si parte da una root diversa proprio, che ha una radice diversa, prende una lettera diversa.
+
+[51:15] Professore: Mentre invece appunto su Windows, come avete una root su Linux,
+
+[51:20] Professore: o UNIX, avete un'unica radice, quindi con lo slash, e poi da lì si agganciano tutti gli altri pezzi del file system, quindi quando voi montate una memoria esterna, montate un nuovo disco, una quennetta USB, qualunque altro dispositivo di memoria, nel caso di Windows viene creata una nuova lettera, che corrisponde a un nuovo volume,
+
+[51:49] Professore: nel caso invece di Linux si aggancia proprio all'albero in un posto che decidete voi eventualmente quale debba essere ovviamente quindi quando si monta un file system quindi si crea
+
+[52:10] Professore: si creano dei metadati che devono essere gestiti dal kernel per poter gestire il trasferimento, il collegamento tra quel pezzo di file system e il resto.
+
+[52:22] Professore: Quindi è come se il kernel, quando si monta un file system, il kernel si appropria e vede anche quel file system, quindi questo significa che anche a livello di RAM
+
+[52:35] Professore: ci saranno delle strutture dati che saranno permanenti, che verranno utilizzate dal kernel per controllare quello che succede e per poter consentire l'accesso ai processi rapido.
+
+[52:48] Professore: Quindi quello che all'inizio è soltanto qualcosa di statico, nel momento in cui si monta diventa qualcosa di dinamico, insomma è come se diventasse un'ulteriore espansione del kernel che deve avere
+
+[53:02] Professore: si appropria di quella memoria che altrimenti rimarrebbe in lettera morta quindi quando viene montato si estende l'estensione del file system che si appropria di quella memoria e l'aggancia al proprio file system chiaramente lì dove invece il kernel risiede perché il kernel avrà una sua...
+
+[53:30] Professore: una sua partizione di riferimento quella che contiene il sistema operativo allora lì questa partizione viene montata a tempo di boot quindi quando parte parte questa perché altrimenti se non avesse diciamo una parte iniziale di sistema operativo di sistema di file system non potrebbe poi rapportarsi agli altri file quindi deve avere un suo quindi quando nasce il
+
+[54:00] Professore: durante la fase appunto di bootstrap il kernel crea anche le strutture dati per gestire il file system quindi c'è una prima organizzazione che serve proprio per caricarsi i suoi file e poi via via questa si va ad estendere questo era quello che vi dicevo prima che avevo anticipato la gestione invece dello swap space quindi
+
+[54:29] Professore: abbiamo detto questo quindi la memoria virtuale deve usare spazio sul disco come estensione della memoria principale per dare l'illusione di questa memoria più grande ok?
+
+[54:40] Professore: quindi questo si chiama swap space e può variare da pochi megabyte a gigabyte e questo poi la sua configurazione dipende la sua grandezza di questo
+
+[54:58] Professore: Dipende dal tipo di sistema operativo.
+
+[55:01] Professore: Per esempio su questi Unix Solaris veniva suggerito di avere uno swap space che fosse pari alla differenza
+
+[55:15] Professore: tra la memoria virtuale e la memoria fisica, ok?
+
+[55:19] Professore: Però questo non è assolutamente più necessario, ok?
+
+[55:24] Professore: Perché fisicamente lo dice, ok?
+
+[55:26] Professore: Quanto devo estendere la memoria virtuale?
+
+[55:28] Professore: Questa differenza è il mio workspace.
+
+[55:32] Professore: In Linux, prima,
+
+[55:35] Professore: tempo appunto si aveva questo swap space pari alla dimensione della memoria fisica, adesso molto meno.
+
+[55:48] Professore: Questo swap space può essere organizzato sia come memoria raw, quindi puri blocchi, sia come file system.
+
+[55:57] Professore: Nel tempo comunemente si utilizzava memoria raw
+
+[56:05] Professore: invece adesso si tende più ad utilizzare proprio direttamente il file system come quindi praticamente l'area di swap diventa uno swap file che contiene praticamente tutti questi blocchi che servono per rappresentare appunto queste pagine che vengono via via salvate nella memoria secondaria quindi diciamo che qui abbiamo che
+
+[56:34] Professore: Quindi su Linux si possono avere molti di swap space, sia su file system, sia su partizioni, può essere raw oppure può essere cotta, questa partizione, questo spazio dedicato allo swap space.
+
+[56:54] Professore: Vedete?
+
+[56:55] Professore: e si tende, ultimamente, proprio a raggrupparlo come un unico file.
+
+[57:00] Professore: Questa è, diciamo, nelle ultime versioni del sistema.
+
+[57:05] Professore: Chiaramente, prima si preferiva invece avere una partizione RAW perché permette l'accesso più veloce, permetteva l'accesso più veloce.
+
+[57:16] Professore: Però, da quando si lavora su dischi a stato solido,
+
+[57:22] Professore: si è molto velocizzata l'operazione e quindi diventa in un certo senso meno determinante questa velocitazione.
+
+[57:33] Professore: Perché lavorare sul spazio RAW è più veloce?
+
+[57:39] Professore: Perché si devono fare meno controlli, si va direttamente a chiedere i blocchi in modo molto diretto.
+
+[57:47] Professore: quindi immaginate un'area in cui non c'è grande organizzazione, mentre invece se io devo accedere al file system dovrò percorrere prima tutta la struttura del file system, controllare i permessi, controllare gli spostamenti, mantenere la consistenza eccetera, quindi chiaramente se io devo fare un accesso a
+
+[58:09] Professore: dei dati su file system che sono più organizzati, sono organizzati in file, i file sono organizzati in directory, quindi il sistema deve attraversare vari metadati per fare le operazioni, fare più check, piuttosto che andare nella zona raw dove avete i blocchi
+
+[58:31] Professore: non strutturati, non organizzati.
+
+[58:33] Professore: Quindi c'è un vantaggio vero nell'accedere alla partizione non strutturata in file system, però ultimamente con i tempi di accesso molto più rapide, soprattutto con le memorie è stato tutto stato solido, si tende invece a sfruttare il fatto che il file system d'altra parte consente
+
+[59:01] Professore: una migliore organizzazione delle cose che è in più ordinato quindi diciamo se quindi vedete se volete per esempio se avete Ubuntu e volete vedere le aree di swap attive potete col comando swap on meno meno show potete vedere queste aree che avete oppure
+
+[59:29] Professore: per vedere appunto qual è l'organizzazione, quali sono le aree diciamo in RAM e quelle in swap con free-h e quello che vi dicevo prima per esempio in Ubuntu i blocchi di swap sono organizzati dentro un file quindi ci si accede
+
+[59:55] Professore: tramite file system, ok?
+
+[59:58] Professore: Quindi è un file che sta a livello, diciamo, root, bisogna andare a visualizzarlo opportunamente, però potete quindi accedere a questa zona.
+
+[01:00:10] Professore: Quindi vedete, nei sistemi Unix, il kernel faceva swapping, come vi avevo detto all'inizio, dell'intero processo di locazioni contigue del disco, questa è proprio storia per storia, cioè tutto il processo si svuuppava,
+
+[01:00:25] Professore: questa cosa attenzione magari si può in alcuni casi viene fatta ma molto raramente e poi soprattutto con le memorie appunto stato per esempio stato solido si tende a minimizzare questo trasporto
+
+[01:00:43] Professore: Quindi in Solaris, per esempio, si rileggono le pagine text direttamente dal file system, in Solaris 1, e quindi che cosa significa?
+
+[01:00:54] Professore: Che tutta l'area text è inutile andarla a swappare, a fare il page out, perché è sempre la stessa, non è che il codice, una volta compilato, è sempre quello, lo devi andare a ricaricare eventualmente.
+
+[01:01:10] Professore: Dall'altra parte, invece, quindi quello che viene...
+
+[01:01:13] Professore: salvato è quello che si può sporcare, è quello che è dinamico, è quello che si chiama memoria anonima.
+
+[01:01:20] Professore: Quindi quando si parla di memoria anonima è tutta la memoria come lo stack, l'ip, la memoria non inizializzata, quella che non è
+
+[01:01:29] Professore: che varia durante l'esecuzione del programma, quindi quella è quella che si può sporcare, quella roba lì organizzata in pagina potrebbe avere il dirty bit attivato, quindi quella roba lì va salvata in qualche modo per fare il page out.
+
+[01:01:52] Professore: Quindi vedete il Solaris 2, per esempio loka swap space solo quando una 30 page viene mandata fuori.
+
+[01:02:00] Professore: E chiaramente se io ho pure il 30 bit evito di fare lo swap out, cioè il page out, perché assumo di avere già la copia in backing store.
+
+[01:02:11] Professore: E poi invece qui Linux.
+
+[01:02:17] Professore: anche Linux utilizza swap space solo per memoria anonima, mantiene, come abbiamo detto, più aree di swap, area composta di pagine, 4 KB, quindi in questo caso i blocchi e le pagine, i blocchi devono essere più piccoli di queste pagine,
+
+[01:02:41] Professore: il kernel o uguali il kernel usa mappe di swap per tracciare l'uso dello swap space quindi vuol dire che il kernel deve sempre avere in ram delle mappe dove andare a tracciare l'uso di questo swap space quindi questi sono array di contatori dove si sa quali sono i blocchi per ogni blocco
+
+[01:03:09] Professore: di questo workspace si vede se le pagine corrispondenti sono libere se sono occupate e se per esempio su quelle pagine insistono più processi perché per esempio potrebbero essere quelle di libreria e quella libreria è usata da più processi quindi anche quanti processi la stanno utilizzando perché se magari un processo non ne ha più bisogno
+
+[01:03:38] Professore: la rilascia, però devi solo abbassare il contatore, fino a quando il contatore non va a zero, allora vuol dire che è veramente libera.
+
+[01:03:45] Professore: Quindi bisogna anche vedere quelle pagine, quindi quei blocchi da chi sono stati, da chi sono, diciamo così, gestiti.
+
+[01:03:55] Professore: Quindi possiamo vedere una cosa di questo tipo.
+
+[01:03:57] Professore: Vedete, nel kernel, quindi a tempo, quindi questo significa in RAM, quindi si deve mantenere una struttura dati per sapere
+
+[01:04:07] Professore: come è strutturato questo swap space.
+
+[01:04:11] Professore: Questa serve anche quando si fa il page fault.
+
+[01:04:15] Professore: Quando c'è il page fault, il sistema può gestire queste strutture, anche se bisogna dire che nella page table, quella diretta, siccome per ogni pagina c'è una entry,
+
+[01:04:36] Professore: Lì dove la entry non è il RAM, quindi non abbiamo lì dove appunto la pagina non è il frame corrispondente, non è il RAM, però nella entry ci può essere l'indicazione di dove andarla a prendere nello swap space, così è ancora più veloce.
+
+[01:04:57] Professore: Però queste strutture devono essere appunto mantenute, quindi vedete una struttura che fornisce quindi una
+
+[01:05:06] Professore: un array, ok?
+
+[01:05:10] Professore: Queste sono tutte cose che devono essere molto veloci di accesso, ok?
+
+[01:05:16] Professore: Molto veloci, perché ogni volta che c'è un page vault bisogna in qualche modo percorrerle, ogni volta che c'è un aggiornamento su una pagina che c'è un page in, un page out bisogna fare l'aggiornamento.
+
+[01:05:30] Professore: di questa struttura qua e quindi per esempio bisogna anche mappare quali sono le pagine corrispondenti qual è il PID del processo o dei processi che insistono su quelle pagine ok va bene adesso visto che stiamo parlando di memoria secondaria
+
+[01:05:55] Professore: Introduciamo un ulteriore problema che è legato al discorso della correzione di errore, della ridondanza, ecc.
+
+[01:06:06] Professore: Non so se avete mai incontrato queste architetture cosiddette RAID.
+
+[01:06:15] Professore: Qualcuno ci ha lavorato addirittura?
+
+[01:06:18] SPEAKER_00: Lavorato no.
+
+[01:06:20] SPEAKER_02: adesso andiamo a vedere che cos'è visto che stiamo parlando di dischi abbiamo accennato al problema della
+
+[01:06:46] Professore: dei guasti dei dischi i dischi si guastano sono abbastanza diciamo così delicati e quindi per aumentare l'affidabilità ma anche la performance del disco si può lavorare con la ridondanza allora perché la ridondanza mi aiuta a livello di affidabilità è chiaro no perché io se si rompe una cosa ho l'altra ok quindi però perché mi migliora anche l'affidabilità
+
+[01:07:16] Professore: la performance, immaginate un dato, se lo distribuisco su due dischi, lo divido a metà un file, un pezzo di qua, un pezzo di là, posso parallelizzare la lettura e eventualmente
+
+[01:07:37] Professore: invece per la scrittura, beh, a volte anche sulla scrittura, perché posso anche scrivere... Sono due dispositivi fisici diversi, quindi le code lavorano separatamente.
+
+[01:07:49] Professore: Quindi, il fatto di avere due dischi mi aiuta per due motivi.
+
+[01:07:54] Professore: Uno, perché posso, diciamo, duplicare l'informazione, quindi se io faccio una duplicazione dell'informazione sui due dischi, ho migliorato la ridondanza.
+
+[01:08:05] Professore: Se però ho, per esempio, scrittato l'informazione su due dischi, non so, un file ho diviso a metà, un pezzo di qua, un pezzo di là, ho migliorato o peggiorato l'affidabilità?
+
+[01:08:18] SPEAKER_02: Ho peggiorato.
+
+[01:08:19] Professore: Ho peggiorato, perché se prima, appunto, adesso mi basta che un disco su due si rompa, che ho perso il file.
+
+[01:08:27] Professore: Ok?
+
+[01:08:28] Professore: Quindi qui, su questi concetti, quindi su questi concetti di redundanza,
+
+[01:08:35] Professore: e di affidabilità si basa l'idea di utilizzare queste architetture RAID sono delle architetture che permettono di lanciare questi concetti cioè una parte devo avere più repliche dell'informazione dall'altra queste repliche le posso anche spalmare
+
+[01:08:58] Professore: su più dischi, in modo da sfruttare il parallelismo, però devo stare attento a non fare peggio, soprattutto a livello di fragilità di questa operazione.
+
+[01:09:13] SPEAKER_00: Dipende da quanti dischi si hanno a disposizione per decidere.
+
+[01:09:17] Professore: Se io faccio uno spalmo su 100 dischi,
+
+[01:09:22] Professore: è chiaro che la probabilità che perda i dati aumenta, aumenta di tanto, perché basta che uno su cento dei dischi si rompa e che io ho perso, se il mio file lo spalmo su cento dischi,
+
+[01:09:35] Professore: e quindi sto peggiorando l'affidabilità.
+
+[01:09:38] Professore: Se invece lo replico su 100 dischi, sto aumentando tantissimo, però magari anche troppo, perché sto esagerando con la ridondanza.
+
+[01:09:46] SPEAKER_00: Infatti ci sta una tecnica di ride che consiste proprio nel separare un file su più dischi, però alcuni dischi ci hanno
+
+[01:09:55] SPEAKER_00: ridondanze di pezzi, in modo tale che anche se un disco si rompe gli altri dischi hanno comunque tutti i pezzi per ricostruirlo.
+
+[01:10:01] Professore: Infatti questa è l'idea di base, l'idea di base è proprio quella di cercare di sbordare questa possibilità.
+
+[01:10:09] Professore: Adesso queste sono le coordinate su cui si ragiona per il ride.
+
+[01:10:15] Professore: cioè da una parte sfruttare queste due possibilità e poi sfruttarle al meglio perché poi ci sono vari livelli di ride e diciamo ognuno ha il throw e il contro.
+
+[01:10:26] Professore: Allora, innanzitutto vediamo un attimo il problema
+
+[01:10:29] Professore: del fallimento dei dischi.
+
+[01:10:31] Professore: Abbiamo detto che i dischi purtroppo si rompono e quella è una cosa abbastanza grave per quello uno dovrebbe fare continuamente anche dei backup, questa è una cosa più semplice da fare però diciamo che il backup è una forma di ridondanza quindi abbiamo la probabilità di fallimento di n dischi quindi è sicuramente se sono replicate
+
+[01:10:59] Professore: è più bassa.
+
+[01:11:01] Professore: Allora, consideriamo un caso in cui abbiamo un tempo medio di fallimento nel disco, mettiamo che ogni 100 mila ore un disco si rompe, se io ho un array di 100 dischi,
+
+[01:11:21] Professore: Ok?
+
+[01:11:24] Professore: Il tempo, diciamo così, medio di fallimento di almeno un disco diventa mille ore.
+
+[01:11:33] Professore: Cioè questo significa che con questa garanzia del disco ogni 41 giorni, cioè ogni poco più di un mese, ho la probabilità molto alta che si rompa un disco.
+
+[01:11:49] Professore: Ok?
+
+[01:11:54] Professore: E cosa stiamo dicendo?
+
+[01:11:55] Professore: Stiamo dicendo che se per un disco ho la garanzia, diciamo così, ho in media che ogni 100.000 ore, cioè il funzionamento di un disco è garantito per 100.000 ore, in media, in generale chi più chi meno, però in media ciò che ogni 100.000 ore sto disco si rompe.
+
+[01:12:20] Professore: Però se ho un array di 100 dischi, ovviamente devo considerare qual è la probabilità che almeno uno di questi 100 si rompano.
+
+[01:12:32] Professore: E quindi devo stabilire poi sulla base di questo qual è il tempo medio che intercorre perché almeno un disco si rompa.
+
+[01:12:46] Professore: e quindi qui abbiamo che il tempo medio si accorcia tantissimo cioè vuol dire che abbiamo che il disco ogni mille ore qui non è formulato benissimo il problema perché chiaramente io dovrò magari ho una gaussiana dovrò appunto andare a vedere qual è la probabilità che nessuno di questi dischi si rompano quindi dovrei rappresentarlo in modo probabilistico per vedere il valore medio
+
+[01:13:16] Professore: però assumiamo che questo sia stato fatto, in questi conti, quindi non è un problema, però avverrebbe che il tempo medio, quindi che almeno un disco sul cluster di dischi, si rompa in un tempo abbastanza breve, quindi il fatto che si rompa qualche cosa non è un'eccezione quando abbiamo tanti dischi, ma è la norma, quindi va tenuto in considerazione.
+
+[01:13:45] Professore: E quindi è assolutamente necessario, quando qualcuno deve gestire tanti dischi, tenere presenti appunto meccanismi di replicazione del dato e di riparazione del dato.
+
+[01:14:02] Professore: Allora, il modo più semplice è di replicare i dischi, quindi attraverso il meccanismo del mirroring, quindi per esempio la duplicazione dei dischi.
+
+[01:14:12] Professore: Ogni disco logico
+
+[01:14:14] Professore: diciamo, corrisponde a più dischi fisici, quindi si può scrivere in modo doppio.
+
+[01:14:21] Professore: Quindi questo significa che, sì, perdiamo dello spazio, ok?
+
+[01:14:28] Professore: A livello di tempo non si perde tempo perché si parallelizza, no?
+
+[01:14:32] Professore: Come ne scrivo uno, ne scrivo due, però a livello di, diciamo così, memoria, stiamo perdendo memoria, però abbiamo la pubblicazione.
+
+[01:14:42] Professore: Se andiamo anche a considerare per esempio interventi di riparazione, una volta che si è guastato uno dei dischi, è chiaro che sono in una zona di... è vero che ce n'ho uno di riserva, però è meglio ripristinare quanto prima il mirroring, perché se poi si rompe anche l'altro non ho più un disco di scorta.
+
+[01:15:08] Professore: E allora qui si vede che
+
+[01:15:11] Professore: Se abbiamo anche mirroring più una mean time to data loss e mean time to repair, quindi consigliamo il tempo medio di perdita di dati dovuti al fallimento del disco e il tempo medio per la riparazione, assumendo per esempio che io posso riparare in 10 ore
+
+[01:15:36] Professore: un disco, quindi vuol dire che posso comprarne per esempio un altro e replicare l'informazione che avevo perso, quindi mi è rimasto il disco di scorta, voglio replicare il nuovo disco e ho 10 ore per fare questo, o comunque per riparare.
+
+[01:15:54] Professore: Allora vedete che ho preso un disco da 100.000 ore e con la duplicazione e avendo 10
+
+[01:16:03] Professore: ore di tempo per riparare, il mid time del data loss è 57 mila anni.
+
+[01:16:12] Professore: Questo per farvi capire che se uno ha una metodologia che consente di avere sempre il mirroring più il repair,
+
+[01:16:26] Professore: con tempi di repair brevi rispetto a, diciamo così, quelli che sono i tempi garantiti dal disco io riesco a mantenere, ad aumentare, diciamo così, di moltissimo il tempo di data loss.
+
+[01:16:40] Professore: Ok?
+
+[01:16:42] Professore: Il problema è che a volte i fallimenti, questo nel caso in cui il fallimento di un disco è indipendente dal fallimento dell'altro, però a volte i fallimenti sono dovuti ad un unico problema, no?
+
+[01:16:55] Professore: Non so, qualcosa che va a fuoco.
+
+[01:16:58] Professore: Va a fuoco il data center, oppure si guasta un pianto di raffreddamento, cose del genere.
+
+[01:17:07] Professore: Quindi, per esempio, ci sono anche strategie che si chiamano disaster recovery, dove si pensa di replicarle in luoghi completamente diversi.
+
+[01:17:20] Professore: Però qui andiamo su tecniche.
+
+[01:17:25] Professore: di gestione del guasto però diciamo che abbiamo introdotto comunque il problema del mirroring quindi il mirroring è sicuramente un tema molto importante quindi il fatto di avere la duplicazione poi abbiamo invece questa possibilità di sfruttare i rischi per aumentare la performance e quindi si parla di quello che si chiama risk striping
+
+[01:17:54] Professore: cioè le informazioni, i dati vengono strisciati su più dischi, come abbiamo visto prima, un file si divide, anziché memorizzarlo tutto in un disco, lo divido su due dischi, e quindi possiamo avere diversi modi di fare questo striping, addirittura a livello teorico potrebbe essere pensabile anche fare bit level striping, quindi proprio bit a bit, cioè un bit strisciati su
+
+[01:18:25] Professore: quindi questo si prende un file prendo il bit lo metto sul primo disco un altro sul secondo eccetera chiaramente diciamo questo sono modelli diciamo così teorici però in realtà di solito quello che si trova a fare
+
+[01:18:40] Professore: è il block level striping cioè prendo un blocco perché è l'unità minima di memorizzazione sul disco e poi lo metto il blocco 1 di quel file lo metto sul disco il blocco 2 sull'altro disco e poi riparto da capo ok?
+
+[01:18:56] Professore: quindi faccio questo tipo di operazione lei l'aveva fatto su due giusto?
+
+[01:19:03] Professore: l'aveva fatto con due hard disk ha utilizzato un'architettura RAID qual era?
+
+[01:19:09] Professore: zero e quindi faceva uno striding praticamente.
+
+[01:19:14] Professore: Quindi in questo caso appunto i due obiettivi sono appunto incrementare il throughput di piccoli accessi e ridurre poi il tempo di risposta anche di un accesso grande.
+
+[01:19:31] Professore: I piccoli accessi per esempio se io devo
+
+[01:19:35] Professore: posso andare in qualche modo, posso parallelizzare i piccoli accessi, perché poi magari c'è un blocco di qua, un blocco di là, eccetera, e poi ridurre il tempo di risposta in accesso gratis, cioè se voglio per esempio scaricarmi
+
+[01:19:51] Professore: un grosso file posso prendere contemporaneamente, da più dischi posso richiedere di avere questa possibilità.
+
+[01:20:00] Professore: Allora, viste queste due coordinate, quindi il fatto di fare questo striping e il fatto di fare il mirroring, esistono queste architetture che si chiamano appunto Redung array of inexpensive disks, inexpensive nel senso che si possono rompere, ok?
+
+[01:20:17] Professore: e abbiamo quindi una serie di organizzazioni che mescolano queste due cose e ci sono diversi modelli per esempio a livello zero di queste architetture RAID prevedono appunto soltanto lo strisciamento quindi questo non c'è ridondanza non c'è full tolerance se un disco fallisce persi tutti i dati veloce
+
+[01:20:47] Professore: abbiamo parallelismo in teoria non ci dovrebbe essere pari di controllo anche se in realtà sui sistemi moderni c'è pari di controllo però non c'è pari di controllo a livello di stripe cioè a livello di singoli byte c'è il pari di controllo quindi a livello di dato che viene strisciato minimo numero di dischi 2 quindi io posso fare questo appunto
+
+[01:21:16] Professore: questo striping.
+
+[01:21:18] Professore: Poi c'è il livello 1, sempre di ride, che prevede invece solo il mirroring, quindi dati duplicati, quindi vedete lì sopra il livello 0, quindi non c'è ridottanza, striscio tutto.
+
+[01:21:36] Professore: Il livello invece 1, dati duplicati, quindi
+
+[01:21:43] Professore: Non c'è, duplico i dati, non c'è overhead di scrittura, perché non c'è overhead di scrittura?
+
+[01:21:48] Professore: Perché anche se devo scrivere due volte, li scrivo in parallelo.
+
+[01:21:53] Professore: Quindi scrivo A, scrivo A, parallelizzo la scrittura.
+
+[01:21:59] Professore: Velocizza la lettura, perché io per esempio, anche se ho duplicato il dato, mettiamo che ho un file che ha una parte iniziale e una parte finale.
+
+[01:22:09] Professore: Allora io posso leggere da un disco la parte iniziale, dall'altro disco la parte finale e l'ho fatto nella metà del tempo.
+
+[01:22:22] Professore: Anche con il mirroring posso velocizzare soprattutto la lettura a
+
+[01:22:28] Professore: a costo uguale per la scrittura, perché invece la scrittura devo scriverlo tutto il fine, non è che posso scrivere mezzo di qua e mezzo di là.
+
+[01:22:35] Professore: Invece mezzo di qua e mezzo di là posso fare lo stripinger, ok?
+
+[01:22:38] Professore: Scrivo mezzo di qua e mezzo di là.
+
+[01:22:41] Professore: Poi, quindi qui abbiamo, quindi velocizza la lettura, metà, diciamo purtroppo si può utilizzare soltanto la metà della capacità del disco oppure, detto in un altro modo, devo utilizzare il doppio
+
+[01:22:56] Professore: della memoria e il minimo numero per fare il mirroring è 2 queste sono le due coordinate principali del RAID poi esistono tutte delle varie combinazioni alcune combinazioni però sono in un certo senso puramente ormai potremmo dire teoriche per esempio quindi uno deve sapere che esistono soltanto perché storicamente sono state proposte in questo modo per esempio un RAID 2
+
+[01:23:27] Professore: utilizza striping a livello di bit e poi utilizza un harming code per error detection e correction quindi vi ricordate che abbiamo parlato ieri del codice harming per la detection e correction e in questo caso abbiamo un minimo numero di dischi che è tre perché serve due per fare lo striping
+
+[01:23:54] Professore: e uno per metterci il codice di errore.
+
+[01:24:10] Professore: Qui abbiamo il write3 che utilizza ByteLevel Striping, anche questo molto teorico perché
+
+[01:24:22] Professore: sui dischi si scrive a blocchi, non si scrive a byte.
+
+[01:24:27] Professore: Oddio, si può fare però, si può preparare prima il blocco dove ho fatto lo striping in RAM e poi lo vado a copiare.
+
+[01:24:35] Professore: Quindi io posso farlo, anche quello a bit lo posso fare volendo.
+
+[01:24:38] Professore: Ovviamente poi vado a scrivere il blocco in RAM, però lo preparo prima con lo striping fatto, ok?
+
+[01:24:46] Professore: quello già lavorare bit a bit è un po' complicato, forse questo a byte, byte a byte è più, diciamo così, più gestibile fare questo striping, però anche questo vedete troppo la granularità dello striping è eccessiva, cioè si fa lo striping, quindi questo ve lo ricordate, livello 2 proprio a livello di bit è molto teorico, a livello di byte
+
+[01:25:11] Professore: è anche questo molto molto poco utilizzato.
+
+[01:25:13] Professore: Poi c'è un disco con un parity disc.
+
+[01:25:17] Professore: Attenzione che il fatto di avere un parity disc dedicato, vedete Rive 3, questo crea un collo di bottiglia, perché è vero che io magari voglio fare lo striving, quindi ho un guadagno dal punto di vista della parallelizzazione,
+
+[01:25:36] Professore: ma poi dopo tutti i pariti li devo accumulare su un disco.
+
+[01:25:41] Professore: Magari saranno di meno, però comunque non ho più la parallelizzazione completa.
+
+[01:25:49] Professore: Stesso problema per quanto riguarda RAID 4.
+
+[01:25:52] Professore: RAID 4 già si comincia a ragionare perché abbiamo un block level striping, quindi si fa lo strisciamento a livello di blocco, blocco qui, blocco qui, blocco qui,
+
+[01:26:04] Professore: E poi c'è però anche qui un collo di bottiglia, perché c'è il disco col parity disc, ok?
+
+[01:26:10] Professore: Quindi anche qua tutti i parity devono essere messi in un unico disco qua.
+
+[01:26:17] Professore: E quindi di nuovo collo di bottiglia come prima, infatti la scrittura lenta, perché?
+
+[01:26:23] Professore: Perché a livello di scrittura devo andare, però posso parallelizzare, no?
+
+[01:26:29] Professore: ho il collo di bottiglia perché devo andare a scrivere il palico su un unico disco e quindi si accumulano tutte le scritture perché poi si accodano su quel disco ho n scritture e poi riesco a parallelizzare però poi vado a scrivere il minimo numero di dischi 3 quindi fino a qua se vogliamo abbiamo delle situazioni che sono poco utilizzate quelle che cominciano ad essere più utilizzate sono queste RAID 5 e RAID 6
+
+[01:27:00] Professore: RAID6 che cosa fa?
+
+[01:27:02] Professore: Distribuisce i parity su tutti i dischi ed evita di usare troppo, quindi un disco di parity, quindi sono distribuiti questi dischi, quindi il numero di dischi minimo è 3, abbiamo un block level striving e poi un codice di correzione di errore distribuito.
+
+[01:27:27] Professore: Quindi non c'è un disco dedicato alla correzione di errore, ma si trova appunto distribuito sui vari dischi, il codice distribuito.
+
+[01:27:35] Professore: E quindi, per esempio, vedete il primo blocco, viene anche l'EGG usato con striping, quindi il primo blocco in un disco, il secondo in un altro, eccetera, eccetera.
+
+[01:27:50] Professore: E questo permette anche la correzione dei dati,
+
+[01:27:55] Professore: dovrebbe permettere quindi di poter ricostruire il disco, anche in caso di fallimento di un disco.
+
+[01:28:05] Professore: Quindi se un disco si rompe attraverso questi codici di correzione di errore si riesce a ricostruire il disco stesso.
+
+[01:28:15] Professore: Quindi vedete c'è solo striping qua, non c'è mirroring in questo caso, però
+
+[01:28:22] Professore: c'è lo striping anche di questi codici, quindi degli ECC, quindi dei codici di correzione.
+
+[01:28:30] Professore: Questi codici di correzione sono fatti in modo tale che è possibile, diciamo quindi, essere in garantire fino alla rottura di un disco, ricostruirlo con l'informazione che già è presente.
+
+[01:28:45] Professore: I RAIL 6, anche questo aggiunge ridondanza,
+
+[01:28:50] Professore: può permettere fallimenti multipli a due blocchi di parity, quindi non c'è un solo livello di parity, ma ci sono due livelli di parity e questo fa sì che poi va a tollerare fino a due fallimenti di disco.
+
+[01:29:08] Professore: Quindi se due dischi falliscono, anche se c'è lo striping, però con la rigondanza che c'è qui in 6,
+
+[01:29:19] Professore: si riesce a ripristinare fino a due dischi rotti quindi attenzione che è comunque una soluzione accettabile perché io ho tot dischi su cui faccio questa organizzazione ride posso tollerare fino a due che si rompono più o meno contemporaneamente se poi io posso ripristinarli perché nel momento in cui si rompono poi posso sostituirli e posso ripristinare la situazione
+
+[01:29:47] Professore: e il tempo di ripristino è breve rispetto alla media del tempo di rottura allora sto abbastanza tranquillo perché non solo sono robusto rispetto a una rottura ma sono robusto rispetto a due e poi arriviamo a questa organizzazione invece
+
+[01:30:16] Professore: che prevede il mescolamento di due architetture.
+
+[01:30:21] Professore: Queste anche sono abbastanza utilizzate.
+
+[01:30:23] Professore: In realtà abbiamo questi due livelli di ride, infatti si chiama nested ride, quindi ride che appunto viene annicato, oppure hybrid ride,
+
+[01:30:41] Professore: dove abbiamo prima, per esempio, organizzazioni con stripper mirrors o mirrored stripes.
+
+[01:30:49] Professore: Allora, nella prima organizzazione, che è quella un po' più fragile, prima si fa lo striping del dato e poi si fa il mirroring.
+
+[01:31:01] Professore: Quindi immaginate, prima si crea lo striping e poi si fa il mirroring di questo.
+
+[01:31:11] Professore: Questo significa, se io faccio scribing, sto creando una situazione molto, diciamo così, fragile, magari senza codice di correzione sul disco, e però faccio il mirroring, quindi vuol dire che posso tollerare fino a tot, qui per esempio in 2,
+
+[01:31:32] Professore: posso tollerare, se si rompe questo disco, ho comunque quello sopra e posso magari ripristinare questo disco sulla base di quello che è miroled.
+
+[01:31:42] Professore: Quindi sono abbastanza protetto anche con uno striping.
+
+[01:31:48] Professore: Vedete qui c'è un esempio del ride 0 più 1, quindi abbiamo prima lo striping, quindi A1,
+
+[01:31:57] Professore: che si striscia su a due, a tre, a quattro, quindi abbiamo spezzato un dato in otto parti, ok?
+
+[01:32:05] Professore: E poi lo striscio, quindi faccio un pezzo, un po' a te, un po' a te, un po' a te, eccetera, eccetera, e quindi su questo ho fatto lo striping, vedete, ride per zero, e poi faccio il mirroring, vedete, sopra, duplico, e creo questa situazione qua.
+
+[01:32:24] Professore: E questo, quindi, è una prima forma...
+
+[01:32:29] Professore: di anninamento che in un certo senso bilancia il vantaggio dello striping con il vantaggio del mirroring altrimenti esiste l'altra modalità che prevede di fare prima la duplicazione e poi lo striping quindi per esempio parto con A1
+
+[01:32:52] Professore: Prima facevo A1, A2, A3, A4 e strisciavo così.
+
+[01:32:57] Professore: Invece qui che cosa si fa?
+
+[01:32:58] Professore: Si fa A1, A1, duplico.
+
+[01:33:01] Professore: Poi faccio A2, A2 e quindi faccio prima la duplicazione del blocco e poi passo al prossimo.
+
+[01:33:12] Professore: Quindi faccio A1, A1, A2, A2, A3, A3, A4, A4, A5, A6, A7, A7, A8, A8.
+
+[01:33:22] Professore: Quindi con una rappresentazione dove prima faccio il primo livello la duplicazione e poi dopo passo allo strisciamento.
+
+[01:33:33] Professore: Quindi faccio la duplicazione del blocco piccolo e poi lo strisciamento dei prossimi.
+
+[01:33:41] Professore: Quindi striscio, duplico, striscio, duplico, ecc.
+
+[01:33:46] Professore: E quindi questa è l'architettura che si chiama
+
+[01:33:51] Professore: ride 1.0 questo è vicino al ride 0 per performance perché comunque ho la duplicazione che mi aumenta le performance e ho anche la duplicazione che mi aumenta le performance in lettura e poi lo striping
+
+[01:34:16] Professore: mi aumenta però dal punto di vista della scrittura posso parallelizzare anche la scrittura perché comunque vedete questi blocchi li posso scrivere in parallelo comunque quindi ho performance sia in lettura che in scrittura e aumenta anche rispetto allo 01 aumenta un po' la ridondanza quindi è un po' più sicuro questo qui rispetto a quello lì
+
+[01:34:54] Professore: su due forse si vede poco però se abbiamo più dischi si vede meglio che questa ridondanza in un certo senso aiuta a abbiamo più repliche per cui se si cancella un disco c'è più possibilità di recuperare
+
+[01:35:16] Professore: rispetto invece al 0 più 1 questo magari ci potete ragionare un attimo questa differenza tra sono a no performance similari però di solito tra le due si preferisce RAID 1.0 piuttosto che 0.1 come modalità prima si duplica quindi prima si mette in cassaforte se vogliamo nel duplicato e poi si passa al successivo blocco
+
+[01:35:45] Professore: Ok, io direi che ci possiamo magari fermare qui e intanto ci vediamo domani.
+
+[01:35:59] Professore: Domani cominceremo a vedere un po' i file system.
+

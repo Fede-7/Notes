@@ -1,0 +1,990 @@
+[00:01] Professore: attraverso il cast si andava a leggere quello che veniva scritto da questo road driver e quello che veniva scritto da questo road driver era praticamente un contenuto che stava dal kernel doveva essere portato nella memoria utente e l'avevamo fatto implementando la read
+
+[00:26] Professore: quindi attraverso una callback che veniva associata all'operazione appunto leader.
+
+[00:32] Professore: Voi dovreste avere già una falsa riga di quello che abbiamo visto e c'è un to do, un esercizio per voi che prevede invece di poter implementare anche la write.
+
+[00:47] Professore: Cioè anziché andare, si estende il codice di prima,
+
+[00:55] Professore: che si implementa, oltre che la read, che è con una callback, anche una operazione di scrittura.
+
+[01:05] Professore: E cosa vogliamo arrivare a fare?
+
+[01:08] Professore: Vogliamo poter... Vedete qua, qual è l'obiettivo?
+
+[01:15] Professore: C'è questo test, per esempio, quando facciamo ecco ciao, questo, quindi sarebbe...
+
+[01:24] Professore: sono dei byte che vanno dallo spazio utente devono fruire nel kernel in modo tale che poi quando vado a fare cat su questo il cat mi dovrebbe restituire ciao e non più hello driver ok?
+
+[01:42] Professore: quindi stiamo scrivendo sul kernel quindi prima leggevamo adesso dobbiamo scrivere per farlo bisogna implementare anche la write attenzione
+
+[01:54] Professore: Vedete qui, per poter fare queste operazioni, come al solito, dovete fare prima il vostro codice, poi il makefile va opportunamente modificato rispetto a quello che c'era precedentemente.
+
+[02:11] Professore: Quindi dovete creare una directory.
+
+[02:14] Professore: Nella directory dovete mettere il vostro codice, questo to do, opportunamente modificato,
+
+[02:24] Professore: metterci dentro il makefile modificarlo con il nome che vi volete dare col make si dovrebbe ottenere appunto questo eseguibile questo oggetto del kernel poi con insmod si abilita il modulo si inserisce il modulo quindi questa è il e poi
+
+[02:52] Professore: Una volta che è stato registrato come modulo del kernel, a questo punto ha associato un major number, quindi il numero che corrisponde al suo driver.
+
+[03:04] Professore: Per leggerlo potete andare a vedere dmessage, questo dmessage che cosa va a leggere?
+
+[03:11] Professore: Va a leggere il log.
+
+[03:13] Professore: che si fa ai kernel, ok?
+
+[03:15] Professore: Per ogni operazione che viene fatta c'è un log, con tail vedete le ultime operazioni, siccome sperabilmente questa è l'ultima operazione o comunque una delle ultime che sono state fatte, ok?
+
+[03:27] Professore: Allora qui possiamo andare a ottenere questo dato e questo ci serve perché poi vogliamo andare a creare un nodo, collegarci a un nodo
+
+[03:43] Professore: dagli permessi poi giù immagino questi sono i permessi per poterli andare a scrivere lo stiamo trattando come se fosse un file perché dal punto di vista dell'interfaccia quindi per comunicare con questo che è un file speciale di fatto ma in realtà sarebbe il driver noi stiamo che poi mi rappresenta il dispositivo stesso noi gli stiamo dando i permessi read write
+
+[04:11] Professore: E poi, a questo punto, possiamo andare, sempre con il listing, andare a vedere come si comporta questo device.
+
+[04:19] SPEAKER_01: Giusto per una curiosità, ieri abbiamo visto che anche le operazioni base, come la print, come la malloc, c'è l'API apposita per il kernel, con le librerie adeguate.
+
+[04:32] SPEAKER_01: L'implementazione è simile, va su livelli diversi, oppure è diametralmente opposta per dove va operare.
+
+[04:38] SPEAKER_01: fa operare in memoria kernel quindi è diversa rispetto anche l'implementazione cioè dal punto di vista del layout di memoria si ok ovviamente la malloc sarà un file enorme però dico proprio il modo in cui riserva i chunk di memoria sono diversi perché io me la sono andata un po' a leggere la malloc capendo quello che ci ho capito però però dico quella del kernel
+
+[05:01] Professore: Quella del kernel chiaramente è diversa perché deve lavorare con... Allora, fino a un certo punto è uguale perché per riservare memoria comunque prima fa riferimento, non so se ti ricordi, al slab.
+
+[05:19] Professore: Quindi poi con lo slab, a seconda di quello che si sta allocando, prende determinata memoria.
+
+[05:26] Professore: Quindi dal punto di vista di quello che viene sollecitato,
+
+[05:30] Professore: è analogo, quindi dal basso livello comunque tutte e due fanno riferimento ad una locazione che è basata su meccanismi di appunto debatti, scusami, non lo slab, debatti, perché quando va a riservare proprio la memoria che mi serve per una particolare struttura dati è lo slab, che comunque poi
+
+[05:55] Professore: si basa poi sul baddi, quindi c'è il baddi che è praticamente proprio l'organizzazione della memoria consecutiva, proprio fisica consecutiva.
+
+[06:11] Professore: lato buddy questa viene ritagliata nei vari chunk e poi a seconda del tipo di appunto allocazione che viene fatta per esempio una... qui non lo vediamo però una cappa malloc
+
+[06:30] Professore: in quel caso appunto fa riserva della memoria nello spazio di indirizzamento appunto del kernel.
+
+[06:37] Professore: Però essenzialmente il meccanismo di base è simile.
+
+[06:43] Professore: Anche quando io vado a chiedere memoria a spazio riservario, a spazio utente, comunque è sempre il kernel che lo gestisce con dei meccanismi che sono.
+
+[06:53] SPEAKER_01: Questa forse è una domanda un po' più, ma... Quindi, dato che ne abbiamo detto, non so se
+
+[07:00] SPEAKER_01: che prima il kernel era diviso in layer, il layer è 0, layer 1, che ora non è più così.
+
+[07:08] Professore: No, no, no, in che senso è diviso il layer?
+
+[07:11] SPEAKER_01: il kernel mod 0, kernel mod 1?
+
+[07:13] Professore: No, quelli sono i livelli di sicurezza e che corrispondono al kernel moda, alla modalità di eseguire.
+
+[07:22] Professore: Quindi quando hai appunto nell'anello più interno, cioè quando fa queste operazioni le fa nell'anello più interno, quando lascia invece l'operazione allo spazio utente, allora lì va nell'anello 2.
+
+[07:36] SPEAKER_00: Anche per questo cosa è un pesare su dopo.
+
+[07:39] Professore: bisogna sempre usare sudo come istruzione perché sennò non possiamo lavorare in questo caso il sudo non riguarda sono i permessi dell'utente cioè riguarda l'utente che può fare determinate operazioni perché non tutte le operazioni possono essere fatte dall'utente e la malloc del kernel può andare in segvolt?
+
+[08:04] Professore: no, è pensato oddio, se uno programma un esagerò
+
+[08:09] Professore: No, ma se uno programma male il kernel, cioè se tu ricompili il kernel puoi fare dei disastri, ok?
+
+[08:18] Professore: Quindi infatti noi stiamo lavorando sempre dentro dei moduli del kernel, quindi eventualmente il modulo fa schifo, ok?
+
+[08:26] Professore: Cioè io registro il modulo ed eventualmente si toglie il modulo, non mando in instabilità, ok?
+
+[08:37] Professore: fermo restando che, sai, una volta che hai registrato il kernel, il modulo nel kernel, se uno sa come funziona dentro il kernel, può anche fare attraverso il modulo.
+
+[08:47] SPEAKER_01: Può fare un po' ovunque.
+
+[08:49] SPEAKER_01: Quindi sì, posso fare, cioè si fanno casini immondi con... Lì se uno vuole se lo deve studiare bene come fare, se vuole lavorare da hacker... No, non ci proverò, è più per curiosità.
+
+[08:59] Professore: Però diciamo che il... Perché il mio sistema già è...
+
+[09:06] Professore: Utilizzando le librerie del kernel, posso prendere il codice del kernel e rivoltarlo come un calzino, ok?
+
+[09:14] Professore: Quindi io ho proprio i sorgenti e posso fare quello che voglio.
+
+[09:18] Professore: Cioè, voi eventualmente mi potreste scaricare l'ultimo kernel Linux, andare a vedere come funziona determinate strutture dati e guastarne qualcuna, ok?
+
+[09:33] Professore: E poi ricombinare.
+
+[09:36] SPEAKER_01: Non so se hai sentito, c'era una distro nuova che si chiama CatchOS che ha rifatto lo scheduler, ha rifatto un sacco di... In alcuni corsi, magari se... Alcuni più avanzati... Vero introduttivi.
+
+[09:55] Professore: Non questo è introduttivo, ok?
+
+[09:58] Professore: Ci sono proprio corsi di kernel programming, ok?
+
+[10:01] Professore: Quindi uno si focalizza su delle componenti
+
+[10:04] Professore: E lì va a modificare lo scheduler, va a mettere le mani su alcuni pezzi del kernel.
+
+[10:13] Professore: Di solito si lavora in macchina virtuale, no?
+
+[10:17] Professore: Per non fare disastri.
+
+[10:19] Professore: Perché poi i disastri diventano... Poi magari perdete proprio il controllo della macchina, ok?
+
+[10:26] Professore: Allora, si va in macchina virtuale.
+
+[10:30] Professore: si lancia tra i diversi sistemi operativi lanciate il sistema operativo Linux modificato da me ok?
+
+[10:39] Professore: e poi si vede come funziona.
+
+[10:47] Professore: Bisogna imparare un po' gli strumenti della programmazione kernel, una volta che uno entra dentro un pochettino le strutture dati che vengono utilizzate, le funzionalità eccetera, poi si può effettivamente ripartire.
+
+[11:01] SPEAKER_01: perché penso sia per qualsiasi sviluppatore su dieci volte che si prova ad avviare un codice se ti funziona alla decima è già un miracolo immagino farlo a livello kernel.
+
+[11:10] Professore: Adesso avete degli strumenti che vi supportano se magari utilizzate nella vostra cartella di programmazione kernel ci mettete un codex o un
+
+[11:20] Professore: un antigravity, magari qualcosina riuscite anche voi ad arrangiare.
+
+[11:26] SPEAKER_01: Sì, ma senza un'ingegnerizzazione adeguata, andiamo a caso.
+
+[11:31] Professore: No, no, oddio, ci sono degli strumenti adesso che permettono di navigare anche il codice e capire un po'.
+
+[11:37] Professore: Se uno, infatti questo ormai non c'ho tempo, però vorrevo magari un obiettivo per i futuri corsi,
+
+[11:46] Professore: potrebbe essere proprio quello di vedere quanto prendere magari un kernel più semplice e condividerlo con un motore anche di visualizzazione che permette magari di navigare le componenti per poi andare a metterci le mani.
+
+[12:11] SPEAKER_01: Io fino ad ora ho sempre avuto problemi di contesto con gli A
+
+[12:15] SPEAKER_01: Cioè finché si tratta di roba piccola, sì, ma già se poi banalmente la libreria che abbiamo fatto con il professor Bene Recetti non è che ci aiutasse molto perché dovevamo...
+
+[12:30] SPEAKER_01: C'è il classico copilot di DPS che prende tutte, poi c'è anche cloud code, ma la bisogna essere bravi a scrivere codice per usare cloud code.
+
+[12:40] SPEAKER_01: Banalmente noi a mano non riuscivamo a vedere tra le 18 interfacce che il professore ci aveva detto di fare, in antepere che c'era un bug per una...
+
+[12:53] SPEAKER_01: per una struttura dati, per gli insiemi che usavano lo stesso stack che c'era all'ordinamento relativo e quello con gli A adesso diventano sempre più performanti Antigravity non l'avete provato?
+
+[13:12] SPEAKER_01: Diciamo che purtroppo si sono sviluppati molto quando il progetto l'avevamo già consegnato.
+
+[13:23] SPEAKER_00: Diciamo anche quando il progetto non c'era ancora.
+
+[13:26] SPEAKER_00: Infatti c'è Gemi 3.1 Io con Antigravid ho sviluppato un piccolo ombri per la PSP per sfizio e praticamente ti permetteva di collegarti a un server privato per generare la musica dalla PSP una cosa molto sfiziosa tutto codice in C praticamente era
+
+[13:50] Professore: E quindi diciamo che adesso diventa importante sapersi molto orientare, quindi capire diciamo così come funzionano i software, perché se no altrimenti dai deleghi tutto agli AI e fermi completamente il contatto.
+
+[14:07] Professore: diventa fondamentale capire, diciamo così, ogni elemento, come è strutturato, però è diventato anche indispensabile, visto che ci sono questi strumenti, è inutile mettersi
+
+[14:23] Professore: Oddio, magari tra un po' si spegnerà tutto e dovremmo tornare a programmare senza nessun tipo di supporto.
+
+[14:31] Professore: Però sta diventando un paradigma di programmazione.
+
+[14:36] SPEAKER_01: Ma il supporto va bene, ci sta che non scrivo più ogni tastino della cosa, però se il progetto è grande e io non so quello che sto facendo... Ci stanno sviluppando chiaramente anche gli strumenti di supporto.
+
+[14:48] Professore: per orientarsi, per capire come è strutturato il codice, per andare a mettere le mani esattamente il punto giusto, quando uno vuole fare una determinata cosa, non so, io voglio modificare lo scheduler e voglio sostituire uno scheduler, quello attuale, con uno scheduler più semplice, voglio vedere quali sono gli effetti dell'app.
+
+[15:13] Professore: sulle performance del sistema operativo faccio dei benchmark per vedere lo scheduler mio fatto a mano rispetto a
+
+[15:24] Professore: Chiaro che sui multicore diventa impossibile andare, quindi bisogna magari concentrarsi su un sistema più semplice, però non è facile la programmazione kernel, per questo appunto qui già soltanto mettere le mani sui moduli già vi dà almeno un flavor di quello che significa combinare degli aspetti del kernel.
+
+[15:54] Professore: io direi che se volete provare non so se c'è un computer oggi però vabbè ci sono i computer qua esatto se volete potete scaricarvi questo to do e potete cominciare intanto a orientarvi sul to do per provare appunto a fare questo tipo di operazione questa è particolarmente diciamo così è interessante perché abbiamo visto l'altra volta che il problema
+
+[16:23] Professore: era quello di portare dalla memoria kernel portarla in memoria utente qui noi vogliamo invece leggere da memoria utente e portarla in memoria kernel quindi c'è un'operazione opposta da fare e così abbiamo visto i due trasferimenti che sono proprio quelli che permettono al kernel poi di dialogare con i processi
+
+[16:54] Professore: Allora, vediamo un attimo qua.
+
+[16:56] Professore: Allora...
+
+[17:27] Professore: quindi dovete fare scaricate lo drive vediamo insieme la
+
+[17:54] SPEAKER_01: il caiono sarebbe kernel object, giusto?
+
+[17:57] SPEAKER_01: si, kernel object allora...
+
+[18:35] SPEAKER_03: Prendiamo qua.
+
+[18:36] SPEAKER_03: Prendiamo qui.
+
+[18:37] SPEAKER_03: Prendiamo qui.
+
+[18:38] Sconosciuto: Prendiamo qui.
+
+[18:39] Sconosciuto: Prendiamo qui.
+
+[18:40] Sconosciuto: Prendiamo qui.
+
+[19:05] SPEAKER_01: ma sulla macchina virtuale non c'è la WS si si vede meglio?
+
+[19:17] Professore: si allora quindi questo è il vedete il codice bisogna includere le librerie che ci servono il device name bisogna darglielo
+
+[19:35] Professore: e qua c'è il buffer in questo caso questo è il messaggio precedente ok?
+
+[19:43] Professore: questo è il messaggio che avevamo fatto e qui abbiamo la read questa ci dovrebbe già essere ok?
+
+[19:56] Professore: qualcuno sta facendo?
+
+[19:57] Professore: sta provando a fare?
+
+[19:59] Professore: allora quindi qui abbiamo la read
+
+[20:03] Professore: dove prendiamo appunto il struct del file su cui si vuole lavorare, tutto già aperto, il buffer, il length del buffer e c'è anche l'offset eventualmente.
+
+[20:27] Professore: Quindi questi sono i byte
+
+[20:32] Professore: questa era la situazione che avevamo prima essenzialmente quello che si fa si lavora su copy to user quindi questa funzione permette di andare a copiare i byte che sono stati prima calcolati qui qui abbiamo il numero di byte questo è il buffer e qui
+
+[21:01] Professore: appunto c'è l'offset che questo deve essere chiamato come un offset che mi dice da dove devo cominciare a leggere
+
+[21:37] SPEAKER_01: Ma in questo caso perché si è scelto di usare le unsized int?
+
+[21:44] SPEAKER_03: Allora... Sai sti?
+
+[21:48] SPEAKER_01: È l'unsized int.
+
+[21:49] SPEAKER_01: Perché si è... Dove?
+
+[21:50] SPEAKER_01: Sai sti... Ah sì.
+
+[21:51] SPEAKER_01: Allora, questa era il...
+
+[22:02] Professore: Perché il copy to user, se andate a vedere il prototipo del copy to user, vuole sia il buffer, il byte to copy, dovrebbe essere quello che effettivamente riesce a copiare.
+
+[22:26] SPEAKER_01: Forse è per evitare il buffer overflow?
+
+[22:31] Professore: Si va a dare un'indicazione molto di basso livello di quello che deve essere fatto.
+
+[22:38] Professore: Qui abbiamo fatto il messaggio, sta qui.
+
+[22:43] Professore: Eccolo qua.
+
+[22:48] Professore: Qui vediamo la lunghezza del messaggio e questi sono i bytes che effettivamente devono essere copiati, che si riescono a copiare.
+
+[23:06] Professore: Qui si valuta qual è la posizione dell'offset, quindi della posizione di lettura del messaggio e quindi non deve essere superiore alla lunghezza del messaggio e poi qui abbiamo che i byte che effettivamente devono essere copiati è il minimo tra la lunghezza
+
+[23:41] Professore: eccola qua viene passata qui viene passata qui la lunghezza che ci si aspetta il messaggio
+
+[24:13] SPEAKER_03: La lunghezza del messaggio.
+
+[24:31] Professore: Questa è la lunghezza massima.
+
+[24:33] Professore: Questa è la lunghezza tenendo conto dell'offset.
+
+[24:44] SPEAKER_03: e quindi
+
+[24:48] SPEAKER_01: Scusi, è sempre per evitare i buffer overflow, no?
+
+[24:52] SPEAKER_01: Cioè per copiare si fa il minimo tra la lunghezza effettiva... Perché se... E state referenziando l'offset, state referenziando l'offset, quindi sta facendo la lunghezza del messaggio e l'offset da andare, in modo che se poi gira al massimo copiate la lunghezza, per questo fa il minimo, no?
+
+[25:15] SPEAKER_01: E quindi è quello il motivo.
+
+[25:38] Professore: grazie
+
+[25:52] SPEAKER_03: provate un attimo ad implementare questa forse è un po' complicato fare questo esercizio oggi non c'è anche l'import dovrebbe essere Linux kernel se non sbaglio se va sopra
+
+[26:21] Professore: si è linux modulata per me l'acqua si a teoria da te la copaio per me no il mac ok si questo è pensato per il minuto per il minuto per il virus si vabbè manco cambiano schifo e lo chiuso
+
+[26:42] Professore: In questo caso siamo Kerr nel programma, quindi non è più standard POSIX, siamo usciti dalla clinica al MEC non può fare questa cosa.
+
+[26:54] Professore: In effetti ci siamo sporti un po' oltre.
+
+[26:57] SPEAKER_01: Doveva andare così.
+
+[26:58] SPEAKER_06: Comunque la parte qui, diciamo così,
+
+[27:10] Professore: adesso nuova prevede il fatto di implementare invece la write quindi anche qua bisogna in questo caso scriverlo il messaggio e quindi invece che copy to user e copy from user quindi viene preso il messaggio dallo spazio utente e viene tradotto nello spazio kernel
+
+[27:42] Professore: E poi il messaggio, che sarebbe quello che viene in questo caso letto, viene chiuso con una stringa, i write to copy sono buffer size, in questo caso è facile, il minimo tra la lunghezza e il buffer size meno uno,
+
+[28:10] Professore: e questi sono i byte che vengono seriamente letti.
+
+[28:14] Professore: Nella struttura file, qui vedete, ci siete?
+
+[28:22] Professore: Qui viene agganciato al read, leno read, al write, leno write, e quindi a questo punto si sono implementati queste funzionalità.
+
+[28:39] Professore: l'inizializzazione prevede una registrazione questa è una registrazione di un Charter device che restituisce il Major Number che avete visto prima e quindi poi quello che viene fatto qui nel caso di errore tutto viene scritto vedete questo Kern Alert
+
+[29:08] Professore: questo è un messaggio che viene scritto nel log del kernel perché si passa un void e non nulla?
+
+[29:16] SPEAKER_01: che differenza fa per i puntatori?
+
+[29:19] Professore: in questo caso è identico, si può provare a togliere il parametro di ingresso void?
+
+[29:30] SPEAKER_01: Ma quale dovrebbe essere il senso di passare solo void?
+
+[29:35] SPEAKER_01: C'è questo encino, l'abbiamo fatto.
+
+[29:37] Professore: Cosa si aspetta a livello di... deve corrispondere a livello di... No, nel Science Summit.
+
+[29:48] SPEAKER_01: Sotto, sotto, sotto.
+
+[29:49] SPEAKER_01: Nella... Sì, ma andiamo persino di metallo, un po' di plastica.
+
+[29:55] SPEAKER_01: Lo stavamo vedendo, nella funzione...
+
+[30:03] Professore: Può aspettare anche degli altri parametri eventualmente, non necessariamente nulla.
+
+[30:09] Professore: Dipende da come è configurato questo init.
+
+[30:15] Professore: Può essere initializzato eventualmente anche con altri parametri.
+
+[30:22] Professore: poi diciamo c'è una signature un po' strana perchè static intef lì ok però doppio trattino doppio underscore init staccato e lo init è la forma che lui si aspetta come funzionalità da leggere per essere strutturato come driver cioè si aspetta dei dati
+
+[30:46] Professore: Quindi più che altro le funzioni sono strutturate come lui se le aspetta.
+
+[30:53] Professore: Poi vanno riempite in modo opportuno.
+
+[30:57] Professore: Sul fatto che possa prendere qui il void anziché nulla, bisognerebbe andare a vedere in che altri modi può essere invocato.
+
+[31:13] Professore: Qui stiamo entrando un pochettino dentro un codice che in un certo senso è già prefabbricato rispetto a quello che il kernel si inizia.
+
+[31:23] Professore: Quindi prendiamolo come un template rispetto al quale poi si vanno a riempire le parti che ci interessano.
+
+[31:34] Professore: Infatti non so se forse il to do va un po' oltre quelle che
+
+[31:42] Professore: sono le competenze che per esempio ecco qui, qui c'è il modul init, il modul exit in cui si vanno ad invocare yellow init e yellow exit quindi questa è la funzione che si aspetta di avere un puntatore a void, no, non è un puntatore a... questa è la funzione modul init che si aspetta l'ello pivot
+
+[32:10] Professore: e poi si aspetta una funzione che ha un prototipo che è già prestabilito modulo exit e low exit e poi ci sono le altre caratteristiche che spiegano qual è la licenza, modulo, descrizione quindi questa in un certo senso è un template
+
+[32:37] SPEAKER_07: Questo costa 200 euro.
+
+[32:38] SPEAKER_07: Ok.
+
+[32:39] SPEAKER_07: Non si chiama bimbi.
+
+[32:39] SPEAKER_07: Questo è un ninja.
+
+[32:40] SPEAKER_07: Comunque, per poterla utilizzare... Poi questo modulo.
+
+[32:43] SPEAKER_07: Abbiamo detto che partiamo dal ninja.
+
+[33:09] SPEAKER_03: Ok, abbiamo già questi moduli.
+
+[33:10] Sconosciuto: Poi andiamo... Picmeno di uno.
+
+[33:39] Professore: Questo titolo dovremmo aver installato.
+
+[33:56] Professore: Lei è riuscito a farlo?
+
+[33:58] Professore: Sì.
+
+[34:01] Professore: Lei riesce?
+
+[34:03] Professore: Perfetto.
+
+[34:05] Professore: Molto bene.
+
+[34:10] SPEAKER_06: Se noi andiamo a vedere il... Mi piace molto il pecanino, il bello ancestrale.
+
+[34:17] SPEAKER_07: Cioè, vedo ti presenti così quasi fortissimo.
+
+[34:22] SPEAKER_06: Il bugging, no, del Gerner.
+
+[34:24] SPEAKER_06: Come stanno i suoi libri insieme.
+
+[34:26] SPEAKER_05: Ma in realtà nella vita reale si è così, però tu ti percepisci così, la vita è più fina.
+
+[34:30] SPEAKER_03: Mi piace avere il cingale, come è il suo.
+
+[34:39] SPEAKER_05: è proprio una genetina ragazzi in fondo
+
+[35:09] Professore: un po' di operazioni che sono state scritte nel suo log, sono il log del kernel, questo serve solo per visualizzarlo, questo dmessage, e qui in fondo andiamo a vedere qual è il numero che è stato assegnato al modulo.
+
+[35:34] Professore: Una volta che abbiamo assegnato il numero, possiamo a questo punto andare a creare il device.
+
+[35:48] Professore: MkNode.
+
+[35:56] Professore: Siamo sul dev che fa parte di un file system dedicato proprio ai device.
+
+[36:21] Professore: Vediamo il numero che abbiamo letto, nel mio caso è 239 e poi 0 come mai.
+
+[36:31] Professore: Una volta fatto questo possiamo vedere con ls-l.
+
+[36:33] Professore: Chi siete?
+
+[36:45] SPEAKER_06: il drive è nella 150 euro posso fare un po' d'oltre?
+
+[36:47] SPEAKER_06: e non l'ha caricato
+
+[37:15] Professore: quindi ce l'abbiamo quindi è un file di tipo carattere proprietari abbiamo caricato questo è il suo driver ce l'abbiamo e quindi a questo punto possiamo provare a testare una scritta quindi avevamo messo abbiamo fatto il
+
+[37:43] Professore: Abbiamo implementato la Bride, vediamo se questa Bride è stata implementata bene.
+
+[37:48] Professore: Quindi facciamo un echo.
+
+[37:51] SPEAKER_07: Prova.
+
+[37:51] SPEAKER_01: E poi lo andiamo a scrivere come se andassimo a scrivere su un file.
+
+[37:54] Sconosciuto: Ok?
+
+[38:17] SPEAKER_01: e poi professore penso ci siano due typo il maggiore vicino al forward slash e poi c'è e forse ora ci vuole il sudo
+
+[38:44] Professore: Non so se ho dato i permessi sul file.
+
+[38:47] Professore: Devo fare CHMOD.
+
+[38:48] Professore: Esatto, devo fare CHMOD.
+
+[38:50] Professore: Esatto.
+
+[38:51] Professore: Infatti manca, ecco perché, perché manca.
+
+[38:54] Professore: Questo lo faccio in Super User.
+
+[38:57] Professore: Super User, CHMOD.
+
+[39:01] SPEAKER_03: 366, che abbiamo visto prima.
+
+[39:04] SPEAKER_03: Dev.
+
+[39:11] Professore: Quindi a questo punto ho dato i permessi.
+
+[39:14] Professore: che dovrebbe andare.
+
+[39:19] Professore: Adesso abbiamo scritto, ora dobbiamo leggere per vedere se quello che è scritto si legge.
+
+[39:26] Professore: Quindi adesso se la tiene in pancia il kernel e quindi dobbiamo farglielo sputare di nuovo nello spazio utente.
+
+[39:34] Professore: Quindi andiamo con echo, no cut, perché dobbiamo leggerlo come un file, cut,
+
+[39:44] Professore: E poi andiamo.
+
+[39:47] Professore: Il cat richiamerà la sua open, per il cat è come se leggesse un file, invece di leggere il file va praticamente a chiamare le read del driver.
+
+[40:02] Professore: Vedete?
+
+[40:08] Professore: C'è prova?
+
+[40:09] Professore: Sì.
+
+[40:11] Professore: Abbiamo cambiato la scritta, quindi abbiamo a questo punto la possibilità di interagire con il modulo e il modulo ha una sua memoria che può essere appunto... Su PopS, iRython, erano fatto due gigabyte di RAM e così via.
+
+[40:36] Professore: Questo è la scritta.
+
+[40:38] Professore: Ok?
+
+[40:39] Professore: Quindi...
+
+[40:41] Professore: Era un modo per far vedere quindi non soltanto la lettura ma anche la scrittura.
+
+[40:48] Professore: Comunque scrivere non è proprio immediato, comunque il codice è abbastanza... Ovviamente sono funzionalità che uno per comprenderle si deve studiare proprio a fondo come è strutturato il modulo kernel però mi interessava essenzialmente darvi un'idea del fatto che uno
+
+[41:09] Professore: si possono creare dei driver programmando, si può leggere e scrivere, c'è questo bisogno di andare a distinguere tra memoria utente e memoria kernel e far passare l'informazione da una parte o dall'altra, i moduli devono essere registrati.
+
+[41:32] Professore: Adesso però volevo farvi vedere che i moduli possono anche non essere
+
+[41:38] Professore: soltanto driver, ok?
+
+[41:41] Professore: Perché, per esempio, noi avevamo visto, vi ricordate il Proch come file system?
+
+[41:48] Professore: Cioè se vuoi, questo lo può fare anche, vabbè, chiunque ha la macchina, potete andare a, per esempio, andare a vedere cosa c'è dentro Proch, vi ricordate c'erano una serie di informazioni, è un file system virtuale, ok?
+
+[42:06] Professore: che mantiene una serie di informazioni sia sui processi in esecuzione, ma anche alcune statistiche di funzionamento della macchina.
+
+[42:16] Professore: Questo è un file system, quindi per esempio potete provare cat, approach, cpu info, sempre leggendo la head, per esempio, quindi le prime righe, oppure memoria info, poi halftime,
+
+[42:35] Professore: poi potete vedere per esempio ci sono per gli ID di tutti i processi e quindi potete andare a vedere attraverso questa approach le informazioni che riguardano tutti i processi quindi è un modo per leggere attraverso il file system le informazioni del process control block dei vari processi ma questi file ovviamente questo è un file system virtuale
+
+[43:04] Professore: non è un vero file system, nel senso che non sta sul disco, sul disco fisico.
+
+[43:15] Professore: È creato, quindi quando voi interrogate questo file system, dinamicamente il sistema cerca la risposta tra le sue strutture dati, cioè state praticamente interrogando il kernel con questa interfaccia.
+
+[43:30] Professore: Quindi l'interfaccia che viene usata è quella di un virtual file system, quella parte alta che abbiamo detto, quindi che espone tutte quelle API.
+
+[43:39] Professore: Ma poi quelle API vengono implementate per cercare le informazioni nelle strutture dati del server.
+
+[43:48] Professore: E quindi questi non sono su disco ma vengono generate dinamicamente queste informazioni.
+
+[43:56] Professore: interrogando il server, cioè il kernel.
+
+[44:03] Professore: Allora, sulla base di questo, siccome anche questo è una sorta di... può essere anche questo esteso, ok?
+
+[44:22] Professore: Quindi io vi propongo di andare a vedere
+
+[44:26] Professore: un esercizio che ci consenta di introdurre una nuova struttura dentro questa file system virtuale cioè creiamo ancora una volta una sorta di file virtuale che non è un vero e proprio file ma ci consente di per esempio restituire una scritta
+
+[44:55] Professore: quello che per esempio vi lascio come esempio di questo modulo lo potete scaricare dovrebbe stare nella cartella sotto cartella approach dovrebbe esserci quindi potete prendere questo s1 info che semplicemente scrive fa una scritta quindi va a leggere quello che c'è dentro
+
+[45:25] Professore: quindi consente di leggere attraverso cat per scrivere per esempio S1 per il modulo, una cosa del genere.
+
+[45:40] Professore: Poi l'estensione sarebbe quella di farvi scrivere anche il kit
+
+[45:46] Professore: e il tipo di processo che è stato lanciato esatto lo lancia ok quindi per esempio se io faccio cat il processo è cat e questo è il suo video che cambia ogni volta che tu marchi quindi va in qualche modo a interrogare il getpid del processo e lo va praticamente a comunicare
+
+[46:13] Professore: E quello che possiamo vedere, cioè la cosa interessante, è che ancora una volta si può fare, quindi questo non è, è un file quello che stiamo creando, cioè un file virtuale, che in realtà sottostante non è altro che un modulo, stiamo creando un modulo del kernel che gestisce questa operazione.
+
+[46:35] Professore: Non lo dobbiamo registrare come un driver, questo qui, perché non è un driver,
+
+[46:42] Professore: ma è un modulo comunque del kernel perché... Allora, una cosa che possiamo... Allora, vedete un attimo qua.
+
+[46:52] Professore: Ci sono altri esercizi.
+
+[46:54] Professore: Vedete, cioè qui abbiamo una struttura di questo tipo.
+
+[46:58] Professore: Guardate un attimo.
+
+[47:00] Professore: Linus kernel e poi abbiamo tutta questa parte di lotocol, ok?
+
+[47:06] Professore: Modules, che possono essere...
+
+[47:08] Professore: dei driver ma possono essere anche altri moduli che fanno altre cose ok che lo estendono e si può estendere in vari modi ok sapendo andando a vedere dove mettere le mani quindi adesso oltre visto che abbiamo introdotto il concetto di driver andiamo a vedere a toccare più che altro che a vedere insomma a toccare sulla vostra macchina il appunto questi altri
+
+[47:36] Professore: altre modalità di utilizzare questi moduli vedremo innanzitutto questo aspetto qui quindi quello che farà il cat andrà a chiamare questo file però questo file sarà una sorta di interfaccia che mi metterà
+
+[48:06] Professore: mi metterà in comunicazione con una callback di Read, come al solito, come l'altra volta, e questa volta la callback della Read mi dovrà, oltre che scrivere questa informazione, anche dare le informazioni sul PID e su che tipo di processo ha invocato questo file virtuale.
+
+[48:37] Professore: quindi attenzione che per avere informazioni sul processo in esecuzione lato kernel ho bisogno di current devo prenderli non con il getpid e con quelle sono delle primitive di libreria user level qui posso andare a risalire attraverso questa struttura current
+
+[49:08] Professore: e il comando si deve costruire un messaggio con una sprintf quindi creo una stringa e poi questo messaggio deve essere portato sulla memoria utente installazione come al solito prevede un mail eccetera eccetera
+
+[49:36] Professore: per quanto riguarda una volta fatto questo andrebbe comunque
+
+[50:04] Professore: Bisogna ricordarsi di rimuovere, ok?
+
+[50:11] Professore: Dobbiamo rimuovere il nostro driver.
+
+[50:17] Professore: Quindi dovremmo fare uno, uno stato.
+
+[50:53] Professore: Allora, rimuoviamo per esempio l'Ello Driver e Drive.
+
+[51:06] SPEAKER_03: E' un po' un po' un po'
+
+[51:35] SPEAKER_03: L'indifferenza è minima.
+
+[51:41] SPEAKER_01: Non ci credo.
+
+[51:42] Professore: E poi, sudo, lo devo anche rimuovere.
+
+[51:49] SPEAKER_06: Qua era come la pubblicità.
+
+[51:50] SPEAKER_06: Non lo fa.
+
+[51:51] SPEAKER_06: Ok.
+
+[52:05] Professore: Adesso torniamo indietro, e andiamo a vedere.
+
+[52:11] SPEAKER_05: Tipo qua devi attaccare il suo castello qua.
+
+[52:16] SPEAKER_05: Si stai presentando.
+
+[52:19] SPEAKER_04: Guarda davanti.
+
+[52:24] SPEAKER_04: Io là davanti, c'ho... No, c'è uno scheletro.
+
+[52:26] SPEAKER_05: PEN PEN PEN PEN PEN
+
+[52:35] SPEAKER_04: No, l'ho sbagliato, ho miscritto.
+
+[52:37] SPEAKER_06: Volevo zoomare fuori.
+
+[52:39] SPEAKER_06: Questo è quello.
+
+[52:54] SPEAKER_06: No, non lo so.
+
+[52:55] SPEAKER_05: Ho fatto il botto di un'opera complimenti che ho fatto, mi sta tentando che ho fatto qui.
+
+[53:05] SPEAKER_05: Perché sei impreciso così?
+
+[53:07] SPEAKER_05: Il botto è entrato e hai scioppato.
+
+[53:10] SPEAKER_05: No, perché sono troppo forte.
+
+[53:12] SPEAKER_05: Allora...
+
+[53:19] Professore: vedete questo è un altro modulo che però non è un driver in questo caso però è un modulo quindi ancora una volta dobbiamo fare programmazione kernel vanno implementati in questo modulo una rigida uscita sulle persone questa cosa è più semplice perché devo semplicemente creare il messaggio
+
+[53:49] Professore: size off meno una volta l'offset me lo devo aspettare quindi viene gestito l'offset e il copy qua è molto più lineare ok c'è il buffer qui c'è il messaggio e poi qua c'è il message line ok quindi questo è il messaggio che devo copiare
+
+[54:24] Professore: e qui sto linkando con questa struttura questo è un file system virtuale quindi è analoga la situazione a quella dei driver quindi posso andare a crearmene una nuova entry in questo file system virtuale
+
+[54:53] Professore: vado a implementare, quindi a connettere la RID con quella che ho creato precedentemente.
+
+[55:03] Professore: Quindi c'è una struttura, quindi quelle strutture che vedete prima ricorrono anche su altri tipi, diciamo così, di interfacciamento, stile, file, dove appunto
+
+[55:19] Professore: la comunicazione alla struttura, è strutturata con delle API che sono quelle dei file.
+
+[55:21] Professore: Costing?
+
+[55:21] Professore: Costante.
+
+[55:21] Professore: Costante.
+
+[55:33] SPEAKER_01: È costo che non è modificabile, giusto?
+
+[55:36] Professore: Ma comunque, ripeto, come l'altra volta, questi sono dei template che uno si ritrova da dover, diciamo, utilizzare, che sono già prefabili, cioè non è che se io cambio questa struttura qui, non funziona perché non si ritrova rispetto a quello che si aspetta il resto, perché si deve interfacciare come prima si deve interfacciare la strutturazione dei driver,
+
+[56:01] Professore: qui si deve interfacciare la strutturazione di quel particolare file system dinamico che è quello dei brocci.
+
+[56:13] Professore: Il meccanismo è simile alla registrazione di prima, soltanto che qui non dobbiamo registrarci come driver, dobbiamo solo agganciarci a questo.
+
+[56:22] Professore: Quindi c'è comunque uno schema analogo, c'è questa inizializzazione
+
+[56:33] Professore: che crea una entry in queste entry delle procedure quindi si crea una nuova entry questa è il messaggio che viene scritto sul log e questa è all'uscita quello che succede e quello che viene scritto sul log cioè si rimuove la entry
+
+[56:59] Professore: quando si esce questo è il modo standard con cui si creano questi moduli questi moduli che vanno ad implementare una sorta di interfacciamento tramite file tramite pezzi di file system quindi questo vale per dev vale per approach vale per sys
+
+[57:29] Professore: ok?
+
+[57:30] Professore: avete presente il sys quindi dove ci sono tutti quei file che descrivono il sistema anche per quelli se io voglio aggiungerne uno mio dummy dovrò interfacciarmi con una struttura, creo un modulo e mi interfaccio con una struttura di questo tipo ok?
+
+[57:48] Professore: quindi in questo caso se vogliamo vedere appunto i passaggi
+
+[57:55] SPEAKER_01: Cioè praticamente con questi template sto dicendo al sistema che sto creando un oggetto, non un oggetto, una funzione, una forma... Una nuova entry, una nuova, se vogliamo, diciamo così, un nuovo file in questa, o comunque, sì, un nuovo file.
+
+[58:12] SPEAKER_01: La tipologia che si aspetta.
+
+[58:14] Professore: Con la tipologia che si aspetta.
+
+[58:15] Professore: Quindi così come voi leggete, potete leggere tutti questi file CPU info, memo info,
+
+[58:23] Professore: posso aggiungerne uno io però glielo devo dire come quindi devo farli come li fa lui quindi devo creare lo stesso template riempendolo di informazioni differenti e posso agganciarlo come modulo quindi ognuno di questi viene implementato
+
+[58:50] Professore: in modo analogo quindi sono degli elementi che si possono agganciare e schiacciare dal kernel però vedete stiamo aggiungendo un pezzo proprio del kernel quindi quando voi fate questa operazione e si va a registrare quindi in modo diverso rispetto a un device driver ma comunque è una registrazione vedete qua qui c'è la
+
+[59:20] Professore: questa è la exit che porta praticamente alla distruzione della struttura e qui c'è la init che mi crea la entry ok?
+
+[59:34] Professore: quindi crea la entry devi andarla ad aggiungere qui a questa struttura e poi ovviamente controlla se tutto va bene e nel caso scrive
+
+[59:50] SPEAKER_05: nel log del kernel ma qua sbaglio c'è una variabile globale che non è utilizzata
+
+[01:00:15] SPEAKER_06: No, ti sbaglio.
+
+[01:00:19] Professore: Butter Sides, quando si crea la... Butter Sides viene utilizzato.
+
+[01:00:24] SPEAKER_01: Mi sto male.
+
+[01:00:26] SPEAKER_06: Auguri!
+
+[01:00:28] SPEAKER_06: Mi ha comprato la lina economista, ma è vero.
+
+[01:00:32] SPEAKER_06: Fidioso che l'ha fatto l'economista, credo, a tentature.
+
+[01:00:38] SPEAKER_06: Una per prova.
+
+[01:00:39] SPEAKER_03: Se gli effetti qua Butter Sides...
+
+[01:00:43] SPEAKER_01: Dovrebbe essere... è perché viene creato dinamicamente l'array di character del buffer, se non sbaglio.
+
+[01:00:51] SPEAKER_01: Se scende un po' più giù si vede.
+
+[01:00:56] SPEAKER_01: Il message.
+
+[01:00:57] SPEAKER_01: Dovrebbe essere lì, buffer size, no?
+
+[01:01:01] Professore: Questo invece viene inizializzato nella fase di dichiarazione, quindi non viene utilizzato.
+
+[01:01:08] SPEAKER_01: Vabbè però non stando proprio a livello basso, cioè stiamo a livello un po' più alto quindi non dovrebbe essere un problema se non lavoriamo con dei buffer predefiniti.
+
+[01:01:16] Professore: In questo caso lavora poi sulla lunghezza, quindi qui c'ho il message length.
+
+[01:01:22] SPEAKER_01: Il size off, quindi.
+
+[01:01:23] Professore: E questo poi viene copiata la memoria qui.
+
+[01:01:29] SPEAKER_01: E infatti perché ora non si fa la differenza con... Oddio l'offset c'è sempre, è un po' particolare.
+
+[01:01:38] SPEAKER_01: il messaggio è questo, questa è la lunghezza e poi qua è dove deve essere copiato la cosa strana non utilizzando il buffer passiamo un offset in read
+
+[01:01:58] Professore: quindi viene utilizzata la red che prende il buffer quindi la red sarebbe quindi devi portare il buffer, sarebbe memoria utente quindi questa viene riempita è dinamicamente perché è un puntatore comunque il buffer è sempre
+
+[01:02:29] Professore: quindi qui abbiamo che questo si riempie viene referenziato lì si passa il buffer, quello nella memoria utente e sarà copy to user che fa il lavoro di copiare message che sta in memoria kernel e copia tanti byte e gli mette
+
+[01:02:55] Professore: nella diciamo così variabile nel buffer che è preparato sul lato diciamo così dell'utente che sarebbe la read dell'utente la read lato utente va a fare questa operazione quindi quando la cat fa la sua operazione bufferizza quello che gli viene messo da qui preparato da qua sul suo buffer
+
+[01:03:20] Professore: quindi qui buffer size si in effetti è una variabile globale che non viene utilizzato ok quindi questo è per diciamo così vedere l'esempio a questo punto quello che si può fare quello che bisognerebbe fare è estenderlo come avevamo detto
+
+[01:03:48] Professore: Innanzitutto possiamo vedere il funzionamento di queste tecniche.
+
+[01:03:55] Professore: Quindi andiamo a vedere direttamente compilato.
+
+[01:04:06] Professore: Questo l'avevo già compilato, quindi non dobbiamo fare in questo caso null'altro che
+
+[01:04:22] SPEAKER_03: Facciamo la compilazione.
+
+[01:04:25] SPEAKER_03: Ok, qui abbiamo pronto il file.
+
+[01:04:48] Professore: E a questo punto possiamo andare a fare questo cut sul file che abbiamo appena creato.
+
+[01:04:58] Professore: Approach.
+
+[01:05:09] Professore: Innanzitutto vediamo se l'ha letto.
+
+[01:05:13] Professore: L'ha letto.
+
+[01:05:25] SPEAKER_06: c'è ma qui loro hanno non l'anno non c'è non c'è
+
+[01:05:56] SPEAKER_03: Poi devo creare, devo aggiungerlo come modulo nel kernel, quindi devo fare ints.
+
+[01:06:04] Professore: Giustamente va creato.
+
+[01:06:33] SPEAKER_04: ok allora una volta
+
+[01:07:03] Professore: Abbiamo fatto questo, dobbiamo vedere l'approche.
+
+[01:07:15] Sconosciuto: Ancora qualcosa.
+
+[01:07:36] SPEAKER_04: Poi con il cappolo...
+
+[01:08:11] SPEAKER_03: queste.
+
+[01:08:14] SPEAKER_03: L'ho chiamato in un altro modo qua.
+
+[01:08:18] Professore: Esatto.
+
+[01:08:19] Professore: Ok?
+
+[01:08:20] Professore: Quindi si è registratosi con un nome diverso.
+
+[01:08:23] Professore: SA1 Info Kernel.
+
+[01:08:26] Professore: Quindi a questo punto ho creato questa insieme a quindi possiamo fare nel listing dell'approach
+
+[01:08:40] Professore: Il momento in cui l'ha inserito?
+
+[01:08:43] SPEAKER_03: Ecco qua.
+
+[01:08:48] SPEAKER_06: Non viene visualizzato qui.
+
+[01:08:55] Professore: Non viene visualizzato come contenuto.
+
+[01:08:59] Professore: Attraverso la...
+
+[01:09:09] Professore: qua si vede però ok allora invece se vogliamo modificarlo ci siete?
+
+[01:09:22] Professore: l'avete provato?
+
+[01:09:25] Professore: ragazzi lei l'ha provato?
+
+[01:09:29] Professore: ha fatto anche il secondo?
+
+[01:09:30] Professore: ah perfetto io proprio oggi non giovo al computer comunque il concetto
+
+[01:09:38] Professore: Quindi il secondo ce l'ho di qua.
+
+[01:09:41] SPEAKER_04: Non ce l'hai o si è sfisciato?
+
+[01:09:47] SPEAKER_01: Ha detto che vuole andare per i fatti suoi come al solito.
+
+[01:09:52] SPEAKER_01: Ogni intanto decide di spegnersi.
+
+[01:09:54] SPEAKER_01: Ogni intanto no.
+
+[01:09:54] SPEAKER_06: In questo caso, vediamolo.
+
+[01:10:19] Professore: quindi qui si estende il messaggio quindi dobbiamo sempre leggere ok quindi va a modificare il messaggio iniziale viene creato aggiungendogli non solo il fatto che per il termine moduli ma anche il PID eccetera eccetera e il PID viene letto con
+
+[01:10:50] Professore: proprio una SPRINTF in questo caso, prendendo dalla variabile current il PID e il BOM.
+
+[01:10:58] Professore: Ok?
+
+[01:10:59] Professore: Quindi solo questa è la modifica, ovviamente poi va vista qual è la lunghezza, l'offset non deve essere maggiore di zero,
+
+[01:11:17] Professore: e quindi qua abbiamo il copy in cui si va a copiare essenzialmente come prima quindi lanciando questa nuova banalmente come ho visto precedentemente possiamo anche qui fare il make
+
+[01:11:47] Professore: Compila.
+
+[01:11:50] Professore: Dobbiamo a questo punto installare.
+
+[01:12:00] Professore: Come si installa bisogna disinstallare, sennò rimane.
+
+[01:12:06] SPEAKER_03: Comunque, qui abbiamo super user, this node,
+
+[01:12:16] SPEAKER_03: Qua Super user E' qua Un insert che è notato che itmemi E' notato
+
+[01:13:14] SPEAKER_03: Vediamo se adesso... Sì, ok.
+
+[01:13:42] Professore: Quindi a questo punto ce l'abbiamo e possiamo andare a interrogarlo come se fosse un file.
+
+[01:13:54] Professore: E qua abbiamo il PID e il CAPT.
+
+[01:13:56] Professore: Ok?
+
+[01:13:58] Professore: E anche questo va rimosso.
+
+[01:14:01] Professore: Prima lo stavo registrando con lo stesso nome e quindi chiaramente si lamentava.
+
+[01:14:08] Professore: No.
+
+[01:14:22] Professore: ok stessa cosa quindi vale per tutti i file system che hanno questa caratteristica quindi se volete appunto aggiungere qualcosa qualche entry a questi potete farlo nella forma dei moduli e quindi state potremmo andare a vedere che tipo di file era
+
+[01:14:46] Professore: Ok, allora adesso è possibile poi oltretutto far prendere anche dei parametri a questi moduli, ok?
+
+[01:14:56] Professore: Quindi i moduli possono prendere dei parametri, questo significa che uno può, nella fase in cui viene, vedete, ins mode, io posso fargli prendere proprio dei parametri passati come stringhe, analogamente a quando voi lanciate un programma, no?
+
+[01:15:14] Professore: quando lancio un programma gli potete passare dei parametri, qui si può fare anche la stessa cosa e se volete un esempio di questo lo trovate sempre nella cartella, ok?
+
+[01:15:27] Professore: Volendo possiamo dargli un'occhiata rapida per vedere il modo in cui questi comandi sono...
+
+[01:15:46] SPEAKER_04: che io c'è un po'
+
+[01:16:14] Professore: Quindi essenzialmente abbiamo una situazione simile alla prima, questi sono i parametri del modulo,
+
+[01:16:44] Professore: sono quelli che si aspetta sono di char e int ok?
+
+[01:16:54] Professore: quindi qui sono i due parametri che si aspetta il modulo sarebbe il corrispettivo degli argsi arg di... si esatto e quindi a questo punto c'è una descrizione volendo ok?
+
+[01:17:10] Professore: e poi si possono usare all'interno del codice qui vediamo questi sono i parametri eccetera eccetera quindi una volta che è impostato per avere dei parametri si fa la stessa cosa e quindi quando in realtà si installa il modulo
+
+[01:17:37] Professore: si installa andandogli a mettere la lista dei parametri e quindi possiamo in qualche modo avere dei moduli parametrici così in mod
+
+[01:18:05] Professore: questo e poi la lista quindi fa proprio degli assegnamenti bisogna proprio assegnargli i valori però se facciamo così non funziona rispetto al codice no?
+
+[01:18:19] SPEAKER_01: no no, questo è codice del modulo del kernel no no, proprio quello che c'è scritto perchè il repeat era statico se controlla non si...
+
+[01:18:35] SPEAKER_01: Tanto se vede su... è rassegnato Bisognerebbe passare, no, il puntatore?
+
+[01:19:00] SPEAKER_01: Static hint repeat e...
+
+[01:19:04] Professore: No, ma è qui.
+
+[01:19:05] Professore: Allora, questo... Quello è la inizializzazione... Ah, tu dici perché siccome è statico poi non... No, ma il punto è che si aspetta in questo caso di questi valori esterni.
+
+[01:19:25] Professore: Questo è il message.
+
+[01:19:27] SPEAKER_01: Qua li stiamo... No?
+
+[01:19:29] SPEAKER_01: Li stiamo già preinserendo questi parametri.
+
+[01:19:32] Professore: Sono inizializzati.
+
+[01:19:36] Professore: però non è constant è static ok quindi sono modificabili devo dire che rimane quello che c'era non è che deve essere costante può essere sovrascritto quindi vengono inizializzati ma poi sono in qualche modo sovrascritti nella fase di inizializzazione comunque per codificarlo questa data è questo il codice quindi facciamo il make
+
+[01:20:09] Professore: e poi andiamo magari a verificare questo hello parameter quindi bisogna subito diciamo andarlo qua guarda che base il tono è sempre in super user int mode ha preso vita
+
+[01:20:42] Professore: Quelli sono messi in quel modo perché ovviamente se io non gli do nessun parametro prende quelli.
+
+[01:20:52] SPEAKER_01: Non sapevo funzionassero così i parametri in ingresso per i moduli.
+
+[01:20:55] Professore: Quindi del modulo.
+
+[01:21:06] SPEAKER_03: 5, uguale.
+
+[01:21:13] SPEAKER_03: Dovrebbe rimanere, va bene.
+
+[01:21:22] Professore: Ah, perché forse già esiste, lo dovrime rimuovere.
+
+[01:21:26] SPEAKER_07: Rimuovere.
+
+[01:21:40] SPEAKER_03: Scritto male?
+
+[01:21:46] SPEAKER_03: Questo era Ello, invece?
+
+[01:21:47] SPEAKER_03: Ok, giusto, giusto, è ragione.
+
+[01:21:52] SPEAKER_03: Questo...
+
+[01:22:10] SPEAKER_03: e la rimozione ecco fatto grazie vediamo di riempire scrivere
+
+[01:22:49] SPEAKER_05: Quindi questo è fatto.
+
+[01:23:21] Professore: In questo punto abbiamo creato questo ELO parameter e possiamo andare a vedere...
+
+[01:24:10] Professore: quello che ha fatto essenzialmente l'ha scritto una volta che l'ho inserito ha scritto questo nella nella log poi ovviamente
+
+[01:24:32] Professore: l'esercizio qui prevedeva la modifica di questo quindi quello che fa non stampa sul terminale scrive dentro la memoria del kernel ok quindi di message mostra i messaggi di log che abbiamo visto quando si riempiono poi vengono sovrascritti con i vetri questo è quello che succede allora una cosa interessante come ultimo esercizio
+
+[01:25:01] Professore: che appunto è leggermente diverso è per esempio questo qua cioè creare un modulo kernel che sfrutta il timer questo è un altro elemento interessante che introduce un altro concetto cioè questi timer che possono essere accessibili dal kernel cioè per esempio appunto vogliamo un modulo che va a scrivere questi tick
+
+[01:25:30] Professore: sulla sulla sua sul suo log con dei secondi prestabiliti prestabiliti per esempio passandoli come parametri ogni due secondi stampa un tick e per farlo deve utilizzare un suo diciamo così timer interno ok
+
+[01:26:00] Professore: perché in realtà ogni operazione del kernel viene in qualche modo temporizzata da questo GIFES.
+
+[01:26:14] Professore: Questo è un tempo che il kernel effettivamente va ad assegnare ad ogni operazione che viene fatta.
+
+[01:26:24] Professore: Quindi infatti vedete che il timer
+
+[01:26:29] Professore: questo del modulo, può essere impostato ad un periodo che prevede, quindi si imposta alte, praticamente attuale, più il periodo per questo che sarebbe il TIC per secondo che si vuole stabilire.
+
+[01:26:54] Professore: Quindi, se questi sono i TIC per secondo,
+
+[01:26:58] Professore: quindi moltiplicati per il periodo significa che sto moltiplicando per i secondi e quindi io ogni volta quindi setto un timer in modo tale da poter effettivamente ottenere una stampa dopo una pausa di 30 secondi quindi vorrei un output che
+
+[01:27:27] Professore: viene in un certo senso impostato tramite parametri come abbiamo visto prima, quindi si inserisce questo modulo e questo modulo comincia a lavorare e a mandare tutti questi tic continuamente, non si ferma, ma li scrive sul log del kernel.
+
+[01:27:51] Professore: Se io li voglio visualizzare
+
+[01:27:54] Professore: diciamo continuamente devo dedicare un terminale per leggere il log del kernel e allora si può attraverso questo comando sudo dmmsg meno write significa che tutto quello che sta sul log viene scritto sul terminale
+
+[01:28:23] Professore: viene scritto sul terminale quindi quello viene dedicato e a quel punto dall'altra parte invece si può lanciare questo timer con il periodo che appunto uno vuole per fermarlo bisogna proprio rimuoverlo perché questo continuerà per come è stato scritto adesso lo dobbiamo vedere continuerà a funzionare quindi questo è un altro modulo
+
+[01:28:53] Professore: del kernel che fa un'altra cosa ancora.
+
+[01:28:58] Professore: Allora, innanzitutto questo pure lo devo rimuovere.
+
+[01:29:01] Professore: Ecco, vediamo che c'è la riuscita.
+
+[01:29:20] SPEAKER_05: Vedi, c'è questa pubblicità che ti prende.
+
+[01:29:22] SPEAKER_05: Qui si stanno col pesce, vanno a aspettare quattro bambini avete risposto.
+
+[01:29:47] SPEAKER_05: questi sono i parametri
+
+[01:30:17] Professore: Ho bisogno, in questo caso, di un intero.
+
+[01:30:24] Professore: Questa è la callback del timer.
+
+[01:30:34] Professore: Questi sono i kit.
+
+[01:30:40] Professore: La conta dei kit.
+
+[01:30:42] Professore: Questo va a scrivere sul...
+
+[01:30:48] Professore: va a scrivere sul log e qui abbiamo il set del timer quindi qui si modifica il timer la scrittura avviene lì questa è l'inizializzazione il setup
+
+[01:31:18] Professore: quindi viene associato in un callback a questo timer setup e qui anche c'è l'inizializzazione del primo timer questo è un po' diverso come modulo e questa è la exit quindi questo è un modulo che ha sempre come caratteristica un'inizializzazione e un exit
+
+[01:31:49] Professore: solo che in questo caso viene definita una funzione qui una timer callback che deve scrivere periodicamente ok?
+
+[01:31:59] Professore: quando viene chiamata questa funzione scrive su log e poi resetta il timer questo è quello che fa essenzialmente sfruttando questo che è il tempo interno di realtà qui fa una cosa in più vedete?
+
+[01:32:17] Professore: fa due cose, stampa due cose, stampa sia il TIC che anche il tempo del kernel, che è questo tempo interno del kernel, quindi possiamo vedere tutto e più.
+
+[01:32:32] Professore: Allora, che cosa succede?
+
+[01:32:33] Professore: Che appena si installa questo, ok?
+
+[01:32:36] Professore: Appena lo installiamo...
+
+[01:32:46] Professore: Facciamo il solito make per fare tutto da capo.
+
+[01:32:50] Professore: Poi, una volta che abbiamo questo, dobbiamo passare alla fase di, diciamo così, installazione.
+
+[01:33:05] SPEAKER_03: Dobbiamo quindi fare il super user, insmod,
+
+[01:33:16] Professore: timer ok periodo solo queste no basta il periodo qua devo mettere due ok e è partito il timer dall'altra parte però
+
+[01:33:49] Professore: Allora, in un'altra parte bisogna andare a vedere che sta succedendo.
+
+[01:34:13] Professore: quindi questo è partito il timer devo andare a vedere cosa sta succedendo sotto e quindi devo andare
+
+[01:34:39] SPEAKER_03: Grazie.
+
+[01:35:14] Professore: vedete questi sono quello che sta succedendo sullo sfondo ok quindi sta continuamente scrivendo sul log di kick vedete 41 42 eccetera eccetera e questo sono praticamente il tempo
+
+[01:35:36] Professore: un tempo interno del kernel che lui va ad associare ad ogni operazione che fa quindi ogni operazione praticamente è scandita da questo suo tempo che sta diciamo così adesso non ricordo in che unità di misura è scandita però dall'inizio in cui in esecuzione il kernel mantiene questa
+
+[01:36:00] Professore: diciamo così questa sorta di sequenzializzazione da quando si accende il computer quindi si resetta da quando il sistema operativo ok e quindi vedete che continua ad andare e per stopparlo devo chiaramente rimuovere il modulo perché il modulo è pensato per scattare continuamente quindi sudo
+
+[01:36:34] SPEAKER_04: e questo.
+
+[01:36:36] Professore: Non so, questi erano un po' degli esempi, forse per farvi vedere un po' come effettivamente i moduli che abbiamo in qualche modo visto non riguardano soltanto il device driver ma servono anche per creare altri componenti appunto del
+
+[01:37:02] Professore: del kernel prima abbiamo visto come si estendono a livello di interfacciamento agli altri diciamo così file speciali quindi andando a vedere anche quei file system virtuali che possono essere stesi con nuove entry purché appunto vengano configurate e installate e poi abbiamo visto invece che si possono anche fare altri moduli che fanno altro conoscendo appunto le funzioni
+
+[01:37:29] Professore: che poi possono interrogare le diverse risorse che sono messe a disposizione dal kernel.
+
+[01:37:35] Professore: Quindi questi erano soltanto degli esempi.
+
+[01:37:37] Professore: Essenzialmente il messaggio è che potete farvi i vostri moduli, si possono facilmente inserire e abilitare.
+
+[01:37:46] Professore: Nel caso dei driver bisogna anche registrarli e quindi andare a abilitarli con la registrazione, quindi prendere il major number e poi andarli a allocare come driver.
+
+[01:37:59] Professore: Nel caso degli altri moduli invece, avete visto, basta soltanto abilitarli con l'ins mode, il nome del modulo, e diventa immediatamente operativo.
+
+[01:38:12] Professore: Adesso perché abbiamo scritto sempre nel log del kernel,
+
+[01:38:15] Professore: ma in realtà può anche scrivere in altre parti.
+
+[01:38:23] Professore: L'altra cosa interessante è il discorso della comunicazione con i processi utente che va fatto tramite queste primitive che permettono di trasferire byte dal processo utente al kernel e dal kernel al processo utente.
+
+[01:38:38] Professore: Questa è la sintesi di quello che volevo farvi toccare con mano.
+
+[01:38:45] Professore: Adesso che sapete che ci sono queste funzionalità, vi potete svizzaprire a creare qualcosa di più sensato.
+
+[01:38:55] Professore: Domani volevo fare un'esercitazione di ripasso in preparazione per la prova.
+
+[01:39:08] Professore: A proposito della prova, il 2
+
+[01:39:14] SPEAKER_01: oppure è festa quindi hanno detto il 27 oppure il rappresentante se cercano il 28 eventualmente anche a via Claudio va bene a trovarla bisogna vedere se no il 27 io farei il 27 perché altrimenti facciamo il 27 va bene tanto un giorno in più un giorno in meno era per lei perché per il 28 però il 27 va bene era quella l'idea
+
+[01:39:46] SPEAKER_03: bene, qualcuno si deve ancora eseguire
+

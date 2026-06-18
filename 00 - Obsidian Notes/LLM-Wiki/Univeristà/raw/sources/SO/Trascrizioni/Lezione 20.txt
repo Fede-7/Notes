@@ -1,0 +1,1080 @@
+[00:00] Professore: ovviamente oggi ci avete avuto un buco vero?
+
+[00:02] Professore: si purtroppo non ho fatto in tempo a venire prima mancava il professore di statistica va bene allora cominciamo magari finiamo alle 18 oggi ok allora rimanchiamo un attimo
+
+[00:24] Professore: la memoria virtuale vediamo alcune cose stiamo parlando degli algoritmi di sostituzione di pagina e abbiamo detto appunto che vedevamo alcuni casi concreti per esempio l'ultima volta parlavamo di Linux che appunto abbiamo detto che utilizza meccanismi di global page replacement con un algoritmo che approssima last recently used
+
+[00:53] Professore: con una sorta di clock che era basato su queste due pagine due liste di pagine attive e inattive che possono essere appunto che via via vengono aggiornate e quindi abbiamo questa questa situazione
+
+[01:17] Professore: in cui si fa riferimento alle pagine per cui c'è stato un accesso, si memorizza per ciascuna pagina l'accesso attraverso un accessed bit e si ha una lista in cui ogni volta che si ha l'accesso ad una pagina, la pagina che viene riferita passa in testa
+
+[01:48] Professore: questa lista.
+
+[01:50] Professore: Quindi nello stesso tempo abbiamo che il bit di riferimento è periodicamente resettato in modo tale che si cerca di favorire le pagine che sono usate più recentemente, quelle per cui il bit di riferimento
+
+[02:15] Professore: è con più probabilità settato, settato ad uno.
+
+[02:20] Professore: Quindi che cosa succede?
+
+[02:23] Professore: Succede che praticamente le pagine via via che non vengono riferite passano da una lista di pagine attive ad una lista di pagine inattive.
+
+[02:40] Professore: Chiaramente le pagine inattive avranno il bit di riferimento
+
+[02:44] Professore: a 0 e poi nel momento in cui vengono riferite tornano col bit di riferimento a 1 il test da di sé questo è un meccanismo per cercare in qualche modo di far capitare in fondo a queste due liste quelle che sono le last recently used le pagine last recently used e qui c'è appunto un demone che periodicamente viene attivato
+
+[03:15] Professore: e verifica innanzitutto se occorre liberare memoria quindi c'è sempre comunque il monitoraggio di una soglia di frame liberi perché altrimenti se non c'è bisogno di memoria non si libera niente e se si va sotto una soglia di memoria allora si scorre ovviamente questa lista di pagine inattive e si comincia ad assegnarle
+
+[03:44] Professore: al pool dei frame liberi questo è il meccanismo l'idea è quella di cercare in qualche modo di approssimare il last recently used come meccanismo allora Windows anche supporta
+
+[04:11] Professore: demand paging ovviamente supporta copy and write paging memory compression tutte queste cose e quando si fa demand paging si fa demand paging con il clustering vi ricordate il fatto che quando si chiede una pagina si chiede pagine anche vicine e anche qui quindi si cerca praticamente quindi di
+
+[04:43] Professore: evitare i page vault iniziali, o comunque page vault in sequenza, cercando appunto di indovinare le pagine che verranno usate poi in futuro.
+
+[04:59] Professore: E quindi nel caso di Page Data il cluster è di tre pagine, quindi la pagina richiesta, quella prima e quella dopo, altrimenti il cluster è di sette pagine.
+
+[05:12] Professore: e poi Windows gestisce il working set per indovinare le località.
+
+[05:21] Professore: Vi ricordate il working set?
+
+[05:24] Professore: Come funziona?
+
+[05:42] Professore: quindi un minimo di pagine che il processo deve avere in memoria quindi il set minimo per un processo è il numero di pagine che il processo deve avere in memoria e poi c'è anche un massimo di pagine ok?
+
+[05:59] Professore: però sono usate in modo euristico queste due limiti cioè non sono dei limiti stretti non sono
+
+[06:09] Professore: quindi i valori possono essere ignorati a meno che non è settato un hard working set limit, quindi in quel caso, in casi specifici, si fanno diventare proprio dei vincoli stretti, altrimenti vengono utilizzate più che altro come euristiche.
+
+[06:25] Professore: Quindi, ancora una volta, qui abbiamo un'approssimazione dell'hastless entry used con, diciamo, clock, che fa sia global che local replacement.
+
+[06:39] Professore: Quindi clock sarebbe il second chance come meccanismo.
+
+[06:46] Professore: Quindi che cosa succede?
+
+[06:47] Professore: Quando la memoria è sufficiente si procede allocando free memory ogni volta.
+
+[06:53] Professore: Quindi ogni volta che c'è un page vault bisogna caricare una nuova pagina e si sceglie un frame libero e si va a piazzare, a scrivere la pagina sul frame libero.
+
+[07:07] Professore: Quando la quantità di free memory va sotto soglia, allora viene eseguito questo automatic working set trimmer per recuperare working memory.
+
+[07:21] Professore: Quindi questo rimuove pagine dai processi che hanno pagine in eccesso rispetto al working set minimo.
+
+[07:29] Professore: Si sfoltiscono, e come sempre, tutti quei processi che ci hanno
+
+[07:34] Professore: che hanno più pagine rispetto al minimo sindacale possono essere scoltiti quindi ovviamente ci sono delle preferenze cioè chi vengono scelte come vittima vengono scelti come vittima processi grandi non attivi rispetto a quelli piccoli e attivi e continua finché non si raggiunge la soglia
+
+[07:59] Professore: Se la soglia non si raggiunge sfoltendo fino al minimo, si va anche sotto al minimo, ok?
+
+[08:05] Professore: Perché è più importante che venga mantenuta la soglia di frame liberi piuttosto che mandare, diciamo così, in sofferenza un processo rispetto ad una soglia minima, ok?
+
+[08:20] Professore: Quindi il streaming viene fatto sia su processi utente che su processi di sistema.
+
+[08:30] Professore: Allora, quindi per fare questo bisogna che per ogni processo venga mantenuto una sorta di un working set.
+
+[08:45] Professore: Allora, un altro sistema, diciamo Unix, particolare per gestire sempre questo meccanismo di gestione,
+
+[08:59] Professore: sostituzione pagine, fornito da Solaris, Solaris Unix, quindi una versione Unix, qui ancora una volta si mantiene sempre una lista di 3 pages, poi si hanno una serie di parametri che vengono monitorati continuamente, questo parametro soglia, lots free, che in un certo senso
+
+[09:28] Professore: serve per verificare se un processo sta andando in sofferenza, test free che sarebbe un parametro per vedere se occorre incrementare il paging, cioè quali sono le pagine desiderate, libere, e poi si passa anche
+
+[09:58] Professore: a scandire con frequenze differenti questa quantità di memoria a disposizione.
+
+[10:06] Professore: Quindi il processo di questo page out, quindi di sfoltimento, parte sotto la soglia di Lost Free.
+
+[10:15] Professore: Quindi abbiamo questo page out che scansiona le pagine usando Second Chance, però è un Second Chance che lavora con due lancette, ok?
+
+[10:27] Professore: praticamente una sorta di puntatore davanti che scansiona delle pagine e azzera i reference bit, quindi passa e rende queste pagine vulnerabili, se vogliamo, e poi a una certa distanza passa il falciatore, questa backhand, che assegna le pagine non referenziate alla free list.
+
+[10:49] Professore: In questa distanza c'è la second chance, perché mentre una mano passa...
+
+[10:57] Professore: se nel frattempo quella pagina viene di nuovo referenziata, si salva rispetto alla seconda, diciamo così, alla mannaia, altrimenti viene presa e viene mandata in, diciamo così, viene considerata come un frame libero, ok?
+
+[11:15] Professore: Quindi infatti la distanza tra il front e la back, questo è l'hand spread, ok?
+
+[11:22] Professore: Questa distanza in un certo senso detta
+
+[11:25] Professore: anche qual è la second chance che viene data in una determinata fase alle pagine.
+
+[11:37] Professore: Quindi se è molto distante, quindi hanno tutto il tempo queste pagine di essere in qualche modo ri-referenziate.
+
+[11:46] Professore: Se invece sono molto strette, queste due
+
+[11:54] Professore: qui il front-end e il back-end è chiaro che la second chance si restringe addirittura se si sorrapponessero tutte le pagine non referenziate verrebbero selezionate per essere in un certo senso assegnate ai free frame ok?
+
+[12:11] Professore: però attenzione che c'è sempre la possibilità di recupero in extra time cioè una pagina che diciamo così non viene riassegnata cioè un frame in realtà
+
+[12:24] Professore: che non viene riassegnato, che ha una pagina memorizzata, nel caso in cui arrivasse una richiesta per quella pagina, questa può essere in qualche modo recuperata, anche dopo che è stata etichettata come libera.
+
+[12:42] Professore: Quindi finché non viene sovrascritta, la pagina può essere comunque recuperata.
+
+[12:47] Professore: Questa è l'idea e quindi abbiamo anche una frequenza
+
+[12:53] Professore: di scansione delle pagine che può variare da uno slow scan a un fast scan quindi non solo abbiamo questa distanza tra diciamo così la mano, il front end e il back end che mi dettano qual è la possibilità per una pagina di avere la second chance ma c'è anche una
+
+[13:21] Professore: velocità di scansione e quindi il quanto più si hanno bisogno si ha bisogno di liberare pagine tanto più si restringe la distanza delle due lancette e poi scorrono anche più velocemente quindi infatti il tempo di scansione dipende dal scan rate e del hand spread
+
+[13:48] Professore: quindi per esempio se lo scan rate è 100 pagine al secondo e in spread 1024 possono passare 10 secondi tra front end e back end ok e quindi in 10 secondi se una pagina serve a tutto il tempo di essere rireferenziata ok perché 10 secondi sono un'eternità ok però
+
+[14:14] Professore: nei sistemi reali il tempo tra front-end e back-end è di pochi secondi e questo appunto cambia a seconda della fame che ha il sistema di pagine di liberare pagine ok quindi questo è un altro come vedete qui esistono tanti modi di implementare il second chance l'importante è appunto l'idea che viene appunto ogni sistema ha la sua filosofia
+
+[14:43] Professore: questa appunto è quella di Solaris, qui vedete quindi un esempio di scan rate, quindi la velocità con cui viene fatto lo scan, questo dovrebbe essere un page out, file check, quattro volte al secondo, se death free, quindi è sotto soglia, ok?
+
+[15:10] Professore: Quindi appena si va sotto soglia comincia praticamente ad esserci la scansione, la scansione diventa sempre più rapida, fino al fast scan, ok?
+
+[15:21] Professore: E poi invece quando si arriva all'hot free, cioè ce ne stanno tante libere, allora decade e non si fa più scansione, ok?
+
+[15:29] Professore: Questa è un po' l'idea, quindi abbiamo una frequenza che via via va, quindi da un cento
+
+[15:38] Professore: queste dovrebbero essere 100 volte al secondo, minimo, quando si va sul sotto allo free fino, vedete, 8192 nel fast scan.
+
+[15:55] Professore: E qui c'è una praticamente decrescita lineare con l'amount di free memory.
+
+[16:02] Professore: Questa è la velocità di scansione, ok, con cui si fa scansione, in più
+
+[16:07] Professore: Ripeto, si può anche accorciare il length spread, e in quel caso più si accorcia e più chiaramente si sfoltisce, si recupera, perché se io lascio, diciamo così, andando ad accorciare il length spread, chiaramente do una minore second chance alle pagine di liberarsi.
+
+[16:30] Professore: Quindi abbiamo visto tre esempi, questo era Solaris, quindi un esempio del mondo Unix,
+
+[16:38] Professore: Windows che lavora molto appunto su questo monitoraggio dei working set e poi abbiamo visto appunto invece Linux che lavora sempre su un second chance però quello che diciamo così possiamo dire in generale è che last recent used in purezza non viene mai utilizzato perché è troppo costoso dal punto di vista computazionale quindi si cerca sempre di approssimare con algoritmi clock second chance e abbiamo visto alcuni
+
+[17:07] Professore: casi ok allora adesso con questo passiamo ad un terzo argomento quindi abbiamo completato
+
+[17:33] Professore: La prima parte in cui abbiamo parlato di processi, thread, meccanismi di schedulazione, eccetera, eccetera, quindi in un certo senso la parte dinamica dell'esecuzione.
+
+[17:43] Professore: Poi abbiamo visto la parte della memoria, quindi gestione di memoria, quindi memoria principale, e abbiamo visto la memoria virtuale e abbiamo cominciato a vedere poi come la memoria virtuale insiste per potersi allargare
+
+[18:03] Professore: anche sulla memoria di massa, la memoria secondaria.
+
+[18:06] Professore: Ok?
+
+[18:07] Professore: Abbiamo visto che vengono stoccate appunto delle pagine momentaneamente in docking store e poi vengono recuperate e quindi abbiamo visto tutti i veri meccanismi del page in e del page out.
+
+[18:20] Professore: Adesso diamo un'occhiata un po' più da vicino alla memoria di massa.
+
+[18:26] Professore: Ok?
+
+[18:27] Professore: Quindi meccanismo a questo punto di stoccaggio della memoria secondaria.
+
+[18:34] Professore: facciamo così un overview della struttura vedremo prima di tutto la struttura del disco dei dischi vedremo l'hard disk drive e la memoria non volatile vedremo cosa significa fare schedulazione del disco e poi appunto altre cose che riguardano la gestione del disco
+
+[18:59] Professore: magari parleremo anche della bootstrap, della fase di bootstrap, quindi di caricamento del sistema operativo e poi vedremo altre cose relative sempre alle memorie di massa, come la memoria RIDE.
+
+[19:17] Professore: Quindi partiamo descrivendo la struttura fisica, così per sommi capi, di un dispositivo secondario per capire un po' come il sistema operativo
+
+[19:30] Professore: gestisce questi aspetti in particolare vediamo due tipi di memorie quindi l'hard disk drive e la memoria cosiddetta non volatile che sarebbe la memoria flash
+
+[20:01] Professore: Quindi questo perché coprono la maggior parte dei dispositivi di memoria secondaria e quindi vediamo un attimo le caratteristiche di questi dispositivi.
+
+[20:12] Professore: Partiamo da un dispositivo che adesso mi sa che è un po' in disuso, hard disk.
+
+[20:19] Professore: Chi di voi usa ancora l'hard disk?
+
+[20:22] Professore: Sì?
+
+[20:23] Professore: Ok, meno male.
+
+[20:25] Professore: Qualcuno ancora?
+
+[20:26] SPEAKER_01: Vabbè è utile proprio top server.
+
+[20:29] SPEAKER_01: Esatto.
+
+[20:31] SPEAKER_01: al giorno d'oggi.
+
+[20:33] Professore: Comunque è sicuramente un tipo di memoria.
+
+[20:36] Professore: Quali sono vantaggi e svantaggi rispetto, vediamo un po', vantaggi e svantaggi più economico.
+
+[20:40] SPEAKER_01: Più economico, può avere una maggior capacità di storage, però è molto lento.
+
+[20:48] SPEAKER_00: Sicuramente è più lento.
+
+[20:52] SPEAKER_00: C'è una parte meccanica.
+
+[20:53] SPEAKER_00: Poi il fatto che si sovrascrivano più volte le stesse parti di memoria implica che rallenti ancora di più.
+
+[21:02] SPEAKER_01: Però un vantaggio è che i dati all'interno tendono a degradarsi di meno rispetto agli SSD.
+
+[21:12] Professore: Esatto, infatti diciamo che se per uno storage più a lungo termine
+
+[21:17] Professore: è meglio utilizzare l'hard disk perché tendono a degradare di meno questa memoria, quindi ha una performance migliore sul lungo termine e dall'altra parte però se si
+
+[21:34] Professore: diciamo così rovina, se si rompe il recupero è difficilissimo.
+
+[21:40] SPEAKER_01: A parte anche il fatto che bisogna stare attenta a non fare le scuote.
+
+[21:44] Professore: Esatto, non solo, ma se si rompono appunto diventa irrecuperabile.
+
+[21:49] Professore: Però è, diciamo così, a performance per quanto riguarda l'endurance migliori.
+
+[21:56] Professore: Vediamo un po' come è fatta.
+
+[21:59] Professore: Ripassiamolo un attimo, probabilmente già lo sapete.
+
+[22:03] Professore: è strutturata su una serie di dischi piatti che possono avere diverse dimensioni ognuno di questi dischi viene letto da una testina che si sposta su questi dischi si sposta in modo solidale quindi tutte le testine si muovono insieme e infatti si dice che si muovono su dei cilindri perché si spostano, vedete, abbiamo le tracce
+
+[22:32] Professore: Se prendiamo tutte le tracce impilate, queste formano un cilindro e quindi la destina si muove sui cilindri.
+
+[22:41] Professore: Quindi abbiamo una destina read-write che si muove su questi piatti in modo solidale.
+
+[22:48] Professore: Ogni piatto è suddiviso in queste tracce e queste tracce sono suddivise in settori.
+
+[22:56] Professore: Questo è il meccanismo.
+
+[22:59] Professore: Quindi diciamo che...
+
+[23:03] Professore: possiamo avere migliaia di cilindri per ogni traccia, quindi sul disco possiamo avere migliaia di cilindri e per ogni traccia abbiamo centinaia di settori.
+
+[23:17] Professore: Sono settori che possono poi avere, contenere ogni settore, un numero di byte che prima era 512 e adesso tende ad allargarsi sempre di più.
+
+[23:28] Professore: Allora, vedete subito che qui ci sono, appunto, si diceva giustamente che il tempo di accesso è più lento.
+
+[23:37] Professore: Perché è più lento?
+
+[23:38] Professore: Perché c'è una parte proprio meccanica.
+
+[23:41] Professore: La parte meccanica, anzi, sono due componenti meccaniche, cioè la parte di rotazione e la parte di posizionamento della testina sul cilindro, ok?
+
+[23:51] Professore: Quindi la testina si posiziona, se in effettiamo vogliamo accedere ad un settore, ok?
+
+[23:58] Professore: Quindi come deve fare?
+
+[23:59] Professore: Innanzitutto la testina si deve spostare sul cilindro che corrisponde a quella traccia.
+
+[24:06] Professore: Poi tutte le testine si posizionano in parallelo su tutte le varie tracce.
+
+[24:12] Professore: Si può chiaramente abilitare il piatto corrispondente e però bisogna aspettare che poi questo settore scorra sotto la testina.
+
+[24:22] Professore: Quindi ci sono un po' di latenze.
+
+[24:25] Professore: Quindi le latenze più importanti dal punto di vista meccanico sono proprio questa del posizionamento della testina e poi dello scorrimento del settore sotto la testina.
+
+[24:40] Professore: Quindi qui vediamo, appunto hard disk, si va oltre i terabyte, quindi abbiamo due movimenti meccanici, questo di rotazione,
+
+[24:53] Professore: E questo appunto di spostamento della testina.
+
+[24:56] Professore: Vedete questa testina che si muove così, a seconda di quello che deve leggere.
+
+[25:04] Professore: Quindi il motore del disco può fare una serie di rotazioni per secondo, anche se poi vengono date le rotazioni per minuto.
+
+[25:13] Professore: Quindi quante rotazioni per minuto?
+
+[25:16] Professore: Poi per sapere per secondo, quindi come facciamo?
+
+[25:19] SPEAKER_00: Il disco scorre sempre alla stessa velocità oppure gira e poi la testina si muove?
+
+[25:30] Professore: Questo è il modo in cui funziona.
+
+[25:33] Professore: Quindi vedete, abbiamo delle rotazioni per minuto, chiaramente poi da qui risaliamo alle rotazioni per secondo.
+
+[25:43] Professore: E poi abbiamo anche ovviamente, oltre al posizionamento, c'è un tempo di posizionamento che si divide in due latenze.
+
+[25:54] Professore: Prima di tutto il posizionamento della testina sul cilindro giusto, che si chiama il sick time, che è uno dei tempi che effettivamente domina, perché è un tempo di un spostamento meccanico.
+
+[26:10] Professore: E poi c'è la rotation latency,
+
+[26:13] Professore: La Rotation Latency è il tempo che ci mette il settore a scorrere sotto la testina.
+
+[26:20] Professore: Quindi io, un po' come il cinese sul fiume, si posiziona sul cilindro, poi abilito il piatto che mi serve e aspetto che scorra sotto la testina il disco.
+
+[26:39] Professore: e quindi poi ovviamente c'è il tempo di trasferimento per cui bisogna avere un tempo di trasferimento e anche quello appunto può essere si misura in gigabit non gigabyte gigabit al secondo e quindi a volte teoricamente viene dichiarato più alto rispetto a quello reale quindi se uno deve
+
+[27:10] Professore: considerare il tempo presente di posizionamento, deve considerare il sit time e la rotation latency.
+
+[27:20] Professore: Quindi il sit time va da 3, 12 millisecondi, quindi siamo nel tempo dei millisecondi, la latenza poi invece che riguarda
+
+[27:37] Professore: la latenza di rotazione dipende da questo spin the speed ok dalla rotazione e quindi abbiamo vedete 1 fratto la rotazione per minuto diviso 60 60 diviso rotazione per minuto questa sarebbe la diciamo così il tempo per una rotazione completa
+
+[28:07] Professore: e si assume che in media io trovo il settore nella metà della rotazione, ok?
+
+[28:14] Professore: Questo semplicemente per una statistica, se è distribuita a caso quello che cerco, una volta mi dice bene, una volta mi dice male, diciamo ci metterò la metà del tempo di una rotazione di media, ok?
+
+[28:26] Professore: Per l'accesso, quindi posso prendere come tempo di accesso la metà del tempo che ci vuole per fare una rotazione e quindi diciamo che possiamo
+
+[28:36] Professore: in qualche modo calcolare prima il tempo di posizionamento e poi il tempo di trasferimento in memoria.
+
+[28:43] Professore: Una volta che io so qual è questo effective transfer rate, per vedere a seconda di quanta memoria voglio trasferire, posso fare questo calcolo.
+
+[28:57] Professore: Questi pure possono essere degli esercizietti che possono capitare in una domanda.
+
+[29:05] Professore: Quindi per esempio qual è l'accesso, il tempo di posizionamento, qual è il tempo d'accesso, eccetera, eccetera.
+
+[29:17] Professore: Quindi per appunto l'accesso, il tempo d'accesso medio, prendiamo il seek time più average latency, ok?
+
+[29:34] Professore: e se vogliamo invece avere il tempo medio di un'operazione di I.O.
+
+[29:40] Professore: dovremmo considerare il tempo di accesso più la quantità di dati da trasferire diviso la velocità di trasferimento più in realtà un overhead che è quello del controllore perché appunto comunque il fisco ha un suo controller e quindi anche per dialogare con il controller
+
+[30:03] Professore: ci sarà un overhead.
+
+[30:07] Professore: Qui possiamo vedere degli esempi, vogliamo trasferire 4 KB su un disco che fa 7200 rotazioni per minuto con un average sit time di 5 millisecondi, quindi quello intanto ce l'abbiamo già, 5 millisecondi per posizionarci,
+
+[30:32] Professore: poi dobbiamo controllare, quindi abbiamo questi 5 millisecondi per posizionarci, poi abbiamo il tempo dovuto alla latenza di posizionamento e per farlo dobbiamo, abbiamo detto, considerare queste rotazioni per minuto
+
+[31:03] Professore: Ok?
+
+[31:03] Professore: Quindi come facevamo?
+
+[31:05] Professore: Vi ricordate?
+
+[31:09] Professore: Come ho visto prima?
+
+[31:10] SPEAKER_00: 60 diviso le rotazioni per me.
+
+[31:16] SPEAKER_00: E poi?
+
+[31:17] Professore: Fratto 2.
+
+[31:17] SPEAKER_00: Ah, sì, va bene.
+
+[31:19] Professore: Abbiamo approssimato.
+
+[31:20] Professore: Approssimato, ok?
+
+[31:21] Professore: E quindi viene in qualche modo in tempo, anche lì, e poi abbiamo
+
+[31:30] Professore: l'overetto del controllore qui non viene dato questo dovrebbe essere l'altro tempo questo sarà l'overetto del controllore e poi bisogna calcolarsi il tempo di trasferimento il tempo di trasferimento bisogna andare a dividere ok vedete qui abbiamo in byte questi sono gigabit quindi se questi sono kilobyte
+
+[31:58] Professore: Quindi dobbiamo considerare questo per 8, quindi questo sarà 2 alla seconda per 2 alla terza, visto che stiamo parlando dei... dobbiamo tradurre tutto in bit questa volta, più 2 alla 10, ok?
+
+[32:16] Professore: E poi lo dividiamo qui per 2 alla 30, ok?
+
+[32:24] Professore: E qui viene approssimativamente questo.
+
+[32:28] Professore: E a questo punto abbiamo quindi qual è il tempo di trasferimento totale.
+
+[32:35] Professore: Questo è, diciamo, come si ragiona.
+
+[32:38] Professore: Allora, tra i tempi che si possono in qualche modo abbattere dal punto di vista, diciamo, buon'operazione di schedulazione delle operazioni da fare sul disco, ok?
+
+[32:49] Professore: Perché esiste sia la schedulazione della CPU, ma poi si possono schedulare anche le richieste che vengono fatte a disco.
+
+[32:57] Professore: Il tempo di posizionamento è fisso, dipende dalla rotazione del disco, mentre invece il SICK TIME, il posizionamento della testina, è quello che si può in un certo senso cercare di ottimizzare.
+
+[33:17] Professore: Perché?
+
+[33:19] Professore: Perché posso cercare
+
+[33:21] Professore: di far spostare il meno possibile la testina, per cui se ho varie richieste e so che i settori sono vicini, cerco di schedulare le richieste in modo tale che il movimento della testina sia...
+
+[33:35] Professore: Immaginate se io ho una richiesta dove la testina prima deve muoversi da una parte, poi deve tornare dall'altra, poi si deve rimuovere così.
+
+[33:44] Professore: Quindi si fa sbandierare troppo la testina.
+
+[33:48] Professore: Allora ci sono algoritmi, che si dice di schedulazione del disco, che poi andremo a vedere, che servono proprio per far sì che la testina si muova il meno possibile, che faccia i movimenti minori.
+
+[34:02] Professore: In alcuni casi, anzi, si fa sì che la testina faccia proprio una scansione e torni indietro.
+
+[34:07] Professore: Quindi proprio ci sono delle diverse filosofie, se vogliamo.
+
+[34:12] Professore: Vabbè, questo vedete giusto per curiosità quant'era grande il primo disc drive commerciale.
+
+[34:22] Professore: Vedete, siamo del 5 a 6.
+
+[34:24] Professore: Questo è un aereo della Panama.
+
+[34:28] Professore: Eppure questo è fallito.
+
+[34:30] Professore: Ok?
+
+[34:31] Professore: Quindi...
+
+[34:32] Professore: siamo arrivati vedete l'access time era minore di un secondo l'access time è soltanto per andare a posizionarsi andiamo a vedere questi disco ok così quattro cose che probabilmente già sapete però tenere in mente soprattutto così queste queste
+
+[34:56] Professore: queste coordinate, quindi il sick time, la latenza di posizionamento, il tempo di trasferimento, questi sono i concetti base, e poi anche ricordarsi un po' come la struttura di base, non dobbiamo entrare, questo non è un corso di hardware, perché poi il sistema operativo deve fare astrazione di questo, quindi gli serve una vista logica su questi
+
+[35:26] Professore: su questi dispositivi, senza entrare nella parte blu hardware.
+
+[35:33] Professore: Andiamo a vedere queste memorie flash, quindi questi sono dispositivi cosiddetti NWM, memoria non volatile.
+
+[35:45] Professore: Perché non volatile?
+
+[35:46] Professore: Perché in realtà sarebbero dispositivi a stato solido che mantengono l'informazione, cioè
+
+[35:55] Professore: a differenza delle ram che quando spegne, quando non sono alimentate, sono volatili, in questo caso sono sempre dispositivi elettronici che però mantengono l'informazione, ok?
+
+[36:13] Professore: Sono composti da memoria NAND che vengono inseriti in contenitori che sono simili ogni dal disco
+
+[36:25] Professore: per questo si chiamano dischi a stato solido oppure ssd li trovate ovunque anche con unità usb questi quindi solid state disc sono usati come hard drive sono molto più veloci perché in questo caso non c'è nessuna componente meccanica quindi è tutto elettronico e il
+
+[36:56] Professore: possono in un certo senso tendono ad essere più costose, hanno una life span, quindi un tempo di vita più breve, in alcuni casi si possono considerare sul breve termine più robuste, perché se si rompe l'hard disk drive una rottura è una rottura proprio non riparabile, è gravissimo.
+
+[37:22] Professore: mentre invece in questo caso sono più robusti, tendono magari a rompersi di meno nel periodo in cui sono garantiti, ma in generale hanno meno capacità, ovviamente maggiore velocità, anche se i prezzi continuano a calare.
+
+[37:46] Professore: In alcuni casi
+
+[37:47] Professore: Appunto questo per le connessioni, sono talmente veloci che i bus di connessione per le periferiche sono troppo lenti rispetto alle loro performance e vengono connessi direttamente al bus di sistema.
+
+[38:03] Professore: Qui non abbiamo né sick time né rotational latency, quindi diciamo che ci sono grandi vantaggi dal punto di vista della performance di queste memorie.
+
+[38:16] Professore: D'altra parte però sono implementate con semiconduttori NAND e il problema è che con questo tipo di memorie noi possiamo fare sì una riscrittura della memoria, ma prima di fare una riscrittura occorre una fase di cancellazione.
+
+[38:43] Professore: immaginate tipo la lavagna prima di riscrivere bisogna cancellare e poi scrivere e questa cancellazione avviene in blocco prende più tempo del tempo di scrittura e più tempo del tempo di lettura quindi dovete pensare che il tempo di cancellazione è il tempo preponderante quando bisogna fare una scrittura bisogna prima cancellare
+
+[39:13] Professore: Poi andare a scrivere, questa cancellazione avviene in blocco e c'è un piccolo deterioramento dopo ogni cancellazione.
+
+[39:22] Professore: Questo è il punto.
+
+[39:23] Professore: Quindi queste sono memorie che tendono a deteriorarsi.
+
+[39:29] Professore: Questo non avviene per quanto riguarda l'hard disk drive, cioè non ha questa caratteristica, o almeno non così pronunciata.
+
+[39:43] Professore: sono garantite fino a un certo punto, quindi queste memorie hanno un tempo di funzionamento che viene misurato con i drive writes per day, quindi IWPD, quindi vuol dire quante volte può essere scritta per giorno
+
+[40:09] Professore: fino al tempo in cui è garantito funzionare.
+
+[40:12] Professore: Quindi c'è un tempo che viene garantito funzionare, ok?
+
+[40:16] Professore: Quindi, e rispetto a questo tempo, se uno vuole sapere quante operazioni di cancellazione sono supportate, deve in qualche modo calcolare quanti giorni sono e moltiplicarli per questo valore, ok?
+
+[40:30] Professore: Quindi state attenti, tutta la vostra memoria flash non è eterna, ok?
+
+[40:36] Professore: Quindi...
+
+[40:38] Professore: per questo è meglio avere anche un hard disk dove mettere un cloud o un hard disk esatto esattamente per cui non vi fidate delle memorie sui vostri cellulari non vi fidate dei vostri pennette e altre memorie appunto al stato solito perché sono garantite andate a controllare per quanto tempo e vedete appunto che ci sono queste
+
+[41:06] Professore: poi questa durata, quindi quante volte può essere scritta per giorno prima del fallimento, quindi loro vi dicono che dura torto tempo, però poi dovete misurarlo, quindi questo che cosa significa?
+
+[41:20] Professore: Che se la usate tanto, durerà meno di quello che è garantito, ok?
+
+[41:25] Professore: Questo significa.
+
+[41:27] Professore: Allora, quindi va bene, comunque sapendo queste quattro cose, su queste memorie, dobbiamo immaginarle appunto
+
+[41:37] Professore: anche queste organizzate in pagine e gli algoritmi che gestiscono ovviamente queste pagine in cui è organizzata la memoria sono gestiti dal controller di questi dischi quindi questi dischi hanno un controller che tiene il conto delle pagine valide, pagine non valide
+
+[42:05] Professore: Pagine che sono state praticamente cancellate e pagine che devono essere cancellate.
+
+[42:16] Professore: Ok?
+
+[42:16] Professore: Quindi per gestire i dati occorre una tabella Flash Translation Layer che indica quali pagine contengono dati validi.
+
+[42:31] Professore: Ok?
+
+[42:34] Professore: Quindi perché queste pagine in cui è organizzata questa memoria devono prima essere, diciamo così, cancellate e quindi le pagine su cui si può scrivere ci sono solo quelle che sono state appunto prima cancellate.
+
+[42:52] Professore: Quindi abbiamo degli algoritmi di garbage collection che vengono così utilizzati per liberare questi blocchi
+
+[43:05] Professore: sono le pagine valide e quindi si cerca sempre di mantenere un set di pagine valide che sono quelle disponibili per fare il write e poi appunto le cancellazioni devono essere distribuite perché devono essere distribuite le cancellazioni?
+
+[43:28] Professore: perché se io tendo a cancellare, smetto di funzionare.
+
+[43:32] Professore: Quindi vado a invecchiare, devo distribuire l'invecchiamento di queste memorie.
+
+[43:38] Professore: Quindi devo cercare questi algoritmi di gestione delle cancellazioni.
+
+[43:43] Professore: Da ricordare, la parte critica sono le cancellazioni, sia per la durata, perché costa di più in termini di tempo cancellare che scrivere e anche leggere.
+
+[43:56] Professore: e poi c'è un'obsolescenza della cancellazione e questa obsolescenza poi va anche distribuita sulle varie pagine e bisogna che il controller si tenga conto di quali sono le pagine su cui si può scrivere che sono state già cancellate
+
+[44:18] Professore: occorrono anche degli algoritmi di garbage collection che vengono appunto mandati in esecuzione per mantenere sempre un sotto insieme di pagine che sono appunto pronte per essere per essere scritte ok e poi occorrono meccanismi di correzione del dato perché
+
+[44:41] Professore: proprio perché c'è questo fatto che le pagine possono deteriorarsi è normale che a un certo punto qualcuna di queste venga marcata come bad e quindi non utilizzabile quindi se ci si accorge che la pagina non risponde come quindi che la memoria è deteriorata viene marcata come bad quindi quella voce è
+
+[45:08] SPEAKER_00: di solito nei telefoni quella voce è altro, di memoria occupata.
+
+[45:12] Professore: Questo bisognerebbe vedere, non lo so, comunque sicuramente se uno fa una scansione vede qual è la memoria veramente utilizzabile perché poi piano piano tende, queste memorie tendono a marcare appunto aree di memoria come BED e quindi la memoria effettivamente utilizzabile si riduce.
+
+[45:36] Professore: Quindi poi su quello che fanno i telefoni dovrei... Va bene, telefoni nel senso di sostegno di quella voce altro in memoria.
+
+[45:46] Professore: Comunque se uno fa uno scan può vedere con degli algoritmi di scansione, con delle routine, può vedere qual è effettivamente la memoria che è utilizzabile e quale no.
+
+[45:58] Professore: Perché il controller comunque questa informazione la mantiene, la deve mantenere.
+
+[46:02] Professore: Ok?
+
+[46:04] Professore: Quindi...
+
+[46:06] Professore: Poi esiste anche un altro modo di utilizzare la memoria secondaria, utilizzando invece la memoria primaria, cioè la memoria volatile può essere anche usata per fare lo storage temporaneo, quindi si crea una sorta di una ram disk, quindi vengono creati dei
+
+[46:31] Professore: diciamo così, dei driver che permettono di utilizzare una parte della RAM come se fosse memoria rimasta.
+
+[46:40] Professore: Questo appunto può essere fatto.
+
+[46:43] Professore: Questo quindi è un altro modo, un altro tipo, se vogliamo, di disco che possiamo avere, quindi un disco di memoria, diciamo così, invece volabile.
+
+[46:56] Professore: Un'altra cosa che si usa sempre di meno sono i dischi magnetici, questa di solito viene chiamata neanche memoria secondaria ma memoria terziaria perché appunto un tempo era il mezzo di memorizzazione secondaria principale, stiamo parlando della preistoria, però comunque possono essere utilizzati per fare backup, stoccaggio di dati non usati
+
+[47:27] Professore: e appunto questo proprio per mantenere informazioni proprio stoccate a lunghissimo termine.
+
+[47:41] Professore: Sulle connessioni dei dispositivi di memoria secondaria, i dispositivi di memoria secondaria sono appunto periferiche, periferiche interne, quindi sono connesse
+
+[47:56] Professore: attraverso vari bus quindi possono essere connesse con vari tipi di appunto bus per esempio l'hard disk drive la connessione con bus sata le memorie non volatili come vi dicevo si interfacciano direttamente con il bus di sistema e questo va bene ci interessa a un certo punto
+
+[48:26] Professore: Quello che ci interessa è invece il mapping degli indirizzi.
+
+[48:31] Professore: Allora, le unità a disco come vengono viste dal sistema operativo?
+
+[48:39] Professore: Vengono viste come grandi array unidimensionali di blocchi logici.
+
+[48:46] Professore: Blocco logico sarebbe l'unità minima di informazione che può essere trasferita.
+
+[48:55] Professore: il blocco logico quindi non vede sotto al blocco logico mentre la RAM io posso indirizzare nella RAM ogni byte ogni byte ha un indirizzo qui in questo caso io non posso nel disco ogni byte associarlo ad un indirizzo quindi quello che posso in un certo senso andare ad associare ad un indirizzo sono i blocchi
+
+[49:26] Professore: che diventano anche l'unità più piccola di trasferimento, quindi quando si chiede un trasferimento da disco, gli si chiede un byte, due byte, gli si chiedono i blocchi.
+
+[49:40] Professore: Ogni blocco logico viene mappato sui settori fisici oppure sulle pagine di un dispositivo di memoria non volata, quindi nel caso in cui
+
+[49:49] Professore: stiamo parlando di appunto hard disk drive parliamo di blocchi mappati su settori altrimenti parliamo appunto di pagine di un dispositivo non volatile ok sui dischi i blocchi logici sono chiaramente mappati sequenzialmente ok quindi questi blocchi sui vari settori sono mappati il settore zero è
+
+[50:19] Professore: è il primo settore della prima traccia del cilindro più esterno quindi si parte dal cilindro più esterno che è quello che sta più fuori e poi appunto via via aumentano quindi il mapping procede in ordine dalla prima al resto delle tracce sul cilindro e poi attraverso il resto dei cilindri
+
+[50:48] Professore: dal più esterno al più interno.
+
+[50:51] Professore: Quindi abbiamo in un certo senso una coordinata 3, per cui noi andiamo ad individuare un dato con il settore, abbiamo cilindro, poi ci muoviamo sulla traccia e poi sul settore.
+
+[51:15] Professore: mentre invece per la memoria non volatile abbiamo una terna dove per individuare appunto un blocco logico, un blocco logico corrisponde poi internamente ad un chip blocco pagina.
+
+[51:38] Professore: Il problema è che queste informazioni, cioè la localizzazione proprio fisica
+
+[51:45] Professore: del blocco nei dispositivi viene mantenuta dal controller dei dispositivi quindi il sistema operativo non sa su quale settore è memorizzato un blocco logico quindi questo lo va a chiedere al controller quindi il sistema operativo ragione in termini di blocchi logici e li vede in sequenza quindi blocco 0, blocco 1, blocco 2 eccetera eccetera poi è il controller del disco che li va a mappare
+
+[52:15] Professore: su le sue coordinate interne che nel caso dell'hard disk sono quelle relative alla traccia, settore, disco ecc.
+
+[52:29] Professore: Per quanto riguarda invece la memoria non volatile abbiamo appunto il chip, il blocco e poi la pagina sul blocco.
+
+[52:41] Professore: Quello che bisogna ricordarsi è che il sistema operativo ragiona in termini di Logical Block Address.
+
+[52:51] Professore: Quindi andiamo a vedere questi blocchi logici.
+
+[52:59] Professore: Per esempio su un disco abbiamo, non so che se il settore è di
+
+[53:11] Professore: 512 byte si può per esempio andare ad associare un blocco a questa unità minima per esempio oppure potrebbe essere un blocco più grande di questa unità minima a seconda appunto della capienza del blocco e anche del settore possiamo avere appunto diversi settori
+
+[53:39] Professore: ovviamente per traccia e quindi vedete che il settore viene individuato dal numero della testina numero del cilindro e quello del settore quindi abbiamo una terna questa terna è tenuta dal controller del disco mentre invece appunto come già detto il sistema operativo va a chiedere questi linear block address
+
+[54:12] Professore: In teoria il mapping potrebbe essere abbastanza semplice, perché uno dice, vabbè, c'è un mapping 1 a 1, basta numerare, quello è lo zero, si mappa su quella destina, su quel cilindro, su quel settore, eccetera.
+
+[54:32] Professore: Il problema è che invece ci sono delle divergenze, perché?
+
+[54:36] Professore: Perché i settori, per esempio, possono essere danneggiati, qui ho scritto due volte danneggiati,
+
+[54:44] Professore: non c'è un numero per esempio costante di settori per traccia e quindi in un certo senso questa mapping tra i linear block address e i settori fisici deve essere mantenuto dal controller con opportuni algoritmi e opportune strutture
+
+[55:12] Professore: comunque si cerca in qualche modo di mantenere sempre il controller deve cercare di mantenere un allineamento nel senso che cerca di mantenere la prossimità cioè se due blocchi logici sono vicini ok due indirizzi logici sono vicini allora saranno vicini anche quelli fisici ok magari
+
+[55:40] Professore: così come si cerca se è crescente il numero dovrebbe essere crescente anche l'ordinamento rispetto a questi blocchi la struttura sempre del disco se l'andiamo appunto a vedere è una struttura che può essere mappata in vari modi prima si aveva un'organizzazione di questo tipo vedete com'è fatta
+
+[56:09] Professore: abbiamo ogni traccia che aveva lo stesso numero di settori.
+
+[56:18] Professore: Qual è il problema con questa organizzazione qui?
+
+[56:22] Professore: Che poi è passata in disuso.
+
+[56:26] Professore: Che dite?
+
+[56:30] Professore: Le tracce più esterne, visto che ogni settore mantiene lo stesso numero di dato, allora abbiamo che
+
+[56:39] Professore: Su queste tracce più esterne abbiamo in un certo senso lo stesso numero di dati, la stessa quantità di dati che su questa più interna.
+
+[56:55] Professore: Quindi su quelle interne c'è una compressione dell'informazione, su quelle esterne c'è una rarefazione dell'informazione.
+
+[57:07] Professore: Attenzione che il disco in questo caso gira, mantiene la stessa velocità, cioè angolare, ok?
+
+[57:21] Professore: Quindi gira con la stessa velocità, soltanto nella testina per leggere lo stesso numero di dati all'esterno percorrere più spazio che non all'interno.
+
+[57:35] Professore: Quindi...
+
+[57:36] Professore: Abbiamo un'ampiezza variabile del settore e un'ampiezza anche della densità della scrittura.
+
+[57:42] Professore: Quindi più dentro è più comprensa, cioè più alta la densità, più fuori in esterno invece è minore densità, velocità di lettura costante per traccia, le tracce esterne potrebbero contenere molta più informazioni.
+
+[57:59] Professore: E allora si è passati a questa diversa rappresentazione che si chiama Zone Pit Recording.
+
+[58:06] Professore: dove vedete il numero di settori per traccia è diverso qui nei colori vedete dove in blu abbiamo tracce che sono diciamo un numero in più settori il appunto via via che si va verso verso l'interno il numero dei settori diventa minore quindi questo per mantenere
+
+[58:34] Professore: una densità di struttura costante e però in questo caso la velocità di lettura non è più costante ma è variabile ok perché perché in un certo senso che cosa succede secondo voi dov'è più veloce a leggere
+
+[58:58] Professore: Cioè verso il giro?
+
+[59:01] Professore: No, verso il giro.
+
+[59:04] Professore: Immaginate quanti dati si legge per un giro.
+
+[59:06] Professore: Verso l'esterno.
+
+[59:08] Professore: Esatto, verso l'esterno è più veloce.
+
+[59:10] Professore: Perché sull'esterno, visto che la velocità angolare è la stessa, è la stessa, però il percorro è più spazio.
+
+[59:19] Professore: Ok, quindi più spazio.
+
+[59:21] Professore: Quindi nello stesso tempo leggo più dati.
+
+[59:24] Professore: Ok, verso l'esterno sono più veloce che i dati.
+
+[59:28] Professore: e verso l'interno invece sono più lento quindi abbiamo una velocità di lettura che dipende dal settore e più dati abbiamo nei settori esterni infatti con questa organizzazione qui ci sono degli algoritmi che tendono rapidamente a tornare verso l'esterno
+
+[59:55] Professore: Perché verso l'esterno, diciamo così, la performance è migliore.
+
+[59:59] Professore: Infatti, se per esempio ci sono delle zone dove l'accesso è ad alta frequenza, perché ci sono delle informazioni che servono più spesso, tendono ad essere scritte sull'esterno dove la velocità è più alta di lettura.
+
+[01:00:20] Professore: piuttosto che verso l'esterno infatti vedremo che nella schedulazione del disco ci sono degli algoritmi che dopo aver fatto la scansione tendono rapidamente a tornare verso l'esterno sia perché c'è una maggiore densità di dati e sia perché più si mettono i dati più che devono essere letti più spesso ok quindi
+
+[01:00:43] Professore: gli accessi tendono a concentrarsi verso la parte esterna del disco piuttosto che verso la parte interna.
+
+[01:00:50] Professore: Quindi se si pensa alla testina, la testina tenderà molto a spostarsi verso l'esterno e ogni tanto verso l'interno.
+
+[01:01:07] Professore: Dal punto di vista logico il sistema quindi vede comunque un array unidimensionale di blocchi logici che vengono mappati in settori di questo disco, però tutto questo lo vede il controller del disco, il sistema operativo non si occupa di questo, dialoga con il controller del disco.
+
+[01:01:30] Professore: Dal punto di vista, attenzione, è interessante anche vedere la differenza tra i CD
+
+[01:01:36] Professore: Non so se ancora usate i CD.
+
+[01:01:39] SPEAKER_00: Un po' così.
+
+[01:01:40] Professore: Quando capita.
+
+[01:01:43] Professore: I CD invece hanno una constant linear velocity.
+
+[01:01:48] Professore: Quindi questo significa che la velocità aumenta verso l'interno per mantenere la lettura dei settori costanti.
+
+[01:01:55] Professore: Quindi siccome nel CD è importante mantenere la lettura costante, quindi non deve variare la velocità di lettura, quindi c'è una...
+
+[01:02:06] Professore: Aumento, ok?
+
+[01:02:08] Professore: Quindi il CT in qualche modo deve girare, quando sta leggendo il dato interno, gira più rapidamente, ok?
+
+[01:02:16] Professore: Mentre invece nei dischi abbiamo la velocità angolare costante, quindi si mantiene sempre con lo stesso giro, ok?
+
+[01:02:26] Professore: Con lo stesso numero di giri.
+
+[01:02:31] Professore: Ok.
+
+[01:02:34] Professore: Va bene.
+
+[01:02:35] Professore: Questo l'abbiamo detto.
+
+[01:02:36] Professore: allora andiamo a vedere quel discorso che vi ho anticipato che riguarda la gestione del disco da parte del sistema operativo.
+
+[01:02:51] Professore: Il sistema operativo quindi non si occupa di tutta la parte interna di cui abbiamo parlato adesso, non si occupa di gestire le tracce, i settori, non si occupa di
+
+[01:03:04] Professore: gestire, nel caso della memoria flash, le scritture, le cancellazioni, i pad, diciamo così, le pagine marcate pad, eccetera.
+
+[01:03:18] Professore: Si occupa invece però di schedulare le richieste di lettura, di accesso al disco.
+
+[01:03:26] Professore: Ok?
+
+[01:03:28] Professore: E quindi, soprattutto, questo è importante per le unità
+
+[01:03:35] Professore: hard disk drive, dove abbiamo detto che ci sono delle componenti meccaniche che pesano molto nel tempo di accesso al dato.
+
+[01:03:50] Professore: In particolare quello che si cerca di fare è minimizzare il Seek Time e il Latency Time.
+
+[01:03:58] Professore: Il Latency Time
+
+[01:04:02] Professore: su questo vi ho già detto che si può fare poco dipende dalla velocità è una velocità costante di rotazione e quindi si può fare poco quello che si può fare invece è ridurre il sick time ok?
+
+[01:04:18] Professore: quindi bisogna andare a cercare di rischedulare le richieste per ridurre appunto il totale
+
+[01:04:27] Professore: lo spostamento totale della testina quindi quanti cilindri attraversa la testina poi questo sarebbe il disk bandwidth quindi la band del numero totale di byte trasferiti diviso per il tempo totale tra la prima richiesta di servizio e il completamento dell'ultimo trasferimento
+
+[01:04:57] Professore: e questo appunto si può aumentare quindi sia l'accesso che il trasferimento gestendo l'ordine con cui vengono servite le diverse richieste quindi al disco arrivano una serie di richieste processi di sistema richiedono accesso al disco processi utenti
+
+[01:05:26] Professore: possono riguardare operazioni input-output, file, aprire, pagine, eccetera, eccetera.
+
+[01:05:35] Professore: Quindi per ogni disco il sistema operativo mantiene una coda di richieste, no?
+
+[01:05:40] Professore: E quindi ogni volta che c'è una coda c'è un problema di schedulazione di queste richieste.
+
+[01:05:45] Professore: Cioè io non è detto che debba servire la coda con il first come first served, giusto?
+
+[01:05:51] Professore: Cioè questo è il metodo più...
+
+[01:05:56] Professore: diciamo così, più giusto per le persone, no?
+
+[01:05:58] Professore: Primo per arriva viene servito nell'ordine, però diciamo per i processi si può fare di meglio se il nostro scopo è quello di, diciamo così, migliorare il tempo complessivo di accesso alle risorse e poi il tempo di accesso o comunque la banda
+
+[01:06:27] Professore: quindi quello che vogliamo fare vogliamo cercare di migliorare queste performance e possiamo andare a vedere allora innanzitutto attenzione che il sistema operativo però può ragionare soltanto sugli indirizzi logici dei blocchi
+
+[01:06:51] Professore: Quindi può soltanto ragionare su questi indirizzi logici e schedulare le richieste sulla base degli indirizzi logici.
+
+[01:06:59] Professore: Poi dove effettivamente sono mappati questi indirizzi logici quello dipende da come il controller li mappa.
+
+[01:07:07] Professore: Però ci si fida del fatto che più o meno se due blocchi logici sono a una certa distanza quella distanza è un proxy che mi
+
+[01:07:19] Professore: racconta di quanto possono essere distanti blocchi fisici, ok?
+
+[01:07:24] Professore: Il dato fisico.
+
+[01:07:27] Professore: Vedete, si può assumere una prossimità tra indirizzi logici ed indirizzi fisici.
+
+[01:07:33] Professore: Quindi andiamo a ragionare un attimo su questi algoritmi di schedulazione.
+
+[01:07:38] Professore: Allora, quindi molti algoritmi
+
+[01:07:46] Professore: possono appunto sono proposti proprio per diciamo ridurre il sick time quindi il tempo di trasferimento scusate il percorso quindi il tempo dello spostamento della testina andiamo a prendere una serie di andiamo a illustrare come funzionano questi algoritmi supponendo una situazione così di comodo in cui abbiamo
+
+[01:08:16] Professore: code di richieste per letture su cilindri che vanno da 0 a 199 dove 0 è il più esterno 199 è il più interno è un caso di giocattolo che poi corrispondono anche a delle tipici esercizi da esame di sistemi operativi dove si dice assumiamo una coda di richieste su un disco che ha blocchi
+
+[01:08:47] Professore: distribuiti sul cilindro che vanno da 0 a 8 e vedete per esempio qui arriva una richiesta che ha la lettura sul cilindro 98 ok?
+
+[01:09:04] Professore: poi una richiesta su questo cilindro 183 sul cilindro 37 122 14 124 65 67 ok?
+
+[01:09:18] Professore: Allora, queste, diciamo così, qui stiamo assumendo proprio che arrivino le letture sui cilindri.
+
+[01:09:26] Professore: Vi ho già detto che in realtà il sistema operativo non ha contezza della, diciamo così, della distribuzione sui cilindri dei blocchi.
+
+[01:09:35] Professore: Magari sa soltanto che arriva un blocco che è più grande di un altro blocco, quindi sa soltanto qual è l'indirizzo logico dei blocchi.
+
+[01:09:45] Professore: Però assumiamo per ora...
+
+[01:09:47] Professore: che sappiamo proprio su quali cilindri dobbiamo andarci a posizionare.
+
+[01:09:55] Professore: Assumiamo che la testina stia puntando sul cilindro 53.
+
+[01:10:01] Professore: Possiamo andare a vedere quanti cilindri attraversa questa testina.
+
+[01:10:07] Professore: Per esempio, se sto sul 53, per arrivare al 98, quanto mi devo spostare?
+
+[01:10:16] Professore: quanti cilindri devo attraversare?
+
+[01:10:17] Professore: 45 ok quindi una volta che sto a 90 quindi 45 è già un bel movimento poi da 98 qui devo andare a 183 quindi devo sommare altri 85 ok e così via quindi questo significa quindi che posso che devo fare una serie di movimenti vedete
+
+[01:10:46] Professore: come si deve spostare la testina, quindi se io poi vado a sommare tutti questi movimenti, tutti questi spostamenti, ottengo lo spostamento totale che fa appunto la testina.
+
+[01:11:03] Professore: Si può in qualche modo, quindi vedete attraversa 640 cilindri, si potrebbe
+
+[01:11:15] Professore: cercare di migliorare la situazione, ok?
+
+[01:11:18] Professore: Magari si può rischedulare questo ordine delle richieste per cercare di ridurre questo tempo.
+
+[01:11:29] Professore: Quindi la prima cosa che vi viene in mente è qual è?
+
+[01:11:32] Professore: Quale può essere un algoritmo più semplice?
+
+[01:11:37] Professore: No?
+
+[01:11:39] Professore: Un algoritmo che si chiama Shortest Seek Time First.
+
+[01:11:44] Professore: Quindi io vado a vedere qual è il percorso, cioè servo la richiesta che mi è più vicina, quindi dove percorro meno spazio.
+
+[01:12:02] Professore: E quindi vedete, short sick time first, seleziono la richiesta con il minimo sick time, quindi per esempio se la destina era a 53,
+
+[01:12:15] Professore: io andavo a servire quello che era la richiesta più vicina che era il 65 poi da 65 vado al 67 poi dopo il 67 vado a 14 da 14 98 122 124 183 ok con questa vedete quanti cilindri ha attraversato in questo modo
+
+[01:12:47] Professore: 236 quindi un grandissimo vantaggio che stiamo parlando di spostamenti meccanici quindi si è praticamente quasi ridotto di un terzo il movimento della testina e quindi questo è sicuramente uno dei uno degli algoritmi di diciamo così schedulazione del disco
+
+[01:13:13] Professore: più migliori dal punto di vista della minimizzazione anzi è il migliore dal punto di vista della minimizzazione del tempo del sick time ok?
+
+[01:13:30] Professore: però ne esistono di altri quindi se uno vuole minimizzare il sick time questa è la migliore cosa che può fare esiste invece un altro tipo di algoritmo
+
+[01:13:42] Professore: che si chiama scan o anche algoritmo dell'ascensore cioè la testina inizia a muoversi da un estremo all'altro servendo le richieste via via che incontra quindi è come un ascensore che va dal piano terra all'ultimo piano e poi scende
+
+[01:14:06] Professore: e via via che qualcuno fa le richieste si ferma e lo serve quindi questo è l'algoritmo di scansione e quindi se le richieste non sono uniformamente dense con densità accumulate all'altro esterno del disco quelle che si accumula da una parte possono aspettare molto quindi questo funziona
+
+[01:14:35] Professore: se le richieste sono distribuite in modo uniforme nel disco vedete?
+
+[01:14:42] Professore: nel caso precedente sempre la stessa richiesta partiamo da 53 però dobbiamo dargli un orientamento perché potrebbe andare da una parte o dall'altra a seconda di come è stato chiamato parte al 53 e poi comincia a servire tutte le richieste che vanno verso
+
+[01:15:05] Professore: questo è l'esterno del disco e poi via via si ritorna verso l'interno e poi si ritorna indietro si fa tutta la scansione continuamente questo è un algoritmo che funziona bene se abbiamo questa distribuzione abbastanza uniforme delle richieste una variazione sul tema
+
+[01:15:32] Professore: è quello che si chiama il C-scan quindi in questo caso vedete quante sono un movimento totale in questo caso di 236 cilindri ok?
+
+[01:15:45] Professore: comunque sia è arrivato fino a qui in realtà poi se dovrebbe fare la scansione da quest'altra parte è sicuramente migliore ok?
+
+[01:15:58] Professore: per scan, per server così
+
+[01:16:02] Professore: non deve saltare di palo in frasca perché comunque ha un movimento lineare serve tutto quello che incontra però il problema è che alcune richieste potrebbero rimanere tanto tempo in attesa mettiamo che faccio una richiesta qui e sta andando in questa direzione io devo aspettare che finisca tutta questa scansione per poi tornare indietro esiste una variazione su questo che si chiama circular scan
+
+[01:16:32] Professore: scan.
+
+[01:16:34] Professore: In questo caso come funziona?
+
+[01:16:37] Professore: La testina si muove da un estremo del disco all'altro.
+
+[01:16:45] Professore: Quando raggiunge quindi l'altro estremo torna all'inizio del disco senza servire quelle del viaggio di ritorno.
+
+[01:17:01] Professore: Perché?
+
+[01:17:03] Professore: quindi il C-scan funziona così va tende ad andare verso l'interno ok?
+
+[01:17:13] Professore: quindi parte da qui serve tutte quelle interne raggiunto il limite torna rapidamente verso l'esterno cioè non fa il viaggio di ritorno ok?
+
+[01:17:26] Professore: questo è il C-scan perché secondo voi?
+
+[01:17:29] Professore: l'abbiamo detto prima
+
+[01:17:34] Professore: cosa avevamo detto prima sull'esterno cosa c'erano?
+
+[01:17:39] Professore: abbiamo più velocità più storage si mettono le cose più importanti di solito e quindi è più probabile che le richieste si accumulino verso l'esterno che non verso l'interno quindi l'algoritmo C-scan tiene conto di questi aspetti quindi è il compromesso tra lo scan e il fatto che bisogna favorire l'esterno e quindi va
+
+[01:18:04] Professore: servire tutto quello che trova verso l'interno e poi subito torna verso l'esterno ok senza perdere tempo a rifare infatti questo è un attraversamento dei cilindri però molto rapido
+
+[01:18:32] Professore: si conta, se vogliamo, però vale di meno.
+
+[01:18:38] Professore: Poi esistono sempre altre variazioni sul tema, e l'altra variazione è questa, che si chiama il CLOOK.
+
+[01:18:50] Professore: Il CLOOK significa, è una versione dello scan
+
+[01:18:57] Professore: dove praticamente il sistema guarda qual è l'ultima richiesta da una parte e dall'altra quindi non arriva fino in fondo ok quindi arrivano delle richieste quindi non fa la scansione fino in fondo all'ultima fino all'ultimo l'ultimo cilindro arriva fino all'ultima richiesta
+
+[01:19:25] Professore: va alla prima che vede.
+
+[01:19:29] Professore: Questo si chiama il C-Scan.
+
+[01:19:33] Professore: E poi c'è il C-LOOK, scusate, questo è il C-LOOK.
+
+[01:19:43] Professore: Il Circular perché torna rapidamente indietro e si chiama LOOK invece che SCAN perché guarda
+
+[01:19:51] Professore: cioè non arriva fino alla fine corsa e inizio corsa, ma si ferma all'ultima richiesta.
+
+[01:19:58] Professore: Quindi attenzione all'ultima che vede in quel momento.
+
+[01:20:01] Professore: Se per esempio quando arriva qui e sta tornando indietro, arriva un'altra richiesta qui, questa dovrà aspettare, perché lui è già andato.
+
+[01:20:16] Professore: Quindi questi sono praticamente gli algoritmi principali
+
+[01:20:20] Professore: che possiamo avere di schedulazione del disco.
+
+[01:20:25] Professore: Attenzione, questi algoritmi hanno senso nel caso di memoria non volatile?
+
+[01:20:34] Professore: C'è il SICKTIME nella memoria non volatile?
+
+[01:20:37] Professore: No.
+
+[01:20:39] Professore: Quindi questi algoritmi si usano solo per la schedulazione degli hard disk drive, o comunque di quei dispositivi a disco.
+
+[01:20:49] Professore: dove c'è una componente meccanica.
+
+[01:20:51] Professore: Per quanto riguarda invece la schedulazione, quindi che cosa si fa con la schedulazione nel caso delle memorie appunto stato solido?
+
+[01:21:03] Professore: E quelle, first cam, first server.
+
+[01:21:06] Professore: Quindi semplicemente si lasciano accumulare in coda, senza algoritmi che le vanno a risistemare.
+
+[01:21:15] Professore: Però sul disco invece sì.
+
+[01:21:17] Professore: Sul disco è importante fare questo tipo di operazione.
+
+[01:21:21] Professore: Quindi ripetiamo, queste le dovete sapere, quindi il first cam preserved è praticamente la scelta peggiore per quanto riguarda il disco.
+
+[01:21:33] Professore: La migliore dal punto di vista dell'ottimizzazione dei movimenti della pestina è questo short sick time first, solo che ogni volta bisognerebbe farsi questo calcolo.
+
+[01:21:44] Professore: Ok?
+
+[01:21:47] Professore: il modo più semplice invece di gestire la cosa è l'algoritmo scan che proprio va nell'ordine, fa una scansione, un'ottimizzazione sullo scan è il C-scan perché appunto si sfrutta il fatto che si fa la scansione ma si tende a tornare sull'esterno dove si accumulano più rapidamente le richieste e un'ulteriore diciamo così
+
+[01:22:14] Professore: ottimizzazione è il CLUK dove non si arriva fino alla fine ma si arriva fino all'ultima richiesta in quel momento e poi si va sulla prima in quel momento e poi si riparte verso l'interno quindi quali si selezionano?
+
+[01:22:38] Professore: allora
+
+[01:22:39] Professore: Shortest, sick time first, è tipico, naturale, però non è poi così diffuso.
+
+[01:22:46] Professore: Scan e C-scan funzionano meglio per sistemi con grosso carico su disco.
+
+[01:22:53] Professore: C'è meno starvation perché è più fair nel gestire tutti, perché tutti vengono messi sullo stesso piano.
+
+[01:23:03] Professore: Poi arriverà questa scansione, quindi uno aspetta come quando uno aspetta l'autobus, arriva.
+
+[01:23:10] Professore: e ci serve invece con lo short sick time first potrebbe arrivare continuamente qualcuno che è là vicino e tu anche se eri arrivato per prima a fare la richiesta magari è lontana rispetto a dove è la destina e la destina continua a oscillare perché arrivano continuamente richieste intorno a quella zona e tu potresti finire in una simile starvation allora
+
+[01:23:40] Professore: Le performance dipendono appunto dal numero tipo di richieste, per esempio se si deve accedere a dei file, le richieste per esempio dipendono da come è allocato il file, se il file è allocato in modo contiguo
+
+[01:24:07] Professore: Vuol dire che praticamente i blocchi che compongono il file sono tutti vicini, quindi ci sarà meno spostamento di tastini.
+
+[01:24:15] Professore: Se invece i file sono blocchi linkati, lo vedremo, quindi ci sono dei salti da fare e quindi ci sono più movimenti di tastina.
+
+[01:24:27] Professore: Poi bisogna vedere come sono rappresentate le directory, questo lo vedremo successivamente.
+
+[01:24:32] Professore: Comunque...
+
+[01:24:35] Professore: Questi algoritmi di Disk Scheduling sono moduli separati del sistema operativo, quindi possono essere aggiornati.
+
+[01:24:46] Professore: Quindi LUC e Shortest Sit Time First possono essere considerati buoni algoritmi, anche se in realtà ci sono degli algoritmi più sofisticati ancora.
+
+[01:25:05] Professore: vediamo in Linux, un esempio, abbiamo più schede, più code con priorità per evitare starvation e abbiamo per esempio una coda per servire le richieste di lettura separata da una coda per servire le richieste di scrittura, quindi
+
+[01:25:35] Professore: e quindi abbiamo già due code quindi peraltro ognuna di queste è suddivisa in due sistemi quindi abbiamo una che è diciamo così è ordinata per priorità e un'altra invece che è per scam per servet questo serve per in un certo senso cercare di evitare la starvation però nello stesso tempo
+
+[01:26:04] Professore: si cerca di dare un minimo di importanza alla priorità quindi vedete c'è uno schedulatore con deadline con queste code read write con priorità quindi l'ordine dipende da questo logical block address e quindi quelle vengono servite prima quelle più esterne
+
+[01:26:32] Professore: in questo affinamento con un meccanismo che è simile al C-scan cioè quindi si va a fine in fondo e poi si torna in fondo e poi appunto si cerca di dare maggiore priorità alle richieste di read rispetto a quelle di write a questo punto quindi abbiamo che ci sono due code di write
+
+[01:27:02] Professore: ognuna una gestita con l'ordine del Logical Address e l'altra con First Campus Served le richieste vengono gestite in blocchi e dopo ogni blocco si controlla se ci sono richieste vecchie e quindi vengono gestite poi quelle in First Campus Served ok?
+
+[01:27:28] Professore: e se ci sono quello diventa il prossimo blocco
+
+[01:27:35] Professore: Ok, quindi qui abbiamo quando scade il timer di deadline, quindi si comincia a servire la quota FIFO.
+
+[01:27:47] Professore: Quindi c'è una sorta di deadline, cioè devono essere servite dopo una certa deadline, se scatta la deadline si passa a servire la quota FIFO per poi ritornare a quella sorta.
+
+[01:28:03] Professore: È un meccanismo, peraltro, che prevede diversi tipi di richieste.
+
+[01:28:15] Professore: Abbiamo una deadline di 500 millisecondi per la RID e 5 secondi per la Bright, quindi vuol dire che la RID è più urgente.
+
+[01:28:25] Professore: Ok?
+
+[01:28:25] Professore: Va bene.
+
+[01:28:38] Professore: Per quanto riguarda invece la schedulazione, quella NOP, non operation, sarebbe quella FIFO e questa viene utilizzata appunto per i dispositivi non rotazionali.
+
+[01:28:58] Professore: Infatti diciamo in teoria può essere utilizzata anche per quelli rotazionali ma poi l'esito è disastroso.
+
+[01:29:12] Professore: ok diciamo che questo abbiamo detto le richieste rite sono servite in modo uniforme questo diciamo riguarda il
+
+[01:29:42] Professore: la schedulazione della memoria non volatile.
+
+[01:29:57] Professore: Qui c'è qualcosa di interessante.
+
+[01:30:05] Professore: Forse le performance della memoria non volatile degradano nel tempo.
+
+[01:30:10] Professore: e quindi la scrittura ovviamente è più lenta della lettura.
+
+[01:30:27] Professore: Per quanto riguarda lo scheduling del disco, quello che mi interessa sono essenzialmente questi algoritmi principali.
+
+[01:30:35] Professore: Peraltro su questi algoritmi qui ci saranno anche degli esercizi tipici, no?
+
+[01:30:40] Professore: Che ti chiedono appunto qual è la differenza dei cilindri, percorsi, nel caso del scan, c-scan, ecc.
+
+[01:30:52] Professore: Ok?
+
+[01:30:59] Professore: Va bene.
+
+[01:31:02] Professore: Allora...
+
+[01:31:04] Professore: andiamo a vedere altri aspetti quindi per quanto riguarda appunto la gestione del disco allora abbiamo detto che appunto il sistema il sistema operativo ovviamente deve dare anche una strutturazione a questo questo disco quindi questo disco deve essere gestito deve
+
+[01:31:35] Professore: a parte la gestione proprio della strutturazione del disco viene proprio fatta quella fisica dal vendor quindi arriva già strutturato però poi dal punto di vista logico viene appunto strutturato quindi viene formattato a livello logico quindi il sistema deve avere una strutturazione del disco lo dovrà partizionare
+
+[01:32:03] Professore: uno o più diciamo così dovrà partizionarlo in uno o più diciamo così dischi logici e dovrà poi gestire questa struttura che adesso andremo a vedere un'altra cosa magari interessante
+
+[01:32:26] Professore: Sono i meccanismi, forse prima ancora di passare alla strutturazione logica del disco visto dal sistema operativo, vediamo un attimo i meccanismi di error detection e correction.
+
+[01:32:41] Professore: Questi li avete già visti probabilmente da qualche altra parte.
+
+[01:32:48] Professore: No?
+
+[01:32:48] Professore: Cioè non sapete cos'è un parity bit?
+
+[01:32:52] Professore: Vi è mai capitato?
+
+[01:33:02] Professore: visto che i dischi si degradano dovremmo avere dei meccanismi per controllare se l'informazione che è contenuta su un disco è affidabile oppure no per poter controllare se effettivamente quello che c'è scritto ha senso oppure no
+
+[01:33:26] Professore: Uno dei metodi più semplici per controllare innanzitutto se l'informazione ha dei problemi è quello di controllare la parità.
+
+[01:33:40] Professore: Ogni byte può avere associato un bit che controlla se il numero di uni è pari oppure è disparito.
+
+[01:33:50] Professore: Quindi se il numero di bit è
+
+[01:33:54] Professore: Se su quel byte il numero di bit è pari, la parity è 0 e se è dispari la parity è 1.
+
+[01:34:03] Professore: A cosa mi serve?
+
+[01:34:05] Professore: Mi serve per capire che se non mi torna la parity su quel byte, quel byte è probabilmente degradato.
+
+[01:34:16] Professore: Quindi è una prima forma di controllo se c'è una consistenza
+
+[01:34:22] Professore: locale di quel byte quindi se uno dei bit è danneggiato allora probabilmente il parity non coinciderà più con quello precalcolato e quindi io posso andare a diciamo così sono sicuro che su quel byte c'è un problema
+
+[01:34:46] Professore: si utilizza il parity perché il parity si calcola rapidamente con uno XOR quindi si va subito a vedere attraverso lo XOR 1, 1 si dà 0 quindi si vede se praticamente si ottengono appunto dei si va a verificare subito se ho la parità quindi la parità mi dà 0 altrimenti rimane 1
+
+[01:35:18] Professore: Ovviamente questo significa che con la parity io posso trovare soltanto errori in cui flippa un bit su un byte.
+
+[01:35:30] Professore: Perché se per esempio flippano due, allora chiaramente mi ritorna la parity e per me risulta invisibile l'errore.
+
+[01:35:41] Professore: Quindi nel momento in cui c'è un bit che salta,
+
+[01:35:47] Professore: quindi che è, diciamo così, errato, allora la parity mi dice che effettivamente c'è un errore.
+
+[01:35:56] Professore: Quindi chiaramente non è che mi dà la scelta.
+
+[01:36:00] Professore: Cioè se la parity salta sono sicuro che c'è errore, ok?
+
+[01:36:06] Professore: Se non mi corrisponde la parity.
+
+[01:36:08] Professore: Se invece la parity corrisponde non sono sicuro al 100% che non ci sia errore.
+
+[01:36:16] Professore: però chiaramente se comincia ad esserci un danno in una determinata regione in un blocco cominceranno ad esserci parecchi byte dove la parity è in effetti dove la parity non torna e poi esistono anche dei error correction code quindi
+
+[01:36:47] Professore: delle codifiche che permettono anche di fare una certa correzione quindi per esempio si possono mettere questi error correction code per settore oppure nel caso delle memorie non volatile per pagina e quindi quando si scrive una pagina o un settore viene anche scritto questo error correction code che può essere più o meno più o meno
+
+[01:37:17] Professore: diciamo così complicato, quindi che cosa si fa?
+
+[01:37:24] Professore: Per ogni settore io ho questo codice che mi permette innanzitutto di vedere se il codice è quello atteso che appunto
+
+[01:37:40] Professore: vado in qualche modo avanti perché assumo che non sia dannizzato quel settore ma nel caso in cui si abbiano un tot di errori fino a un tot di errori io posso attraverso questo error correction code posso correggerli e quindi ogni error correction code è garantito fino ad un numero finito di errori
+
+[01:38:10] Professore: Per esempio, questo è il famoso error correction code di Hamming.
+
+[01:38:19] Professore: Come funziona?
+
+[01:38:21] Professore: Funziona in questo modo.
+
+[01:38:26] Professore: Per ogni k bit si possono mettere r, quindi non più un bit di varità, ma r bit di varità.
+
+[01:38:41] Professore: quindi dove questo r, se è maggiore del logaritmo di 2 di questo m, m che sarebbe k più r, m più 1, quindi sarebbe k più r più 1, allora diciamo che si può andare a, si può correggere attraverso questo,
+
+[01:39:10] Professore: questo bit di parità, ok?
+
+[01:39:12] Professore: Si può anche individuare un errore di, diciamo così, fino a un bit.
+
+[01:39:22] Professore: Vediamo un esempio, non so, mettiamo che abbiamo dei dati, abbiamo quattro bit, quindi dato 1, dato 2, dato 3, dato 4, ok?
+
+[01:39:36] Professore: E poi a questi quattro bit ci associamo
+
+[01:39:39] Professore: tre bit di controllo di parità.
+
+[01:39:43] Professore: Allora a questo punto si possono andare per esempio ad utilizzare il primo bit di parità per controllare il dato 1, il dato 2 e il dato 4, quindi su questo vedo fatto tornare la parità, poi la parità
+
+[01:40:04] Professore: Il secondo bit mi serve per controllare la parità di 1, 3, 4 e poi il terzo la parità di 2, 3, 4.
+
+[01:40:12] Professore: Questo che cosa significa?
+
+[01:40:16] Professore: Significa che se non c'è un errore allora questo numero
+
+[01:40:32] Professore: cioè questi bit mi faranno corrispondere la parità attesa nel momento invece in cui vedo che per alcuni di questi non torna la parità con questi bit in più riesco a correggere fino ad un cioè riesco ad individuare
+
+[01:41:01] Professore: l'errore di un bit ok quindi però se per esempio fossero due bit sbagliati l'errore che appunto la correzione che mi consiglierebbe sarebbe praticamente sbagliata quindi addirittura mi farebbe sbagliare un bit ancora in più quindi arriverei a sbagliarne tre in quel caso ok però esistono ulteriori
+
+[01:41:28] Professore: codici di correzione che mi permettono anche di controllare questo fatto e quindi di controllare se effettivamente poi il codice di controllo effettivamente mi permette di non mi porta fuori strada
+
+[01:41:55] Professore: Quindi bisogna aggiungere un ulteriore bit di controllo.
+
+[01:42:01] SPEAKER_01: Per quanto riguarda le CC riguarda solamente le memorie RAM perché spesso ci sono le RAM CC che hanno appunto la correzione.
+
+[01:42:09] Professore: Oppure può valere anche... Questo viene usato anche sui dischi.
+
+[01:42:15] Professore: Questo è pervasivo, vale su tutto.
+
+[01:42:17] Professore: Ogni volta che c'è praticamente una
+
+[01:42:21] Professore: un problema di correzione e controllo quindi questi sono codici di detection e controllo quindi ripetendo il meccanismo più semplice è quello della parity praticamente si mette questa sorta di canarino una specie di bit canarino che mi fa tornare la parità per cui lì dove non torna la parità vuol dire che c'è un problema questa è
+
+[01:42:49] Professore: Però questo mi indizio solo che c'è un problema, quindi devo marcare come bad quella parte.
+
+[01:42:55] Professore: Se invece voglio essere un po' più sofisticato, e spesso appunto si fa, cerco di garantire la possibilità di correggere questi errori, quindi invece di mettere un parity metto un codice un po' più esteso.
+
+[01:43:07] Professore: L'idea di base è appunto che sulla base di questo codice poi riesco a risalire fino a un tot di errori che sono garantiti.
+
+[01:43:16] Professore: Quindi il caso più semplice, quello proprio di scuola, siccome questo non è un corso su questo, vi accenno soltanto all'idea, è quello per esempio di utilizzare questo meccanismo di handling dove se io per ogni k bit aggiungo r bit di parità, per cui considerando r k più r m, che è il totale dei bit per l'informazione,
+
+[01:43:44] Professore: Se R è maggiore del logaritmo di 2 di m più 1, allora riesco ad individuare proprio qual è il bit che è sbagliato.
+
+[01:43:54] Professore: Però, ripeto, riesco con questo meccanismo a correggere solo se un bit è sbagliato, perché se fossero magari contemporaneamente più bit, allora dovrei aggiungere di nuovo un altro bit di correzione e così via.
+
+[01:44:12] Professore: diciamo che c'è un trade off tra quanto voglio essere bravo a correggere e quanta diciamo a memoria devo utilizzare per per modificare questa correzione ok e questo diciamo poi si utilizza per esempio appunto per poi andare a marcare appunto i blocchi corrotti quelli dove effettivamente c'è una violazione
+
+[01:44:40] Professore: quindi lì dove c'è una violazione, non sono riuscito a correggere, perché appunto agli essi sì, quelli che fanno la correzione, ci sono anche quelli che fanno correzione più check, per cui non sbagli, ok?
+
+[01:44:54] Professore: Piuttosto ci sono ulteriori bit che ti fanno il check per vedere se la correzione va bene.
+
+[01:45:02] Professore: E comunque diciamo che in questo caso, lì dove vengono rilevati gli errori,
+
+[01:45:10] Professore: allora vengono anche marcati e quindi il controllore del disco si mantiene il bad block e quindi in alcuni casi può anche utilizzare dei settori, cioè lì dove per esempio c'era un blocco che era sbagliato, allora quel blocco diventa inutilizzabile e si deve shiftare
+
+[01:45:40] Professore: tutta la memoria, però attenzione che quindi per mantenere la consistenza tra la rappresentazione logica, l'indirizzamento logico dei blocchi che è tenuto dal sistema operativo e quella fisica, deve cercare comunque di mantenere la prossimità.
+
+[01:46:01] Professore: Quindi bisogna tradurre di nuovo i
+
+[01:46:09] Professore: quindi trovare una nuova traduzione tra l'indirizzo logico e i settori fisici e la sostituzione può portare, cioè deve mantenere questa prossimità.
+
+[01:46:23] Professore: In alcuni casi si fa parte del sector slipping, cioè quindi si fa slittare
+
+[01:46:29] Professore: tutti i settori si spostano in modo tale che si mantenga la prossimità e quindi è come se si fa invece se slittare tutti i settori.
+
+[01:46:39] Professore: Mentre invece questo per quanto riguarda l'hard disk driving invece sulla memoria non volatile la gestione degli errori è più semplice perché effettivamente non essendoci un problema di minimizzare il sick time
+
+[01:46:57] Professore: il mapping tra indirizzi logici e indirizzi fisici non deve necessariamente avere questa corrispondenza di prossimità cioè non è necessario che due indirizzi logici prossimi che rispondano a indirizzi fisici prossimi va bene, la prossima cosa che andremo a vedere è la strutturazione del disco da parte del sistema operativo ma magari questa cosa la andiamo a fare domani
+
+[01:47:26] Professore: ok
+

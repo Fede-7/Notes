@@ -1,0 +1,964 @@
+[00:02] SPEAKER_01: E qua manca solo questo e il linguaggio di programmazione, perché poi... Noi non abbiamo lezioni oggi.
+
+[00:15] SPEAKER_01: Domani.
+
+[00:18] SPEAKER_01: Noi mercoledì abbiamo solo la sua lezione.
+
+[00:20] SPEAKER_01: Invece domani avremo la lezione successiva, però non c'è, che ha concluso e quindi...
+
+[00:28] SPEAKER_01: Algoritmi, progettazione di algoritmi, quella di dopo, che ha concluso, e anche Metodi sta facendo esercizi di esame, che ha concluso però sta facendo esercizi.
+
+[00:41] Professore: Il programma, diciamo, lo vorrei allungare ulteriormente.
+
+[00:48] Professore: Volevo giusto fare alcuni richiami su alcune cose che magari abbiamo visto di meno e che vi possono essere utili, anche in prospettiva magari di esami successivi.
+
+[01:01] Professore: Quindi forse non avevamo fatto abbastanza esercizi o quasi niente sui socket, giusto?
+
+[01:07] Professore: Socket programming?
+
+[01:09] SPEAKER_01: Forse no, non mi ricordo.
+
+[01:11] Professore: Quindi io oggi volevo un attimo magari farvi, darvi qualche ulteriore, diciamo così, dettaglio sui socket.
+
+[01:21] Professore: Se avete computer appresso... Eh no.
+
+[01:27] Professore: Che volevo fare anche... Per saperlo lo portavo.
+
+[01:31] Professore: magari eventualmente gli esercizi li vediamo domani eh sì magari cominciamo a introdurre i concetti e poi domani magari facciamo un'esercitazione su socket qualcuno di voi già le usa?
+
+[01:50] SPEAKER_01: già usate?
+
+[01:50] SPEAKER_01: sì cioè web socket sì ah ok non mi è ancora capito in quale linguaggio?
+
+[01:56] Professore: java java quindi non ci ok
+
+[02:01] Professore: Va bene, va bene.
+
+[02:02] Professore: Allora, diciamo che questo, quindi vediamo un po' di questo, e poi magari qualche cenno, non so se lo fate in altri contenuti, il container, l'avete già visti da qualche parte?
+
+[02:15] Professore: Ah, il container con un docker tipo.
+
+[02:18] Professore: Sì, poi l'avete già visti da qualche parte?
+
+[02:23] SPEAKER_01: Come corsi mi sembra di no.
+
+[02:26] SPEAKER_01: Sentiti per smanellare.
+
+[02:29] Professore: Poi si rivegliano abbastanza bene, ovviamente, a proprietà dei sistemi operativi moderni, che consentono di compartimentare degli ambienti, quindi magari vediamo un po' qualche cosa su questo.
+
+[02:47] Professore: Dalle virtualizzazioni di nuovo vediamo le differenze tra i vari tipi di virtualizzazioni per arrivare al contenimento.
+
+[02:58] Professore: e quindi scendi anche un po' a Docker per ricollegarci, perché ricollegare quegli aspetti che poi magari rivedrete al sistema operativo, perché appunto si creano per esempio dei spazi di namespace separati, isolati, quindi magari lo rivediamo collegato a quello che abbiamo visto.
+
+[03:21] SPEAKER_01: Ma sarà argomento dell'esame orale?
+
+[03:24] Professore: In realtà sono più dei compendi, quindi potrebbero essere domande opzionali, quindi domande magari per voti più alti, quindi far parte del corso.
+
+[03:40] Professore: Questa, diciamo così, in realtà non l'ho scritto nella sinossi del programma, però faceva parte del programma di laboratorio di sistemi operativi che voi però non avete e quindi qui si tratterebbe di fare una sorta di raccordo, anche questo della Socket, programmi che un po' andrà nell'esame di reti, programmazione web, però magari cominciamo a vedere un po' di cose
+
+[04:10] Professore: e un po' di concetti.
+
+[04:10] Professore: Però solo una cosa, per quanto riguarda il preappello, quando... Eh, ci sto a lavoro perché sono apposti, sia, diciamo così, una sorta di appello di laboratorio di sistemi operativi e quello di sistemi operativi, quindi cerco di farlo per la prossima settimana, quindi diciamo entro questo fine settimana, lunedì, diciamo, entro lunedì ci avrete risultati, va bene?
+
+[04:35] Professore: Grazie mille.
+
+[04:39] Professore: Allora, come vi avevo già detto, sono state introdotte con la Berkeley Socket Distribution, quindi sono come concetti che diventano lo standard de facto per la comunicazione di processi in rete, quindi sono i meccanismi, se vogliamo, più
+
+[05:04] Professore: diffusi che permettono la comunicazione inter processo su processi che stanno su macchine diverse che dialogano attraverso una rete.
+
+[05:13] Professore: La rete non è detto che sia rete TCP, può essere una qualunque tipo di rete, infatti supportano diversi protocolli, famiglie di protocolli, quindi diverse reti, diverse tipologie di comunicazione sulle diverse reti.
+
+[05:31] Professore: possiamo dire che rientrano, infatti li avevamo introdotti, come interprocess communication, quindi come strumenti di interprocess communication, tant'è che appunto possono essere socket locali, cioè sulla stessa macchina, e di fatto è come se comunicassero attraverso il file system, quindi si dà un nome di file che fa da canale,
+
+[06:01] Professore: di comunicazione tra i processi, oppure il remoto attraverso un collegamento in rete, quindi si passa attraverso tutto lo stack di comunicazione di rete.
+
+[06:17] Professore: Quindi queste due socket, cioè la socket rappresenta appunto un estremo della comunicazione.
+
+[06:29] Professore: Quindi la comunicazione anche può essere di diverso tipo, può essere una comunicazione a flusso, quindi in cui si stabilisce una comunicazione tra i due nodi, oppure può essere anche una comunicazione che viaggia per pacchetto, quindi un datagram, quindi si conosce il destinatario e il mittente e si scambiano appunto messaggi.
+
+[06:55] Professore: Queste sono due...
+
+[06:58] Professore: tipologie di comunicazione che sono supportate appunto da SOPET.
+
+[07:04] Professore: Il canale è bidirezionale.
+
+[07:09] Professore: Allora, innanzitutto per quanto riguarda questi SOPET, vedremo che una volta aperta una SOPET, quindi il meccanismo di comunicazione simile a quello che abbiamo visto per i file,
+
+[07:24] Professore: si ha un file descriptor che definisce praticamente un canale di comunicazione attraverso il quale il processo poi può leggere e scrivere su quel canale, quindi come se in realtà si trattasse di una lettura e scrittura su API standard e poi appunto ci sono ulteriori
+
+[07:49] Professore: primitive, API, quindi strumenti, funzioni che permettono di fare cose un po' più specializzate.
+
+[07:58] Professore: Ok, quindi il canale è bidirezionale per far parlare processi e thread, è progettato per architetture client-server, non so se avete mai sviluppato applicazioni client-server di qualche tipo, l'IC, gli altri?
+
+[08:18] SPEAKER_01: Qualche applicazione?
+
+[08:21] SPEAKER_01: Qualcosina, sì.
+
+[08:22] Professore: Quale corso oppure per conto vostro?
+
+[08:26] SPEAKER_01: Allora, corso, il progetto di Object... Vabbè, voi ancora dovete fare.
+
+[08:33] SPEAKER_01: No, non ne pensavo.
+
+[08:35] SPEAKER_01: Vabbè, si poteva fare.
+
+[08:39] SPEAKER_01: Vabbè, Ezio l'ha voluto fare per scendere.
+
+[08:46] Professore: più per iniziativa personale che come obiettivo finale di un corso ok allora quindi diciamo di solito vengono utilizzate per fare applicazioni client server
+
+[09:02] Professore: Quando si apre un software è come aprire di fatto la stessa modalità di apertura simile all'apertura di un file, così come in un file viene restituito un file descriptor che fornisce al processo un indice attraverso il quale può comunicare con il file, nello stesso modo appunto
+
+[09:26] Professore: Nel momento in cui si crea un socket si ottiene appunto il file descriptor che poi consente di fare le operazioni su questo socket e quindi si possono applicare a questo in modo abbastanza trasparente, per esempio l'inter-write, close ed altre funzionalità che abbiamo visto comuni sia su file sia su pipe ecc.
+
+[09:54] Professore: Come dicevo abbiamo sci-cat locali e socket di rete, noi vediamo soprattutto locali e TCP e anche UDP in realtà, possiamo vedere come strumenti.
+
+[10:08] Professore: Il socket deve fornire un'interfaccia abbastanza uniforme per la realizzazione di comunicazione sopra la rete, quindi deve nascondere in qualche modo più possibile la rete che c'è sotto.
+
+[10:22] Professore: Però nella fase di impostazione del socket bisogna in qualche modo stabilire, dargli delle indicazioni su che tipo di connessione sta avvenendo
+
+[10:33] Professore: e soprattutto anche su che tipi di indirizzi si va a lavorare.
+
+[10:39] Professore: Perché se è una socket locale, in un certo senso l'indirizzo diventa una sorta di nome di un pseudofile.
+
+[10:47] Professore: Se invece è una socket TCP, allora abbiamo un indirizzo IP ed una porta che bisogna andare a stabilire per poter contantare la socket dall'altra parte.
+
+[11:02] Professore: e se ci sono altri tipi di rete abbiamo altre tipologie di indirizzamento quindi la tipologia di comunicazione viene stabilita attraverso queste nozioni di dominio e stile dominio significa una scelta che equivale a definire scelta di protocolli
+
+[11:26] Professore: Quindi si comincia ad identificare essenzialmente su che rete si va a lavorare e su quali protocolli di rete si va a lavorare.
+
+[11:40] Professore: Questi domini sono individuati da interi e sono associati a delle macro, che sono fortunamente definite qui nell'iter SysSocket, che hanno una loro rappresentazione simbolica.
+
+[12:00] Professore: Per esempio qui abbiamo pflocal o pfunix, pffile, queste sono per stabilire che il collegamento socket fa parlare processi sulla stessa macchina senza scomodare uno stack di comunicazioni.
+
+[12:20] Professore: in rete.
+
+[12:22] Professore: Poi per esempio la famiglia TCP IP con indirizzi IPv4, sarebbe Pfinet, altrimenti vedete gli indirizzi IPv6, Pfinet 6, quindi qui si stabilisce effettivamente su che tipo di rete e che tipo di indirizzamenti sono richieste.
+
+[12:44] Professore: Poi vedete ci sono altre
+
+[12:46] Professore: tipi di protocolli, per esempio la rete Apple Talk, queste reti novel di cui non so molto, però effettivamente ogni tipologia di rete poi è associata a questa possibilità di comunicazione tramite software attraverso
+
+[13:04] Professore: quindi una sorta di metodo universale per poter parlare su qualunque rete, purché appunto siano standardizzati i protocolli di comunicazione e sono compresi in questi domini.
+
+[13:22] Professore: Quindi poi a questi domini, a seconda del tipo di comunicazione, possiamo avere più famiglie di giudizi, che sono anche queste identificate da un...
+
+[13:40] Professore: da un altro intero, non negativo, che poi vengono in qualche modo formalizzate e ancora una volta identificate simbolicamente tramite delle macro, abres, femmini.
+
+[13:58] Professore: E quindi è possibile a questo punto stabilire poi lo stile di comunicazione
+
+[14:06] Professore: che sarebbe il canale logico che permette poi di fare questa comunicazione.
+
+[14:12] Professore: Per esempio appunto si può stabilire come stile di comunicazione uno stile soft stream, quindi a flusso bidirezionale di byte, quindi vuol dire che essenzialmente si parlano i processi come se appunto fossero in
+
+[14:32] Professore: in collegamento con un named pipe che era bidirezionale mentre la pipe è unidirezionale.
+
+[14:44] Professore: In questo caso significa che tra i due intente e destinatario
+
+[14:52] Professore: Si stabilisce una comunicazione fissata e poi su questa comunicazione stabile possono fluire i byte, quindi uno può scrivere da una parte e l'altro può leggere dall'altra svuotando via via il canale.
+
+[15:06] Professore: Questo è il meccanismo socket stream.
+
+[15:10] Professore: Altrimenti, per esempio, un altro stile di comunicazione è quello che vi ho detto prima, i datagram, quindi significa che si mandano proprio dei pacchetti.
+
+[15:19] Professore: Quindi in questo caso non viene stabilito a priori un collegamento tra i due.
+
+[15:25] Professore: Se vogliamo questo è come se fosse un collegamento telefonico.
+
+[15:28] Professore: Io chiamo una persona, l'altra risponde e poi si crea una linea di comunicazione, una sessione di comunicazione dove ci possiamo parlare.
+
+[15:40] Professore: Mentre invece nel caso del datagram è come la posta, cioè vi mando un messaggio alla volta e quindi voi ricevete questo messaggio alla volta e non è necessario mantenere per un periodo di tempo la connessione tra i due peer che stanno in comunicazione.
+
+[16:01] Professore: E poi ci sono per esempio Socketro per un accesso a più basso livello di protocolli di rete, per esempio Filti sta pionendo.
+
+[16:11] Professore: E quindi abbiamo quest'altra modalità di comunicazione.
+
+[16:17] Professore: Chiaramente a seconda del dominio alcuni stili possono essere supportati oppure non supportati.
+
+[16:25] Professore: Non tutte le combinazioni stile e dominio sono effettivamente supportate.
+
+[16:31] Professore: e ovviamente come abbiamo già detto prima abbiamo gli indirizzi che si associano al tipo di dominio questo significa che bisogna identificare qual è il destinatario bisogna identificare per esempio nel caso di un server qual è l'indirizzo del server quindi bisogna associarlo ad un indirizzo e anche questo dipenderà dal tipo di rete
+
+[17:00] Professore: a cui facciamo riferimento per esempio qui vedete abbiamo un tipo di indirizzamento
+
+[17:13] Professore: che prevede prima di tutto una struttura, quindi gli indirizzi sono una struttura in cui prima di tutto si identifica qual è la famiglia degli indirizzi, la Dress Family, e poi i restanti BITE servono poi per stabilire qual è
+
+[17:37] Professore: effettivamente l'indirizzo che dipende appunto dal protocollo che stiamo utilizzando però tutto questo viene impostato prima quindi nel momento in cui si definisce il socket si stabilisce qual è appunto il tipo di il dominio di comunicazione si stabilisce il
+
+[18:06] Professore: famiglia, l'address e lo stile di comunicazione.
+
+[18:13] Professore: E poi appunto può partire la comunicazione.
+
+[18:18] Professore: Quindi vediamo qui gli esempi, per esempio nella famiglia Inet, quindi qui abbiamo, sarebbero appunto i indirizzi P4, in questo caso.
+
+[18:34] Professore: e invece nel caso PLocal abbiamo la specifica di un file che fa da canale di comunicazione, il nome di un file.
+
+[18:59] Professore: identifica il byte a disposizione, qui si vede per esempio in IPv4 non tutti questi byte vengono effettivamente utilizzati, quindi abbiamo
+
+[19:12] Professore: uno short int per identificare la famiglia, un unsigned short int per la porta, perché appunto nel caso di indirizzo IP dobbiamo stabilire sia l'indirizzo che la porta su cui può stare in ascolto
+
+[19:31] Professore: per esempio un socket e su cui poi si va a fare una connessione e poi abbiamo alcuni pipe che non sempre sono completamente utilizzati.
+
+[19:53] Professore: Allora su questo, quindi un socket quando si aggancia ad un indirizzo si dice che fa un bind, quindi fa un bind sull'indirizzo e su quell'indirizzo poi si può mettere in ascolto, in attesa, poi si mette, quindi vuol dire che è pronta
+
+[20:16] Professore: eventualmente a ricevere delle richieste su una coda di richieste ma in realtà subito dopo per poter veramente mettersi in attesa deve andare a predisporsi su un accept l'accept è una funzione bloccante
+
+[20:45] Professore: nel senso che nel momento in cui si cala un accept, l'accept rimane in attesa di una richiesta, ok?
+
+[20:53] Professore: Quindi la listen è semplicemente l'associazione del socket ad una coda di richieste, perché però veramente si mette in attesa di un collegamento, occorre che il processo o il thread cali una accept, ok?
+
+[21:12] Professore: e dall'altra parte si aspetta una request da parte del richiedente nel momento in cui viene accettata si crea il canale di comunicazione diretto per esempio tra client e server se il server, ammettiamo che il server è iterativo quindi questo vuol dire che può avere un accept alla volta quindi accetta una comunicazione
+
+[21:40] Professore: e poi abbiamo che effettivamente bisogna aspettare che finisca, che chiuda quella comunicazione per poi aprirne un'altra.
+
+[21:48] Professore: Se invece vogliamo aprire più comunicazioni contemporaneamente, possiamo avere una concorrenza.
+
+[21:57] Professore: Quindi questo vuol dire che ogni volta che c'è un accept, bisogna creare un nuovo thread che gestisce quel tipo di comunicazione sopportamente.
+
+[22:11] SPEAKER_01: E' acqua?
+
+[22:12] Professore: Questa che è acqua?
+
+[22:14] Professore: Guarda, ci sono bombardamenti, va bene?
+
+[22:22] Professore: Poi ci riscrivo di varia.
+
+[22:26] SPEAKER_01: Pioggia di proiettili.
+
+[22:28] Professore: Attacco aereo.
+
+[22:31] SPEAKER_01: Grandine in questo periodo, con 30 gradi, non credo.
+
+[22:34] SPEAKER_01: Non fa abbastanza freddo per ora.
+
+[22:38] Professore: Non si sa mai...
+
+[22:41] Professore: Comunque, qui abbiamo questa possibilità di avere un server concorrente, nel senso che appena riceve un accept poi può lanciare un thread che gestisce proprio quella comunicazione e si rimette di nuovo in attesa di un altro tipo di connessione.
+
+[23:08] Professore: Quindi,
+
+[23:11] Professore: andiamo a vedere un po' che cosa dovrebbe fare un server queste sono le cose che fa il server vedete abbiamo la creazione del socket innanzitutto poi bisogna dargli un indirizzo e questo lo fa l'operazione bind poi dopo il bind bisogna mettersi in ascolto su questo indirizzo quindi si crea una coda di processi che sono in qualche modo
+
+[23:40] Professore: di richieste su quell'indirizzo e poi accept serve per accettare le nuove connessioni una volta finito questa operazione si chiude il socket e poi se il socket è locale bisogna fare questa link che equivale
+
+[24:04] Professore: che equivale alla cancellazione, diciamo così, di quel file che era stato locale, che era stato creato come canale di comunicazione, altrimenti rimane.
+
+[24:27] Professore: C'è uno molto piccolo che sicuramente non basterà.
+
+[24:34] Professore: Allora, andiamo a vedere le API che servono.
+
+[24:40] Professore: Abbiamo questa socket che prende la famiglia, quindi bisogna dirgli subito di che tipo di socket si parla, il tipo e il protocollo.
+
+[24:55] Professore: Quindi questa funzione
+
+[24:58] Professore: non fa altro che aprire il socket che è equivalente a una open quando uno fa una cosa del genere infatti vedete che restituisce un intero che sarebbe un file descriptor quindi al processo viene semplicemente assegnata un indice attraverso il quale può parlare attraverso quel socket che poi quel socket farà da collegamento all'altra socket
+
+[25:26] Professore: con cui si è stabilita la connessione però innanzitutto quindi questa funzionalità serve essenzialmente per preparare localmente questo estremo di comunicazione quindi c'è questa voce che si apre nella tabella dei file aperti in qualche modo e che specifica appunto anche
+
+[25:56] Professore: il tipo di comunicazione che si vuole instaurare family è la famiglia a cui appartiene il protocollo type, tipo di comunicazione e poi protocol va a specificare quando necessario il proprio protocollo specifico di quel tipo quindi il software descriptor essenzialmente è un file descriptor e aggiunge una entry alla tabella dei file aperti facendo così qui vedete
+
+[26:26] Professore: alcuni esempi possono essere la famiglia sono appunto può essere local o internet e poi il tipo per esempio può essere socket stream e poi protocollo si lascia zero o null perché non c'è bisogno di specificare ulteriormente ok in questo caso in altri casi può darsi che oltre al tipo c'è un sottotipo che va effettivamente che va specificato
+
+[26:54] Professore: Quindi se non si riesce ad aprire un socket di questo tipo, magari perché uno ha sbagliato, perché un tipo di socket, un tipo di protocollo non è supportato da una famiglia, per esempio restituisce meno uno o cose analoghe.
+
+[27:15] Professore: Qui vedete c'è una...
+
+[27:18] Professore: una slide in cui possiamo vedere alcune macro che stabiliscono, non so, PfUnix, PfInet, Inet6, AppleTalk, eccetera eccetera.
+
+[27:30] Professore: Queste sono tutte specifiche possibili di una famiglia.
+
+[27:35] Professore: Poi abbiamo i tipi di trasmissione.
+
+[27:42] Professore: I più tipici sono Stream e Datagram.
+
+[27:45] Professore: Ro è già un po' più sofisticato.
+
+[27:49] Professore: consente di andare a leggere a un livello più basso che titolo di comunicazione si scambiano i vari processi di comunicazione e poi i valori di protocollo, possiamo vedere alcuni TCP, UDP ecc.
+
+[28:17] Professore: tradotto se dovete per esempio creare socket locali potete tipicamente quindi andare a chiamare socket, pflocal, socketstream e poi 0 questo equivale ad aprire un estremo di comunicazione via socket e si restituisce da qui un file descriptor quindi lato
+
+[28:47] Professore: il processo, a questo punto lui ha un file script, però questo è un socket che è semplicemente definito, ok?
+
+[28:55] Professore: localmente non c'è ancora un indirizzo a cui è associato.
+
+[29:00] Professore: Qui vediamo un altro esempio, invece si, no, socket, vt4, internet e con socket stream come
+
+[29:13] Professore: come canale e poi abbiamo qui un altro tipo internet IP4 con socket datagram come canale quindi si predispone già a livello di dichiarazione di che tipo di rete stiamo parlando che tipo di comunicazione stiamo parlando allora dopo questo abbiamo finito
+
+[29:40] Professore: la necessità di dover associare al socket un indirizzo e quindi questo lo si fa attraverso un bind, quindi un'operazione che va appunto a associare effettivamente indirizzo e per fare questa operazione di binding abbiamo
+
+[30:03] Professore: Ho bisogno del socket descriptor, quindi questo socket descriptor già mi dà accesso alla struttura dati della socket aperta che è già predisposta per essere di un determinato tipo, di una determinata caratteristica e si aspetta quindi un indirizzo conforme.
+
+[30:20] Professore: e vedete bisogna passarglielo in una struttura dati che va preparata prima e questo non è altro che la lunghezza cioè la grandezza di questa struttura dati quindi essenzialmente va preparato questo indirizzo ed è diverso ripeto a seconda del tipo di connessione che abbiamo
+
+[30:49] Professore: Quindi nel caso per esempio di un socket locale, questo sarà il nome di un file, semplicemente il nome di un file che nel momento in cui si fa il binding essenzialmente viene associato al socket e viene utilizzato semplicemente come canale di comunicazione.
+
+[31:18] Professore: Per esempio, qui possiamo vedere un indirizzo, questo per socket locali, questa è una socket struct add unix, ok?
+
+[31:38] Professore: Quindi socket locale unix, e qui sarebbe la famiglia san, ok?
+
+[31:49] Professore: SunFamily, quindi questo è legato appunto a SUnixFamily e SystemUnixFamily e poi qui abbiamo essenzialmente una stringa, bisogna dare una stringa di caratteri che sarebbe l'indirizzo
+
+[32:17] Professore: C'è il nome del file Questo è il modo come si usa Quindi questo è Si dichiara Un'address Unix Vedete qua?
+
+[32:36] Professore: Qua qui c'è un Si stabilisce Di che tipo è
+
+[32:47] Professore: e poi con string copy vado a copiare qual è il file che si creerà, quindi non è necessario che lo creiate voi questo file, questo file appunto verrà creato contestualmente, come canale.
+
+[33:08] Professore: Quindi a questo punto, una volta creato questo indirizzo, si fa il bind, quindi questo è il mio indirizzo,
+
+[33:17] Professore: Questo c'è il cast sul socket address e poi il sizeoff, il mio indirizzo, quindi questo è un bind.
+
+[33:23] Professore: Quindi abbiamo collegato il file descriptor del socket che è stato già aperto, è collegato qui ad un indirizzo che in questo caso è una stringa, nome di un file.
+
+[33:37] Professore: E dopo questo si può procedere andando a mettersi in ascolto.
+
+[33:42] Professore: Quindi sempre si riutilizza il file descriptor, si deve stabilire una coda di processi, diciamo, di collegamenti, di richieste di collegamento in attesa.
+
+[33:55] Professore: Oltre questa coda, ok?
+
+[33:57] Professore: Se si riempie questa coda, quelli dopo ricevono un fallimento, ok?
+
+[34:02] Professore: Non riescono più a collegarsi.
+
+[34:06] Professore: E quindi anche questo è un API che
+
+[34:11] Professore: che o ha successo oppure meno uno fallimento.
+
+[34:16] Professore: Ok?
+
+[34:19] Professore: Quindi questo è il listen.
+
+[34:27] Professore: Sì, perché se sono iterativi e qualcuno rimane appunto, bisogna aspettare di servire il client, chiaramente si possono accumulare diverse richieste, oltre alle quali poi
+
+[34:41] Professore: chi ha fatto la richiesta gli viene negato la possibilità perché non si può mettere in colo.
+
+[34:51] Professore: Quindi questo è il backlog, appunto si chiama.
+
+[34:56] Professore: E poi, però attenzione, questa non è bloccante questo listen, cioè quando il server chiama per esempio un listen su questo indirizzo, ancora non è bloccato.
+
+[35:06] Professore: Quella che è bloccante è l'accept, cioè chiama a quel punto un accept e chiamando un accept, ecco qui è interessante...
+
+[35:14] Professore: perché l'accept si fa passando il socket descriptor di questa socket che stava in ascolto a cui è stato associato il listen poi riceve in teoria se lo espone in indirizzo del client se questo è visibile se il client ha associato un indirizzo perché non è detto che il client abbia fatto un binding la sua socket non è detto che abbia fatto un binding su un indirizzo
+
+[35:45] Professore: restituisce ecco questa è la cosa interessante attenzione restituisce un nuovo descrittore ok?
+
+[35:53] Professore: cioè quindi è come se aprisse una nuova socket perché?
+
+[35:59] Professore: perché questa socket cioè in realtà serve questo descrittore questo canale serve per poter gestire
+
+[36:13] Professore: la comunicazione, quindi quella su cui era stato fatto listen rimane in ascolto per accettare altre comunicazioni e mentre questa nel momento in cui c'è l'accept viene creata una nuova socket e un nuovo file descriptor associato a questo quindi questo è un punto importante perché in questo modo il vecchio socket rimane in ascolto quindi è una sorta di
+
+[36:43] Professore: divisione, anche qui, ok?
+
+[36:45] Professore: Quindi c'è un sdoppiamento di ruoli, c'è una socket, quella su cui era salvato il listen, che deve ascoltare, fa da centralinista se vogliamo, e poi va a smistare su un'altra socket che fa invece da gestore della connessione, ok?
+
+[37:03] Professore: Quindi questo è il ruolo dell'accept, ok?
+
+[37:07] Professore: e questa XET è veramente quella che è bloccante, quella che rimane appunto in attesa bloccata.
+
+[37:15] Professore: Quindi qui ci stanno qualche ulteriore ragguaglio, però a questo punto lo vediamo tutto insieme quale può essere la struttura di un server, eccolo qua, quindi vedete qui abbiamo praticamente tutto quello che abbiamo detto fino adesso,
+
+[37:29] Professore: Guardate un attimo, sono dichiarati due file descriptor, proprio perché uno serve per la socket in ascolto e l'altro per quella socket che serve per la gestione.
+
+[37:41] Professore: Poi che cosa facciamo?
+
+[37:42] Professore: Abbiamo creato l'indirizzo, quindi prima di tutto creiamo l'indirizzo e andiamo a vedere di che cosa stiamo parlando.
+
+[37:49] Professore: Stiamo parlando di address family local, quindi parliamo in questo caso di
+
+[37:56] Professore: socket per la comunicazione locale avviene attraverso un name il name sarà il nome di un file quindi il canale che si utilizza e questo nome di file che mi fa un certo senso che mi serve per poter sapere con chi sto comunicando e poi ecco qua questa socket vedete vi dico pf local socket stream 0 ok quindi fino a qui
+
+[38:22] Professore: è come se avessi aperto un canale di comunicazione, come ho fatto una open, come quando si crea una pipe, qui si crea una socket, chiaro?
+
+[38:33] Professore: Poi dopo, subito dopo, qui si sfrutta quell'indirizzo che era stato preparato prima, quindi si fa il bind, quindi qui ottengo un file prescritto, perché è come se avessi fatto una open,
+
+[38:43] Professore: poi su questo file descriptor vado a associarli un indirizzo ok quindi a questo punto socket non è una socket così generica ma può essere indirizzata ok abbiamo l'indirizzo di questa socket si può fare una connect su questa socket però perché possa accettare le connessioni bisogna prima metterla in listen quindi in ascolto
+
+[39:10] Professore: e darvi una coda di ascolto quindi di persone che possono essere in attesa di essere accettate e poi qui vedete c'è l'accept quindi questa è la fase in cui avviene effettivamente la definizione di un canale stabile tra i due terminali di comunicazione quindi qui vedete che c'è questo accept dove
+
+[39:38] Professore: sull'accept l'fd1 è quello della socket in ascolto e nel momento in cui ha successo questo accept se ha fallimento viene dato meno 1 però nel momento in cui sia successo viene creato un nuovo file descriptor e quindi se io voglio parlare voglio scrivere su quella socket non devo utilizzare questo fd1 ma devo utilizzare questo fd2 che è il secondo quindi questo è il vero canale
+
+[40:07] Professore: che si crea, e quell'altro rimane invece in ascolto per gestire altre richieste, ok?
+
+[40:13] Professore: Quindi questo è un punto importante.
+
+[40:15] Professore: Poi, in questo caso, quando sia finito, si deve fare la chiusura dei vari canali, close f2, close f1, e poi, attenzione, l'unlink del file che è stato creato, ok?
+
+[40:28] Professore: Questo file non è necessario che esista prima, ok?
+
+[40:35] Professore: anzi questo file praticamente viene creato nel momento in cui si fa il bind di questo che per ora è una striglia nel momento in cui si fa il bind diventa un canale di comunicazione diventa un nome simile alla named byte con la stessa funzionalità quindi questa è la struttura di colui che deve servire una richiesta accettare una richiesta e servirla
+
+[41:06] Professore: e andiamo a vedere, quindi abbiamo, creiamo il socket, facciamo il bind, si mette in ascolto, fa l'accept, quella bloccante non è la list ma è l'accept e poi chiude il, diciamo così, il canale, quindi chiude il file descriptor che equivale alla chiusura del file e poi fa l'unlink, ok?
+
+[41:26] Professore: Da qui ci siamo.
+
+[41:28] Professore: Andiamo a vedere dall'altra parte invece il client che cosa fa.
+
+[41:32] Professore: Il client crea socket,
+
+[41:35] Professore: ok bene in questo caso siccome un client e richiede un servizio non ha bisogno di esporre un indirizzo per carità se vuole può anche farlo quindi può fare un bind su un indirizzo a sua volta ok però in questo caso non è necessario quindi questo abbiamo anche perché i client in questo caso appunto deve connettersi al server quindi non c'è il server che si connette
+
+[42:02] Professore: al client, se uno vuole può farlo una cosa bidirezionale dove ognuno si comporta sia da un client che da sé quindi si fa una connect e poi dopo mi ha finito di fare quello che deve fare close e quindi dobbiamo introdurre queste nuove primitive
+
+[42:21] Professore: Per esempio la connect, la connect di che cosa ha bisogno?
+
+[42:25] Professore: Ha bisogno di il socket descriptor, quindi il file descriptor, essenzialmente della socket che ho creato, lato client, poi ho bisogno di conoscere qual è il server address e poi ovviamente il resto sarebbe l'address length, cioè la lunghezza di questo address che viene da sé.
+
+[42:51] Professore: Ok?
+
+[42:52] Professore: Quindi la connect restituisce 0 in caso di successo, meno 1 in caso di fallimento ed è proprio quando viene fatta la connect, per esempio, che su TCPB
+
+[43:10] Professore: avviene quella che è la connessione 3-way and shake, in cui praticamente parte da questa comunicazione in cui c'è la richiesta, la conferma e poi la conferma dall'altra parte e quindi si stabilisce effettivamente la connessione.
+
+[43:28] Professore: la comunicazione.
+
+[43:29] Professore: Una volta che è stata stabilita questa comunicazione abbiamo uno stream dove i due possono parlarsi in modo bidirezionale, cioè uno può scrivere, l'altro può leggere, l'altro può scrivere e l'altro legge, come se fosse una named pipe.
+
+[43:46] Professore: Quindi se sono ovviamente sulla stessa macchina abbiamo la stessa caratteristica di una
+
+[43:53] Professore: di una named pipe di fatto se invece stanno su macchine diverse lo stream fluisce attraverso la rete in modo completamente trasparente per i due PIR che si parlano magari stanno dall'altra parte del mondo ma si parlano come se fossero sulla stessa macchina quindi è un interprocess communication che passa attraverso i meccanismi di rete i vari strati del meccanismo di rete
+
+[44:22] Professore: e poi chiaramente ognuno di loro può chiudere il canale e quindi la chiusura poi anche qui bisogna che sia in qualche modo gestita correttamente perché se c'è una chiusura per esempio di un lato
+
+[44:48] Professore: e poi dall'altra parte si prova a leggere o a scrivere ci sono delle conseguenze per esempio se si scrive su una socket rotta allora si ottiene una seed pipe
+
+[45:09] Professore: e dall'altra parte se vado invece a leggere su pipe rotta posso leggere tutto quello che c'è diciamo così nel canale però poi leggerò 0 ok?
+
+[45:21] Professore: quindi come più o meno come succedeva con una pipe quindi andiamo a vedere la struttura del client quindi il client a sua volta così come il server deve crearsi l'indirizzo ok?
+
+[45:38] Professore: apre socket e poi semplicemente va a fare il connect una volta che è stabilita la connessione quindi la connessione qui non è meno uno può dire che è andata a buon fine e a quel punto nel mezzo i due processi possono parlarsi uno può leggere uno può scrivere eccetera eccetera quindi ricapitolando il client
+
+[46:06] Professore: crea socket, poi fa una connect su un indirizzo che si è opportunamente creato e poi una volta che è finito chiude la connessione.
+
+[46:19] Professore: Una volta stabilita la connessione possiamo per esempio utilizzare direttamente la read,
+
+[46:28] Professore: e se non ci sono dati da leggere, la read blocca, quindi proprio come una pipe, quindi se il canale non ha byte, blocca, è normale ottenere meno byte di quelli richiesti, quindi dipende appunto dal momento in cui vengono letti questi byte, e poi invece leggere zero byte significa che il socket è vuoto ed è stato chiuso.
+
+[46:56] Professore: quindi se il read da una socket risulta zero siamo sicuri che dall'altra parte hanno chiuso e non ci sono altri byte da leggere su canale invece eccolo qua quello che vi dicevo per quanto riguarda invece la scrittura qui abbiamo che si può usare il write ok
+
+[47:23] Professore: questo anche qui bisogna stare attenti perché uno prova a scrivere dei byte però non è detto che tutti vengano effettivamente scritti se non sono stati scritti tutti infatti bisogna ciclare quindi quando si fa una write bisogna andare a vedere cosa è stato scritto e poi eventualmente continuare a vedere cioè se sono stati scritti n byte esattamente quelli che volevo allora posso andare avanti
+
+[47:52] Professore: Se invece ne ha scritti soltanto un po', allora devo continuare.
+
+[48:01] Professore: E poi qui, come vi dicevo prima, se il socket è stato chiuso dal destinatario, allora il processo in questo caso riceve un SIGPipe.
+
+[48:12] Professore: Vi ricordate che succedeva col SIGPipe?
+
+[48:19] Professore: Il processo che riceve il SIGPipe...
+
+[48:22] Professore: In default, qual è il suo comportamento?
+
+[48:28] Professore: C'è una domanda d'esame.
+
+[48:37] Professore: È un segnale, no?
+
+[48:38] Professore: Di solito i segnali che non hanno... Terminazione.
+
+[48:44] Professore: Terminazione.
+
+[48:45] Professore: Quindi va o schermato, quindi ignore, o messo una mask, una maschera.
+
+[48:52] Professore: oppure si va a prendere un handler che fa qualcosa quindi che lo gestisce quindi quando scatta questo segnale il kernel associa a questo segnale un handler che vede deciso voi e quindi se ignora il segnale
+
+[49:23] Professore: quindi comunque il write restituisce meno 1 perché c'è un fallimento e imposta a error number quindi la variabile erno viene impostata errore di pipe ok?
+
+[49:38] Professore: quindi potete leggere quello che è successo su questa variabile che stabilisce appunto qual è l'ultimo errore che si è prodotto ok?
+
+[49:53] Professore: adesso qui c'avevo un esercizietto da darvi ok magari questo lo potete fare domani questo era carino quindi implementare un server che fornisce ai client l'ora esatta usando un socket locale quindi essenzialmente abbiamo un server che ha magari all'orologio ce l'ha pure il client però facciamo questa questa ipotesi ok
+
+[50:23] Professore: e il client deve ricevere appunto l'ora per ricevere l'ora si utilizza per creare l'ora si utilizza la libreria time e in particolare vedete quindi time underscore timida l'ora cioè questo raccoglie l'ora quindi è una variabile che raccoglie l'ora
+
+[50:51] Professore: e poi con time vi si passa il riferimento a questa variabile che poi viene riempita e poi con questa funzione ctime si può andare a tradurre in caratteri quello che è il contenuto di questa struttura data
+
+[51:19] Professore: che mi dice una serie di informazioni.
+
+[51:27] Professore: Allora, l'esercizio quindi cosa prevede?
+
+[51:32] Professore: Prevede che ad ogni nuova connessione il server scrive sul socket l'ora corrente, poi chiude la connessione e si rimette in attesa di nuove connessioni.
+
+[51:46] Professore: Quindi implementare anche un client
+
+[51:49] Professore: che riceve l'ora dal server e la stampa sul terminale quindi abbiamo due programmi che poi diventano due processi indipendenti che comunicano tra di loro tramite appunto socket locale ok allora quindi se volete allora io su Teams vi avevo lasciato codice to do come al solito da riempire
+
+[52:20] Professore: dove ci sono delle parti, quindi c'è un semilavorato del client e del server e appunto poi magari su questo possiamo fare qualche esercizietto domani, non lo so.
+
+[52:34] Professore: Intanto possiamo vedere la soluzione.
+
+[52:43] Professore: vedete, ho bisogno di una, siccome è una socket locale, mi creo il path, ok, per parlare con, per far comunicare, quindi questo fa le reci di un indirizzo locale, ok, è un nome, quindi è una named socket se vogliamo, e poi qui abbiamo, questo è il codice del server, ok, quindi il server che cosa deve fare?
+
+[53:12] Professore: deve crearsi come vi avevamo detto subito un indirizzo quindi qui abbiamo my add poi qui c'è un client add e questa sarebbe la creazione della software precale
+
+[53:42] Professore: aflocal software stream si controlla ovviamente che abbia successo poi qui si va a creare l'indirizzo del server qui abbiamo mema address san family questo è il my address sta qui questo qui
+
+[54:13] Professore: la famiglia che è locale e poi abbiamo il path questo il soccer path è questo lo vedete?
+
+[54:30] Professore: e questo è il size of, meno uno perché è una stringa chi siete?
+
+[54:45] Professore: Poi, dall'altra parte... Allora... Questa che cos'è?
+
+[55:04] Professore: My address, non l'ho già fatto, che è venuto.
+
+[55:09] Professore: Questo è l'indirizzo del server.
+
+[55:16] Professore: forse l'ho ripetuto si è la stessa cosa mi sembra quindi questo è già stato ripetuto ah ecco qui rimuove prima il socket path nel caso in cui per esempio se lo lancio più volte chiaramente mi crea prima il file ok
+
+[55:43] Professore: magari alla fine non era stato l'unlink nel caso in cui non ci sia un unlink quindi lo faccio per scrupolo quindi è come se cancellassi un file hai visto mai che qualcuno l'avesse già creato quel file come strumento di comunicazione e poi si fa il bind su myadr in questo modo sempre controllando che tutto vada bene e quindi si mette il socket in ascolto
+
+[56:17] Professore: Una volta fatto questo, che succede?
+
+[56:21] Professore: Succede che abbiamo il ciclo con cui si accettano le connessioni, vedete?
+
+[56:27] Professore: Quindi qua vedete l'accept è bloccante, è un ciclo while 1, quindi un ciclo continuo, dove il server in modo sequenziale accetta.
+
+[56:44] Professore: E attenzione accetta e da quest'altra parte abbiamo il connect, quindi che è una nuova file descriptor che serve per gestire la comunicazione.
+
+[56:57] Professore: Ok?
+
+[57:00] Professore: Quindi quando si esce da qui, da questo connect, accept, visto che questo è bloccante se non c'è un accept,
+
+[57:10] Professore: vuol dire che posso dire se arrivo qui che c'è una nuova connessione accettata, ovviamente se non è minore di zero, in questo caso sarebbe fallimento, si manda una funzione gestisci su questa software.
+
+[57:28] Professore: Quindi chiamo una funzione di gestione e qui già capite che se io lo voglio fare per esempio non sequenziale ma concorrente,
+
+[57:36] Professore: Qui invece di lanciare una funzione lancio un thread, ok?
+
+[57:41] Professore: Parallelo, che mi va a gestire questa operazione.
+
+[57:45] Professore: Però attenzione che se lo faccio posso definire, posso creare un errore.
+
+[57:55] Professore: Vediamo se riuscite a trovarlo.
+
+[57:58] Professore: Cioè se io qui, mettiamo che voglio andare in concorrenza, no?
+
+[58:01] Professore: Vedete?
+
+[58:02] Professore: Qua ho questa gestisci.
+
+[58:06] Professore: state seguendo quello che sta succedendo?
+
+[58:08] Professore: Quindi questo è il server, rimane bloccato su un server fino a che dal client non gli arriva una request, una connect.
+
+[58:20] Professore: Si blocca, supponiamo che nulla, non succede nessun errore e poi viene chiamata questa gestisci.
+
+[58:27] Professore: Questa gestisci insiste su questa connect st che è stata appena creata lì.
+
+[58:33] Professore: Ok?
+
+[58:35] Professore: in questo caso funziona perché gestisce il sequenziale quindi fa tutto quello che deve fare per gestire dall'ora al client e poi esce e chiude la connessione e quindi la connessione si chiude ed eventualmente vedete si torna sopra e il server rimane in attesa di una nuova connessione supponiamo però invece che adesso io voglio lanciare un thread qua per farla multi thread ci potrebbe essere qualche errore di sincronizzazione
+
+[59:05] Professore: Non solo, non solo, guardate bene questa variabile ConnectSD.
+
+[59:14] Professore: Che cosa succede?
+
+[59:16] Professore: Non c'è una forza critica su quella?
+
+[59:18] Professore: Sì.
+
+[59:19] Professore: Perché io lancio, la sto praticamente utilizzando, quindi sto creando due variabili.
+
+[59:26] Professore: La ConnectSD serviva per un thread.
+
+[59:30] Professore: Quando faccio una nuova Connect, la passo ora a scrivere.
+
+[59:34] Professore: Ok?
+
+[59:35] Professore: quindi se invece avessi lanciato un processo non l'avrei perché sarebbe copiato quindi con una fork gestisci se voglio creare praticamente un gestore che fa fork non avrei problemi ma se chiamo invece un thread qua mi va in corsa critica su quella gestisci quindi vuol dire che se devo fare un server
+
+[01:00:05] Professore: questo stiamo già entrando nel server multi thread se lo devo fare multi thread ecco che effettivamente questa cosa qua devo ogni volta crearla dinamicamente quindi devo crearmi attraverso una memoria dinamica una locazione una malloc qualcosa del genere devo crearmi nuova memoria specifica per gestire il thread esatto il thread quindi attenzione questa è la domanda
+
+[01:00:33] Professore: che magari, non so, se mi sento cattivo la potrei fare pure in un esame, no?
+
+[01:00:41] Professore: C'è qualche problema qui, vedi una forza critica su questa situazione?
+
+[01:00:45] Professore: Tutto sommato, i software li abbiamo visti, quindi, diciamo, fanno parte del reperto.
+
+[01:00:53] SPEAKER_01: Quindi ci potrebbe mettere questo codice davanti e noi...
+
+[01:00:58] Professore: Posso decidere, durante l'esame, di mettervi di fronte a qualche codice e farti delle domande a trabocchetto di questo tipo.
+
+[01:01:09] Professore: Di solito su sincronizzazioni, corse critiche.
+
+[01:01:15] Professore: Ok, gestisci.
+
+[01:01:16] Professore: È molto semplice.
+
+[01:01:18] Professore: Prende il file descritto.
+
+[01:01:22] Professore: Poi utilizzo Time.
+
+[01:01:26] Professore: per prendere l'ora e poi cheat time per convertirla in una stringa e poi si va essenzialmente a mandare il buffer tramite proprio banalmente una prime al client dall'altra parte il client però non l'abbiamo visto il client deve fare una read
+
+[01:01:55] Professore: Però prima deve fare una connector.
+
+[01:01:58] Professore: Quindi... E deve sapere qual è l'indirizzo.
+
+[01:02:00] Professore: Quindi vedete, questo è il client.
+
+[01:02:02] Professore: Il client deve sapere qual è l'indirizzo.
+
+[01:02:05] Professore: C'è scritto lì sopra.
+
+[01:02:07] Professore: Quindi qui si prepara, come al solito, deve crearsi l'indirizzo.
+
+[01:02:17] Professore: Ok?
+
+[01:02:22] Professore: Quindi...
+
+[01:02:26] Professore: qui abbiamo la struct del server add qui col memset lo vado a zerare per evitare che ci sia qualche residuo precedente quindi questo è il socket che va a creare questo è il socket locale lato client vedete in questo caso creo l'indirizzo ma con questo indirizzo non ci faccio il bind
+
+[01:02:52] Professore: non faccio il bind perché questo è un indirizzo che mi serve per la connessione cioè è come quando uno fa il numero ok?
+
+[01:02:59] Professore: devo chiamare il server quindi connect faccio il connect verifico che vada bene la connessione se passa connect lì se supera il connect ok?
+
+[01:03:17] Professore: allora vuol dire che la connessione è stata stabilita
+
+[01:03:23] Professore: Ok?
+
+[01:03:23] Professore: E quindi posso leggere direttamente l'ora e lo posso scrivere sul mio, diciamo così, sul mio terminale.
+
+[01:03:32] Professore: Va bene?
+
+[01:03:33] Professore: Quindi possiamo vederla, questa cosa.
+
+[01:03:37] Professore: Questo magari domani provate a farlo voi, questo.
+
+[01:03:45] SPEAKER_01: Grazie.
+
+[01:04:16] Professore: allora qua quindi qui abbiamo questo è il time server devo anche
+
+[01:04:43] Professore: abbiamo due quindi qui abbiamo rinunciamolo time server ok quindi è già compilato questo rimane in attesa
+
+[01:05:09] Professore: sta in attesa sulla sull'accent ok non sulla listen dall'altra parte qui abbiamo invece lanciamo qui il client client
+
+[01:05:39] Professore: e qui prende l'ora ok direttamente quindi ora ricevuta dal server questa qui e da quest'altra parte il server però vedi ha ricevuto una nuova commissione accettata ha inviato questa e rimane in attesa e dall'altra parte quindi io posso mandargli un altro client
+
+[01:06:10] Professore: e quindi anche l'altro client viene servito e così via fino a quando si deve andare a filare il server dove l'aveva creata
+
+[01:06:39] Professore: il fatto è sul tempo time socket possiamo andare a vedere
+
+[01:07:09] Professore: se l'ha cancellata perchè non c'è un enter del CTRL-C che avrebbe dovuto imprendere e fare l'unlink per cui l'unlink qua non dovrebbe essere stato fatto lì c'è il close però il close c'è un modo quindi c'era un while c'è un while true quindi non si può while true c'era però?
+
+[01:07:36] SPEAKER_01: si si
+
+[01:07:39] Professore: ok e questo è
+
+[01:08:12] Professore: rimasto ok se vogliamo diamo a vedere cosa c'è scritto dentro c'è una s
+
+[01:08:43] Sconosciuto: Ok.
+
+[01:09:19] Professore: ok va bene tutto chiaro?
+
+[01:09:29] Professore: attenzione scambio di dati ok adesso abbiamo visto una stringa che è molto semplice perché è un flusso proprio di byte però allora dico ma se io mi devo scambiare delle cose un pochettino più sofisticate
+
+[01:09:45] Professore: Come faccio?
+
+[01:09:47] Professore: Ci sono diverse possibilità, si può fare per esempio un encoding in una grande stringa, per esempio un array, io qua voglio scampiarmi un array, la trasformo in una stringa, quindi è come se faccio un encoding e poi lo scrivo come una stringa e poi faccio dall'altra parte un decoding.
+
+[01:10:13] Professore: Quindi riprendo la stringa e so che questa stringa va interpretata come un messaggio che poi mi permette di ricostruirmi dall'altra parte la struttura data.
+
+[01:10:28] Professore: Questa è una possibilità, quindi significa che io mi devo stabilire un protocollo di comunicazione
+
+[01:10:35] Professore: che sia appunto basato in questo caso su conversione in stringhe e quindi dall'altra parte il decoding riceve una stringa e poi deve praticamente dividere la stringa in token per esempio delimitati da spazi
+
+[01:10:58] Professore: fare la conversione ad esempio sull'intero e ricostruirsi dall'altra parte l'array questa è una possibilità questo innanzitutto per farvi capire che c'è comunque un problema di comunicazione perché non siamo sulla stessa macchina quindi non è che possiamo
+
+[01:11:17] Professore: andare a comunicare cioè bisogna trovare un modo per far comunicare dei dati che devono essere compresi da due macchine differenti ok e quindi eventualmente ci può essere un protocollo di encoding decoding questo basato appunto su string e quindi su una sorta di parsing e conversione questo è una modalità per esempio appunto se dovete appunto passare
+
+[01:11:47] Professore: uno stato di un gioco dal client al server questo può essere tradotto in dei byte che poi possono essere decodificati lato client cioè il server può andare a fare questo altrimenti appunto se si vuole
+
+[01:12:12] Professore: trasmette per esempio dati in formato più binario ci sono una serie di problemi perché chiaramente il socket trasmette byte non tipi di dato quindi non c'è garanzia che una tipologia di dato venga interpretata nello stesso modo sull'host dall'altra parte
+
+[01:12:41] Professore: e quindi per esempio ci sono una serie di problemi da gestire tipi di dimensione fissa per esempio possono essere utilizzati unsigned and yield 32 quindi vuol dire che sono interi che tutte e due le parti sanno che sono a 32 bit oppure poi bisogna stare attenti al network byte order sapete cos'è il network byte order?
+
+[01:13:12] Professore: che quando rappresento i dati, i dati sono rappresentati per esempio da vari byte, non uno solo, ma n byte, a seconda del tipo di dato.
+
+[01:13:23] Professore: Ora, per esempio, mettiamo noi gli interi, quindi abbiamo n byte per rappresentare gli interi,
+
+[01:13:31] Professore: C'è i due tipi di rappresentazione che possono esserci a seconda del tipo di piattaforma, è uno con cui si fa riferimento, si chiama Little Indian o Big Indian.
+
+[01:13:43] Professore: Avete mai sentito parlare?
+
+[01:13:45] Professore: Quindi Little Indian è quello che fa corrispondere il...
+
+[01:13:53] Professore: nell'ordine il byte meno significativo che poi cresce e poi invece dall'altra parte gli indirizzi in un certo senso vanno al contrario col Big Endian e quindi nella rete la rappresentazione standard è quella appunto del Big Endian e quindi prima di mandare
+
+[01:14:18] Professore: le cose in rete bisogna comunque per non sapere né leggere né scrivere perché io non ho detto che sappia la propria piattaforma come vale in codica oppure comunque non si sa io il codice lo devo fare che è portabile quindi deve andare bene su una piattaforma come sull'altra quindi a prescindere si fa una conversione in quindi in host quindi nel formato host e poi si utilizzano appunto delle funzioni per tradurlo
+
+[01:14:48] Professore: dal network all'host quindi praticamente prima si traduce tutto essenzialmente in big endian e poi quindi se già il tuo sistema è big endian non farà nulla mentre invece se è leader endian in quel caso fa la conversione quindi va a fare un check essenzialmente questa funzione va a vedere come è impostato il tuo sistema quindi
+
+[01:15:17] Professore: e la convenzione è che tutti i dati viaggiano in rete e viaggiano in biglietta.
+
+[01:15:23] Professore: E poi bisogna sapere che tipo di dato si sta
+
+[01:15:35] Professore: trasmettendo a livello proprio di protocollo, un piccolo protocollo di comunicazione comunque necessario perché dall'altra parte poi deve sapere quanti dati effettivamente deve andare a leggere, un conto è se devo leggere un intero, un conto è se devo leggere un array, quanti dati eccetera eccetera, quindi occorre effettivamente una serie di accortezze
+
+[01:16:02] Professore: Quindi prima per esempio si può creare un protocollo in cui prima si manda la dimensione e quindi quanti dati di aspetti, non so, tot interi di dimensione fissa e poi dopo effettivamente possono essere letti però soltanto quando sono stati convertiti a
+
+[01:16:27] Professore: host to network, ok?
+
+[01:16:30] Professore: Questo è un host to network long.
+
+[01:16:34] Professore: Quindi in questo caso, vedete, non passo attraverso una comunicazione basata su stringa, quindi una convenzione è quella di tradurre tutto in stringhe e poi passare le stringhe e quello è un metodo universale per fare un encoding, ok?
+
+[01:16:53] Professore: Un altro metodo, se non voglio passare attraverso le stringhe, però devo stare attento a avere una trasmissione, quindi posso scrivere, non so, numeri, posso mandare numeri, però devo stare attento effettivamente a trasmettervi in formato universale, standard, per la rete, per la comunicazione in rete, quindi devo stabilire
+
+[01:17:19] Professore: Questi sono unsigned int 32bic, li formo prima, so che praticamente poi trasformo quello che ho, quel numero che ho creato, lo trasformo in host to network long, ok?
+
+[01:17:35] Professore: E quindi poi lo vado effettivamente a scrivere.
+
+[01:17:38] Professore: Comunque c'è un protocollo dall'altra parte, perché qui non dice, ok, ti sto a mandare, come dire, passo e chiudo, ok?
+
+[01:17:45] Professore: Quindi dico,
+
+[01:17:46] Professore: ti sto mandando n interi eccetera eccetera ok poi va a leggere successivamente e quindi bisogna in qualche modo stabilire sia lato client che lato server quindi questo è il client questo è il server che appunto si aspetta di leggere prima la dimensione e poi una volta che ha settato la dimensione
+
+[01:18:15] Professore: mette un ciclo e legge quei byte che si aspettava dall'altra parte.
+
+[01:18:16] Professore: Questi sono degli esempi molto semplici.
+
+[01:18:24] Professore: che però servono per farvi riflettere sulla problematica.
+
+[01:18:28] Professore: Quindi quando ci sono dati semplici, è semplice, quando invece bisogna strutturarli questi dati, bisogna stabilire un protocollo di comunicazione e la comunicazione deve anche assumere
+
+[01:18:46] Professore: dei dati standard per la rete in cui tutti si settano sulla stessa tipologia di dati che vengono scambiati e non si fa più riferimento
+
+[01:18:59] Professore: in modo implicito a quello che viene sulla propria realtàforma, perché se io li mando così come sono, quelli sono byte che possono essere rappresentati in teoria in diversi modi a seconda delle caratteristiche sia del mittente che del destinatario, quindi possono essere interpretati in modo diverso.
+
+[01:19:16] Professore: Se invece fisso le dimensioni, fisso la modalità di rappresentazione, allora ho schermato la mia
+
+[01:19:27] Professore: e posso anche ragionare in binario e non necessariamente in termini di stringhe ok allora abbiamo parlato quindi adesso di un tipo di socket che fa la connessione punto punto
+
+[01:19:50] Professore: in realtà io posso anche sempre nei socket locali senza scomodare ancora i socket appunto su rete posso anche farmi comunicare tramite datagramma quindi posso creare un messaggio indipendente autocontenuto in questo caso non ho bisogno di fare listen, accept eccetera perché ogni volta è one shot la comunicazione quindi mando da una parte c'è un mittente che manda una lettera a un destinatario
+
+[01:20:20] Professore: e poi il destinatario chiaramente la deve accettare.
+
+[01:20:25] Professore: In questo caso si utilizzano delle primitive diverse, che non sono più quelle read-write universali, se vogliamo, per la comunicazione, ma sono più specialistiche per il socket.
+
+[01:20:39] Professore: Sono send-to e receive-from.
+
+[01:20:44] Professore: Quindi io posso mandare proprio un messaggio attraverso una send di quel messaggio ad un indirizzo e poi dall'altra parte io posso ricevere il messaggio da qualcuno oppure posso semplicemente ricevere il messaggio e poi andare a vedere se c'è un indirizzo chi è che me l'ha mandato.
+
+[01:21:03] Professore: Ok?
+
+[01:21:05] Professore: Ma come si fa?
+
+[01:21:07] Professore: Molto semplicemente il socket che vado ad aprire non è più un socket stream ma è un socket datagram.
+
+[01:21:19] Professore: Quindi ancora una volta posso fargli parlare tramite un indirizzo.
+
+[01:21:25] Professore: Qui si fa la link per non sapere né leggere né scrivere perché per esempio prima avete visto che il server aveva lasciato traccia.
+
+[01:21:33] Professore: Ok?
+
+[01:21:34] Professore: Quindi nel caso in cui se non si fa l'unlink, quel file lì, cioè il sistema mi dice che c'è un errore perché non fa il bind su questa software perché dice che già esisteva quel file lì.
+
+[01:21:55] Professore: Quindi qui si fa l'unlink, poi si fa il bind,
+
+[01:21:59] Professore: e poi qui si va a quindi questo abbiamo fatto il string copy eccetera eccetera receive from quindi qui il server direttamente si mette in modalità di quindi invece di fare una listen una volta che ho il bind proprio
+
+[01:22:25] Professore: dice receive from buffer, quindi qui questo è il buffer che deve accogliere il dato e qui eventualmente ci sarà l'indirizzo di chi me l'ha mandato, ok?
+
+[01:22:40] Professore: E questo server ha ricevuto.
+
+[01:22:44] Professore: Prof, ma la link non dovrebbe andare prima di copy?
+
+[01:22:53] Professore: Prima?
+
+[01:22:53] Professore: Di copy?
+
+[01:22:53] Professore: No, no, perché qui ho semplicemente creato
+
+[01:22:55] Professore: una stringa, ok?
+
+[01:22:57] Professore: Ho assegnato questa stringa, l'ho assegnata all'address, ma non ho ancora fatto il bind, quindi quello può essere un address che può usare chiunque, non è ancora associata a una pipe, ok?
+
+[01:23:08] Professore: Cioè quindi è come se io ho riempito questo, ho creato la struttura indirizzo che per ora non è utilizzata, ok?
+
+[01:23:16] Professore: Quindi è una struttura dati che rimane lì, io posso metterci dentro quello che mi pare là dentro, purché sia compatibile con i tipi, ok?
+
+[01:23:23] Professore: Quando è che diventa pericolosa?
+
+[01:23:25] Professore: Quando è che mi dà l'errore?
+
+[01:23:28] Professore: Nel momento in cui faccio il bind, quindi l'associo al socket.
+
+[01:23:33] Professore: Per ora è creata una struttura dati che è un indirizzo, e quindi un indirizzo che non è legato ad un socket.
+
+[01:23:41] Professore: È chiaro?
+
+[01:23:43] Professore: Quindi l'unlink si fa poco prima del bind, in modo tale che se era già linkata ad un'altra socket,
+
+[01:23:53] Professore: Qui poteva dare errore.
+
+[01:24:01] Professore: La cosa interessante è che io sono raggiungibile su un indirizzo, ma in questo caso non faccio un accept, quindi non creo proprio una connessione tipo telefonica, in cui c'è la linea che mi sostiene, una sessione, non creo una sessione,
+
+[01:24:20] Professore: ma semplicemente mi predispongo a ricevere da qualcuno.
+
+[01:24:25] Professore: Dall'altra parte il client crea anche lui il socket, poi si crea l'indirizzo, ma questo indirizzo lo utilizza per mandare qualcosa qui,
+
+[01:24:45] Professore: tramite la sua socket la manda però a questo indirizzo qua ok?
+
+[01:24:51] Professore: questo è send to quindi send attraverso questo canale il canale che ho aperto totalmente quindi il mio socket gli vado a mandare questa striga che è ciao ok?
+
+[01:25:04] Professore: questi sono i numeri di byte e questo è l'utilizzo e questo quindi è un datagram che passa
+
+[01:25:13] Professore: Quindi un datagram viene praticamente spedito, il server dall'altra parte lo va a ricevere e poi stampa quello che ha ricevuto qua.
+
+[01:25:25] Professore: Quindi è una connectionless se vogliamo.
+
+[01:25:34] Professore: Quindi qui abbiamo senza connessione
+
+[01:25:39] Professore: queste caratteristiche quindi ogni volta che si manda un send to si manda un intero datagram che ha una dimensione prestabilita e poi dentro però si va a popolare soltanto di quel messaggio si va a leggere, si va a estrapolare solo quel messaggio che è stato mandato non c'è né la connect né l'accept il kernel in questo caso gestisce la consegna una dimensione massima
+
+[01:26:07] Professore: se il buffer di ricezione è piccolo rispetto al messaggio questo messaggio può essere troncato quindi questo tipo di comunicazione va bene per messaggi brevi autonomi ok ok il prossimo step
+
+[01:26:36] Professore: è quello invece dei socket, in questo caso TCP, cioè quelli che vanno su internet.
+
+[01:26:46] Professore: Quindi in questo caso vedete che abbiamo un socket ADR che è IN, internet, dove quindi la famiglia è ADRESFAMILY e AFINET,
+
+[01:27:04] Professore: Poi bisogna stabilire una porta su cui si va a ricevere la comunicazione e poi l'indirizzo, un indirizzo EP che può essere il PV4 o il PV6 a seconda del tipo di indirizzo che si ha a disposizione.
+
+[01:27:35] Professore: quindi anche questo va messo il network order quindi avremmo per crearci questo indirizzo dovremmo appunto questa la sappiamo quindi questa è una struttura dati
+
+[01:27:53] Professore: che dovrà essere dichiarato, quindi un tipo di dato di questo tipo deve essere dichiarato, poi questi campi vanno valorizzati con .af init, poi qui questo short int è la porta, bisogna mettere una porta di comunicazione, ok?
+
+[01:28:14] Professore: Quindi scegliere una porta che non è già riservata, ovviamente, quindi una porta alta per fare la comunicazione, attenzione il numero della porta
+
+[01:28:23] Professore: va indicato in network order anche questo bisogna schermarlo quindi bisogna metterlo in network order poi l'indirizzo internet anche qua si deve tradurre in questo tipo di indirizzi ci sono delle funzioni che direttamente permettono di fare questo e poi alcuni byte non sono tutti valorizzati almeno per quanto riguarda il
+
+[01:28:54] Professore: questo tipo di indirizzo il pv4 per esempio nel caso di pv4 vedete ci sono un po' di cose che rimangono praticamente inutilizzate quindi è sovrallocata diciamo così il numero il byte per poter rappresentare un indirizzo per esempio il pv4 che ha una dimensione qui ti
+
+[01:29:27] Professore: 16 byte quindi qui vedete questo è un esempio di indirizzo IP 32 bit una porta 16 bit per rappresentare una porta come sapete appunto le porte basse sono riservate poi ci sono porte utenti poi ci sono porte fibre
+
+[01:29:55] Professore: Quindi si sceglie una porta di valore alto per fare questa comunicazione che non deve andare a rompere le scatole.
+
+[01:30:05] Professore: Per esempio una porta dente da 5.000 in su.
+
+[01:30:09] Professore: Ok?
+
+[01:30:12] Professore: Queste porte le conoscete?
+
+[01:30:15] Professore: Queste qui?
+
+[01:30:16] Professore: Sì.
+
+[01:30:16] Professore: Quindi 21 FTP, 22 SSH, 25 SMPT,
+
+[01:30:24] Professore: 80 HTTP, qui se vedete c'è la lista ufficiale delle porte, queste sono porte su cui, a meno che non volete intervenire e dialogare con questi protocolli,
+
+[01:30:40] Professore: meglio se volete creare una cosa vostra dovete, un po' come le frequenze che uno non va a comunicare su determinate frequenze non va a comunicare su determinate volte almeno che uno non sappia quello che sta facendo quindi se uno vuole comunicare con l'HTTP un server HTTP ci dialoga tranquillamente l'importante è sapere con chi si sta parlando e soprattutto mettere in sicurezza la rete di casa
+
+[01:31:10] Professore: Esattamente, quindi comunque diciamo che tutte queste sono di fatto, ci sono delle socket, cioè ci sono dei processi che stanno in ascolto, dei thread dei processi che stanno in ascolto su queste porte e quindi possono rispondere alle richieste che vengono fatte appunto su queste porte.
+
+[01:31:34] Professore: appunto questo l'avevamo già detto, vedete questa è la differenza tra Big Ambient e Little Ambient, quindi prima il byte meno significativo rispetto alla crescita degli indirizzi, ogni byte in memoria è indirizzato,
+
+[01:31:53] Professore: Giusto?
+
+[01:31:53] Professore: Questo l'abbiamo visto, no?
+
+[01:31:55] Professore: Ogni byte ha il suo indirizzo.
+
+[01:31:57] Professore: Allora, se io devo mettere un numero, io posso o mettere il numero in modo tale che l'importanza, diciamo così, del byte cresca al crescere degli indirizzi, oppure il contrario, ok?
+
+[01:32:11] Professore: Quindi posso fare sì che il byte, diciamo così, più importante stia invece nell'indirizzo
+
+[01:32:20] Professore: che è praticamente più basso, ok?
+
+[01:32:26] Professore: E quello sarebbe il Big Endian.
+
+[01:32:28] Professore: Possiamo vedere così.
+
+[01:32:31] Professore: No, le due.
+
+[01:32:32] Professore: Per esempio Motorola, Big Endian.
+
+[01:32:35] Professore: Questa è la Pentium, Big Endian, eccetera eccetera.
+
+[01:32:39] Professore: Qui ci sono un po' di esempi.
+
+[01:32:43] Professore: Big Endian.
+
+[01:32:47] Professore: e Videl Endian per esempio qua ARM Videl Endian come architettura x86-64 Videl Endian quindi diciamo di fatto tendono ad essere più è più facile che sia Videl Endian che non Big Endian e quindi la conversione serve ma comunque serve comunque per la portabilità e quindi per convertire ho bisogno di fare queste conversioni
+
+[01:33:15] Professore: quindi host, vedete, host to network, a seconda di quanti byte, no?
+
+[01:33:23] Professore: Voglio fissare il, diciamo così, il... l'ansignate, per esempio l'ansignate di... quindi host to network e network to host, che sono appunto long o short,
+
+[01:33:43] Professore: possono essere tutti questo long, 4 byte, short, 2 byte.
+
+[01:33:47] Professore: Quindi per le porte sarà lo short, per invece gli indirizzi sarà il long.
+
+[01:33:57] Professore: Quindi questo significa che vedete ci sono poi anche delle primitive ovviamente che mi aiutano a tradurre direttamente l'indirizzo, per esempio qui
+
+[01:34:15] Professore: posso inet p2n indirizzo network direttamente ti posso dare sopra la stringa che mi dà che mi dà l'indirizzo la vado a tradurre direttamente nel sin a 3
+
+[01:34:38] Professore: Quindi qui converte una stringa che sia il pv4 o pv6 in formato binario e riempie direttamente questo campo qua.
+
+[01:34:48] Professore: Quindi già non me ne preoccupo, ci sono le primitive che mi aiutano già, visto che è una cosa abbastanza ripetitiva.
+
+[01:34:57] Professore: Quindi qui siamo per esempio con gli indirizzi pv4, li vedete, li riconoscete, sono questi qui.
+
+[01:35:05] Professore: Qua è interessante perché qui c'è il memma MyAd, prima viene praticamente azzerata la struttura per evitare che ci sia qualcosa di spurio rimasto lì rallocando il dato.
+
+[01:35:20] Professore: Poi qui abbiamo il family che è di internet.
+
+[01:35:23] Professore: Ecco, questa è la porta che viene host to network, short MyPort, che è questa qui.
+
+[01:35:34] Professore: e poi qui abbiamo valorizzato direttamente con questa funzione questo myatr sin e così praticamente ho predisposto già il mio indirizzo facendo così quindi qui abbiamo invece un esempio ipv
+
+[01:36:04] Professore: 6 si utilizza la stessa funzione però in questo caso se gli indirizzi sono il pv6 allora devo dire f inet 6 quindi questi sono indirizzi pv6 un indirizzo pv6 si utilizza la stessa funzione ci penserei fa la stessa cosa ok
+
+[01:36:39] Professore: Qui ci sono anche la struttura degli indirizzi è un po' più grande per gli PV6 ovviamente, perché deve accogliere degli indirizzi più grandi.
+
+[01:36:51] Professore: Questi sono fino a 32 byte totali, mentre quelli in PV4 la struttura erano 16 byte totali.
+
+[01:37:00] Professore: Comunque questo ci interessa e giusto.
+
+[01:37:03] Professore: Vediamo quindi la struttura, come funziona.
+
+[01:37:07] Professore: Ecco, un'altra cosa interessante è che se volete mettere in ascolto il server su qualunque indirizzo volete, disponibile, sul vostro host, potete mettere in add any.
+
+[01:37:26] Professore: Quindi qualunque sia l'indirizzo disponibile su cui può ascoltare, ascolta in questo modo.
+
+[01:37:34] Professore: però dovete stabilire su quale porta poi quindi su qualunque si mette quindi se uno vuole dire su qualunque indirizzo sia collegato sia collegabile il server voglio che si mette in ascolto quindi si fa questo poi si fa il bind e a questo punto abbiamo
+
+[01:38:04] Professore: la possibilità di fare la CONNECT questa è la versione INSEI ADDR EMI questa è la versione IPv6 ok?
+
+[01:38:26] Professore: è la stessa cosa e qui
+
+[01:38:33] Professore: quindi abbiamo il client come vedete che crea l'indirizzo e poi va a fare la connect esattamente come prima e quindi di fatto lo schema client-server è identico cambia solo di quale famiglia si stabilisce il socket e di conseguenza qual è l'indirizzo
+
+[01:39:03] Professore: che va settato per il resto tutto il resto è uguale a quello che avete visto sulle socket local quindi è abbastanza semplice da questo punto di vista si può fare sia socket stream attraverso il listen e poi la accept ma si può fare
+
+[01:39:32] Professore: quindi c'è identico a prima, anche qui nuovo descrittore, bla bla bla, quello che abbiamo detto, e quindi poi abbiamo invece il client che fa essenzialmente, anche qui si deve preparare un indirizzo perché serve per fare la
+
+[01:40:00] Professore: la Connect e poi possono parlarsi anche qui con Read&Write quindi si parlano come se fossero sulla stessa macchina stanno dall'altra parte del mondo sono su due macchine magari una in Cina e l'altra in Africa e infatti questo è il punto abbiamo proprio macchine separate porte
+
+[01:40:31] Professore: e chiaramente se il client conosce l'indirizzo del server può connettersi e poi una volta stabilita però una connessione client-server i due si possono parlare full-duplex quindi uno scrive l'altro legge e poi gli rimanda la connessione e così via e chiaramente nel momento questa è la
+
+[01:40:59] Professore: l'unshake a tre fasi, qui abbiamo, vedete che parte qui, quando qui abbiamo l'accept, il server si blocca finché il client fa una connect, qui avviene
+
+[01:41:29] Professore: si stabilisce il canale di comunicazione e poi a questo punto può partire un protocollo vostro di comunicazione, lato applicazione, quindi significa che qua bisogna sapere chi comincia, chi riceve e quindi ci deve essere una sorta di sincronia tra il movimento di questi, per cui non so se qua c'è ovviamente una
+
+[01:41:54] Professore: write e write non si parlano, se c'è una read e read vengono bloccati tutte e due, ma questo è ovvio quello che succede con la comunicazione interprocess, quindi client e server devono avere un loro interno protocollo di comunicazione.
+
+[01:42:10] Professore: Chiaramente il three-way unchecked.
+
+[01:42:14] Professore: che avviene lì nel momento della Connect sono varie fasi dove si stabilizza la connessione doppia e poi possono partire effettivamente le comunicazioni fino a quando si chiude la comunicazione
+
+[01:42:42] Professore: e anche qui c'è un protocollo che permette di terminare in modo ordinato la comunicazione tra client e server, dove abbiamo i rows che devono essere chiusi da tutte e due le parti con le varie conferme.
+
+[01:43:05] Professore: Va bene, io direi che
+
+[01:43:09] Professore: Il mio obiettivo in realtà oggi era farvi fare un qualche esercizio, però non perché ero preparati.
+
+[01:43:14] Professore: Spero che comunque questo vi abbia un po' rinfrescato le idee oppure vi abbia dato un po' di idee più chiare su quella che è la comunicazione su Sony.
+
+[01:43:23] Professore: E quindi domani la mia idea era di magari farvi fare a voi un po' di esercizi su questo per provare un po' di cose.
+
+[01:43:33] Professore: Va bene?
+
+[01:43:34] Professore: Io direi che possiamo terminare qua.
+
+[01:43:39] SPEAKER_01: No.
+

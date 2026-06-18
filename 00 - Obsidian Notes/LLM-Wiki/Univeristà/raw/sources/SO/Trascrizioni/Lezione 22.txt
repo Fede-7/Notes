@@ -1,0 +1,916 @@
+[00:00] Professore: Si forniscono dei metodi efficienti per...
+
+[00:28] Professore: accedere a questi dati organizzati come file quindi un insieme di dati vengono logicamente organizzati in file quindi il file system da una parte risiede permanentemente nella memoria di massa quindi la sua organizzazione è scritta in modo permanente nella memoria di massa
+
+[00:54] Professore: Però ovviamente poi il kernel, per poterlo gestire, deve avere sotto mano, quindi in RAM, delle strutture dati che consentono il rapido accesso al file system.
+
+[01:08] Professore: Quindi si ha sia un'immagine del file system in memoria di massa e sia dinamicamente si hanno delle strutture dati, dei metadati e anche dei pezzi di questo file system
+
+[01:23] Professore: devono essere caricati prima in RAM e gestite appunto dal kernel e dai processi.
+
+[01:30] Professore: Tipicamente quindi questa memoria è fornita dai dischi che possono essere letti, scritti e l'accesso ai dati può essere sia sequenziale che diretto.
+
+[01:51] Professore: questo lo abbiamo già visto la dimensione dei blocchi in memoria ok nel disco sono possono andare dai 512 almeno allo stato attuale 4096 byte ok e
+
+[02:11] Professore: Nel caso appunto del file system l'organizzazione non è quella blocchi ma è un'organizzazione più ad alto livello dei dati ed è organizzato, il file system organizza innanzitutto i dati in termini appunto di file.
+
+[02:28] Professore: Quindi il problema del file system è di organizzare questa informazione e fornire dei metodi di accesso, di modifica e di lettura appunto di questi dati.
+
+[02:40] Professore: dà una vista uniforme quindi sull'informazione memorizzata in memoria non volatile e permette in qualche modo anche di dare una vista contigua di accesso a questi diali quindi permette nei file per esempio io posso scorrermi il file byte a byte e ho l'illusione di poterlo scorrere in modo contiguo
+
+[03:11] Professore: Quindi possono essere stoccati diversi tipi di dato, ovviamente nei file, dati numerici, caratteri, dati binari, programmi, immagini, quello che volete, e i contenuti sono definiti dal creatore del file.
+
+[03:29] Professore: Ci possono essere, come sapete, diversi tipi
+
+[03:32] Professore: questi file e a seconda del sistema operativo il sistema operativo può fare delle distinzioni sulle tipologie dei file oppure queste tipologie vengono in qualche modo gestite a livello utente quindi i file possono essere dei puri contenitori di byte differenziati secondo il modo agnostico dal sistema operativo e poi sta all'utente interpretare questi contenitori di dati
+
+[04:01] Professore: a seconda dell'applicazione però i file sono associati sempre comunque a dei metadati quindi ogni file è associato ad un descrittore del file quindi ci sono quelli che vengono chiamati i file control block come avete per i processi che c'è un process control block per ogni file voi avete un file control block
+
+[04:32] Professore: quindi ogni file è associato a degli attributi attenzione che non tutti gli attributi sono per esempio questi che vedete qui scritti contenuti nel file control block sicuramente c'è un identificatore del file come avete per i processi un identificatore del processo quindi un process ID per i file avete un identificatore appunto del file
+
+[05:00] Professore: quindi è un tag unico che identifica il file nel file system quello che si chiama in UNIX INODE quindi index, quello che sarebbe l'index number dell'INODE quindi l'INODE nel caso di UNIX sarebbe il file control block e l'index number quindi l'indice dell'INODE quindi è un numero che identifica quel file quindi per il sistema operativo
+
+[05:28] Professore: ogni file è associato a un numero, a un codice univoco.
+
+[05:34] Professore: Però voi a livello utente i file siete abituati a chiamarli per nome e infatti il nome del file, che è la denominazione del file, serve come interfacciamento, quindi è un nome che serve a livello di interfaccia, diciamo così,
+
+[05:54] Professore: per la comunicazione verso l'esterno della macchina e queste denominazioni infatti poi non sono, poi lo vedremo dopo, non sono contenute nel file control block ma sono contenute nella struttura delle directory quindi la struttura delle directory la dovete pensare come strutture dati separate che servono proprio per
+
+[06:19] Professore: agganciare i nomi numerici quindi i nomi macchina del file con i nomi simbolici quindi l'organizzazione al directory è un'organizzazione dei file che fornisce una sorta di interfaccia per l'accesso simbolico a questi file perché non è che si può ricordare l'utente umano per esempio non si può ricordare per ogni file qual è il suo numero
+
+[06:48] Professore: quello se lo ricordo è il sistema operativo quindi per il sistema operativo è più facile dare un numero ad ogni file mentre invece a livello di accesso a questi file bisogna invece taggarli in modo simbolico e questo interfacciamento lo fa appunto il sistema delle directory poi appunto ogni file può essere di un diverso tipo
+
+[07:18] Professore: Poi è chiaro che è importante sapere l'allocazione del file, perché questa è una sorta di centralina di controllo di ogni file, però ogni file è associato a dei blocchi sul disco.
+
+[07:30] Professore: Quindi avete visto che l'organizzazione sul disco è a blocchi, quindi ogni file sarà composto di una serie di blocchi.
+
+[07:37] Professore: Questi blocchi potranno essere contigui o non contigui, potrebbero essere spazi anche loro, oppure possono essere contigui a seconda del metodo di allocazione del file.
+
+[07:48] Professore: però sicuramente da questo file control block ci deve essere un modo per sapere da dove trovare i dati sul disco poi abbiamo ovviamente bisogna sapere qual è il size, qual è la dimensione del file quanto è grande il file anche qui poi bisogna stare attenti a dividere tra la dimensione in termini di blocchi
+
+[08:19] Professore: ok e la dimensione in termini di byte perché anche per i file c'è un problema di frammentazione esterna interna ricordate la differenza interna forza perché appunto io riservo tutto un blocco e magari di quello occupo soltanto un byte ok quindi in
+
+[08:43] Professore: i file, quando voi create un file, anche se scrivete un solo byte, un solo carattere, chiaramente almeno tutto un blocco deve essere riservato.
+
+[08:55] Professore: Ovviamente non solo il blocco, ma poi c'è tutti i metadati che servono per gestirlo.
+
+[09:03] Professore: Per esempio i file control block, tutte le strutture che servono per far sì che il sistema operativo
+
+[09:09] Professore: mantenga traccia tutto quello che il sistema operativo non riesce a mantenere traccia è perso e tutto non è accessibile non c'è accesso quindi il sistema operativo è veramente quello che deve mantenere traccia di tutto e quindi per i file deve sapere tutto le protezioni per esempio quindi quando io voglio sapere un file che protezioni ha l'abbiamo visto quando abbiamo fatto i comandi
+
+[09:39] Professore: Abbiamo visto che si possono cambiare le protezioni ai diversi file, si possono assegnare le protezioni, quindi si deve sapere per esempio chi è l'owner del file, quindi chi ha creato quel file, bisogna sapere quali sono i permessi, nel caso in cui per esempio non avete permessi di esecuzione bisogna in qualche caso darglieli,
+
+[10:04] Professore: bisogna vedere quali sono i permessi del gruppo principale, si possono peraltro organizzare vari gruppi per ogni file, ma di solito è solo uno il gruppo principale, quello su cui poi si definiscono i permessi estesi a quel gruppo principale, e poi gli altri, tutto il resto del mondo, quindi di solito è questa l'organizzazione, chiaramente
+
+[10:26] Professore: si può sempre sistemi operativi possono aggiungere a seconda di come vengono progettati diversi livelli di permesso però intanto diciamo noi ragioniamo su questi quelli sono quelli per esempio di linux unix e in generale anche tutti i sistemi principali hanno questo tipo di protezioni poi bisogna sapere appunto il tempo la data lo user identification ok attenzione che in alcuni casi
+
+[10:54] Professore: di file, cioè quando si lavora su dei file, si distingue tra lo user e l'effective user, che possono in un certo senso in alcuni casi essere coincidenti, in altri casi differire, perché magari uno user può essere il proprietario del file, ok?
+
+[11:17] Professore: Però per esempio, non so, quando si lanciano determinate applicazioni, bisogna far sì che il
+
+[11:28] Professore: il proprietario abbia più permessi rispetto all'utente
+
+[11:34] Professore: e allora lì si distingue tra un user ID e un effective user ID, quindi si switcha, si fa sì che al tempo di esecuzione quel processo che corrisponde a quel presente eseguibile abbia più permessi rispetto allo user vero e proprio.
+
+[12:03] Professore: Ok, questo però in realtà riguarda soprattutto i processi, perché c'è lo user, scusate ho detto una cosa impropria, perché io ho il file che è associato ad un owner, che è colui che l'ha creato, e poi quando lanciate un processo c'è lo user che lancia quel file, ok?
+
+[12:30] Professore: Quindi in alcuni casi se voi lanciate un file, lo user del processo è colui che l'ha lanciato quel file, non colui che ha creato quel processo.
+
+[12:43] Professore: Chiara?
+
+[12:45] Professore: Quindi c'è chi è l'owner del file e chi lo lancia.
+
+[12:49] Professore: Non so se è chiaro questa distinzione.
+
+[12:52] Professore: allora in generale coincide ok quindi chi lancia il file è colui che è lo user di quel processo quindi i permessi per quel processo vengono linkati a colui che ha lanciato quel processo però quando è settato questo user id
+
+[13:18] Professore: viene considerato il permesso non chi ha lanciato il processo ma chi ha creato quel file vi faccio l'esempio dei comandi tipo il ping che deve avere dei permessi superiori quando lo lanciate i permessi che vengono valutati per dare accesso a questo comando
+
+[13:45] Professore: di alcune risorse che dovrebbero essere appunto risorse root questo dipende da chi ha creato quel file e quel file risulta un file il cui owner è root quindi è un file in un certo senso che ha
+
+[14:10] Professore: più permessi di quelli che è l'utente che sta lanciando quel file.
+
+[14:19] Professore: Questo può valere per diversi comandi.
+
+[14:21] Professore: In quel caso si dice che è settato lo user IP.
+
+[14:28] Professore: Vale l'effective user, cioè c'è una differenza tra l'effective user, che è il proprietario del file, e invece il real user.
+
+[14:40] Professore: Ok?
+
+[14:40] Professore: Ci siete?
+
+[14:41] Professore: Vabbè, comunque questa è una cosa che non so se avevo già accennato prima, perché poi mi confondo, perché queste cose si fanno al laboratorio dei sistemi operativi, che poi non avete.
+
+[14:55] Professore: Va bene.
+
+[14:58] Professore: Ho fatto questo discorso perché è importante sapere il proprietario del file, non soltanto perché a seconda del proprietario si possono stabilire delle diverse protection, ma anche a livello di esecuzione può essere importante perché se io lancio il file creato da qualcun altro,
+
+[15:22] Professore: ci può essere questa divergenza sui permessi che può fare il processo.
+
+[15:31] Professore: Su disco, attenzione, su disco viene mantenuto quindi un file control block per ogni file, quindi ci sarà su disco sia
+
+[15:42] Professore: la parte dei file, quindi il contenuto dei file, i blocchi che proprio sono le informazioni dei file, ma chiaramente avrò anche una parte, sempre su disco, dei metadati di questo file.
+
+[15:54] Professore: Quindi, per esempio, nei sistemi Unix Linux, questi si chiamano gli inode, gli index node.
+
+[16:04] Professore: Mentre invece, appunto, come vi dicevo, il nome del file è legato alla struttura delle directory.
+
+[16:12] Professore: Allora, quindi un file a un certo punto è un tipo di dato, ok?
+
+[16:16] Professore: È un tipo di dato astratto su cui si possono fare una serie di operazioni.
+
+[16:20] Professore: Innanzitutto un file può essere creato, ok?
+
+[16:23] Professore: Quindi voi potete creare i file, quindi ci sono dei comandi per creare questi file.
+
+[16:27] Professore: Quando creo un file vuoto praticamente creo soltanto il metadato, i metadati associati a quel file.
+
+[16:35] Professore: mentre i blocchi ancora non sono presenti associati a quel file.
+
+[16:40] Professore: Poi vediamo quali sono i tipi di organizzazione di questi blocchi.
+
+[16:45] Professore: Poi, attenzione, abbiamo bisogno di fare per esempio un'operazione di open un file.
+
+[16:51] Professore: Open del file a cosa serve?
+
+[16:54] Professore: la open perché ho bisogno ogni volta voi fate la open del file perché serve fare una open perché non posso direttamente scrivere senza se c'è il nome io potrei direttamente scrivere invece devo sempre fare prima una open e poi faccio le operazioni devo capire anche dove scrivere il file però che cosa fa la open oltre a cercare il file richiede il permesso al kernel di controlli sicuramente di permessi ma poi si porta
+
+[17:21] Professore: diciamo, si ricarica in RAM, esatto, il metadati si riporta praticamente dentro la RAM.
+
+[17:28] Professore: Quindi io devo, quando il file è una roba statica che sta sul disco, quando faccio la open sto preparando tutto quello che mi serve per rendere dinamica questa operazione.
+
+[17:42] Professore: Quindi che cosa dovrò fare?
+
+[17:44] Professore: Dovrò innanzitutto trovare
+
+[17:48] Professore: perché quando faccio la open di solito la faccio con il nome simbolico del file quindi devo innanzitutto trovare il link che c'è tra il nome simbolico del file e il suo indice, il suo nome macchina questa è la prima cosa poi sulla base di questo devo trovare il metadato o i metadati che mi servono
+
+[18:10] Professore: e questi metadati appunto poi mi daranno accesso al file e tutta questa roba la devo portare dentro, ok?
+
+[18:17] Professore: Dentro la ram, quindi devo rendere operativa questa, devo prepararmi il terreno, ok?
+
+[18:25] Professore: E poi dovrò aggiornare una serie di strutture dati, per esempio appunto avrò una tabella dei file aperti, ok?
+
+[18:34] Professore: E dovrò, di solito chi è che fa la open?
+
+[18:37] Professore: Un processo utente.
+
+[18:39] Professore: quindi il processo utente, che cosa farà?
+
+[18:42] Professore: Farà, diciamo così, dovrà innanzitutto creare un canale di accesso a questo file, dovrà aggiornare, il kernel dovrà aggiornare nel frattempo questa tabella, poi le vediamo tutte in sequenza queste operazioni, dei file aperti, e dalla tabella dei file aperti
+
+[19:08] Professore: poi si arriverà agli inode corrispondenti e dall'inode risalgo ai blocchi in memoria, ok?
+
+[19:16] Professore: Ed eventualmente poi quando vado a fare le operazioni, queste operazioni le devo fare sempre su blocchi che devono essere prima portati in memoria, non è che io faccio write diretta sulla memoria secondaria, tutte le operazioni che fa la CPU la fa in RAM, ok?
+
+[19:31] Professore: Quindi quando voi scrivete su file, vuol dire che
+
+[19:35] Professore: quel blocco su cui state scrivendo, quei blocchi su cui state scrivendo, sono stati prima portati dentro la RAM e eventualmente, proprio per il meccanismo del caching, non solo in RAM ma anche nelle cache varie, ok?
+
+[19:51] Professore: Che serve poi per fare lo speed up dell'operazione.
+
+[19:55] Professore: Quindi abbiamo Open e poi Close, quando si chiude il file tutte queste strutture vengono rimosse, ok?
+
+[20:03] Professore: Quindi quando chiudete il file
+
+[20:04] Professore: non avete più i metadati e non avete più i dati che erano stati portati praticamente in RAM, oppure nelle cache che servono per fare lo speed up delle operazioni in RAM.
+
+[20:20] Professore: Poi abbiamo operazioni di scrittura, la scrittura può essere fatta
+
+[20:26] Professore: con diversi accessi io posso scrivere in modo sequenziale su un file quindi dal primo byte all'ultimo byte e oppure posso diciamo scrivere da un certo numero di byte in poi per esempio oppure posso fare voi potete aprire un file in append quando aprite un file in append vuol dire che volete scrivere alla fine dei byte che sono che corrispondono a quel file quindi per poterlo fare
+
+[20:55] Professore: il sistema si deve mantenere anche un indice di dov'è la fine del file perché si carica un po' di blocchi sull'ultimo blocco io dovrò sapere qual'è l'ultimo byte su cui è stato scritto per poi consentire eventualmente di proseguire la scrittura poi la read anche è un'operazione che deve mantenere un read pointer quindi un puntatore a dove effettivamente si sta leggendo
+
+[21:24] Professore: Si può anche leggere dalla fine all'inizio, dall'inizio alla fine, a metà, no?
+
+[21:29] Professore: Questo è quello che si può fare.
+
+[21:30] Professore: Poi ci sono possibilità di muovere quello che si chiama, vedete, qui si chiama SIC.
+
+[21:37] Professore: lo spostamento della testina di lettura sul file.
+
+[21:42] Professore: Anche lì sapere dove sta leggendo in questo momento il file e spostare questa testina è un'operazione che di solito si può fare su quei file.
+
+[21:52] Professore: Qui c'è la... vi ricordate il SICK TIME?
+
+[21:55] Professore: Quando parlavamo del disco era la testina del disco.
+
+[21:59] Professore: Qui è una metafora, è una specie di testina virtuale, sarebbe la testina che per leggere il file.
+
+[22:07] Professore: Poi si può cancellare il file, ok?
+
+[22:10] Professore: E poi si può, quindi questo vuol dire, cancellare il file significa proprio cancellarlo come entità, cioè non esiste più, quindi non esistono neanche i suoi metadati, ok?
+
+[22:25] Professore: Quindi cancello anche per esempio il file control block corrispondente, cancello il nome nell'insieme dei nomi mantenuti nel namespace,
+
+[22:38] Professore: e invece esiste anche un'operazione truncamento che cancella invece il contenuto del file cioè lo azzera tutti i metadati rimangono quindi io non è che il file rimane solo che viene praticamente azzerato il suo contenuto ok?
+
+[22:59] Professore: quindi come vi dicevo per evitare che ogni volta per ogni operazione
+
+[23:06] Professore: si debba scorrere il file system e si debbano caricare i blocchi eccetera eccetera per fare ogni operazione si deve aprire un file prima di usarlo quindi di solito questa è un'operazione che si fa sempre nei sistemi operativi moderni quindi che cosa
+
+[23:33] Professore: comporta questa open?
+
+[23:35] Professore: Comporta che il sistema operativo si deve tenere traccia di tutti i file aperti, quindi avrà il kernel, una struttura dati che deve gestire per tracciare questi file che vengono via via aperti da tutti i processi, non è una per processo, è un'unica
+
+[23:58] Professore: un'unica tabella dei file aperti che si chiama systemwide che si mantiene il sistema.
+
+[24:06] Professore: Chiaramente ogni processo invece nella sua process control block tiene traccia dei file che lui ha aperto e infatti quando vi ricordate, non so se abbiamo fatto un po' di esercitazione anche con le open, close sui file
+
+[24:24] Professore: Le abbiamo fatte un po'?
+
+[24:26] Professore: No, su open close file no.
+
+[24:28] Professore: E allora magari la facciamo, facciamo un'altra esercitazione per lavorare sulle system call di basso livello per... Magari facciamo un po' di operazioni con i thread e file.
+
+[24:39] Professore: Facemmo l'ultima era con i multitread, i deadlock, gli semafori.
+
+[24:45] Professore: I semafori, quindi non l'abbiamo mai fatto con i file no.
+
+[24:48] Professore: E allora facciamo magari la prossima volta... Martedì.
+
+[24:51] Professore: Martedì prossimo faremo un'esercitazione
+
+[24:55] Professore: con thread anzi processi thread e file così vediamo un po' di queste cose che adesso stiamo accennando e magari vediamo anche qualche dettaglio sui comandi per gestire il file system alcune cose già le sapete magari altre un po' meno ok?
+
+[25:13] Professore: quindi faremo un focus sul si chiamano system call chiamate di sistema che gestiscono le operazioni di input output AIO
+
+[25:25] Professore: Allora, comunque, quando si apre il file, che cosa succede?
+
+[25:30] Professore: Succede che il sistema operativo deve mantenere quindi una entry nella sua tabella di sistema per ogni file aperto e così come nella tabella, nella process control block, si ha una entry che appunto descrive
+
+[25:57] Professore: quel file aperto infatti viene restituito ad ogni processo quando fate una open quello che si chiama un file descriptor almeno in Linux e nei sistemi Unix il file descriptor sarebbe un numero voi vi ricordate che i canali per esempio di accesso allo standard input, allo standard output e allo standard error erano numerati
+
+[26:22] Professore: Vi ricordate?
+
+[26:23] Sconosciuto: 0, 1, 2.
+
+[26:26] Professore: Quando aprite un file, voi ricevete, almeno con queste chiamate di sistema open, ricevete un ulteriore file descriptor, che è un numero, che sarebbe un indice a partire dal quale si ha una entry che poi va a puntare sulla tabella dei file aperti di sistema.
+
+[26:49] Professore: Questa tabella dei file aperti di sistema è
+
+[26:53] Professore: serve per vedere come è stato aperto il file, perché un file può essere aperto in lettura, può essere aperto in scrittura, può essere aperto per esempio lo stesso file può essere stato aperto da due processi, un processo lo apre in lettura, un altro lo apre in scrittura, quindi io anche se è lo stesso file, quando...
+
+[27:20] Professore: io posso avere più aperture di uno stesso file e quindi il sistema operativo deve avere una tabella, system-wide, si dice, che tiene conto di tutti i file aperti e di tutti i modi in cui quei file sono stati aperti dai vari processi.
+
+[27:35] Professore: E poi abbiamo invece per ogni file, come abbiamo detto, il file control block che contiene i metadati del file, i metadati che descrivono il file
+
+[27:49] Professore: quali sono le caratteristiche del file, quelle statiche, non quelle dinamiche.
+
+[27:55] Professore: Chiaramente ogni volta che si aggiorna il file, questo deve essere modificato.
+
+[28:01] Professore: Per esempio, quando voi aggiungete dei byte al file o cancellate dei byte al file, queste cose devono essere aggiornate sul file control block.
+
+[28:12] Professore: Per esempio, la lunghezza del file viene aggiornata sul file control block.
+
+[28:16] Professore: Facciamo prima però vederla graficamente, così capiamo quali sono le strutture dati.
+
+[28:22] Professore: Allora, immaginate di avere i vari processi.
+
+[28:27] Professore: Quindi abbiamo una serie di processi, il sistema si mantiene per ogni processo che è in esecuzione una descrizione, quindi un process control block.
+
+[28:42] Professore: Per ognuno abbiamo questa struct, una struttura,
+
+[28:45] Professore: che mantiene i metadati dei processi dentro questi avete una serie di entry che tengono conto di quelli che sono i file descriptor quindi immaginate un array che è accessibile dal process control block che ha come indice il file descriptor per esempio appunto
+
+[29:13] Professore: dove è l'indice 0, ho il canale appunto per l'input, l'1 lo standard output, 2 standard error e così via.
+
+[29:25] Professore: E poi apro un altro file, mi da un indice, ok?
+
+[29:28] Professore: Mi da una entry su cui poi andrò ad avere una serie di dati che descrivono per il processo quali sono i file aperti, ok?
+
+[29:40] Professore: Questo a livello di processo, però
+
+[29:42] Professore: Qui non ho tutta l'informazione, ho soltanto quel minimo di informazione che mi serve per andare a puntare invece sulla tabella dei file aperti che è system-wide, ok?
+
+[29:54] Professore: Cioè non devo replicare le informazioni, ok?
+
+[29:56] Professore: Quindi ho un link, ho alcune informazioni che riguardano soltanto il processo in queste entry, quindi ho dentro il process control block, ho delle entry che sono specializzate per ottenere
+
+[30:12] Professore: e traccia dei file aperti, comunque dei canali aperti, tutto quello che in Linux e Unix abbiamo detto che tutto quello che non è processo è file in qualche modo, quindi anche quando si parla con dei device, quei canali vengono assimilati a delle comunicazioni su file, ok?
+
+[30:30] Professore: Quindi quando parlo su schermo, parlo su tastiera, vengono considerati dei file speciali quella roba lì, ok?
+
+[30:37] Professore: Poi lo vedremo quando facciamo il sottosistema di input-output.
+
+[30:42] Professore: Comunque, qui abbiamo questi entry, questi entry puntano a delle strutture che sono appunto delle strutture tenute dentro la tabella dei file aperti e per esempio vedete, qui abbiamo due file, il primo processo fa una open, ottiene il file descriptor, quel file descriptor corrisponde a un indice in quella, diciamo così, array
+
+[31:11] Professore: che va a puntare poi sulla sua struttura dentro la tabella dei file aperti, dove si vede qual è lo status del flag, quindi qual è lo stato del file, va per esempio il current offset, cioè dove sta leggendo quel processo, quel file,
+
+[31:38] Professore: perché io posso avere anche lo stesso file che viene letto da due processi contemporaneamente in lettura e magari uno lo legge dall'alto uno lo legge dal basso quindi nella qui su questa tabella dei file devo avere devo mantenere traccia di ciascuno file aperto come sta diciamo come sta usando il file se lo sta leggendo a metà se sta scrivendo a metà ok e così via ok e poi
+
+[32:07] Professore: ovviamente qui devo avere la possibilità di accedere, sempre per quanto riguarda queste tabelle dei file, al metadato che descrive invece quali sono le caratteristiche globali del file.
+
+[32:25] Professore: Quindi queste sarebbero delle liste su file dei diversi processi, però per esempio se un processo aggiunge un byte al file,
+
+[32:35] Professore: Questo lo deve vedere anche quest'altro, ok?
+
+[32:37] Professore: Cioè lo deve vedere anche un altro processo che sta lavorando, per esempio, su questo file.
+
+[32:42] Professore: E quindi questo viene mantenuto sull'inode, ok?
+
+[32:46] Professore: Di quel file, ok?
+
+[32:48] Professore: Qui si dice gli active inode perché sono gli inode che corrispondono a quei file che sono stati aperti.
+
+[32:54] Professore: Perché gli inode, quelli che non sto usando, i file che non sto usando, stanno nella memoria secondaria.
+
+[33:00] Professore: Quando li apro, mi porto in RAM...
+
+[33:04] Professore: anche la inode attivo, ok?
+
+[33:06] Professore: Perché poi lo devo modificare dentro la RAM, ok?
+
+[33:10] Professore: Molto probabilmente se ci sto lavorando continuamente lo modificherò in una cache addirittura, ok?
+
+[33:15] Professore: Quindi lo metto nelle cache e poi dopo con calma prima si travasa nella RAM e poi si porta in memoria secondaria, ok?
+
+[33:27] Professore: Quindi qui abbiamo... Vi è chiara questa struttura tripartita?
+
+[33:32] Professore: Quindi...
+
+[33:34] Professore: questa collega i processi, gli inode, poi dall'inode si passa i blocchi veramente in memoria, perché poi qui dall'inode ho il link a dove stanno veramente in memoria quei blocchi là, ok?
+
+[33:48] Professore: Ancora meglio lo possiamo vedere così, vedete?
+
+[33:51] Professore: Qua abbiamo process 1, process 2, process 3, di tutta la process control block teniamo presente soltanto la tabella dei file descriptor, ok?
+
+[34:01] Professore: nei file descriptor vedete ho questi file che sono stati aperti questo ha restituito file descriptor 2 questo file descriptor 3 questo file descriptor 4 ovviamente per ogni processo può avere replica dei file descriptor perché quelli sono per processo perché rappresentano queste entry qui nel processo e poi da qui invece ciascuna di queste entry punta sulla tabella dei file aperti e poi
+
+[34:29] Professore: per esempio nella tabella dei file aperti, io posso avere due diversi file, per esempio qui, questo e questo, che sono stati aperti in due modi diversi, e quindi però puntano lo stesso inode number.
+
+[34:47] Professore: Perché?
+
+[34:47] Professore: Perché uno magari è in scrittura, uno è in lettura, quindi ogni volta che uno scrive io devo fare l'update dell'inode, una volta che questo leggo invece non devo fare l'update dell'inode perché è solo in lettura, ok?
+
+[34:59] Professore: Mentre l'informazione per esempio sulla testina di lettura per ciascuno dei processi dove viene mantenuta?
+
+[35:07] Professore: Qui o qui?
+
+[35:10] Professore: Due processi, non so, ho un lettore e uno scrittore, no?
+
+[35:13] Professore: Ok?
+
+[35:14] Professore: mettiamo che questi sono due lettore e scrittore sullo stesso file vedete questo poi punta ai blocchi che stanno sulla disk per esempio qui abbiamo questo che è il processo che è scrittore che apre quindi in write chiedendo di aprire in scrittura e questo per esempio è il processo lettore che apre in read quindi ho due diverse aperture
+
+[35:45] Professore: vedete due entry sulla tabella dei file aperti che però puntano sullo stesso file un lettore sta scrivendo dall'inizio ok con la sua testina di lettura mentre invece l'altro sta scrivendo questo sta scrivendo dall'inizio e questo scusate facciamo il contrario ma questo questo sta questo scrive in append e quest'altro legge
+
+[36:15] Professore: magari dall'inizio alla fine ok quindi mentre lo scrittore scrive alla fine questo invece legge dall'inizio quindi uno scrive sotto e l'altro legge ok quindi la l'informazione su dove sta leggendo il file questi processi dove è mantenuta qui qui o qui secondo voi quindi
+
+[36:43] Professore: Ci deve essere una struttura dati che mantiene traccia del fatto che, non so, il lettore sta leggendo dal byte 0, ok?
+
+[36:54] Professore: E lo scrittore sta leggendo, non so, dal byte 100.
+
+[36:58] Professore: Questa informazione, secondo voi, dove è tenuta?
+
+[37:04] Professore: Vediamo se avete seguito...
+
+[37:09] Professore: Allora, se la metto sull'inode, dovrei mettere un'unica informazione, quale metto, quella del lettore o quella dello scrittore.
+
+[37:17] Professore: Sull'inode avrò delle cose che sono univoche, tipo la lunghezza del file, cioè questa è qualcosa che è proprio solo del file, non dipende da come ho aperto il file, da come lo sto spogliando il file, quello appartiene proprio al file, ok?
+
+[37:34] Professore: Immaginate, no?
+
+[37:36] Professore: due possono aprire il libro in due modi diversi, però il libro è sempre quello, le pagine sono sempre quelle, quindi non qua, qui no perché di solito qua in questa tabella c'è solo un puntatore, quindi l'unico punto in cui viene mantenuto traccia di dove sta leggendo, della posizione da cui sta leggendo, scrivendo il lettore e lo scrittore è qui, su questa struttura dei file aperti, vedete qui
+
+[38:06] Professore: current offset viene mantenuta in questa struttura che sta a metà strada cioè è il sistema che si ricorda per ogni file che è stato aperto come è stato aperto e come viene utilizzato quel file poi ogni volta che invece si fa un'operazione che riguarda proprio il file non so uno scrittore scrive
+
+[38:28] Professore: Si aggiorna quindi l'informazione, allora bisogna passare sull'inode, perché è una cosa che riguarda tutti, perché la vede pure il lettore che si allunga il file, no?
+
+[38:39] Professore: E ovviamente poi dopo da questo inode, da questa struttura dati, si passa all'aggiornamento proprio dei blocchi che staranno poi attraverso varie vicissitudini in memoria secondaria.
+
+[38:51] Professore: Ovviamente prima tutte le operazioni si fanno sempre in memoria primaria, eh?
+
+[38:55] Professore: Quindi prima faccio tutto in memoria primaria e poi trasferisco in memoria secondaria.
+
+[39:01] Professore: Anche perché la granularità della memoria primaria è il byte, la memoria secondaria qui è il blocco, quindi io devo fare operazioni in blocco.
+
+[39:12] Professore: Quindi prima faccio, diciamo così, le mani piccole ce l'ha la RAM, ok?
+
+[39:19] Professore: Cioè la CPU lavora in RAM e poi a blocchi
+
+[39:22] Professore: si porta in memoria sul disco, sempre nei tempi giusti in modo tale da non creare troppe latenze perché altrimenti se tutto venisse fatto in modo sincrono bisognerebbe accodare una marea di roba sui dischi e abbiamo visto che invece i dischi vanno trattati con molta parsimonia perché comunque i tempi
+
+[39:48] Professore: anche se adesso con lo stato solido siamo molto più veloci però comunque le operazioni sono molto più lunghe di quelle che si fanno in ram addirittura ripeto più che in ram si fanno in cache quindi le operazioni quindi neanche in ram quindi sulla cache della memoria ok
+
+[40:11] Professore: Vabbè, questo per darvi questa prima idea di organizzazione, di come appunto si va, come si fanno le operazioni di apertura, di scrittura e poi chiaramente quando viene chiuso il file, quando si chiude il file viene, diciamo così, innanzitutto prima di rimuovere l'inode dal kernel, perché è il kernel che mantiene queste informazioni, almeno diciamo nei
+
+[40:41] Professore: sistemi monolitici quello che succede è innanzitutto che quando fate il close del file viene rimossa la entry di quella apertura io ho aperto lo stesso file sia in lettura che in scrittura per esempio non so qui lo stesso processo ho aperto il file sia in lettura che in scrittura quindi chiudo quell'apertura che ho fatto in scrittura
+
+[41:09] Professore: e viene rimossa questa, ok, questa struttura dati e mentre invece questa rimane, diciamo così, attiva e rimane anche questo attivo.
+
+[41:20] Professore: Quando le chiudo tutte allora viene rimosso anche l'inode attivo.
+
+[41:24] Professore: Rimosso, diciamo così, dalla RAM poi chiaramente quando si va a chiudere verrà trasferita l'informazione nel suddisco, ok?
+
+[41:35] Professore: Questo diciamo poi dipende sempre da come implementare il sistema operativo
+
+[41:40] Professore: però diciamo in generale almeno al momento della chiusura ci deve essere questo travaso, poi ci può essere magari anche qualche momento di salvataggio precedente.
+
+[41:54] Professore: Quindi non solo poi quando si va ad aggiornare l'informazione sul disco, bisogna aggiornare sia i blocchi,
+
+[42:03] Professore: sia i metadati che sono stati modificati.
+
+[42:06] Professore: Immaginate, ho aggiunto dei byte, si sono aggiunti dei blocchi al disco ed eventualmente si è aggiornata la dimensione del file eccetera eccetera.
+
+[42:23] Professore: Noi abbiamo diversi tipi di file, queste però sono
+
+[42:32] Professore: cose che riguardano più, questo poi dipende dai sistemi operativi, però in generale questi tipi di file vengono distinti dalle applicazioni più che dal sistema operativo.
+
+[42:43] Professore: Per il sistema operativo diciamo quello che è importante è che un file, almeno per quanto riguarda Linux e i sistemi Unix in generale, i file sono un insieme di byte, ok?
+
+[42:58] Professore: che poi sta all'utente a decidere se quell'insieme deve essere letto, scritto, eseguito, ecc.
+
+[43:06] Professore: Quindi queste estensioni riguardano più l'uso che si fa di questi file a livello delle applicazioni.
+
+[43:18] Professore: Un'altra cosa interessante da introdurre sui file
+
+[43:22] Professore: è che anche per i file si possono creare dei meccanismi di lock e unlock quindi simili ai mutex quindi il sistema operativo ha delle associate delle chiavate di sistema che permettono di fare delle operazioni di exclusive lock quindi si può creare un lock esclusivo per un processo di un file
+
+[43:52] Professore: ok oppure per esempio si può creare una shared lock quindi per esempio si può condividere un file con altri processi lettori per esempio ok allora qui abbiamo un esempio
+
+[44:12] Professore: per vedere proprio un esempio di come si può fare il codice C sotto UNIX.
+
+[44:19] Professore: Questo in realtà non è proprio POSIX, perché questa flock non è standard POSIX, è BSD, ok?
+
+[44:26] Professore: Quindi adesso vediamo poi come si fa in standard POSIX.
+
+[44:29] Professore: Comunque l'idea è questa, vedete la Open, io apro un file chiamato SharedTxt, qua, quindi
+
+[44:38] Professore: sono su una mia directory apro questo file sto dicendo al sistema di aprire questo file in che modalità?
+
+[44:46] Professore: write only e append che cosa sto dicendo qui?
+
+[44:51] Professore: sto dicendo che al sistema operativo tu mi devi creare una entry sulla mia tabella dei file aperti per aprirmi questo file in modalità solo di scrittura
+
+[45:07] Professore: E poi in append, quindi che vuol dire che la destina di lettura del file viene messa non all'inizio, come sarebbe il default, ma viene messa alla fine.
+
+[45:19] Professore: Quello che si chiama l'indice, il SIC del file, viene messo alla fine e si prepara a scrivere aggiungendo byte in fondo al file.
+
+[45:31] Professore: Quindi avete scritto una letterina, la volete continuare.
+
+[45:34] Professore: Ok?
+
+[45:36] Professore: fd mi dà questo fd che cos'è quell'indice che sta nella tabella dei file aperti lato processo al processo gli viene dato la fd questo è l'analogo del canale 0 canale 1 canale 2 è il proseguimento ok quindi stiamo la fd va qua ok sarebbe l'indice su questa tabellina qua che si mantiene il processo mentre
+
+[46:04] Professore: a livello, quando dico questo e questo, write only append, questo se la mantiene invece nella entry della system wide table.
+
+[46:15] Professore: Poi qui vediamo queste altre chiamate di sistema, vedete c'ho l'fd, al processo gli si dice che io voglio fare un lock del file, faccio un'operazione di write,
+
+[46:32] Professore: Questa write, vedete qua, al processo, questa è una operazione, una chiamata di sistema di basso livello che mi sta dicendo su questo file descriptor aggiungere in scrittura questi 4 byte.
+
+[46:48] Professore: E qua dico quanti sono, sono 4.
+
+[46:50] Professore: Quindi scrivimi compreso il carattere di a capo.
+
+[46:55] Professore: Quindi sta scrivendo questi 4 byte.
+
+[46:58] Professore: e poi gli dico di fare questo flock, gli dico di fare sull'ft lock-un, sarebbe unlock del file.
+
+[47:06] Professore: Questa cosa serve?
+
+[47:07] Professore: Serve per far sì che se c'è un altro processo che nel frattempo vuole scrivere, ok, quindi un altro processo, non lo fa perché rimane bloccato su questo, ovviamente anche l'altro deve avere la stessa procedura, cioè deve fare anche lui, deve avere questa protezione come per i mutex, se non la mette
+
+[47:28] Professore: quindi è gestito a livello utente quindi sono dei allora dice perché perché si usa questo meccanismo e non i mutex direttamente in effetti allora innanzitutto per qui questo è comodo per esempio quando hai i processi sui processi per mettere dei mutex sui processi bisogna metterli in shared memory quindi uno deve mettere deve dichiarare un'area di shared memory ok e poi coordinare
+
+[47:58] Professore: su quell'area di shared memory, quindi far far sì che il mutex venga visto da due processi, perché i processi, vi ricordate, hanno spazio di indirizzamento separato, quindi innanzitutto questa cosa è comoda quando abbiamo processi separati, e poi si utilizza per esempio quando uno
+
+[48:17] Professore: espone, non so, un file verso l'esterno, ok?
+
+[48:21] Professore: Quindi verso applicazioni proprio esterne, non so, nel mondo dei database, no?
+
+[48:27] Professore: Per l'accesso a un DB delle strutture dati, possono essere protette, quindi mettendo la protezione non a livello di processi, ma a livello di file, ok?
+
+[48:39] Professore: Quindi ci sono delle strutture.
+
+[48:40] Professore: Attenzione che però questo file locking è molto più costoso che la Miotex, ok?
+
+[48:46] Professore: Perché
+
+[48:46] Professore: perché deve in un certo senso essere agganciato al file system quindi bisogna scomodare tutte le strutture del file system quindi c'è una chiamata di sistema si va sul kernel si va su una gestione praticamente del file system per poter far sì che nelle tabelle dei file aperti in realtà deve essere qualcosa di condiviso quindi
+
+[49:14] Professore: se lo deve ricordare proprio a livello di file control block, che quel file ha un blocco.
+
+[49:23] Professore: Quindi stiamo lavorando su delle strutture dati che sono molto profonde, molto lunghe, e quindi è più costoso.
+
+[49:34] Professore: Infatti se io per esempio devo semplicemente
+
+[49:37] Professore: coordinare dei thread che già sono nella memoria condivisa, tanto vale usare il mutex per evitare di fare operazioni, se ho due thread che vanno a scrivere, devono coordinarsi per scrivere su un file condiviso, meglio usare il mutex, è più veloce, mentre invece
+
+[50:00] Professore: se io ho due processi allora in quel caso pure lì si può vedere se conviene crearsi un'area di memoria condivisa e mettere il mutex oppure loccare direttamente il file in alcuni casi loccare il file è la cosa più diretta da fare perché si locca direttamente la struttura dati quindi questo può essere utile
+
+[50:29] Professore: per definire una sorta di protocollo generale per processi qualunque che si vogliono coordinare su quel file questo invece è la versione vedete questa è una versione invece standard POSIX sempre per quanto riguarda il lock c'è una chiamata di sistema più generale ancora che si chiama file control
+
+[50:59] Professore: quindi che si chiama fc file control, che prende il file descriptor, gli si mette un comando, gli si dà un argomento, quindi questa è una specie di pass partout per lavorare sui file, quindi un processo, apre il file, si prende il file descriptor e poi con questa chiamata di sistema che è POSIX,
+
+[51:24] Professore: può fare varie operazioni quindi se volete vedete il man oppure interrogate diciamo le AI quello che volete io non sono contro il fatto che si usi diciamo così le AI per approfondire anzi usata bene aiuta tanto e vedete appunto che ci sono vari modi appunto questa è una specie di passepartout per fare una serie di operazioni però se per esempio però un po' più diciamo proprio perché è un
+
+[51:54] Professore: più articolata, bisogna prepararsi prima al terreno, qui per esempio bisogna prepararsi una struttura, per esempio questa flock del lock in cui si dice che tipo di lock si vuole, questo è un wright lock, quindi esclusivo, si dice dove deve essere messo il SICK e poi gli si dice
+
+[52:21] Professore: da dove parte il lock perché con questa struttura addirittura si può lockare con questo comando si può lockare anche parti soltanto di un file quindi io gli posso dire non di creare una sottoarea esclusiva di lock del file per esempio voglio che dallo start al
+
+[52:43] Professore: all'en voglio avere una determinata sotto sotto area che viene appunto bloccata e poi appunto quindi si prepara prima il lock questo è il comando set lock in bright e poi gli si dà la struttura che si aspetta e così come invece quando si mette vedere qui è il type se nel type si fanno al lock poi si fa
+
+[53:09] Professore: il set lock quindi sempre il comando del set però mettendo nella struttura la lock questo sarebbe quello standard POSIX però in generale di solito appunto con le opportune librerie se uno vuole ha queste che sono più dirette che non sono standard però si possono usare ok
+
+[53:52] Professore: Per quanto riguarda i file, i file possono avere una struttura oppure no, a seconda di come vengono supportati questi file dai diversi sistemi operativi.
+
+[54:04] Professore: Nel Unix Linux, come vi ho detto, la struttura è minimale.
+
+[54:09] Professore: cioè si assume che i file siano sequenze lineari di byte e quindi tutto viene lasciato alla gestione dei vari programmi.
+
+[54:20] Professore: Ogni byte del file viene indirizzato con l'offset, quello che vi dicevo prima, la testina di lettura, il SIG, e quindi se l'offset è a 0 vuol dire che io sto leggendo dall'inizio del file, se l'offset è a 1 vuol dire che mi sono spostato
+
+[54:35] Professore: trascuro il primo byte, leggo dal secondo in poi e così via.
+
+[54:42] Professore: Ogni byte viene indirizzato con l'offset.
+
+[54:47] Professore: Per quanto riguarda il file, ogni blocco logico è di un byte.
+
+[54:52] Professore: Attenzione a non confondere i blocchi sul disco, che hanno una loro grandezza,
+
+[54:58] Professore: e invece il blocco logico del file che invece torna ad essere il byte questo perché?
+
+[55:04] Professore: perché il blocco del disco in memoria secondaria viene prima portato in RAM e quindi la granularità per leggere il file diventa la stessa quindi l'accessibilità di indirizzamento diventa lo stesso della RAM quindi vedete i file si definiscono poi in blocchi logici ma si mappano su blocchi del disco
+
+[55:28] Professore: quindi se un file per esempio ha 1949 byte con blocchi da 512 su disco si allocano 4 blocchi dove effettivamente abbiamo 4 blocchi quindi per allocare 4 blocchi 512 byte occupiamo 2048 byte quando me ne servivano soltanto
+
+[55:58] Professore: 1949 qui abbiamo uno spreco di 99 di trammentazione interna diciamo che oltre a quindi questa è la strutturazione dei file ovviamente poi il file system linux distingue diversi tipi di file ma non li struttura li distingue perché considera
+
+[56:27] Professore: File ordinari, quindi vuol dire file che non hanno una semantica particolare, non hanno un significato particolare.
+
+[56:36] Professore: Le directory per Linux e Unix sono dei file, adesso non so se l'abbiamo già accennato questo fatto, l'abbiamo visto?
+
+[56:44] Professore: Non ce l'ho visto.
+
+[56:45] Professore: Ok, quindi sono dei file, poi abbiamo dei file speciali per i dispositivi, per esempio,
+
+[56:54] Professore: Poi abbiamo dei file che rappresentano dei link, link simbolici, eccetera, ok?
+
+[57:04] Professore: Però tutti sono strutturati e visti al basso livello come sequenze di byte.
+
+[57:11] Professore: Per quanto riguarda il metodo di accesso, abbiamo detto esiste il metodo di accesso sequenziale, per esempio appunto quando noi facciamo delle operazioni do read, con quelle system call, automaticamente
+
+[57:24] Professore: l'offset del file viene spostato ok quindi in alcune operazioni come la read e la write quindi non bisogna quando fate se utilizzate quelle chiamate di sistema direttamente quando fate la read leggete un byte e la testina l'offset si sposta diciamo con l'operazione stessa in realtà se uno va ancora al più basso livello
+
+[57:50] Professore: dovrebbe separare, perché poi quella operazione lì a sua volta è implementata, come lettura di quel byte e poi spostamento della testina di tot, diciamo così, byte, che sarebbero i blocchi logici su file.
+
+[58:09] Professore: Altrimenti è possibile anche fare un accesso diretto, cioè se io per esempio voglio leggere su un byte,
+
+[58:18] Professore: direttamente quindi voglio leggere l'ennesimo byte che cosa faccio?
+
+[58:24] Professore: non si fa altro che spostare prima la testina sull'ennesimo byte e poi si va a leggere direttamente lì quindi sapendo per esempio qual è visto che poi i file sono divisi in blocchi se io già so qual è la dimensione del blocco cosa vado a fare?
+
+[58:45] Professore: vado a vedere prima di tutto su quale blocco devo andare e poi dentro il blocco mi vado a spostare sul resto, nella divisione per quel numero di blocco.
+
+[58:56] Professore: E quindi è possibile spostarsi anche su questo.
+
+[59:01] Professore: Va bene, diciamo che anche l'accesso sequenziale può essere simulato ovviamente con l'accesso diretto, posso ogni volta incrementare l'accesso diretto e quindi spostarmi su questo.
+
+[59:17] Professore: va bene, diciamo che ci sono anche altri metodi di accesso magari questi si possono creare degli indici per i file questo lo vedremo quando vedremo il metodo di allocazione dei file in memoria esiste la possibilità di creare dei blocchi che fanno da indice
+
+[59:46] Professore: e poi tramite quei blocchi si va direttamente a smistare la ricerca sul blocco giusto ma questo lo vedremo quando faremo i metodi di allocazione di file perché i file possono essere poi allocati o in modo contiguo perché abbiamo tutti i blocchi uno sotto l'altro è il metodo in un certo senso più intuitivo
+
+[01:00:13] Professore: Però poi possiamo avere una rappresentazione invece linkata, dove da un blocco si salta a un altro blocco e poi si salta all'altro, e poi c'è una locazione cosiddetta indicizzata, cioè ci sono dei blocchi che fanno da blocco indice e poi da lì è come se la tabella dei blocchi eventualmente può essere annidata, perché un blocco indice può avere dei sotto-indici, un po' come la tabella delle pagine, quindi nella inode...
+
+[01:00:40] Professore: nel file control block si dice qual è il blocco indice quindi dal blocco indice ci si sposta sui diversi blocchi e quindi lì è più facile l'accesso diretto perché io magari voglio direttamente leggere l'ennesimo byte invece di scorrermeli tutti questi byte sul file mi vado a puntare direttamente sul blocco che corrisponde a quello che mi serve
+
+[01:01:08] Professore: poi lo vado a leggere allora andiamo adesso invece a parlare della struttura delle directory allora le directory quindi la struttura delle directory serve per organizzare i simboli che consentono l'accesso ai file ok quindi io per poter nominare i file
+
+[01:01:38] Professore: comodo utilizzare appunto i simboli questo soprattutto per le applicazioni quindi le applicazioni devono avere dei nomi di riferimento per fare determinate cose soprattutto quando abbiamo processi diversi come fanno processi diversi oppure addirittura su macchine diverse per poter accedere alla stessa informazione bisogna avere un metodo di
+
+[01:02:06] Professore: semplice per poter accedere a questa informazione quindi non posso affidarmi alla rappresentazione interna della macchina devo esporre una rappresentazione esterna che sia condivisa dove e come sono fatti questi file e questo viene dato dalla struttura delle directory quindi abbiamo quindi
+
+[01:02:35] Professore: le directory forniscono delle tavole di simboli per tradurre i nomi dei file nel loro il nome simbolico nel nome macchina se vogliamo ok quindi di solito che cosa si deve fare con queste directory quindi queste directory permettono di fare una serie di operazioni permettono per esempio di ricercare un file tramite il suo nome
+
+[01:03:06] Professore: tramite il suo percorso permettono appunto di creare quindi un nuovo file attraverso sempre operazioni simboliche cancellare i file si può allistare quando fate il listing dei file voi state interrogando innanzitutto la struttura della directory quando voi dite non so qual è il mio print working directory voi volete sapere qual è il vostro posizionamento sulla struttura delle directory quindi è
+
+[01:03:36] Professore: vi fornisce un ambiente logico e simbolico in cui l'utente oppure i processi si muovono per accedere ai file.
+
+[01:03:48] Professore: Quindi potete per esempio leggere un file, potete spostare i file da un punto a un altro del vostro file system.
+
+[01:04:00] Professore: Qui la struttura delle directory
+
+[01:04:02] Professore: deve essere organizzata per essere innanzitutto efficiente, cioè trovare in modo rapido i file, gestire il naming, quindi due utenti per esempio potrebbero avere lo stesso nome per file differenti, quindi bisogna separare lo spazio dei nomi per i diversi utenti, lo stesso file potrebbe avere anche nomi diversi, questo si chiamano gli alias, io posso avere lo stesso file
+
+[01:04:32] Professore: può per ragioni diverse avere nomi diversi e poi quello che ci importa è fare anche un raggruppamento logico dei file per proprietà.
+
+[01:04:44] Professore: Chiaramente uno potrebbe avere una directory che ha uno strato solo, un'unica directory.
+
+[01:04:54] Professore: Qual è il problema di una cosa del genere?
+
+[01:04:57] Professore: Se noi avessimo una sola cartella dove mettiamo tutti i file piatti,
+
+[01:05:02] Professore: Qui c'è un problema perché innanzitutto abbiamo un problema del naming, quindi ogni utente dovrebbe conoscere i nomi che gli altri utenti hanno dato ai loro file per distinguere, perché ci potrebbe essere il conflitto.
+
+[01:05:21] Professore: Poi abbiamo il grouping perché non abbiamo modalità di
+
+[01:05:26] Professore: raggruppare questi nomi in sottocartelle che mi diano la possibilità di gestire la uniformità delle informazioni, è come se aveste un'unica cesta in cui buttate alla rinfusa tutta l'informazione, voi invece la dovete catalogare, la dovete strutturare e quindi diciamo che quantomeno
+
+[01:05:56] Professore: necessaria prima di tutto per gestire il multi utenza avere una strutturazione dove abbiamo per esempio una root directory e poi delle sottocardelle una per ogni utente quindi questa è innanzitutto una esigenza per supportare in modo efficiente il
+
+[01:06:25] Professore: la multiutenza quindi ogni utente non deve sapere che ce ne sta un altro quindi non deve per decidere il nome che dà i suoi file non deve conoscere il nome degli altri file degli altri utenti quindi questo è assolutamente viene da sé questa iniziale separazione quindi sto facendo vedere come è naturale organizzarla in modo gerarchico questa cosa
+
+[01:06:51] Professore: nel momento in cui uno deve organizzare uno spazio di nomi deve per forza gerarchizzarla questa organizzazione e quindi viene da sé la struttura delle directory quindi a questo punto però nel momento in cui cominciamo a gerarchizzare abbiamo anche la necessità di associare ai file non soltanto dei nomi ma anche dei percorsi su questa struttura perché per distinguerli
+
+[01:07:17] Professore: per distinguere un file da un altro non basta più il nome ma mi devo riferire anche al path che io devo avere per poter sapere identificare in modo univoco il file.
+
+[01:07:31] Professore: Allora qui ancora non si può fare il grouping e quindi per accedere per fare grouping si fa quindi si introduce anche la possibilità di creare oltre quindi alla prima gerarchizzazione basata sugli user
+
+[01:07:45] Professore: si fa una gerarchizzazione anche basata sulle sottocartelle e così via e quindi abbiamo questa struttura gerarchica di organizzazione dei file che può essere ulteriormente modificata dai diversi processi quindi c'è una struttura di base che poi può essere via via aggiornata quindi questa è la struttura delle directory per gestire il naming e il grouping
+
+[01:08:17] Professore: E poi bisogna rendere appunto questa ricerca efficiente, quindi a questo punto ogni file è identificato non solo dal suo nome ma anche dal suo percorso su questa struttura, quindi quello che si chiama tutto insieme il path name, quindi non avete solo il name ma un path name sulla struttura delle directory.
+
+[01:08:35] Professore: e questa è come al solito una struttura che è effettivamente mantenuta dal sistema operativo ed è una vista sui file che è alternativa rispetto a quella degli inode di cui abbiamo parlato prima, perché quella è una roba che si mantiene internamente in tutte queste strutture degli inode.
+
+[01:08:56] Professore: e poi invece esporta, linka alla struttura delle directory la gestione dei nomi infatti sull'inode non c'è il nome del file il nome del file viene mantenuto separato con la struttura delle directory che ovviamente poi qui dentro nelle directory ci deve essere
+
+[01:09:21] Professore: poi l'associazione con l'inode, il numero identificatore del file corrispondente.
+
+[01:09:30] Professore: Quindi se io ho il path name, prima navigo sulla struttura delle directory e poi, dopo aver fatto questa ricerca, sulla foglia di questa struttura trovo il numero che mi consente di accedere all'inode.
+
+[01:09:45] Professore: Ok?
+
+[01:09:47] Professore: Ovviamente l'organizzazione ad albero è anche utile per rendere la ricerca efficiente.
+
+[01:09:55] Professore: Quindi abbiamo, quando voi fate change directory, quello che si fa è ci si sposta e ci si porta su una directory che è quella di lavoro.
+
+[01:10:05] Professore: Nella directory di lavoro lì si trovano tutti i file che sono immediatamente nella disponibilità di un processo, quindi un processo quando sta a
+
+[01:10:16] Professore: lavorando quando vai in esecuzione ha sempre una directory su cui sta lavorando se voi volete cambiare quella directory dovete appunto con dei comandi far sì che venga linkato a quel processo un'altra directory quindi quando fate change directory quello che state facendo attraverso il processo state modificando la directory per esempio su cui sta lavorando la shell
+
+[01:10:46] Professore: il processo è la shell voi fate change directory fate sì che la shell passi su un altro abbia un'altra working directory quindi se andate a vedere nella process control block che corrisponde al processo shell lì ci sarà una indicazione della directory su cui sta effettivamente lavorando allora quindi
+
+[01:11:15] Professore: visto che ad ogni processo è associata una working directory allora il processo può anche lavorare con dei path relativi non soltanto assoluti quindi io vi posso dire da questo punto in poi dove devi andare a cercare i file perché io ho già la working directory e quindi il path assoluto significa dalla root fino al file nel path relativo
+
+[01:11:41] Professore: solo da dove sta lavorando appunto il processo poi attenzione che in realtà le strutture poi alla fine non sono veramente ad albero perché abbiamo la possibilità di creare dei link quindi uno stesso file può essere vedete questi pallini sono i file questi sono dei directory uno stesso file può avere o diversi nomi
+
+[01:12:11] Professore: ok?
+
+[01:12:12] Professore: ma anche da diversi punti della della diciamo della struttura si può accedere allo stesso file quindi questo significa che proprio io vado a insistere sullo stesso inode ok?
+
+[01:12:28] Professore: vado a insistere sullo stesso file control block ci posso arrivare da qui ci posso arrivare da qui quindi in realtà questo attraverso diciamo questi diciamo così
+
+[01:12:41] Professore: la possibilità di avere nomi multipli per i file, posso fare una cosa di questo tipo, così come esistono anche dei link cosiddetti simbolici che mi permettono anche di avere multiple accessi a directory anche, non soltanto a file.
+
+[01:13:00] Professore: Quindi in realtà la struttura del file system non è propriamente una struttura d'albero,
+
+[01:13:10] Professore: ma una struttura a grafo e di solito si cerca di mantenere almeno per motivi di efficienza il grafo a ciclico perché questo significa io posso dare sicuramente nomi diversi allo stesso file e far sì che punti diversi del file system, cioè dai rettori diversi si va a capitare nello stesso file possiamo avere
+
+[01:13:40] Professore: Questo lo possiamo fare attraverso il meccanismo del linking, quindi possiamo creare dei link sullo stesso file, ma si tratta praticamente di un renaming.
+
+[01:13:51] Professore: Ci sta il problema poi appunto di dover gestire questi link perché appunto
+
+[01:14:00] Professore: se io voglio cancellare un file per esempio e ho più nomi per quel file devo mantenere il conto di quanti link sono associati a quel file quando i link sono zero allora posso veramente cancellarlo perché sennò cancello solo un nome del file e non il file stesso poi c'è il problema invece dei link simbolici che sono più problematici perché possono essere più permissivi
+
+[01:14:29] Professore: cioè il link simbolico sarebbe proprio un altro file che deve essere interpretato, infatti per quello è un file speciale, non per il suo contenuto, ma come reindirizzamento, come puntatore verso un altro punto del file system.
+
+[01:14:44] Professore: E allora questi file simbolici possono creare dei cicli, per esempio, e quindi a volte si lasciano rotti,
+
+[01:14:54] Professore: e si lascia quando si fanno le cancellazioni perché sennò gestire anche le cancellazioni coerenti, consistenti dei link simbolici è più complicato proprio perché sono più permessivi e allora a volte si lasciano rotti e poi si lascia eventualmente al sistema operativo il fatto che si accorgiano questi link rotti ok vedete questo
+
+[01:15:22] Professore: è la situazione in cui posso avere dei cicli e diventa più complicato fare il monitoraggio della situazione quando ho una ciclo, quindi devo riconoscere i cicli, evitare di ciclare e quindi la visita di questa struttura dal punto di vista computazionale è più complessa però con i link simbolici si possono fare queste operazioni.
+
+[01:15:52] Professore: in questo caso la ricerca per esempio di un file potrebbe non terminare se non si fanno bene appunto gli algoritmi di ricerca per la cancellazione bisogna appunto tener conto della contare effettivamente i percorsi cioè marcare i percorsi per evitare appunto di
+
+[01:16:24] Professore: per evitare i cicli come vi dicevo ci sono diversi meccanismi garbage collection è una possibilità però è costosa mantenere struttura ciclica ogni volta che un nuovo link è aggiunto si fa per esempio una detection del ciclo per vedere se è possibile
+
+[01:16:50] Professore: Anche questo è costoso, però almeno si evita il ciclo, oppure si può ignorare e lasciare che per esempio ci siano questi link rotti.
+
+[01:17:05] Professore: E questo è quello che di solito si fa con i link simbolici.
+
+[01:17:10] Professore: Voi l'avevamo visto i link simbolici?
+
+[01:17:13] Professore: Avevamo visto come erano fatti?
+
+[01:17:16] Professore: Magari adesso vediamo un attimo qualche esempio proprio pratico.
+
+[01:17:20] Professore: Andiamo un attimo sul pratico, quindi per esempio andiamo a vedere il file system Unix dal punto di vista strutturale, forse questo l'avevamo già visto, file senza struttura, abbiamo però chiaramente anche se non hanno struttura dal punto di vista della strutturazione del contenuto, quindi sono puri in liste di byte se vogliamo,
+
+[01:17:47] Professore: però internamente fa una distinzione a seconda dell'uso che si deve fare di questi file, quindi ci sono i file che sono marcati come ordinari, quindi che sono quelli il cui uso viene lasciato completamente agli utenti, quindi ai processi utenti, ci può essere di tutto dentro, poi ci sono i directory che sono file speciali, cioè io non posso, non si può, devono avere
+
+[01:18:12] Professore: forzatamente anche quelli sono flussi di byte ma devono essere interpretati in un modo particolare e poi ci sono per esempio i file speciali ce ne sono anche altri per esempio appunto ci sono i link simbolici ci sono altri tipi di file ok?
+
+[01:18:30] Professore: come abbiamo detto ad ognuno di questi viene associato un numero i file ordinari sono queste sequenze appunto di byte
+
+[01:18:41] Professore: senza struttura, invece per quanto riguarda le directory, le directory in Unix e Linux organizzano genericamente il file system e ognuna di queste è un file che contiene, come vi avevo già detto, un insieme di entry, quindi ogni directory è un file che contiene una serie di entry
+
+[01:19:07] Professore: che sono coppie dove abbiamo un file name e un index number name.
+
+[01:19:13] Professore: Quindi avete delle entry che rappresentano l'insieme di byte, poi bisogna vedere, a seconda del tipo di sistema, come sono rappresentati il tipo di file system,
+
+[01:19:35] Professore: qual è il tipo di file system, comunque avete un tot di byte fisso per rappresentare l'index number e un tot di byte fisso per rappresentare i file name, quindi avete tutte entry che hanno un numero di byte fissi, quindi si sa già che qua finisce una entry, qua finisce una entry eccetera eccetera.
+
+[01:19:56] Professore: incluse le entry per dire qual è la directory corrente che viene segnata col punto quindi per esempio c'è il punto il simbolo punto che rappresenta qui nella working directory che ha il suo index number e poi il punto punto che mi permette di sapere qual è il parent cioè qual è praticamente il nodo che mi permette poi di tornare indietro nel file system verso la radice anche quello c'è un index number
+
+[01:20:25] Professore: quindi per esempio se andiamo a vederlo su questo esempio mi pare che questo ve l'avevo già fatto vedere questa cosa mi sembra vedete se ho il file diciamo che ha un index number 202 che è una directory che contiene i file c e d ok?
+
+[01:20:45] Professore: i file c e d sono regolari per esempio mentre quella b è una directory quindi essendo una directory è formata da una lista vedete ho
+
+[01:20:56] Professore: il punto che ha index ovviamente qui sono esempi giocattolo quindi 02 sarebbe l'index number poi il punto punto sarebbe il parent e quindi ho punto punto 107 in questo esempio e poi ho C il nome C che è associato a questo index number e il nome D associato a questo e poi ho l'end of file ok?
+
+[01:21:20] Professore: Questo è praticamente un file
+
+[01:21:24] Professore: un file che viene letto quindi quando in unix linux leggete cioè state su una directory quando fate per esempio il comando ls il listing della directory che cosa va a fare va proprio a leggere questo file e poi su questo file che cosa fa il comando va per ognuno di questi per ognuno di questi o lista soltanto il nome nell'ls semplice
+
+[01:21:52] Professore: Se deve andare a pescare ls-l, quello esteso, più informazione, va dentro l'index number e va a vedere gli attributi che vi servono per darvi le ulteriori informazioni.
+
+[01:22:04] Professore: Non so, i permessi, l'estensione del file, ok?
+
+[01:22:09] Professore: Quando fate, l'avete presente, no?
+
+[01:22:12] Professore: ls-l, oppure tutte le varie, tutti gli specificatori, significa un'indagine via via più profonda dentro l'index number, ok?
+
+[01:22:22] Professore: Quindi va a vedersi queste cose.
+
+[01:22:24] Professore: Poi, per quanto riguarda invece il link, che cosa significa che un file può avere più nomi?
+
+[01:22:33] Professore: Vedete, significa per esempio una situazione di questo tipo.
+
+[01:22:37] Professore: Significa che a partire dal file, per esempio, che ha l'index number 107, vedete qui, può avere più nomi, cioè lo potete chiamare bc o e.
+
+[01:22:51] Professore: ma sempre sullo stesso index number si va a finire quindi si va a finire sempre sullo stesso inode quindi per esempio io posso avere sulla stessa directory che C e B si riferiscono allo stesso quindi se io scrivo su B scriverò anche su C e quando faccio la lettura di B
+
+[01:23:19] Professore: Leggo anche C perché è lo stesso file, sono solo nomi diversi, ma la stessa cosa la posso fare da un'altra directory.
+
+[01:23:26] Professore: Per esempio mi sposto su questa directory, vado a leggere E, ma E corrisponde sempre allo stesso file.
+
+[01:23:35] Professore: Questo è il meccanismo del linking.
+
+[01:23:41] Professore: Quando si va a fare per esempio l'LS su questo file si vedrà che a un certo punto si leggono tre link perché nel sistema si mantiene traccia di quanti link effettivamente sono associati ad un determinato file.
+
+[01:24:07] Professore: A livello di comando esiste il comando ln che vi permette di crearli questi file, quindi se voi state, non so, sulla bash potete provare a fare, non so, name1, name2 significa che il nome nuovo name2 viene associato a name1 e quindi si crea una situazione in cui un file ha un nuovo nome, ok?
+
+[01:24:31] Professore: Quindi per creare un alias, quindi volete dare...
+
+[01:24:36] Professore: un nome al file, un altro nome al file, potete farlo così come si può creare un nome da una directory diversa.
+
+[01:24:47] Professore: Quindi si può mettere un path name dall'altra parte e un nome che è il primo e si crea una situazione di questo tipo.
+
+[01:24:58] Professore: Quindi questo fa sì che la struttura gerarchica del file non è più ad albero
+
+[01:25:05] Professore: ma diventa grafo aciclico, ok?
+
+[01:25:08] Professore: Questa... Ci siete?
+
+[01:25:13] Professore: Però finché è aciclico non c'è problema, ok?
+
+[01:25:17] Professore: Il problema può nascere quando ci sono i cicli.
+
+[01:25:20] Professore: I cicli, quando si possono creare?
+
+[01:25:22] Professore: Quando, per esempio, si fanno quelli che si chiamano i link simbolici.
+
+[01:25:27] Professore: Invece di fare ln, si fa ln-s.
+
+[01:25:30] Professore: Che cosa significa?
+
+[01:25:31] Professore: Significa che il nome 2...
+
+[01:25:34] Professore: diventa un game simbolico del nome 1.
+
+[01:25:38] Professore: Cioè, che cosa significa questo?
+
+[01:25:41] Professore: In questo caso si crea veramente un nuovo file, ok?
+
+[01:25:46] Professore: Però questo nuovo file è un file speciale che deve essere interpretato come un salto da un'altra parte del sistema.
+
+[01:25:56] Professore: Ok?
+
+[01:25:56] Professore: Quindi non è un vero e proprio analyzing, cioè non sto dando un nuovo nome al file,
+
+[01:26:02] Professore: gli sto sto creando una sorta di salto ok cioè questo è occupa byte questo quindi sarà associato anche questo quindi creo nella nuova directory per esempio qui creo un nuovo file questo nuovo file occuperà dei byte ok perché?
+
+[01:26:23] Professore: perché per qui dentro è come se ci fosse un cartello io non sono il file il file che stai cercando è quest'altro no?
+
+[01:26:32] Professore: Questa non è una pipa, non avete presente, è Magritte, no?
+
+[01:26:38] Professore: Il quadro di Magritte?
+
+[01:26:41] Professore: Non lo so, è una pipa o scritto se ne fa una pipa?
+
+[01:26:45] Professore: C'è un quadro che dice, questo è un famoso vittore moderno, che fa, crea dei padossi, dove c'è il quadro di ho certito, questa non è una pipa, perché effettivamente non è una pipa, ma è una rappresentazione della pipa, quindi non è una vera pipa, ma è un'immagine della pipa.
+
+[01:27:05] Professore: E allora il link simbolico è una cosa simile, che dice, questo è come se dicesse, questo non è un file, quindi è una...
+
+[01:27:15] Professore: un puntatore verso il file però occupa memoria mentre il link precedente questo qui questo è proprio un nome è soltanto un nome diverso quindi quando si va su quel nome nel file system si punta direttamente quindi non viene creato un nuovo file ma è soltanto un nome al vecchio file un nuovo nome al vecchio file nel link simbolico si crea un file e quindi è
+
+[01:27:43] Professore: Per l'accesso è più costoso perché bisogna prima leggere questo file, interpretarlo e poi saltare dall'altra parte del file system, quindi ci sono delle operazioni in più e anche più flessibile perché con questo si possono andare a puntare anche a dare dei nomi nuovi non solo ad altri file ma anche ad altri directory e questo può creare anche dei cicli perché non ci sono le limitazioni che si hanno invece
+
+[01:28:10] Professore: Allora, perché nel link, visto che il link non simbolico può puntare solo ad altri file, non posso creare dei cicli, perché è sempre una dead end, no?
+
+[01:28:20] Professore: Vado sempre a puntare su una foglia, quindi dovunque vado è vero che posso andare da un punto a un altro del file system, non so, ho qui una directory, qui c'è un'altra directory, questo c'è un file, qui c'ho un altro file che in realtà punta a questo, comunque sono, in realtà non è che quando c'ho un doppio nome per il file,
+
+[01:28:41] Professore: ogni nome è valido come il primo, cioè non è che c'è una gerarchia, quindi a quel punto se io ho due nomi per lo stesso file è come se quel file fosse contemporaneamente sulle due directory, quindi non posso dire che
+
+[01:28:58] Professore: una è la directory vera e l'altra è la directory falsa mentre invece quando ho il link simbolico allora posso dirlo che qui c'è il file vero perché qui c'è invece il cartello che mi dice che dall'altra parte c'è il file vero però appunto proprio perché i link simbolici sono più pesanti si possono fare più cose e si possono creare dei cicli eventualmente e quindi poi bisogna vedere come si gestiscono queste cose e di solito
+
+[01:29:27] Professore: il controllo non si fa diciamo sui link cioè non si fanno controlli molto profondi sui link simbolici perché diventano troppo costosi quindi se si rompe un link simbolico diciamo se la vede l'utente qui abbiamo delle tipiche directory su Linux alcune già le conoscete
+
+[01:29:56] Professore: Lascerei un attimo perdere questa cosa.
+
+[01:30:02] Professore: Tipi di file, l'abbiamo detto, abbiamo già detto tipi di file regolari, link, in realtà link sarebbero i symbolic link, ok?
+
+[01:30:13] Professore: Poi abbiamo charad special file che vedremo successivamente, block special file, socket file, named pipe file, queste le abbiamo già viste le named pipe, ok?
+
+[01:30:26] Professore: esistono ogni volta che abbiamo per esempio delle strutture di comunicazione inter processo che abbiamo visto anche c'è sia la versione anonima sia la versione named perché serve sempre una versione named?
+
+[01:30:46] Professore: perché la versione named serve per considerare per mettere ad altri
+
+[01:30:53] Professore: ad altri processi che sono proprio su applicazioni diverse di raggiungere quel canale di comunicazione, perché altrimenti per esempio le pipe anonime le posso fare quando sono sulla stessa, cioè ho una fork per esempio e posso far parlare dentro lo stesso processo, due processi padre e figlio che nascono da uno stesso processo.
+
+[01:31:21] Professore: oppure comunque processi imparentati, ma se io voglio far parlare processi che non sono imparentati oppure processi che stanno proprio su altre macchine, o comunque processi che non hanno, che vengono lanciati da terminali diversi, cose di questo tipo, allora ho bisogno di avere dei nomi e quei nomi di solito sono dei canali che anche loro vengono assimilati a dei file.
+
+[01:31:51] Professore: quindi i canali di comunicazione appunto diventano dei file, anche questi.
+
+[01:31:59] Professore: Così come dei file sono associati appunto ai dispositivi, quindi ogni dispositivo ha un'interfaccia file-like in modo tale che
+
+[01:32:15] Professore: operazioni classiche come read, write eccetera sono supportate innanzitutto sui vari dispositivi quindi un processo potrebbe diciamo così scrivere o leggere su dispositivi secondo uno schema di standard ovviamente poi a seconda del tipo di dispositivo ci possono essere delle ulteriori operazioni che si possono fare però almeno quelle standard
+
+[01:32:44] Professore: consentono un trattamento uniforme di questi dispositivi, della comunicazione su questi dispositivi.
+
+[01:32:54] Professore: Va bene, questo l'abbiamo detto, questo anche l'abbiamo detto, una cosa al volo, poi finiamo, magari finiamo un po' prima.
+
+[01:33:05] Professore: Abbiamo detto che il...
+
+[01:33:19] Professore: dall'inode si può andare a risalire alla struttura dei blocchi sul disco attenzione anche gli inode sono memorizzati sul disco ovviamente tutto il file system si deve poter congelare poi quando spegnete il computer è che perdete i file
+
+[01:33:50] Professore: il sistema tenta sempre di ripristinare di mantenere una sua consistenza però certamente se per esempio improvvisamente c'è una rottura di qualcosa il sistema non è stabile vedremo anche meccanismi per cercare di mantenere la consistenza più possibile dei file non so se qualcuno mai
+
+[01:34:11] Professore: sentito parlare del journaling, per esempio, meccanismi di journaling.
+
+[01:34:17] Professore: Sono a pagamento, come funziona?
+
+[01:34:20] Professore: Su Windows sono a pagamento, è un plugin.
+
+[01:34:23] Professore: Sono dei meccanismi per cui... Poi li andremo a vedere in dettaglio.
+
+[01:34:31] Professore: Il sistema prima di portare a termine le operazioni
+
+[01:34:39] Professore: di trascrizione, perché tutte le operazioni che si fanno sono operazioni che si fanno nella memoria principale e poi fanno travasate nella memoria secondaria.
+
+[01:34:50] Professore: Questo vale sia per i dati sia per i metadati.
+
+[01:34:53] Professore: Diciamo che la cosa più grave è se si perde proprio il metadato, perché se mentre sto facendo la trascrizione del metadato ho qualcosa
+
+[01:35:01] Professore: va storto, allora ci sono dei problemi proprio di stabilità del sistema, ok?
+
+[01:35:07] Professore: Perché non è più consistente, non è più coerente.
+
+[01:35:10] Professore: Allora, quello che cerca di fare il sistema è crearsi prima una sorta di lista di operazioni che dovrebbe fare, se le appunta, ok?
+
+[01:35:20] Professore: E se le appunta sul disco, in modo tale che, diciamo, si scrive queste operazioni sul disco e quindi almeno sa quello che dovrebbe fare
+
+[01:35:31] Professore: e quello che ha già fatto in questo modo se a metà di un'operazione di trascrizione va via si perde qualcosa c'è un blackout di sistema crolla il sistema improvvisamente si va a vedere se quello che doveva fare per mantenere la consistenza è stato fatto e se è stato fatto allora quell'operazione è andata a buon fine
+
+[01:35:59] Professore: Se invece è arrivato a metà, allora può continuare a portare avanti le altre operazioni per completarle.
+
+[01:36:09] Professore: Se invece non è riuscito neanche a trascrivere tutta la fine di quelle operazioni che doveva fare, allora fa un undo di quelle che aveva già fatto.
+
+[01:36:20] Professore: Quindi questo è un po' per riportare il sistema sempre in uno stato di stabilità.
+
+[01:36:27] Professore: Quindi è vero quello che dicevate,
+
+[01:36:31] Professore: quando si spegne qualcosa c'è sempre un momento in cui il sistema deve stare attento a mantenere, a trascrivere tutto quello che c'è da trascrivere in memoria secondaria.
+
+[01:36:48] Professore: Però quello che intanto mi interessa farvi vedere è come il sistema invece
+
+[01:36:57] Professore: mantiene attraverso il suo inode, questo è un esempio del Linux file system, qua possiamo andare ad approfondire qualche dettaglio sui sistemi più moderni, però in generale vedete questo è un inode, l'inode ha una serie di informazioni, tra cui poi anche dove stanno i blocchi proprio di dato in memoria.
+
+[01:37:25] Professore: Ok, allora abbiamo nel file system Unix diversi modi per ritracciare questi blocchi.
+
+[01:37:35] Professore: Ci sono blocchi che sono ad indirizzamento diretto, quindi se il file è piccolo io posso direttamente sapere...
+
+[01:37:44] Professore: dove sta blocco per gioco.
+
+[01:37:47] Professore: Poi quando invece il file diventa via via più grande io non posso avere qui una entry per ogni blocco.
+
+[01:37:55] Professore: Allora si inizia ad avere una prima indirizzamento indiretto, cioè vado ad puntare un blocco indice e questo blocco indice poi mi va a
+
+[01:38:07] Professore: catturare un'altra estensione quindi per file mediamente grandi quando si va su file ancora più grandi si fa una doppia indice quindi abbiamo un indirizzamento a doppio indice quindi si va su un blocco che mi fa da indice degli indici e a sua volta poi si arriva ai dati e in questo modo si riescono a diciamo così catturare sia file piccoli
+
+[01:38:37] Professore: perché di solito se il file è piccolo voglio avere un accesso molto rapido, se più il file è grande più i tempi si allungano, però attenzione che posso sempre andare in modo più o meno diretto
+
+[01:38:56] Professore: attraverso questi indici a pescare il blocco che mi interessa, ok?
+
+[01:39:00] Professore: Perché io già faccio una sorta di divisione, voglio sapere in che blocco sono, posso per esempio già schippare tutti questi, so già che sono nella modalità doppiamente indiretta, vado prima su questo e poi vado... Quindi c'è effettivamente un percorso, un walk che devo fare, ma non devo fare tutta la... andarmi a scorrere, ok?
+
+[01:39:22] Professore: Tutti...
+
+[01:39:28] Professore: o una limitata ricerca che posso fare e per quanto riguarda vedete la struttura delle directory abbiamo che le directory anch'esse sono file però sono questi file che mantengono queste liste di collegamento tra nome e inode e poi dall'inode quindi quando voi andate sulla directory attraverso il nome ricavate l'inode dall'inode
+
+[01:39:56] Professore: ricavate i blocchi che possono essere o direttamente indirizzati oppure possono essere indirizzati in modo indiretto a diversi livelli di annidamento, a seconda della dimensione del bar.
+
+[01:40:10] Professore: Questa, diciamo così, è innanzitutto per darvi una prima idea che poi andremo via via a raffinare.
+
+[01:40:20] Professore: Ok, ci possiamo fermare qui e direi il prossimo martedì, quindi facciamo una esercitazione su chiamate di sistema input-output dove vediamo un po' più in concreto questi... Sì, portate il computer.
+
+[01:40:34] Professore: Ok?
+
+[01:40:34] Professore: Perfetto.
+
+[01:40:35] Professore: È uscito fortissimo.
+
+[01:40:43] Professore: È uscito fortissimo.
+

@@ -1,0 +1,898 @@
+[00:10] Professore: come vengono i blocchi relativi ai file su disco diciamo che cos'è questo metodo di allocazione è il modo in cui il sistema si rappresenta la posizione dei dati su un disco, un file system e come effettivamente poi va a recuperare questi dati
+
+[00:38] Professore: Vediamo tre metodi principali di allocazione, metodo di allocazione contigua, metodo di allocazione ligata e quello indicizzato.
+
+[00:50] Professore: Qual è il blocco, i blocchi sono numerati, 0, 1, 2 eccetera eccetera, sappiamo qual è il blocco di partenza e poi sappiamo qual è la lunghezza in termini di blocchi.
+
+[01:02] Professore: Quindi questo è un metodo che ha pro e contro,
+
+[01:07] Professore: Quali sono i pro?
+
+[01:08] Professore: Per esempio nel caso di disco rigido, la testina deve fare piccoli spostamenti, perché sono molti qui, quindi quando leggete il file, quando si passa da un blocco all'altro, non c'è un grande spostamento della testina.
+
+[01:23] Professore: E quindi diventa più semplice l'accesso diretto.
+
+[01:28] Professore: perché è semplice l'accesso diretto se io voglio accedere non so in una determinata ad un determinato blocco ok quindi cosa faccio siccome so già quali sono le dimensioni del blocco ok io posso risalire non so io voglio leggere non so il byte ennesimo del file ok
+
+[01:52] Professore: che devo fare?
+
+[01:53] Professore: Devo scorrermi tutti i blocchi oppure posso andare direttamente sul blocco che mi interessa?
+
+[02:00] Professore: Posso dividere, il sistema può dividere il diritto, si può vedere qual è la numerazione a livello di blocco e
+
+[02:12] Professore: va effettivamente direttamente a prelevare il blocco che gli interessa per poi portarlo in memoria principale ed eventualmente farci le operazioni che deve farci.
+
+[02:24] Professore: Scorrerlo magari con l'offset, arrivare nel punto richiesto e poi fare le operazioni.
+
+[02:31] Professore: Quindi anche l'accesso diretto in questo caso è semplice.
+
+[02:36] Professore: Qual è il contro?
+
+[02:39] Professore: Quello solito delle allocazioni contigue, cioè che per allocare un file bisogna trovare i famosi buchi e quindi bisogna tenere una sorta di rappresentazione di questi buchi e quindi abbiamo problemi di...
+
+[02:57] Professore: magari i buchi che sono, anche se qui abbiamo una sorta di disidentizzazione della memoria, comunque in termini di blocchi si ripropone un problema di frammentazione, perché frammentazione è esterna in questo caso, perché magari non abbiamo una regione sufficiente per poter posizionare tutti i blocchi che ci servono se un file magari è molto grave.
+
+[03:23] Professore: Quindi bisogna sapere a priori anche la dimensione del file perché magari noi lo troviamo, il posto dove andarlo ad allocare, ma poi il file lo possiamo allargare, possiamo scrivere in append sul file e quindi magari a un certo punto che cosa succede se si va a finire, i blocchi liberi consecutivi vanno a finire, che cosa succede?
+
+[03:49] Professore: Bisogna copiare il file in un'altra pagina e quindi perdere... Bisognerebbe praticamente creare delle extension, andare praticamente a puntare su dove finisce quello spazio, creare dei pointer su un altro spazio il più vicino possibile per poi connettere queste
+
+[04:16] Professore: queste aree, quindi diciamo che infatti si fa a volte con queste allocazioni contigua estesa, cioè aree contigue che vengono praticamente collegate una vicino all'altra, quindi
+
+[04:31] Professore: Oppure un'altra cosa che si può fare è una compattazione.
+
+[04:35] Professore: Questa volta siamo sulla memoria secondaria, quindi abbiamo più tempo per fare le compattazioni.
+
+[04:41] Professore: Potremmo cambiare le posizioni di questi blocchi, però comunque è qualcosa di abbastanza poco...
+
+[04:52] Professore: un po' complicato da gestire.
+
+[04:58] Professore: L'allocazione contigua può avere un suo vantaggio soprattutto per i file piccoli, ok?
+
+[05:05] Professore: Quindi vedete sempre nel caso dell'allocazione contigua se vogliamo, per esempio abbiamo un logistic altresblock, quindi sappiamo qual è l'indirizzo logico
+
+[05:18] Professore: Ricordate la differenza tra indirizzo logico e indirizzo fisico del blocco.
+
+[05:24] Professore: Dal punto di vista del sistema operativo, si tratta di un numero ai blocchi come se fossero consecutivi.
+
+[05:30] Professore: Poi se avete il controller del disco dove effettivamente sono posizionati, cercando di mantenere una logica di approssimata contiguità tra la progressione degli indirizzi logici e quella degli indirizzi fisici.
+
+[05:47] Professore: Allora qui, per esempio, se abbiamo blocchi da 512 byte, dato, diciamo così, se vogliamo arrivare ad un indirizzo logico, in realtà questo sarebbe l'indirizzo logico sul file, scusatemi qui, l'indirizzo logico sul file è diverso dall'indirizzo logico sul blocco, quindi l'indirizzo logico sul file, io sul file mi posso spostare
+
+[06:15] Professore: a pezzi di byte, quindi io posso chiedere di scrivere e leggere con la dimensione del byte, quindi quando io mi muovo con l'offset, l'abbiamo visto, il SICK si muove di byte in byte, quello è il movimento, quindi quando chiediamo di lavorare
+
+[06:37] Professore: a livello di indirizzo logico sul file che possiamo quindi vogliamo accedere al byte numero 100 per dire diciamo un numero più grande 1000 possiamo per accedere in modo diretto quindi per risalire al blocco diretto possiamo dividere per la dimensione del blocco quindi vedere quanti blocchi dobbiamo in un certo senso
+
+[07:03] Professore: scartare e poi il resto nella divisione mi da l'offset nel blocco che mi interessa sto facendo mapping sostanzialmente
+
+[07:15] Professore: questo significa che io vado a mappare un indirizzo logico devo risalire al blocco corrispondente e poi assumendo in questo caso che il blocco parte da zero così ci troviamo direttamente nella divisione il numero del blocco e poi il resto mi dice come mi devo muovere qual è l'offset dentro il blocco
+
+[07:40] Professore: quindi poi vado a vedere su quel file appunto da dove parto e vado a sommare dallo start del blocco vado a vedere qual è il blocco che mi interessa e prendo quel blocco e poi mi muovo con la testina di lettura una volta che ce l'ho in memoria per entrare nel blocco la divisione in modulo oppure una divisione
+
+[08:09] Professore: Questa è proprio una divisione intera, quindi questo U e questo R. Però questo è uno schema astratto, molto astratto, per far capire cosa vuole dire questa slide.
+
+[08:23] Professore: Vuole dire essenzialmente che anche se ho la locazione contigua,
+
+[08:27] Professore: Se io ho un indirizzo di quel file preciso, non mi devo scaricare tutti i blocchi uno sotto l'altro per arrivare in quel punto, ma posso direttamente, visto che so qual è la dimensione del blocco, andare a scorrermi logicamente quali sono i blocchi e andare a puntare direttamente al blocco che mi interessa, me lo scarico e faccio le operazioni dentro quel blocco là.
+
+[08:51] Professore: Quindi l'accesso diretto sia a scrittura che in lettura non prevede lo scorrimento, quindi è abbastanza veloce.
+
+[09:03] Professore: Quindi abbiamo detto, l'accesso al file può essere eseguito semplicemente sia in modalità sequenziale, perché sequenzialmente abbiamo il vantaggio che soprattutto per l'hard disk non si muove tanto la destina di lettura, perché sono vicini, quando leggo scrivo il file, e anche l'accesso diretto, cioè quello random access, significa che voglio accedere al cliente,
+
+[09:30] Professore: millesimo byte ok quindi non è che mi devo scorrere come ho detto prima tutto faccio questa divisione vedo qual è il blocco che mi interessa e poi con l'offset con il resto mi sposto sul byte che mi interessa una volta che ho il blocco in memoria principale chiaro?
+
+[09:45] Professore: quello che sto dicendo?
+
+[09:46] Professore: si si ok poi dall'altra parte invece abbiamo già detto che ci abbiamo contro è necessario trovare lo spazio libero per allocare i file e quindi
+
+[09:57] Professore: Di nuovo abbiamo lo stesso problema che avevamo in memoria principale, il stesso identico, quindi il problema della gestione dei buchi.
+
+[10:04] Professore: Abbiamo detto ci sono gli algoritmi per esempio a FirstFeed, ve lo ricordate, è FirstFeed, cioè il primo che trovo vado a piazzare il mio file, oppure il BestFeed
+
+[10:14] Professore: quello che approssima meglio la dimensione, oppure c'avevamo anche l'altro caso, cioè il caso appunto del waspitt, dove effettivamente si prendeva la dimensione più grande, ok?
+
+[10:28] Professore: Perché quella più grande?
+
+[10:30] Professore: Perché poi consentirebbe l'estensione massima appunto del fanno.
+
+[10:35] Professore: Quindi abbiamo problemi di fermentazione esterna,
+
+[10:40] Professore: in questo caso è più facile rispetto alla memoria principale perché possiamo fare compattazione non interferisco troppo non come nel caso della memoria principale si possono ovviamente diciamo così si possono creare zone contigue in spazio libero in che senso?
+
+[11:06] Professore: Qui, va beh, questo in realtà si sposta in Italia su un altro disco, questo è abbastanza... questo non è... è un caso particolare, però io posso farlo in mille modi, creare una zona contigua di spazio libero per, diciamo così, compattare, ok?
+
+[11:25] Professore: Quindi questo è scritto un po' male, questa slide.
+
+[11:29] Professore: Diciamo, si crea praticamente per...
+
+[11:32] Professore: per disaccoppiare le operazioni di compattazione posso magari sfruttare e quindi fare la compattazione su un altro disco prepararla su un altro disco senza rompere le scatole al disco precedente quindi ho una duplicazione di questi dati e poi faccio una sorta di sostituzione tutto insieme questa è una possibile tecnica ma ce ne sono diverse per la zona quanti uguali spazi liberi che
+
+[12:02] Professore: Questo per creare è per creare la zona degli spazi, cioè io li compatto, questa è una tecnica di compatto.
+
+[12:08] SPEAKER_00: Ah, per poi creare il fit per un altro, ok.
+
+[12:11] Professore: Quindi si compattono, però in realtà, ripeto, c'è altro incontro, perché poi quei file che sono compattati, poi dopo non si possono magari eventualmente espandere.
+
+[12:21] Professore: Quindi diciamo che sono tecniche che sono un po', diciamo così, si usavano.
+
+[12:29] Professore: su alcuni file system, però questa locazione appunto contigua presenta diversi problemi.
+
+[12:38] Professore: Quindi la compattazione chiaramente si può fare in questo caso sia offline che online, però ovviamente impatta sulle prestazioni.
+
+[12:49] Professore: Ci sono altri problemi, quindi
+
+[12:52] Professore: Come abbiamo già detto, è necessario stimare quanto spazio allogare un file e quando finisce lo spazio disponibile, che cosa bisogna fare, cioè che cosa fare di questo file, cioè o viene spostato in un altro buco e questo porta a problemi di dover copiare continuamente questi file,
+
+[13:14] Professore: oppure allocare più spazio iniziale sperando che basti e come vi dicevo in alcuni sistemi si utilizza queste extension si chiamano cioè quando un file ha bisogno di ottenere spazio si crea un'altra area di memoria e poi diciamo che
+
+[13:32] Professore: Nella caratterizzazione quindi dell'allocazione dei blocchi devo specificare non solo qual è il blocco d'inizio, non solo qual è il numero di blocchi, ma eventualmente il salto alla prossima area.
+
+[13:49] SPEAKER_00: Però gli iNode che sostanzialmente sono, abbiamo spiegato, essere metadati, non dovrebbero contenere questo?
+
+[13:54] Professore: Questo non viene utilizzato con gli iNode,
+
+[13:56] Professore: perché appunto il file system di appunto linux unix non utilizza questo metodo di allocazione quindi non lo andiamo a mappare indicizzazione se non sbaglio mi pare per ricordare viene utilizzato diciamo l'ho accennato
+
+[14:16] Professore: il metodo appunto degli indici esatto quindi perché l'ext4 era mi pare la formattazione logica del drive adesso poi vediamo un attimo le varie generazioni però diciamo fin dall'inizio il file system diciamo così già Unix già utilizzava un metodo diciamo di educazione indicizzata quindi questo è storia ok?
+
+[14:42] Professore: questo non riguarda
+
+[14:44] Professore: Linux riguarda come al solito come nel caso della memoria abbiamo introdotto prima le problematiche di una allocazione contigua per spiegare perché viene utilizzata una memoria paginata e qui diciamo nello stesso modo prima presentiamo il metodo di allocazione contigua per far capire quali sono le problematiche e quindi vedere quali sono i metodi alternativi ok?
+
+[15:12] Professore: In alcuni casi ci sono dei sistemi che utilizzano comunque queste extents, che sono questi blocchi di memoria contigua che possono essere indicati alla fine.
+
+[15:26] Professore: Quindi c'è un file in cui viene indicato qual è il prossimo blocco, però poi anche alla fine dell'extent...
+
+[15:35] Professore: Quindi anche l'extent poi viene descritto, eppure lui può avere un ulteriore extent successivo e così via, fino alla fine, che è indicato che non c'è extent.
+
+[15:45] Professore: Quindi questi sono dei sistemi che possono utilizzare questi metodi di avvocazione, che poi via via vengono utilizzati.
+
+[16:03] Professore: per quanto riguarda invece un altro metodo di allocazione quello concatenato qui il problema è opposto qui abbiamo che ogni blocco viene in qualche modo ogni blocco qua viene linkato al prossimo ok?
+
+[16:24] Professore: quindi c'è un blocco e proprio dentro il blocco c'è la descrizione di dove andare a trovare cioè alla fine quindi
+
+[16:32] Professore: Quando alloco i file c'è una parte del file che viene riservata per mettere una sorta di puntatore al prossimo blocco che continua il file.
+
+[16:47] Professore: abbiamo però una serie di problemi qui come al solito assumiamo quindi che abbiamo una directory la directory in realtà abbiamo detto che questo poi dipende dai sistemi però di solito la directory mette una connessione tra il nome simbolico del file e poi un file control block e poi nel file control block abbiamo questa relazione il puntatore per risalire i blocchi quindi questa è una strazione questa qui non è direttamente così
+
+[17:17] Professore: Comunque, quello che si diceva, assumiamo appunto questa astrazione, quindi abbiamo il file, poi dal file li saliamo allo start e end dei blocchi, quindi sappiamo solo da dove inizia e da dove finisce.
+
+[17:35] Professore: utilizzano per esempio delle liste che sono doppiamente linkate in modo tale che dalla fine si può anche risalire all'inizio si possono anche percorrere al contrario questi però diciamo che ci sono una serie di problemi facendo così allora primo problema la testina di lettura del disco cosa fa?
+
+[17:57] Professore: Quindi abbiamo sicuramente una non ottimizzazione nella lettura sequenziale.
+
+[18:07] Professore: Quindi abbiamo un problema.
+
+[18:11] Professore: Poi c'è un altro problema qui, che uno spazio viene preso,
+
+[18:18] Professore: per rappresentare il puntatore al prossimo blocco quindi il blocco non è tutto dato ma ci sono degli elementi di metadato che vengono sacrificati per il blocco tra l'altro è anche doppio se l'ha detto che è doppiamente linkata quindi sono 8 byte se è doppiamente linkata c'è anche questo doppio problema quindi lo spazio utile effettivamente qui viene a ridursi ho detto 8
+
+[18:48] Professore: quindi vedete ogni file è una lista concatenata di blocchi del disco i blocchi possono essere spazi ovunque quindi abbiamo una situazione in cui peraltro l'impatto dei puntatori qua
+
+[19:02] Professore: di questi puntatori che vengono messi dentro, quindi questi metadati, chiamiamoli perché possono esserci non solo puntatori, ma anche altre cose che mi dicono insieme, no?
+
+[19:14] Professore: Non so, è finita qualche altra descrizione, comunque nel blocco incidono tanto di più, tanto più è grande e piccolo il blocco, ok?
+
+[19:24] Professore: Mettiamo un blocco che ha esattamente la dimensione del doppio,
+
+[19:31] Professore: del puntatore.
+
+[19:33] Professore: Per assurdo avrei spiegato il 50% della memoria solo per creare la struttura.
+
+[19:41] Professore: per farvi per capire se c'ho spazio solo per quello ho spiegato al 100% cioè ho fatto praticamente ho usato solo tutta la memoria quindi in questo caso bisogna dimensionare i blocchi in modo tale che questa percentuale che io spendo per ogni file sia la meno che incida meno possibile però nello stesso tempo più
+
+[20:07] Professore: abbiamo blocchi grandi più abbiamo frammentazione interna e quindi diciamo c'è un trade off e più anche su cos'altro incide la dimensione del blocco per esempio sulle prestazioni anche della comunicazione col disco perché diciamo se io voglio con blocchi piccoli le chiamate input output che richiederanno meno trasferimento di byte
+
+[20:35] Professore: mentre con blocchi più grandi ogni volta che faccio una richiesta scarico dimensioni più grandi quindi i blocchi in un certo senso fanno sì che sia più oneroso meno mirato il trasferimento quindi attenzione vediamo un attimo per l'accesso sequenziale vediamo le due problematiche accesso sequenziale e accesso
+
+[21:06] Professore: accesso diretto per l'accesso sequenziale c'è un problema se vogliamo si quando finisco un blocco non è lineare però comunque non è un problema che impatta sicuramente sulla velocità del disco perché appunto il disco viene sollecitato di più ma nello stesso tempo
+
+[21:36] Professore: potrebbe essere anche diciamo così accettabile vediamo un attimo qui invece per l'accesso invece diretto con una struttura di questo tipo vedete il problema?
+
+[21:53] Professore: cioè accesso diretto vuol dire che io voglio effettivamente andare direttamente al blocco X che mi interessa in realtà problema no
+
+[22:03] SPEAKER_00: Però comunque dovrei avere una conversione logica diversa perché non solo devo scendere nei file per poi andare nei frame ma poi anche una riconversione per saltare da blocco a blocco l'offset.
+
+[22:16] Professore: Questo significa che praticamente se io sono nel primo blocco non c'è problema.
+
+[22:23] Professore: Vediamo il secondo blocco già, nel secondo blocco leggo il riferimento al blocco successivo, ma poi se io devo per esempio andare al decimo blocco, come faccio?
+
+[22:33] Professore: Non ho qui una, diciamo, sono costretto ad attraversare
+
+[22:38] Professore: su tutti i blocchi.
+
+[22:40] SPEAKER_00: Perché sennò devo navigare nei puntatori.
+
+[22:42] Professore: Devo navigare nei puntatori che sono in memoria secondaria e quindi è molto onerosa come rappresentazione.
+
+[22:50] Professore: Infatti anche questa ha una serie di problematiche.
+
+[22:55] Professore: Nell'accesso diretto si vede immediatamente il problema con questo schema qua.
+
+[22:59] Professore: Quindi abbiamo già detto memoria sprecata.
+
+[23:03] Professore: e questa memoria può essere una percentuale che se mi devo spendere su ogni blocco, poi se la percentuale rispetto al blocco non è trascurabile, non è trascurabile nella memoria sprecata.
+
+[23:18] Professore: Abbiamo quindi la necessità di dover
+
+[23:23] Professore: Ogni volta fare un work su questi blocchi e quindi ogni volta caricarceli in memoria, in memoria principale, perché tutti i controlli e tutte le cose, le letture, le scritture, le faccio in memoria principale, quindi me li devo scorrere tutti, caricare tutti e poi arrivare al blocco di interesse.
+
+[23:44] SPEAKER_00: Scusi, qui frammentazione esterna penso quasi zero, no?
+
+[23:47] Professore: Qui non c'è frammentazione esterna, esatto.
+
+[23:51] Professore: Questa è una tesi, questa diciamo in un certo senso è l'antitesi, cioè il problema opposto, quindi nel caso del contiguo abbiamo una situazione dove è molto favorita il movimento della testina, eccetera, quindi andrebbe bene per i fai piccoli che vogliamo.
+
+[24:08] Professore: Mentre invece questa è una cosa che magari uno potrebbe accettare su dei file molto grandi, però diciamo dove abbiamo necessità di spargere l'informazione su tutto il disco.
+
+[24:25] SPEAKER_00: O magari delle situazioni in cui i blocchi sono molto grandi.
+
+[24:29] Professore: Anche, anche i blocchi grandi dove quindi è trascurabile anche questa... La perdita di spazio.
+
+[24:37] Professore: La perdita di spazio, esatto.
+
+[24:39] Professore: E quindi, vediamo un attimo, per la creazione del file non ci sarebbe grande problema, si aggiunge un elemento, diciamo, alla struttura data, poi il control block, poi è associato anche alla struttura delle directory e poi appunto il...
+
+[25:00] Professore: Chiaramente non abbiamo nessun blocco dentro, quindi non si scrive niente.
+
+[25:04] Professore: Sulla scrittura si deve cercare un blocco libero che si effettua la scrittura dei dati e poi lo si concatena, ok?
+
+[25:14] Professore: Quindi lo si concatena con l'ultimo blocco del file a cui bisogna aggiungere.
+
+[25:18] Professore: Quindi aggiungo un puntatore, il fatto, e si devono aggiornare i puntatori soprattutto all'ultimo blocco, ok?
+
+[25:28] Professore: E poi la lettura dei file appunto prevede lo scorrimento in sequenza seguendo la conferminazione.
+
+[25:37] Professore: Questo qui stiamo assumendo che la scrittura sia in append, perché io posso anche scrivere non in append come abbiamo visto, posso scorrermi il file per esempio ad un certo livello e poi sovrascrivere su quel punto qui.
+
+[25:51] Professore: Quindi questo sta assumendo questa slide che stiamo scrivendo in append.
+
+[25:58] Professore: e nel caso in cui voglio scrivere in mezzo è l'accesso diretto che è un problema perché mi devo scorrere quindi devo fare una sorta di caccia al tesoro quindi io trovo il bigliettino, poi vai di qua, poi vai di qua, poi vai di qua insomma diventa abbastanza onerosa questa situazione quindi diciamo che da una parte
+
+[26:28] Professore: La locazione concatenata risolve i problemi della locazione contigua, non c'è frammentazione esterna, non serve compattazione, non è necessario conoscere a priori la dimensione del file al momento della creazione perché io tanto aggiungo dove trovo un blocco libero, dovunque sia lo uso e poi metto la concatenazione.
+
+[26:49] Professore: I problemi appunto sono questi, è efficiente solo per l'accesso, diciamo così, sequenziale
+
+[26:56] Professore: è efficiente però anche questo tende ad essere efficiente modulo il movimento della testina che comunque è più sollecitato rispetto a quello diciamo così alla locazione contigua infatti richiede più spostamenti della testina i puntatori consumano spazio
+
+[27:17] Professore: si potrebbe allocare cluster di blocchi anziché singoli blocchi, quindi in questo caso si torna ad un ibrido tra l'allocazione contigua, perché i cluster di blocchi contigui verrebbero allocati per questo metodo di allocazione, però questo aumenta la frammentazione interna, ovviamente,
+
+[27:47] Professore: e poi vedete qua c'è un problema anche di perdita o danneggiamento di un puntatore quindi un puntatore
+
+[27:55] Professore: se si perde, perdo il file perché non so più come proseguire da un certo punto in poi se c'è una corruzione di un puntatore in memoria secondaria ho praticamente perso completamente il proseguimento del file infatti avevo detto e accennato che si possono usare liste doppiamente riccate ma questo ha un aggravio
+
+[28:19] Professore: sull'occupazione di memoria.
+
+[28:24] Professore: Però per esempio anche la lista doppiamente linkata mi consente anche di salire dal basso verso l'alto, quindi in un certo senso può anche semplificare in alcuni casi
+
+[28:36] Professore: cioè ridurre i tempi di accesso di percorrenza a seconda della distanza perché io posso stimare quanto è distante in termini di salto il blocco perché comunque io so quant'è la dimensione del blocco cioè se io so che questa è la dimensione del blocco voglio accedere 512 byte voglio accedere al millesimo
+
+[28:56] Professore: come abbiamo visto prima faccio la divisione prendo il resto prendo il valore della divisione assumendo un blocco iniziale 0 ok?
+
+[29:03] Professore: il blocco 0 so che devo arrivare nella divisione n più 1 devo scorrere n più 1 blocchi di fatto però quindi potrei magari sapendo la dimensione del file sapere se è meglio scorrere lì dal basso o scorrere lì per esempio dall'alto queste sono piccole ottimizzazioni
+
+[29:25] Professore: Però diciamo che questo metodo di allocazione, così come non viene molto usato, veniva usato invece questo metodo che probabilmente molti di voi conoscono.
+
+[29:41] Professore: FAT.
+
+[29:43] Professore: FileAllocationTable.
+
+[29:46] Professore: L'avete sentita nominare?
+
+[29:48] SPEAKER_00: No, però è una formattazione tipica ancora di alcune chiavette si usa.
+
+[29:54] SPEAKER_00: Esatto.
+
+[29:55] Professore: Quindi è un tipo di memoria, che sia di organizzazione della memoria.
+
+[30:02] Professore: che veniva però comunque si usa ancora infatti per esempio MSOS utilizzava questa le memorie diciamo Windows precedenti quindi come funzionano?
+
+[30:22] Professore: in un certo senso evitano i problemi di cui abbiamo parlato della rappresentazione linkata perché cosa si fa?
+
+[30:30] Professore: Il sistema si mantiene una sua struttura dati che mi dà una mappa di dove sono allocati i blocchi.
+
+[30:40] Professore: Quindi anziché scorrermeli, questi blocchi in memoria, per sapere dove stanno i blocchi, invece di andarli a scorrere uno per uno, e quindi caricarci in memoria e poi andare a vedere in fondo, tipo caccia al tesoro, dove sta il prossimo puntatore, il sistema si mantiene una struttura, una tabella,
+
+[31:05] Professore: che riassume dove sono, come sono posizionati questi blocchi, quindi dice per esempio un file in questa Watt, file location table, non so, ha un punto di start,
+
+[31:20] Professore: che sarebbe appunto questa entry della table e poi però da questa entry io vado direttamente a trovare qual è la prossima entry che sarebbe il prossimo blocco poi da qui un altro blocco fino all'end file quindi la fine del file quindi questa è una tabellina che effettivamente il sistema ha sia su disco
+
+[31:47] Professore: ma poi si porta in memoria principale per fare l'accesso rapido e quindi va prima di, se deve, in una rappresentazione appunto linkata, utilizza questa file allocation table, c'è il file, quindi...
+
+[32:04] Professore: attraverso il file control block, cioè il nome della directory, la directory punterà sul file control block, poi il file control block mi dà una start, quindi mi dice qual è la entry su questa tabellina e a questo punto mi scorro
+
+[32:29] Professore: con i salti localmente su questa struttura su questa tabella e vado a trovare qual è il blocco che mi serve e quindi quando vado sul disco vado direttamente a prendere quel blocco questa è l'idea quindi essenzialmente
+
+[32:46] Professore: Se il sistema magari si cache questa struttura, se la mantiene comunque in memoria, quindi può rapidamente ritrovare anche nella rappresentazione linkata i vari file senza doverseli inseguire sulla memoria secondaria.
+
+[33:05] Professore: Questa è l'idea essenzialmente di questa file allocation table.
+
+[33:12] Professore: Gli indici dei tocchi massici si ritrovano in una mappetta di questo tipo.
+
+[33:24] Professore: Questo era l'esempio che abbiamo visto precedentemente.
+
+[33:31] Professore: Questo di solito si faceva di dischi cosiddetti basati su FAT.
+
+[33:40] Professore: Nella prima parte del disco Sistanze, questa tabella, che contiene il riassunto di come effettivamente sono allocati i blocchi, quindi sono ordinata in base al numero del blocco.
+
+[33:57] Professore: nella directory abbiamo la possibilità di ritrovare attraverso il file control block il puntatore al primo elemento nella FAT quindi ogni elemento sa dove entra si percorre la struttura di questi blocchi e quindi il sistema sa dove sta
+
+[34:22] Professore: di cosa si compongono questi blocchi, qual è la sequenza di fatto di questi blocchi, quindi se la scorre su questa struttura.
+
+[34:29] Professore: L'elemento che non è assegnato a nessun file contiene degli zeri e quindi possiamo anche vedere dove stanno i blocchi liberi che possono essere recuperati.
+
+[34:47] Professore: Qui vediamo appunto una rappresentazione grafica dove effettivamente vediamo il mapping effettivo, queste linee salteggiate indicano in memoria secondaria dove vanno a trovarsi i blocchi.
+
+[35:18] Professore: Allora, quindi può essere molto efficiente questo metodo perché richiede, chiaramente bisogna mettere in cache questa struttura così io questa operazione non devo ogni volta richiedere per ogni operazione la PATH, se no per ogni accesso al disco richiamo la PATH, no, si mette in cache.
+
+[35:41] Professore: altrimenti la testina deve continuamente spostarsi tra l'inizio del disco e l'erogazione del blocco.
+
+[35:48] Professore: Assumiamo di non altemerci questa informazione, di volta ce la ricarichiamo e quindi abbiamo prendi il blocco, quindi magari se stiamo ragionando con l'hard disk queste sono quelle parti che vanno proprio sull'esterno dell'hard disk oppure comunque nel caso di una memoria
+
+[36:10] Professore: solida, in realtà è meno problematica questa cosa, ma comunque c'è un accesso che bisogna fare, quindi meglio mantenerselo, infatti il sistema naturalmente se lo tiene in cache, soprattutto se ci sono diversi accessi consecutivi a file e al file system comunque, questo succede naturalmente.
+
+[36:35] Professore: Quindi migliora le prestazioni nel caso di accesso diretto ovviamente rispetto al caso della linkata e poi appunto ci sono una serie di variazioni a seconda di quanti bit vengono utilizzati per memorizzare.
+
+[37:04] SPEAKER_00: Io ieri ho aggiornato il BIOS, non so se si ricorda che era, stava esplodendo tutto, quindi ho provato ad aggiornare il BIOS e per la chiavetta, per il bytecode dove era contenuto il BIOS l'ho dovuta formattare in FAT32, c'è un motivo della memoria...
+
+[37:20] SPEAKER_00: No, con Linux non c'è la chiavetta?
+
+[37:23] SPEAKER_00: No, uso Linux, c'è il built-in.
+
+[37:25] Professore: Il file system con cui sono organizzati i file, in quel caso appunto usava il FAT32.
+
+[37:38] SPEAKER_00: I BIOS ancora oggi, perché sono pochi blocchi, quindi l'accesso diretto è più veloce.
+
+[37:50] Professore: Consente l'accesso diretto lì sopra, quello che stavo dicendo, questa è una variazione della linkata, quindi sono rappresentazioni linkate dei file, quindi lì dove i file sono ancora rappresentati in modo linkato, che è comunque un modo molto conveniente
+
+[38:11] Professore: per minimizzare la frammentazione esterna.
+
+[38:17] SPEAKER_00: Per memorie piccole,
+
+[38:26] Professore: la rappresentazione FAT è ancora utilizzata perché abbiamo però un limite infatti poi la FAT comincia a soffrire quando le memorie cominciano a diventare grandi soprattutto per diciamo così il
+
+[38:43] Professore: il limite che io ho sui PIT a disposizione, però diciamo che è comunque un tipo di... è un paradigma che può essere utilizzato in alcune memorie, non è quella nativa di per esempio Linux, ma attenzione che i file system, quello proprio principale di Linux funziona così, ma
+
+[39:09] Professore: Un sistema operativo si mantiene contemporaneamente diversi file system, quindi non è soltanto un file system, è compatibile con n file system, ognuno magari specializzato per una determinata cosa, quindi quando vado a leggere su una periferica, magari appunto quella periferica è organizzata secondo un diverso file system, quindi nel caso della pennetta c'aveva una diversa organizzazione del file system, però il sistema operativo può gestire più di uno.
+
+[39:38] Professore: perchè nel caso del bios penso che non esiste nulla di più a basso livello della lettura del bios a livello di firmware adesso il bios è il nome del firmware precedente adesso abbiamo EFI come si ho ridotto è l'UEFI bio, UEFI si si ok vabbè però il concetto è quello
+
+[40:06] Professore: al bootstrap e vabbè
+
+[40:11] Professore: quello l'abbiamo già visto, c'è una cosa del disco eccetera eccetera.
+
+[40:15] Professore: Il file system chiaramente viene caricato dopo, i file system possono essere multipli e possono essere montati in modo tale che poi ce n'è uno che diventa la prosecuzione dell'auto.
+
+[40:35] SPEAKER_00: Quindi anche la memoretta del BIOS che contiene il BIOS ha un file system dentro che
+
+[40:40] Professore: No, allora lì quando si parte, l'abbiamo fatto... No, sì, sì, mi ricordo, dico l'organizzazione del codice proprio... All'inizio, a livello basico, cioè quando ancora non è proprio partito il sistema operativo, quindi abbiamo la prima fase... Sì, Woodstrap, l'abbiamo visto.
+
+[40:57] Professore: Lì c'è un'organizzazione molto molto semplice, tant'è che appunto deve lanciare un primo programma
+
+[41:05] Professore: che serve essenzialmente, cioè una prima fase proprio di inizializzazione che va a puntare in quell'area
+
+[41:14] Professore: del disco, quindi va a scaricarsi il codice e la prima rappresentazione di come sono strutturate le partizioni del disco, perché così da lì si va a recuperare qual è la partizione, quella da cui può fare il boot e quindi da cui può scaricarsi e avviare il dispositivo.
+
+[41:37] Professore: Quindi in un certo senso
+
+[41:41] Professore: Quindi ogni firma, prima c'era il BIOS che lavorava sul Master Boot Record, quella parte iniziale del disco, quella è rimasta ma viene semplicemente segnalata che quella è spenta e bisogna andare sui
+
+[41:55] Professore: sui blocchi immediatamente successivi quindi essenzialmente è come un motorino di avviamento dove con questo avviamento si carica questo primo programma di boot che però può avere nelle versioni appunto nei dischi di GPT
+
+[42:17] Professore: hanno appunto queste tabelle che danno una descrizione già abbastanza dettagliata di come sono partizionati.
+
+[42:27] Professore: Grazie, non so se ho... Dopo, quando parte il kernel, allora poi parte... Quello però è un'altra cosa, certo.
+
+[42:35] Professore: Perché sennò non c'è ancora i processi e le strutture dati caricate che possono vedere il file system.
+
+[42:44] Professore: Quindi è più avanzata l'organizzazione del file system.
+
+[42:47] Professore: All'inizio diciamo che l'organizzazione della memoria è molto di basso livello, cioè si vedono le partizioni, si vede il minimo indispensabile che serve per far caricare il camera.
+
+[43:01] SPEAKER_00: Grazie.
+
+[43:03] Professore: Quindi diciamo che qui vedete che con 12 bit il file system può indirizzare ovviamente 2 alla 12 blocchi, con 32 bit qui arriviamo a 4 gigabyte, più o meno.
+
+[43:26] Professore: Anche se qua io ho sempre fatto questa associazione, vi ho parlato appunto di 2 alla 10 come appunto kilobyte, 2 alla 20 megabyte, 2 alla 30 gigabyte.
+
+[43:42] Professore: In realtà, se vogliamo essere proprio formali rispetto alla nomenclatura ufficiale, allora questi due aula, che poi sono quelli che hanno ispirato le misure, quelle che si usano di più di fatto, sono K-I.
+
+[44:04] Professore: ok?
+
+[44:04] Professore: Cioè si misura in ki-byte, quindi gli altri sono mega-i-byte e giga-i-byte.
+
+[44:12] Professore: Per distinguerli invece dai kilobyte, quelli nella, diciamo così, misura in decimale, che invece troncano a 10, ok?
+
+[44:24] Professore: Troncano a decimale, ok?
+
+[44:26] Professore: Quindi significa in quel caso...
+
+[44:29] Professore: appunto vanno a prendere soltanto quindi nel caso del ki byte abbiamo appunto 1024 ok invece k byte sono mille perché diciamo
+
+[44:48] Professore: A un certo punto è stata standardizzata questa cosa per rendere i chili uguali ai chili associati al sistema metrico decimale.
+
+[44:58] SPEAKER_00: Non so se le ha, ma avrà usato Gparted, tipico di Linux, là c'è in Mega MI.
+
+[45:05] Professore: Esatto.
+
+[45:07] Professore: e finora noi abbiamo sempre ragionato quando diciamo kilobyte in realtà sto pretendendo kilobyte si si si, 1024 sarebbe che poi alla fine è quella più precisa come misura perchè è tutto come vedete potenza di due esatto potenza di due perchè si ragiona in bit poi alla fine che sono appunto due e poi due autori
+
+[45:33] Professore: L'aumento dei fit chiaramente fa sì che questa memoria sia più raggiungibile.
+
+[45:36] SPEAKER_00: Qui ci avete una tabella delle varie, diciamo così, qui abbiamo il block size,
+
+[45:58] Professore: Vedete?
+
+[45:59] Professore: Il block size, quindi questa è la dimensione dei blocchi.
+
+[46:02] Professore: I blocchi in solito nella memoria possono arrivare da 512 byte.
+
+[46:10] Professore: Vedete qui?
+
+[46:19] Professore: sempre Kb, ma sarebbe Kb, non Kb.
+
+[46:23] Professore: Possono arrivare fino a 4 Kb
+
+[46:35] Professore: e chiaramente qui abbiamo invece il numero di blocchi a cui posso arrivare quindi per esempio qui abbiamo 2 alla 16 e quindi per vedere quanta memoria totale appunto si riesce a 2 alla 16 quindi memoria totale in questo caso sono 16 megabyte quella che riesci praticamente a raggiungere, ad indirizzare in questo modo
+
+[47:03] Professore: Quindi però attenzione che nel caso, vedete qui c'è la Fanta 32, qui a un certo punto si va ad una sorta di saturazione per questioni che riguardano proprio la strutturazione del disco che usava la Fanta 32, quindi questo non è più matematico il problema ma è più tecnologico.
+
+[47:32] Professore: Perché altrimenti bisognerebbe continuare a fare questa moltiplicazione rispetto alla dimensione.
+
+[47:49] Professore: Ok.
+
+[47:51] Professore: Allora, adesso...
+
+[47:54] Professore: Arriviamo al metodo di allocazione indicizzato.
+
+[48:00] Professore: Il metodo di allocazione indicizzato è già più vicino a quello che utilizza come sistema principale Linux.
+
+[48:13] Professore: Come funziona?
+
+[48:14] Professore: Funziona che ogni file possiede un indice dei blocchi.
+
+[48:22] Professore: che sono, diciamo, quelli usati da quel file.
+
+[48:24] Professore: Quindi c'è una sorta di blocco indice che contiene poi dove sono allocati questi blocchi.
+
+[48:34] Professore: Quindi per ogni file abbiamo che esiste, per esempio, nel file control block, qui si dice la directory, però c'è un salto, quindi directory punta, adesso possiamo parlare del punta al file control block,
+
+[48:51] Professore: il file control block mantiene invece un puntatore a questo blocco indice e questo blocco indice quindi mi può mandare a puntare in modo diretto ai vari blocchi quindi se lo vediamo così con questa rappresentazione capiamo subito cosa si intende quindi qui c'è quello che vedete qua starà sul file control block
+
+[49:20] Professore: file control block punta un blocco particolare questo blocco particolare è fatto a centralina ok?
+
+[49:25] Professore: quindi da qui vado a recuperare tutti i blocchi chiaramente quindi qui andiamo a vedere i vari tipi di situazione allora per la creazione del file che cosa bisogna fare?
+
+[49:40] Professore: quando si crea un file si dovrà creare diciamo proprio un blocco ok?
+
+[49:47] Professore: un blocco in cui sto dicendo quindi un blocco indice che praticamente sto usando pochissimo non c'è niente in questo caso oppure si potrebbe si crea un blocco indice con tutti gli elementi settati a null e quindi si aggiunge poi un elemento che punta diciamo così a questa directory nel file control block in realtà
+
+[50:16] Professore: Quando voglio scrivere su file, che faccio?
+
+[50:19] Professore: Devo cercare, innanzitutto, per esempio il file è vuoto, cerco un blocco libero, ok?
+
+[50:27] Professore: Quindi occorre che il sistema si mantenga in una struttura dati i blocchi liberi.
+
+[50:33] Professore: Quindi si cerca un blocco libero e si aggancia alla prima entry.
+
+[50:41] Professore: La prima entry mi dice dove sta il blocco 1.
+
+[50:45] Professore: quindi attenzione però che cosa significa questo?
+
+[50:47] Professore: significa che io ho un limite sul numero di blocchi che è limitato in questo caso dalla dimensione del blocco indice quindi se io ho un blocco indice di 512 byte anche qui si possono fare degli esercizietti e mettiamo che ogni entry
+
+[51:14] Professore: sono 4 byte, voi potete tranquillamente andare a verificare che abbiamo un numero di 512 diviso 4, che è il massimo di blocchi che posso tenere, di cui
+
+[51:36] Professore: su cui un file si può estendere.
+
+[51:39] Professore: Quindi è da una parte un metodo di accesso molto conveniente, però così, soltanto in questo modo, presenta dei limiti.
+
+[51:55] Professore: per la lettura appunto di un file pure non c'è problema perché quando finisco un blocco vado sul blocco indice vado a vedere qual è il prossimo blocco e poi mi scorro quello e così via quindi sia la scrittura che lettura non ho problemi non ho problemi neanche sull'accesso diretto giusto?
+
+[52:14] Professore: quindi per fare l'accesso diretto basta risalire all'indice, vado sull'indice
+
+[52:19] Professore: e recupero il blocco che mi serve.
+
+[52:23] Professore: Quindi qui vedete la rappresentazione, abbiamo appunto sui blocchi, questo è il blocco indice, qui vedete, non so, in questo blocco che ho usato come indice, poi posso vedere che il primo blocco sta sul 16, l'altro sta sul 133,
+
+[52:44] Professore: poi l'altro 131 e così via.
+
+[52:53] Professore: Quindi se utilizzo da una parte blocchi piccoli, io posso effettivamente avere degli indici magari piccoli, però nello stesso tempo poi questo fa sì che i file pure sono piccoli.
+
+[53:10] Professore: quindi se i blocchi sono grandi i file possono essere più grandi però poi ho della frammentazione interna perchè poi li utilizzo anche per gli indici quindi poi ho per ogni file almeno un blocco sprecato per l'indice questo però è quello che si fa allora che cosa si può fare con i file grandi?
+
+[53:34] Professore: ci sono varie tecniche
+
+[53:38] Professore: Per esempio si può andare a associare delle concatenazioni, per esempio degli indici, quindi io posso riservare all'ultima entry della tabella degli indici,
+
+[53:56] Professore: un salto alla prossima tabella.
+
+[53:59] Professore: Quindi quando è finito posso effettivamente concatenare più tabelle.
+
+[54:04] Professore: Quindi è già nella tabella stessa che c'è scritto che se è finita è finita, quindi ho end of file, finisce.
+
+[54:10] Professore: Se ho un numero, quello non lo devo interpretare come
+
+[54:15] Professore: un blocco del file ma come un altro blocco indice questa è una possibilità altrimenti un'altra possibilità è quella di creare dei blocchi a più livelli come abbiamo visto alla tabella delle pagine vedete questa è un'altra soluzione che è quella più diffusa cioè creare una sorta di indice
+
+[54:42] Professore: che appunto poi fa sì che abbiamo uno schema più livelli quindi un indice di primo livello che punta insieme gli indici di secondo livello e così via e quindi in questo modo riusciamo ad essere
+
+[55:00] Professore: anche qui a linkare, cioè a creare, ad indicizzare file più grandi, quindi per esempio blocchi da 4 kilobyte e puntatori da 4 byte, abbiamo quindi 124 puntatori, poi con due livelli
+
+[55:27] Professore: Si possono indicizzare fino a 4 gigabyte.
+
+[55:42] Professore: Due livelli da 2 alla 20.
+
+[55:45] Professore: 4 gigabyte si sono
+
+[55:55] Professore: 2 alla 10 diventano 2 alla 20 e quindi si possono indicizzare fino a 4 GB e quindi vedete che questa situazione è molto simile ad altre indicizzazioni come riguarda molto la tappella delle pagine gerarchica quindi è una rappresentazione gerarchica di questi indici e questo in effetti
+
+[56:25] Professore: anche è possibile, ma allora uno dice ok, quindi per file grandi conviene avere questi indici che sono diciamo così gerarchici, per file piccoli invece conviene avere degli indici diretti, come si fa a mettere insieme questa esigenza?
+
+[56:49] Professore: per esempio nello Unix file system vedete quindi questo che è il genitore dei file system Linux per esempio quindi siamo nei primi file system che sono stati proposti per Unix vedete abbiamo il file control block come vi avevo detto e nel file control block oltre alle diverse informazioni sul file c'è la porta di accesso ai blocchi del file
+
+[57:19] Professore: però appunto ci sono innanzitutto dei blocchi diretti, quindi l'indice sta già nel fai contro blocco.
+
+[57:28] Professore: quindi c'è un primo indice che proprio già nel file control block questo va bene per i file piccoli così nel file piccolo io posso già direttamente andare a pescare i dati che mi servono poi ci sta un altro slot per l'indicizzazione diretta quindi vedete è mescolata la cosa quindi l'indicizzazione diretta significa che punta su un blocco indice e poi questo blocco indice mi smista i dati
+
+[57:58] Professore: questi per i file medi e poi c'è il double indirect per i file ancora più grandi e poi per i file ancora più grandi abbiamo tripla indicazione quindi a seconda della dimensione del file si può andare ad utilizzare uno di questi metodi
+
+[58:21] Professore: Quindi si comincia con quelli piccoli, poi si va con questo e poi con quest'altro.
+
+[58:29] Professore: E questi possono essere anche mescolati, quindi penso che questo è un file control block, di un file specifico, quindi io posso avere alcuni blocchi che sono direttamente indicizzati,
+
+[58:43] Professore: altri che sono invece più indirettamente e così via.
+
+[58:47] Professore: Quindi più cresce il file e più diventa in un certo senso magari lungo il tempo di accesso, ma comunque un accesso diretto non chiede la scansione di tutto il file.
+
+[59:00] Professore: Eventualmente faccio una sorta di ricerca ad albero, quindi su queste strutture qua.
+
+[59:08] Professore: E comunque se io devo fare una doppia indicizzazione significa che devo entrare in più blocchi del disco, quindi comunque va fatto una walk sul disco, ok?
+
+[59:22] Professore: Un percorso sul disco, chiaro?
+
+[59:25] Professore: Quindi prima ho bisogno di questo blocco, poi ho bisogno magari di uno di questi e poi arrivo al dato.
+
+[59:32] Professore: Quindi significa che quanti accessi dovrò fare al disco, in questo caso devo fare appunto tre accessi, due per gli indici e uno per il dato.
+
+[59:42] Professore: In questo caso quattro, ok, con la tripla in diretto.
+
+[59:46] Professore: Invece qui vado diretto, ok?
+
+[59:51] Professore: Attenzione che questo file control block sono dei metadati che comunque anche questi sono salvati sul disco.
+
+[59:58] Professore: Quindi quando io devo accedere al file, quando apro il file, cosa faccio?
+
+[01:00:03] Professore: Ne li porto in memoria principale.
+
+[01:00:04] Professore: Quindi quando voi fate la open, questa struttura qua viene innanzitutto portata, viene preparata, viene cacheata, se vogliamo,
+
+[01:00:20] Professore: e dall'altra parte c'è la tabella dei file aperti che mi punta a questa quindi quando io devo fare un'operazione quindi quando apro il file diciamo così questa viene preparata il dadisco viene portata diciamo così in ram se vogliamo poi quando devo fare le operazioni tramite questa sorta di centralina di controllo del file vado a vedere appunto cosa mi serve
+
+[01:00:50] Professore: Se quello che cerco è diretto vado a prendermi il blocco che mi serve, altrimenti a seconda di dove sta poi vado a trovarmi il blocco.
+
+[01:01:05] Professore: Quindi c'è il vantaggio che il blocco è direttamente in rambo, non come prima che i puntatori potrebbero considerare blocchi di... Però se io per esempio devo andare a trovare un blocco che è triplamente in diretto, la devo caricare per la mia volta, dovrò fare tanti accessi quanti sono i blocchi che mi servono.
+
+[01:01:25] Professore: Però i page fault sono... No, questo non riguarda i page fault in questo caso.
+
+[01:01:30] Professore: Il page fault riguarda...
+
+[01:01:32] Professore: è proprio la gestione del processo, quindi durante l'esecuzione è una pagina che mi serve.
+
+[01:01:39] Professore: Qui stiamo parlando di un'altra cosa, stiamo parlando appunto della... è associato al PageVault perché nel senso che nel momento in cui io cerco di accedere a un file poi devo andare... Nel momento in cui comunque cerco il blocco mi viene caricato anche se il ramo, quindi da una certa è normale.
+
+[01:01:56] Professore: Sì, esatto.
+
+[01:01:57] Professore: Quindi è...
+
+[01:01:59] SPEAKER_00: Non è quello, ho capito.
+
+[01:02:01] Professore: È indiretta la cosa, nel momento in cui cerco di accedere a un file e non trovo quella pagina già in file, allora si la ricerca e quella poi passa attraverso una gestione del file system.
+
+[01:02:16] Professore: Adesso ci arriviamo su questo perché poi c'è anche un problema di...
+
+[01:02:20] Professore: Double caching, perché c'è sia il meccanismo del caching delle pagine, quando un processo è in esecuzione, e sia c'è la cache del file system.
+
+[01:02:32] Professore: E quindi lì su questo discorso infatti è stato ottimizzato e quindi si è creata un'unica cache che evita questo problema.
+
+[01:02:47] Professore: Ok?
+
+[01:02:48] Professore: Quindi questa, diciamo così, questo schema UNIX, questo è lo UNIX File System, UFS, questo poi è diventato una sorta di riferimento per tutte le generazioni poi successive dei file system, diciamo così, dei sistemi UNIX e Linux, con questa effettiva.
+
+[01:03:10] SPEAKER_00: Quindi non so come funziona.
+
+[01:03:11] Professore: E adesso... Male.
+
+[01:03:13] SPEAKER_00: Male, punto.
+
+[01:03:15] Professore: Diciamo che è evoluto e prima funzionava con la pad, quindi lavorava con la pad.
+
+[01:03:22] Professore: Poi appunto hanno fatto... Fai la location table.
+
+[01:03:29] Professore: Poi appunto adesso sì, il metodo è quello della... La formattazione del disco.
+
+[01:03:38] Professore: Questo è New Technology File System.
+
+[01:03:41] SPEAKER_00: MTFS?
+
+[01:03:42] SPEAKER_00: Ok.
+
+[01:03:42] Professore: Questa è la nuova, diciamo così visto che lo chiedi, New Technology File System che sostituisce appunto FAPT, però rimane compatibilità e rimane FAPT per file system specifici.
+
+[01:03:58] Professore: Quindi in questo caso la specificità di questo è che utilizza questa Master File Table
+
+[01:04:08] Professore: che contiene le informazioni sui file del file system, quindi è praticamente questa che contiene un'informazione su ogni file, quindi è una sorta di
+
+[01:04:21] Professore: è un po' più centralizzato rispetto a quello che abbiamo visto prima perché appunto nel caso dell'organizzazione con gli iNode se vogliamo, ogni iNode ha la sua informazione specifica su come sono effettivamente allocati questi file poi in realtà appunto le varie
+
+[01:04:48] Professore: ci sono ulteriori caratteristiche del file system quello di Linux che cerca di crearsi dei
+
+[01:04:56] Professore: block group per rendere in un certo senso creare una sorta di vicinanza di tutte le informazioni che servono sia per quanto riguarda appunto i file control block che effettivamente i blocchi liberi eccetera quindi organizzandolo in questo modo il block group più i data block
+
+[01:05:21] Professore: gli spostamenti della testina sono minimizzati ed è tutto in un certo senso vicino quindi è vero che è distribuito però cerca comunque anche di mantenere una certa prossimità tra le strutture dati che riguardano questo è proprio sul disco che riguardano il file e poi i blocchi in modo tale che se io devo leggere il metadato poi vicino ho anche il dato questa è l'idea
+
+[01:05:48] Professore: Qui in un certo senso invece si mantiene questa sorta di tabella generale di come sono organizzati i file, quindi abbiamo delle entry per ogni file e poi una serie di altre indicazioni
+
+[01:06:08] Professore: che servono poi per gestire quello che si chiama il journaling che poi vedremo non voglio anticipare però diciamo che questo è un sistema diciamo così esteso rispetto a quello appunto della FAT quindi con l'organizzazione di FAT che poi appunto lavora anche con una clusterizzazione dei dati anche qui per mantenerli vicini
+
+[01:06:38] Professore: Però è diverso rispetto al file system.
+
+[01:06:40] SPEAKER_00: Sì, sì, sì.
+
+[01:06:48] Professore: Allora, quindi ovviamente qui c'è ogni sistema operativo deve, ogni file system in realtà, perché poi, come ho già detto prima, il sistema operativo può gestire più file system, poi ce n'è uno principale.
+
+[01:07:02] Professore: Però ogni file system deve in qualche modo sciogliere la modalità con cui fa questa allocazione, come si raggiungono questi blocchi e come si rappresentano nel disco e poi come si ottengono in memoria principale.
+
+[01:07:24] Professore: Bisogna avere sia efficienza di memorizzazione, sia tempo di accesso ai dati e quindi
+
+[01:07:32] Professore: Dipende anche dal tipo di modalità di accesso ai file, quindi la locazione contigua richiede accesso al disco in qualche modo sequenziale, quindi va bene per l'accesso al disco sequenziale.
+
+[01:07:48] Professore: successo diretto, la locazione concatenata è efficiente solo con il sequenziale, ma non quello diretto, a meno che appunto uno non utilizzi il path, con la path invece si riescono a anche ottimizzare quei casi, quindi ci sono alcuni sistemi, file system, che differenziano le tipologie di file, questo non è il caso per esempio di
+
+[01:08:15] Professore: dei file linux i file regolari almeno di linux e unix però diciamo eventualmente ci sono appunto dei sistemi operativi che permettono di formattare in modo diverso appunto i file a seconda del modo in cui devono avere un accesso quindi
+
+[01:08:39] Professore: In alcuni casi alcuni file sono pensati per l'allocazione concatenata, altri tendono a mantenere l'allocazione contigua con l'extension, quindi si possono creare dei tipi di file che hanno delle logiche e delle questioni diverse, quindi prestazioni diverse di questi file.
+
+[01:09:00] Professore: se uno già sa che saranno file piccoli può magari trovare a lavorare con file contigui con extension altrimenti l'indicizzata viene usata per i file grandi però in generale Linux uniforma come abbiamo visto nella struttura precedente quindi quello che a noi ci interessa soprattutto è un focus sui sistemi Unix Linux perché se no c'è veramente una pletora di metodi
+
+[01:09:28] Professore: ci interessa sapere più o meno quelle che sono le diverse tecniche, il design pattern per queste allocazioni e poi eventualmente il focus lo andiamo a fare soltanto su Linux e eventualmente chi è interessato può condire Windows.
+
+[01:09:46] Professore: Allora, gestione dello spazio libero, quindi ovviamente bisogna trovare i blocchi
+
+[01:09:54] Professore: da allocare quando si scrive quando si scrive serve un nuovo blocco e serve un nuovo blocco libero quindi bisogna sapere quali sono i blocchi liberi e i blocchi allocati creazione di un file si ricerca nella lista il numero di blocchi necessari e si allocano e si rimuovono dalla lista e quando ovviamente si cancella un file liberate tutti questi blocchi come si gestisce?
+
+[01:10:23] Professore: allora la gestione è basata o su ci sono diverse tecniche anche qua vettore di bit una lista concatenata poi ci possono creare dei raggruppamenti e dei conteggi più o meno riuscite ad intuire quali sono le tecniche ne andiamo a vedere magari una per uno il vettore di bit come funziona?
+
+[01:10:49] Professore: si memorizza un array di lunghezza pari al numero dei blocchi ok?
+
+[01:10:54] Professore: Quindi ovviamente in questo caso si può avere quest'array dove il valore è 1 se è libero, 0 occupato, quindi ho questa sorta di bitmap, ok?
+
+[01:11:11] Professore: e quindi per cercare per creare un file si cerca il primo bit a disposizione il primo bit 1 settato ad 1 a disposizione e poi nel momento in cui si alloca si mette appunto a 0 oppure se vogliamo già allocare più di un blocco si cerca una sequenza nel caso appunto della in questo caso si può anche utilizzare questa struttura
+
+[01:11:41] Professore: per avere informazioni sulla prossimità dei blocchi liberi, quindi se io per esempio ho bisogno di tot blocchi liberi, basta che trovo degli uni consecutivi di quella gente.
+
+[01:11:54] Professore: Questo è un metodo abbastanza semplice, intuitivo, efficiente anche, però deve essere mantenuto in memoria centrale, questo bit.
+
+[01:12:06] Professore: Ok?
+
+[01:12:06] Professore: E quindi però dischi grandi richiedono vettori grandi.
+
+[01:12:11] Professore: Ok?
+
+[01:12:12] Professore: Vediamo un esempio.
+
+[01:12:16] Professore: Abbiamo, non so, una bitmap.
+
+[01:12:20] Professore: Vedete che...
+
+[01:12:23] Professore: Qui abbiamo un disco di 1.3 GB, block size 512, quindi abbiamo 332, ok, blocchi, e quindi, no, scusate, no, 332, 332, in questo caso abbiamo proprio la bit, cioè un bit per ogni blocco,
+
+[01:12:52] Professore: fate un po' il calcolo vediamo se torna questa bitmap che è di 332 kb quindi dovete fare 1.3 per 2 alla 30 diviso 512 che sarebbe
+
+[01:13:23] Professore: 2 alla 9 giusto?
+
+[01:13:31] Professore: quindi abbiamo 2 alla 21 2 alla 21?
+
+[01:13:42] Professore: cioè 1.3 per 2 alla 21?
+
+[01:13:45] SPEAKER_00: sto facendo un attimo
+
+[01:13:48] Professore: quindi togliamo chi lo fa, è impossibile se ritorno vorremmo avere un bit due alla 21 si mi trovo è la bitmap di questa dimensione?
+
+[01:14:10] SPEAKER_00: si dovrebbe essere 340.787 byte quindi
+
+[01:14:17] Professore: sono 332 KBI ok ok quindi diciamo che sono dimensioni e poi andiamo invece se si aumenta invece si raggiunga a cluster cluster D4 chiaramente si va a dividere
+
+[01:14:42] Professore: si divide per quattro punti rispetto a questa dimensione se invece abbiamo non so dischi più grandi di blog site 4 kilobyte 2 alla 40 byte e abbiamo quindi
+
+[01:15:03] Professore: 2 alla 2 28 pitt ok quindi qua stiamo ragionando il vizio è ok quindi questo diventa perché perché si è questo sarebbe 2 alla 2 alla 2
+
+[01:15:33] Professore: Ok, questi sono il numero di blocchi, tanti blocchi quanti bit.
+
+[01:15:44] Professore: Quindi praticamente poi in byte diventano 32 megabyte.
+
+[01:15:50] Professore: Ok?
+
+[01:15:51] Professore: E quindi vedete che non è poco.
+
+[01:15:54] Professore: Ok?
+
+[01:15:54] Professore: Mantenersi una... Quindi aumentando le dimensioni aumenta il problema.
+
+[01:16:00] Professore: del vettore e questo va mantenuto in ram quindi diventa un'alternativa è quella invece di concatenarli questi quindi si memorizza e memoria centrale un puntatore al primo blocco libero e poi ogni blocco successivo viene concatenato in questo caso
+
+[01:16:26] Professore: quindi si mantiene una concatenazione dei blocchi quindi una rappresentazione concatenata dei blocchi liberi sul disco però questo è poco efficiente perché bisogna scorrere la lista però che cosa succede?
+
+[01:16:46] Professore: se io ho bisogno solo di un blocco libero basta che prendo il primo che è puntato e quindi non c'è problema
+
+[01:16:54] Professore: Il problema potrebbe essere quando io ho bisogno di più blocchi, magari devo vedere se sono consecutivi pure.
+
+[01:17:02] Professore: Allora lì devo fare lo scorrimento della lista e peraltro in memoria secondaria.
+
+[01:17:09] Professore: Vedete, se è operativo di solito si limita a cercare il primo blocco libero per allogarlo dal file.
+
+[01:17:15] SPEAKER_00: E poi allogato, allogato, allogato.
+
+[01:17:21] Professore: invece per esempio la FAT abbiamo visto che da questo punto di vista è comoda perché mantiene anche il link, siccome si mantiene il link dei blocchi occupati gratis abbiamo il link dei blocchi di pen, quindi questa è un'altra possibilità.
+
+[01:17:40] Professore: Altra possibilità ancora è quella di fare il raggruppamento
+
+[01:17:46] Professore: quindi questo significa che il primo blocco contiene gli indirizzi di n blocchi liberi e quindi subito si ha accesso alle informazioni sui blocchi liberi quindi non solo un blocco e poi quindi c'è il puntatore al prossimo riferimento del diciamo così è come se si facesse una
+
+[01:18:16] Professore: quindi abbiamo un raggruppamento dei blocchi liberi quindi abbiamo una rappresentazione collegata di questi blocchi liberi e poi c'è il brutteggio e quindi si sfrutta il fatto che quelli che sono vicini possono essere più liberi quindi si mantiene una sorta di
+
+[01:18:43] Professore: conto di quanto è lunga la lista dei blocchi liberi da lì in poi.
+
+[01:18:49] Professore: Questa, diciamo come al solito, è più compatta, però dove è più compatto bisogna aggiornarla, quindi bisogna mantenerla aggiornata, quindi c'è un posto computazionale di mantenerla aggiornata e poi queste strutture devono essere mantenute chiaramente in memoria secondaria
+
+[01:19:09] Professore: consistenti con quello che fai in memoria in memoria allora andiamo a dare un'oppiata più da vicino adesso al Linux File System attraverso le diverse generazioni quindi vedete che il Linux File System si dice Extended quindi è una famiglia Extended
+
+[01:19:34] Professore: superare i limiti diciamo del file system iniziale che era quello di minix minix perché appunto linux linux
+
+[01:19:46] Professore: è partito dal Minix che era di Tannenbaum, essenzialmente, e alcune parti le ha proprio reciclate, quindi per esempio all'inizio ha proprio reciclato il sistema operativo Minix che aveva a sua volta Tannenbaum proposto per motivi di tattici, come classico questa,
+
+[01:20:06] Professore: ha sviluppato un mini sistema, un mini Unix.
+
+[01:20:13] SPEAKER_00: Così?
+
+[01:20:14] SPEAKER_00: A caso?
+
+[01:20:14] Professore: Sì, comunque poi ci ha fatto un sacco di pubblicazioni.
+
+[01:20:18] SPEAKER_00: No, no, però dico, vabbè, è didattico, faccio un kernel.
+
+[01:20:22] Professore: Ha scritto un sacco di libri.
+
+[01:20:23] Professore: No, no.
+
+[01:20:25] Professore: ci ha fatto ricerca comunque però lui effettivamente è partito da questo lui come professore ha fatto se vogliamo la prima versione almeno quella notoriamente poi magari chissà cosa altri hanno fatto però certificata diciamo di un sistema UNIX per personal computer però chiaramente non era ottimizzato cioè non era pensato per essere usato commercialmente ok?
+
+[01:20:57] Professore: ed era abbastanza semplificato, ma volutamente semplificato per motivi anche didattici, perché poi serviva anche per insegnare questi concetti nella loro forma più semplice e più pura.
+
+[01:21:10] Professore: e invece appunto Linux parte quindi recuperando tutti i pezzi che non erano stati diciamo così sviluppati da Linux nel kernel appunto recupera quelli di Minix da cui il file system e diciamo che la versione poi successiva del file system è proprio questo extended
+
+[01:21:39] Professore: che utilizza appunto metadati basati sullo UNIX file system come abbiamo visto prima il file control block quindi il file control block sarebbe il concetto di inode e poi anche del Berkeley fast file system perché appunto sappiamo abbiamo detto anche precedentemente che contemporaneamente Berkeley faceva la sua distribuzione molto orientata al networking aveva una sua
+
+[01:22:07] Professore: quindi anche gli concetti del file system, quindi quello che si chiama fast file system, appunto vengono utilizzati, per esempio, proprio per essere veloce,
+
+[01:22:22] Professore: questo file system BSD introduceva questa vicinanza tra gli inode e i dati di cui vi ho parlato prima che sarebbero l'organizzazione in gruppi quindi la vicinanza proprio per evitare i movimenti prima però organizzati su cilindri quindi stiamo parlando di hard disk quindi era molto legata alla struttura dell'hard disk comunque questo extended poi diventa EXT2 subito
+
+[01:22:50] Professore: organizzando appunto il disco in block group, appunto estendendo questa idea di SD con questi metadati e dati che nel disco sono organizzati in modo prossimo, vicino.
+
+[01:23:05] Professore: Ok?
+
+[01:23:07] Professore: Quindi era questa idea che vi ho fatto vedere prima, no?
+
+[01:23:11] Professore: Cioè a livello delle varie partizioni, torniamo al cult sector, poi abbiamo appunto
+
+[01:23:17] Professore: il block group e ognuno di questi block group contiene una serie di informazioni ma diciamo quello che ci interessa essenzialmente vedete c'è la block bitmap questa che è quella che dà i blocchi liberi la inode bitmap quindi dove sono allocati gli inode la inode table e data block quindi è come se avessimo partizionato a sua volta il file system
+
+[01:23:46] Professore: in tante parti contigue che per semplificare è praticamente accelerare l'angelo diciamo andando avanti abbiamo poi l'ext3 l'ext3 che è
+
+[01:24:03] Professore: che introduce il concetto di journaling, questo che vedremo, però che l'avevo già accennato, cioè l'idea di irrobustire il meccanismo di update dei metadati, di consistenza del metadato, perché io modifico il metadato su RAM,
+
+[01:24:25] Professore: poi lo devo portare sul disco e quindi c'è una diciamo così un tempo in cui non sono arrivati questi dati e bisogna minimizzare i problemi nel caso di qualche crash nel frattempo quindi perché se cresce al sistema per esempio come capitato ieri sono unico il sistema deve in caso recuperare la consistenza e quindi il
+
+[01:24:56] Professore: Esistono delle tecniche che appunto permettono di fare questo, tra cui appunto oggi si utilizza appunto il Journal, non lo usa solo l'Extended, lo usano vari sistemi, tra cui abbiamo visto pure la nuova generazione del sistema Windows, quindi NTFS.
+
+[01:25:20] Professore: Poi EXT4, migliora ulteriormente Performance,
+
+[01:25:25] Professore: aumenta la capacità di agganciare file si arriva a dimensioni molto grandi e poi riduce la frammentazione e lavora con iNode questo è invece quello che vi dicevo il file system appunto
+
+[01:25:51] Professore: ne abbiamo già parlato quello ntfs attualmente in uso su windows ho detto che in questo caso c'è questa struttura centralizzata del master file table che mantiene essenzialmente tutte le informazioni relative ai file
+
+[01:26:15] Professore: E poi l'altra cosa, diciamo così interessante, è che anche qui viene mantenuto il journaling e bitmap per la gestione dello spazio libero.
+
+[01:26:32] Professore: Allora, i dischi effettivamente, quindi il file system, quando si va a leggere sul file system questo è il collo di pontiglia, ovviamente,
+
+[01:26:42] Professore: anche la memoria flash fisica diciamo memoria non volatile è lenta ovviamente rispetto alle velocità delle CPU quindi diciamo questi algoritmi di allocazione devono essere diciamo molto efficienti scusi ma gli NVMe sono sempre memoria secondaria?
+
+[01:27:06] Professore: non è principale memoria non volatica
+
+[01:27:12] Professore: quindi sarebbe la memoria elettronica i nvm che ci sono ora si sono praticamente memoria dubolatile che però funziona elettronicamente come funzionerebbe una ram comunque quindi l'efficienza
+
+[01:27:41] Professore: abbiamo ovviamente diverse scelte che possono influenzare l'efficienza di un file system abbiamo detto già l'allocazione dei file control block che deve essere da una parte distribuita nel file system in modo tale da non tornare sempre nello stesso mondo per esempio immaginate che molte di queste cose sono state ottimizzate pensando alle testine che si devono muovere
+
+[01:28:10] Professore: quindi meno possibile e quindi diciamo che sono in alcuni casi organizzate come abbiamo visto prima in questi blocchi in modo tale da avere la prossimità tra il metadato e il dato e poi questi distribuiti su tutto il fisco.
+
+[01:28:29] Professore: Poi attenzione che anche una cosa da tenere presente è che gli attributi che poi si vanno a definire per i file, poi hanno un impatto dal punto di vista delle prestazioni perché poi vanno tenuti coerenti e aggiornati, quindi più attributi io vado a definire,
+
+[01:28:48] Professore: diciamo così monitorare sul file e più questi devono essere mantenuti diciamo così coerenti quindi anche questa scelta magari si prende una inode con più informazione però poi si vede che questa impatta perché il sistema poi deve continuamente aggiornare queste informazioni quindi vanno scelte con cura poi anche la lunghezza ovviamente dei puntatori per accedere ai dati più fit
+
+[01:29:19] Professore: si usano per puntare i blocchi e più abbiamo possibilità di indirizzare memoria più grande però puntatori grandi poi richiedono spazio per eseguire gli algoritmi di allocazione dello spazio libero eccetera quindi ci sono una serie di impatti da fare un'altra cosa di cui si parlava
+
+[01:29:46] Professore: e qui veniamo a queste altre considerazioni, è che bisogna tenere presenti anche i meccanismi di caching.
+
+[01:29:58] Professore: Allora noi abbiamo due meccanismi di cache quando si parla di file, cioè questo buffer cache dove vengono mantenuti i blocchi di disco che sono usati recentemente,
+
+[01:30:16] Professore: quindi una memoria fisica che viene gestita dal kernel dall'altra parte abbiamo il cache delle pagine come abbiamo visto quando abbiamo visto la gestione dei processi col page vault si caricano queste pagine queste vengono mantenute in delle cache quindi sempre kernel le mantiene e quindi abbiamo memoria virtuale che diciamo
+
+[01:30:43] Professore: come dicevo anche prima, viene usata sia per la gestione delle aree text, per il codice, delle aree dati del codice, ma anche, ovviamente, se sto lavorando sui file, anche per i file, ok?
+
+[01:30:55] Professore: Quindi anche per l'accesso ai file, quindi vuol dire che anche quei blocchi dei file che io mi vado, diciamo, su cui vado a lavorare, sono anche questi gestiti, quindi scaricandosi, no?
+
+[01:31:09] Professore: Questi
+
+[01:31:11] Professore: questi dati sul day frame secondo il paging e quindi qui abbiamo una situazione in cui effettivamente se non è gestita bene la situazione abbiamo quello che si chiama meccanismo di double caching se non si usa quella che si chiama una cache unificata quindi abbiamo il page cache buffer cache
+
+[01:31:39] Professore: Quindi questo significa che le chiamate di sistema per la gestione dei file utilizzano il file system cache, quindi il cache del file system, per esempio quando si fanno operazioni di input-output, read-write, eccetera.
+
+[01:31:55] Professore: E poi dall'altra parte però il sistema di gestione della memoria virtuale lavora appunto...
+
+[01:32:04] Professore: quando per esempio abbiamo un sistema memory mapped, va a chiamare una pagina, questa pagina per prelevare una pagina dal file per esempio deve andare a
+
+[01:32:20] Professore: a chiedere prima alla cache del filesystem, quindi questo doppio passaggio, abbiamo da una parte il filesystem che viene cacheato per le operazioni di read e write e poi quando si lavora in memory mapped, dall'altra parte abbiamo queste richieste di pagine
+
+[01:32:43] Professore: che appunto poi devono essere ricercate prima sul buffer, questo si chiama il problema del double caching, quindi si fa un doppio passaggio, quindi vuol dire che in alcuni casi si devono fare due copie e non solo, ma bisogna mantenerle anche consistenti queste due copie, quindi diciamo questo problema spesso viene risolto
+
+[01:33:08] Professore: creando una sorta di cache unificata per gli accessi al file system quindi si evita di fare per alcune operazioni che riguardano il file system si lavora su questa buffer cache che quindi evita il problema del double caching quindi è stata ottimizzata questa operazione per evitare questo
+
+[01:33:38] Professore: questo fenomeno del double caching.
+
+[01:33:45] Professore: Quindi anche qua attenzione poi al discorso che mette insieme, questo riguarda la domanda che avevi fatto prima, cioè il discorso della gestione per esempio del page fault e della sostituzione di pagina.
+
+[01:34:03] Professore: chiaro che quando un programma lavora sul file può richiedere di scaricare proprio queste porzioni del file su dei frame, a questo punto poi bisogna vedere come
+
+[01:34:23] Professore: come possono essere gestite queste pagine.
+
+[01:34:26] Professore: Perché se poi bisogna andarle a sostituire, non è detto che il comportamento degli algoritmi di sostituzione pagina che riguardano i processi in generale, le strutture dei dati utilizzate dei processi, vadano bene anche per i file.
+
+[01:34:43] Professore: Perché, per esempio, se c'è un accesso sequenziale, la stress entry used
+
+[01:34:49] Professore: non è proprio il massimo per un file.
+
+[01:34:54] Professore: Mettiamo che ci sono delle pagine che sono state caricate, sono state appena lette e se io ho già letto quelle pagine
+
+[01:35:03] Professore: Nel caso dei file, ad accesso sequenziale, è meno probabile che io vada avanti e quindi il last recent use non è l'algoritmo ottimale, quindi la pagina più recente e non è detto che verrà, anzi, non verrà riutilizzata.
+
+[01:35:27] Professore: Quindi diciamo che ci sono dei meccanismi specifici perché quando si riconosce che si sta scorrendo praticamente un pipe, per cui magari si marca la pagina al riferimento successivo, quindi è come se viene rimossa, cioè viene marcata come sostituibile la pagina appena letta e quindi
+
+[01:35:53] Professore: Oppure si copiano, per esempio, nella cache, le pagine successive, perché si cerca di anticipare qual è la lettura sequenziale delle pagine.
+
+[01:36:10] Professore: E questo ha un impatto.
+
+[01:36:14] Professore: A seconda abbiamo distinto già pagine text da pagine che riguardano strutture dati, quindi di memoria anonima, e...
+
+[01:36:26] Professore: Esiste anche un'ulteriore distinzione basata su quelle pagine che riguardano i file, quindi che possono essere sostituite con algoritmi, con logiche ad hoc, sia per anticipare le pagine, quindi fare una sorta di prepaging sulle pagine successive, che è più facile anticipare, magari leggerò le pagine successive,
+
+[01:36:46] Professore: e poi anche logiche diverse nel caso appunto della... rispetto alla lastra sempliuse se io già sto leggendo un file è probabile che appunto invece non riusterò quella pagina perché già non ci ho lavorato.
+
+[01:37:07] Professore: E qua appunto anche per quanto riguarda la scrittura sul file
+
+[01:37:15] Professore: ci possono essere degli effetti sulle prestazioni del sistema secondo anche qui se la scrittura sul file avvengono in un ordine richiesto e quindi questo significa che bisogna rispettare l'ordine e bisogna in qualche modo fare la scrittura chiedendo sequenzialmente
+
+[01:37:43] Professore: l'accesso al disco e quindi qui abbiamo una sorta di collo di bottiglia, altrimenti si possono rendere asintrone.
+
+[01:37:59] Professore: e quindi queste scritture diciamo asincrone permettono in un certo senso di ottimizzare meglio la gestione dei dati e dei metadata.
+
+[01:38:16] Professore: Quindi bisogna in qualche modo cercare di schedulare
+
+[01:38:23] Professore: Queste scritture, il problema della scrittura è in modo tale che si ottimizzino a meglio le prestazioni.
+
+[01:38:32] Professore: Quindi di solito si utilizza questo schema di scrittura e ascolto dove prima si lavora sulla crash e poi dopo si travasa la scrittura in un secondo momento sul disco.
+
+[01:38:47] Professore: Quindi c'è questa separazione temporale.
+
+[01:38:50] Professore: problema è che questa separazione temporale poi porterà a delle diciamo possibili disallineamenti e quindi il problema successivo è recupero che magari andremo a vedere domani va bene ragazzi stiamo per finire anche le prenotazioni
+
+[01:39:15] SPEAKER_00: stavo aspettando il trofoglio tanto ormai il quaderno è andato va bene non ci vedo ci metteremo molto a firmare
+

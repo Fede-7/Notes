@@ -1,0 +1,804 @@
+[00:01] Professore: sforzo sulle prestazioni, abbiamo introdotto il problema del double caching e della cache applicata e appunto anche il problema della sostituzione pagina con i file, gli algoritmi di sostituzione pagina dei file che sono diversi rispetto a quelli che si utilizzano per le aree text e per la memoria cosiddetta anonima.
+
+[00:27] Professore: Vi ricordate cos'è la memoria anonima?
+
+[00:31] Professore: quella che si chiama anonima, riguarda lo stack, l'ip, tutta quella memoria dinamica che si muove dinamicamente, quella è memoria anonima, quindi anche quella ovviamente deve essere paginata, quindi nella gestione appunto di questa si utilizzano quindi
+
+[00:57] Professore: text, memoria anonima, si utilizzano algoritmi di sostituzione pagina che avevamo visto, mentre invece per quanto riguarda la gestione di file, soprattutto quando i file sono memory mapped, occorre gestirli con modalità opportuna.
+
+[01:23] Professore: Poi abbiamo parlato del problema della scrittura sincrona, sincrona, scritture sincrona, sincrona appunto dei file, quindi queste influenzano le prestazioni, ok, proprio perché se la scrittura sono asincrone, quindi le scritture sul disco devono essere, devono avvenire nell'ordine in cui appunto vengono incontrate queste richieste, quindi si crea
+
+[01:52] Professore: una sorta di convoglio di queste richieste, quindi il chiamante è bloccato fino a quando non vengono scritti i dati nella sequenza.
+
+[02:04] Professore: Invece nelle scritture asincrone che cosa succede?
+
+[02:07] Professore: E questa è la gestione tipica.
+
+[02:11] Professore: Le scritture vengono prima sulla cache del disco e poi quindi trasferite
+
+[02:22] Professore: a tempo debito, quindi è il sistema operativo che poi decide i tempi per fare l'effettivo trasferimento.
+
+[02:35] Professore: Quindi quelle asincrone sono chiaramente più usate perché permettono di ottimizzare le risorse.
+
+[02:44] Professore: Poi c'è il problema del recupero.
+
+[02:48] Professore: cioè operazioni che sono eseguite molto frequentemente, quindi sul file system prevedono appunto una serie di modifiche dei metadati, quindi la struttura delle directory, la lista dello spazio libero, quindi dei blocchi, quindi abbiamo visto, e i file control block sono in un certo senso continuamente aggiornati quando andate a fare
+
+[03:17] Professore: le operazioni sul file.
+
+[03:19] Professore: Ovviamente questi aggiornamenti non è che possono essere fatti continuamente facendo accesso al disco.
+
+[03:25] Professore: Sono fatti chiaramente prima in memoria principale e poi appunto devono essere fatti in modo tale che a un certo punto però queste operazioni debbano essere trasferite.
+
+[03:43] Professore: perché se effettivamente io faccio una modifica sui metadata del file system e poi non riesco a trasferirli si crea una sorta di inconsistenza soprattutto nella gestione dei metadata quindi è molto importante avere dei metodi che consentano innanzitutto di rendere robusto questo trasferimento
+
+[04:09] Professore: e poi eventualmente di fare un recupero.
+
+[04:13] Professore: Per esempio abbiamo, non so, una modifica del file control block, ma poi non è stata, per esempio, aggiornata il puntatore.
+
+[04:28] Professore: Adesso quindi abbiamo creato, non so, un file control block e poi abbiamo, per esempio, il Linux, vi ricordate, abbiamo nella struttura delle idea Rectory questa
+
+[04:37] Professore: la corrispondenza tra nome e il numero dell'inode, e quindi in questo caso l'index number, e quindi in questo caso ci sarebbe una sorta di divergenza, cioè il puntatore sarebbe rotto, cioè non punterebbe al file control block, il file control block sarebbe l'inode di fatto.
+
+[05:06] Professore: è il nome più generale dell'inode, a livello di, diciamo, generalmente nei sistemi operativi si parla di file control block, nel caso specifico dei sistemi Unix Linux, cioè file system, quello di Unix-like, si chiama appunto inode.
+
+[05:23] Professore: In realtà poi in Linux esiste anche il concetto di bootnode, che sarebbe
+
+[05:29] Professore: poi andiamo un attimo anche a vedere la parte virtuale, cioè una virtualizzazione dell'inode, perché c'è una sorta di strato di file system virtuale che consente di generalizzare alcune operazioni ed eventualmente le rende compatibili con molti sistemi operativi.
+
+[05:53] Professore: Quindi esiste il concetto anche della virtual node, che poi si mappa sul real, ok?
+
+[05:59] Professore: Sulla inode, quello effettivamente reale.
+
+[06:03] Professore: Ok?
+
+[06:03] Professore: E diciamo che queste inconsistenze, quelle che sono le inconsistente tra disco e strutture dati, che poi devono essere materializzate sul disco, si possono effettivamente...
+
+[06:19] Professore: si possono verificare e quindi è necessario in questo caso fare a volte dei controlli di consistenza per recuperarli, ma questi controlli si possono rendere un po' più mirati
+
+[06:37] Professore: Facendo in modo tale che eventualmente si vanno a controllare solo i cambiamenti, ok?
+
+[06:41] Professore: Quindi non è che fa uno scan completo, no?
+
+[06:43] SPEAKER_00: Sarebbe... Anche perché sono in memoria secondaria è un casino.
+
+[06:46] Professore: Esatto, diventa un'operazione molto pesante, quindi diciamo si cerca di focalizzare eventualmente il controllo su queste zone che vengono modificate, sui metadati che vengono modificati.
+
+[06:59] Professore: Quindi qui abbiamo per esempio il discorso di andare appunto prima di modificare i metadati, il sistema operativo aggiorna un bit di modifica per rendere il fatto che quel metadato è in trasformazione.
+
+[07:19] Professore: Quindi appena le modifiche terminano con successo viene appunto rimesso a zero.
+
+[07:27] Professore: Questo è il primo segnale che si dà in modo tale che se poi a un certo punto durante una scansione si deve cercare qualche inconsistenza si va direttamente a vedere se ci sono appunto questi bit che sono abilitati.
+
+[07:43] Professore: Quindi se resta infatti un bit significa che
+
+[07:47] Professore: c'è stato un problema, quindi se c'è un bit inatteso che è uno durante un controllo, cioè il sistema per esempio dovrebbe essere tutto consistente e invece si trova questi bit, come se fossero dei dirty bit associati praticamente ai file, alle strutture dati dei file, che quindi possono essere monitorate in modo più selettivo.
+
+[08:15] Professore: Quindi ci sono dei consistency checker che vengono, diciamo così, sono delle routine che confrontano i dati nelle directory e nei vari metadati con quelli appunto memorizzati ed eventualmente se trova delle inconsistenze prova a ristabilire una situazione consistente.
+
+[08:36] Professore: Quindi per esempio si possono provare a ripostruire
+
+[08:45] Professore: se si riesce attraverso appunto magari seguendo i puntatori si può nel caso di rappresentazioni linkate dove il link magari salta si può vedere se si può per esempio ricostruire un file abbiamo visto il caso delle linkate doppiamente linkate quindi magari si spezza un puntatore da una parte magari con l'altro riesco effettivamente a ricostruirlo
+
+[09:15] Professore: un esempio quello che diventa più grave può essere invece nel caso di una locazione indicizzata la perdita proprio di un blocco oppure l'inconsistenza di un blocco che rappresenta proprio un indice ok?
+
+[09:32] Professore: allora quello diventa abbastanza grave quindi e può essere appunto compromesso proprio in quel caso il file ok?
+
+[09:45] Professore: Si cerca comunque di, soprattutto quando si lavora sui metadati, sui blocchi indice, su alcune operazioni particolari, si cerca comunque di renderle più robuste possibili.
+
+[09:59] Professore: È chiaro che questi sono metodi che si chiamano best effort, cioè nel senso che cercano di garantire al meglio, però poi non c'è la garanzia al 100% che effettivamente funzionino, perché può
+
+[10:12] Professore: avvenire un crash proprio nel momento peggiore possibile, allora lì si può perdere la consistenza, si può perdere un allineamento con il file system, allora il sistema cerca comunque di pulirlo nel modo che può eventualmente rimuovendo questi file che vengono praticamente persi.
+
+[10:33] Professore: Allora, un metodo importante che si cerca di fare, appunto che è stato introdotto nei file system diciamo così, quelli un po' più robusti, per esempio appunto nelle versioni più avanzate di extended già si sono introdotti, è il discorso della, diciamo così, della
+
+[11:02] Professore: registrazione anticipata delle modifiche che si dovranno fare è come se praticamente il sistema prima di fare delle modifiche crea un log di queste modifiche che farà quindi non è un log file di solito i log file lasciano la traccia di quello che si è fatto invece qui è come se fosse un log file del futuro
+
+[11:29] Professore: Quindi prima di fare delle operazioni, per esempio sui metadati, vengono annunciate queste operazioni che vanno fatte e poi vengono salvate in una regione molto comoda, molto veloce del disco.
+
+[11:46] Professore: Quindi si mantiene questo log dove si salvano questa lista pianificata di operazioni.
+
+[11:56] Professore: Quindi
+
+[11:57] Professore: e a questo punto, quando queste operazioni sono effettivamente svolte,
+
+[12:07] Professore: Queste sono innanzitutto quando si dichiarano su questo log si marcano come committed e quindi vuol dire che queste le voglio veramente fare.
+
+[12:19] Professore: Quindi quando c'è committed parte per farle.
+
+[12:22] Professore: Poi quando sono fatte questo significa che poi possono essere rimosse da questa sorta di log file.
+
+[12:31] Professore: Quindi immaginate una regione del disco, quella che appunto
+
+[12:36] Professore: serve per gestire quello che si chiama il journaling delle attività serve proprio per far sì che queste operazioni vengano prima annunciate in un piccolo log e poi nel momento in cui vengono committed quindi su questa regione partono effettivamente in memoria principale vengono fatte in memoria principale con le operazioni poi una volta effettivamente svolte possono essere marcate come effettivamente svolte
+
+[13:06] Professore: Ok?
+
+[13:07] Professore: Quindi tutte le modifiche da portare ai metadati si sono quindi salvate in questo log.
+
+[13:13] Professore: La chiamata, poi, il sistema ovviamente la time istituisce controllo allo quindi c'è prima, quando si opera in un file quindi si parte essenzialmente prima questa procedura che fa questa cosa.
+
+[13:28] Professore: Poi il sistema operativo, quindi mentre
+
+[13:32] Professore: l'utente prende il controllo e il sistema operativo cerca di aggiornare in modo asincrono i metadati.
+
+[13:43] Professore: I metadati sono aggiornati, queste modifiche vengono praticamente tolte dal log.
+
+[13:50] Professore: per farlo in modo tale che sia veloce questa cosa, di solito viene implementato con un buffer circolare, in modo tale che poi sovrascrive praticamente, ok?
+
+[13:59] Professore: Quindi quando ha finito queste operazioni, queste vengono sovrascritte sui vecchi valori, quindi non è che si cancellano questi valori.
+
+[14:05] Professore: Quindi viene usato, vedete, da EXT3, EXT4, ma in tantissimi appunto sistemi, anche Windows, New Technology File System, quindi tutti i sistemi praticamente
+
+[14:19] Professore: più moderni utilizzano questa tecnica, perché che cosa succede?
+
+[14:23] Professore: Succede che se per esempio, vediamo tutti i casi, ok?
+
+[14:27] Professore: Crescia il sistema mentre sta scrivendo sul journal, ok?
+
+[14:32] Professore: Quelle operazioni non sono committed, quindi non sono neanche partite, fa l'undu di quelle operazioni, ok?
+
+[14:38] Professore: Quindi non partono quelle operazioni.
+
+[14:40] Professore: Se invece le ho messe committed tutte quelle operazioni, allora, e sono partite,
+
+[14:47] Professore: e crescia il sistema, allora si può andare a, in un certo senso, visto che non sono ancora state salvate sul disco, posso ripeterle, posso ricominciare effettivamente a farle.
+
+[15:03] Professore: Se invece sono state parzialmente fatte,
+
+[15:07] Professore: si può andare a vedere quali sono i dirty bit di quelle che sono state effettivamente modificate e poi si continua fino a quelle che mancano.
+
+[15:18] Professore: quindi questo in un certo senso il sistema ha prima dichiarato sul journal le operazioni che doveva fare, quelle sono in cassaforte, nel momento in cui c'è un crash a questo punto il consistency checker va a controllare tutte quelle operazioni che erano committed ma non ancora eseguite, quindi fa una specie di scansione molto limitata delle operazioni che mancano, va a confrontarle con i bit di modifica, vede quelle che mancano all'appello
+
+[15:48] Professore: effettivamente o le completa oppure prova a ripristinare la situazione appunto precedente quindi vedete questi ci abbiamo sulle slide peraltro vi devo ancora mettere adesso vi aggiorno le slide quelle sul virtual memory che mi dite che erano corrotti il pdf quindi il sistema
+
+[16:17] Professore: Quindi quando viene, quindi crolla, immaginiamo che crolla il sistema, al momento del riavvio analizza il log ed esegue tutte le transizioni registrate che non erano ancora state eseguite.
+
+[16:33] Professore: Queste politiche non erano ancora state fatte sui metadata.
+
+[16:40] Professore: Quando invece la transazione non è committed al momento del crash, quindi abbiamo scritto sul journal ma non siamo arrivati al commitment, tutti i cambiamenti fatti vengono annullati eventualmente per mantenere la consistenza.
+
+[16:55] Professore: Quindi in questo caso comincia già a fargli queste modifiche mentre va a scrivere senza il commitment.
+
+[17:06] Professore: Comunque la cosa importante è che questo log
+
+[17:09] Professore: tipicamente salvato in un'area appunto del disco molto semplice da raggiungere perché deve essere un'azione che deve essere fatta molto rapidamente in questo aggiornamento.
+
+[17:23] Professore: Quindi perché uno potrebbe dire vabbè ma già che scrive sul journal
+
+[17:27] Professore: potrebbe già direttamente trasferire le modifiche che vengono via via effettivamente fatte è chiaro che è molto più semplice scrivere pochi byte su quest'area che annunciano le operazioni che devono essere fatte piuttosto che andare effettivamente a trasferire i metadati soprattutto e i dati che devono essere diciamo così sul cui bisogna operare quindi questa tecnica
+
+[17:57] Professore: diminuisce il tempo in cui un processo resta bloccato in attesa dell'aggiornamento dei metadati perché in un certo senso il tempo che è importante da monitorare, cioè quello che è da dedicare, è quello della scrittura di questo journal, quindi delle operazioni, dei long sul journal.
+
+[18:23] Professore: e questi log effettivamente consentono di fare il ripristino.
+
+[18:38] Professore: Abbiamo una situazione di questo tipo, il sistema prima fa dei write,
+
+[18:44] Professore: questi vengono appunto che sciati nella ram quindi le operazioni si cercano di fare tutte no in ram ok comunque nelle cache della ram e e poi si mette nel frattempo questo questo journal transaction ok quindi si scrive nel journal e poi diciamo si
+
+[19:11] Professore: si mandano in batch queste operazioni si fanno dopo con in un certo senso la garanzia che se qualcosa dovesse andare storto poi abbiamo comunque il journal che ci consente di fare un ripristino più mirato e qui vedete se questo è il vedete quello che vi dicevo l'extend 3 e l'extend 4 implementano il journaling
+
+[19:41] Professore: quindi con questi update che vengono scritti prima appunto sul log file qui potete vedere questo per esempio food sector qui abbiamo il journal in questa regione e nel journal abbiamo una serie di operazioni con dei codici che dicono quando comincia una transazione quando finisce una transazione
+
+[20:09] Professore: e poi sono dichiarate le operazioni che devono essere appunto fatte e poi appunto comincia un'altra quindi se arriva il crash a un certo punto senza che ci sia il commitment queste operazioni qua sono selezionate per essere controllate e se eventualmente c'è un dirty bit viene fatto l'undo su queste operazioni che sono praticamente pianificate ma non committente
+
+[20:34] Professore: queste invece che erano già commitment quindi se è stato messo transaction begin transaction end si va comunque a ripercorrere questa che non si va a ripercorrere per vedere se effettivamente tutte sono state completate come era dichiarato e quindi è una garanzia in più quindi quello su cui si va in un certo senso subito a scrivere è sul journal
+
+[21:03] Professore: Questo fa sì che invece le operazioni, cioè il trasferimento dei dati nella memoria secondaria possa essere fatto con maggiore agio perché se dovesse succedere qualcosa nel mezzo poi comunque abbiamo la possibilità di ripristinare.
+
+[21:19] Professore: Ripeto, non è al 100% possibile il ripristino perché è sempre una tecnica best effort questa, però sicuramente è già migliore di quella del bit di notifica soltanto perché almeno c'è un'indicazione anche del ripristino.
+
+[21:34] Professore: perché è stato modificato quel bit, eventualmente ho la possibilità di fare un undo di queste operazioni.
+
+[21:41] Professore: Poi dipende, ripeto, si potrebbe scrivere prima subito tutto il journal e poi cominciare, quando è commitment, e poi cominciare le operazioni, oppure si può parallelizzare questa cosa, quindi si scrivono le operazioni, si mettono committed e nel frattempo si comincia a farla, questa cosa.
+
+[21:58] Professore: Quindi l'importante è che ci sia questa garanzia di poter effettivamente fare
+
+[22:04] Professore: fare il ripristino.
+
+[22:05] Professore: Quindi al nostro livello di astrazione, per quello che ci interessa, ci interessa tenere presente che ci sono queste tecniche di journaling, che cos'è il journaling, poi se uno vuole entrare nel dettaglio tecnico di come funziona il journaling di un sistema piuttosto che un altro, poi si può approfondire, ok?
+
+[22:23] Professore: Però non è a questo livello di approfondimento che ci interessa entrare.
+
+[22:32] Professore: una panoramica che si dà per affrontare questa tematica.
+
+[22:38] Professore: Innanzitutto per sensibilizzare al problema della tematica del trasferimento del metadato dalla memoria centrale al disco e nel momento in cui c'è un problema di trasferimento c'è un problema di allineamento e questo allineamento poi deve essere reso più robustoso.
+
+[23:00] Professore: Siete?
+
+[23:05] Professore: Altri metodi, in alcuni casi ci sono altri metodi di allineamento dei metadati.
+
+[23:14] Professore: Per esempio, innanzitutto si possono andare a modificare separatamente
+
+[23:24] Professore: e poi eventualmente fare uno switch del metadato quando sono pronti, in modo tale che si mantiene la vecchia, il vecchio allineamento e poi si mantengono i vecchi blocchi che riguardano i metadati, si scrivono quelli nuovi, si cominciano a scrivere quelli nuovi in modo tale che poi si possa in un certo senso
+
+[23:52] Professore: recuperare, cioè si possa poi eventualmente se non si finisce l'operazione si possono direttamente riutilizzare i vecchi dati, quindi prima di perderli, questa è anche un'ulteriore garanzia.
+
+[24:12] Professore: Ovviamente poi tutte queste tecniche permettono al sistema di recuperare eventuali inconsistenze tra metadati e dati, però diciamo è buona norma anche tenere presente che può succedere anche che se il sistema cresce in mezzo in situazioni particolari qualcosa si perda e quindi bisogna sempre tenere presente il discorso del backup.
+
+[24:38] Professore: Quindi la migliore garanzia è avere sul file system un backup, che è proprio banalmente la cosa più banale del mondo, che però uno a volte si dimentica di fare.
+
+[24:52] Professore: A parte che il backup non è che si può fare continuamente, quindi ci può essere pure un momento in cui sta facendo delle cose, e poi il ripristino locale è sempre...
+
+[25:05] Professore: qualcosa che deve essere fatto per evitare ogni volta di dover recuperare un intero file system perché qualcosa si è verso, qualche piccolo disallineamento tra metadati.
+
+[25:23] Professore: quindi il backup può essere assoluto come sapete quindi ogni volta si copia l'intera disco può essere incrementale quindi la prima volta si copia il disco e varie volte successive ci si basa sulle vecchie modifiche e quindi uno si può salvare prima un'intera immagine del disco e poi andare a vedere tutte le varie modifiche
+
+[25:53] Professore: e così via, vabbè, queste sono cose che, no?
+
+[25:57] Professore: Quindi il giorno 1 si fa il primo full backup, poi si arriva, si copia, diciamo, su un altro mezzo, questo per tutti i file cambiati dal giorno 1, su un altro mezzo tutti i file, eccetera, eccetera.
+
+[26:13] Professore: Certo, questo vuol dire che non deve avere tanti dischi, perché se no non si pida di nessuno di questi.
+
+[26:17] Professore: e poi effettivamente si possono poi recuperare i vari backup questo sullo snapshot forse lo lasciamo perdere adesso andiamo a quell'altro tema di cui vi avevo parlato
+
+[26:46] Professore: come è strutturato poi un file system in modo tale che sia in un certo senso che abbia una stratificazione che consenta poi una sorta di un'architettura dove c'è un livello astratto di virtual file system e poi sotto in diversi altri strati quindi andiamo a vedere un po'
+
+[27:11] Professore: questo aspetto della realizzazione di un file system proprio in modo molto molto rapido su questa parte andiamo quindi vedete il file system che si può vedere strutturato da un punto di vista proprio architetturale in una serie di diciamo livelli dove c'è prima il livello delle applicazioni poi sotto abbiamo il logical file system
+
+[27:39] Professore: che è uno strato che cerca di rendere il più possibile uniforme del cell faccia per poter relazionarsi al file system, quindi ha delle strutture dati che sono più uniformi possibili.
+
+[27:53] Professore: Poi vedete che lo strato sotto è quello della file organization module, cioè qui quindi a questo livello di astrazione sappiamo come i blocchi
+
+[28:03] Professore: sono organizzati dentro un file e come quindi percorrere i blocchi e come risalire i dati dentro il file poi qui ci sono delle funzioni, questa si chiama Basic File System sono delle operazioni base che si fanno proprio per la comunicazione diciamo col sistema I.O.
+
+[28:22] Professore: quindi con il disco e poi qui c'è l'I.O.
+
+[28:27] Professore: Control scusate, prima c'è questo Basic File System che fa delle operazioni
+
+[28:34] Professore: appunto di base di trasferimento di blocchi di dati poi qui abbiamo il dialogo con il sottosistema di input output che andiamo a vedere poi successivamente e qui dentro ci sono i driver
+
+[28:57] Professore: e poi i driver vanno a comunicare con i propri device, quindi con il disco per esempio, ok?
+
+[29:03] Professore: Con il controller per il disco.
+
+[29:05] Professore: Quindi se vogliamo approfondire un attimo questa strutturazione, proprio vediamo quindi qual è la strutturazione.
+
+[29:16] Professore: Abbiamo questa gestione, come vi ho detto, il file system logico, quindi Logical File System gestisce metadati, la struttura delle directory,
+
+[29:25] Professore: Gli attributi dei file vengono salvati nel file control block, cioè tutta questa zona del file system logico riguarda la gestione di tutti i metadati del file e compresa anche la struttura delle directory, quindi anche l'allineamento tra il naming e l'organizzazione interna dei file.
+
+[29:51] Professore: Poi abbiamo...
+
+[29:55] Professore: un livello di, diciamo, astrazione più, diciamo così, meno alto, più basso, un modulo di organizzazione dei file e a questo livello sappiamo, appunto, qui avviene, avvengono le operazioni proprio sui blocchi logici di cui si compone il file e quindi si chiedono, praticamente, servizi a questo livello per l'accesso ai diversi blocchi e anche
+
+[30:23] Professore: Qui viene mantenuta tutto quel discorso che riguardava la gestione dei blocchi liberi.
+
+[30:30] Professore: Quindi questo è il modulo organizzazione file, cioè tutto quello che riguarda la gestione dei blocchi di cui si compone il file.
+
+[30:40] Professore: Poi abbiamo, come vi dicevo, sottostante ancora ulteriori servizi di più basso livello di astrazione.
+
+[30:48] Professore: quindi l'invio di comandi base agli device driver per scrivere e leggere blocchi fisici, gestendo anche il caching, il discorso del caching.
+
+[30:58] Professore: Quindi tutte le cose che abbiamo visto finora sono organizzate gerarchicamente su dei livelli, che ogni livello gestisce uno strato e più lo strato è astratto,
+
+[31:14] Professore: può essere riutilizzato per esempio per gestire diversi file system, mentre invece più si va verso il basso e più occorre magari una gestione diversa a seconda per esempio del disco diverso, a seconda delle caratteristiche del file system eccetera eccetera.
+
+[31:33] Professore: Quindi sono degli stati che consentono in qualche modo di
+
+[31:37] Professore: sfilare magari, mantenere consistente uno strato e poi sfilargli da sotto un altro strato per sostituirlo con un altro.
+
+[31:49] Professore: fino ad arrivare, vedete, al controllo dell'input out, dove abbiamo proprio il driver dei dispositivi, come vi dicevo, e quindi qua è proprio, dipende dal controller del disco qual è il driver del disco, quindi questo parla il linguaggio, praticamente, della periferica, e questo si occupa proprio del trasferimento di informazioni dalla memoria.
+
+[32:13] Professore: Ok?
+
+[32:13] Professore: Quindi questa è la...
+
+[32:18] Professore: più o meno la strutturazione quindi questa è un'altra pista sulla stessa cosa anche per esempio Logical File System tiene conto di tutti gli aspetti che riguardano non solo le protezioni cioè tutto quello che va nel file control block di fatto e qui abbiamo appunto il
+
+[32:48] Professore: un esempio di comandi che invece vengono gestiti per il file system oppure insomma quella parte di file system che vede le cose in termini di blocchi quindi prendi il blocco con questo indirizzo e questo deve diventare poi una sorta deve essere tradotto questo comando in qualcosa che poi va bene per il device driver quindi anche la schedulazione delle richieste
+
+[33:16] Professore: dell'Io, quindi le richieste per, diciamo così, multiple che arrivano dal file system avvengono a questo livello e come avevo detto prima appunto la gestione del caching.
+
+[33:39] Professore: Quindi ovviamente la stratificazione serve sia come meccanismo di astrazione
+
+[33:45] Professore: ma anche appunto per poter consentire la riutilizzabilità di porzioni appunto del file system e questo significa che diversi file system possono coabitare sotto la stessa interfaccia dal punto di vista della strazione.
+
+[34:04] Professore: Comunque questi livelli di cui abbiamo parlato sono i livelli principali
+
+[34:12] Professore: poi ogni sistema operativo chiaramente avrà la sua stratificazione più o meno differente però diciamo questi sono più o meno i livelli su cui appunto viene organizzato un sistema operativo poi vedete che come vi dicevo prima diversi file system vengono gestiti dai sistemi operativi ce n'è uno principale proprio per
+
+[34:41] Professore: gestire i file sul disco ma poi su quello nativo se vogliamo ma poi appunto ce ne possono essere tanti per esempio Linux gestisce fino a 40 tipi di file system che sono compatibili con questo poi più di 40 adesso con il nuovo kernel quindi saranno
+
+[35:11] SPEAKER_00: Forse li hanno diminuiti, stanno iniziando un po' a diminuire.
+
+[35:18] Professore: A diminuire quelli supportati, perché poi alcuni sono deprecati in qualche modo.
+
+[35:22] SPEAKER_00: Sì, ma ora hanno iniziato a eliminare i processori degli anni 80, quindi non so.
+
+[35:29] Professore: Comunque l'idea è quella appunto di mantenere queste compatibilità.
+
+[35:37] Professore: Poi ovviamente nell'implementazione del file system ci sono una serie di strutture dati che vanno in memoria di massa.
+
+[35:59] Professore: ed altre che rimangono in memoria di massa altre invece appunto devono essere anche caricate in memoria centrale chiaramente in memoria di massa quindi abbiamo per una serie di cose good control block diciamo queste tutte le informazioni di cui abbiamo parlato per la gestione dell'avvio del sistema il volume control block
+
+[36:28] Professore: che gestisce per ogni volume le sue caratteristiche, e queste possono essere diverse a seconda di come è spiegato il file system, la struttura delle directory e poi ovviamente i file control block, che sono appunto dove ci sono tutti i metadati che riguardano la parte statica del file.
+
+[36:57] Professore: mentre in memoria centrale quindi quando effettivamente poi si utilizza quindi quando si avvia comunque il il kernel per la gestione di questi file system che quelli che sono montati ok occorre effettivamente una serie di
+
+[37:16] Professore: informazioni che devono essere praticamente viste mappate dal kernel, perché il kernel deve operare rapidamente sul file system e quindi deve avere questa rappresentazione di come è fatto il file system, infatti quando montate il file system significa che
+
+[37:34] Professore: tutti questi dati che devono richiedere in memoria principale diventano disponibili e quindi il kernel può a quel punto parlare con il filesystem può gestire il filesystem quindi appunto per esempio i filesystem quelli nativi sono quelli che all'avvio vengono praticamente montati poi se ne possono montare degli altri
+
+[38:04] Professore: Quindi vedete, per esempio, una cosa importante che deve essere sempre nella memoria centrale è la tabella di montaggio, le informazioni relative ai volumi attualmente montati, quindi deve sapere effettivamente dove sono e come sono fatti questi volumi.
+
+[38:22] Professore: Poi la struttura delle directory, questa può essere cacheata solo la parte, quella che è interessante,
+
+[38:29] Professore: questa struttura delle directory ripeto è rappresentata in modo diverso a seconda dei file system abbiamo parlato del file system appunto quello linux è gestita a livello di file quindi sono dei file che creano questo mapping tra nomi e index number ok
+
+[38:58] Professore: Poi abbiamo detto, queste ne abbiamo già parlato, la tabella dei file aperti, questa assolutamente è sulla memoria principale, sia a livello di sistema operativo, quindi per ogni processo abbiamo la tabella dei processi aperti, la tabella dei file aperti, questa direttamente dal process control block.
+
+[39:22] Professore: Quindi process control block ha
+
+[39:27] Professore: i suoi indici personali di file aperti questi indici poi vengono mappati sulla tabella servono per arrivare alle entry della tabella dei file aperti quelli system wise e poi abbiamo ovviamente tutta la parte dei blocchi fisici che devono essere trasferiti
+
+[39:52] Professore: in memoria, anzi devono essere messi in cache per fare le operazioni appunto rapide quindi se, non so, una domanda ad esame tipica quali sono le strutture dati principali che sono per la gestione del file system che devono essere mantenute in memoria principale e in memoria secondaria magari ricordare queste strutture
+
+[40:20] Professore: e come diciamo così possono essere in qualche modo utilizzate quindi come per esempio per fare un esempio su come si può aprire un file passando da una struttura all'altra di quelle che sono chiaramente caricate nella memoria nella memoria principale e poi se viene richiesto diciamo le strutture dati principali di andare a quelle invece in memoria secondaria ci sta tutto tutto il file system perché
+
+[40:48] Professore: tutto quello che mi serve deve stare da qualche parte materializzato sennò quando spegniamo il computer non ritroviamo niente quindi in realtà spesso le domande mertono più su quello che viene mantenuto invece quali sono le strutture dati che il kernel utilizza per poter diciamo così gestire le operazioni per esempio non so
+
+[41:15] Professore: uno può vedere, può ripercorrere quindi che cosa succede quando si crea un file, quindi si possono vedere le operazioni principali per creare un nuovo file, quindi un processo interroga innanzitutto il file system logico, quindi si interfaccia il file system logico, quindi parte da richieste chiamate di sistema che poi
+
+[41:41] Professore: fa delle chiamate di sistema che riguardano in primo luogo lo strato più esterno del file system che è quello logico e quello logico conosce sia il formato delle directory ma anche i metadati quindi il logic file system per esempio quando io
+
+[42:00] Professore: devo appunto creare un file, genera e alloca un nuovo file control block, ok?
+
+[42:07] Professore: Quindi ho bisogno del nuovo file control block, la nuova centralina di controllo del mio file, poi legge dai lettori, non solo dalla memoria principale, quindi quella che nel caso per esempio di Linux lì è appunto un file che contiene queste
+
+[42:31] Professore: e poi la aggiorna in memoria centrale, aggiungendo quindi alla lista dei file che sono contenuti in quella directory il nuovo file, quindi crea l'accoppiamento tra il nome del file nuovo e il numero del file control block corrispondente, in modo tale che questo viene aggiornato prima
+
+[42:57] Professore: in memoria centrale ovviamente e poi riscrive la directory in memoria di massa ovviamente poi dovrà trasferire anche l'aggiornamento dei metadati quindi del file control block quindi come vi dicevo per tutti i sistemi Unix-like la directory è proprio un file
+
+[43:23] Professore: un file speciale, infatti quando fate il listing vedete the directory con il simbolo D come file, se fai il regolare vedete il strattino, mentre invece per altri ci sono altre strutture dati, per esempio Windows non utilizza questo tipo di sistema ma utilizza una sua struttura dati per le directory, però il concetto è che comunque si
+
+[43:49] Professore: la struttura delle directory è separata, questo è importante da ricordarsi, viene sempre mantenuta separata rispetto alla struttura dei file control block, cioè essenzialmente nel file control block non ci hanno nome, non ci hanno i nomi simbolici, proprio per mantenere una separazione tra le due cose.
+
+[44:10] Professore: Ricordiamoci che appunto per esempio un file può avere più nomi, può essere diciamo
+
+[44:15] Professore: quindi ci si può arrivare attraverso il file system in più modi, quindi è bene disaccoppiare tutti gli attributi che riguardano le caratteristiche proprie del file, mentre il nome del file è qualcosa di collegato, ma non intrinseco, non ha nome il file, ha un suo identificatore interno.
+
+[44:41] Professore: quindi qui abbiamo che il logic file system poi chiama il file organization module per fare le varie operazioni e poi che fa a chiamare il logic file system attenzione che tutte le operazioni di controllo dei permessi eccetera eccetera vanno fatte sopra o comunque creazione dei
+
+[45:11] Professore: nel logic file system anche perchè se no la lettura e la scrittura quindi la locazione e il salvataggio dipende poi dai permessi in precedenza sono più in alto sono metadati e quindi riguardano quello strato così come possiamo anche qui ripercorrere un po' qui la storia dell'apertura e chiusura di file
+
+[45:39] Professore: così per vedere un attimo che cosa succede a livello di stratificazione del file system.
+
+[45:47] Professore: Abbiamo appunto, questa è una chiamata, sono open e close che voi avete, sono delle API, quelle che chiamate con il C, che poi però si riferiscono a livello di codice e macchina a delle chiamate di sistema che devono essere gestite appunto dal kernel.
+
+[46:07] Professore: quindi il kernel a questo punto passa la parola al suo sottosistema che riguarda la gestione del file system, in particolare ha questa interfaccia più di alto livello che è il logical file system, quindi nel logical file system si controlla, lì viene mantenuta la tabella dei file aperti, quindi lato sistema, se il file è già aperto allora non occorre
+
+[46:33] Professore: dallo stesso processo attenzione perché poi può essere riaperto da un altro processo quindi in realtà bisognerebbe controllare la tabella dei file aperti si controlla se è già aperto quindi in caso negativo cerca il nome del file nella directory
+
+[46:58] Professore: e quindi deve trovare quel file, però questo lo deve fare comunque, perché io open la metto il nome del file, quindi nella tabella dei file aperti
+
+[47:17] Professore: perché io devo comunque dal nome del file risalire all'inode e poi andare a vedere effettivamente se nella tabella dei file aperti poi bisogna vedere se ci sono delle ottimizzazioni per rendere veloce questa operazione comunque diciamo che assumendo che nella tabella dei file aperti posso vedere se il file è già aperto peraltro poi da quel processo quindi perché se è stato aperto da un altro processo non mi interessa quindi questa è un po'
+
+[47:45] Professore: Questa è un po' da rivedere questa slide perché ci sono alcune cose che sono bypassate, però diciamo così, in caso negativo, vediamo il caso negativo, cerca il nome del file nella directory, questo lo deve fare, aggiunge il file control block alla tabella dei file aperti di sistema, ok?
+
+[48:06] Professore: aggiunge una entry che poi punta al file control block, anche questo non è corretto, aggiunge una entry che poi va a puntare e carica appunto il file control block nei file averti del sistema.
+
+[48:23] Professore: Quindi in ogni caso...
+
+[48:25] Professore: aggiunge alla tabella dei file aperti del processo chiamante un nuovo elemento, che poi da qui si collega alla tabella dei file aperti del sistema, incrementa, quindi questo viene fatto prima, incrementa il contatore delle aperture del file, perché ogni file bisogna avvertire quante volte è stato aperto, perché poi prima di chiuderlo definitivamente bisogna che quel contatore vada a zero.
+
+[48:52] Professore: perché altrimenti il file control block finché è aperto deve essere mantenuto nella memoria principale o comunque in cache perché se è aperto il file mi serve il file control block per poi andare a trovare i blocchi di quel file o per controllare i permetti per fare qualunque operazione la vado a fare lì quando per esempio io aggiungo
+
+[49:22] Professore: qualche byte in fondo al file, devo, diciamo sempre nella memoria principale, aggiornare contemporaneamente anche la lunghezza del file, ok?
+
+[49:33] Professore: Quindi quella è un'operazione che devo fare, la faccio tutta in memoria principale, quando ho finito di fare queste operazioni, allora lì le trasferisco e le materializzo appunto sul disco, anche se poi possono avvenire asincronamente queste operazioni anche su
+
+[49:52] Professore: su disco però in realtà diciamo quella è la versione più aggiornata quindi quando voi andate a fare il listing per vedere quali sono le caratteristiche del file quei file che sono aperti le informazioni le va a prendere non ovviamente sul disco ma su quelle strutture dati che sono in cache quindi quelle più recenti ok quindi qui avete
+
+[50:22] Professore: la tabella dei file aperti contiene altri dati come la posizione della testina della lettura e della scrittura questo l'abbiamo detto, l'offset, la modalità di apertura eccetera eccetera e la open quindi poi restituirà un puntatore alla entry nella tabella dei file aperti per processo cioè in realtà più che un puntatore restituisce un file descritto che sarebbe un numero che è un indice in una struttura dati
+
+[50:53] Professore: appunto del processo e che poi viene utilizzato dal processo su quella entry per andare a puntare verso quella entry sulla tabella dei file aperti system wise ok?
+
+[51:10] Professore: questo è quindi quando voi fate open ottenete un valore no?
+
+[51:16] Professore: 10, 20 quello che è un file descritto e quello praticamente è una sorta di indice
+
+[51:22] Professore: che poi serve al sistema.
+
+[51:24] Professore: È una cosa opaca, se vogliamo, una cosa che voi non capite a cosa effettivamente serve, però viene utilizzata dal sistema per, diciamo così, pescare la entry che gli serve poi per puntare verso la tabella dei file aperti system-wise.
+
+[51:44] Professore: Alla chiusura del file si decrementa il contatore e si rimuove
+
+[51:51] Professore: la entry dalla tabella del processo, perché un processo chiude il file, quindi per lui quel file è chiuso,
+
+[52:04] Professore: e quindi il file descriptor in qualche modo non è più utilizzabile per quel processo, può essere reciclato, quella locazione che viene utilizzata dal processo, ma solo se il contatore di apertura per il file va a zero, allora il file control block viene rimosso dalla tabella, diciamo dei file aperti, in realtà viene rimossa la entry e viene rimosso il file control block dalla cache, se vogliamo.
+
+[52:35] SPEAKER_01: ecco qui c'è forse un ulteriore del taglio vediamo infatti questo forse era quello che mancava si è aperto open file table per processo aggiornato con un point su system-wide table ok se non è aperto una verifica sulla system-wide table non manca comunque come viene fatta questa verifica perché io faccio la open con il nome del file quindi
+
+[53:04] Professore: per fare questa verifica devo comunque passare per la struttura delle directory per avere l'associazione tra file a meno che questo si può verificare magari qualcuno lo può verificare se nelle entry della open file table quella system wise viene memorizzato anche il nome simbolico del file questo potrebbe essere per accelerare alcune operazioni
+
+[53:34] Professore: perché qui fa una verifica se fai l'aperto, quindi quando faccio la open, però questa verifica la potrei fare direttamente sulla directory, quindi c'è un passaggio in più, questo si può verificare.
+
+[53:50] Professore: Questo ovviamente poi dipende dal sistema operativo al sistema operativo, allora bisogna verificarlo per esempio per Linux.
+
+[53:57] Professore: Ok, questo l'abbiamo già visto.
+
+[54:02] Professore: vediamo la chiusura anche questa l'abbiamo già vista informazioni sui file aperti vengono mantenute in memoria principale i blocchi associati ovviamente sono in memoria secondaria per esempio bsd unix
+
+[54:31] Professore: con la cache aveva un 85% di itrate, bisogna vedere adesso quali sono con sistemi diciamo più moderni quanto si arriva di itrate, quante volte praticamente si trova il blocco su cui si deve lavorare direttamente in cache senza doverlo andare a prendere in memoria secondaria.
+
+[54:57] Professore: Questi sono dati che uno può andare
+
+[55:01] Professore: a consultare se capisce come funziona il meccanismo base.
+
+[55:05] Professore: Questo si può approfondire, però quello che interessa è che capiate più o meno quali sono le logiche di funzionamento di queste strutture dati, che poi dopo uno può approfondire.
+
+[55:20] Professore: Vediamo quali sono effettivamente le entry, cosa c'è, cosa non c'è eccetera eccetera.
+
+[55:27] Professore: Infatti vedete che con la open
+
+[55:31] Professore: in questo caso si bisogna utilizzare la directory structure poi dalla directory structure in realtà si va a recuperare quali sono i file control block e poi eventualmente si deve prendere la directory structure
+
+[55:54] Professore: si deve caricare, poi da lì si vede attraverso la directory instructor dov'è il file control block, file control block si carica anche quello, ok?
+
+[56:04] Professore: E si devono aggiornare poi tutte le altre varie operazioni, quindi vedete quando io faccio una read, qui siamo in user space, la read corrisponde a una chiamata di sistema, quindi si va in kernel, memory,
+
+[56:18] Professore: Quindi quando si chiede appunto di fare una read, a questo punto abbiamo su, con la read vi si passa un file descritto, abbiamo visto l'altra volta le chiamate di sistema, abbiamo fatto un po' di esercitazione sulle chiamate di sistema,
+
+[56:40] Professore: Quindi abbiamo visto per esempio una rig, quindi file descriptor, file descriptor quello punta proprio a un indice su questa tabella per processo dei file aperti, che è direttamente accessibile dal process control block.
+
+[56:59] Professore: Questa poi contiene una entry che mi punta a questa system wide open table e poi da qua effettivamente si possono andare a recuperare innanzitutto i file control block e poi una volta che c'è il file control block posso accedere ai blocchi del file.
+
+[57:19] Professore: Ok?
+
+[57:22] Professore: E qui.
+
+[57:23] Professore: se volete, questa vi avevo già fatta vedere questa figura, però è ripetita UVAT, quindi qui abbiamo, vedete, vari processi, ognuno che si porta i suoi file descriptor, quindi ogni processo può anche avere una ripetizione del file descriptor, perché sono entri nella sua tabella, quindi nel suo, diciamo così, che riguardano il file descriptor,
+
+[57:49] Professore: l'area il process control block di ciascun processo process wide ognuno di questi poi punterà in una entry che è appunto system wide e poi da qui abbiamo l'accesso attraverso gli inode number agli inode che appunto poi si ritrovano nell'hard disk
+
+[58:15] Professore: devono essere caricati in memoria, oppure in cache ancora meglio, per velocizzare tutte le operazioni.
+
+[58:23] Professore: E questo è un altro dettaglio.
+
+[58:27] Professore: Quindi qui vedete proprio quelli che erano i file descritto, file descritto 0, file descritto 1, questi sono i canali che praticamente vengono direttamente aperti al lancio del processo, quindi sono quelli che servono
+
+[58:40] Professore: Questi file descriptor servono per parlare con il standard input, standard output e standard error.
+
+[58:50] Professore: Questi sono i canali già aperti, quindi non c'è bisogno... Quando si dice canali già aperti, significa che già è aperto la possibilità di comunicare con questi dispositivi.
+
+[59:02] Professore: Ok?
+
+[59:03] Professore: perché in UNIX tutti i dispositivi anche vengono assimilati a file speciali, quindi è come se avesse fatto una open su questi file speciali per far passare uno stream di dati, un flusso di dati.
+
+[59:19] Professore: Poi adesso vediamo sul sottosistema input-output come anche i diversi dispositivi sono astratti, cioè si possono vedere come appartenenti a una determinata caratteristica.
+
+[59:32] Professore: Per esempio il disco, i dischi sono dispositivi a blocchi perché rappresentano le cose a blocchi e quindi tutti i dispositivi che hanno un accesso di memoria a blocchi vengono trattati a un certo livello di astrazione in modo uniforme.
+
+[59:50] Professore: Poi per esempio invece lì dove dobbiamo fare una comunicazione con flussi di dati, per esempio tastiera, per esempio schermo, porte, seriali, ok?
+
+[01:00:02] Professore: lì abbiamo gli stream, e quelli appunto sono charater, quindi a carattere, carattere alla volta, quindi byte a byte, e lì appunto abbiamo anche lì un'altra categoria di, diciamo così, di periferiche, quelle in rete, per esempio le socket, sono ancora un'altra categoria, che non sono assimilate a queste, ok?
+
+[01:00:30] Professore: Ogni volta che c'è bisogno di creare una nuova astrazione su una tipologia periferica, perché ha un modo diverso di scambiarsi i dati, protocolli diversi, allora si introduce un nuovo tipo di dispositivo che poi corrisponde a un file speciale.
+
+[01:00:55] Professore: Sulle partizioni qui c'è poco da...
+
+[01:01:00] Professore: ricordare anche sull'implementazione dei directory ne abbiamo già parlato infatti
+
+[01:01:19] Professore: non so se abbiamo detto che appunto una delle tecniche anche per l'implementazione delle DAE in realtà questa è quella più generica perchè noi abbiamo parlato di quelle Linux vabbè noi dicemmo almeno a Linux era implementata con Ashtable perchè Linux era una coppia inode era una coppia inode nome esatto sono proprio file quindi sono dei file in un certo senso anche quelli strutturati
+
+[01:01:48] Professore: che hanno questa caratteristica, invece diciamo che in altri sistemi ci sono altri modi di rappresentare le directory e in alcuni casi è semplicemente una lista
+
+[01:02:06] Professore: con dei puntatori al file control block in altri casi invece appunto per migliorare gli accessi sono organizzati appunto con delle hash table quindi praticamente abbiamo la chiave che sarebbe il nome e poi il valore che mi dà appunto il file control block di riferimento comunque sono sempre dei metodi per mappare nomi su comunque gli inode corrispondenti
+
+[01:02:35] Professore: o più in generale su un fcb generico ecco è più giusto dire così perchè l'inode è proprietario esatto è quello dei sistemi di unix e anche qua questa chiude la trattazione fin dal file system e volevo poi
+
+[01:03:07] Professore: introdurre a questo punto la parte in realtà a volte si fa prima questo aspetto cioè qual è il sottosistema input output quindi così abbiamo raggiunto in qualche modo abbiamo fatto la parte di interfacciamento poi con le periferiche allora
+
+[01:03:37] Professore: ovviamente il kernel deve gestire anche le strutture di input output quindi
+
+[01:03:46] Professore: ed è un aspetto fondamentale il dialogo con le periferiche un po' avevamo già accennato all'inizio del discorso dell'interrupt per dialogare con le periferiche c'è il meccanismo degli hardware interrupt per disaccoppiare il funzionamento del processore dal funzionamento delle
+
+[01:04:16] Professore: delle periferiche ma adesso andiamo a vedere proprio tutto il almeno diciamo così le componenti principali del sottosistema che il kernel gestisce per parlare appunto con le periferiche innanzitutto c'è una caratteristica importante perché le periferiche chiaramente cambiano continuamente quindi il kernel è uno
+
+[01:04:44] Professore: le periferiche sono tante, escono continuamente, esce la nuova stampante, esce un nuovo dispositivo, le cuffie, eccetera, di tutto e quindi il sistema operativo deve poter includere
+
+[01:05:10] Professore: una serie di driver che sono proprio le componenti che consentono di parlare poi con queste periferiche, quindi periferiche c'erano dei controller, i controller parlano con i driver, i driver parlano con il sottosistema IOW del sistema del kernel, quindi si devono in qualche modo integrare con questo sottosistema IOW.
+
+[01:05:32] Professore: Quindi occorre da una parte disangoppiare, ma nello stesso tempo devono essere incapsulati questi elementi.
+
+[01:05:43] Professore: Quindi incapsulati attraverso i device driver, quindi ogni device driver è un modulo per parlare di un particolare dispositivo, però poi il sottosistema IO deve avere delle interfacce in modo tale da poterli accogliere e integrare.
+
+[01:06:02] SPEAKER_00: Questa era una curiosità che in realtà avevo da un po', scelgo di creare, boh ce ne sono mille dove puoi stampare i PCB di qualsiasi cosa, creare un driver per un PCB che ho stampato, come comunico col PCB?
+
+[01:06:23] SPEAKER_00: C'è una porta in questo PCP, fin qua ok.
+
+[01:06:26] Professore: Devi dialogare attraverso quella porta, devi creare un tuo driver che poi parla con il sistema operativo, quindi tu a Eva Drive devi implementare delle funzionalità
+
+[01:06:46] Professore: che sono quelle che sono una sorta di API che consentono di parlare con questi dispositivi.
+
+[01:06:53] SPEAKER_00: Chi basta per questo?
+
+[01:06:55] SPEAKER_00: O solo per il proprio linguaggio macchina?
+
+[01:06:58] Professore: No, si possono scrivere in C tranquillamente.
+
+[01:07:02] Professore: C'è una sorta di interfaccia, cioè sono delle funzioni
+
+[01:07:06] Professore: che tu hai, bisogna vedere che categoria di dispositivo è, questo parla tramite una porta seriale, e quindi tu avrai un dispositivo che lavora a stream, e quindi su quel tipo di dispositivi sono già previste una serie di
+
+[01:07:30] Professore: diciamo così, prototipi di funzione che poi possono essere implementati e quindi sono in chip.
+
+[01:07:37] SPEAKER_00: Per le varie chiamate di sistema che poi verranno fatte con il dispositivo.
+
+[01:07:42] SPEAKER_00: Quindi c'è già una sorta di interfaccia per comunicare con i tipi.
+
+[01:07:45] Professore: C'è un template che poi va valorizzato, cioè bisogna in qualche modo scriverlo, poi ovviamente va compilato e poi va integrato con, diciamo, si può fare, bisogna un attimo vedere poi
+
+[01:08:00] Professore: come il sistema appunto reagisce a questa diciamo così all'integrazione di questo ovviamente era una domanda un po generica era più una curiosità però diciamo che può essere anche interessante fare proprio driver così dammi se vogliamo magari
+
+[01:08:24] Professore: la prossima volta visto che tanto dobbiamo approfondirlo questo discorso possiamo magari approfondire un po' questo argomento qua io non ho PCB da portare anche perchè a quanto pare il mio computer appena si stacca dalla presa esplode il problema ci diste l'altra volta non l'ho risolto comunque questa per dare un'idea proprio a livello grafico di cosa
+
+[01:08:53] Professore: qual è il punto, c'è kernel e va bene, poi c'è una parte del kernel che è quello che si chiama kernel input output subsystem che fa da strato, ok?
+
+[01:09:03] Professore: E poi questo strato in realtà poi si divide a seconda del tipo, delle tipologie di, diciamo così, di dispositivi, cerca di fare una prima sorta di astrazione per classificare tutti i dispositivi di blocco hanno bisogno di queste funzionalità
+
+[01:09:18] Professore: Tutti i dispositivi che lavorano su stream hanno queste.
+
+[01:09:22] Professore: Quando parlo, non so, in rete ho bisogno di queste altre cose, di queste altre funzionalità di base e che sono praticamente delle interfacce, quindi delle API, e poi chiaramente ci sono altre funzionalità sempre di controllo, di check, eccetera, che devono essere implementate.
+
+[01:09:45] Professore: i vendor di solito quindi chi propone una periferica porta insieme al controller si porta appunto un driver poi chiaramente uno quando installa il driver si prende la responsabilità deve essere fatta a livello di amministratore si prende la responsabilità di quello che c'è io non so niente
+
+[01:10:14] Professore: perché attenzione che il driver cinesi è parte del kernel diventa quindi quando fa le operazioni le fa kernel level kernel mode quindi infatti non so se vi ricordate all'inizio avevo parlato di quei giochi che fanno dei check
+
+[01:10:35] Professore: game che fanno dei check per anti-keeping che si prendono una grandissima libertà perché invece di comportarsi soltanto da driver poi cominciano a prendere delle funzionalità che riguardano il sistema globale e quindi fanno un controllo completo di tutto quello che succede appunto nel kernel e questo diciamo quindi è una specie di cavallo di troia per cui uno può utilizzare il driver
+
+[01:11:05] Professore: magari ha tutto il giochetto e dentro ci mette quello che vuole perché sei entrato dentro il kernel quindi attenzione in realtà a livello di processore by design erano previsti diversi ring di controllo infatti erano previsti almeno tre ring cioè livello 0, 1 e 2 per creare praticamente una differenza di permessi
+
+[01:11:35] Professore: in modo tale che a livello kernel lavorava 0 a livello 2 utente e magari a livello 1 era per il device driver in modo tale che erano segregati comunque ad un livello diciamo di protezione che era diciamo non uguale al resto del kernel e gli anticipi sono a kernel 0 quindi sono proprio giù giù giù giù visto che però creava un appesantimento diciamo di
+
+[01:12:04] Professore: questa questa triplice diciamo che in protezione adesso praticamente si lavora sempre 02 si lavora sul questo livello 1 praticamente non viene usata non so se per magari qualche qualche qualche kermel lo userà particolare però diciamo che visto che
+
+[01:12:27] Professore: a questo punto lavorano kernel zero, ring zero, se uno è malicious e installa il driver, diciamo così, uno d'altro in mezzo, se uno d'altro in mezzo ha l'installazione, tu sei l'amministratore del sistema e quindi a quel punto si possono dare, concedere, quindi attenzione a installare i driver perché il driver
+
+[01:12:55] Professore: è proprio una porta d'ingresso abbastanza importante al kernel, quindi uno si sente sicurissimo, dice ma il kernel è là, poi installi driver.
+
+[01:13:08] Professore: A meno di protezioni particolari, infatti magari questo può essere usato proprio come cavallo di troia.
+
+[01:13:23] Professore: Comunque, quello che è importante a livello di kernel è questa interfaccia uniforme per gestire input-output molto differenti, come al solito i metodi sono astrazione, capturamento e stratificazione.
+
+[01:13:37] Professore: Quindi astrazione, si cerca di trovare queste API che sono
+
+[01:13:41] Professore: più astratte possibili, poi incapsulamento dentro i device driver e poi stratificazione in modo tale che il sistema possa avere più livelli con cui il primo livello sarà quello più generale e poi via via si va specializzato.
+
+[01:13:59] Professore: E poi appunto questo significa che abbiamo delle chiamate di sistema
+
+[01:14:04] Professore: che poi andranno indirizzate, andranno specializzate, l'interfaccia a livello di chiamata di sistema può essere la stessa, però poi vanno a fare cose diverse a seconda del dispositivo.
+
+[01:14:17] Professore: Quindi i driver nascondono al sottosistema IO del kernel tutte le varie differenze, e questi li scrive chi fa la periferica, perché è il linguaggio della periferica.
+
+[01:14:35] Professore: quindi vedete qui abbiamo questa differenziazione, ci sono dei dispositivi standard che appunto quindi a livello più alto di astrazione
+
+[01:14:49] Professore: noi abbiamo dei dispositivi che sono i dispositivi a blocchi ok quindi che sono tutti quelli come vi ho già detto prima che sono simili ai dischi quindi abbiamo visto il disco che lavora ragionando in blocchi di byte oppure per esempio abbiamo stream per esempio la tastiera è un tipico esempio di flusso di byte così come la stampante, il mouse tutte queste sono praticamente
+
+[01:15:18] Professore: delle periferiche che hanno questa caratteristica.
+
+[01:15:22] Professore: Quindi a un primo livello di astrazione si possono vedere così.
+
+[01:15:25] Professore: Poi ci sono delle interfacce diverse, ho detto anche quelle per la rete, sono differenti.
+
+[01:15:39] Professore: E poi, per esempio, quando si...
+
+[01:15:43] Professore: Quando si lavora su terminali, anche i terminali sono considerati delle porte, delle astrazioni su delle periferiche perché i terminali servono per esempio per parlare con la tastiera, per parlare con altri dispositivi e anche su quelli ci sono delle interfacce standard.
+
+[01:16:14] Professore: Quindi se andiamo a vedere il livello di stratificazione possiamo di nuovo vedere tutto il software I.O.
+
+[01:16:22] Professore: Chiaramente user level I.O.
+
+[01:16:25] Professore: sono quelle chiamate che avete usato l'altro giorno per esempio per lavorare sui file.
+
+[01:16:33] Professore: Quindi open, close, read, write, queste sono tutte chiamate, cioè tutto quello che
+
+[01:16:40] Professore: riguarda la comunicazione con dispositivi esterni incluso il disco ok sono tutte chiamate io poi abbiamo appunto questa parte come abbiamo detto di device independent operator system che sarebbe il sottosistema quello astratto driver poi sotto i driver
+
+[01:17:01] Professore: Il device driver, qui ci sarà uno strato ancora più basso, proprio vicino all'hard, che è quello che gestisce l'interrupt, quindi la routine di servizio dell'interrupt, quindi tutta la parte di gestione, perché con le periferiche come si lavora?
+
+[01:17:18] Professore: Si imposta la periferica e poi ci si aspetta il ritorno attraverso appunto il meccanismo degli interrupt,
+
+[01:17:25] Professore: Quindi gli Interrupt poi hanno tutte le loro routine di servizio che vengono praticamente innescate dall'Interrupt.
+
+[01:17:34] Professore: quella parte di gestione dell'Interrupt è la parte più bassa, più vicina all'albero ovviamente, e su quella poi insistono, lavorano i device driver, perché tramite questo interfacciamento dell'Interrupt è proprio lo strato con cui vanno a comunicare con la periferica, cioè quando il dato è pronto, arriva l'Interrupt, c'è l'handler della routine di servizio dell'Interrupt, chi è che poi va a gestirne
+
+[01:18:05] Professore: risultati il device driver, ok?
+
+[01:18:07] Professore: Quindi si sveglia poi il device driver che è sempre dentro il kernel che viene gestito.
+
+[01:18:17] Professore: Quindi vedete qui ci stanno un po' di esempi, qui c'è una io richiesta, non so, una read, quindi prima passa attraverso una richiesta generica che viene smistata su un dispositivo generico, non so, su un dispositivo a blocco,
+
+[01:18:34] Professore: questa poi viene a seconda del dispositivo particolare quindi si chiama c'ha un nome il dispositivo ok quel nome si mappa poi su un driver il driver poi va a fare diciamo così la sua richiesta quindi l'interfaccia che si occupa di interrupt rimane poi reagirà quando sarà pronta
+
+[01:19:04] Professore: la risposta quindi quando il dispositivo è pronto quindi c'è il wake up questo wake up poi sveglia il driver quindi si occupa di dare la possibilità al processo cioè a quella kernel thread se vogliamo che va a gestire o comunque quella parte del kernel che va a gestire quella in realtà poi dipende come effettivamente è gestito questo
+
+[01:19:36] Professore: Questo può essere una routine, in realtà viene chiamata una routine del device driver che andrà a chiudere questa operazione.
+
+[01:19:48] Professore: Poi questa operazione a questo punto verrà comunicata come esito a quella API che gestiva quell'operazione e poi viene dato la risposta
+
+[01:20:05] Professore: all'utente quindi vedete abbiamo che i driver non fanno ovviamente non devono fare system call perché sono già dentro cioè sono chiamati da system call quindi i driver devono interagire quindi allocando e allocando
+
+[01:20:33] Professore: delle pagine di memoria come buffer devono gestire direttamente MMU, DMI, Interrupt Controller, eccetera, eccetera.
+
+[01:20:41] Professore: Quindi è di basso livello la loro funzionalità, quindi in un certo senso devono gestire lato controller questi elementi.
+
+[01:21:03] Professore: Allora, esistono queste interfacce scan, interfacciarsi però in modo, diciamo così, in modo, come avevo detto, raggruppato a diversi tipi di dispositivi.
+
+[01:21:23] Professore: Scusate, questa qua è un po' confessa.
+
+[01:21:27] Professore: Questa slide.
+
+[01:21:29] Professore: Comunque, vediamolo un attimo così andiamo sul concreto.
+
+[01:21:33] Professore: Quindi vedete per esempio qua un'interfaccia standard, che può essere quello che ti dicevo prima.
+
+[01:21:40] Professore: Cioè per esempio abbiamo delle operazioni sul disco, sul dispositivo a block ops, che possono essere abilitate e che poi devono essere implementate.
+
+[01:21:51] Professore: Quindi quello che viene in qualche modo messo a disposizione dal sistema I.O., questo diciamo astratto di alto livello,
+
+[01:22:02] Professore: Sono una serie di funzioni, prototipi di funzione che poi possono essere non tutte selettivamente implementate.
+
+[01:22:15] Professore: E quindi quando si carica un driver in realtà si carica una tabella dei puntatori supportati.
+
+[01:22:25] Professore: e quindi in un certo senso quando c'è la chiamata a quella funzione se quella funzione è abilitata quindi tramite quella tabella si va a chiamare quella routine che serve a operare quella funzionalità quindi quando un vendor crea una periferica
+
+[01:22:54] Professore: avrà il controllore e poi deve conoscere il dettaglio della comunicazione col controllore di basso livello, quindi questo in realtà si deve riferire più ai controllori, non al lato del sistema operativo.
+
+[01:23:10] Professore: Per andare invece lato sistema operativo, questo viene gestito da queste funzionalità.
+
+[01:23:20] Professore: Queste disaccoppiano l'autonivello, cioè il
+
+[01:23:24] Professore: lo strato a io astratto quindi il sottosistema astratto del kernel con invece la parte concreta che viene lasciata al vendor che deve parlare quindi in questa lingua allora comunque magari questo se interessa possiamo approfondirlo magari la prossima volta quello che
+
+[01:23:53] Professore: è importante, insomma, una prima approssimazione è andare a classificare, vedete, il tipo di device, quindi ci sono una serie di coordinate che uno deve andare a considerare, character stream oppure block.
+
+[01:24:10] Professore: Poi è sequenziale o random access.
+
+[01:24:12] Professore: Per esempio, se l'accesso è sequenziale, allora io non posso fare il SICK, ok?
+
+[01:24:19] Professore: Cioè non posso spostare la testina di lettura.
+
+[01:24:22] Professore: ok perché mentre invece se è random access allora io posso posso farlo poi sincrono o asincrono il trasferimento dei dati la risorsa è dedicata oppure può essere condivisa perché poi magari posso fare contemporaneamente più più richieste la velocità delle operazioni quali sono appunto le operazioni che posso supportare read write
+
+[01:24:52] Professore: ridondi, tra i tondi eccetera eccetera e quindi qui abbiamo alcuni esempi di classificazioni e chiaramente a seconda del tipo di dispositivo saranno esportate delle API differenti che possono essere poi abilitate o non abilitate quindi il meccanismo è quello che abbiamo detto qui ci sono un po' di esempi
+
+[01:25:28] Professore: Allora, qui vediamo dispositivi a blocco, dispositivi a carattere, memory mapped, file access, pure questo è una modalità differente rispetto all'accesso, quindi sono accessi differenti, quindi quando facciamo il memory mapped, poi non abbiamo più fatto, ah vi devo lasciare le slide degli esercizi che non ve l'avevo lasciate.
+
+[01:26:00] Professore: e poi network stocket vedete sono una tipologia diversa e poi attenzione che ci sono anche altre periferiche a cui uno non pensa quindi altri dispositivi sarebbero più che periferiche che sono per esempio i timer anche quelli posso appunto andare ad accedere sono questi
+
+[01:26:27] SPEAKER_00: I timer non venivano fatti con il clock del processore?
+
+[01:26:31] Professore: Sì, però possono essere interrogati anche questi tra quasi tutti i linguaggi c'è anche il timestamp.
+
+[01:26:43] Professore: Io con timer per esempio ho delle funzionalità quindi sono speciali proprio questi per poter accedere comunque
+
+[01:26:51] SPEAKER_00: si accede tramite delle richieste che devono essere implementate a livello di IOP se non sbaglio in C perché lo fece un nostro amico quando siamo venuti qua per gli algoritmi di ordinamento ci fece un programmino che leggeva i cicli di clock addirittura non so se si può fare anche ricordo bene nei sistemi moderni ci sta anche
+
+[01:27:21] Professore: un timer per ogni cord, quindi ci sono vari timer, quindi bisogna seconda se uno vuole, perché c'è un clock proprio di sistema, quindi è quello che è interrogato, poi ci sono i vari timer, perché ogni timer, per esempio, dovunque c'è uno scheduler, proprio per la gestione dei time slice, c'è un suo timer, quindi alcuni sono interrogabili, altri meno accessibili,
+
+[01:27:50] Professore: però ce ne stanno tanti, quindi ci sono una serie di funzionalità che possono essere interrogate, e qui però non è POSIX, di solito queste funzionalità non sono implementate da standard a POSIX.
+
+[01:28:14] Professore: Ok, torniamo un attimo...
+
+[01:28:19] Professore: Allora, qui quello che mi interessa innanzitutto è andare a definire un po' queste caratteristiche dei dispositivi.
+
+[01:28:32] Professore: Ah, un'altra cosa, poi per esempio in Unix esiste per, diciamo, accedere, una specie di passpartout per accedere per alcuni controlli input-output,
+
+[01:28:48] Professore: è possibile utilizzare questa IO control, quindi manda dei bit arbitrari ad un device control register, quindi questo può funzionare su vari tipi appunto di dispositivi, quindi gli si dà l'identificatore del dispositivo, l'intero che identifica il comando e poi l'indirizzo della struttura.
+
+[01:29:14] Professore: Per esempio appunto uno può andare a vedere
+
+[01:29:18] Professore: con ls-l su dev, i vari dispositivi che sono praticamente installati e poi appunto i dispositivi sono associati ad un numero che indica la tipologia e poi per ogni tipologia c'è un secondo numero che identifica quale è quello di quella tipologia
+
+[01:29:40] Professore: e quindi attraverso per esempio alcuni comandi passpartout, quindi a livello proprio basso, si possono indirizzare dei comandi, quindi si possono comandare a basso livello questi dispositivi.
+
+[01:29:59] Professore: Allora, i device block e charter sono quelli in un certo senso più tipici,
+
+[01:30:10] Professore: Questo abbiamo già visto che ci sono delle funzionalità appunto di fase, quelle appunto dei comandi read, write, seek si traducono su comandi a dispositivi di blocco, mentre invece quelli charter devaris stream che appunto
+
+[01:30:35] Professore: implementano comandi tipici che riguardano il prendere e il mettere dei byte sul flusso e poi ci sono ulteriori comandi che gestiscono anche il buffering delle operazioni e fanno anche l'interpretazione a seconda di qual è il tipo di interfacciamento su questo tipo di dispositivi
+
+[01:31:02] Professore: permettono di fare operazioni anche più complesse sul flusso di byte quindi permettono di fare una sorta di interpretazione e di traduzione del flusso di byte dispositivi di rete soprattutto le interfacce riguardano la modalità di comunicazione tramite socket non so se avete mai lavorato sulle socket non ho mai lavorato
+
+[01:31:32] Professore: Però magari quello potrebbe essere materia per fare anche un'ulteriore esercitazione, magari su socket e comunicazione di rete, poi lo rivedrete all'esame di reti.
+
+[01:31:45] SPEAKER_00: Noi abbiamo tecnologie web, non so se è lì, oppure sistemi operativi mobile IoT, però quella è la magistrale.
+
+[01:31:52] SPEAKER_01: Reti?
+
+[01:31:53] SPEAKER_00: Reti e programmazioni distribuite.
+
+[01:31:55] SPEAKER_00: Qui e lì?
+
+[01:31:58] SPEAKER_00: Non li ricordo tutti, grazie.
+
+[01:32:01] Professore: La programmazione distribuita riguarderà proprio anche la programmazione.
+
+[01:32:11] Professore: Si possono poi definire vari tipi di protocollo a seconda della tipologia di comunicazione che si vuole fare, quindi sono configurabili, sono una sorta di
+
+[01:32:22] Professore: Ecco, c'è interfacce che permettono di comunicare su qualunque tipo di rete, ok?
+
+[01:32:30] Professore: Queste sono state introdotte sempre a Berkeley, nella BSD, Berkeley Software Distribution, e sono diventate parte proprio del sottosistema I.O., prima dei sistemi Unix e poi universalmente, ok?
+
+[01:32:51] Professore: e queste hanno una loro modalità dei loro protocolli e quindi le primitive per esempio oltre a read and write che sono comunque supportate perché io posso scrivere su questa socket come se fosse una comunicazione inter processo dove i processi però stanno su macchine differenti
+
+[01:33:17] Professore: però ci sono altre primitive sendre, cifre, send2 eccetera che sono specifiche per quel tipo di comunicazione quindi ci serve una modalità di versacciamento alla rete che deve supportare una serie di ulteriori strumenti che sono diversi rispetto per esempio allo stream eccetera eccetera ok?
+
+[01:33:44] Professore: quindi perché poi
+
+[01:33:46] Professore: Per esempio in rete posso sia lavorare come stream, quindi posso creare un flusso di byte da un processo all'altro, ma poi posso lavorare anche con i pacchetti, quindi posso mandare dei messaggi e questo all'indirizzo del destinatario, quindi può essere con la connessione, senza connessione, quindi vogliono una sorta di interfaccia separata.
+
+[01:34:13] Professore: appunto chara ter device ve l'ho detto questi sono appunto dispositivi che di solito cioè modalità di interfacciamento con queste periferiche che di solito passano le diciamo richieste come passano i dati in modo concluso abbastanza abbastanza diciamo senza un pre processamento di questi però
+
+[01:34:40] Professore: ci fanno eccezione le comunicazioni con i terminal device quindi terminal device tutti quelli che appunto vedete con il TTY per esempio ogni volta che voi aprite una shell la shell è un processo e il processo si aggancia comunque ad una terminale e il terminale serve per parlare con la tastiera con lo schermo
+
+[01:35:09] Professore: con lo standard error eccetera eccetera quindi il terminale in realtà quindi è un tipo di device astratto poi ci sono i device quelli proprio diciamo supportati nativamente dal kernel e poi ci sono quelli che sono i virtual device che derivano invece dall'ambiente grafico
+
+[01:35:29] Professore: quelli che usate voi sono appunto quelli virtuali, però comunque sono device, vengono trattati, quindi sono dei dispositivi, non importa il livello di astrazione, comunque sono dispositivi e quindi sono gestiti dal sottosistema IO, ok, di input-output, e ci sono delle interfacce pure per quelli.
+
+[01:35:46] Professore: In più hanno anche, in questo interfacciamento appunto, hanno quella che si chiama una line discipline, cioè una disciplina di linea,
+
+[01:35:57] Professore: è la capacità quindi di lavorare su questi stream non solo come flusso raw diciamo così di byte che arrivano e che vengono mandati ma c'è un interprete che lavora su questo flusso quindi quando voi mandate questi byte può lavorare un interprete innanzitutto può fare una serie di cose tra cui
+
+[01:36:26] Professore: appunto fa operazioni per esempio di line editing, può cancellare alcuni caratteri, per esempio può convertire i carriage return, cioè quello che sarebbe, non so, un carattere per esempio di slash R, che sarebbe proprio il classico carriage return, non so se avete mai visto le macchine da scrivere, che si arriva da una parte, e diventa per esempio slash N, che diventa la capo, ok?
+
+[01:36:52] Professore: Quindi una cosa...
+
+[01:36:55] Professore: tanto per fare un esempio però ci sono altri caratteri speciali che magari vengono gestiti da questa line discipline quindi non c'è solo il flusso di byte questo flusso di byte passa attraverso un interprete che filtra ed eventualmente fa delle operazioni tra cui fa anche operazioni di bufferizzazione di alcune parti di questi flussi di dati quindi quando si parla
+
+[01:37:24] Professore: questi, diciamo così, terminali abbiamo appunto una serie di ulteriori funzionalità che non sono soltanto quelle basiche di un charger device, sono quindi dei charger device che sono un altro potenziato, quindi potete vedere così questa, vedete qua abbiamo
+
+[01:37:51] Professore: le caratteristiche, non so, qui c'è il file system, la IOScheduler, qui abbiamo il block device, qui abbiamo per esempio il manager, proprio anche delle comunicazioni stasi sui bus.
+
+[01:38:06] Professore: Qui abbiamo il Caracter Demise Driver, però sopra questo abbiamo il Pty Driver che contiene questa, diciamo quella che si chiama Line Discipline, praticamente è questa sorta di stradello software che fa piccole operazioni sopra questo flusso di dati e poi appunto il network
+
+[01:38:33] Professore: che è una tipologia di gestione della scheda di rete.
+
+[01:38:52] Professore: Quindi io direi che possiamo per ora fermarci qui, tanto queste cose magari le rivediamo la prossima, cioè il lunedì, martedì ci siamo, e magari non so se martedì fare anche un altro po' di esercitazione, sempre sui trial, ok?
+
+[01:39:12] Professore: Quindi finiamo questa parte sulla I.O.
+
+[01:39:16] Professore: e facciamo un'altra...
+
+[01:39:19] Professore: Un'altra parte di esercitazione sul... Oppure preferite fare... Perché lì è tardi, no?
+
+[01:39:24] Professore: Cioè, facciamo tardi, quindi siete stanchi, preferite fare le esercitazioni, i laboratori... Non lo so, alla fine... Oppure preferite farlo... Professore, se posso... Noi dopo la IU...
+
+[01:39:38] SPEAKER_00: Quanti argomenti mancano?
+
+[01:39:39] Professore: Diciamo che abbiamo quasi terminato il programma, qualche dettaglio su alcune cose, però siamo molto vicini ad altri stanni, infatti non so perché, sono andato un po' più veloce.
+
+[01:39:52] Professore: Volevo fare anche un po' di laboratori per integrare quegli aspetti di laboratorio che voi non farete nel laboratorio dei sistemi operativi, quindi vorrei
+
+[01:40:05] Professore: se siete d'accordo.
+
+[01:40:07] SPEAKER_00: No, il professore è lei che ha lezioni.
+
+[01:40:10] Professore: No, perché quella parte magari ve la chiederò forse un po' di meno all'esame, quindi sarà un po' più... perché l'esame, se no non voglio appesantirlo facendo... nel laboratorio c'era un progetto da fare, ok?
+
+[01:40:25] Professore: C'erano dei... però qui è più invece teorica questa cosa, quindi all'esame scritto vi darò invece piuttosto dei
+
+[01:40:37] Professore: dei programmi da completare, per esempio, con il to do come abbiamo fatto nelle varie esercitazioni.
+
+[01:40:43] Professore: Quindi in un certo senso queste esercitazioni vi servono anche per la preparazione dell'esame.
+
+[01:40:50] SPEAKER_00: Poi questa persona ha una domanda un po' più... Allora, noi siamo vicini all'inizio della sessione.
+
+[01:40:57] SPEAKER_00: Per chi fa il preappello, più o meno all'orale ci può dire quando ce lo mette, perché ci serve per organizzarci per...
+
+[01:41:03] Professore: Allora io vorrei mettervelo appena sono finite ufficialmente le lezioni, cioè non prima della fine ufficiale.
+
+[01:41:16] Professore: Sì, vorrei fare così, però magari mi informo se riesco anche ad anticipare qualcosa.
+
+[01:41:21] SPEAKER_00: il professore ci dica perché se ci mettono una data all'orale magari perché noi per esempio ci hanno messo già all'esame di analisi e progettazione di algoritmi e statistica 15 e 16 e già quello non si può fare purtroppo noi dobbiamo fare qui esami in un mese ci dica lei così il problema qual è?
+
+[01:41:41] Professore: è che quando se non sono ancora finite le lezioni le aule sono in linea
+
+[01:41:49] Professore: Quindi siccome spero che stiate a passare la prova scritta, magari utilizzo per la prova orale, altrimenti possiamo vedere questa cosa, quindi due cose devo verificare.
+
+[01:42:11] Professore: Diciamo che se è fattibile,
+
+[01:42:14] Professore: anticipare anche prima della fine delle elezioni.
+

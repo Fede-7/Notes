@@ -1,0 +1,858 @@
+[00:09] Professore: per l'Io di basso livello quindi a parte di sistema che in parte già abbiamo cominciato a vedere sulle altre esercitazioni che abbiamo fatto trovate su Teams innanzitutto dei file che vi ho preparato con un to do quindi che vanno completati in modo tale che così non dovete dovete soltanto aggiungere alcune parti
+
+[00:37] Professore: e potete in qualche modo fare più esercizi, altrimenti scrivere da capo tutto quanto diventa complicato.
+
+[00:46] Professore: Allora, cominciate a guardare su Teams, sulla pagina nostra del corso, su materiale didattico, ci sono alcuni, diciamo così, su esercitazioni credo 4, potete vedere dei pezzi di codice.
+
+[01:04] Professore: Allora, cominciamo a vedere
+
+[01:06] Professore: quindi delle chiamate di sistema POSIX standard, che sono disponibili sui sistemi Unix compatibili, che servono per la gestione dei file e che saranno materia dell'esercitazione di oggi.
+
+[01:23] Professore: Allora, innanzitutto, vedete, questa è la chiamata di sistema POSIX,
+
+[01:28] Professore: diciamo così, l'interfaccia per chiamare, per invocare la chiamata di sistema open.
+
+[01:37] Professore: In questa formulazione appunto standard POSIX, voi vedete che prende come primo argomento il path name, ok?
+
+[01:48] Professore: Quindi il path che porta sul sistema delle dirette, sul file system,
+
+[01:55] Professore: porta alla locazione del file.
+
+[01:59] Professore: Poi avete qui un flag che indica in che modo può essere aperto questo file.
+
+[02:07] Professore: Qui ci sono delle macro che dicono read only, write only, poi append, poi ce ne sono altre che possono essere per esempio create, in modo tale che se non esiste il file, questo viene direttamente creato.
+
+[02:22] Professore: Esisterebbe anche la chiamata di sistema create direttamente, però diciamo che possiamo usare questo.
+
+[02:28] Professore: E poi...
+
+[02:29] Professore: nel momento in cui viene creato il file gli si possono dare le protezioni quindi gli si possono dare per esempio i permessi quindi per esempio vedete read allo user write allo user eccetera eccetera quindi questa è la chiamata di sistema open che restituisce ecco la cosa interessante restituisce il file
+
+[02:59] Professore: il file descriptor che è proprio quell'indice che troverete di cui abbiamo parlato l'altra volta che è praticamente il canale di accesso al file cioè questo file descriptor abbiamo detto che quando si lancia un processo sono già aperti canali per lo standard input standard output standard error quando si apre un file viene diciamo chiamato
+
+[03:28] Professore: viene aperta un collegamento con questo file descriptor sulla tabella dei file aperti, quella del processo, poi da lì si va alla tabella dei file aperti di sistema e poi da lì si va ai file descriptor che sarebbero appunto nel caso di Linux, gli inode,
+
+[03:57] Professore: e poi si va direttamente sui blocchi, ok?
+
+[04:00] Professore: Da lì.
+
+[04:01] Professore: Quindi abbiamo tutto questo percorso che viene fatto.
+
+[04:05] Professore: Quindi qui abbiamo, quando si fa la open, essenzialmente questa è quell'operazione attraverso la quale si creano tutti questi metadati per la gestione del file.
+
+[04:18] Professore: Se fallisce, quindi se nell'invocazione, questa è una chiamata di sistema, lo fa il kernel questa roba qui,
+
+[04:24] Professore: ok se fallisce risultato meno 1 ok e poi quindi la open se è successo il file viene aperto e il puntatore di lettura del file viene posizionato sul primo elemento del file a meno che il file non è aperto in append allora viene messo la testina di lettura viene l'offset del file viene messo in fondo
+
+[04:54] Professore: Quindi vedete questo è un esempio, open, provide.txt, qui vedete in bitwise avete che l'apertura è write only, create, quindi se non c'è si crea, e poi qui nel caso in cui venga creato, nell'ultimo argomento, ci avete i vari permessi, quindi io lo creo con i permessi di lettura, scrittura per l'utente.
+
+[05:21] Professore: È chiaro?
+
+[05:22] Professore: Ci siete?
+
+[05:25] Professore: poi ovviamente come già vi avevo detto si può usare anche direttamente la create per creare un file quindi in questo caso si associa il nome del file a un file che viene aperto in un determinato modo quindi questa qui a che cosa corrisponde?
+
+[05:41] Professore: corrisponde alla creazione di un file vuoto con un nome e si crea il metadato corrispondente a questo file vuoto
+
+[05:53] Professore: Quindi ci sarà la struttura, il file control block, e questo non viene aperto, viene appunto... No, si ottiene il file descriptor, quindi viene aperto, e caso di errore, meno uno.
+
+[06:10] Professore: Quindi si crea e viene aperto.
+
+[06:17] Professore: Close per chiuderlo.
+
+[06:19] Professore: Quindi un file, come viene aperto,
+
+[06:22] Professore: può essere chiuso, ok?
+
+[06:24] Professore: Quindi quando si chiude il file, quindi chiudendolo, a quel punto il file deve, cioè il sistema operativo deve garantire che poi il file sia riversato appunto nella memoria secondaria.
+
+[06:44] Professore: Poi, simmetrico alla read, abbiamo la write, vedete, prende un
+
+[06:52] Professore: anzi no, non l'abbiamo vista la read.
+
+[06:55] Professore: Quindi vediamo la write, la write che cosa prende?
+
+[06:58] Professore: Prende il file descriptor, quindi non prende il nome del file, prende il file descriptor, prende una, diciamo così, dei byte rappresentati come degli array di caratteri, ok?
+
+[07:13] Professore: E poi n vi dice quanti ne deve scrivere.
+
+[07:16] Professore: E quindi...
+
+[07:17] Professore: restituisce poi quanti effettivamente ne ha letti perché un conto è quello che io gli chiedo al sistema di fare un conto è quello che fa veramente ok?
+
+[07:26] Professore: meno 1 in caso d'errore quindi il carattere end of file marca la fine del file attenzione che a livello di questo viene gestito l'end of file viene gestito a livello di diciamo libreria non viene gestito a livello di
+
+[07:47] Professore: a livello di file, ok?
+
+[07:53] Professore: Cioè non trovate il carattere end of file.
+
+[07:59] Professore: Poi la read è simmetrica, vedete, abbiamo la file descriptor, poi in questo caso gli si passa un array, ok, che viene riempito con i byte letti dal file.
+
+[08:16] Professore: Ok, adesso abbiamo il materiale minimo per cominciare a fare il primo esercizio, quindi abbiamo l'esercizio numero 1 che combina i fork e il concetto di file descritto.
+
+[08:34] Professore: Quindi questo è l'esercizio, grazie.
+
+[08:37] Professore: Allora, l'esercizio prevede di scrivere un programma CPOSIX che fa comunicare padre e figlio tramite file, cioè fondamentalmente il programma riceve una riga di comando, quindi dovete, la riga di comando riceve sia il nome del file che una stringa, quindi poi il file, questo file viene creato o aperto, a seconda se già esiste oppure no, prima della fork, crea
+
+[09:07] Professore: Quindi un processo figlio con fork, ok?
+
+[09:15] Professore: Il figlio dovrà scrivere la stringa nel file, il padre aspetta con un wait, ok?
+
+[09:23] Professore: Il figlio.
+
+[09:23] Professore: E poi il padre legge il contenuto del file e lo stampa in standard output.
+
+[09:28] Professore: Ok?
+
+[09:29] Professore: Chiaro?
+
+[09:31] Professore: Adesso trovate l'esercizio 1 to do sul...
+
+[09:38] Professore: su Teams e dove è più o meno impostata la struttura e dovete in qualche modo aggiungere alcune parti di questo.
+
+[09:54] Professore: Qui c'è da fare un piccolo ragionamento sul fatto che l'apertura del file avviene prima della porta
+
+[10:06] Professore: Quindi avvenendo prima della fork, questi file aperti vengono ereditati sia dal padre che dal figlio.
+
+[10:14] Professore: Quindi non dovete fare due open, si fa un po' come la pipe, la pipe si fa prima e poi i due processi ereditano i file descriptor e la stessa cosa avviene con i file.
+
+[10:26] Professore: Quindi il file aperto, quindi dovete aprirlo prima in sia lettura che scrittura, in modo tale che
+
+[10:34] Professore: Chi scrive, e cioè il processo figlio, ce l'ha aperto, lo userà in scrittura, il processo invece padre, quando aspetterà il figlio, e poi scriverà, ok?
+
+[10:49] Professore: Quindi leggerà e poi scrive in standard output.
+
+[10:55] Professore: Quindi ottiene queste stringhe e le stampa in standard output, ok?
+
+[11:03] Professore: volete provare a fare questo questo esercizio magari nel frattempo vi faccio vedere qual è la struttura
+
+[11:38] Professore: S, esercizio, fai l'uno, tutto due.
+
+[11:49] SPEAKER_03: Non si vede molto.
+
+[11:50] SPEAKER_03: Non si vede molto.
+
+[12:05] SPEAKER_05: Si vede un po' meglio.
+
+[12:10] Professore: Qui c'è il controllo sugli argomenti, quindi dovete controllare che gli argomenti siano tre, perché tre?
+
+[12:20] Professore: Perché uno è il nome del programma, poi il primo argomento, il secondo argomento.
+
+[12:27] Professore: Poi, vi serve il file name che viene letto nell'argomento 1 e poi il messaggio nell'argomento 2.
+
+[12:40] Professore: Ok?
+
+[12:40] Professore: Quindi gli date un nome nella compilazione, no?
+
+[12:43] Professore: GCC, sorgente, meno, destinazione, oppure come volete, meno.
+
+[12:49] Professore: Insomma, il meno è l'eseguibile, cioè dopo il meno è l'eseguibile.
+
+[12:58] SPEAKER_03: E andiamo a vedere qua.
+
+[13:05] SPEAKER_03: Quindi qui ci avete...
+
+[13:07] SPEAKER_03: Qui non si vede qual è il to do, il compito che dovete fare, ma dovrebbe essere l'apertura.
+
+[13:14] Professore: Sì, apertura e scrittura, quindi dovete aprire il file in apertura e scrittura.
+
+[13:22] Professore: File 1, giusto?
+
+[13:24] Professore: Sarebbe questo qua che gli passate voi.
+
+[13:29] Professore: Il nome glielo date voi.
+
+[13:31] Professore: Se appunto volete contestualmente crearlo...
+
+[13:35] Professore: Mettete in Bitwise create, quando fate la open dovete mettere slash o, anzi pipe, il simbolo appunto di pipe o underscore create, create
+
+[14:06] Professore: e quindi qui innanzitutto ci deve essere l'apertura del file che deve essere in read write poi ecco qua questa la dovete fare
+
+[14:36] SPEAKER_03: poi si controlla se c'è l'errore, poi a questo punto si fa il fork, questo è facile, poi dopo il fork si controlla, questo sarà il codice del figlio, qui c'è la bright, il figlio deve fare la bright, e poi qui il padre deve aspettare il figlio, ah ecco questo è interessante,
+
+[15:07] Professore: Vedete che a un certo punto il padre perché deve fare il SIC?
+
+[15:13] Professore: Questo è il SIC 0-SICSET, che cosa significa?
+
+[15:16] Professore: Significa che sposta l'offset da dove sta all'inizio, perché in questo caso stanno condividendo, siccome è una sola open che è stata fatta,
+
+[15:31] Professore: Quindi una sola open nella tabella dei file aperti si porta dietro anche una sola posizione della testina di lettura, dell'offset.
+
+[15:41] Professore: Quindi questo significa che poi appunto il file dovrà essere l'offset, che sarebbe il punto in cui il processo sta leggendo quel file, deve essere riportato su.
+
+[15:56] Professore: Dovete fare una sorta di rewind, ok?
+
+[15:58] Professore: Con questa...
+
+[16:00] Professore: con questa operazione e poi qui si fa la read basta leggere i byte che servono e poi queste vedete queste qui sono le scritture in standard output vedete è una write con un canale stdout file no queste sono praticamente le macro che indicano il canale di scrittura
+
+[16:30] Professore: standard output e poi appunto si fa la close del file.
+
+[16:35] Professore: Questa sarebbe la struttura quindi avete bisogno innanzitutto quindi la prima cosa fate la open
+
+[17:02] Professore: la prima cosa qui è la open dovete aprire il file quindi il file potete anche lasciarlo potete creare o crearlo uno voi oppure appunto se non lo vediamo se ci sono qui vari flag
+
+[17:38] Professore: ci state provando?
+
+[18:24] SPEAKER_04: Potete anche cercare le modalità con cui è aperto.
+
+[18:54] Professore: vedete se volete aprirlo con modalità create ok se lo volete far aprire cioè creare nel caso in cui non c'è e poi se si mette anche questo qua per esempio underscore track significa che se c'è
+
+[19:19] Professore: questo è pericoloso se lo mettete perché nel momento in cui c'è lo può azzerare quindi attenzione questo soltanto se lo volete azzerare se no non lo mettete perché se c'era già se voi mettete solo create senza questo lo lascia così com'è se c'era quindi questo magari non lo mettete e poi questo invece è per dare i permessi read and write
+
+[19:53] Professore: e poi se viene creato bisogna dare i permessi proprio questa è la modalità con cui viene aperto il file ma questi sono i permessi proprio del file quindi li potete dare anche volendo con un codice quindi questo significa 644 che cos'è 6?
+
+[20:17] Professore: lo ricordate?
+
+[20:18] Professore: 7 era tutto
+
+[20:25] Professore: lettura scrittura infatti se uno da 666 era lettura scrittura tutto mentre invece quasi da allo user al gruppo invece si dà 4 che era lettura quindi lettura lettura gruppo e il resto del mondo ok
+
+[20:50] Professore: Questo è una modalità di apertura del file.
+
+[20:55] Professore: Se invece non vi interessa crearlo, perché già l'avete creato voi a mano, allora qui si può lasciare nulla.
+
+[21:07] Professore: E poi si mette soltanto questo.
+
+[21:09] Professore: Quindi uno zero potete lasciare, un altro.
+
+[21:20] SPEAKER_05: Grazie.
+
+[21:48] SPEAKER_02: Scusa, va nella cartella?
+
+[22:13] SPEAKER_07: ...questa prova... ...questa prova... ...questa prova... ...questa prova... ...questa prova... ...questa prova...
+
+[22:27] SPEAKER_05: Perfetto, uno.
+
+[22:53] SPEAKER_07: Quindi questo è il nome del risparmio.
+
+[22:55] SPEAKER_07: E no, dovrebbe essere il contrario.
+
+[22:56] SPEAKER_07: Questo è il numero degli argomenti di questo.
+
+[23:21] SPEAKER_06: no aspetta aspetta aspetta aspetta aspetta aspetta aspetta aspetta aspetta aspetta aspetta aspetta aspetta aspetta aspetta aspetta aspetta aspetta aspetta aspetta aspetta aspetta aspetta aspetta aspetta aspetta aspetta aspetta aspetta aspetta aspetta aspetta aspetta aspetta aspetta aspetta aspetta aspetta aspetta aspetta aspetta aspetta aspetta aspetta aspetta aspetta aspetta aspetta aspetta aspetta aspetta aspetta aspetta aspetta aspetta aspetta aspetta aspetta aspetta aspetta aspetta aspetta aspetta aspetta aspetta aspetta aspetta aspetta aspetta aspetta aspetta aspetta aspetta aspetta as
+
+[23:52] SPEAKER_03: ok, da qui ci siete avete creato il file?
+
+[23:55] SPEAKER_03: ok, poi dopo dopo che avete creato il file vedete che
+
+[24:20] Professore: abbiamo questo file descritto qua poi andiamo leggermente giù fork ok?
+
+[24:34] Professore: questa fork che andate a mettere crea la duplicazione però attenzione non duplica l'apertura del file quindi rimane un'unica apertura del file
+
+[24:49] Professore: e anche il file descriptor questo qui rimane lo stesso ma assegnato ai due processi quindi dovete pensare che nella process control block ci avete entrambi esatto e vanno su un'unica quindi la tabella a livello del process control block a quella entry quindi il file descriptor sarà l'indice di questa tabella dei file aperti poi va a puntare su un'unica tabella
+
+[25:18] Professore: dei file aperti system wide perché a livello di sistema è una sola tabella dei file aperti e lì c'è l'offset del file quando lo aprite in questo modo qua a meno che non è aperto in append se non aggiungete append l'offset sta a zero quindi sta all'inizio del file ok?
+
+[25:38] Professore: quindi vi posizionate all'inizio del file poi con questa quindi dopo il fork qui dovete che era questo ce l'avete già dovete
+
+[25:48] Professore: procedere con la scrittura ok quindi la fate scrivere al video vedete i due processi sono due separati quindi lo spazio indirizzamento è diverso però che cosa succede succede che avete questo canale che vi porta sullo stesso file e uno può scrivere e l'altro può leggere
+
+[26:13] Professore: Potete anche provare eventualmente a farvi scrivere tutte e due e vedere cosa succede.
+
+[26:18] Professore: Ok?
+
+[26:19] Professore: Cioè potrebbero tutte e due andare a scrivere e andate a vedere che cosa succede.
+
+[26:24] Professore: Dovreste vedere che scrivono uno dopo l'altro perché la testina, l'offset, si sposta per entrambi.
+
+[26:31] Professore: Quindi anche se lavorano su due spazi indirizzamenti separati, però è la tabella dei file aperti che è condivisa che fa sì che la testina scenda per tutte e due.
+
+[26:41] Professore: Ok?
+
+[26:41] Professore: Quindi potete fare, dopo che avete prima fatto, fate il lavoro sul punto ride, dall'altra parte head.
+
+[26:56] Professore: Quindi vediamo prima di tutto, completate l'esercizio.
+
+[26:59] Professore: Qui si vedete, string, length.
+
+[27:02] Professore: Vi serve per sapere quant'è il messaggio che volete andare a scrivere.
+
+[27:08] Professore: Il messaggio è lì, ARV2, che sarebbe quella cosa che scrivete.
+
+[27:15] Professore: Può essere una stringa che andate a scrivere.
+
+[27:27] Professore: Ok?
+
+[27:30] Professore: Qui siete?
+
+[27:40] SPEAKER_03: Quindi questa è la scrittura.
+
+[27:47] Professore: Chi è che ha fatto?
+
+[27:49] Professore: Fatto?
+
+[27:50] Professore: Ok, bene.
+
+[27:56] Professore: Vedete c'è sempre l'errore.
+
+[27:59] Professore: Poi questo fa close.
+
+[28:03] Professore: A questo punto wait.
+
+[28:07] Sconosciuto: Ok?
+
+[28:09] Professore: Allora, chi ha fatto può provare a scambiare, a mettere, invece che read, mettere la write di un'altra cosa, magari del messaggio stesso, quindi invece di leggere, quindi fa un altro esercizio, lo chiama il file in un altro modo, questo lo lascia così com'è, quindi chiama il sorgente in un altro modo, fa un rename del sorgente e prova appunto adesso a far scrivere anche al...
+
+[28:36] Professore: al padre qualcosa e poi vedete su file attraverso il comando cat per esempio andate a vedere che cosa ha scritto dovrebbe scrivere in sequenza le due stringhe due volte il messaggio invece di leggerlo lo va a scrivere attenzione perché è importante poi vediamo perché è importante mettere la wait
+
+[29:04] Professore: perché prima deve scrivere il figlio e poi il padre va a leggere, ok?
+
+[29:12] Professore: Quindi ci deve essere una sincronizzazione perché altrimenti questa non è come una pipe da scrivere sul file, quindi usare il file come diciamo memoria condivisa se vogliamo non mi dà
+
+[29:33] Professore: non mi dà la sincronizzazione che mi dà una pipe, perché la pipe nella read, la read rimane bloccata, ok?
+
+[29:44] Professore: Cioè finché la pipe non è chiusa, la read aspetta i pipe che arrivano, invece qui in questo caso dal file la read legge quello che trova sul file in quel momento.
+
+[30:05] Professore: Quindi provate, chi ha fatto, provate a fare le due scritture e ditemi se, cioè chi ha fatto, chi prima finite, gli altri finiscano qui.
+
+[30:19] Professore: Daggiù, va bene?
+
+[30:21] Professore: Siete fatto?
+
+[30:23] Professore: Ok.
+
+[30:27] Professore: Quindi comunque qua, vedete questo è l'altro aspetto per quanto riguarda, attenzione,
+
+[30:34] Professore: no perché qui c'è l'elsic per farli scrivere di seguito non dovete fare l'elsic ok?
+
+[30:39] Professore: dovete commentare quell'elsic perché sennò la testina ritorna sopra e sovrascrive ok?
+
+[30:45] Professore: quindi il padre infatti vedete che qui ricordatevi che qui siamo su un altro processo quindi in questo caso ripeto il figlio ha scritto sul file e ha mosso la testina fino alla scrittura e poi il padre
+
+[31:04] Professore: si ritrova la testina in fondo al file ed è per diciamo rileggere cioè per leggere deve ritornare su ok?
+
+[31:13] Professore: mentre se volete fargli scrivere da capo allora dovete commentare questo ok?
+
+[31:20] Professore: perché altrimenti sovrascrive ok?
+
+[31:36] SPEAKER_02: Comunque questo è quello che sarebbe la lettura e poi questa è la scrittura.
+
+[31:47] SPEAKER_02: Questo sarebbe il primo esercizio.
+
+[31:53] Professore: La variazione di questo esercizio potrebbe essere quella di togliere e commentare appunto questo è il SIC.
+
+[32:00] Professore: poi va a diventare questa invece che una write una read e vedere che ci sono due scritte una sotto l'altra l'avete fatto?
+
+[32:13] SPEAKER_07: mi stampa solo la seconda write se tolgo del sito non mi stampa il mio input, quello che do in input al programma
+
+[32:27] SPEAKER_03: No, dovrebbe... Cioè, con l'elsink si torna su, vedi?
+
+[32:32] SPEAKER_03: Va a zero questa.
+
+[32:33] Professore: Va a zero questa.
+
+[32:55] Professore: Mentre invece se la lasci e la zicca ti mette i conseguitivi.
+
+[32:58] Professore: Sì, ti mette i conseguitivi.
+
+[32:59] SPEAKER_07: Ti mette ovviamente prima la seconda, cioè prima il padre.
+
+[33:03] SPEAKER_07: Ma la wait l'hai lasciata?
+
+[33:04] SPEAKER_07: La wait l'ho lasciata.
+
+[33:05] SPEAKER_03: Dovrebbe prima scrivere il figlio, e poi dovrebbe scrivere il padre.
+
+[33:09] SPEAKER_00: Invece mi scrive solo il padre.
+
+[33:24] SPEAKER_07: se invece metti l'elsic?
+
+[33:25] SPEAKER_07: se invece metto l'elsic me li scrive consecutivi mi scrive prima il padre sempre no, prima dovrebbe scrivere il figlio ma come fai a disiguere?
+
+[33:39] Professore: perché loro prendono lo stesso argomento
+
+[33:42] SPEAKER_07: No, alla seconda ho messo io un testo per distinguerti.
+
+[33:50] SPEAKER_07: No, ma hai ragione, stampa prima il figlio.
+
+[33:55] SPEAKER_02: Quello sicuramente perché c'è la sincronizzazione.
+
+[33:57] SPEAKER_02: Mentre invece se tu tolgo Let's Seek, ora riprovo, ma... Commenta Let's Seek.
+
+[34:10] SPEAKER_07: No, continua a stamparmi.
+
+[34:11] SPEAKER_07: Solo il padre?
+
+[34:13] SPEAKER_05: Cioè lo sovrascrive?
+
+[34:15] SPEAKER_05: Questo dovrebbe tornare su.
+
+[34:16] SPEAKER_05: 0 rispetto al 6x7.
+
+[34:34] SPEAKER_00: Quindi forse dove sta rimane, però allora come rimane?
+
+[34:39] SPEAKER_00: Fare il wide.
+
+[34:44] SPEAKER_04: Vabbè, poi controllo.
+
+[34:51] Professore: Questo dovrebbe essere il sick start.
+
+[34:55] Professore: Ti va?
+
+[34:56] Professore: Anche commentando?
+
+[34:59] Professore: Senza il sick ti rimette uno dopo l'altro.
+
+[35:02] Professore: Così dovrebbe essere.
+
+[35:09] Professore: il write sposta automaticamente l'offset nella tabella condivisa quella dei file aperti system wide e quindi dovrebbe ritrovarsi senza nel seek tranquillamente in successione
+
+[35:30] Professore: Provate anche gli altri, provate a commentare il SIC e mettere al posto della RID una Bright con qualunque cosa qui dentro.
+
+[35:40] Professore: Con il messaggio per esempio oppure un'altra cosa.
+
+[35:55] SPEAKER_02: Mettete la lunghezza di quello che scrivete.
+
+[36:24] Professore: comunque questo era una cosa l'altra cosa che potete provare a fare poi una volta fatto questo eventualmente potete commentare il wait
+
+[36:40] Professore: Se commentate il wait che cosa succede?
+
+[36:42] Professore: Padre e figlio vengono schedulati a caso.
+
+[36:46] Professore: Quindi potrebbero scrivere o prima al padre o prima al figlio oppure anche interfogliarsi volendo.
+
+[36:55] SPEAKER_07: Può essere che il problema sia il fatto che gli do io il testo e non lo prende in input dal comando?
+
+[37:11] SPEAKER_07: Per questo mi scrive prima uno e poi l'altro.
+
+[37:14] Professore: Comunque è una Brite che dovrebbe venire sincronizzata dalla wait, quindi il padre aspetta il figlio, il figlio scrive però il file rimane aperto.
+
+[37:23] Professore: e la posizione dell'offset rimane dentro la tabella dei file aperti che è praticamente indipendente dal figlio cioè rimane lì finché almeno un processo sta tenendo quel file aperto ok?
+
+[37:36] Professore: in questo caso c'è il padre quindi dovrebbe arrivare il padre e dovrebbe scrivere infatti qui perché c'è questo lsic?
+
+[37:43] Professore: prova allora a fare così prova tu a fare una versione del primo programma commentando lsic sopra lo spostamento
+
+[37:53] Professore: Ma l'hai fatto dal sick set oppure da un'altra parte?
+
+[37:56] Professore: Perché ci sono vari modi di spostare la testina, dall'inizio, dalla fine.
+
+[38:02] Professore: È questo?
+
+[38:04] SPEAKER_07: Sì, è identico.
+
+[38:07] SPEAKER_07: Che è quello che c'era nelle sue slide.
+
+[38:13] SPEAKER_07: Così lo facevo.
+
+[38:14] Professore: Vediamo cosa c'è nelle slide, perché magari ci sono diversi modi di spostare la testina.
+
+[38:21] SPEAKER_07: No, comunque è identico a questo.
+
+[38:25] SPEAKER_07: Forse il fatto che sto anulando... No, vabbè, che c'entro.
+
+[38:39] Professore: Allora, aspettate che vi metto.
+
+[38:44] Professore: Vorrei avere anche altre slide.
+
+[38:46] Professore: No, stanno in giù.
+
+[38:46] SPEAKER_07: E che fa?
+
+[38:46] SPEAKER_07: Mi interiornato da provare.
+
+[38:52] SPEAKER_07: Questo pure ve lo condivido.
+
+[39:18] Professore: queste sono le varie modalità di apertura ecco l'offset è il SIG vedete SIG SET quando c'è il comando con l'offset con il SIG SET
+
+[39:48] Professore: viene settato a top byte dall'inizio del file, quindi lì c'era scritto che era 0 byte, quindi viene rimesso dall'inizio, ok?
+
+[39:57] Professore: Quindi è proprio un settato, dico dall'inizio del file.
+
+[40:00] Professore: Altrimenti se tu hai messo sync car, quindi l'offset corrente è incrementato di byte di più o di meno, a seconda del positivo o negativo, rispetto alla posizione corrente, altrimenti sync card è spostato e posto alla fine, ok?
+
+[40:19] Professore: Va bene, poi queste pure ve le lascio, magari ve le metto subito, così ci avete subito su Teams, così ci avete dentro il materiale.
+
+[40:58] Professore: Comunque avete fatto tutti questa cosa?
+
+[41:19] Professore: Ho messo anche questo ulteriore slide in condivisione.
+
+[41:30] Professore: Comunque, torniamo adesso a questo.
+
+[41:36] Professore: Vediamo quest'altra variazione sempre sul programma che avete fatto voi.
+
+[41:44] Professore: Adesso fate una cosa diversa.
+
+[41:48] Professore: Modificate il primo programma in modo tale che...
+
+[41:54] Professore: che cosa succede?
+
+[41:55] Professore: Sempre riceve il nome di file e una stringa, crea, questa volta la open la fate fare differenziata padre figlio, ok?
+
+[42:05] Professore: Quindi dopo la fork il padre fa una open in lettura, il figlio apre il file in scrittura, ok?
+
+[42:16] Professore: Questo significa quindi che verranno aperte due
+
+[42:20] Professore: Entri nella tabella dei file aperti, ok?
+
+[42:23] Professore: Quindi sarà sempre lo stesso file, ma sarà aperto in due modi diversi.
+
+[42:27] Professore: Quindi questo offset in questo caso è separato e quindi il padre non ha bisogno di fare lo spostamento della testina indietro col six set precedente.
+
+[42:38] Professore: Ok?
+
+[42:39] Professore: Chiaro?
+
+[42:40] Professore: Quindi provate semplicemente a riprendere il file...
+
+[42:46] Professore: precedente, quindi questa è una variazione 1 bis come esercizio, mi serve per farvi capire la differenza che c'è tra aprire una tabella condivisa da due processi, una entry dei file aperti condivisa da due processi e invece far sì che i due processi aprano due tabelle, una ognuna e quindi l'offset a quel punto di ognuno va per conto suo, quindi il padre è
+
+[43:15] Professore: il figlio scrive e l'offset va avanti, il padre ha il suo offset che rimane lì e quindi poi non ha bisogno di rispostarlo indietro per leggere.
+
+[43:28] Professore: Quindi provate questa variazione.
+
+[43:43] SPEAKER_05: Beh, quello è tutto grafico.
+
+[43:45] SPEAKER_07: Non devi toccare il bot.
+
+[43:48] SPEAKER_05: Tutta la parte prima.
+
+[43:50] SPEAKER_05: Cioè, sarebbe il tema.
+
+[43:53] Professore: Cioè, dovete semplicemente spostare la open, fare i tuoi open?
+
+[43:57] Professore: Una per il padre e una per il figlio, il padre aprirà in lettura, il figlio aprirà in scrittura.
+
+[44:07] Professore: Volendo per velocità potete anche fare sì che tutte e due aprano in lettura e scrittura, non cambia niente, quindi potete fare proprio il cut and paste di quella open, spostandola da prima del fork a dopo il fork.
+
+[44:23] Professore: Però a quel punto dovete
+
+[44:26] Professore: togliere il movimento della testina, ok?
+
+[44:29] Professore: Cioè non dovete spostare la testina direttamente.
+
+[44:32] Professore: Provate.
+
+[44:35] Professore: Cioè questo sono tutti piccoli esercizi che servono per farvi capire che c'è questa struttura dei file aperti.
+
+[44:53] Professore: quanti entri vengono aperte a seconda della... e come i processi comunicano, possono comunicare tramite file.
+
+[45:02] Professore: Attenzione, perché la comunicazione tramite file dei processi è peggiore rispetto a quella tramite pipe?
+
+[45:13] SPEAKER_04: Deve accelere la memoria...
+
+[45:19] SPEAKER_03: Deve accedere a memoria secondaria.
+
+[45:24] Professore: C'è parecchio più uso.
+
+[45:29] Professore: E in più non ci sono una serie di meccanismi di sincronizzazione implicita che avreste con le pipe.
+
+[45:34] Professore: Perché con le pipe la read diventa bloccante e aspetta, perché non viene chiusa la pipe, e aspetta il pipe.
+
+[45:46] SPEAKER_05: mi ha sposto il computer nel 2009 no no no no no no no no no no no no no no no no no no no no no no no no no no no
+
+[46:17] SPEAKER_05: Ubuntu che l'hanno ottimizzato per Asus.
+
+[46:19] SPEAKER_05: Devo cambiare Ubuntu o l'ho ottimizzato?
+
+[46:22] SPEAKER_05: No.
+
+[46:22] SPEAKER_05: Allora, questa è una storia molto bella Linux Open Source, però in base al tuo hardware ci sono delle distro ottimizzate meglio di Apple.
+
+[46:30] SPEAKER_05: Contro la marca.
+
+[46:32] SPEAKER_07: No, è perchè Asus praticamente... Stavo pulendo il lugo.
+
+[46:38] SPEAKER_05: Il lugo.
+
+[46:42] Professore: L'altra cosa che potete fare per vedere che cosa succede
+
+[46:46] Professore: è provare a sostituire, questo ovviamente è sbagliato, però la wait con una slip di un secondo, quindi per vedere che cosa succede quando comunque vengono lasciati andare insieme.
+
+[47:15] SPEAKER_05: Ma non era quel problema che ti edifici?
+
+[47:18] SPEAKER_07: Questa cosa... mi preoccupa.
+
+[47:23] SPEAKER_05: Non era tipo un problema... Certo, come il problema è veramente strano, stacco la presa, si spegne lo seremo.
+
+[47:34] SPEAKER_07: Non è vero, è successo anche a me con il vecchio computer.
+
+[47:36] SPEAKER_05: Sì, ma che cosa?
+
+[47:37] SPEAKER_05: Poi dopo un po' morì.
+
+[47:39] SPEAKER_05: Quello è nuovo, non credo.
+
+[47:40] SPEAKER_07: E' andato, era andato.
+
+[47:42] SPEAKER_07: ha fatto riportare?
+
+[47:43] SPEAKER_07: ti è piaciuto scurso a lei la schiena?
+
+[47:47] SPEAKER_05: bravo, è stata la schiena almeno il brutto eh, non è che magari ha risettato quello che tu avevi cambiato no, perchè non c'entra con grab bravo, tocca al butto non so perchè è diverso dal butto non so cosa sia
+
+[48:08] SPEAKER_07: Non toccare, non toccare, non toccare.
+
+[48:16] Professore: Avete provato anche questo?
+
+[48:19] Professore: Si mette un po', si mette.
+
+[48:23] Professore: Aspetti un secondo e poi dovrebbe fare, diciamo, però non è garantito il funzionamento, quindi se lo lanciate più volte potrebbe...
+
+[48:46] Professore: E comunque dipende quando viene schedulato prima il padre e prima il figlio.
+
+[48:50] Professore: Potrebbe il padre praticamente leggere prima del figlio e quindi niente.
+
+[48:58] Professore: E come si può avviare il problema?
+
+[48:59] Professore: No, no, bisogna sincronizzare con la wait.
+
+[49:02] Professore: Ok?
+
+[49:02] Professore: Quindi questo devo fare.
+
+[49:04] Professore: Sì.
+
+[49:05] Professore: Mentre invece, per esempio, se
+
+[49:07] Professore: con la pipe, nel momento in cui uno mette una pipe, la read, la differenza e il comportamento della read sul file, perché la read sul file se lo trova a vuoto, è vuoto il file, ok?
+
+[49:22] Professore: Mentre invece sulla pipe aperta, se legge la read sulla pipe aperta, aspetta, se non arrivano i dati e la pipe rimane aperta, aspetta i dati, ok?
+
+[49:32] Professore: la riba rimane bloccata su una piezo ma non su un pie.
+
+[49:38] Professore: Ok, allora se più o meno ci siete, mi dite se ci siete fino a qui?
+
+[49:44] Professore: Ok, adesso possiamo provare quest'altro esercizio che potete vedere che è il 2.
+
+[49:54] Professore: Fate un esercizio con l'Hell Seek, cioè si sposta la testina
+
+[50:01] Professore: dal basso verso l'alto e leggete uno dei file che avete creato al contrario quindi dovete posizionarvi alla fine del file per posizionarvi alla fine del file potete anche aiutarvi vi ho condiviso quelle slide in pdf
+
+[50:26] Professore: sull'io e quindi vedete che ci sono anche i posizionamenti oppure potete lavorare sul file length, sulla lunghezza del file, insomma si deve mettere prima la fine del file e poi leggere al contrario, però attenzione
+
+[50:53] Professore: byte a byte, ok?
+
+[50:54] Professore: Carattere a carattere, quindi che cosa bisogna fare?
+
+[50:57] Professore: Bisogna posizionarsi sopra, poi attenzione che quando andate a fare la lettura, quindi dovete posizionarvi, andare sotto, poi si legge, quello che si legge si scrive in standard output, e poi dovete riposizionarvi di due passi sopra, no?
+
+[51:19] Professore: Perché scende giù e dovete andare, è un po' come un gambero, no?
+
+[51:24] Professore: Per leggere al contrario dovete, quando legge scende automaticamente un byte, ok?
+
+[51:30] Professore: E poi per invece andare al contrario dovete, quindi risalire quello di prima più un altro.
+
+[51:36] Professore: Quindi dovete fare due, diciamo, el sic al contrario.
+
+[51:40] Professore: Quindi in questo caso lo spostamento sarà di meno, meno uno, meno due, ok?
+
+[51:45] Professore: Quindi scende di uno automaticamente e poi ogni volta che fate una scrittura risalite.
+
+[51:59] Professore: Questo è un tipico esercizio che lavora sulla testina, sull'offset di lettura del file.
+
+[52:11] SPEAKER_06: Chi mette una... una selezione?
+
+[52:13] SPEAKER_06: No, chiaro, chiaro.
+
+[52:14] SPEAKER_06: Sì?
+
+[52:14] SPEAKER_06: Sì.
+
+[52:14] SPEAKER_06: Ok.
+
+[52:41] SPEAKER_05: Vedi le opzioni di risparmio energetico.
+
+[52:57] SPEAKER_05: Vai, aspetta, ma hai fatto l'installazione automatica?
+
+[53:02] SPEAKER_00: Vedi, vai, vengo io di là.
+
+[53:19] SPEAKER_07: Ci state provando a fare questo?
+
+[53:47] SPEAKER_02: Questo è il Seek Hand, il Seek Hand.
+
+[54:06] SPEAKER_03: Non c'è il file text.
+
+[54:09] SPEAKER_00: Non c'è il file text.
+
+[54:10] SPEAKER_00: No, perché non ci ho messo il file text di file.
+
+[54:16] SPEAKER_00: Non devi crearlo.
+
+[54:16] SPEAKER_00: Questo, vedete, si parla mettendo lsic sul seacend.
+
+[54:19] SPEAKER_00: Mi fa il vuoto.
+
+[54:34] SPEAKER_00: Cioè, vamo e mi dà problemi di sincronizzazione.
+
+[54:40] SPEAKER_00: E poi, mi stampo una riga vuota, sembra un problema di sincronizzazione.
+
+[54:47] Professore: Ma questo qui nuovo o quello vecchio?
+
+[54:50] Professore: Quello nuovo.
+
+[54:51] Professore: Questo qui non c'ha sincronizzazione, lavora su uno solo.
+
+[54:54] Professore: Controlla.
+
+[54:54] Professore: Rasta.
+
+[55:07] Professore: In realtà questo è ancora più semplice, questo va proprio sul SICK SET, lo setta proprio il SICK.
+
+[55:17] Professore: Quindi ogni volta con questa soluzione si fa proprio il SICK SET, senza fare lo spostamento rispetto al SICK CAR.
+
+[55:26] Professore: Ci sono due modalità uguali in cui si può risolvere il problema.
+
+[55:38] Professore: questo è una modalità ancora più semplice come soluzione ogni volta che si fa si mette alla fine con sick end l'offset e poi via via si va a settare con l'elsick
+
+[56:02] Professore: e si legge un byte alla volta questo byte alla volta viene scritto di standard output chiaro?
+
+[56:26] Professore: stai provando a fare questo?
+
+[56:29] Professore: Ah, come mai?
+
+[56:30] Professore: Mi è provocato un problema di stabilità di sistema?
+
+[56:31] Professore: No, ho fatto una cosa veloce mentre stavo facendo l'esercizio.
+
+[56:35] Professore: Ho staccato la presa e... Ah, esplode.
+
+[56:36] Professore: Non so... Senziona?
+
+[56:54] SPEAKER_07: Sì, anche se mi mette uno spazio... Mi mette uno spazio, cioè come se mangiasse lo spazio del next line della nuova riga, appunto.
+
+[57:06] SPEAKER_07: Me lo mette prima.
+
+[57:07] SPEAKER_04: Che cosa gli avevi passato nel file?
+
+[57:09] SPEAKER_04: Qual era?
+
+[57:10] SPEAKER_04: Qual era il contenuto del file?
+
+[57:13] SPEAKER_07: No, è prova dp.
+
+[57:16] SPEAKER_04: Ah.
+
+[57:17] SPEAKER_07: Me lo inverte, però mi mette prima anche lo slash n, credo.
+
+[57:22] Professore: ah si si si lo legge dalla fine quindi l'ultimo carattere che che mi fanno messo a strano allora no allora posso però scusate qui c'è c'è un guarda un po se c'è un qualcosa aspetta vediamo come questo file quindi va all'indietro sic and quindi va nel
+
+[57:53] Professore: nell'end e poi si mette sul size il size viene... fammi vedere il size come non hai il size?
+
+[58:10] SPEAKER_04: qui viene visto con il sito computer si anch'io... ok
+
+[58:23] Professore: anche io dovrebbe funzionare perché si posiziona sul SICK END e poi attraverso la L-SICK quindi vede quanti sono i quanti gradi questo è un modo diciamo così veloce per leggere il SIZE della quindi si vede l'OFFSET sull'AND quindi dove è posizionato sull'AND l'OFFSET e quindi parte da lì poi a questo punto che cosa fa?
+
+[58:45] Professore: parte dalla I quindi SIZE-1
+
+[58:50] SPEAKER_07: quindi parte dal size meno uno e poi va indietro quindi da te sembrerebbe che legga un carattere a capo come prima può essere che mi legge il new line della nuova riga del terminale?
+
+[59:16] Professore: potrebbe
+
+[59:18] Professore: Potrebbe, però è strano, perché tu glielo passi file, questo è il nome del file, e poi gli passi soltanto quello.
+
+[59:25] Professore: No, perché gli sta prendendo quello, vediamo un po' come lo apri.
+
+[59:29] Professore: E pure tu da Linux, Mario.
+
+[59:31] SPEAKER_07: Non c'è un nuovo Windows.
+
+[59:39] Professore: Va bene, comunque poi magari lo approfondiremo questo aspetto.
+
+[59:45] Professore: Avete capito più o meno come funziona questo?
+
+[59:48] Professore: Adesso volevo passare ad un altro esercizio che è interessante, che è il 3, che si chiama ALL, il buco.
+
+[59:58] Professore: Guardate come funziona questo.
+
+[01:00:00] Professore: Stiamo sempre lavorando sulla testina, sull'offset.
+
+[01:00:04] Professore: allora si fa un programma che riceve da riga di comando sempre il nome del file quindi simile a quello che avete fatto fino adesso apre il file in scrittura e diciamo quindi creandolo se occorre scrive inizio poi sposta una testina con lsic ok di dot byte quanti ne volete anche 1000 byte e poi scrive fine quindi che cosa ha fatto in questo caso
+
+[01:00:34] Professore: Cioè io ho spostato la testina di 1000 byte e poi scrivo fine.
+
+[01:00:40] Professore: Ho creato un buco, ok?
+
+[01:00:42] Professore: Perché in quei 1000 byte li ho consumati o non li ho consumati secondo voi?
+
+[01:00:48] Professore: Facendo così.
+
+[01:00:50] SPEAKER_03: Eh?
+
+[01:00:51] SPEAKER_03: Eh no.
+
+[01:00:53] Professore: Perché poi andate a vedere la dimensione del file che viene fuori e vi accorgete che effettivamente questa dimensione del file...
+
+[01:01:04] Professore: c'è la differenza tra la dimensione logica del file e la dimensione fisica del file ok?
+
+[01:01:11] Professore: perché creando il buco io a questo punto ho scritto soltanto inizio e fine quindi quello che veramente mi serve sono i byte ed eventualmente attenzione i blocchi perché poi il file ha ragione in blocchi che mi servono per memorizzare inizio e fine ma ho creato questo buco
+
+[01:01:32] Professore: questo è proprio un classico esempio che si chiama fall come esercizio e vi fa capire la differenza che c'è tra una rappresentazione diciamo logica del file e la rappresentazione fisica del file questo perché l'offset effettivamente si è spostato quindi quando voi dovete leggere i vari byte noi sappiamo che fine sta
+
+[01:02:02] Professore: dopo tot byte che avete deciso voi spostando la testina non so anche 10.000 byte per dire ok?
+
+[01:02:11] Professore: 10.000 byte però il disco cioè sul disco non avete consumato quei 10.000 byte ok?
+
+[01:02:20] Professore: quelli sono soltanto in qualche modo una rappresentazione logica del file
+
+[01:02:30] Professore: quindi se la tiene nell'inode come rappresentazione, ma dal punto di vista dei blocchi che vengono utilizzati, questi sono blocchi minimi, quelli che servono appunto per la memorizzazione di questo buco.
+
+[01:02:51] Professore: Provate, anche lì ci avete il to-do,
+
+[01:03:04] SPEAKER_04: Questa dovrebbe essere la 3.
+
+[01:03:05] SPEAKER_07: Raffa è invertito S, S. Sì, vado, perché sto al contrario.
+
+[01:03:13] SPEAKER_04: Sì, sì.
+
+[01:03:21] SPEAKER_02: Ecco qua.
+
+[01:03:26] Professore: Quindi vedete, sempre, in questo caso non ci sono processi, bisogna
+
+[01:03:33] Professore: aprire il file di scrittura creare quindi potete fare utilizzare una cosa che avete già prima e poi proprio creare vedete avete delle stringhe queste si possono scrivere e tra quindi la stringa
+
+[01:04:03] Professore: di inizio della stringa di fine in mezzo create un buco cioè quindi spostate l'offset quanto volete metteteci quanti byte volete e poi andate a vedere cosa c'è scritto cioè poi andate a fare il cut su quel file cosa vi aspettate di vedere un file con tanti separazioni tra inizio e fine oppure
+
+[01:04:33] Professore: Inizio e fine attaccati.
+
+[01:04:59] SPEAKER_07: Comunque ci state provando a farlo questo qui?
+
+[01:05:01] SPEAKER_07: Mi dispiace.
+
+[01:05:02] Professore: Deve stare un'altra vista.
+
+[01:05:27] SPEAKER_05: essenzialmente dovete fare questo e poi vedete spostare dal SICK corrente vedete?
+
+[01:05:30] SPEAKER_07: di all size potete dare la dimensione che volete
+
+[01:06:00] Professore: poi si scrive la fine quindi abbiamo creato una diva indicazione dentro il file e il file viene creato ok qui per esempio possiamo qui è poco ma possiamo anche mettere non so 10
+
+[01:06:29] Professore: 100.000, 100.000 byte.
+
+[01:06:30] Professore: È un classico.
+
+[01:06:30] Professore: Non ho visto una schermata lì.
+
+[01:07:03] SPEAKER_05: ok e poi adesso possiamo dare il nuovo nome di file
+
+[01:07:28] Professore: ok facciamo così abbiamo creato questo file ora col cat vediamo quindi abbiamo creato praticamente un buco con la testina di 100.000 byte adesso andiamo a vedere col cat cosa succede inizio e fine vedete?
+
+[01:07:57] Professore: cioè quindi
+
+[01:07:58] Professore: Questa su disco non è cambiato, cioè quello che vede è... Allora, a questo punto possiamo fare, per esempio, diskusage meno h, come vi suggerivo prima, prova tutto,
+
+[01:08:23] Professore: e qui vedete che abbiamo 8k quindi qui abbiamo solo 8k quando invece avevamo detto 100.000 di byte possiamo fare ls-lh
+
+[01:08:53] SPEAKER_04: Vedete?
+
+[01:08:55] Professore: Qui invece è 98k, perché questa è la dimensione logica del file, mentre invece fisicamente ne occupa soltanto 8k.
+
+[01:09:14] Professore: Quindi questa è la differenza tra una rappresentazione logica che viene mantenuta nell'inode, quindi nel file descriptor.
+
+[01:09:22] Professore: Sul file descriptor si mantiene questo fatto che io ho un inizio e una fine del file che sono distanziate molto, però in mezzo non c'è niente.
+
+[01:09:34] Professore: Allora, cosa serve questa cosa qui?
+
+[01:09:36] Professore: Serve per il fatto che eventualmente in mezzo posso anche scriverci qualcosa.
+
+[01:09:41] Professore: quindi io posso spostare la testina di lettura tra i due e piazzarci in mezzo delle altre cose però dal punto di vista fisico questa roba non mi fa vedere non occupa diciamo memoria possiamo vedere anche con stat
+
+[01:10:15] Professore: quello logico è di 100.000 byte più 12 che sono quelli che mi serviva per scrivere inizio e fine inizio e fine 12 byte i blocchi però sul dispositivo questo mi occupa
+
+[01:10:43] Professore: Questo è l'inode, questo sarebbe il numero, l'identificatore, l'index number dell'inode corrispondente, quindi del file descritto, la struttura dati che descrive il file, links1 perché non c'è alias, questo file,
+
+[01:11:02] Professore: Questo è quanto effettivamente va a occupare in memoria e dal punto di vista della memoria, quindi occupa, dovrebbe occupare, vediamo, 8k, che sono questi qua.
+
+[01:11:29] Professore: ok quindi c'è una differenza tra la dimensione
+

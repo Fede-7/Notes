@@ -1,0 +1,762 @@
+[00:00] SPEAKER_04: di oggi era di grande un po' di confidenza con le modalità client server
+
+[00:43] SPEAKER_01: Ma sinceramente, per me l'importante è che loro fanno l'esame quando è comodo.
+
+[00:48] SPEAKER_01: Il tragetto sul gruppo a me è questo po' cazzo.
+
+[00:49] SPEAKER_02: Brava, tanto se ne so fregati di noi.
+
+[00:53] SPEAKER_01: Il sondaggio non mi dò... Va bene, finalmente.
+
+[00:57] SPEAKER_01: Va bene.
+
+[00:59] SPEAKER_04: Quindi magari la funzione che dovete mettere ve la faccio vedere.
+
+[01:03] SPEAKER_01: E poi come indirizzo...
+
+[01:27] SPEAKER_04: non so se posso prenderlo secondo schermo un po' qui
+
+[01:57] SPEAKER_01: Ma ci vedo!
+
+[01:59] SPEAKER_01: No, non ci vedi.
+
+[02:02] SPEAKER_01: Ecco, vedi, ora è grosso.
+
+[02:06] SPEAKER_01: Quanto è grosso, posso pure farlo.
+
+[02:07] SPEAKER_01: Si va benissimo, però per piacere non smetti di... No, guarda, non c'è più un portino sotto.
+
+[02:12] SPEAKER_01: Incredibile.
+
+[03:02] SPEAKER_01: beh devi fare una visita abbastanza approfondita per trovare il suo ampere ti ammazzo lo sai questo nome?
+
+[03:34] SPEAKER_01: Lo sai, non lo puoi negare.
+
+[03:39] SPEAKER_04: Voi quale faccia in carità di programmazione?
+
+[03:42] SPEAKER_02: Presso il Monatti.
+
+[03:50] SPEAKER_02: Infatti stiamo pensando di mandargli un messaggio di scuse,
+
+[03:59] SPEAKER_03: Non so, in queste dinamiche come si fa?
+
+[04:01] SPEAKER_03: Eh... Cioè, non... Però sempre non me lo domandavo, ma se noi di 5-6 anni che seguiamo non ci presentiamo succede?
+
+[04:06] SPEAKER_03: Ma era palese che una volta sarebbe successo.
+
+[04:09] SPEAKER_03: Legge di Mar.
+
+[04:10] SPEAKER_04: Ma oggi è una cosa particolare perché c'era una cosa... Eh... Economia ha fatto il preappello dell'orale.
+
+[04:20] SPEAKER_03: era da agevolare, quindi molti non sono venuti perché hanno l'esame, cioè molti, le poche persone che seguono poi provano a dare i preappelli, quindi il professor in realtà è qualcosa che carico giustissimo, però il suo è un esame da 9 crediti.
+
+[04:38] SPEAKER_02: e abbiamo dovuto studiare.
+
+[04:40] SPEAKER_02: E quindi economia non l'abbiamo fatta.
+
+[04:41] SPEAKER_02: C'era il suo esame.
+
+[04:45] SPEAKER_02: Non è colpa... Cioè, solo che chiaramente uno studente deve studiare.
+
+[04:50] SPEAKER_02: Se non ho fatto l'esame di sistema operativo invece di economia che sta informatica, va benissimo.
+
+[04:56] SPEAKER_00: Vabbè, cominciamo oggi.
+
+[04:58] SPEAKER_00: Speriamo che si risolva.
+
+[05:00] SPEAKER_04: Il problema è che può dipendere da poche persone.
+
+[05:05] SPEAKER_03: È quello che...
+
+[05:07] SPEAKER_04: Qualcuno può venire un giorno.
+
+[05:09] SPEAKER_03: Esatto.
+
+[05:13] SPEAKER_02: Anche perché le dico, professore, tutte le volte che eravamo presenti ai suoi corsi, eravamo presenti anche ai corsi del professor Bonatti.
+
+[05:18] SPEAKER_02: E noi quanti corsi abbiamo saltato?
+
+[05:20] SPEAKER_01: Non è chiaro.
+
+[05:22] SPEAKER_02: Cioè, è scritto che non abbiamo saltato perché lei ha preso sempre le presenti e noi ce l'avamo sempre.
+
+[05:25] SPEAKER_03: Io ho saltato quattro lezioni quest'anno, questo semestre.
+
+[05:28] SPEAKER_03: Ma pure io, ma pure io.
+
+[05:29] SPEAKER_03: Ce l'ho scritto.
+
+[05:30] SPEAKER_03: E no, me le segno.
+
+[05:32] SPEAKER_04: Diciamo che probabilmente spedere la classe quota fa un effetto.
+
+[05:36] SPEAKER_03: Certo.
+
+[05:38] SPEAKER_03: magari se già se ci fossero state tre persone sarebbe stato proprio completamente vuota però la parte di poi di quei pochi che vanno a seguire giustamente si trovano un anno intero a seguire i corsi e poi si trovano per una giornata così diciamo non è proprio
+
+[06:03] SPEAKER_03: è carino eh speriamo, sennò l'esame sarà divertente e vabbè ci divertiremo all'esame
+
+[06:25] SPEAKER_04: linguaggi di programmazione in realtà proprio sulla struttura dei linguaggi sui vari paradigmi di programmazione quindi funzionale ricorsione poi c'era java
+
+[06:46] SPEAKER_03: Mi pare sta nel secondo canale e praticamente il professore sta spiegando prolog che mi rende come un linguaggio che noi non conosciamo e non ci siamo presentati e il professore ha detto sì, dato che è facile ripeteremo gli esercizi difficili di prolog.
+
+[07:10] SPEAKER_03: ha dei consigli su come studiarlo a quanto va a questo punto?
+
+[07:13] SPEAKER_03: no perchè a cento volentieri a cento volentieri vabbè fatto?
+
+[07:25] SPEAKER_04: si ho per un tempo era il linguaggio principale per l'intelligenza artificiale per alcune cose ancora più usato
+
+[07:37] SPEAKER_03: Alla scorsa lezione c'eravamo di prolog, ma... Alla prima e la seconda.
+
+[07:41] SPEAKER_03: Alla terza no.
+
+[07:45] SPEAKER_02: Quello è bastato.
+
+[07:48] SPEAKER_04: Come va?
+
+[07:49] SPEAKER_04: Bene.
+
+[07:51] SPEAKER_02: Sì, sì, è fatto.
+
+[07:52] SPEAKER_04: L'unica cosa mi dà fastidio questo fatto che improvvisamente non vorrei che... Mi collego anch'io tanto.
+
+[08:04] SPEAKER_04: il mio schermo lo cambi 188V non è vero tiri da casa, da remoto come... dove siamo noi?
+
+[08:22] SPEAKER_04: presenza 3 non so se darvi una carina tra gli eteri di servitore e...
+
+[08:35] SPEAKER_02: chiaramente per la presenza vi posso dare un più sospesi per cosa si aggancia qui ci sono tre facce da ricordare e può essere due due nomi per essere se puoi scendere un pochino nella bash che puoi vedere se l'ho fatto simile
+
+[09:05] Professore: questo siamo sul server quindi sul server abbiamo la socket che viene aperta poi una volta aperto il socket questo memset è così una precauzione per evitare che nella memoria ci sia qualcosa di spurio potete anche
+
+[09:33] Professore: così non è obbligatorio quello che è obbligatorio è fare appunto crearsi l'address poi attraverso quindi sono software locali queste slan link prima del bind abbiamo discusso appunto ieri per evitare eventualmente un'anca commessa parecchia
+
+[10:01] Professore: e poi qui c'è il bind e il list con una coda di backlog questo significa che possono arrivare contemporaneamente 5 richieste che rimangono in attesa Melide mi ha consigliato anche lui di fare il memset si no, è praticamente identico si
+
+[10:31] Professore: e poi appunto c'è il ciclo in cui il server rimane in attesa il blocco lo fa sull'accent quindi non sul lister lister è semplicemente il socket che si mette in qualche modo in ascolto con una coda però poi questo ascolto non
+
+[10:57] Professore: non corrisponde alla capacità di accettare delle connessioni questa si implementa attraverso questa accept che rimane in attesa di una connect il vero centralinista lo fa l'accept che nel momento in cui fa accept che vedete qui crea un nuovo diciamo socket
+
+[11:22] Professore: e da il socket descriptor che praticamente è un file descriptor quindi con la filosofia UNIX che tutto è assimilabile a poche cose quindi in questo caso la stessa filosofia di gestione dei file aperti viene utilizzata per socket aperte quindi c'è una... nella tabella dei file aperti system wise praticamente avete anche la descrizione delle socket aperte
+
+[11:53] Professore: e c'è una connessione, così come i processi hanno un ID che è il canale di comunicazione con i file oppure i drive nello stesso modo questo è un canale di comunicazione con un software che poi diventa la porta per interfacciarsi lo stack di rete anche qui il connectore
+
+[12:22] SPEAKER_02: l'accept restituisce il file descriptor che avrà un valore maggiore di zero in caso di errore sempre meno uno, perfetto
+
+[12:36] Professore: È identico come concetto, cioè è fatto apposta in modo tale che l'interfacciamento sia identico per le operazioni di write e... Sì, come tutte le primitive OSIX che abbiamo visto.
+
+[12:45] Professore: Quelle che devono, almeno, quelle proprio, essenzialmente lettura-scrittura, perché poi ce ne sono poi delle altre aggiuntive.
+
+[12:55] SPEAKER_02: No, certo, certo, però è chiaro.
+
+[12:59] Professore: e poi infatti c'è la close anche, che funziona esattamente perché quando si fa la close è come chiudere un file, in questo caso si chiude il socket.
+
+[13:09] Professore: Vi ricordate c'era anche la close della pipe, no?
+
+[13:12] Professore: Si si si, stessa idea.
+
+[13:14] SPEAKER_02: Con i vari tipi di pipe e tutto.
+
+[13:17] Professore: L'interfacciamento è identico come comunicazione interprocesso, l'unica cosa qui in questo caso c'è proprio questa specie di file
+
+[13:25] Professore: che serve per fare come NamedPipe, cioè che sia un file così fizzio che serve semplicemente per creare il canale di comunicazione.
+
+[13:39] SPEAKER_02: Ovviamente è bidirezionale come le Named.
+
+[13:44] SPEAKER_04: Esattamente, a un certo punto di vista è come una NamedPipe.
+
+[13:49] SPEAKER_00: L'anticipammo pure, se non sbaglio.
+
+[13:51] SPEAKER_02: Mi pare che l'anticipammo pure.
+
+[13:53] SPEAKER_02: Sì, l'abbiamo anticipato, però non avevamo fatto... Sì, sì, chiaro, però ricordavo l'avessimo anticipato.
+
+[14:01] Professore: E poi adesso provate a fare il client.
+
+[14:05] SPEAKER_02: In realtà è una struttura simile, ho visto, perché l'ho aperto prima è in qualche modo molto simile.
+
+[14:12] Professore: nel senso che però qui in questo caso il client fa soltanto setta l'address, l'address è praticamente la stessa cosa quindi potete copiarlo.
+
+[14:25] Professore: Il punto è che l'address in questo caso gli serve per trovare il server e quindi non c'è il bind perché non deve collegare il socket su quell'indirizzo.
+
+[14:39] Professore: dare un indirizzo al socket se vogliamo e dall'altra parte però serve per fare invece la connect e con la connect avviene in questo caso è proprio una connect diretta quindi la creazione vera e propria del canale e quindi lo stream il canale come flusso di byte bidirezionale viene ottenuto a valle della connect una volta che c'è
+
+[15:07] Professore: diciamo così, landshake tra connect e accept.
+
+[15:12] Professore: E a quel punto, fatto questo, si possono proprio fare le read e write, come... e quindi potete provare a questo punto il... fare anche il client.
+
+[15:27] Professore: Da casa come va?
+
+[15:36] Professore: Ha fatto anche il client?
+
+[15:39] SPEAKER_01: Eh, lo sto facendo adesso.
+
+[15:41] Professore: Ok.
+
+[15:49] SPEAKER_04: E poi client.
+
+[15:50] SPEAKER_04: Anche il punto.
+
+[16:05] Professore: In questo caso riceve soltanto quello che dà il server.
+
+[16:09] Professore: perché alla Connect, essenzialmente il server...
+
+[16:41] Professore: la gestisci connect e la gestisci lato server è direttamente andare a scrivere quindi essenzialmente appena arriva una connect il server scrive l'ora perché già sa che cosa gli sta chiedendo
+
+[16:58] Professore: Una complicazione potrebbe essere quella di creare un piccolo protocollo in cui almeno si aspetta che il client gli scriva, gli chieda che ora è, una cosa del genere.
+
+[17:09] Professore: Quindi dovrebbe in un certo senso prima leggere qualcosa dal client, quindi crearlo bidirezionale.
+
+[17:16] SPEAKER_02: Per esempio perché in questo caso si usa AF local?
+
+[17:22] Professore: Questo è un esempio di socket locali, perché di solito si fa, certo per vedere che i socket generalizzano un canale di comunicazione locale, duplex, e poi dopo si passa a socket di rete, che sono le socket più semplici.
+
+[17:57] Professore: In realtà tutto questo con la sua metri locale si può fare anche con una Langer Pipe.
+
+[18:28] Professore: A che ora è venuta questa cosa questa mattina?
+
+[18:31] SPEAKER_03: Avevo 15.
+
+[18:31] SPEAKER_04: Non avete fatto il tempo ad arrivare?
+
+[18:36] SPEAKER_03: No, non eravamo già giù.
+
+[18:38] SPEAKER_03: Il professore l'ha mandato dopo un'ora, avevo pensato di salire, però pensavamo di complicare la cosa, perché magari stavate qua e non siete saliti, è peggio.
+
+[18:48] SPEAKER_03: Ma voi state succedendo un'altra materia, non state seguendo i corsi.
+
+[18:52] SPEAKER_03: Come stavate?
+
+[18:53] SPEAKER_03: Stavate giù?
+
+[18:57] SPEAKER_03: No, qua, perché stavamo preparando pure noi l'esame.
+
+[19:02] SPEAKER_03: Invece il corso dove era?
+
+[19:03] SPEAKER_03: No, sempre qua.
+
+[19:04] SPEAKER_04: Sempre qua, non c'era l'esame.
+
+[19:06] SPEAKER_03: È perché non pensavamo, noi se sapevamo che nessuno si prendesse in tasse a lezione, salivamo, però ci aspettavamo che qualcuno seguisse.
+
+[19:17] SPEAKER_03: Solo che poi dopo, mentre stavamo studiando, è arrivata la notifica su Teamster che
+
+[19:21] SPEAKER_03: ha mandato un messaggio non diretto, però sarcastico, e abbiamo capito che non ci fosse nessuno, però dopo un'ora, fra mai, il professore non avrebbe fatto a saperlo.
+
+[19:33] SPEAKER_00: Se salire dopo un'ora non sapevamo com'è, una volta che abbiamo capito fosse arrabbiato, che dicevano, professore, dobbiamo un esame domani, stavamo giù, ma non l'abbiamo seguito.
+
+[19:43] SPEAKER_04: Sì, sì, certo.
+
+[19:47] SPEAKER_00: Quindi...
+
+[19:51] SPEAKER_03: Che poi questa cosa, tra l'altro... Conoscerete meglio il prologo.
+
+[19:56] SPEAKER_03: No, danneggiando.
+
+[19:57] SPEAKER_03: Cioè, chi non ha seguito tutto l'anno, magari ha un esame indietro.
+
+[20:02] SPEAKER_02: Deve cambiare il settore dell'esame.
+
+[20:06] SPEAKER_00: Vabbè, poi magari cercheremo di risolvere.
+
+[20:11] SPEAKER_00: Ci sono altre lezioni.
+
+[20:12] SPEAKER_00: Due.
+
+[20:13] SPEAKER_00: In teoria almeno altre due.
+
+[20:17] SPEAKER_03: La settimana prossima finiscono ufficialmente i corsi, lui ha qualche lezione arretrata, dovrebbe fare fino all'ultimo giorno, quindi fino a giovedì prossimo.
+
+[20:32] Professore: però nel mio caso io ho finito il programma infatti arrivato a questo punto bisognerebbe fare approfondimenti o
+
+[20:52] SPEAKER_03: per chi non ha fatto un preappello esercitazione per lo scritto però non ci sono quelli che non hanno fatto il preappello anche il professore di statistica che non ha fatto il preappello ha finito a fine maggio questi due giorni li ha fatti telematici e ha fatto esercitazioni il professor bene recetti è la stessa cosa bisogna aspettarsi che non ha fatto il preappello ha finito a fine maggio scusi
+
+[21:21] SPEAKER_03: Lei ha praticamente finito, abbiamo fatto il preappello, quindi la finisiste.
+
+[21:26] SPEAKER_04: Alla fine pensavo di non dover includere alcune cose nel preappello, però alla fine invece nel preappello... No, siamo riusciti a fare tutto praticamente.
+
+[21:36] SPEAKER_03: No, come tempistiche siamo rientrati perfettamente.
+
+[21:44] SPEAKER_03: Ora ci ritroviamo.
+
+[21:46] SPEAKER_03: Lui è andato un po' a lungo.
+
+[21:48] SPEAKER_04: Può capitare.
+
+[21:50] Professore: L'altro anno ero andato un po' a lungo con questo corso.
+
+[21:57] Professore: C'erano state più domande da parte dei ragazzi.
+
+[22:00] SPEAKER_03: Immagino fossero anche il quinto.
+
+[22:03] SPEAKER_03: Erano più a seguire.
+
+[22:06] SPEAKER_04: Quest'anno ho notato una differenza.
+
+[22:09] SPEAKER_03: Però è un corso nuovo.
+
+[22:11] SPEAKER_03: No, se stessi aperativi era uguale all'anno scorso.
+
+[22:14] SPEAKER_03: Sì, però... L'ordinamento.
+
+[22:17] SPEAKER_03: L'ordinamento, scusi.
+
+[22:18] SPEAKER_03: Mi perdoni.
+
+[22:18] SPEAKER_04: L'ordinamento è nuovo, sì.
+
+[22:19] SPEAKER_04: L'ordinamento è nuovo.
+
+[22:21] SPEAKER_04: Ah, ecco, sì, è l'ordinamento è nuovo.
+
+[22:22] SPEAKER_03: Quest'anno è cambiato l'ordinamento.
+
+[22:24] SPEAKER_04: Era solo fatto però per favorire qui, in qualche modo.
+
+[22:28] SPEAKER_03: Sì, perché il primo anno, prima c'erano tutti esami di matematica.
+
+[22:33] SPEAKER_03: Eh.
+
+[22:34] SPEAKER_03: e si creava un tappo perché erano troppi esami scientifici e quindi si creava questo problema e invece mo li hanno spalmati sui primi due anni.
+
+[22:44] SPEAKER_03: i primi tre semestri in verità perché questo semestre non ce li abbiamo quindi fino al semestre scorso e hanno fatto questa manovra e al professore Benerecetti hanno diviso l'esame da 9 che lui faceva di ASD, algoritmi e strutture dati l'hanno diviso in due da 6 uno da 9 e uno da 6 per facilitare un po' perché era molto denso e hanno aggiunto obbligatorio il terzo anno un esame su machine learning
+
+[23:14] SPEAKER_03: che prima era facoltativo hanno fatto un po' questo cambio che doveva favorire però il problema è sempre il fatto che comunque su 300 iscritti che hai comunque una parte si trova arretrati perché molti prendono comunque sotto gamba l'università però non so, o forse è l'IA che li ha resi vediamo, adesso vediamo siamo in un momento di transizione anche da questo punto di vista per tutti quanti sarà curioso scoprire
+
+[23:44] SPEAKER_03: Lo scopriremo.
+
+[23:45] Professore: Allora, avete fatto uno, quindi su due terminali Gelsi potete da una parte lanciare il server e dall'altra il time, quindi in questo modo qui potete lanciare time
+
+[24:06] Professore: server che rimane in ascolto e dove è bloccato?
+
+[24:11] Professore: è bloccato sulla accept ok?
+
+[24:15] Professore: non sulla listen e poi dall'altra parte invece qui se voi lanciate il client time client
+
+[24:35] Professore: Qui ottiene la risposta, se uno lo lancia.
+
+[24:39] Professore: Una piccola modifica, se volete, potete farla aggiungendo da parte del client anche la possibilità di scrivere prima un messaggio al server, in modo tale che tutti e due, perché in questo caso
+
+[24:54] Professore: Il client, essenzialmente, direttamente va a leggere quello che il server al momento della accept subito rida.
+
+[25:02] Professore: Quindi assume che gli stia chiedendo il tempo.
+
+[25:06] Professore: Quindi qui potreste aggiungere, per esempio, lato server, una read di un messaggio sul socket qualunque esso sia, magari.
+
+[25:17] Professore: un messaggio che ora è, e dall'altra parte invece il server.
+
+[25:26] SPEAKER_00: Prima il server, no?
+
+[25:27] Professore: Il server deve leggere, in questo caso scrive direttamente il server, quindi quando facciamo così, time client... No, intende l'ordine di avvio.
+
+[25:36] Professore: Sì, l'ordine di avvio prima server.
+
+[25:38] Professore: Prova a fare il contrario per dire che client proprio subito viene...
+
+[25:44] Professore: da errore, infatti se facciamo così qui per esempio non riesce a creare la pipe... se io faccio client die, lo vedete, dice no, scusate, die in cliente questa è la stessa configurazione che avviene se usiamo docker
+
+[26:09] Professore: non so se conosce il software è un po' diverso, in che senso è la stessa figura?
+
+[26:15] SPEAKER_03: se volessi programmi, ho sentito di docker però non l'ho mai usato
+
+[26:22] Professore: Docker lavora su un concetto di container, che vuol dire che essenzialmente si creano attraverso dei meccanismi che sono messi a disposizione dai sistemi operativi una sorta di separazione dello spazio di lavoro e della configurazione di questo che si chiama un container, quindi si creano degli spazi, dei nomi, dei gruppi,
+
+[26:49] Professore: in modo tale che è poi un file system che viene in qualche modo implementato in quel momento, in modo amastrato.
+
+[27:00] Professore: Quindi è una struttura completamente finera, che quindi si crea sopra un database ospite, quindi il database fornisce delle compartimentazioni dello spazio di lavoro, se vogliamo.
+
+[27:18] Professore: Anche l'albero dei processi è specifico per quell'ambiente, quindi c'è una separazione che si crea.
+
+[27:28] Professore: In questo spazio si possono andare a scaricare delle immagini che vanno a stratificare
+
+[27:40] Professore: un sistema operativo sopra questo, uno strato di applicazioni minimo e quindi è come crearsi un ambiente, completamente un sotto ambiente del sistema operativo che effettivamente poi non parla con il resto del sistema operativo.
+
+[28:01] Professore: Quindi io posso creare tanti contenitori, completamente separati.
+
+[28:05] Professore: Ognuno di questi può avere un suo sottosistema operativo e un file system completamente separato, che nasce da zero.
+
+[28:15] Professore: È come se fosse fatto il bootstrap in quel momento lì.
+
+[28:21] Professore: E di dentro, con una certa efficienza, comunque lavora nei processi.
+
+[28:26] SPEAKER_03: Quindi è la stessa cosa di come se fosse una virtual machine?
+
+[28:31] Professore: Però ci posso accedere a distanza.
+
+[28:33] Professore: Infatti è una forma di visualizzazione, però più light, perché la visualizzazione sarebbe proprio completa, nel senso che tu hai una completa macchina, che il sistema operativo è completamente separato, sopra quello eccetera eccetera.
+
+[28:51] Professore: Invece nel caso della contenerizzazione è il sistema operativo che in un certo senso crea uno spazio separato, quindi è nativo già questo spazio e sopra questo spazio mi dà la possibilità, infatti questo magari facciamo una lezione dedicata, è importante.
+
+[29:10] Professore: Soprattutto è importante dal punto di vista dei sistemi operativi far vedere quali sono le primitive, quelle capacità che il sistema operativo deve mettere a disposizione per consentire la contenerizzazione.
+
+[29:29] Professore: perché sono state a un certo punto richieste.
+
+[29:33] SPEAKER_03: Ho visto che alcune società come competenza docker lo richiedono di saperlo usare e quindi stavo informando un po' cosa foste.
+
+[29:45] Professore: Alla fine del vostro percorso lo saprete usare.
+
+[29:50] Professore: Prima veniva introdotto bene al laboratorio di sistema operativo.
+
+[29:56] Professore: Ora il laboratorio dei sistemi operativi non c'è più per noi, infatti io non l'ho messo quest'anno nel programma, quindi è rimasto un po' di sistemi operativi, però effettivamente
+
+[30:14] Professore: Poi bisogna vedere quale corso lo riprende.
+
+[30:19] Professore: L'ingegneria del software dovrebbe prenderlo?
+
+[30:22] Professore: Non lo so.
+
+[30:22] Professore: Dovrei prendere i programmi, però alcuni...
+
+[30:28] SPEAKER_03: Alcune materie che hanno cambiato, non hanno ancora dato i programmi che faremo, quindi non so.
+
+[30:34] Professore: Diciamo che questo è un po' un intervegno, questo testamento, perché voi siete praticamente la prima ondata.
+
+[30:40] SPEAKER_03: Noi sì, siamo il primo gruppo del nuovo ordinamento, quindi stiamo un po' testando.
+
+[30:45] Professore: Ci sono alcune cose che probabilmente sono andate un po' perse in quello che c'era, no?
+
+[30:53] SPEAKER_03: Eh sì.
+
+[30:54] Professore: però proprio perché lo stiamo sperimentando magari lo andiamo ad introdurre in alcuni corsi del terzo anno.
+
+[31:02] SPEAKER_03: Troviamo un poco assurdo come studenti il fatto che a un corso di informatica il computer lo vediamo a 2-3 esami su 23-22 che ne facciamo.
+
+[31:14] SPEAKER_03: È vero che in laboratori non c'è spazio, anche se poi siamo 20 persone in aula, non c'è spazio per 100 passastudenti.
+
+[31:23] SPEAKER_04: Questa cosa di laboratori, in realtà, in qualche tempo fa, i laboratori li facevamo, magari via, c'era biologia, c'era un laboratorio, un'informatica abbastanza grande,
+
+[31:36] Professore: Altrimenti su Via Claudio... Non lo so come è strutturato.
+
+[31:45] Professore: Quello che stiamo provando a vedere è abbastanza diffuso il laptop per tutti.
+
+[31:50] SPEAKER_03: Però è quello, perché quasi tu, il 99% credo abbia un laptop per più o meno.
+
+[31:55] SPEAKER_03: Poi comunque siamo in tanti, quindi pure se ci sentiamo a due...
+
+[31:59] Professore: La mia proposta era quella di sfruttare invece la remotizzazione e magari uno lo fa meglio a casa sua in laboratorio che non in aula.
+
+[32:13] SPEAKER_03: Lezioni remote che magari c'è chi ha il fisso.
+
+[32:19] SPEAKER_03: di teoria con qualche elemento di pratica e poi quelle che sono squisitamente di laboratorio magari anche tipo modalità mista blended perché magari se si hanno più corsi esatto modalità mista secondo me sarebbe l'ideale perché
+
+[32:39] Professore: Così uno viene in conto un po' a parte delle esigenze e magari può essere anche il modo per far, diciamo così, appassionare quelli che seguono di meno.
+
+[32:49] Professore: L'ho fatta.
+
+[32:50] Professore: È andata.
+
+[32:52] Professore: Quindi sia comunicazione che direzione?
+
+[32:56] SPEAKER_02: Sì.
+
+[32:57] SPEAKER_02: C'era una primitiva Cosix che ho dovuto fare un Define perché non me la prendevo.
+
+[33:05] SPEAKER_02: Ho dovuto inserire
+
+[33:09] Professore: in modo che mi prendesse CTIME R. Allora, invece da casa è fatto anche il client?
+
+[33:20] Professore: Sì, non l'ha fatto.
+
+[33:23] Professore: Allora, adesso andiamo un po' avanti.
+
+[33:26] Professore: Questo è la rivista.
+
+[33:34] SPEAKER_04: Questa era la soluzione.
+
+[33:45] Professore: Qui c'erano alcuni esempi.
+
+[33:47] Professore: Vediamo una cosa che avevo proposto.
+
+[33:49] Professore: Io volevo vedere, visto che non è che c'è molto...
+
+[33:55] Professore: molto tempo.
+
+[33:56] Professore: Questo l'avevamo già visto, il discorso dell'encoding eccetera.
+
+[34:01] Professore: Andiamo invece rapidamente alle socket TCP.
+
+[34:10] Professore: Questo l'avevamo visto ieri.
+
+[34:15] SPEAKER_04: Oltre a Read&Write
+
+[34:35] Professore: Noi abbiamo con le socket TCP anche altre modalità di invio e ricevimento o ricezione dei dati che sono per esempio send e receive.
+
+[34:50] Professore: In realtà c'è send che è praticamente come
+
+[34:54] Professore: come write, con un flag che specifica qualcosa in più, send to, che è per connectionless, quindi vuol dire che non c'è bisogno di fare il connect accept, ma direttamente si può mandare il messaggio come un datagram, send message, vabbè questo è solo il pub e il mutuo, quindi posso mandare tutte cose contemporaneamente,
+
+[35:17] Professore: però se io mando send da una parte e dall'altra ho un receipt così come se appunto send to ci si aspetta receipt from dove il from sarebbe se è disponibile
+
+[35:33] Professore: si popola con il capo dell'utente, altrimenti si lascia null.
+
+[35:39] SPEAKER_03: Se usassimo come protocollo UDP invece, non ci sarebbe il receive perché non si interessa?
+
+[35:45] Professore: No, con UDP c'è il receive, quello che non c'è è la connect accept, perché con UDP si mandano datagram, quindi essenzialmente si manda solo il pacchetto e non c'è una... è connectionless, si dice.
+
+[35:58] Professore: Quindi sul TCP si crea la connessione,
+
+[36:02] Professore: e poi si manda send receive e anche con la connessione volendo si può fare send to e receive from quindi non è scusa ma invece nel caso dell'UDP stiamo parlando proprio di send di pacchetti quindi quello che non c'è è la connect la conferma di ricevimento quello che manca
+
+[36:29] Professore: Ok, quindi questo va bene.
+
+[36:31] Professore: Questo Recipe From, magari questo vi lascio sulle slide, così le vedete.
+
+[36:38] Professore: In realtà, se vedete qui su questa slide, noi abbiamo che i flag che sono a disposizione per la Sand Recipe, la specializzano molto la Sand e la Recipe, perché vedete, qui ci sono una serie di alcuni esempi,
+
+[36:57] Professore: Per esempio, message don't wait significa che fa sì che il send o il receive sia non bloccante.
+
+[37:10] Professore: Che cosa significa non bloccante?
+
+[37:14] Professore: La socket è associata poi ad un buffer di ricezione e a un buffer di invio.
+
+[37:22] Professore: Sono due buffer.
+
+[37:26] Professore: Allora se non è bloccante significa che quello che trova in quel momento, anche se il buffer è vuoto, viene restituito.
+
+[37:34] Professore: Quindi se in quel momento l'area SIV è non bloccante, se nel buffer di ricezione non è stato preparato niente, allora li restituisce vuoto.
+
+[37:48] Professore: Quindi niente, zero byte.
+
+[37:51] Professore: Mentre nel caso in cui è bloccata e quella è la default, la receive aspetta almeno di trovare qualche byte di dentro.
+
+[38:00] Professore: E attenzione c'è un altro punto molto importante da ricordarsi, è che proprio perché ci sono questi buffer,
+
+[38:10] Professore: Il receive, per esempio, che è quello più problematico, potrebbe non leggere tutto il messaggio che gli voleva mandare il quittente.
+
+[38:21] Professore: Perché effettivamente in teoria non sa quanto è lungo questo messaggio.
+
+[38:24] Professore: Quindi uno gli dice, gli dà un massimo di lunghezza, ma quello è il massimo che può essere lungo.
+
+[38:32] Professore: Per cui come fa il socket a ricevere?
+
+[38:37] Professore: essenzialmente riceve quello che trova nel panter.
+
+[38:41] Professore: Allora bisogna fare, per renderlo robusto questo residuo, bisogna farlo in modo tale che sia ciclico, ok?
+
+[38:49] Professore: Cioè bisogna far sì, vediamo un attimo questo ciclo qui,
+
+[38:55] Professore: Ecco, questo qui.
+
+[38:56] Professore: Guardate questa porzione di codice.
+
+[39:24] Professore: Ci siete?
+
+[39:26] Professore: Guardate, lettura e scrittura safe.
+
+[39:29] Professore: Safe che cosa significa?
+
+[39:30] Professore: Significa che deve effettivamente riuscire a leggere tutto quello che uno voleva passare.
+
+[39:38] Professore: Quindi, vedete qui c'è una procedura che si chiama receive all, con il size che è pari ad n.
+
+[39:47] Professore: Ora, se vedete qui, c'è un ciclo, quindi while resibed, finché il resibed è minore di questo n, che sarebbe quella quantità che effettivamente uno deve mandargli, allora si...
+
+[40:02] Professore: questo è il vero receive questo è il vero receive però questo receive mi darà una porzione è come se si sta sbocconcellando il messaggio gli sta arrivando pezzo a pezzo a scaglioni per cui qui si deve in qualche modo vedere tutto quello che riesce a leggere in questo momento che sarebbe quello che trova nel buffer di ricezione
+
+[40:30] Professore: e chiaramente io so i byte confronto finché questi... allora se è negativo c'è stato un errore se è uguale a zero
+
+[40:40] Professore: Vuol dire che la connessione è stata chiusa, perché questo è nella modalità bloccante, per cui quando si sblocca, analogamente a quello che succedeva con le pipe, quando leggo zero byte da una pipe che è stata chiusa, rotta, vuol dire che ho letto tutto quello che c'era da leggere.
+
+[41:02] Professore: e quindi in questo caso io so qual è il momento in cui ho finito di leggere quando arrivo ad avere questo r uguale a 0 però se questo r non è uguale a 0 che cosa devo fare?
+
+[41:16] Professore: devo incrementare quanti byte ho ricevuto e poi qui viene praticamente ripresentato
+
+[41:34] Professore: sempre il file descriptor dove in un certo senso l'algebra dei puntatori ci si sposta dentro il BAP e si fa sì che i dati che devono essere aggiornati
+
+[41:51] Professore: vengono aggiornati nel punto preciso del buffer quindi se ne ho letti insomma due byte allora devo dire che non riempio il buffer dall'inizio perché sennò sovrascriverebbe dopo due byte e poi quelli che rimangono da ricevere sono n-resit e si va avanti praticamente in questo modo fino alla fine quindi questo è
+
+[42:18] Professore: serve per far capire che effettivamente c'è questa differenza quindi se uno lo deve usare in modo professionale i socket deve stare attento che non basta fare una read perché si possono perdere tante informazioni in modo più standard possibile che si perdano informazioni online
+
+[42:39] Professore: Sì, però in questo caso le stai perdendo perché non stai considerando il fatto che il buff, cioè come funziona il read rispetto al buffer di ricezione e la stessa cosa in realtà uno dovrebbe farla anche per send, vedete qua, send all, quindi qui c'è una problematica
+
+[43:03] Professore: di dover comunque controllare che tutto quello che si voleva mandare è stato inviato perché anche in questo caso abbiamo un buffer di invio quindi lato socket viene associato al socket questo buffer attenzione questi buffer sono anche limitati
+
+[43:31] Professore: e questo limite si può modificare però se io aumento troppo per ciascun socket il buffer di ricezione si hanno degli effetti innanzitutto se ho tanti socket mi occupa tanta memoria per cui vuol dire che ogni volta che apro un socket mi occupa lo spazio del buffer di ricezione e quello di invio
+
+[43:58] Professore: E poi ci possono essere degli effetti anche di ritardo per alcuni controlli che fa su questi fatti.
+
+[44:05] Professore: Quindi non è che più viene ingrandito è meglio.
+
+[44:09] Professore: Ok?
+
+[44:12] Professore: Ok.
+
+[44:14] Professore: Allora, poi un'altra cosa che volevo mettere in evidenza sono questi flag.
+
+[44:26] Professore: ecco qua allora nella fase di send e receive io posso creare per esempio il receive può essere non bloccante e quindi si può mettere message don't wait come flag quindi quello è un esempio di un flag che per esempio non è disponibile sulla classica read ma receive è fatto apposta per avere un flag di questo tipo
+
+[44:56] Professore: per esempio c'è un message pick su receive che serve per testare se un dato esiste quindi non lo rimuove dallo stream serve solo per toccarlo in qualche modo magari può essere fatto come test poi c'è questo message wait all
+
+[45:17] Professore: che aspetta che per esempio la lunghezza effettiva del messaggio che deve essere ottenuto
+
+[45:28] Professore: sia raggiunta su un buffer di ricezione.
+
+[45:33] Professore: Aspetta, quindi non ti dà niente, fino a quando?
+
+[45:36] Professore: Quindi ti fa in un certo senso implicitamente quel ciclo che stavamo facendo prima.
+
+[45:40] SPEAKER_00: Questo dicevo, alla fine era la stessa cosa.
+
+[45:43] Professore: Però hai meno controllo in questo caso, lo stai delegando al sistema.
+
+[45:49] Professore: E poi si può mettere su send
+
+[45:51] Professore: il message no signal per avere direttamente la schermatura del SIGPipe, per esempio.
+
+[45:58] Professore: Abbiamo detto che se si va a leggere, si va a mandare un messaggio send su una pipe rotta, come su un canale rotto, allora c'è il SIGPipe analogamente a quello che succedeva per le pipe e quello diciamo diventa una terminazione.
+
+[46:17] Professore: Poi sulle slide, che vi lascio comunque, ci sono delle spiegazioni ulteriori.
+
+[46:23] Professore: Poi c'è un esempio, qui vedete di comunicazione con datagram, quindi UDP minimale, server UDP minimale, quindi sempre una socket internet dove lo stile
+
+[46:45] Professore: il protocollo è quello di datagram non software stream ok?
+
+[46:50] Professore: non so se si vede e quindi il resto qui l'outres family è afinet questi sono la porta e questo significa che si mette in ascolto su qualunque utilizzo associato a quell'host quindi è molto più semplice facendo in questo modo
+
+[47:10] Professore: A questo punto per esempio il server può ricevere da e quello che riceve è un buffer e questo buffer è portato dal datagram, dal messaggio, quindi qui si mette in un certo senso
+
+[47:35] Professore: in modalità per esempio il server prima riceve e poi send to e poi lo manda indietro in questo caso deve conoscere però l'address del client e quindi il client per esempio qui crea prima un buffer ciao poi questo si crea un indirizzo e poi
+
+[48:06] Professore: fa il send to direttamente al server e poi receive from
+
+[48:12] Professore: e qui in questo caso va a chiudere il buffer quindi questo è un esempio molto molto semplice proprio di accesso di una comunicazione non TCP ma UTP tra client e server quindi come si vede è proprio già queste poche righe di codice bastano per specificare una comunicazione UTP
+
+[48:38] Professore: Una cosa importante, ecco qua, server concorrente.
+
+[48:56] Professore: questo, magari questo potete provare, questo vi ho lasciato anche qui del codice, allora il server concorrente significa che ogni volta che viene fatta una richiesta, viene fatta una nuova connect, il server crea un fork e crea proprio un processo separato di gestione
+
+[49:20] Professore: su quel socket separato che si crea quando si fa la accept accept crea socket separato che è fatta apposta perchè un processo prenda la consegna di quello quindi è come se io creassi al volo un operatore che viene appunto in un certo senso creato per la gestione specifica di quella connessione allora quindi
+
+[49:49] Professore: Lo schema essenzialmente diventa questo, vedete qua, quindi socket bind listing e poi si cicla, dopo la set subito il fork e il fork poi va a, in un certo senso, chiamare eventualmente il gestore a cui deve passare però il file descritto che diventa quello che lo gestisce.
+
+[50:18] Professore: Questo, qui abbiamo proprio il, vedete questo sarebbe l'ended client, quello che gestisce il client, che prende il file descritto qua, qui c'è sempre il concorrente di realtà sta qui, quindi qui abbiamo
+
+[50:42] Professore: un socket, qui vedete, lo leggete, internet, socket stream, quindi già avete capito che questo è un socket internet DCT che lavora appunto su questo stream di byte bidirezionale.
+
+[50:55] Professore: Questa è, avete capito, questo è l'indirizzo, questo è il bind, questo è il listen, e poi qui parte il ciclo, ok, qui sotto, dove c'è l'accept, vabbè, si controlla se c'è errore, poi qui fork,
+
+[51:11] Professore: Quindi abbiamo il processo figlio di questo, figlio del Zeb, che ogni volta va a...
+
+[51:20] Professore: chiamare questo end client, quindi gestisci il client e passandogli come argomento sia, qui abbiamo il file descriptor del nuovo software, quindi ha a disposizione tutto quanto e quindi sto creando questi end client
+
+[51:45] Professore: praticamente questi n processi che vanno a gestire i vari client, quindi abbiamo più client che contemporaneamente possono essere attivi.
+
+[52:00] Professore: Qui bisogna stare attenti a quel discorso che vi facevo tempo fa sugli zombie, perché nel momento in cui un client esce
+
+[52:12] Professore: lì abbiamo che il client esce però che succede?
+
+[52:19] Professore: succede che abbiamo un figlio che magari muore e il padre sarebbe il server dovrebbe aspettare la wait, il figlio è morto, è il classico processo zombie che abbiamo visto anche e quindi si può popolare in questo
+
+[52:39] Professore: Quindi abbiamo la popolazione di zombie che si possono creare, quindi o questi fisi vengono creati in modalità detached, ok?
+
+[52:51] Professore: oppure bisogna creare delle weight diciamo che li raccolgono al volo e quindi ogni volta che c'è un sick child quindi si crea un handler che va praticamente a chiamare la weight e si va a togliere questi residui perché altrimenti si popola di zomer in questo caso bisogna sapere molto bene cosa si sta
+
+[53:15] SPEAKER_00: che deve essere tutto molto strutturato assieme a un'attività.
+
+[53:17] Professore: Sì, bisogna stare attenti, quindi se uno deve fare un server vero, dove immaginate che ci stanno, non so, se uno tra milioni di richieste e poi che si accendono e si spengono continuamente, chiaramente poi se uno non ha calcolato gli zombie, dopo un po' il sistema, esatto, a un certo punto non regge.
+
+[53:38] SPEAKER_03: Quindi bisognerebbe, cioè per risolvere questo problema basterebbe usare la funzione che chiama la wait,
+
+[53:46] Professore: Quello è un modo, infatti io su questo vi ho lasciato un esercizio che su quello vi volevo magari che lo lascio per casa, come esercizio.
+
+[53:59] SPEAKER_03: Questo qui... Una curiosità, ma la struttura del codice è lo stesso se io volessi far comunicare due macchine sulla stessa rete?
+
+[54:12] Professore: Sì, sì, sì, sì, assolutamente, questo è il codice, va benissimo, cioè questo è il TCP, i client e il server possono stare dovunque nel mondo, cioè quindi potete provare una rete, purché sia disponibile chiaramente l'indirizzo strutturale,
+
+[54:33] Professore: diciamo statico, comunque abbastanza affidato, esterno.
+
+[54:40] SPEAKER_03: Anche nella propria, volendo, nella rete di casa, per sperimentare.
+
+[54:45] Professore: Sì, se avete a disposizione, appunto, però sia il client che il server, o comunque almeno il server deve esporre un... Beh, due pc bastano...
+
+[54:59] Professore: e quindi questo... allora quello che volevo far vedere era non mi ricordo bene ma nel caso si volesse invece di comunicare messaggi dei file ci vuole l'ftp invece del TCP allora in questo caso l'ftp poi è un protocollo di comunicazione sul file eccetera
+
+[55:27] Professore: che utilizza questi strumenti.
+
+[55:31] Professore: Quindi siamo su un altro livello, qui stiamo parlando degli strumenti base della comunicazione di rete.
+
+[55:41] Professore: Poi si avvale quelle applicazioni, si avvalgono di questi strumenti per la comunicazione di rete, per la definizione di protocolli più complessi.
+
+[55:50] Professore: Allora qui vi ho dato su questo server.core1.ci
+
+[55:56] Professore: vi ho dato il server concorrente, questo con questa modalità qui, senza la gestione, mi pare, sì, questa versione qua, senza la, senza, quindi è completo questo, funziona, questo è concorrente, però lascia gli zombie, questo qui, quindi due esercizi, ci sarebbero, insomma che pensavo di,
+
+[56:24] Professore: lasciarvi come riflessione se volete uno appunto provare a togliere gli zombie da questo e seconda cosa trasformarlo da multiprocesso a multitread anche questo è l'altro aspetto che è semplice però vi dovete ricordare quello che vi ho detto ieri che nel caso multitread non c'è quando fa la XET questa C
+
+[56:53] Professore: c'è una corsa critica mentre qui sui multi processi non c'è corsa critica per cui viene duplicato lo spazio di indirizzamento nel caso invece del multi trading questo non avviene quindi bisogna subito andare ad allocare memoria fresca
+
+[57:14] Professore: per mettere in sicurezza la variabile.
+
+[57:17] Professore: Esatto, quel socket del descriptor perché se no viene sovrascritto.
+
+[57:23] Professore: Quindi questa è l'unica cosa a cui fare attenzione altrimenti poi diventa abbastanza rapida la faccenda.
+
+[57:31] Professore: questo qui che è un server multi thread può essere affiancato a un qualunque client che possa parlare con lui quindi eventualmente vi posso dare un client minimale però non so se ve l'ho già aggiunto oppure potete in realtà come esercizio ci starebbe che appunto venga fatto anche questo quindi se tra i diversi esercizi che ti lascerei per casa
+
+[58:00] Professore: Magari adesso vediamo quando io farei a questo punto un'ultima lezione però da remoto in cui eventualmente potremmo, vi lascio questo come problema.
+
+[58:14] Professore: e poi magari facciamo qualche rudimento di container, ok?
+
+[58:19] Professore: Grazie mille.
+
+[58:21] Professore: Ora, la prossima lezione da remoto, quando vi verrebbe comoda?
+
+[58:27] SPEAKER_03: Forse, vabbè, martedì, rimaniamo con martedì.
+
+[58:31] Professore: Martedì, ok, potrebbe essere martedì solo che la facciamo da remoto invece di parlare.
+
+[58:36] SPEAKER_03: Volendo, può anche anticipare perché hanno finito tutti i docenti prima di lei, a Borattino, ma sta alle 9.
+
+[58:43] Professore: Con altri lo fate in presenza?
+
+[58:49] SPEAKER_03: Verrei, verrei, verrei.
+
+[58:51] Professore: Però se la facciamo di pomeriggio noi fate in tempo a tornare a casa?
+
+[58:55] SPEAKER_03: Sì, pure dopo pranzo, se vuoi anticipare, si può fare tranquillamente.
+
+[58:59] Professore: Allora rimaniamo così, martedì.
+
+[59:02] Professore: Martedì che giorno è? 9.
+
+[59:06] SPEAKER_04: Dovrebbe andare bene.
+
+[59:08] SPEAKER_03: Vabbè, solo per comodità.
+
+[59:11] SPEAKER_03: Prima facciamo.
+
+[59:12] SPEAKER_04: Allora metto l'annuncio appena... Grazie mille.
+
+[59:17] SPEAKER_04: Grazie.
+
+[59:18] Professore: Allora, andiamo qui.
+
+[59:23] Professore: Buona... Grazie per... Anche la testa.
+
+[59:28] Professore: Alla prossima.
+
+[59:28] Professore: Va bene, produzione.
+
+[59:30] Professore: Arrivederci.
+
+[59:37] SPEAKER_03: La domanda riguardo al protocollo è perché avevo in mente di fare una sorta di database cloud a casa come progetto piccolo.
+
+[59:48] Professore: e volevo sperimentare un po' questo fatto pure il passaggio di file tra i dispositivi lì a quel punto ti conviene utilizzare effettivamente un protocollo già fatti non partire da proprio socket che significa diciamo byte a byte però invece docker lo trovai perchè
+
+[01:00:17] SPEAKER_03: con VS Code per programmare.
+
+[01:00:20] SPEAKER_03: Volevo trovare un modo per portarmelo sul tablet appresso, magari se non avessi avuto il computer.
+
+[01:00:27] SPEAKER_03: E' vero, però ho avuto durante il primo anno che lo scopi e vi problemi a impostare tutto quanto e quindi ho colto l'occasione per capirne un poco di più.
+
+[01:00:50] Sconosciuto: Invece come si aggancia ai principi dei tempi?
+
+[01:00:51] SPEAKER_04: Ci sono stati altri testi, per esempio le realizzazioni, l'amministrazione, l'amministrazione, l'amministrazione, l'amministrazione, l'amministrazione, l'amministrazione, l'amministrazione, l'amministrazione, l'amministrazione, l'amministrazione, l'amministrazione, l'amministrazione, l'amministrazione, l'amministrazione, l'amministrazione, l'amministrazione, l'amministrazione, l'amministrazione, l'amministrazione, l'amministrazione, l'amministrazione, l'amministrazione, l'amministrazione, l'amministrazione, l'amministrazione, l'amministrazione, l'amministrazione, l'amministra
+
+[01:01:20] Professore: Sì, ma addirittura adesso essenzialmente tutte le risorse che vengono gestite in vede da questi grandi cluster sono tutte containerizzate.
+
+[01:01:31] Professore: Si lavora praticamente a livello di gestione dei sistemi dentro container, perché così è tutto sotto controllo.
+
+[01:01:45] Professore: Se uno non vuole fare degli upgrade dell'ambiente che poi
+
+[01:01:50] Professore: possono cambiare il 3D e quello quell'altro, tu stai tutto dentro il tuo contenitore e lo fai quando vuoi, sostituisci quel pezzo con un altro eccetera.
+
