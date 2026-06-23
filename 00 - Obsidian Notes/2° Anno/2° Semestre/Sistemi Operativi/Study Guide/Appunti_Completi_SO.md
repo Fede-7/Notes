@@ -4817,3 +4817,3161 @@ EDITOR      vim                       Editor predefinito
 *Crediti: 9 CFU*
 
 **Ultima revisione**: Capitoli 1-15 + Appendici A-B completamente espansi con definizioni, diagrammi, codice, tabelle, e riferimenti incrociati.
+
+
+### 9.13 Livelock
+Il **livelock** è un'altra forma di fallimento di Liveness. In questo scenario, un gruppo di thread non è bloccato (non è in stato di attesa), ma non procede nell'esecuzione.
+- I thread tentano continuamente di eseguire un'azione che fallisce, impedendo loro di avanzare.
+- **Esempio**: Due persone in un corridoio che non riescono ad evitarsi, muovendosi continuamente di lato nello stesso istante.
+- **Risoluzione**: Spesso può essere risolto tramite la **randomizzazione** (es. periodi di backoff casuali nei protocolli di rete).
+
+### 9.14 Grafi di Allocazione delle Risorse
+Per visualizzare e analizzare lo stato delle risorse nel sistema, si utilizza il **Grafo di Allocazione delle Risorse**.
+- **Nodi**: Partizionati in due tipi:
+    - $P = \{P_1, P_2, \ldots, P_n\}$ (Processi)
+    - $R = \{R_1, R_2, \ldots, R_m\}$ (Tipi di risorse)
+- **Archi**:
+    - *Request edge* ($P_i \rightarrow R_j$): Il processo $P_i$ richiede una risorsa di tipo $R_j$.
+    - *Assignment edge* ($R_j \rightarrow P_i$): La risorsa di tipo $R_j$ è allocata al processo $P_i$.
+
+**Fatti di Base sui Grafi**:
+- Se il grafo non contiene cicli $\Rightarrow$ non c'è deadlock.
+- Se il grafo contiene un ciclo:
+    - Se esiste una sola istanza per tipo di risorsa $\Rightarrow$ **Deadlock**.
+    - Se esistono molte istanze $\Rightarrow$ c'è la *possibilità* di deadlock, ma non è necessariamente presente.
+
+### 9.15 Evitamento del Deadlock (Deadlock Avoidance)
+A differenza della prevenzione, l'evitamento valuta dinamicamente le richieste per assicurarsi che il sistema non entri mai in uno stato pericoloso.
+
+**Stato Sicuro (Safe State)**:
+Un sistema è in uno **stato sicuro** se esiste una sequenza $<P_1, P_2, \ldots, P_n>$ di TUTTI i processi tale che, per ogni $P_i$, le risorse richieste da $P_i$ possono essere soddisfatte dalle risorse correntemente disponibili + le risorse tenute da tutti i processi $P_j$ con $j < i$.
+
+**Algoritmo del Banchiere (Banker's Algorithm)**:
+Utilizzato per gestire multiple istanze di risorse. Richiede che ogni processo dichiari a priori il massimo utilizzo di risorse.
+- **Strutture Dati**:
+    - **Available**: Vettore delle risorse disponibili.
+    - **Max**: Matrice delle massime richieste per processo.
+    - **Allocation**: Matrice delle risorse correntemente allocate.
+    - **Need**: Matrice delle risorse rimanenti ($Need = Max - Allocation$).
+
+**Algoritmo di Safety**:
+1. Inizializza `Work = Available` e `Finish[i] = false` per tutti i processi.
+2. Trova un processo $i$ tale che `Finish[i] == false` e `Need_i <= Work`.
+3. Se trovato, `Work = Work + Allocation_i`, `Finish[i] = true`, e torna al passo 2.
+4. Se tutti i processi hanno `Finish[i] == true`, il sistema è in uno **stato sicuro**.
+
+### 9.16 Rilevamento del Deadlock (Deadlock Detection)
+Si permette al sistema di entrare in uno stato di deadlock, monitorandolo periodicamente.
+
+**Istanza Singola di Risorsa**:
+Si usa il **grafo wait-for** (grafo delle attese).
+- Nodi: Solo processi.
+- Archi: $P_i \rightarrow P_j$ se $P_i$ sta aspettando una risorsa tenuta da $P_j$.
+- Se il grafo contiene un ciclo $\Rightarrow$ c'è un deadlock.
+
+**Multiple Istanze di Risorse**:
+Si utilizzano strutture simili all'algoritmo del banchiere (`Work`, `Allocation`, `Request`).
+- Algoritmo: Simile a quello di safety, ma si usa la matrice `Request` invece di `Need`.
+- Se dopo l'esecuzione dell'algoritmo esiste un processo $i$ tale che `Finish[i] == false`, allora $P_i$ è in deadlock.
+
+### 9.17 Ripristino dal Deadlock (Deadlock Recovery)
+Una volta rilevato il deadlock, il sistema deve intervenire tramite:
+
+1. **Terminazione di Processi**:
+    - Abort di tutti i processi coinvolti (molto dispendioso).
+    - Abort dei processi uno alla volta finché il ciclo viene eliminato.
+    - *Criteri di scelta della vittima*: Priorità, tempo di esecuzione, risorse utilizzate, numero di processi coinvolti, natura interattiva/batch.
+
+2. **Prelazione di Risorse (Resource Preemption)**:
+    - Selezionare una "vittima" da cui sottrarre risorse.
+    - **Rollback**: Il processo deve tornare a uno stato sicuro precedente (es. ripartire da capo o da uno stato di salvataggio).
+    - **Starvation**: Evitare che lo stesso processo venga scelto ripetutamente come vittima includendo il numero di rollback precedenti nella funzione di costo.
+
+### 9.13 Livelock
+Il **livelock** è un'altra forma di fallimento di Liveness. In questo scenario, un gruppo di thread non è bloccato (non è in stato di attesa), ma non procede nell'esecuzione.
+- I thread tentano continuamente di eseguire un'azione che fallisce, impedendo loro di avanzare.
+- **Esempio**: Due persone in un corridoio che non riescono ad evitarsi, muovendosi continuamente di lato nello stesso istante.
+- **Risoluzione**: Spesso può essere risolto tramite la **randomizzazione** (es. periodi di backoff casuali nei protocolli di rete).
+
+### 9.14 Grafi di Allocazione delle Risorse
+Per visualizzare e analizzare lo stato delle risorse nel sistema, si utilizza il **Grafo di Allocazione delle Risorse**.
+- **Nodi**: Partizionati in due tipi:
+    - $P = \{P_1, P_2, \ldots, P_n\}$ (Processi)
+    - $R = \{R_1, R_2, \ldots, R_m\}$ (Tipi di risorse)
+- **Archi**:
+    - *Request edge* ($P_i \rightarrow R_j$): Il processo $P_i$ richiede una risorsa di tipo $R_j$.
+    - *Assignment edge* ($R_j \rightarrow P_i$): La risorsa di tipo $R_j$ è allocata al processo $P_i$.
+
+**Fatti di Base sui Grafi**:
+- Se il grafo non contiene cicli $\Rightarrow$ non c'è deadlock.
+- Se il grafo contiene un ciclo:
+    - Se esiste una sola istanza per tipo di risorsa $\Rightarrow$ **Deadlock**.
+    - Se esistono molte istanze $\Rightarrow$ c'è la *possibilità* di deadlock, ma non è necessariamente presente (es. se una risorsa nel ciclo può essere rilasciata da un altro processo).
+
+### 9.15 Prevenzione del Deadlock
+Per prevenire i deadlock, è necessario eliminare almeno una delle quattro condizioni di Coffman:
+
+1. **Mutual Exclusion**: Non richiesta per risorse condivisibili (es. file read-only). Tuttavia, non è possibile limitare le richieste solo a risorse non condivisibili.
+2. **Hold and Wait**: Garantire che quando un processo richiede una risorsa, non detiene altre risorse.
+    - Imporre al processo di richiedere e allocare tutte le sue risorse prima che inizi l'esecuzione.
+    - Consentire al processo di richiedere risorse solo quando non ne ha state allocate.
+    - *Svantaggi*: Basso utilizzo delle risorse; possibile starvation.
+3. **No Preemption**: Se un processo che detiene risorse richiede un’altra risorsa non disponibile, tutte le risorse devono essere rilasciate. Le risorse prelazionate vengono aggiunte alla lista di attesa e il processo viene riavviato solo quando può ottenere le vecchie più le nuove risorse.
+    - *Limite*: Funziona solo per risorse facilmente recuperabili (CPU, DB, ecc.), non per mutex o semafori.
+4. **Circular Wait**: Imporre un ordine totale a tutti i tipi di risorse e richiedere che ogni processo le richieda in ordine crescente.
+    - Dato un ordine $F(R)$, un processo può richiedere risorse solo se $F(R_j) > F(R_i)$.
+    - Questo impedisce la formazione di cicli poiché $F(R_1) < F(R_2) < \cdots < F(R_n) < F(R_1)$ è una contraddizione.
+
+### 9.16 Evitamento del Deadlock (Deadlock Avoidance)
+A differenza della prevenzione, l'evitamento valuta dinamicamente le richieste per assicurarsi che il sistema non entri mai in uno stato pericoloso.
+
+**Stato Sicuro (Safe State)**:
+Un sistema è in uno **stato sicuro** se esiste una sequenza $<P_1, P_2, \ldots, P_n>$ di TUTTI i processi tale che, per ogni $P_i$, le risorse richieste da $P_i$ possono essere soddisfatte dalle risorse correntemente disponibili + le risorse tenute da tutti i processi $P_j$ con $j < i$.
+
+**Algoritmo del Banchiere (Banker's Algorithm)**:
+Utilizzato per gestire multiple istanze di risorse. Richiede che ogni processo dichiari a priori il massimo utilizzo di risorse.
+- **Strutture Dati**:
+    - **Available**: Vettore delle risorse disponibili.
+    - **Max**: Matrice delle massime richieste per processo.
+    - **Allocation**: Matrice delle risorse correntemente allocate.
+    - **Need**: Matrice delle risorse rimanenti ($Need = Max - Allocation$).
+
+**Algoritmo di Safety**:
+1. Inizializza `Work = Available` e `Finish[i] = false` per tutti i processi.
+2. Trova un processo $i$ tale che `Finish[i] == false` e `Need_i <= Work`.
+3. Se trovato, `Work = Work + Allocation_i`, `Finish[i] = true`, e torna al passo 2.
+4. Se tutti i processi hanno `Finish[i] == true`, il sistema è in uno **stato sicuro**.
+
+### 9.17 Rilevamento del Deadlock (Deadlock Detection)
+Si permette al sistema di entrare in uno stato di deadlock, monitorandolo periodicamente.
+
+**Istanza Singola di Risorsa**:
+Si usa il **grafo wait-for** (grafo delle attese).
+- Nodi: Solo processi.
+- Archi: $P_i \rightarrow P_j$ se $P_i$ sta aspettando una risorsa tenuta da $P_j$.
+- Se il grafo contiene un ciclo $\Rightarrow$ c'è un deadlock.
+
+**Multiple Istanze di Risorse**:
+Si utilizzano strutture simili all'algoritmo del banchiere (`Work`, `Allocation`, `Request`).
+- Algoritmo: Simile a quello di safety, ma si usa la matrice `Request` invece di `Need`.
+- Se dopo l'esecuzione dell'algoritmo esiste un processo $i$ tale che `Finish[i] == false`, allora $P_i$ è in deadlock.
+
+### 9.18 Ripristino dal Deadlock (Deadlock Recovery)
+Una volta rilevato il deadlock, il sistema deve intervenire tramite:
+
+1. **Terminazione di Processi**:
+    - Abort di tutti i processi coinvolti (molto dispendioso).
+    - Abort dei processi uno alla volta finché il ciclo viene eliminato.
+    - *Criteri di scelta della vittima*: Priorità, tempo di esecuzione, risorse usate, natura interattiva/batch.
+
+2. **Prelazione di Risorse (Resource Preemption)**:
+    - Selezionare una "vittima" da cui sottrarre risorse.
+    - **Rollback**: Il processo deve tornare a uno stato sicuro precedente (es. ripartire da capo o da uno stato di salvataggio).
+    - **Starvation**: Evitare che lo stesso processo venga scelto ripetutamente come vittima includendo il numero di rollback precedenti nella funzione di costo.
+
+### 9.13 Livelock
+Il **livelock** è un'altra forma di fallimento di Liveness. In questo scenario, un gruppo di thread non è bloccato (non è in stato di attesa), ma non procede nell'esecuzione.
+- I thread tentano continuamente di eseguire un'azione che fallisce, impedendo loro di avanzare.
+- **Esempio**: Due persone in un corridoio che non riescono ad evitarsi, muovendosi continuamente di lato nello stesso istante.
+- **Risoluzione**: Spesso può essere risolto tramite la **randomizzazione** (es. periodi di backoff casuali nei protocolli di rete).
+
+### 9.14 Grafi di Allocazione delle Risorse
+Per visualizzare e analizzare lo stato delle risorse nel sistema, si utilizza il **Grafo di Allocazione delle Risorse**.
+- **Nodi**: Partizionati in due tipi:
+    - $P = \{P_1, P_2, \ldots, P_n\}$ (Processi)
+    - $R = \{R_1, R_2, \ldots, R_m\}$ (Tipi di risorse)
+- **Archi**:
+    - *Request edge* ($P_i \rightarrow R_j$): Il processo $P_i$ richiede una risorsa di tipo $R_j$.
+    - *Assignment edge* ($R_j \rightarrow P_i$): La risorsa di tipo $R_j$ è allocata al processo $P_i$.
+
+**Fatti di Base sui Grafi**:
+- Se il grafo non contiene cicli $\Rightarrow$ non c'è deadlock.
+- Se il grafo contiene un ciclo:
+    - Se esiste una sola istanza per tipo di risorsa $\Rightarrow$ **Deadlock**.
+    - Se esistono molte istanze $\Rightarrow$ c'è la *possibilità* di deadlock, ma non è necessariamente presente (es. se una risorsa nel ciclo può essere rilasciata da un altro processo).
+
+### 9.15 Prevenzione del Deadlock
+Per prevenire i deadlock, è necessario eliminare almeno una delle quattro condizioni di Coffman:
+
+1. **Mutua Esclusione**: Non richiesta per risorse condivisibili (es. file read-only). Tuttavia, non è possibile limitare le richieste solo a risorse non condivisibili.
+2. **Hold and Wait**: Garantire che quando un processo richiede una risorsa, non detiene altre risorse.
+   - Imporre al processo di richiedere e allocare tutte le sue risorse prima che inizi l'esecuzione.
+   - Consentire al processo di richiedere risorse solo quando non ne ha state allocate.
+   - *Svantaggi*: Basso utilizzo delle risorse; possibile starvation.
+3. **No Preemption**: Se un processo che detiene risorse richiede un’altra risorsa non disponibile, tutte le risorse devono essere rilasciate. Le risorse prelazionate vengono aggiunte alla lista di attesa e il processo viene riavviato solo quando può ottenere le vecchie più le nuove risorse.
+   - *Limite*: Funziona solo per risorse facilmente recuperabili (CPU, DB, ecc.), non per mutex o semafori.
+4. **Circular Wait**: Imporre un ordine totale a tutti i tipi di risorse e richiedere che ogni processo le richieda in ordine crescente.
+   - Dato un ordine $F(R)$, un processo può richiedere risorse solo se $F(R_j) > F(R_i)$.
+   - Questo impedisce la formazione di cicli poiché $F(R_1) < F(R_2) < \cdots < F(R_n) < F(R_1)$ è una contraddizione.
+
+### 9.16 Evitamento del Deadlock (Deadlock Avoidance)
+A differenza della prevenzione, l'evitamento valuta dinamicamente le richieste per assicurarsi che il sistema non entri mai in uno stato pericoloso.
+
+**Stato Sicuro (Safe State)**:
+Un sistema è in uno **stato sicuro** se esiste una sequenza $<P_1, P_2, \ldots, P_n>$ di TUTTI i processi tale che, per ogni $P_i$, le risorse richieste da $P_i$ possono essere soddisfatte dalle risorse correntemente disponibili + le risorse tenute da tutti i processi $P_j$ con $j < i$.
+
+**Algoritmo del Banchiere (Banker's Algorithm)**:
+Utilizzato per gestire multiple istanze di risorse. Richiede che ogni processo dichiari a priori il massimo utilizzo di risorse.
+- **Strutture Dati**:
+    - **Available**: Vettore delle risorse disponibili.
+    - **Max**: Matrice delle massime richieste per processo.
+    - **Allocation**: Matrice delle risorse correntemente allocate.
+    - **Need**: Matrice delle risorse rimanenti ($Need = Max - Allocation$).
+
+**Algoritmo di Safety**:
+1. Inizializza `Work = Available` e `Finish[i] = false` per tutti i processi.
+2. Trova un processo $i$ tale che `Finish[i] == false` e `Need_i <= Work`.
+3. Se trovato, `Work = Work + Allocation_i`, `Finish[i] = true`, e torna al passo 2.
+4. Se tutti i processi hanno `Finish[i] == true`, il sistema è in uno **stato sicuro**.
+
+### 9.17 Rilevamento del Deadlock (Deadlock Detection)
+Si permette al sistema di entrare in uno stato di deadlock, monitorandolo periodicamente.
+
+**Istanza Singola di Risorsa**:
+Si usa il **grafo wait-for** (grafo delle attese).
+- Nodi: Solo processi.
+- Archi: $P_i \rightarrow P_j$ se $P_i$ sta aspettando una risorsa tenuta da $P_j$.
+- Se il grafo contiene un ciclo $\Rightarrow$ c'è un deadlock.
+
+**Multiple Istanze di Risorse**:
+Si utilizzano strutture simili all'algoritmo del banchiere (`Work`, `Allocation`, `Request`).
+- Algoritmo: Simile a quello di safety, ma si usa la matrice `Request` invece di `Need`.
+- Se dopo l'esecuzione dell'algoritmo esiste un processo $i$ tale che `Finish[i] == false`, allora $P_i$ è in deadlock.
+
+### 9.18 Ripristino dal Deadlock (Deadlock Recovery)
+Una volta rilevato il deadlock, il sistema deve intervenire tramite:
+
+1. **Terminazione di Processi**:
+   - Abort di tutti i processi coinvolti (molto dispendioso).
+   - Abort dei processi uno alla volta finché il ciclo viene eliminato.
+   - *Criteri di scelta della vittima*: Priorità, tempo di esecuzione, risorse usate, natura interattiva/batch.
+
+2. **Prelazione di Risorse (Resource Preemption)**:
+   - Selezionare una "vittima" da cui sottrarre risorse.
+   - **Rollback**: Il processo deve tornare a uno stato sicuro precedente (es. ripartire da capo o da uno stato di salvataggio).
+   - **Starvation**: Evitare che lo stesso processo venga scelto ripetutamente come vittima includendo il numero di rollback precedenti nella funzione di costo.
+
+### 9.11 Livelock
+Il **livelock** è un'altra forma di fallimento di Liveness. In questo scenario, un gruppo di thread non è bloccato (non è in stato di attesa), ma non procede nell'esecuzione.
+- I thread tentano continuamente di eseguire un'azione che fallisce, impedendo loro di avanzare.
+- **Esempio**: Due persone in un corridoio che non riescono ad evitarsi, muovendosi continuamente di lato nello stesso istante.
+- **Risoluzione**: Spesso può essere risolto tramite la **randomizzazione** (es. periodi di backoff casuali nei protocolli di rete).
+
+### 9.12 Grafi di Allocazione delle Risorse
+Per visualizzare e analizzare lo stato delle risorse nel sistema, si utilizza il **Grafo di Allocazione delle Risorse**.
+- **Nodi**: Partizionati in due tipi:
+    - $P = \{P_1, P_2, \ldots, P_n\}$ (Processi)
+    - $R = \{R_1, R_2, \ldots, R_m\}$ (Tipi di risorse)
+- **Archi**:
+    - *Request edge* ($P_i \rightarrow R_j$): Il processo $P_i$ richiede una risorsa di tipo $R_j$.
+    - *Assignment edge* ($R_j \rightarrow P_i$): La risorsa di tipo $R_j$ è allocata al processo $P_i$.
+
+**Fatti di Base sui Grafi**:
+- Se il grafo non contiene cicli $\Rightarrow$ non c'è deadlock.
+- Se il grafo contiene un ciclo:
+    - Se esiste una sola istanza per tipo di risorsa $\Rightarrow$ **Deadlock**.
+    - Se esistono molte istanze $\Rightarrow$ c'è la *possibilità* di deadlock, ma non è necessariamente presente (es. se una risorsa nel ciclo può essere rilasciata da un altro processo).
+
+### 9.13 Prevenzione del Deadlock
+Per prevenire i deadlock, è necessario eliminare almeno una delle quattro condizioni di Coffman:
+
+1. **Mutua Esclusione**: Non richiesta per risorse condivisibili (es. file read-only). Tuttavia, non è possibile limitare le richieste solo a risorse non condivisibili.
+2. **Hold and Wait**: Garantire che quando un processo richiede una risorsa, non detiene altre risorse.
+    - Imporre al processo di richiedere e allocare tutte le sue risorse prima che inizi l'esecuzione.
+    - Consentire al processo di richiedere risorse solo quando non ne ha state allocate.
+    - *Svantaggi*: Basso utilizzo delle risorse; possibile starvation.
+3. **No Preemption**: Se un processo che detiene risorse richiede un’altra risorsa non disponibile, tutte le risorse devono essere rilasciate. Le risorse prelazionate vengono aggiunte alla lista di attesa e il processo viene riavviato solo quando può ottenere le vecchie più le nuove risorse.
+    - *Limite*: Funziona solo per risorse facilmente recuperabili (CPU, DB, ecc.), non per mutex o semafori.
+4. **Circular Wait**: Imporre un ordine totale a tutti i tipi di risorse e richiedere che ogni processo le richieda in ordine crescente.
+    - Dato un ordine $F(R)$, un processo può richiedere risorse solo se $F(R_j) > F(R_i)$.
+    - Questo impedisce la formazione di cicli poiché $F(R_1) < F(R_2) < \cdots < F(R_n) < F(R_1)$ è una contraddizione.
+
+**Esempio Pratico: Lock Ordering**
+Per prevenire il deadlock in sistemi multi-thread, si può imporre un ordine globale di acquisizione dei mutex.
+```cpp
+// Invece di acquisire i lock in ordine casuale:
+if (from.id < to.id) {
+    acquire(lock(from));
+    acquire(lock(to));
+} else {
+    acquire(lock(to));
+    acquire(lock(from));
+}
+```
+
+### 9.14 Evitamento del Deadlock (Deadlock Avoidance)
+A differenza della prevenzione, l'evitamento valuta dinamicamente le richieste per assicurarsi che il sistema non entri mai in uno stato pericoloso.
+
+**Stato Sicuro (Safe State)**:
+Un sistema è in uno **stato sicuro** se esiste una sequenza $<P_1, P_2, \ldots, P_n>$ di TUTTI i processi tale che, per ogni $P_i$, le risorse richieste da $P_i$ possono essere soddisfatte dalle risorse correntemente disponibili + le risorse tenute da tutti i processi $P_j$ con $j < i$.
+
+**Algoritmo del Banchiere (Banker's Algorithm)**:
+Utilizzato per gestire multiple istanze di risorse. Richiede che ogni processo dichiari a priori il massimo utilizzo di risorse.
+- **Strutture Dati**:
+    - **Available**: Vettore delle risorse disponibili.
+    - **Max**: Matrice delle massime richieste per processo.
+    - **Allocation**: Matrice delle risorse correntemente allocate.
+    - **Need**: Matrice delle risorse rimanenti ($Need = Max - Allocation$).
+
+**Algoritmo di Safety**:
+1. Inizializza `Work = Available` e `Finish[i] = false` per tutti i processi.
+2. Trova un processo $i$ tale che `Finish[i] == false` e `Need_i <= Work`.
+3. Se trovato, `Work = Work + Allocation_i`, `Finish[i] = true`, e torna al passo 2.
+4. Se tutti i processi hanno `Finish[i] == true`, il sistema è in uno **stato sicuro**.
+
+### 9.15 Rilevamento del Deadlock (Deadlock Detection)
+Si permette al sistema di entrare in uno stato di deadlock, monitorandolo periodicamente.
+
+**Istanza Singola di Risorsa**:
+Si usa il **grafo wait-for** (grafo delle attese).
+- Nodi: Solo processi.
+- Archi: $P_i \rightarrow P_j$ se $P_i$ sta aspettando una risorsa tenuta da $P_j$.
+- Se il grafo contiene un ciclo $\Rightarrow$ c'è un deadlock.
+
+**Multiple Istanze di Risorse**:
+Si utilizzano strutture simili all'algoritmo del banchiere (`Work`, `Allocation`, `Request`).
+- Algoritmo: Simile a quello di safety, ma si usa la matrice `Request` invece di `Need`.
+- Se dopo l'esecuzione dell'algoritmo esiste un processo $i$ tale che `Finish[i] == false`, allora $P_i$ è in deadlock.
+
+### 9.16 Ripristino dal Deadlock (Deadlock Recovery)
+Una volta rilevato il deadlock, il sistema deve intervenire tramite:
+
+1. **Terminazione di Processi**:
+    - Abort di tutti i processi coinvolti (molto dispendioso).
+    - Abort dei processi uno alla volta finché il ciclo viene eliminato.
+    - *Criteri di scelta della vittima*: Priorità, tempo di esecuzione, risorse usate, natura interattiva/batch.
+
+2. **Prelazione di Risorse (Resource Preemption)**:
+    - Selezionare una "vittima" da cui sottrarre risorse.
+    - **Rollback**: Il processo deve tornare a uno stato sicuro precedente (es. ripartire da capo o da uno stato di salvataggio).
+    - **Starvation**: Evitare che lo stesso processo venga scelto ripetutamente come vittima includendo il numero di rollback precedenti nella funzione di costo.
+
+### 9.11 Livelock
+Il **livelock** è un'altra forma di fallimento di Liveness. In questo scenario, un gruppo di thread non è bloccato (non è in stato di attesa), ma non procede nell'esecuzione.
+- I thread tentano continuamente di eseguire un'azione che fallisce, impedendo loro di avanzare.
+- **Esempio**: Due persone in un corridoio che non riescono ad evitarsi, muovendosi continuamente di lato nello stesso istante.
+- **Risoluzione**: Spesso può essere risolto tramite la **randomizzazione** (es. periodi di backoff casuali nei protocolli di rete).
+
+### 9.12 Grafi di Allocazione delle Risorse
+Per visualizzare e analizzare lo stato delle risorse nel sistema, si utilizza il **Grafo di Allocazione delle Risorse**.
+- **Nodi**: Partizionati in due tipi:
+    - $P = \{P_1, P_2, \ldots, P_n\}$ (Processi)
+    - $R = \{R_1, R_2, \ldots, R_m\}$ (Tipi di risorse)
+- **Archi**:
+    - *Request edge* ($P_i \rightarrow R_j$): Il processo $P_i$ richiede una risorsa di tipo $R_j$.
+    - *Assignment edge* ($R_j \rightarrow P_i$): La risorsa di tipo $R_j$ è allocata al processo $P_i$.
+
+**Fatti di Base sui Grafi**:
+- Se il grafo non contiene cicli $\Rightarrow$ non c'è deadlock.
+- Se il grafo contiene un ciclo:
+    - Se esiste una sola istanza per tipo di risorsa $\Rightarrow$ **Deadlock**.
+    - Se esistono molte istanze $\Rightarrow$ c'è la *possibilità* di deadlock, ma non è necessariamente presente (es. se una risorsa nel ciclo può essere rilasciata da un altro processo).
+
+### 9.13 Prevenzione del Deadlock
+Per prevenire i deadlock, è necessario eliminare almeno una delle quattro condizioni di Coffman:
+
+1. **Mutua Esclusione**: Non richiesta per risorse condivisibili (es. file read-only). Tuttavia, non è possibile limitare le richieste solo a risorse non condivisibili.
+2. **Hold and Wait**: Garantire che quando un processo richiede una risorsa, non detiene altre risorse.
+    - Imporre al processo di richiedere e allocare tutte le sue risorse prima che inizi l'esecuzione.
+    - Consentire al processo di richiedere risorse solo quando non ne ha state allocate.
+    - *Svantaggi*: Basso utilizzo delle risorse; possibile starvation.
+3. **No Preemption**: Se un processo che detiene risorse richiede un’altra risorsa non disponibile, tutte le risorse devono essere rilasciate. Le risorse prelazionate vengono aggiunte alla lista di attesa e il processo viene riavviato solo quando può ottenere le vecchie più le nuove risorse.
+    - *Limite*: Funziona solo per risorse facilmente recuperabili (CPU, DB, ecc.), non per mutex o semafori.
+4. **Circular Wait**: Imporre un ordine totale a tutti i tipi di risorse e richiedere che ogni processo le richieda in ordine crescente.
+    - Dato un ordine $F(R)$, un processo può richiedere risorse solo se $F(R_j) > F(R_i)$.
+    - Questo impedisce la formazione di cicli poiché $F(R_1) < F(R_2) < \cdots < F(R_n) < F(R_1)$ è una contraddizione.
+
+**Esempio Pratico: Lock Ordering**
+Per prevenire il deadlock in sistemi multi-thread, si può imporre un ordine globale di acquisizione dei mutex.
+```cpp
+// Invece di acquisire i lock in ordine casuale:
+if (from.id < to.id) {
+    acquire(lock(from));
+    acquire(lock(to));
+} else {
+    acquire(lock(to));
+    acquire(lock(from));
+}
+```
+
+### 9.14 Evitamento del Deadlock (Deadlock Avoidance)
+A differenza della prevenzione, l'evitamento valuta dinamicamente le richieste per assicurarsi che il sistema non entri mai in uno stato pericoloso.
+
+**Stato Sicuro (Safe State)**:
+Un sistema è in uno **stato sicuro** se esiste una sequenza $<P_1, P_2, \ldots, P_n>$ di TUTTI i processi tale che, per ogni $P_i$, le risorse richieste da $P_i$ possono essere soddisfatte dalle risorse correntemente disponibili + le risorse tenute da tutti i processi $P_j$ con $j < i$.
+
+**Algoritmo del Banchiere (Banker's Algorithm)**:
+Utilizzato per gestire multiple istanze di risorse. Richiede che ogni processo dichiari a priori il massimo utilizzo di risorse.
+- **Strutture Dati**:
+    - **Available**: Vettore delle risorse disponibili.
+    - **Max**: Matrice delle massime richieste per processo.
+    - **Allocation**: Matrice delle risorse correntemente allocate.
+    - **Need**: Matrice delle risorse rimanenti ($Need = Max - Allocation$).
+
+**Algoritmo di Safety**:
+1. Inizializza `Work = Available` e `Finish[i] = false` per tutti i processi.
+2. Trova un processo $i$ tale che `Finish[i] == false` e `Need_i <= Work`.
+3. Se trovato, `Work = Work + Allocation_i`, `Finish[i] = true`, e torna al passo 2.
+4. Se tutti i processi hanno `Finish[i] == true`, il sistema è in uno **stato sicuro**.
+
+### 9.15 Rilevamento del Deadlock (Deadlock Detection)
+Si permette al sistema di entrare in uno stato di deadlock, monitorandolo periodicamente.
+
+**Istanza Singola di Risorsa**:
+Si usa il **grafo wait-for** (grafo delle attese).
+- Nodi: Solo processi.
+- Archi: $P_i \rightarrow P_j$ se $P_i$ sta aspettando una risorsa tenuta da $P_j$.
+- Se il grafo contiene un ciclo $\Rightarrow$ c'è un deadlock.
+
+**Multiple Istanze di Risorse**:
+Si utilizzano strutture simili all'algoritmo del banchiere (`Work`, `Allocation`, `Request`).
+- Algoritmo: Simile a quello di safety, ma si usa la matrice `Request` invece di `Need`.
+- Se dopo l'esecuzione dell'algoritmo esiste un processo $i$ tale che `Finish[i] == false`, allora $P_i$ è in deadlock.
+
+### 9.16 Ripristino dal Deadlock (Deadlock Recovery)
+Una volta rilevato il deadlock, il sistema deve intervenire tramite:
+
+1. **Terminazione di Processi**:
+    - Abort di tutti i processi coinvolti (molto dispendioso).
+    - Abort dei processi uno alla volta finché il ciclo viene eliminato.
+    - *Criteri di scelta della vittima*: Priorità, tempo di esecuzione, risorse usate, natura interattiva/batch.
+
+2. **Prelazione di Risorse (Resource Preemption)**:
+    - Selezionare una "vittima" da cui sottrarre risorse.
+    - **Rollback**: Il processo deve tornare a uno stato sicuro precedente (es. ripartire da capo o da uno stato di salvataggio).
+    - **Starvation**: Evitare che lo stesso processo venga scelto ripetutamente come vittima includendo il numero di rollback precedenti nella funzione di costo.
+
+### 9.13 Livelock
+Il **livelock** è un'altra forma di fallimento di Liveness. In questo scenario, un gruppo di thread non è bloccato (non è in stato di attesa), ma non procede nell'esecuzione.
+- I thread tentano continuamente di eseguire un'azione che fallisce, impedendo loro di avanzare.
+- **Esempio**: Due persone in un corridoio che non riescono ad evitarsi, muovendosi continuamente di lato nello stesso istante.
+- **Risoluzione**: Spesso può essere risolto tramite la **randomizzazione** (es. periodi di backoff casuali nei protocolli di rete).
+
+### 9.14 Grafi di Allocazione delle Risorse
+Per visualizzare e analizzare lo stato delle risorse nel sistema, si utilizza il **Grafo di Allocazione delle Risorse**.
+- **Nodi**: Partizionati in due tipi:
+    - $P = \{P_1, P_2, \ldots, P_n\}$ (Processi)
+    - $R = \{R_1, R_2, \ldots, R_m\}$ (Tipi di risorse)
+- **Archi**:
+    - *Request edge* ($P_i \rightarrow R_j$): Il processo $P_i$ richiede una risorsa di tipo $R_j$.
+    - *Assignment edge* ($R_j \rightarrow P_i$): La risorsa di tipo $R_j$ è allocata al processo $P_i$.
+
+**Fatti di Base sui Grafi**:
+- Se il grafo non contiene cicli $\Rightarrow$ non c'è deadlock.
+- Se il grafo contiene un ciclo:
+    - Se esiste una sola istanza per tipo di risorsa $\Rightarrow$ **Deadlock**.
+    - Se esistono molte istanze $\Rightarrow$ c'è la *possibilità* di deadlock, ma non è necessariamente presente (es. se una risorsa nel ciclo può essere rilasciata da un altro processo).
+
+### 9.15 Prevenzione del Deadlock
+Per prevenire i deadlock, è necessario eliminare almeno una delle quattro condizioni di Coffman:
+
+1. **Mutua Esclusione**: Non richiesta per risorse condivisibili (es. file read-only). Tuttavia, non è possibile limitare le richieste solo a risorse non condivisibili.
+2. **Hold and Wait**: Garantire che quando un processo richiede una risorsa, non detiene altre risorse.
+    - Imporre al processo di richiedere e allocare tutte le sue risorse prima che inizi l'esecuzione.
+    - Consentire al processo di richiedere risorse solo quando non ne ha state allocate.
+    - *Svantaggi*: Basso utilizzo delle risorse; possibile starvation.
+3. **No Preemption**: Se un processo che detiene risorse richiede un’altra risorsa non disponibile, tutte le risorse devono essere rilasciate. Le risorse prelazionate vengono aggiunte alla lista di attesa e il processo viene riavviato solo quando può ottenere le vecchie più le nuove risorse.
+    - *Limite*: Funziona solo per risorse facilmente recuperabili (CPU, DB, ecc.), non per mutex o semafori.
+4. **Circular Wait**: Imporre un ordine totale a tutti i tipi di risorse e richiedere che ogni processo le richieda in ordine crescente.
+    - Dato un ordine $F(R)$, un processo può richiedere risorse solo se $F(R_j) > F(R_i)$.
+    - Questo impedisce la formazione di cicli poiché $F(R_1) < F(R_2) < \cdots < F(R_n) < F(R_1)$ è una contraddizione.
+
+**Esempio Pratico: Lock Ordering**
+Per prevenire il deadlock in sistemi multi-thread, si può imporre un ordine globale di acquisizione dei mutex.
+```cpp
+// Invece di acquisire i lock in ordine casuale:
+if (from.id < to.id) {
+    acquire(lock(from));
+    acquire(lock(to));
+} else {
+    acquire(lock(to));
+    acquire(lock(from));
+}
+```
+
+### 9.16 Evitamento del Deadlock (Deadlock Avoidance)
+A differenza della prevenzione, l'evitamento valuta dinamicamente le richieste per assicurarsi che il sistema non entri mai in uno stato pericoloso.
+
+**Stato Sicuro (Safe State)**:
+Un sistema è in uno **stato sicuro** se esiste una sequenza $<P_1, P_2, \ldots, P_n>$ di TUTTI i processi tale che, per ogni $P_i$, le risorse richieste da $P_i$ possono essere soddisfatte dalle risorse correntemente disponibili + le risorse tenute da tutti i processi $P_j$ con $j < i$.
+
+**Algoritmo del Banchiere (Banker's Algorithm)**:
+Utilizzato per gestire multiple istanze di risorse. Richiede che ogni processo dichiari a priori il massimo utilizzo di risorse.
+- **Strutture Dati**:
+    - **Available**: Vettore delle risorse disponibili.
+    - **Max**: Matrice delle massime richieste per processo.
+    - **Allocation**: Matrice delle risorse correntemente allocate.
+    - **Need**: Matrice delle risorse rimanenti ($Need = Max - Allocation$).
+
+**Algoritmo di Safety**:
+1. Inizializza `Work = Available` e `Finish[i] = false` per tutti i processi.
+2. Trova un processo $i$ tale che `Finish[i] == false` e `Need_i <= Work`.
+3. Se trovato, `Work = Work + Allocation_i`, `Finish[i] = true`, e torna al passo 2.
+4. Se tutti i processi hanno `Finish[i] == true`, il sistema è in uno **stato sicuro**.
+
+### 9.17 Rilevamento del Deadlock (Deadlock Detection)
+Si permette al sistema di entrare in uno stato di deadlock, monitorandolo periodicamente.
+
+**Istanza Singola di Risorsa**:
+Si usa il **grafo wait-for** (grafo delle attese).
+- Nodi: Solo processi.
+- Archi: $P_i \rightarrow P_j$ se $P_i$ sta aspettando una risorsa tenuta da $P_j$.
+- Se il grafo contiene un ciclo $\Rightarrow$ c'è un deadlock.
+
+**Multiple Istanze di Risorse**:
+Si utilizzano strutture simili all'algoritmo del banchiere (`Work`, `Allocation`, `Request`).
+- Algoritmo: Simile a quello di safety, ma si usa la matrice `Request` invece di `Need`.
+- Se dopo l'esecuzione dell'algoritmo esiste un processo $i$ tale che `Finish[i] == false`, allora $P_i$ è in deadlock.
+
+### 9.18 Ripristino dal Deadlock (Deadlock Recovery)
+Una volta rilevato il deadlock, il sistema deve intervenire tramite:
+
+1. **Terminazione di Processi**:
+    - Abort di tutti i processi coinvolti (molto dispendioso).
+    - Abort dei processi uno alla volta finché il ciclo viene eliminato.
+    - *Criteri di scelta della vittima*: Priorità, tempo di esecuzione, risorse usate, natura interattiva/batch.
+
+2. **Prelazione di Risorse (Resource Preemption)**:
+    - Selezionare una "vittima" da cui sottrarre risorse.
+    - **Rollback**: Il processo deve tornare a uno stato sicuro precedente (es. ripartire da capo o da uno stato di salvataggio).
+    - **Starvation**: Evitare che lo stesso processo venga scelto ripetutamente come vittima includendo il numero di rollback precedenti nella funzione di costo.
+
+### 9.11 Livelock
+Il **livelock** è un'altra forma di fallimento di **Liveness**. In questo scenario, un gruppo di thread non è bloccato (non è in stato di attesa), ma non procede nell'esecuzione.
+- I thread tentano continuamente di eseguire un'azione che fallisce, impedendo loro di avanzare.
+- **Esempio**: Due persone in un corridoio che non riescono ad evitarsi, muovendosi continuamente di lato nello stesso istante.
+- **Risoluzione**: Spesso può essere risolto tramite la **randomizzazione** (es. periodi di backoff casuali nei protocolli di rete).
+
+### 9.12 Grafi di Allocazione delle Risorse
+Per visualizzare e analizzare lo stato delle risorse nel sistema, si utilizza il **Grafo di Allocazione delle Risorse**.
+- **Nodi**: Partizionati in due tipi:
+    - $P = \{P_1, P_2, \ldots, P_n\}$ (Processi)
+    - $R = \{R_1, R_2, \ldots, R_m\}$ (Tipi di risorse)
+- **Archi**:
+    - *Request edge* ($P_i \rightarrow R_j$): Il processo $P_i$ richiede una risorsa di tipo $R_j$.
+    - *Assignment edge* ($R_j \rightarrow P_i$): La risorsa di tipo $R_j$ è allocata al processo $P_i$.
+
+**Fatti di Base sui Grafi**:
+- Se il grafo non contiene cicli $\Rightarrow$ non c'è deadlock.
+- Se il grafo contiene un ciclo:
+    - Se esiste una sola istanza per tipo di risorsa $\Rightarrow$ **Deadlock**.
+    - Se esistono molte istanze $\Rightarrow$ c'è la *possibilità* di deadlock, ma non è necessariamente presente (es. se una risorsa nel ciclo può essere rilasciata da un altro processo).
+
+### 9.13 Prevenzione del Deadlock
+Per prevenire i deadlock, è necessario eliminare almeno una delle quattro condizioni di Coffman:
+
+1. **Mutua Esclusione**: Non richiesta per risorse condivisibili (es. file read-only). Tuttavia, non è possibile limitare le richieste solo a risorse non condivisibili.
+2. **Hold and Wait**: Garantire che quando un processo richiede una risorsa, non detiene altre risorse.
+    - Imporre al processo di richiedere e allocare tutte le sue risorse prima che inizi l'esecuzione.
+    - Consentire al processo di richiedere risorse solo quando non ne ha state allocate.
+    - *Svantaggi*: Basso utilizzo delle risorse; possibile starvation.
+3. **No Preemption**: Se un processo che detiene risorse richiede un’altra risorsa non disponibile, tutte le risorse devono essere rilasciate. Le risorse prelazionate vengono aggiunte alla lista di attesa e il processo viene riavviato solo quando può ottenere le vecchie più le nuove risorse.
+    - *Limite*: Funziona solo per risorse facilmente recuperabili (CPU, DB, ecc.), non per mutex o semafori.
+4. **Circular Wait**: Imporre un ordine totale a tutti i tipi di risorse e richiedere che ogni processo le richieda in ordine crescente.
+    - Dato un ordine $F(R)$, un processo può richiedere risorse solo se $F(R_j) > F(R_i)$.
+    - Questo impedisce la formazione di cicli poiché $F(R_1) < F(R_2) < \cdots < F(R_n) < F(R_1)$ è una contraddizione.
+
+**Esempio Pratico: Lock Ordering**
+Per prevenire il deadlock in sistemi multi-thread, si può imporre un ordine globale di acquisizione dei mutex.
+```cpp
+// Invece di acquisire i lock in ordine casuale:
+if (from.id < to.id) {
+    acquire(lock(from));
+    acquire(lock(to));
+} else {
+    acquire(lock(to));
+    acquire(lock(from));
+}
+```
+
+### 9.14 Evitamento del Deadlock (Deadlock Avoidance)
+A differenza della prevenzione, l'evitamento valuta dinamicamente le richieste per assicurarsi che il sistema non entri mai in uno stato pericoloso.
+
+**Stato Sicuro (Safe State)**:
+Un sistema è in uno **stato sicuro** se esiste una sequenza $<P_1, P_2, \ldots, P_n>$ di TUTTI i processi tale che, per ogni $P_i$, le risorse richieste da $P_i$ possono essere soddisfatte dalle risorse correntemente disponibili + le risorse tenute da tutti i processi $P_j$ con $j < i$.
+
+**Algoritmo del Banchiere (Banker's Algorithm)**:
+Utilizzato per gestire multiple istanze di risorse. Richiede che ogni processo dichiari a priori il massimo utilizzo di risorse.
+- **Strutture Dati**:
+    - **Available**: Vettore delle risorse disponibili.
+    - **Max**: Matrice delle massime richieste per processo.
+    - **Allocation**: Matrice delle risorse correntemente allocate.
+    - **Need**: Matrice delle risorse rimanenti ($Need = Max - Allocation$).
+
+**Algoritmo di Safety**:
+1. Inizializza `Work = Available` e `Finish[i] = false` per tutti i processi.
+2. Trova un processo $i$ tale che `Finish[i] == false` e `Need_i <= Work`.
+3. Se trovato, `Work = Work + Allocation_i`, `Finish[i] = true`, e torna al passo 2.
+4. Se tutti i processi hanno `Finish[i] == true`, il sistema è in uno **stato sicuro**.
+
+### 9.15 Rilevamento del Deadlock (Deadlock Detection)
+Si permette al sistema di entrare in uno stato di deadlock, monitorandolo periodicamente.
+
+**Istanza Singola di Risorsa**:
+Si usa il **grafo wait-for** (grafo delle attese).
+- Nodi: Solo processi.
+- Archi: $P_i \rightarrow P_j$ se $P_i$ sta aspettando una risorsa tenuta da $P_j$.
+- Se il grafo contiene un ciclo $\Rightarrow$ c'è un deadlock.
+
+**Multiple Istanze di Risorse**:
+Si utilizzano strutture simili all'algoritmo del banchiere (`Work`, `Allocation`, `Request`).
+- Algoritmo: Simile a quello di safety, ma si usa la matrice `Request` invece di `Need`.
+- Se dopo l'esecuzione dell'algoritmo esiste un processo $i$ tale che `Finish[i] == false`, allora $P_i$ è in deadlock.
+
+### 9.16 Ripristino dal Deadlock (Deadlock Recovery)
+Una volta rilevato il deadlock, il sistema deve intervenire tramite:
+
+1. **Terminazione di Processi**:
+    - Abort di tutti i processi coinvolti (molto dispendioso).
+    - Abort dei processi uno alla volta finché il ciclo viene eliminato.
+    - *Criteri di scelta della vittima*: Priorità, tempo di esecuzione, risorse usate, natura interattiva/batch.
+
+2. **Prelazione di Risorse (Resource Preemption)**:
+    - Selezionare una "vittima" da cui sottrarre risorse.
+    - **Rollback**: Il processo deve tornare a uno stato sicuro precedente (es. ripartire da capo o da uno stato di salvataggio).
+    - **Starvation**: Evitare che lo stesso processo venga scelto ripetutamente come vittima includendo il numero di rollback precedenti nella funzione di costo.
+
+### 9.11 Livelock
+Il **livelock** è un'altra forma di fallimento di Liveness. In questo scenario, un gruppo di thread non è bloccato (non è in stato di attesa), ma non procede nell'esecuzione.
+- I thread tentano continuamente di eseguire un'azione che fallisce, impedendo loro di avanzare.
+- **Esempio**: Due persone in un corridoio che non riescono ad evitarsi, muovendosi continuamente di lato nello stesso istante.
+- **Risoluzione**: Spesso può essere risolto tramite la **randomizzazione** (es. periodi di backoff casuali nei protocolli di rete).
+
+### 9.12 Grafi di Allocazione delle Risorse
+Per visualizzare e analizzare lo stato delle risorse nel sistema, si utilizza il **Grafo di Allocazione delle Risorse**.
+- **Nodi**: Partizionati in due tipi:
+    - $P = \{P_1, P_2, \ldots, P_n\}$ (Processi)
+    - $R = \{R_1, R_2, \ldots, R_m\}$ (Tipi di risorse)
+- **Archi**:
+    - *Request edge* ($P_i \rightarrow R_j$): Il processo $P_i$ richiede una risorsa di tipo $R_j$.
+    - *Assignment edge* ($R_j \rightarrow P_i$): La risorsa di tipo $R_j$ è allocata al processo $P_i$.
+
+**Fatti di Base sui Grafi**:
+- Se il grafo non contiene cicli $\Rightarrow$ non c'è deadlock.
+- Se il grafo contiene un ciclo:
+    - Se esiste una sola istanza per tipo di risorsa $\Rightarrow$ **Deadlock**.
+    - Se esistono molte istanze $\Rightarrow$ c'è la *possibilità* di deadlock, ma non è necessariamente presente (es. se una risorsa nel ciclo può essere rilasciata da un altro processo).
+
+### 9.13 Evitamento del Deadlock (Deadlock Avoidance)
+A differenza della prevenzione, l'evitamento valuta dinamicamente le richieste per assicurarsi che il sistema non entri mai in uno stato pericoloso.
+
+**Stato Sicuro (Safe State)**:
+Un sistema è in uno **stato sicuro** se esiste una sequenza $<P_1, P_2, \ldots, P_n>$ di TUTTI i processi tale che, per ogni $P_i$, le risorse richieste da $P_i$ possono essere soddisfatte dalle risorse correntemente disponibili + le risorse tenute da tutti i processi $P_j$ con $j < i$.
+
+**Algoritmo del Banchiere (Banker's Algorithm)**:
+Utilizzato per gestire multiple istanze di risorse. Richiede che ogni processo dichiari a priori il massimo utilizzo di risorse.
+- **Strutture Dati**:
+    - **Available**: Vettore delle risorse disponibili.
+    - **Max**: Matrice delle massime richieste per processo.
+    - **Allocation**: Matrice delle risorse correntemente allocate.
+    - **Need**: Matrice delle risorse rimanenti ($Need = Max - Allocation$).
+
+**Algoritmo di Safety**:
+1. Inizializza `Work = Available` e `Finish[i] = false` per tutti i processi.
+2. Trova un processo $i$ tale che `Finish[i] == false` e `Need_i <= Work`.
+3. Se trovato, `Work = Work + Allocation_i`, `Finish[i] = true`, e torna al passo 2.
+4. Se tutti i processi hanno `Finish[i] == true`, il sistema è in uno **stato sicuro**.
+
+### 9.14 Rilevamento del Deadlock (Deadlock Detection)
+Si permette al sistema di entrare in uno stato di deadlock, monitorandolo periodicamente.
+
+**Istanza Singola di Risorsa**:
+Si usa il **grafo wait-for** (grafo delle attese).
+- Nodi: Solo processi.
+- Archi: $P_i \rightarrow P_j$ se $P_i$ sta aspettando una risorsa tenuta da $P_j$.
+- Se il grafo contiene un ciclo $\Rightarrow$ c'è un deadlock.
+
+**Multiple Istanze di Risorse**:
+Si utilizzano strutture simili all'algoritmo del banchiere (`Work`, `Allocation`, `Request`).
+- Algoritmo: Simile a quello di safety, ma si usa la matrice `Request` invece di `Need`.
+- Se dopo l'esecuzione dell'algoritmo esiste un processo $i$ tale che `Finish[i] == false`, allora $P_i$ è in deadlock.
+
+### 9.15 Ripristino dal Deadlock (Deadlock Recovery)
+Una volta rilevato il deadlock, il sistema deve intervenire tramite:
+
+1. **Terminazione di Processi**:
+    - Abort di tutti i processi coinvolti (molto dispendioso).
+    - Abort dei processi uno alla volta finché il ciclo viene eliminato.
+    - *Criteri di scelta della vittima*: Priorità, tempo di esecuzione, risorse usate, natura interattiva/batch.
+
+2. **Prelazione di Risorse (Resource Preemption)**:
+    - Selezionare una "vittima" da cui sottrarre risorse.
+    - **Rollback**: Il processo deve tornare a uno stato sicuro precedente (es. ripartire da capo o da uno stato di salvataggio).
+    - **Starvation**: Evitare che lo stesso processo venga scelto ripetutamente come vittima includendo il numero di rollback precedenti nella funzione di costo.
+
+### 9.16 Esempio Pratico: Lock Ordering
+Per prevenire il deadlock in sistemi multi-thread, si può imporre un ordine globale di acquisizione dei mutex.
+```cpp
+// Invece di acquisire i lock in ordine casuale:
+if (from.id < to.id) {
+    acquire(lock(from));
+    acquire(lock(to));
+} else {
+    acquire(lock(to));
+    acquire(lock(from));
+}
+```
+
+## Capitolo 10 - Deadlocks
+
+*(Lezione 14)*
+
+### 10.1 Livelock
+Il **livelock** è un'altra forma di fallimento di Liveness. In questo scenario, un gruppo di thread non è bloccato (non è in stato di attesa), ma non procede nell'esecuzione.
+- I thread tentano continuamente di eseguire un’azione che fallisce, impedendo loro di avanzare.
+- **Esempio**: Due persone in un corridoio che non riescono ad evitarsi, muovendosi continuamente di lato nello stesso istante.
+- **Risoluzione**: Spesso può essere risolto tramite la **randomizzazione** (es. periodi di backoff casuali nei protocolli di rete).
+
+### 10.2 Grafi di Allocazione delle Risorse
+Per visualizzare e analizzare lo stato delle risorse nel sistema, si utilizza il **Grafo di Allocazione delle Risorse**.
+- **Nodi**: Partizionati in due tipi:
+    - $P = \{P_1, P_2, \ldots, P_n\}$ (Processi)
+    - $R = \{R_1, R_2, \ldots, R_m\}$ (Tipi di risorse)
+- **Archi**:
+    - *Request edge* ($P_i \rightarrow R_j$): Il processo $P_i$ richiede una risorsa di tipo $R_j$.
+    - *Assignment edge* ($R_j \rightarrow P_i$): La risorsa di tipo $R_j$ è allocata al processo $P_i$.
+
+**Fatti di Base sui Grafi**:
+- Se il grafo non contiene cicli $\Rightarrow$ non c'è deadlock.
+- Se il grafo contiene un ciclo:
+    - Se esiste una sola istanza per tipo di risorsa $\Rightarrow$ **Deadlock**.
+    - Se esistono molte istanze $\Rightarrow$ c'è la *possibilità* di deadlock, ma non è necessariamente presente (es. se una risorsa nel ciclo può essere rilasciata da un altro processo).
+
+### 10.3 Prevenzione del Deadlock
+Per prevenire i deadlock, è necessario eliminare almeno una delle quattro condizioni di Coffman:
+
+1. **Mutua Esclusione**: Non richiesta per risorse condivisibili (es. file read-only). Tuttavia, non è possibile limitare le richieste solo a risorse non condivisibili.
+2. **Hold and Wait**: Garantire che quando un processo richiede una risorsa, non detiene altre risorse.
+    - Imporre al processo di richiedere e allocare tutte le sue risorse prima che inizi l'esecuzione.
+    - Consentire al processo di richiedere risorse solo quando non ne ha state allocate.
+    - *Svantaggi*: Basso utilizzo delle risorse; possibile starvation.
+3. **No Preemption**: Se un processo che detiene risorse richiede un’altra risorsa non disponibile, tutte le risorse devono essere rilasciate. Le risorse prelazionate vengono aggiunte alla lista di attesa e il processo viene riavviato solo quando può ottenere le vecchie più le nuove risorse.
+    - *Limite*: Funziona solo per risorse facilmente recuperabili (CPU, DB, ecc.), non per mutex o semafori.
+4. **Circular Wait**: Imporre un ordine totale a tutti i tipi di risorse e richiedere che ogni processo le richieda in ordine crescente.
+    - Dato un ordine $F(R)$, un processo può richiedere risorse solo se $F(R_j) > F(R_i)$.
+    - Questo impedisce la formazione di cicli poiché $F(R_1) < F(R_2) < \cdots < F(R_n) < F(R_1)$ è una contraddizione.
+
+**Esempio Pratico: Lock Ordering**
+Per prevenire il deadlock in sistemi multi-thread, si può imporre un ordine globale di acquisizione dei mutex.
+```cpp
+// Invece di acquisire i lock in ordine casuale:
+if (from.id < to.id) {
+    acquire(lock(from));
+    acquire(lock(to));
+} else {
+    acquire(lock(to));
+    acquire(lock(from));
+}
+```
+
+### 10.4 Evitamento del Deadlock (Deadlock Avoidance)
+A differenza della prevenzione, l'evitamento valuta dinamicamente le richieste per assicurarsi che il sistema non entri mai in uno stato pericoloso.
+
+**Stato Sicuro (Safe State)**:
+Un sistema è in uno **stato sicuro** se esiste una sequenza $<P_1, P_2, \ldots, P_n>$ di TUTTI i processi tale che, per ogni $P_i$, le risorse richieste da $P_i$ possono essere soddisfatte dalle risorse correntemente disponibili + le risorse tenute da tutti i processi $P_j$ con $j < i$.
+
+**Algoritmo del Banchiere (Banker's Algorithm)**:
+Utilizzato per gestire multiple istanze di risorse. Richiede che ogni processo dichiari a priori il massimo utilizzo di risorse.
+- **Strutture Dati**:
+    - **Available**: Vettore delle risorse disponibili.
+    - **Max**: Matrice delle massime richieste per processo.
+    - **Allocation**: Matrice delle risorse correntemente allocate.
+    - **Need**: Matrice delle risorse rimanenti ($Need = Max - Allocation$).
+
+**Algoritmo di Safety**:
+1. Inizializza `Work = Available` e `Finish[i] = false` per tutti i processi.
+2. Trova un processo $i$ tale che `Finish[i] == false` e `Need_i <= Work`.
+3. Se trovato, `Work = Work + Allocation_i`, `Finish[i] = true`, e torna al passo 2.
+4. Se tutti i processi hanno `Finish[i] == true`, il sistema è in uno **stato sicuro**.
+
+### 10.5 Rilevamento del Deadlock (Deadlock Detection)
+Si permette al sistema di entrare in uno stato di deadlock, monitorandolo periodicamente.
+
+**Istanza Singola di Risorsa**:
+Si usa il **grafo wait-for** (grafo delle attese).
+- Nodi: Solo processi.
+- Archi: $P_i \rightarrow P_j$ se $P_i$ sta aspettando una risorsa tenuta da $P_j$.
+- Se il grafo contiene un ciclo $\Rightarrow$ c'è un deadlock.
+
+**Multiple Istanze di Risorse**:
+Si utilizzano strutture simili all'algoritmo del banchiere (`Work`, `Allocation`, `Request`).
+- Algoritmo: Simile a quello di safety, ma si usa la matrice `Request` invece di `Need`.
+- Se dopo l'esecuzione dell'algoritmo esiste un processo $i$ tale che `Finish[i] == false`, allora $P_i$ è in deadlock.
+
+### 10.6 Ripristino dal Deadlock (Deadlock Recovery)
+Una volta rilevato il deadlock, il sistema deve intervenire tramite:
+
+1. **Terminazione di Processi**:
+    - Abort di tutti i processi coinvolti (molto dispendioso).
+    - Abort dei processi uno alla volta finché il ciclo viene eliminato.
+    - *Criteri di scelta della vittima*: Priorità, tempo di esecuzione, risorse usate, natura interattiva/batch.
+
+2. **Prelazione di Risorse (Resource Preemption)**:
+    - Selezionare una "vittima" da cui sottrarre risorse.
+    - **Rollback**: Il processo deve tornare a uno stato sicuro precedente (es. ripartire da capo o da uno stato di salvataggio).
+    - **Starvation**: Evitare che lo stesso processo venga scelto ripetutamente come vittima includendo il numero di rollback precedenti nella funzione di costo.
+
+---
+
+## Capitolo 11 - Concetti di Base dello Scheduling
+
+*(Il Capitolo 10 precedente è stato spostato a Capitolo 11)*
+
+### 11.1 Cicli CPU-burst e I/O-burst
+... (continua con il contenuto originale del Capitolo 10)
+
+---
+
+## Capitolo 12 - Criteri e Algoritmi di Scheduling
+
+*(Il Capitolo 11 precedente è stato spostato a Capitolo 12)*
+
+### 12.1 Criteri di Scheduling
+... (continua con il contenuto originale del Capitolo 11)
+
+## Capitolo 10 - Deadlocks
+
+*(Lezione 14)*
+
+### 10.1 Introduzione e Obiettivi
+
+L'obiettivo di questa sezione è studiare i **deadlock**, situazioni in cui un insieme di thread o processi si blocca a vicenda, impedendo il proseguimento del compito.
+
+**Obiettivi principali:**
+- Descrivere i deadlock e le loro condizioni.
+- Presentare metodi per prevenire, identificare, evitare e recuperare i deadlock.
+
+---
+
+### 10.2 Esempi di Deadlock e Livelock
+
+**Esempio di deadlock in ambiente Posix**:
+Due thread tentano di acquisire due mutex in ordine opposto.
+
+```c
+pthread_mutex_t first_mutex;
+pthread_mutex_t second_mutex;
+
+pthread_mutex_init(&first_mutex, NULL);
+pthread_mutex_init(&second_mutex, NULL);
+
+/* thread_one runs in this function */
+void *do_work_one(void *param)
+{
+    pthread_mutex_lock(&first_mutex);
+    pthread_mutex_lock(&second_mutex);
+    /** Do some work */
+    pthread_mutex_unlock(&second_mutex);
+    pthread_mutex_unlock(&first_mutex);
+    pthread_exit(0);
+}
+
+/* thread_two runs in this function */
+void *do_work_two(void *param)
+{
+    pthread_mutex_lock(&second_mutex);
+    pthread_mutex_lock(&first_mutex);
+    /** Do some work */
+    pthread_mutex_unlock(&first_mutex);
+    pthread_mutex_unlock(&second_mutex);
+    pthread_exit(0);
+}
+```
+
+**Livelock**:
+Altra forma di fallimento di Liveness. Un gruppo di thread non è bloccato ma non procede.
+- Continuo tentativo di eseguire un’azione che fallisce ed impedisce di avanzare.
+- **Es.** Due persone in un corridoio che non riescono ad evitarsi, muovendosi continuamente di lato nello stesso istante.
+
+```c
+/* thread_one runs in this function */
+void *do_work_one(void *param)
+{
+    int done = 0;
+    while (!done) {
+        pthread_mutex_lock(&first_mutex);
+        if (pthread_mutex_trylock(&second_mutex)) {
+            /** Do some work */
+            pthread_mutex_unlock(&second_mutex);
+            pthread_mutex_unlock(&first_mutex);
+            done = 1;
+        }
+        else
+            pthread_mutex_unlock(&first_mutex);
+    }
+    pthread_exit(0);
+}
+
+/* thread_two runs in this function */
+void *do_work_two(void *param)
+{
+    int done = 0;
+    while (!done) {
+        pthread_mutex_lock(&second_mutex);
+        if (pthread_mutex_trylock(&first_mutex)) {
+            /** Do some work */
+            pthread_mutex_unlock(&first_mutex);
+            pthread_mutex_unlock(&second_mutex);
+            done = 1;
+        }
+        else
+            pthread_mutex_unlock(&second_mutex);
+    }
+    pthread_exit(0);
+}
+```
+*Nota: In alcuni casi si può risolvere con la randomizzazione (es. periodo backoff in protocolli di rete).*
+
+---
+
+### 10.3 Caratterizzazione dei Deadlock
+
+Un deadlock avviene se le seguenti proprietà sono verificate contemporaneamente (**condizioni di Coffman**):
+
+- **Mutual exclusion**: almeno una risorsa deve essere tenuta in modalità esclusiva: solo un processo alla volta può usare la risorsa.
+- **Hold and wait**: almeno un thread deve mantenere almeno una risorsa ed essere in attesa di avere una risorsa aggiuntiva tenuta da altri processi.
+- **No preemption**: le risorse non possono essere prelazionate - una risorsa può essere rilasciata solo dal processo che la detiene dopo che tale processo ha completato il suo task.
+- **Circular wait**: esiste un insieme $\{P_0, P_1, \ldots, P_n\}$ di processi in attesa mutua, tali che $P_0$ è in attesa di una risorsa che è tenuta da $P_1$, $P_1$ attende la risorsa di $P_2$, …, $P_{n-1}$ attende la risorsa di $P_n$, e $P_n$ attenda la risorsa di $P_0$.
+
+*Le condizioni non sono tutte indipendenti (l'ultima implica hold and wait), ma è utile considerarle tutte.*
+
+---
+
+### 10.4 Modello del Sistema e Grafi di Allocazione delle Risorse
+
+**Modello del Sistema**:
+- I sistemi forniscono risorse di tipi $R_1, R_2, \ldots, R_m$ (es. cicli CPU, memoria, dispositivi I/O).
+- Ogni tipo di risorsa $R_i$ ha $W_i$ istanze.
+- Ogni processo utilizza una risorsa tramite le fasi: *request*, *use*, *release*.
+
+**Grafo di Allocazione delle Risorse**:
+Insieme di nodi $V$ e insieme di archi $E$.
+- $V$ è partizionata in:
+    - $P = \{P_1, P_2, \ldots, P_n\}$ (processi)
+    - $R = \{R_1, R_2, \ldots, R_m\}$ (tipi di risorse)
+- **Request edge**: archi diretti $P_i \rightarrow R_j$ (il processo richiede la risorsa).
+- **Assignment edge**: archi diretti $R_j \rightarrow P_i$ (la risorsa è allocata al processo).
+
+**Fatti di Base sui Grafi**:
+- Se il grafo non ha cicli $\Rightarrow$ non c’è deadlock.
+- Se il grafo contiene un ciclo:
+    - Se esiste una sola istanza per tipo di risorsa $\Rightarrow$ **deadlock**.
+    - Se esistono molte istanze $\Rightarrow$ c’è la possibilità di un deadlock, ma non si ha necessariamente il deadlock (poiché una risorsa nel ciclo potrebbe essere rilasciata da un altro processo).
+
+---
+
+### 10.5 Metodi di Gestione dei Deadlock
+
+Approcci alla gestione del deadlock:
+1. **Ignorare il problema**: assumendo che i deadlocks non si presentino mai (usato dalla maggior parte dei sistemi operativi, incluso UNIX).
+2. **Assicurare che il sistema non entri mai in uno stato di deadlock**:
+    - **Prevenzione di deadlock**: Limitare i modi in cui si fanno le richieste per evitare le condizioni di Coffman.
+    - **Evitamento del deadlock**: Valutare dinamicamente le richieste per evitare situazioni pericolose.
+3. **Permettere al sistema di entrare in uno stato di deadlock per poi recuperare** (deadlock recovery).
+
+---
+
+### 10.6 Prevenzione del Deadlock
+
+Limitare i modi in cui può essere fatta la richiesta tenendo presente le condizioni di deadlock:
+
+- **Mutual Exclusion**: non richiesta per risorse condivisibili (es. file read-only).
+- **Hold and Wait**: garantire che quando un processo richiede una risorsa, non detiene altre risorse.
+    - Imporre al processo di richiedere e allocare tutte le sue risorse prima che inizi l'esecuzione.
+    - Consentire al processo di richiedere risorse solo quando non ne è stata allocata alcuna.
+    - *Svantaggi*: basso utilizzo delle risorse; possibile starvation.
+- **No Preemption**: Se un processo che detiene risorse richiede un’altra risorsa non disponibile, tutte le risorse devono essere rilasciate.
+    - Le risorse prelazionate vengono aggiunte alla lista di attesa e il processo verrà riavviato solo quando può ottenere le vecchie più le nuove risorse.
+    - *Limite*: Funziona solo per risorse facilmente recuperabili (CPU, DB, ecc.), non per mutex o semafori.
+- **Circular Wait**: Imporre un ordine totale a tutti i tipi di risorse e richiedere che ogni processo le richieda in ordine crescente.
+    - Date le risorse $R = \{R_1, R_2, \ldots, R_m\}$, si assegna un numero di ordine $F(R)$.
+    - Un processo può richiedere risorse solo rispettando l’ordine delle risorse: Se nuova risorsa $F(R_j) > F(R_i)$.
+
+**Esempio Pratico: Lock Ordering**
+Per prevenire il deadlock in sistemi multi-thread, si può imporre un ordine globale di acquisizione dei mutex.
+
+```cpp
+// Invece di acquisire i lock in ordine casuale:
+if (from.id < to.id) {
+    acquire(lock(from));
+    acquire(lock(to));
+} else {
+    acquire(lock(to));
+    acquire(lock(from));
+}
+```
+
+---
+
+### 10.7 Evitamento del Deadlock (Deadlock Avoidance)
+
+Il sistema deve avere informazioni a priori: i processi devono dichiarare il massimo numero di risorse necessarie. L'algoritmo esamina dinamicamente lo stato di allocazione per assicurare che non si entri mai in una situazione di circular-wait.
+
+**Stato Sicuro**:
+Un sistema è in uno **stato sicuro** se esiste una sequenza $<P_1, P_2, \ldots, P_n>$ di TUTTI i processi tale che per ogni $P_i$, le risorse che $P_i$ può ancora richiedere possono essere soddisfatte dalle risorse correntemente disponibili + le risorse tenute da tutti i $P_j$, con $j < i$.
+
+**Algoritmo del Banchiere (Banker's Algorithm)**:
+Applicabile per multiple istanze. Ogni processo deve dichiarare a priori il massimo utilizzo di risorse.
+- **Strutture Dati**:
+    - **Available**: Vettore delle risorse disponibili.
+    - **Max**: Matrice delle massime richieste per processo.
+    - **Allocation**: Matrice delle risorse correntemente allocate.
+    - **Need**: Matrice delle risorse rimanenti ($Need[i,j] = Max[i,j] - Allocation[i,j]$).
+
+**Algoritmo di Safety**:
+1. Inizializza `Work = Available` e `Finish[i] = false` per tutti i processi.
+2. Trova un indice $i$ tale che entrambi: (a) `Finish[i] == false` e (b) `Need_i <= Work`.
+3. Se esiste, `Work = Work + Allocation_i`, `Finish[i] = true`, e torna al passo 2.
+4. Se `Finish[i] == true` per tutti gli $i$, il sistema è in uno **stato sicuro**.
+
+---
+
+### 10.8 Rilevamento del Deadlock (Deadlock Detection)
+
+Si permette al sistema di entrare nello stato di deadlock e si monitora periodicamente.
+
+**Istanza Singola di Risorsa**:
+Si usa il **grafo wait-for** (grafo delle attese).
+- Nodi: Solo processi.
+- Archi: $P_i \rightarrow P_j$ se $P_i$ sta aspettando una risorsa tenuta da $P_j$.
+- Se il grafo contiene un ciclo $\Rightarrow$ c'è un deadlock.
+
+**Multiple Istanze di Risorse**:
+Si utilizzano strutture simili all'algoritmo del banchiere (`Work`, `Allocation`, `Request`).
+- Algoritmo: Simile a quello di safety, ma si usa la matrice `Request` invece di `Need`.
+- Se dopo l'esecuzione dell'algoritmo esiste un processo $i$ tale che `Finish[i] == false`, allora $P_i$ è in deadlock.
+
+---
+
+### 10.9 Ripristino dal Deadlock (Deadlock Recovery)
+
+Quando viene trovato un deadlock va gestito tramite:
+
+1. **Terminazione di Processi**:
+    - Abort di tutti i processi coinvolti (molto dispendioso).
+    - Abort dei processi, uno alla volta finché il ciclo di deadlock è eliminato.
+    - *Criteri di scelta della vittima*: Priorità del processo, tempo di lavoro, risorse usate, natura interattiva o batch.
+
+2. **Prelazione di Risorse (Resource Preemption)**:
+    - Selezionare una "vittima" da cui sottrarre risorse finché il deadlock non è risolto.
+    - **Rollback**: Il processo deve tornare in qualche safe state (es. ripartire da capo o da uno stato di salvataggio).
+    - **Starvation**: Evitare che lo stesso processo venga scelto ripetutamente come vittima includendo il numero dei rollback precedenti nei fattori di costo.
+
+---
+
+### 10.10 Riassunto
+
+- Definizione e condizioni di deadlock (Coffman).
+- Grafi di allocazione delle risorse e cicli.
+- Prevenzione (eliminazione delle condizioni) e Evitamento (Stato Sicuro, Algoritmo del Banchiere).
+- Rilevamento (Grafo wait-for, algoritmi di detection) e Ripristino (Terminazione, Prelazione).
+
+## Parte X - Deadlocks
+
+## Capitolo 16 - Gestione dei Deadlock
+
+*(Lezione 14)*
+
+### 16.1 Introduzione e Livelock
+
+Il **deadlock** è una situazione in cui un insieme di thread o processi si blocca a vicenda, impedendo il proseguimento del compito.
+
+**Livelock**:
+È un'altra forma di fallimento di Liveness. In questo scenario, un gruppo di thread non è bloccato (non è in stato di attesa), ma non procede nell'esecuzione.
+- I thread tentano continuamente di eseguire un’azione che fallisce, impedendo loro di avanzare.
+- **Esempio**: Due persone in un corridoio che non riescono ad evitarsi, muovendosi continuamente di lato nello stesso istante.
+- **Risoluzione**: Spesso può essere risolto tramite la **randomizzazione** (es. periodi di backoff casuali nei protocolli di rete).
+
+---
+
+### 16.2 Caratterizzazione dei Deadlock (Condizioni di Coffman)
+
+Un deadlock avviene se le seguenti quattro proprietà sono verificate contemporaneamente (**condizioni di Coffman**):
+
+1. **Mutual exclusion**: almeno una risorsa deve essere tenuta in modalità esclusiva: solo un processo alla volta può usare la risorsa.
+2. **Hold and wait**: almeno un thread deve mantenere almeno una risorsa ed essere in attesa di avere una risorsa aggiuntiva tenuta da altri processi.
+3. **No preemption**: le risorse non possono essere prelazionate - una risorsa può essere rilasciata solo dal processo che la detiene dopo che tale processo ha completato il suo task.
+4. **Circular wait**: esiste un insieme $\{P_0, P_1, \ldots, P_n\}$ di processi in attesa mutua, tali che $P_0$ è in attesa di una risorsa che è tenuta da $P_1$, $P_1$ attende la risorsa di $P_2$, …, $P_{n-1}$ attende la risorsa di $P_n$, e $P_n$ attenda la risorsa di $P_0$.
+
+*Nota: Le condizioni non sono tutte indipendenti (l'ultima implica hold and wait), ma è utile considerarle tutte per l'analisi.*
+
+---
+
+### 16.3 Modello del Sistema e Grafi di Allocazione delle Risorse
+
+**Modello del Sistema**:
+- I sistemi forniscono risorse di tipi $R_1, R_2, \ldots, R_m$ (es. cicli CPU, spazio di memoria, dispositivi I/O).
+- Ogni tipo di risorsa $R_i$ ha $W_i$ istanze.
+- Ogni processo utilizza una risorsa tramite le fasi: *request*, *use*, *release*.
+
+**Grafo di Allocazione delle Risorse**:
+Insieme di nodi $V$ e insieme di archi $E$.
+- $V$ è partizionata in due tipi:
+    - $P = \{P_1, P_2, \ldots, P_n\}$ (processi)
+    - $R = \{R_1, R_2, \ldots, R_m\}$ (tipi di risorse)
+- **Request edge**: archi diretti $P_i \rightarrow R_j$ (il processo $P_i$ richiede la risorsa).
+- **Assignment edge**: archi diretti $R_j \rightarrow P_i$ (la risorsa è allocata al processo).
+
+**Fatti di Base sui Grafi**:
+- Se il grafo non contiene cicli $\Rightarrow$ non c'è deadlock.
+- Se il grafo contiene un ciclo:
+    - Se esiste una sola istanza per tipo di risorsa $\Rightarrow$ **deadlock**.
+    - Se esistono molte istanze $\Rightarrow$ c'è la *possibilità* di un deadlock, ma non si ha necessariamente il deadlock (poiché una risorsa nel ciclo potrebbe essere rilasciata da un altro processo).
+
+---
+
+### 16.4 Metodi di Gestione dei Deadlock
+
+Approcci alla gestione del problema del deadlock:
+
+1. **Ignorare il problema**: assumendo che i deadlocks non si presentino mai nel sistema (usato dalla maggior parte dei sistemi operativi, incluso UNIX).
+2. **Assicurare che il sistema non entri mai in uno stato di deadlock**:
+    - **Prevenzione di deadlock**: Limitare i modi in cui si fanno le richieste per evitare le condizioni di Coffman.
+    - **Evitamento del deadlock**: Valutare dinamicamente le richieste per evitare situazioni pericolose.
+3. **Permettere al sistema di entrare in uno stato di deadlock per poi recuperare** (deadlock recovery).
+
+---
+
+### 16.5 Prevenzione del Deadlock
+
+Limitare i modi in cui può essere fatta la richiesta tenendo presente le condizioni di deadlock:
+
+- **Mutual Exclusion**: non richiesta per risorse condivisibili (es. file read-only).
+- **Hold and Wait**: garantire che quando un processo richiede una risorsa, non detiene altre risorse.
+    - Imporre al processo di richiedere e allocare tutte le sue risorse prima che inizi l'esecuzione.
+    - Consentire al processo di richiedere risorse solo quando non ne è stata allocata alcuna.
+    - *Svantaggi*: basso utilizzo delle risorse; possibile starvation.
+- **No Preemption**: Se un processo che detiene risorse richiede un’altra risorsa non disponibile, tutte le risorse devono essere rilasciate. Le risorse prelazionate vengono aggiunte alla lista di attesa e il processo verrà riavviato solo quando può ottenere le vecchie più le nuove risorse.
+    - *Limite*: Funziona solo per risorse facilmente recuperabili (CPU, DB, ecc.), non per mutex o semafori.
+- **Circular Wait**: Imporre un ordine totale a tutti i tipi di risorse e richiedere che ogni processo le richieda in ordine crescente.
+    - Dato un ordine $F(R)$, un processo può richiedere risorse solo se $F(R_j) > F(R_i)$.
+    - Questo impedisce la formazione di cicli poiché $F(R_1) < F(R_2) < \cdots < F(R_n) < F(R_1)$ è una contraddizione.
+
+**Esempio Pratico: Lock Ordering**
+Per prevenire il deadlock in sistemi multi-thread, si può imporre un ordine globale di acquisizione dei mutex.
+
+```cpp
+// Invece di acquisire i lock in ordine casuale:
+if (from.id < to.id) {
+    acquire(lock(from));
+    acquire(lock(to));
+} else {
+    acquire(lock(to));
+    acquire(lock(from));
+}
+```
+
+---
+
+### 16.6 Evitamento del Deadlock (Deadlock Avoidance)
+
+Il sistema deve avere informazioni a priori: i processi devono dichiarare il massimo numero di risorse necessarie. L'algoritmo esamina dinamicamente lo stato di allocazione per assicurare che non si entri mai in una situazione di circular-wait.
+
+**Stato Sicuro (Safe State)**:
+Un sistema è in uno **stato sicuro** se esiste una sequenza $<P_1, P_2, \ldots, P_n>$ di TUTTI i processi tale che, per ogni $P_i$, le risorse richieste da $P_i$ possono essere soddisfatte dalle risorse correntemente disponibili + le risorse tenute da tutti i processi $P_j$ con $j < i$.
+
+**Algoritmo del Banchiere (Banker's Algorithm)**:
+Utilizzato per gestire multiple istanze di risorse. Richiede che ogni processo dichiari a priori il massimo utilizzo di risorse.
+- **Strutture Dati**:
+    - **Available**: Vettore delle risorse disponibili.
+    - **Max**: Matrice delle massime richieste per processo.
+    - **Allocation**: Matrice delle risorse correntemente allocate.
+    - **Need**: Matrice delle risorse rimanenti ($Need[i,j] = Max[i,j] - Allocation[i,j]$).
+
+**Algoritmo di Safety**:
+1. Inizializza `Work = Available` e `Finish[i] = false` per tutti i processi.
+2. Trova un indice $i$ tale che entrambi: (a) `Finish[i] == false` e (b) `Need_i <= Work`.
+3. Se trovato, `Work = Work + Allocation_i`, `Finish[i] = true`, e torna al passo 2.
+4. Se tutti i processi hanno `Finish[i] == true`, il sistema è in uno **stato sicuro**.
+
+---
+
+### 16.7 Rilevamento del Deadlock (Deadlock Detection)
+
+Si permette al sistema di entrare nello stato di deadlock, monitorandolo periodicamente.
+
+**Istanza Singola di Risorsa**:
+Si usa il **grafo wait-for** (grafo delle attese).
+- Nodi: Solo processi.
+- Archi: $P_i \rightarrow P_j$ se $P_i$ sta aspettando una risorsa tenuta da $P_j$.
+- Se il grafo contiene un ciclo $\Rightarrow$ c'è un deadlock.
+
+**Multiple Istanze di Risorse**:
+Si utilizzano strutture simili all'algoritmo del banchiere (`Work`, `Allocation`, `Request`).
+- Algoritmo: Simile a quello di safety, ma si usa la matrice `Request` invece di `Need`.
+- Se dopo l'esecuzione dell'algoritmo esiste un processo $i$ tale che `Finish[i] == false`, allora $P_i$ è in deadlock.
+
+---
+
+### 16.8 Ripristino dal Deadlock (Deadlock Recovery)
+
+Una volta rilevato il deadlock, il sistema deve intervenire tramite:
+
+1. **Terminazione di Processi**:
+    - Abort di tutti i processi coinvolti (molto dispendioso).
+    - Abort dei processi uno alla volta finché il ciclo viene eliminato.
+    - *Criteri di scelta della vittima*: Priorità del processo, tempo di lavoro, risorse usate, natura interattiva o batch.
+
+2. **Prelazione di Risorse (Resource Preemption)**:
+    - Selezionare una "vittima" da cui sottrarre risorse finché il deadlock non è risolto.
+    - **Rollback**: Il processo deve tornare in qualche safe state (es. ripartire da capo o da uno stato di salvataggio).
+    - **Starvation**: Evitare che lo stesso processo venga scelto ripetutamente come vittima includendo il numero di rollback precedenti nella funzione di costo.
+
+# Parte VII - Deadlocks
+
+## Capitolo 11 - Gestione dei Deadlocks
+
+*(Lezione 14)*
+
+### 11.1 Introduzione e Livelock
+
+Un **deadlock** è una situazione in cui un insieme di processi o thread si blocca a vicenda, impedendo il proseguimento del compito.
+
+**Livelock**:
+È un'altra forma di fallimento di Liveness. In questo scenario, un gruppo di thread non è bloccato (non è in stato di attesa), ma non procede nell'esecuzione.
+- I thread tentano continuamente di eseguire un’azione che fallisce, impedendo loro di avanzare.
+- **Esempio**: Due persone in un corridoio che non riescono ad evitarsi, muovendosi continuamente di lato nello stesso istante.
+- **Risoluzione**: Spesso può essere risolto tramite la **randomizzazione** (es. periodi di backoff casuali nei protocolli di rete).
+
+```c
+/* thread_one runs in this function */
+void *do_work_one(void *param)
+{
+    int done = 0;
+    while (!done) {
+        pthread_mutex_lock(&first_mutex);
+        if (pthread_mutex_trylock(&second_mutex)) {
+            /** Do some work */
+            pthread_mutex_unlock(&second_mutex);
+            pthread_mutex_unlock(&first_mutex);
+            done = 1;
+        }
+        else
+            pthread_mutex_unlock(&first_mutex);
+    }
+    pthread_exit(0);
+}
+
+/* thread_two runs in this function */
+void *do_work_two(void *param)
+{
+    int done = 0;
+    while (!done) {
+        pthread_mutex_lock(&second_mutex);
+        if (pthread_mutex_trylock(&first_mutex)) {
+            /** Do some work */
+            pthread_mutex_unlock(&first_mutex);
+            pthread_mutex_unlock(&second_mutex);
+            done = 1;
+        }
+        else
+            pthread_mutex_unlock(&second_mutex);
+    }
+    pthread_exit(0);
+}
+```
+
+---
+
+### 11.2 Caratterizzazione dei Deadlock (Condizioni di Coffman)
+
+Un deadlock avviene se le seguenti quattro proprietà sono verificate contemporaneamente (**condizioni di Coffman**):
+
+1. **Mutual exclusion**: almeno una risorsa deve essere tenuta in modalità esclusiva: solo un processo alla volta può usare la risorsa.
+2. **Hold and wait**: almeno un thread deve mantenere almeno una risorsa ed essere in attesa di avere una risorsa aggiuntiva tenuta da altri processi.
+3. **No preemption**: le risorse non possono essere prelazionate - una risorsa può essere rilasciata solo dal processo che la detiene dopo che tale processo ha completato il suo task.
+4. **Circular wait**: esiste un insieme $\{P_0, P_1, \ldots, P_n\}$ di processi in attesa mutua, tali che $P_0$ è in attesa di una risorsa che è tenuta da $P_1$, $P_1$ attende la risorsa di $P_2$, …, $P_{n-1}$ attende la risorsa di $P_n$, e $P_n$ attenda la risorsa di $P_0$.
+
+*Le condizioni non sono tutte indipendenti (l'ultima implica hold and wait), ma è utile considerarle tutte.*
+
+---
+
+### 11.3 Modello del Sistema e Grafi di Allocazione delle Risorse
+
+**Modello del Sistema**:
+- I sistemi forniscono risorse di tipi $R_1, R_2, \ldots, R_m$ (es. cicli CPU, spazio di memoria, dispositivi I/O).
+- Ogni tipo di risorsa $R_i$ ha $W_i$ istanze.
+- Ogni processo utilizza una risorsa tramite le fasi: *request*, *use*, *release*.
+
+**Grafo di Allocazione delle Risorse**:
+Insieme di nodi $V$ e insieme di archi $E$.
+- $V$ è partizionata in due tipi:
+    - $P = \{P_1, P_2, \ldots, P_n\}$ (processi)
+    - $R = \{R_1, R_2, \ldots, R_m\}$ (tipi di risorse)
+- **Request edge**: archi diretti $P_i \rightarrow R_j$ (il processo $P_i$ richiede la risorsa).
+- **Assignment edge**: archi diretti $R_j \rightarrow P_i$ (la risorsa è allocata al processo).
+
+**Fatti di Base sui Grafi**:
+- Se il grafo non contiene cicli $\Rightarrow$ non c'è deadlock.
+- Se il grafo contiene un ciclo:
+    - Se esiste una sola istanza per tipo di risorsa $\Rightarrow$ **deadlock**.
+    - Se esistono molte istanze $\Rightarrow$ c'è la *possibilità* di un deadlock, ma non si ha necessariamente il deadlock (poiché una risorsa nel ciclo potrebbe essere rilasciata da un altro processo).
+
+---
+
+### 11.4 Metodi di Gestione dei Deadlock
+
+Approcci alla gestione del problema del deadlock:
+
+1. **Ignorare il problema**: assumendo che i deadlocks non si presentino mai nel sistema (usato dalla maggior parte dei sistemi operativi, incluso UNIX).
+2. **Assicurare che il sistema non entri mai in uno stato di deadlock**:
+    - **Prevenzione di deadlock**: Limitare i modi in cui si fanno le richieste per evitare le condizioni di Coffman.
+    - **Evitamento del deadlock**: Valutare dinamicamente le richieste per evitare situazioni pericolose.
+3. **Permettere al sistema di entrare in uno stato di deadlock per poi recuperare** (deadlock recovery).
+
+---
+
+### 11.5 Prevenzione del Deadlock
+
+Limitare i modi in cui può essere fatta la richiesta tenendo presente le condizioni di deadlock:
+
+- **Mutual Exclusion**: non richiesta per risorse condivisibili (es. file read-only).
+- **Hold and Wait**: garantire che quando un processo richiede una risorsa, non detiene altre risorse.
+    - Imporre al processo di richiedere e allocare tutte le sue risorse prima che inizi l'esecuzione.
+    - Consentire al processo di richiedere risorse solo quando non ne è stata allocata alcuna.
+    - *Svantaggi*: basso utilizzo delle risorse; possibile starvation.
+- **No Preemption**: Se un processo che detiene risorse richiede un’altra risorsa non disponibile, tutte le risorse devono essere rilasciate. Le risorse prelazionate vengono aggiunte alla lista di attesa e il processo verrà riavviato solo quando può ottenere le vecchie più le nuove risorse.
+    - *Limite*: Funziona solo per risorse facilmente recuperabili (CPU, DB, ecc.), non per mutex o semafori.
+- **Circular Wait**: Imporre un ordine totale a tutti i tipi di risorse e richiedere che ogni processo le richieda in ordine crescente.
+    - Dato un ordine $F(R)$, un processo può richiedere risorse solo se $F(R_j) > F(R_i)$.
+    - Questo impedisce la formazione di cicli poiché $F(R_1) < F(R_2) < \cdots < F(R_n) < F(R_1)$ è una contraddizione.
+
+**Esempio Pratico: Lock Ordering**
+Per prevenire il deadlock in sistemi multi-thread, si può imporre un ordine globale di acquisizione dei mutex.
+
+```cpp
+// Invece di acquisire i lock in ordine casuale:
+if (from.id < to.id) {
+    acquire(lock(from));
+    acquire(lock(to));
+} else {
+    acquire(lock(to));
+    acquire(lock(from));
+}
+```
+
+---
+
+### 11.6 Evitamento del Deadlock (Deadlock Avoidance)
+
+Il sistema deve avere informazioni a priori: i processi devono dichiarare il massimo numero di risorse necessarie. L'algoritmo esamina dinamicamente lo stato di allocazione per assicurare che non si entri mai in una situazione di circular-wait.
+
+**Stato Sicuro (Safe State)**:
+Un sistema è in uno **stato sicuro** se esiste una sequenza $<P_1, P_2, \ldots, P_n>$ di TUTTI i processi tale che, per ogni $P_i$, le risorse richieste da $P_i$ possono essere soddisfatte dalle risorse correntemente disponibili + le risorse tenute da tutti i processi $P_j$ con $j < i$.
+
+**Algoritmo del Banchiere (Banker's Algorithm)**:
+Utilizzato per gestire multiple istanze di risorse. Richiede che ogni processo dichiari a priori il massimo utilizzo di risorse.
+- **Strutture Dati**:
+    - **Available**: Vettore delle risorse disponibili.
+    - **Max**: Matrice delle massime richieste per processo.
+    - **Allocation**: Matrice delle risorse correntemente allocate.
+    - **Need**: Matrice delle risorse rimanenti ($Need[i,j] = Max[i,j] - Allocation[i,j]$).
+
+**Algoritmo di Safety**:
+1. Inizializza `Work = Available` e `Finish[i] = false` per tutti i processi.
+2. Trova un indice $i$ tale che entrambi: (a) `Finish[i] == false` e (b) `Need_i <= Work`.
+3. Se trovato, `Work = Work + Allocation_i`, `Finish[i] = true`, e torna al passo 2.
+4. Se tutti i processi hanno `Finish[i] == true`, il sistema è in uno **stato sicuro**.
+
+---
+
+### 11.7 Rilevamento del Deadlock (Deadlock Detection)
+
+Si permette al sistema di entrare nello stato di deadlock, monitorandolo periodicamente.
+
+**Istanza Singola di Risorsa**:
+Si usa il **grafo wait-for** (grafo delle attese).
+- Nodi: Solo processi.
+- Archi: $P_i \rightarrow P_j$ se $P_i$ sta aspettando una risorsa tenuta da $P_j$.
+- Se il grafo contiene un ciclo $\Rightarrow$ c'è un deadlock.
+
+**Multiple Istanze di Risorse**:
+Si utilizzano strutture simili all'algoritmo del banchiere (`Work`, `Allocation`, `Request`).
+- Algoritmo: Simile a quello di safety, ma si usa la matrice `Request` invece di `Need`.
+- Se dopo l'esecuzione dell'algoritmo esiste un processo $i$ tale che `Finish[i] == false`, allora $P_i$ è in deadlock.
+
+---
+
+### 11.8 Ripristino dal Deadlock (Deadlock Recovery)
+
+Una volta rilevato il deadlock, il sistema deve intervenire tramite:
+
+1. **Terminazione di Processi**:
+    - Abort di tutti i processi coinvolti (molto dispendioso).
+    - Abort dei processi uno alla volta finché il ciclo viene eliminato.
+    - *Criteri di scelta della vittima*: Priorità del processo, tempo di lavoro, risorse usate, natura interattiva o batch.
+
+2. **Prelazione di Risorse (Resource Preemption)**:
+    - Selezionare una "vittima" da cui sottrarre risorse finché il deadlock non è risolto.
+    - **Rollback**: Il processo deve tornare in qualche safe state (es. ripartire da capo o da uno stato di salvataggio).
+    - **Starvation**: Evitare che lo stesso processo venga scelto ripetutamente come vittima includendo il numero di rollback precedenti nella funzione di costo.
+
+### 11.1 Definizione e Livelock
+
+Un **deadlock** è una situazione in cui un insieme di thread o processi si blocca a vicenda, impedendo il proseguimento del compito.
+
+**Livelock**:
+È un'altra forma di fallimento di Liveness. In questo scenario, un gruppo di thread non è bloccato (non è in stato di attesa), ma non procede nell'esecuzione.
+- I thread tentano continuamente di eseguire un’azione che fallisce ed impedisce di avanzare.
+- **Es.** Due persone in un corridoio che non riescono ad evitarsi, muovendosi continuamente di lato nello stesso istante.
+
+*Risoluzione*: In alcuni casi si può risolvere con la **randomizzazione** (es. periodo backoff in protocolli di rete).
+
+**Esempio di Livelock in C**:
+```c
+/* thread_one runs in this function */
+void *do_work_one(void *param)
+{
+    int done = 0;
+    while (!done) {
+        pthread_mutex_lock(&first_mutex);
+        if (pthread_mutex_trylock(&second_mutex)) {
+            /** Do some work */
+            pthread_mutex_unlock(&second_mutex);
+            pthread_mutex_unlock(&first_mutex);
+            done = 1;
+        }
+        else
+            pthread_mutex_unlock(&first_mutex);
+    }
+    pthread_exit(0);
+}
+
+/* thread_two runs in this function */
+void *do_work_two(void *param)
+{
+    int done = 0;
+    while (!done) {
+        pthread_mutex_lock(&second_mutex);
+        if (pthread_mutex_trylock(&first_mutex)) {
+            /** Do some work */
+            pthread_mutex_unlock(&first_mutex);
+            pthread_mutex_unlock(&second_mutex);
+            done = 1;
+        }
+        else
+            pthread_mutex_unlock(&second_mutex);
+    }
+    pthread_exit(0);
+}
+```
+
+---
+
+### 11.2 Caratterizzazione del Deadlock (Condizioni di Coffman)
+
+Un deadlock avviene se le seguenti proprietà sono verificate contemporaneamente (**condizioni di Coffman**):
+
+- **Mutual exclusion**: almeno una risorsa deve essere tenuta in modalità esclusiva: solo un processo alla volta può usare la risorsa.
+- **Hold and wait**: almeno un thread deve mantenere almeno una risorsa ed essere in attesa di avere una risorsa aggiuntiva tenuta da altri processi.
+- **No preemption**: le risorse non possono essere prelazionate - una risorsa può essere rilasciata solo dal processo che la detiene dopo che tale processo ha completato il suo task.
+- **Circular wait**: esiste un insieme $\{P_0, P_1, \ldots, P_n\}$ di processi in attesa mutua, tali che $P_0$ è in attesa di una risorsa che è tenuta da $P_1$, $P_1$ attende la risorsa di $P_2$, …, $P_{n-1}$ attende la risorsa di $P_n$, e $P_n$ attenda la risorsa di $P_0$.
+
+*Le condizioni non sono tutte indipendenti (l'ultima implica hold and wait), ma è utile considerarle tutte.*
+
+---
+
+### 11.3 Modello del Sistema e Grafi di Allocazione delle Risorse
+
+**Modello del Sistema**:
+- I sistemi forniscono risorse di tipi $R_1, R_2, \ldots, R_m$ (es. cicli CPU, spazio di memoria, dispositivi I/O).
+- Ogni tipo di risorsa $R_i$ ha $W_i$ istanze.
+- Ogni processo utilizza una risorsa tramite le fasi: *request*, *use*, *release*.
+
+**Grafo di Allocazione delle Risorse**:
+Insieme di nodi $V$ e insieme di archi $E$.
+- $V$ è partizionata in due tipi:
+    - $P = \{P_1, P_2, \ldots, P_n\}$ (processi)
+    - $R = \{R_1, R_2, \ldots, R_m\}$ (tipi di risorse)
+- **Request edge**: archi diretti $P_i \rightarrow R_j$ (il processo $P_i$ richiede la risorsa).
+- **Assignment edge**: archi diretti $R_j \rightarrow P_i$ (la risorsa è allocata al processo).
+
+**Fatti di Base sui Grafi**:
+- Se il grafo non ha cicli $\Rightarrow$ non c'è deadlock.
+- Se il grafo contiene un ciclo:
+    - Se esiste una sola istanza per tipo di risorsa $\Rightarrow$ **deadlock**.
+    - Se esistono molte istanze $\Rightarrow$ c'è la *possibilità* di un deadlock, ma non si ha necessariamente il deadlock (poiché una risorsa nel ciclo potrebbe essere rilasciata da un altro processo).
+
+---
+
+### 11.4 Metodi di Gestione dei Deadlock
+
+Approcci alla gestione del problema del deadlock:
+
+1. **Ignorare il problema**: assumendo che i deadlocks non si presentino mai nel sistema (usato dalla maggior parte dei sistemi operativi, incluso UNIX).
+2. **Assicurare che il sistema non entri mai in uno stato di deadlock**:
+    - **Prevenzione di deadlock**: Limitare i modi in cui si fanno le richieste per evitare le condizioni di Coffman.
+    - **Evitamento del deadlock**: Valutare dinamicamente le richieste per evitare situazioni pericolose.
+3. **Permettere al sistema di entrare in uno stato di deadlock per poi recuperare** (deadlock recovery).
+
+---
+
+### 11.5 Prevenzione del Deadlock
+
+Limitare i modi in cui può essere fatta la richiesta tenendo presente le condizioni di deadlock:
+
+- **Mutual Exclusion**: non richiesta per risorse condivisibili (es. file read-only).
+- **Hold and Wait**: garantire che quando un processo richiede una risorsa, non detiene altre risorse.
+    - Imporre al processo di richiedere e allocare tutte le sue risorse prima che inizi l'esecuzione.
+    - Consentire al processo di richiedere risorse solo quando non ne è stata allocata alcuna.
+    - *Svantaggi*: basso utilizzo delle risorse; possibile starvation.
+- **No Preemption**: Se un processo che detiene risorse richiede un’altra risorsa non disponibile, tutte le risorse devono essere rilasciate. Le risorse prelazionate vengono aggiunte alla lista di attesa e il processo verrà riavviato solo quando può ottenere le vecchie più le nuove risorse.
+    - *Limite*: Funziona solo per risorse facilmente recuperabili (CPU, DB, ecc.), non per mutex o semafori.
+- **Circular Wait**: Imporre un ordine totale a tutti i tipi di risorse e richiedere che ogni processo le richieda in ordine crescente.
+    - Dato un ordine $F(R)$, un processo può richiedere risorse solo se $F(R_j) > F(R_i)$.
+
+**Esempio Pratico: Lock Ordering**
+Per prevenire il deadlock in sistemi multi-thread, si può imporre un ordine globale di acquisizione dei mutex.
+
+```cpp
+// Invece di acquisire i lock in ordine casuale:
+if (from.id < to.id) {
+    acquire(lock(from));
+    acquire(lock(to));
+} else {
+    acquire(lock(to));
+    acquire(lock(from));
+}
+```
+
+---
+
+### 11.6 Evitamento del Deadlock (Deadlock Avoidance)
+
+Il sistema deve avere informazioni a priori: i processi devono dichiarare il massimo numero di risorse necessarie. L'algoritmo esamina dinamicamente lo stato di allocazione per assicurare che non si entri mai in una situazione di circular-wait.
+
+**Stato Sicuro (Safe State)**:
+Un sistema è in uno **stato sicuro** se esiste una sequenza $<P_1, P_2, \ldots, P_n>$ di TUTTI i processi tale che, per ogni $P_i$, le risorse richieste da $P_i$ possono essere soddisfatte dalle risorse correntemente disponibili + le risorse tenute da tutti i processi $P_j$ con $j < i$.
+
+**Algoritmo del Banchiere (Banker's Algorithm)**:
+Utilizzato per gestire multiple istanze di risorse. Richiede che ogni processo dichiari a priori il massimo utilizzo di risorse.
+- **Strutture Dati**:
+    - **Available**: Vettore delle risorse disponibili.
+    - **Max**: Matrice delle massime richieste per processo.
+    - **Allocation**: Matrice delle risorse correntemente allocate.
+    - **Need**: Matrice delle risorse rimanenti ($Need[i,j] = Max[i,j] - Allocation[i,j]$).
+
+**Algoritmo di Safety**:
+1. Inizializza `Work = Available` e `Finish[i] = false` per tutti i processi.
+2. Trova un indice $i$ tale che entrambi: (a) `Finish[i] == false` e (b) `Need_i <= Work`.
+3. Se trovato, `Work = Work + Allocation_i`, `Finish[i] = true`, e torna al passo 2.
+4. Se tutti i processi hanno `Finish[i] == true`, il sistema è in uno **stato sicuro**.
+
+---
+
+### 11.7 Rilevamento del Deadlock (Deadlock Detection)
+
+Si permette al sistema di entrare nello stato di deadlock, monitorandolo periodicamente.
+
+**Istanza Singola di Risorsa**:
+Si usa il **grafo wait-for** (grafo delle attese).
+- Nodi: Solo processi.
+- Archi: $P_i \rightarrow P_j$ se $P_i$ sta aspettando una risorsa tenuta da $P_j$.
+- Se il grafo contiene un ciclo $\Rightarrow$ c'è un deadlock.
+
+**Multiple Istanze di Risorse**:
+Si utilizzano strutture simili all'algoritmo del banchiere (`Work`, `Allocation`, `Request`).
+- Algoritmo: Simile a quello di safety, ma si usa la matrice `Request` invece di `Need`.
+- Se dopo l'esecuzione dell'algoritmo esiste un processo $i$ tale che `Finish[i] == false`, allora $P_i$ è in deadlock.
+
+---
+
+### 11.8 Ripristino dal Deadlock (Deadlock Recovery)
+
+Una volta rilevato il deadlock, il sistema deve intervenire tramite:
+
+1. **Terminazione di Processi**:
+    - Abort di tutti i processi coinvolti (molto dispendioso).
+    - Abort dei processi uno alla volta finché il ciclo viene eliminato.
+    - *Criteri di scelta della vittima*: Priorità del processo, tempo di lavoro, risorse usate, natura interattiva o batch.
+
+2. **Prelazione di Risorse (Resource Preemption)**:
+    - Selezionare una "vittima" da cui sottrarre risorse finché il deadlock non è risolto.
+    - **Rollback**: Il processo deve tornare in qualche safe state (es. ripartire da capo o da uno stato di salvataggio).
+    - **Starvation**: Evitare che lo stesso processo venga scelto ripetutamente come vittima includendo il numero di rollback precedenti nella funzione di costo.
+
+---
+
+### 11.9 Riassunto
+
+- Definizione e condizioni di deadlock (Coffman).
+- Grafi di allocazione delle risorse e cicli.
+- Prevenzione (eliminazione delle condizioni) e Evitamento (Stato Sicuro, Algoritmo del Banchiere).
+- Rilevamento (Grafo wait-for, algoritmi di detection) e Ripristino (Terminazione, Prelazione).
+
+## Capitolo 11 - Gestione dei Deadlock
+
+*(Lezione 14)*
+
+### 11.1 Introduzione e Livelock
+
+Un **deadlock** è una situazione in cui un insieme di processi o thread si blocca a vicenda, impedendo il proseguimento del compito.
+
+**Livelock**:
+È un'altra forma di fallimento di Liveness. In questo scenario, un gruppo di thread non è bloccato (non è in stato di attesa), ma non procede nell'esecuzione.
+- I thread tentano continuamente di eseguire un’azione che fallisce, impedendo loro di avanzare.
+- **Esempio**: Due persone in un corridoio che non riescono ad evitarsi, muovendosi continuamente di lato nello stesso istante.
+- **Risoluzione**: Spesso può essere risolto tramite la **randomizzazione** (es. periodo backoff casuali nei protocolli di rete).
+
+```c
+/* thread_one runs in this function */
+void *do_work_one(void *param)
+{
+    int done = 0;
+    while (!done) {
+        pthread_mutex_lock(&first_mutex);
+        if (pthread_mutex_trylock(&second_mutex)) {
+            /** Do some work */
+            pthread_mutex_unlock(&second_mutex);
+            pthread_mutex_unlock(&first_mutex);
+            done = 1;
+        }
+        else
+            pthread_mutex_unlock(&first_mutex);
+    }
+    pthread_exit(0);
+}
+
+/* thread_two runs in this function */
+void *do_work_two(void *param)
+{
+    int done = 0;
+    while (!done) {
+        pthread_mutex_lock(&second_mutex);
+        if (pthread_mutex_trylock(&first_mutex)) {
+            /** Do some work */
+            pthread_mutex_unlock(&first_mutex);
+            pthread_mutex_unlock(&second_mutex);
+            done = 1;
+        }
+        else
+            pthread_mutex_unlock(&second_mutex);
+    }
+    pthread_exit(0);
+}
+```
+
+---
+
+### 11.2 Caratterizzazione dei Deadlock (Condizioni di Coffman)
+
+Un deadlock avviene se le seguenti quattro proprietà sono verificate contemporaneamente (**condizioni di Coffman**):
+
+1. **Mutual exclusion**: almeno una risorsa deve essere tenuta in modalità esclusiva: solo un processo alla volta può usare la risorsa.
+2. **Hold and wait**: almeno un thread deve mantenere almeno una risorsa ed essere in attesa di avere una risorsa aggiuntiva tenuta da altri processi.
+3. **No preemption**: le risorse non possono essere prelazionate - una risorsa può essere rilasciata solo dal processo che la detiene dopo che tale processo ha completato il suo task.
+4. **Circular wait**: esiste un insieme $\{P_0, P_1, \ldots, P_n\}$ di processi in attesa mutua, tali che $P_0$ è in attesa di una risorsa che è tenuta da $P_1$, $P_1$ attende la risorsa di $P_2$, …, $P_{n-1}$ attende la risorsa di $P_n$, e $P_n$ attenda la risorsa di $P_0$.
+
+*Le condizioni non sono tutte indipendenti (l'ultima implica hold and wait), ma è utile considerarle tutte.*
+
+---
+
+### 11.3 Modello del Sistema e Grafi di Allocazione delle Risorse
+
+**Modello del Sistema**:
+- I sistemi forniscono risorse di tipi $R_1, R_2, \ldots, R_m$ (es. cicli CPU, spazio di memoria, dispositivi I/O).
+- Ogni tipo di risorsa $R_i$ ha $W_i$ istanze.
+- Ogni processo utilizza una risorsa tramite le fasi: *request*, *use*, *release*.
+
+**Grafo di Allocazione delle Risorse**:
+Insieme di nodi $V$ e insieme di archi $E$.
+- $V$ è partizionata in due tipi:
+    - $P = \{P_1, P_2, \ldots, P_n\}$ (processi)
+    - $R = \{R_1, R_2, \ldots, R_m\}$ (tipi di risorse)
+- **Request edge**: archi diretti $P_i \rightarrow R_j$ (il processo $P_i$ richiede la risorsa).
+- **Assignment edge**: archi diretti $R_j \rightarrow P_i$ (la risorsa è allocata al processo).
+
+**Fatti di Base sui Grafi**:
+- Se il grafo non contiene cicli $\Rightarrow$ non c'è deadlock.
+- Se il grafo contiene un ciclo:
+    - Se esiste una sola istanza per tipo di risorsa $\Rightarrow$ **deadlock**.
+    - Se esistono molte istanze $\Rightarrow$ c'è la *possibilità* di un deadlock, ma non si ha necessariamente il deadlock (poiché una risorsa nel ciclo potrebbe essere rilasciata da un altro processo).
+
+---
+
+### 11.4 Metodi di Gestione dei Deadlock
+
+Approcci alla gestione del problema del deadlock:
+
+1. **Ignorare il problema**: assumendo che i deadlocks non si presentino mai nel sistema (usato dalla maggior parte dei sistemi operativi, incluso UNIX).
+2. **Assicurare che il sistema non entri mai in uno stato di deadlock**:
+    - **Prevenzione di deadlock**: Limitare i modi in cui si fanno le richieste per evitare le condizioni di Coffman.
+    - **Evitamento del deadlock**: Valutare dinamicamente le richieste per evitare situazioni pericolose.
+3. **Permettere al sistema di entrare in uno stato di deadlock per poi recuperare** (deadlock recovery).
+
+---
+
+### 11.5 Prevenzione del Deadlock
+
+Limitare i modi in cui può essere fatta la richiesta tenendo presente le condizioni di deadlock:
+
+- **Mutual Exclusion**: non richiesta per risorse condivisibili (es. file read-only).
+- **Hold and Wait**: garantire che quando un processo richiede una risorsa, non detiene altre risorse.
+    - Imporre al processo di richiedere e allocare tutte le sue risorse prima che inizi l'esecuzione.
+    - Consentire al processo di richiedere risorse solo quando non ne è stata allocata alcuna.
+    - *Svantaggi*: basso utilizzo delle risorse; possibile starvation.
+- **No Preemption**: Se un processo che detiene risorse richiede un’altra risorsa non disponibile, tutte le risorse devono essere rilasciate. Le risorse prelazionate vengono aggiunte alla lista di attesa e il processo verrà riavviato solo quando può ottenere le vecchie più le nuove risorse.
+    - *Limite*: Funziona solo per risorse facilmente recuperabili (CPU, DB, ecc.), non per mutex o semafori.
+- **Circular Wait**: Imporre un ordine totale a tutti i tipi di risorse e richiedere che ogni processo le richieda in ordine crescente.
+    - Dato un ordine $F(R)$, un processo può richiedere risorse solo se $F(R_j) > F(R_i)$.
+
+**Esempio Pratico: Lock Ordering**
+Per prevenire il deadlock in sistemi multi-thread, si può imporre un ordine globale di acquisizione dei mutex.
+
+```cpp
+// Invece di acquisire i lock in ordine casuale:
+if (from.id < to.id) {
+    acquire(lock(from));
+    acquire(lock(to));
+} else {
+    acquire(lock(to));
+    acquire(lock(from));
+}
+```
+
+---
+
+### 11.6 Evitamento del Deadlock (Deadlock Avoidance)
+
+Il sistema deve avere informazioni a priori: i processi devono dichiarare il massimo numero di risorse necessarie. L'algoritmo esamina dinamicamente lo stato di allocazione per assicurare che non si entri mai in una situazione di circular-wait.
+
+**Stato Sicuro (Safe State)**:
+Un sistema è in uno **stato sicuro** se esiste una sequenza $<P_1, P_2, \ldots, P_n>$ di TUTTI i processi tale che, per ogni $P_i$, le risorse richieste da $P_i$ possono essere soddisfatte dalle risorse correntemente disponibili + le risorse tenute da tutti i processi $P_j$ con $j < i$.
+
+**Algoritmo del Banchiere (Banker's Algorithm)**:
+Utilizzato per gestire multiple istanze di risorse. Richiede che ogni processo dichiari a priori il massimo utilizzo di risorse.
+- **Strutture Dati**:
+    - **Available**: Vettore delle risorse disponibili.
+    - **Max**: Matrice delle massime richieste per processo.
+    - **Allocation**: Matrice delle risorse correntemente allocate.
+    - **Need**: Matrice delle risorse rimanenti ($Need[i,j] = Max[i,j] - Allocation[i,j]$).
+
+**Algoritmo di Safety**:
+1. Inizializza `Work = Available` e `Finish[i] = false` per tutti i processi.
+2. Trova un indice $i$ tale che entrambi: (a) `Finish[i] == false` e (b) `Need_i <= Work`.
+3. Se trovato, `Work = Work + Allocation_i`, `Finish[i] = true`, e torna al passo 2.
+4. Se tutti i processi hanno `Finish[i] == true`, il sistema è in uno **stato sicuro**.
+
+---
+
+### 11.7 Rilevamento del Deadlock (Deadlock Detection)
+
+Si permette al sistema di entrare nello stato di deadlock, monitorandolo periodicamente.
+
+**Istanza Singola di Risorsa**:
+Si usa il **grafo wait-for** (grafo delle attese).
+- Nodi: Solo processi.
+- Archi: $P_i \rightarrow P_j$ se $P_i$ sta aspettando una risorsa tenuta da $P_j$.
+- Se il grafo contiene un ciclo $\Rightarrow$ c'è un deadlock.
+
+**Multiple Istanze di Risorse**:
+Si utilizzano strutture simili all'algoritmo del banchiere (`Work`, `Allocation`, `Request`).
+- Algoritmo: Simile a quello di safety, ma si usa la matrice `Request` invece di `Need`.
+- Se dopo l'esecuzione dell'algoritmo esiste un processo $i$ tale che `Finish[i] == false`, allora $P_i$ è in deadlock.
+
+---
+
+### 11.8 Ripristino dal Deadlock (Deadlock Recovery)
+
+Una volta rilevato il deadlock, il sistema deve intervenire tramite:
+
+1. **Terminazione di Processi**:
+    - Abort di tutti i processi coinvolti (molto dispendioso).
+    - Abort dei processi uno alla volta finché il ciclo viene eliminato.
+    - *Criteri di scelta della vittima*: Priorità del processo, tempo di lavoro, risorse usate, natura interattiva o batch.
+
+2. **Prelazione di Risorse (Resource Preemption)**:
+    - Selezionare una "vittima" da cui sottrarre risorse finché il deadlock non è risolto.
+    - **Rollback**: Il processo deve tornare in qualche safe state (es. ripartire da capo o da uno stato di salvataggio).
+    - **Starvation**: Evitare che lo stesso processo venga scelto ripetutamente come vittima includendo il numero di rollback precedenti nella funzione di costo.
+
+---
+
+### 11.9 Riassunto
+
+- Definizione e condizioni di deadlock (Coffman).
+- Grafi di allocazione delle risorse e cicli.
+- Prevenzione (eliminazione delle condizioni) e Evitamento (Stato Sicuro, Algoritmo del Banchiere).
+- Rilevamento (Grafo wait-for, algoritmi di detection) e Ripristino (Terminazione, Prelazione).
+
+### 9.11 Livelock
+
+Il **livelock** è un'altra forma di fallimento di Liveness. In questo scenario, un gruppo di thread non è bloccato (non è in stato di attesa), ma non procede nell'esecuzione.
+- I thread tentano continuamente di eseguire un’azione che fallisce ed impedisce loro di avanzare.
+- **Es.** Due persone in un corridoio che non riescono ad evitarsi, muovendosi continuamente di lato nello stesso istante.
+
+**Esempio in C**:
+```c
+/* thread_one runs in this function */
+void *do_work_one(void *param)
+{
+    int done = 0;
+    while (!done) {
+        pthread_mutex_lock(&first_mutex);
+        if (pthread_mutex_trylock(&second_mutex)) {
+            /** Do some work */
+            pthread_mutex_unlock(&second_mutex);
+            pthread_mutex_unlock(&first_mutex);
+            done = 1;
+        }
+        else
+            pthread_mutex_unlock(&first_mutex);
+    }
+    pthread_exit(0);
+}
+
+/* thread_two runs in this function */
+void *do_work_two(void *param)
+{
+    int done = 0;
+    while (!done) {
+        pthread_mutex_lock(&second_mutex);
+        if (pthread_mutex_trylock(&first_mutex)) {
+            /** Do some work */
+            pthread_mutex_unlock(&first_mutex);
+            pthread_mutex_unlock(&second_mutex);
+            done = 1;
+        }
+        else
+            pthread_mutex_unlock(&second_mutex);
+    }
+    pthread_exit(0);
+}
+```
+*Nota: In alcuni casi si può risolvere con la randomizzazione (es. periodo backoff in protocolli di rete).*
+
+---
+
+### 9.12 Grafi di Allocazione delle Risorse
+
+Per visualizzare e analizzare lo stato delle risorse nel sistema, si utilizza il **Grafo di Allocazione delle Risorse**.
+
+**Componenti del Grafo**:
+- **Nodi ($V$)**: Partizionati in due tipi:
+    - $P = \{P_1, P_2, \ldots, P_n\}$ (insieme di tutti i processi nel sistema)
+    - $R = \{R_1, R_2, \ldots, R_m\}$ (insieme di tutti i tipi di risorse del sistema)
+- **Archi ($E$)**:
+    - *Request edge* ($P_i \rightarrow R_j$): il processo $P_i$ richiede una risorsa di tipo $R_j$.
+    - *Assignment edge* ($R_j \rightarrow P_i$): la risorsa di tipo $R_j$ è allocata al processo $P_i$.
+
+**Fatti di Base**:
+- Se il grafo non ha cicli $\Rightarrow$ non c'è deadlock.
+- Se il grafo contiene un ciclo:
+    - Se esiste una sola istanza per tipo di risorsa $\Rightarrow$ **deadlock**.
+    - Se esistono molte istanze $\Rightarrow$ c'è la *possibilità* di un deadlock, ma non si ha necessariamente il deadlock (poiché una risorsa nel ciclo potrebbe essere rilasciata da un altro processo).
+
+---
+
+### 9.13 Prevenzione del Deadlock
+
+Limitare i modi in cui può essere fatta la richiesta tenendo presente le condizioni di deadlock (Coffman):
+
+- **Mutual Exclusion**: non richiesta per risorse condivisibili (es. file read-only).
+- **Hold and Wait**: garantire che quando un processo richiede una risorsa, non detiene altre risorse.
+    - Imporre al processo di richiedere e allocare tutte le sue risorse prima che inizi l'esecuzione.
+    - Consentire al processo di richiedere risorse solo quando non ne è stata allocata alcuna.
+    - *Svantaggi*: basso utilizzo delle risorse; possibile starvation.
+- **No Preemption**: Se un processo che detiene risorse richiede un’altra risorsa non disponibile, tutte le risorse devono essere rilasciate. Le risorse prelazionate vengono aggiunte alla lista di attesa e il processo verrà riavviato solo quando può ottenere le vecchie più le nuove risorse.
+    - *Limite*: Funziona solo per risorse facilmente recuperabili (CPU, DB, ecc.), non per mutex o semafori.
+- **Circular Wait**: Imporre un ordine totale a tutti i tipi di risorse e richiedere che ogni processo le richieda in ordine crescente.
+    - Dato un ordine $F(R)$, un processo può richiedere risorse solo se $F(R_j) > F(R_i)$.
+    - Questo impedisce la formazione di cicli poiché $F(R_1) < F(R_2) < \cdots < F(R_n) < F(R_1)$ è una contraddizione.
+
+**Esempio Pratico: Lock Ordering**
+Per prevenire il deadlock in sistemi multi-thread, si può imporre un ordine globale di acquisizione dei mutex:
+```cpp
+if (from.id < to.id) {
+    acquire(lock(from));
+    acquire(lock(to));
+} else {
+    acquire(lock(to));
+    acquire(lock(from));
+}
+```
+
+---
+
+### 9.14 Evitamento del Deadlock (Deadlock Avoidance)
+
+Il sistema deve avere informazioni a priori: i processi devono dichiarare il massimo numero di risorse necessarie. L'algoritmo esamina dinamicamente lo stato di allocazione per assicurare che non si entri mai in una situazione di circular-wait.
+
+**Stato Sicuro (Safe State)**:
+Un sistema è in uno **stato sicuro** se esiste una sequenza $<P_1, P_2, \ldots, P_n>$ di TUTTI i processi tale che, per ogni $P_i$, le risorse richieste da $P_i$ possono essere soddisfatte dalle risorse correntemente disponibili + le risorse tenute da tutti i $P_j$, con $j < i$.
+
+**Algoritmo del Banchiere (Banker's Algorithm)**:
+Utilizzato per gestire multiple istanze di risorse. Ogni processo deve dichiarare a priori il massimo utilizzo di risorse.
+- **Strutture Dati**:
+    - **Available**: Vettore delle risorse disponibili.
+    - **Max**: Matrice delle massime richieste per processo.
+    - **Allocation**: Matrice delle risorse correntemente allocate.
+    - **Need**: Matrice delle risorse rimanenti ($Need[i,j] = Max[i,j] - Allocation[i,j]$).
+
+**Algoritmo di Safety**:
+1. Inizializza `Work = Available` e `Finish[i] = false` per tutti i processi.
+2. Trova un indice $i$ tale che entrambi: (a) `Finish[i] == false` e (b) `Need_i <= Work`.
+3. Se trovato, `Work = Work + Allocation_i`, `Finish[i] = true`, e torna al passo 2.
+4. Se tutti i processi hanno `Finish[i] == true`, il sistema è in uno **stato sicuro**.
+
+---
+
+### 9.15 Rilevamento del Deadlock (Deadlock Detection)
+
+Si permette al sistema di entrare nello stato di deadlock, monitorandolo periodicamente.
+
+**Istanza Singola di Risorsa**:
+Si usa il **grafo wait-for** (grafo delle attese).
+- Nodi: Solo processi.
+- Archi: $P_i \rightarrow P_j$ se $P_i$ sta aspettando una risorsa tenuta da $P_j$.
+- Se il grafo contiene un ciclo $\Rightarrow$ c'è un deadlock.
+
+**Multiple Istanze di Risorse**:
+Si utilizzano strutture simili all'algoritmo del banchiere (`Work`, `Allocation`, `Request`).
+- Algoritmo: Simile a quello di safety, ma si usa la matrice `Request` invece di `Need`.
+- Se dopo l'esecuzione dell'algoritmo esiste un processo $i$ tale che `Finish[i] == false`, allora $P_i$ è in deadlock.
+
+---
+
+### 9.16 Ripristino dal Deadlock (Deadlock Recovery)
+
+Una volta rilevato il deadlock, il sistema deve intervenire tramite:
+
+1. **Terminazione di Processi**:
+    - Abort di tutti i processi coinvolti (molto dispendioso).
+    - Abort dei processi uno alla volta finché il ciclo viene eliminato.
+    - *Criteri di scelta della vittima*: Priorità del processo, tempo di lavoro, risorse usate, natura interattiva o batch.
+
+2. **Prelazione di Risorse (Resource Preemption)**:
+    - Selezionare una "vittima" da cui sottrarre risorse finché il deadlock non è risolto.
+    - **Rollback**: Il processo deve tornare in qualche safe state (es. ripartire da capo o da uno stato di salvataggio).
+    - **Starvation**: Evitare che lo stesso processo venga scelto ripetutamente come vittima includendo il numero di rollback precedenti nella funzione di costo.
+
+# Parte X - Deadlocks
+
+## Capitolo 16 - Gestione dei Deadlocks
+
+*(Lezione 14)*
+
+### 16.1 Introduzione e Livelock
+
+Un **deadlock** è una situazione in cui un insieme di thread o processi si blocca a vicenda, impedendo il proseguimento del compito.
+
+**Livelock**:
+È un'altra forma di fallimento di Liveness. In questo scenario, un gruppo di thread non è bloccato (non è in stato di attesa), ma non procede nell'esecuzione.
+- I thread tentano continuamente di eseguire un’azione che fallisce, impedendo loro di avanzare.
+- **Esempio**: Due persone in un corridoio che non riescono ad evitarsi, muovendosi continuamente di lato nello stesso istante.
+- **Risoluzione**: Spesso può essere risolto tramite la **randomizzazione** (es. periodi di backoff casuali nei protocolli di rete).
+
+**Esempio di Livelock in C**:
+```c
+/* thread_one runs in this function */
+void *do_work_one(void *param)
+{
+    int done = 0;
+    while (!done) {
+        pthread_mutex_lock(&first_mutex);
+        if (pthread_mutex_trylock(&second_mutex)) {
+            /** Do some work */
+            pthread_mutex_unlock(&second_mutex);
+            pthread_mutex_unlock(&first_mutex);
+            done = 1;
+        }
+        else
+            pthread_mutex_unlock(&first_mutex);
+    }
+    pthread_exit(0);
+}
+
+/* thread_two runs in this function */
+void *do_work_two(void *param)
+{
+    int done = 0;
+    while (!done) {
+        pthread_mutex_lock(&second_mutex);
+        if (pthread_mutex_trylock(&first_mutex)) {
+            /** Do some work */
+            pthread_mutex_unlock(&first_mutex);
+            pthread_mutex_unlock(&second_mutex);
+            done = 1;
+        }
+        else
+            pthread_mutex_unlock(&second_mutex);
+    }
+    pthread_exit(0);
+}
+```
+
+---
+
+### 16.2 Caratterizzazione dei Deadlock (Condizioni di Coffman)
+
+Un deadlock avviene se le seguenti quattro proprietà sono verificate contemporaneamente (**condizioni di Coffman**):
+
+1. **Mutual exclusion**: almeno una risorsa deve essere tenuta in modalità esclusiva: solo un processo alla volta può usare la risorsa.
+2. **Hold and wait**: almeno un thread deve mantenere almeno una risorsa ed essere in attesa di avere una risorsa aggiuntiva tenuta da altri processi.
+3. **No preemption**: le risorse non possono essere prelazionate - una risorsa può essere rilasciata solo dal processo che la detiene dopo che tale processo ha completato il suo task.
+4. **Circular wait**: esiste un insieme $\{P_0, P_1, \ldots, P_n\}$ di processi in attesa mutua, tali che $P_0$ è in attesa di una risorsa che è tenuta da $P_1$, $P_1$ attende la risorsa di $P_2$, …, $P_{n-1}$ attende la risorsa di $P_n$, e $P_n$ attenda la risorsa di $P_0$.
+
+*Le condizioni non sono tutte indipendenti (l'ultima implica hold and wait), ma è utile considerarle tutte per l'analisi.*
+
+---
+
+### 16.3 Modello del Sistema e Grafi di Allocazione delle Risorse
+
+**Modello del Sistema**:
+- I sistemi forniscono risorse di tipi $R_1, R_2, \ldots, R_m$ (es. cicli CPU, spazio di memoria, dispositivi I/O).
+- Ogni tipo di risorsa $R_i$ ha $W_i$ istanze.
+- Ogni processo utilizza una risorsa tramite le fasi: *request*, *use*, *release*.
+
+**Grafo di Allocazione delle Risorse**:
+Insieme di nodi $V$ e insieme di archi $E$.
+- $V$ è partizionata in due tipi:
+    - $P = \{P_1, P_2, \ldots, P_n\}$ (processi)
+    - $R = \{R_1, R_2, \ldots, R_m\}$ (tipi di risorse)
+- **Request edge**: archi diretti $P_i \rightarrow R_j$ (il processo $P_i$ richiede la risorsa).
+- **Assignment edge**: archi diretti $R_j \rightarrow P_i$ (la risorsa è allocata al processo).
+
+**Fatti di Base sui Grafi**:
+- Se il grafo non contiene cicli $\Rightarrow$ non c'è deadlock.
+- Se il grafo contiene un ciclo:
+    - Se esiste una sola istanza per tipo di risorsa $\Rightarrow$ **deadlock**.
+    - Se esistono molte istanze $\Rightarrow$ c'è la *possibilità* di un deadlock, ma non si ha necessariamente il deadlock (poiché una risorsa nel ciclo potrebbe essere rilasciata da un altro processo).
+
+---
+
+### 16.4 Metodi di Gestione dei Deadlock
+
+Approcci alla gestione del problema del deadlock:
+
+1. **Ignorare il problema**: assumendo che i deadlocks non si presentino mai nel sistema (usato dalla maggior parte dei sistemi operativi, incluso UNIX).
+2. **Assicurare che il sistema non entri mai in uno stato di deadlock**:
+    - **Prevenzione di deadlock**: Limitare i modi in cui si fanno le richieste per evitare le condizioni di Coffman.
+    - **Evitamento del deadlock**: Valutare dinamicamente le richieste per evitare situazioni pericolose.
+3. **Permettere al sistema di entrare in uno stato di deadlock per poi recuperare** (deadlock recovery).
+
+---
+
+### 16.5 Prevenzione del Deadlock
+
+Limitare i modi in cui può essere fatta la richiesta tenendo presente le condizioni di deadlock:
+
+- **Mutual Exclusion**: non richiesta per risorse condivisibili (es. file read-only).
+- **Hold and Wait**: garantire che quando un processo richiede una risorsa, non detiene altre risorse.
+    - Imporre al processo di richiedere e allocare tutte le sue risorse prima che inizi l'esecuzione.
+    - Consentire al processo di richiedere risorse solo quando non ne è stata allocata alcuna.
+    - *Svantaggi*: basso utilizzo delle risorse; possibile starvation.
+- **No Preemption**: Se un processo che detiene risorse richiede un’altra risorsa non disponibile, tutte le risorse devono essere rilasciate. Le risorse prelazionate vengono aggiunte alla lista di attesa e il processo verrà riavviato solo quando può ottenere le vecchie più le nuove risorse.
+    - *Limite*: Funziona solo per risorse facilmente recuperabili (CPU, DB, ecc.), non per mutex o semafori.
+- **Circular Wait**: Imporre un ordine totale a tutti i tipi di risorse e richiedere che ogni processo le richieda in ordine crescente.
+    - Dato un ordine $F(R)$, un processo può richiedere risorse solo se $F(R_j) > F(R_i)$.
+
+**Esempio Pratico: Lock Ordering**
+Per prevenire il deadlock in sistemi multi-thread, si può imporre un ordine globale di acquisizione dei mutex.
+
+```cpp
+// Invece di acquisire i lock in ordine casuale:
+if (from.id < to.id) {
+    acquire(lock(from));
+    acquire(lock(to));
+} else {
+    acquire(lock(to));
+    acquire(lock(from));
+}
+```
+
+---
+
+### 16.6 Evitamento del Deadlock (Deadlock Avoidance)
+
+Il sistema deve avere informazioni a priori: i processi devono dichiarare il massimo numero di risorse necessarie. L'algoritmo esamina dinamicamente lo stato di allocazione per assicurare che non si entri mai in una situazione di circular-wait.
+
+**Stato Sicuro (Safe State)**:
+Un sistema è in uno **stato sicuro** se esiste una sequenza $<P_1, P_2, \ldots, P_n>$ di TUTTI i processi tale che, per ogni $P_i$, le risorse richieste da $P_i$ possono essere soddisfatte dalle risorse correntemente disponibili + le risorse tenute da tutti i processi $P_j$ con $j < i$.
+
+**Algoritmo del Banchiere (Banker's Algorithm)**:
+Utilizzato per gestire multiple istanze di risorse. Richiede che ogni processo dichiari a priori il massimo utilizzo di risorse.
+- **Strutture Dati**:
+    - **Available**: Vettore delle risorse disponibili.
+    - **Max**: Matrice delle massime richieste per processo.
+    - **Allocation**: Matrice delle risorse correntemente allocate.
+    - **Need**: Matrice delle risorse rimanenti ($Need[i,j] = Max[i,j] - Allocation[i,j]$).
+
+**Algoritmo di Safety**:
+1. Inizializza `Work = Available` e `Finish[i] = false` per tutti i processi.
+2. Trova un indice $i$ tale che entrambi: (a) `Finish[i] == false` e (b) `Need_i <= Work`.
+3. Se trovato, `Work = Work + Allocation_i`, `Finish[i] = true`, e torna al passo 2.
+4. Se tutti i processi hanno `Finish[i] == true`, il sistema è in uno **stato sicuro**.
+
+---
+
+### 16.7 Rilevamento del Deadlock (Deadlock Detection)
+
+Si permette al sistema di entrare nello stato di deadlock, monitorandolo periodicamente.
+
+**Istanza Singola di Risorsa**:
+Si usa il **grafo wait-for** (grafo delle attese).
+- Nodi: Solo processi.
+- Archi: $P_i \rightarrow P_j$ se $P_i$ sta aspettando una risorsa tenuta da $P_j$.
+- Se il grafo contiene un ciclo $\Rightarrow$ c'è un deadlock.
+
+**Multiple Istanze di Risorse**:
+Si utilizzano strutture simili all'algoritmo del banchiere (`Work`, `Allocation`, `Request`).
+- Algoritmo: Simile a quello di safety, ma si usa la matrice `Request` invece di `Need`.
+- Se dopo l'esecuzione dell'algoritmo esiste un processo $i$ tale che `Finish[i] == false`, allora $P_i$ è in deadlock.
+
+---
+
+### 16.8 Ripristino dal Deadlock (Deadlock Recovery)
+
+Una volta rilevato il deadlock, il sistema deve intervenire tramite:
+
+1. **Terminazione di Processi**:
+    - Abort di tutti i processi coinvolti (molto dispendioso).
+    - Abort dei processi uno alla volta finché il ciclo viene eliminato.
+    - *Criteri di scelta della vittima*: Priorità del processo, tempo di lavoro, risorse usate, natura interattiva o batch.
+
+2. **Prelazione di Risorse (Resource Preemption)**:
+    - Selezionare una "vittima" da cui sottrarre risorse finché il deadlock non è risolto.
+    - **Rollback**: Il processo deve tornare in qualche safe state (es. ripartire da capo o da uno stato di salvataggio).
+    - **Starvation**: Evitare che lo stesso processo venga scelto ripetutamente come vittima includendo il numero di rollback precedenti nella funzione di costo.
+
+# Parte X - Deadlocks
+
+## Capitolo 11 - Gestione dei Deadlocks
+
+*(Lezione 14)*
+
+### 11.1 Introduzione e Livelock
+
+Un **deadlock** è una situazione in cui un insieme di processi o thread si blocca a vicenda, impedendo il proseguimento del compito.
+
+**Livelock**:
+È un'altra forma di fallimento di Liveness. In questo scenario, un gruppo di thread non è bloccato (non è in stato di attesa), ma non procede nell'esecuzione.
+- I thread tentano continuamente di eseguire un’azione che fallisce, impedendo loro di avanzare.
+- **Es.** Due persone in un corridoio che non riescono ad evitarsi, muovendosi continuamente di lato nello stesso istante.
+- **Risoluzione**: Spesso può essere risolto tramite la **randomizzazione** (es. periodi di backoff casuali nei protocolli di rete).
+
+**Esempio di Livelock in C**:
+```c
+/* thread_one runs in this function */
+void *do_work_one(void *param)
+{
+    int done = 0;
+    while (!done) {
+        pthread_mutex_lock(&first_mutex);
+        if (pthread_mutex_trylock(&second_mutex)) {
+            /** Do some work */
+            pthread_mutex_unlock(&second_mutex);
+            pthread_mutex_unlock(&first_mutex);
+            done = 1;
+        }
+        else
+            pthread_mutex_unlock(&first_mutex);
+    }
+    pthread_exit(0);
+}
+
+/* thread_two runs in this function */
+void *do_work_two(void *param)
+{
+    int done = 0;
+    while (!done) {
+        pthread_mutex_lock(&second_mutex);
+        if (pthread_mutex_trylock(&first_mutex)) {
+            /** Do some work */
+            pthread_mutex_unlock(&first_mutex);
+            pthread_mutex_unlock(&second_mutex);
+            done = 1;
+        }
+        else
+            pthread_mutex_unlock(&second_mutex);
+    }
+    pthread_exit(0);
+}
+```
+
+---
+
+### 11.2 Caratterizzazione dei Deadlock (Condizioni di Coffman)
+
+Un deadlock avviene se le seguenti quattro proprietà sono verificate contemporaneamente (**condizioni di Coffman**):
+
+1. **Mutual exclusion**: almeno una risorsa deve essere tenuta in modalità esclusiva: solo un processo alla volta può usare la risorsa.
+2. **Hold and wait**: almeno un thread deve mantenere almeno una risorsa ed essere in attesa di avere una risorsa aggiuntiva tenuta da altri processi.
+3. **No preemption**: le risorse non possono essere prelazionate - una risorsa può essere rilasciata solo dal processo che la detiene dopo che tale processo ha completato il suo task.
+4. **Circular wait**: esiste un insieme $\{P_0, P_1, \ldots, P_n\}$ di processi in attesa mutua, tali che $P_0$ è in attesa di una risorsa che è tenuta da $P_1$, $P_1$ attende la risorsa di $P_2$, …, $P_{n-1}$ attende la risorsa di $P_n$, e $P_n$ attenda la risorsa di $P_0$.
+
+*Le condizioni non sono tutte indipendenti (l'ultima implica hold and wait), ma è utile considerarle tutte.*
+
+---
+
+### 11.3 Modello del Sistema e Grafi di Allocazione delle Risorse
+
+**Modello del Sistema**:
+- I sistemi forniscono risorse di tipi $R_1, R_2, \ldots, R_m$ (es. cicli CPU, spazio di memoria, dispositivi I/O).
+- Ogni tipo di risorsa $R_i$ ha $W_i$ istanze.
+- Ogni processo utilizza una risorsa tramite le fasi: *request*, *use*, *release*.
+
+**Grafo di Allocazione delle Risorse**:
+Insieme di nodi $V$ e insieme di archi $E$.
+- $V$ è partizionata in due tipi:
+    - $P = \{P_1, P_2, \ldots, P_n\}$ (processi)
+    - $R = \{R_1, R_2, \ldots, R_m\}$ (tipi di risorse)
+- **Request edge**: archi diretti $P_i \rightarrow R_j$ (il processo $P_i$ richiede la risorsa).
+- **Assignment edge**: archi diretti $R_j \rightarrow P_i$ (la risorsa è allocata al processo).
+
+**Fatti di Base sui Grafi**:
+- Se il grafo non contiene cicli $\Rightarrow$ non c'è deadlock.
+- Se il grafo contiene un ciclo:
+    - Se esiste una sola istanza per tipo di risorsa $\Rightarrow$ **deadlock**.
+    - Se esistono molte istanze $\Rightarrow$ c'è la *possibilità* di un deadlock, ma non si ha necessariamente il deadlock (poiché una risorsa nel ciclo potrebbe essere rilasciata da un altro processo).
+
+---
+
+### 11.4 Metodi di Gestione dei Deadlock
+
+Approcci alla gestione del problema del deadlock:
+
+1. **Ignorare il problema**: assumendo che i deadlocks non si presentino mai nel sistema (usato dalla maggior parte dei sistemi operativi, incluso UNIX).
+2. **Assicurare che il sistema non entri mai in uno stato di deadlock**:
+    - **Prevenzione di deadlock**: Limitare i modi in cui si fanno le richieste per evitare le condizioni di Coffman.
+    - **Evitamento del deadlock**: Valutare dinamicamente le richieste per evitare situazioni pericolose.
+3. **Permettere al sistema di entrare in uno stato di deadlock per poi recuperare** (deadlock recovery).
+
+---
+
+### 11.5 Prevenzione del Deadlock
+
+Limitare i modi in cui può essere fatta la richiesta tenendo presente le condizioni di deadlock:
+
+- **Mutual Exclusion**: non richiesta per risorse condivisibili (es. file read-only).
+- **Hold and Wait**: garantire che quando un processo richiede una risorsa, non detiene altre risorse.
+    - Imporre al processo di richiedere e allocare tutte le sue risorse prima che inizi l'esecuzione.
+    - Consentire al processo di richiedere risorse solo quando non ne è stata allocata alcuna.
+    - *Svantaggi*: basso utilizzo delle risorse; possibile starvation.
+- **No Preemption**: Se un processo che detiene risorse richiede un’altra risorsa non disponibile, tutte le risorse devono essere rilasciate. Le risorse prelazionate vengono aggiunte alla lista di attesa e il processo verrà riavviato solo quando può ottenere le vecchie più le nuove risorse.
+    - *Limite*: Funziona solo per risorse facilmente recuperabili (CPU, DB, ecc.), non per mutex o semafori.
+- **Circular Wait**: Imporre un ordine totale a tutti i tipi di risorse e richiedere che ogni processo le richieda in ordine crescente.
+    - Dato un ordine $F(R)$, un processo può richiedere risorse solo se $F(R_j) > F(R_i)$.
+
+**Esempio Pratico: Lock Ordering**
+Per prevenire il deadlock in sistemi multi-thread, si può imporre un ordine globale di acquisizione dei mutex.
+
+```cpp
+// Invece di acquisire i lock in ordine casuale:
+if (from.id < to.id) {
+    acquire(lock(from));
+    acquire(lock(to));
+} else {
+    acquire(lock(to));
+    acquire(lock(from));
+}
+```
+
+---
+
+### 11.6 Evitamento del Deadlock (Deadlock Avoidance)
+
+Il sistema deve avere informazioni a priori: i processi devono dichiarare il massimo numero di risorse necessarie. L'algoritmo esamina dinamicamente lo stato di allocazione per assicurare che non si entri mai in una situazione di circular-wait.
+
+**Stato Sicuro (Safe State)**:
+Un sistema è in uno **stato sicuro** se esiste una sequenza $<P_1, P_2, \ldots, P_n>$ di TUTTI i processi tale che, per ogni $P_i$, le risorse richieste da $P_i$ possono essere soddisfatte dalle risorse correntemente disponibili + le risorse tenute da tutti i $P_j$, con $j < i$.
+
+**Algoritmo del Banchiere (Banker's Algorithm)**:
+Utilizzato per gestire multiple istanze di risorse. Richiede che ogni processo dichiari a priori il massimo utilizzo di risorse.
+- **Strutture Dati**:
+    - **Available**: Vettore delle risorse disponibili.
+    - **Max**: Matrice delle massime richieste per processo.
+    - **Allocation**: Matrice delle risorse correntemente allocate.
+    - **Need**: Matrice delle risorse rimanenti ($Need[i,j] = Max[i,j] - Allocation[i,j]$).
+
+**Algoritmo di Safety**:
+1. Inizializza `Work = Available` e `Finish[i] = false` per tutti i processi.
+2. Trova un indice $i$ tale che entrambi: (a) `Finish[i] == false` e (b) `Need_i <= Work`.
+3. Se trovato, `Work = Work + Allocation_i`, `Finish[i] = true`, e torna al passo 2.
+4. Se tutti i processi hanno `Finish[i] == true`, il sistema è in uno **stato sicuro**.
+
+---
+
+### 11.7 Rilevamento del Deadlock (Deadlock Detection)
+
+Si permette al sistema di entrare nello stato di deadlock, monitorandolo periodicamente.
+
+**Istanza Singola di Risorsa**:
+Si usa il **grafo wait-for** (grafo delle attese).
+- Nodi: Solo processi.
+- Archi: $P_i \rightarrow P_j$ se $P_i$ sta aspettando una risorsa tenuta da $P_j$.
+- Se il grafo contiene un ciclo $\Rightarrow$ c'è un deadlock.
+
+**Multiple Istanze di Risorse**:
+Si utilizzano strutture simili all'algoritmo del banchiere (`Work`, `Allocation`, `Request`).
+- Algoritmo: Simile a quello di safety, ma si usa la matrice `Request` invece di `Need`.
+- Se dopo l'esecuzione dell'algoritmo esiste un processo $i$ tale che `Finish[i] == false`, allora $P_i$ è in deadlock.
+
+---
+
+### 11.8 Ripristino dal Deadlock (Deadlock Recovery)
+
+Una volta rilevato il deadlock, il sistema deve intervenire tramite:
+
+1. **Terminazione di Processi**:
+    - Abort di tutti i processi coinvolti (molto dispendioso).
+    - Abort dei processi uno alla volta finché il ciclo viene eliminato.
+    - *Criteri di scelta della vittima*: Priorità del processo, tempo di lavoro, risorse usate, natura interattiva o batch.
+
+2. **Prelazione di Risorse (Resource Preemption)**:
+    - Selezionare una "vittima" da cui sottrarre risorse finché il deadlock non è risolto.
+    - **Rollback**: Il processo deve tornare in qualche safe state (es. ripartire da capo o da uno stato di salvataggio).
+    - **Starvation**: Evitare che lo stesso processo venga scelto ripetutamente come vittima includendo il numero di rollback precedenti nella funzione di costo.
+
+---
+
+### 11.9 Riassunto
+
+- Definizione e condizioni di deadlock (Coffman).
+- Grafi di allocazione delle risorse e cicli.
+- Prevenzione (eliminazione delle condizioni) e Evitamento (Stato Sicuro, Algoritmo del Banchiere).
+- Rilevamento (Grafo wait-for, algoritmi di detection) e Ripristino (Terminazione, Prelazione).
+
+## Capitolo 12 - Deadlocks
+
+*(Lezione 14)*
+
+### 12.1 Introduzione e Livelock
+
+Un **deadlock** è una situazione in cui un insieme di processi o thread si blocca a vicenda, impedendo il proseguimento del compito.
+
+**Livelock**:
+È un'altra forma di fallimento di Liveness. In questo scenario, un gruppo di thread non è bloccato (non è in stato di attesa), ma non procede nell'esecuzione.
+- I thread tentano continuamente di eseguire un’azione che fallisce, impedendo loro di avanzare.
+- **Esempio**: Due persone in un corridoio che non riescono ad evitarsi, muovendosi continuamente di lato nello stesso istante.
+- **Risoluzione**: Spesso può essere risolto tramite la **randomizzazione** (es. periodi di backoff casuali nei protocolli di rete).
+
+**Esempio di Livelock in C**:
+```c
+/* thread_one runs in this function */
+void *do_work_one(void *param)
+{
+    int done = 0;
+    while (!done) {
+        pthread_mutex_lock(&first_mutex);
+        if (pthread_mutex_trylock(&second_mutex)) {
+            /** Do some work */
+            pthread_mutex_unlock(&second_mutex);
+            pthread_mutex_unlock(&first_mutex);
+            done = 1;
+        }
+        else
+            pthread_mutex_unlock(&first_mutex);
+    }
+    pthread_exit(0);
+}
+
+/* thread_two runs in this function */
+void *do_work_two(void *param)
+{
+    int done = 0;
+    while (!done) {
+        pthread_mutex_lock(&second_mutex);
+        if (pthread_mutex_trylock(&first_mutex)) {
+            /** Do some work */
+            pthread_mutex_unlock(&first_mutex);
+            pthread_mutex_unlock(&second_mutex);
+            done = 1;
+        }
+        else
+            pthread_mutex_unlock(&second_mutex);
+    }
+    pthread_exit(0);
+}
+```
+
+---
+
+### 12.2 Caratterizzazione dei Deadlock (Condizioni di Coffman)
+
+Un deadlock avviene se le seguenti quattro proprietà sono verificate contemporaneamente (**condizioni di Coffman**):
+
+1. **Mutual exclusion**: almeno una risorsa deve essere tenuta in modalità esclusiva: solo un processo alla volta può usare la risorsa.
+2. **Hold and wait**: almeno un thread deve mantenere almeno una risorsa ed essere in attesa di avere una risorsa aggiuntiva tenuta da altri processi.
+3. **No preemption**: le risorse non possono essere prelazionate - una risorsa può essere rilasciata solo dal processo che la detiene dopo che tale processo ha completato il suo task.
+4. **Circular wait**: esiste un insieme $\{P_0, P_1, \ldots, P_n\}$ di processi in attesa mutua, tali che $P_0$ è in attesa di una risorsa che è tenuta da $P_1$, $P_1$ attende la risorsa di $P_2$, …, $P_{n-1}$ attende la risorsa di $P_n$, e $P_n$ attenda la risorsa di $P_0$.
+
+*Le condizioni non sono tutte indipendenti (l'ultima implica hold and wait), ma è utile considerarle tutte.*
+
+---
+
+### 12.3 Modello del Sistema e Grafi di Allocazione delle Risorse
+
+**Modello del Sistema**:
+- I sistemi forniscono risorse di tipi $R_1, R_2, \ldots, R_m$ (es. cicli CPU, spazio di memoria, dispositivi I/O).
+- Ogni tipo di risorsa $R_i$ ha $W_i$ istanze.
+- Ogni processo utilizza una risorsa tramite le fasi: *request*, *use*, *release*.
+
+**Grafo di Allocazione delle Risorse**:
+Insieme di nodi $V$ e insieme di archi $E$.
+- $V$ è partizionata in due tipi:
+    - $P = \{P_1, P_2, \ldots, P_n\}$ (processi)
+    - $R = \{R_1, R_2, \ldots, R_m\}$ (tipi di risorse)
+- **Request edge**: archi diretti $P_i \rightarrow R_j$ (il processo $P_i$ richiede la risorsa).
+- **Assignment edge**: archi diretti $R_j \rightarrow P_i$ (la risorsa è allocata al processo).
+
+**Fatti di Base sui Grafi**:
+- Se il grafo non contiene cicli $\Rightarrow$ non c'è deadlock.
+- Se il grafo contiene un ciclo:
+    - Se esiste una sola istanza per tipo di risorsa $\Rightarrow$ **deadlock**.
+    - Se esistono molte istanze $\Rightarrow$ c'è la *possibilità* di un deadlock, ma non si ha necessariamente il deadlock (poiché una risorsa nel ciclo potrebbe essere rilasciata da un altro processo).
+
+---
+
+### 12.4 Metodi di Gestione dei Deadlock
+
+Approcci alla gestione del problema del deadlock:
+
+1. **Ignorare il problema**: assumendo che i deadlocks non si presentino mai nel sistema (usato dalla maggior parte dei sistemi operativi, incluso UNIX).
+2. **Assicurare che il sistema non entri mai in uno stato di deadlock**:
+    - **Prevenzione di deadlock**: Limitare i modi in cui si fanno le richieste per evitare le condizioni di Coffman.
+    - **Evitamento del deadlock**: Valutare dinamicamente le richieste per evitare situazioni pericolose.
+3. **Permettere al sistema di entrare in uno stato di deadlock per poi recuperare** (deadlock recovery).
+
+---
+
+### 12.5 Prevenzione del Deadlock
+
+Limitare i modi in cui può essere fatta la richiesta tenendo presente le condizioni di deadlock:
+
+- **Mutual Exclusion**: non richiesta per risorse condivisibili (es. file read-only).
+- **Hold and Wait**: garantire che quando un processo richiede una risorsa, non detiene altre risorse.
+    - Imporre al processo di richiedere e allocare tutte le sue risorse prima che inizi l'esecuzione.
+    - Consentire al processo di richiedere risorse solo quando non ne è stata allocata alcuna.
+    - *Svantaggi*: basso utilizzo delle risorse; possibile starvation.
+- **No Preemption**: Se un processo che detiene risorse richiede un’altra risorsa non disponibile, tutte le risorse devono essere rilasciate. Le risorse prelazionate vengono aggiunte alla lista di attesa e il processo verrà riavviato solo quando può ottenere le vecchie più le nuove risorse.
+    - *Limite*: Funziona solo per risorse facilmente recuperabili (CPU, DB, ecc.), non per mutex o semafori.
+- **Circular Wait**: Imporre un ordine totale a tutti i tipi di risorse e richiedere che ogni processo le richieda in ordine crescente.
+    - Dato un ordine $F(R)$, un processo può richiedere risorse solo se $F(R_j) > F(R_i)$.
+
+**Esempio Pratico: Lock Ordering**
+Per prevenire il deadlock in sistemi multi-thread, si può imporre un ordine globale di acquisizione dei mutex.
+
+```cpp
+// Invece di acquisire i lock in ordine casuale:
+if (from.id < to.id) {
+    acquire(lock(from));
+    acquire(lock(to));
+} else {
+    acquire(lock(to));
+    acquire(lock(from));
+}
+```
+
+---
+
+### 12.6 Evitamento del Deadlock (Deadlock Avoidance)
+
+Il sistema deve avere informazioni a priori: i processi devono dichiarare il massimo numero di risorse necessarie. L'algoritmo esamina dinamicamente lo stato di allocazione per assicurare che non si entri mai in una situazione di circular-wait.
+
+**Stato Sicuro (Safe State)**:
+Un sistema è in uno **stato sicuro** se esiste una sequenza $<P_1, P_2, \ldots, P_n>$ di TUTTI i processi tale che, per ogni $P_i$, le risorse richieste da $P_i$ possono essere soddisfatte dalle risorse correntemente disponibili + le risorse tenute da tutti i $P_j$, con $j < i$.
+
+**Algoritmo del Banchiere (Banker's Algorithm)**:
+Utilizzato per gestire multiple istanze di risorse. Richiede che ogni processo dichiari a priori il massimo utilizzo di risorse.
+- **Strutture Dati**:
+    - **Available**: Vettore delle risorse disponibili.
+    - **Max**: Matrice delle massime richieste per processo.
+    - **Allocation**: Matrice delle risorse correntemente allocate.
+    - **Need**: Matrice delle risorse rimanenti ($Need[i,j] = Max[i,j] - Allocation[i,j]$).
+
+**Algoritmo di Safety**:
+1. Inizializza `Work = Available` e `Finish[i] = false` per tutti i processi.
+2. Trova un indice $i$ tale che entrambi: (a) `Finish[i] == false` e (b) `Need_i <= Work`.
+3. Se trovato, `Work = Work + Allocation_i`, `Finish[i] = true`, e torna al passo 2.
+4. Se tutti i processi hanno `Finish[i] == true`, il sistema è in uno **stato sicuro**.
+
+---
+
+### 12.7 Rilevamento del Deadlock (Deadlock Detection)
+
+Si permette al sistema di entrare nello stato di deadlock, monitorandolo periodicamente.
+
+**Istanza Singola di Risorsa**:
+Si usa il **grafo wait-for** (grafo delle attese).
+- Nodi: Solo processi.
+- Archi: $P_i \rightarrow P_j$ se $P_i$ sta aspettando una risorsa tenuta da $P_j$.
+- Se il grafo contiene un ciclo $\Rightarrow$ c'è un deadlock.
+
+**Multiple Istanze di Risorse**:
+Si utilizzano strutture simili all'algoritmo del banchiere (`Work`, `Allocation`, `Request`).
+- Algoritmo: Simile a quello di safety, ma si usa la matrice `Request` invece di `Need`.
+- Se dopo l'esecuzione dell'algoritmo esiste un processo $i$ tale che `Finish[i] == false`, allora $P_i$ è in deadlock.
+
+---
+
+### 12.8 Ripristino dal Deadlock (Deadlock Recovery)
+
+Una volta rilevato il deadlock, il sistema deve intervenire tramite:
+
+1. **Terminazione di Processi**:
+    - Abort di tutti i processi coinvolti (molto dispendioso).
+    - Abort dei processi uno alla volta finché il ciclo viene eliminato.
+    - *Criteri di scelta della vittima*: Priorità del processo, tempo di lavoro, risorse usate, natura interattiva o batch.
+
+2. **Prelazione di Risorse (Resource Preemption)**:
+    - Selezionare una "vittima" da cui sottrarre risorse finché il deadlock non è risolto.
+    - **Rollback**: Il processo deve tornare in qualche safe state (es. ripartire da capo o da uno stato di salvataggio).
+    - **Starvation**: Evitare che lo stesso processo venga scelto ripetutamente come vittima includendo il numero di rollback precedenti nella funzione di costo.
+
+## Parte X - Gestione dei Deadlock
+
+## Capitolo 17 - Deadlocks e Livelocks
+
+*(Lezione 14)*
+
+### 17.1 Livelock
+
+Il **livelock** è un'altra forma di fallimento di Liveness. In questo scenario, un gruppo di thread non è bloccato (non è in stato di attesa), ma non procede nell'esecuzione.
+
+- I thread tentano continuamente di eseguire un’azione che fallisce ed impedisce loro di avanzare.
+- **Esempio**: Due persone in un corridoio che non riescono ad evitarsi, muovendosi continuamente di lato nello stesso istante.
+
+**Esempio di Livelock in C**:
+```c
+/* thread_one runs in this function */
+void *do_work_one(void *param)
+{
+    int done = 0;
+    while (!done) {
+        pthread_mutex_lock(&first_mutex);
+        if (pthread_mutex_trylock(&second_mutex)) {
+            /** Do some work */
+            pthread_mutex_unlock(&second_mutex);
+            pthread_mutex_unlock(&first_mutex);
+            done = 1;
+        }
+        else
+            pthread_mutex_unlock(&first_mutex);
+    }
+    pthread_exit(0);
+}
+
+/* thread_two runs in this function */
+void *do_work_two(void *param)
+{
+    int done = 0;
+    while (!done) {
+        pthread_mutex_lock(&second_mutex);
+        if (pthread_mutex_trylock(&first_mutex)) {
+            /** Do some work */
+            pthread_mutex_unlock(&first_mutex);
+            pthread_mutex_unlock(&second_mutex);
+            done = 1;
+        }
+        else
+            pthread_mutex_unlock(&second_mutex);
+    }
+    pthread_exit(0);
+}
+```
+*Nota: In alcuni casi si può risolvere con la randomizzazione (es. periodo backoff in protocolli di rete).*
+
+---
+
+### 17.2 Caratterizzazione dei Deadlock (Condizioni di Coffman)
+
+Un deadlock avviene se le seguenti quattro proprietà sono verificate contemporaneamente (**condizioni di Coffman**):
+
+- **Mutual exclusion**: almeno una risorsa deve essere tenuta in modalità esclusiva: solo un processo alla volta può usare la risorsa.
+- **Hold and wait**: almeno un thread deve mantenere almeno una risorsa ed essere in attesa di avere una risorsa aggiuntiva tenuta da altri processi.
+- **No preemption**: le risorse non possono essere prelazionate - una risorsa può essere rilasciata solo dal processo che la detiene dopo che tale processo ha completato il suo task.
+- **Circular wait**: esiste un insieme $\{P_0, P_1, \ldots, P_n\}$ di processi in attesa mutua, tali che $P_0$ è in attesa di una risorsa che è tenuta da $P_1$, $P_1$ attende la risorsa di $P_2$, …, $P_{n-1}$ attende la risorsa di $P_n$, e $P_n$ attenda la risorsa di $P_0$.
+
+*Le condizioni non sono tutte indipendenti (l'ultima implica hold and wait), ma è utile considerarle tutte.*
+
+---
+
+### 17.3 Modello del Sistema e Grafi di Allocazione delle Risorse
+
+**Modello del Sistema**:
+- I sistemi forniscono risorse di tipi $R_1, R_2, \ldots, R_m$ (es. cicli CPU, spazio di memoria, dispositivi I/O).
+- Ogni tipo di risorsa $R_i$ ha $W_i$ istanze.
+- Ogni processo utilizza una risorsa tramite le fasi: *request*, *use*, *release*.
+
+**Grafo di Allocazione delle Risorse**:
+Insieme di nodi $V$ e insieme di archi $E$.
+- $V$ è partizionata in due tipi:
+    - $P = \{P_1, P_2, \ldots, P_n\}$ (processi)
+    - $R = \{R_1, R_2, \ldots, R_m\}$ (tipi di risorse)
+- **Request edge**: archi diretti $P_i \rightarrow R_j$ (il processo $P_i$ richiede la risorsa).
+- **Assignment edge**: archi diretti $R_j \rightarrow P_i$ (la risorsa è allocata al processo).
+
+**Fatti di Base sui Grafi**:
+- Se il grafo non ha cicli $\Rightarrow$ non c'è deadlock.
+- Se il grafo contiene un ciclo:
+    - Se esiste una sola istanza per tipo di risorsa $\Rightarrow$ **deadlock**.
+    - Se esistono molte istanze $\Rightarrow$ c'è la *possibilità* di un deadlock, ma non si ha necessariamente il deadlock (poiché una risorsa nel ciclo potrebbe essere rilasciata da un altro processo).
+
+---
+
+### 17.4 Metodi di Gestione dei Deadlock
+
+Approcci alla gestione del problema del deadlock:
+
+1. **Ignorare il problema**: assumendo che i deadlocks non si presentino mai nel sistema (usato dalla maggior parte dei sistemi operativi, incluso UNIX).
+2. **Assicurare che il sistema non entri mai in uno stato di deadlock**:
+    - **Prevenzione di deadlock**: Limitare i modi in cui si fanno le richieste per evitare le condizioni di Coffman.
+    - **Evitamento del deadlock**: Valutare dinamicamente le richieste per evitare situazioni pericolose.
+3. **Permettere al sistema di entrare in uno stato di deadlock per poi recuperare** (deadlock recovery).
+
+---
+
+### 17.5 Prevenzione del Deadlock
+
+Limitare i modi in cui può essere fatta la richiesta tenendo presente le condizioni di deadlock:
+
+- **Mutual Exclusion**: non richiesta per risorse condivisibili (es. file read-only).
+- **Hold and Wait**: garantire che quando un processo richiede una risorsa, non detiene altre risorse.
+    - Imporre al processo di richiedere e allocare tutte le sue risorse prima che inizi l'esecuzione.
+    - Consentire al processo di richiedere risorse solo quando non ne è stata allocata alcuna.
+    - *Svantaggi*: basso utilizzo delle risorse; possibile starvation.
+- **No Preemption**: Se un processo che detiene risorse richiede un’altra risorsa non disponibile, tutte le risorse devono essere rilasciate. Le risorse prelazionate vengono aggiunte alla lista di attesa e il processo verrà riavviato solo quando può ottenere le vecchie più le nuove risorse.
+    - *Limite*: Funziona solo per risorse facilmente recuperabili (CPU, DB, ecc.), non per mutex o semafori.
+- **Circular Wait**: Imporre un ordine totale a tutti i tipi di risorse e richiedere che ogni processo le richieda in ordine crescente.
+    - Dato un ordine $F(R)$, un processo può richiedere risorse solo se $F(R_j) > F(R_i)$.
+
+**Esempio Pratico: Lock Ordering**
+Per prevenire il deadlock in sistemi multi-thread, si può imporre un ordine globale di acquisizione dei mutex.
+
+```cpp
+// Invece di acquisire i lock in ordine casuale:
+if (from.id < to.id) {
+    acquire(lock(from));
+    acquire(lock(to));
+} else {
+    acquire(lock(to));
+    acquire(lock(from));
+}
+```
+
+---
+
+### 17.6 Evitamento del Deadlock (Deadlock Avoidance)
+
+Il sistema deve avere informazioni a priori: i processi devono dichiarare il massimo numero di risorse necessarie. L'algoritmo esamina dinamicamente lo stato di allocazione per assicurare che non si entri mai in una situazione di circular-wait.
+
+**Stato Sicuro (Safe State)**:
+Un sistema è in uno **stato sicuro** se esiste una sequenza $<P_1, P_2, \ldots, P_n>$ di TUTTI i processi tale che, per ogni $P_i$, le risorse richieste da $P_i$ possono essere soddisfatte dalle risorse correntemente disponibili + le risorse tenute da tutti i $P_j$, con $j < i$.
+
+**Algoritmo del Banchiere (Banker's Algorithm)**:
+Utilizzato per gestire multiple istanze di risorse. Ogni processo deve dichiarare a priori il massimo utilizzo di risorse.
+- **Strutture Dati**:
+    - **Available**: Vettore delle risorse disponibili.
+    - **Max**: Matrice delle massime richieste per processo.
+    - **Allocation**: Matrice delle risorse correntemente allocate.
+    - **Need**: Matrice delle risorse rimanenti ($Need[i,j] = Max[i,j] - Allocation[i,j]$).
+
+**Algoritmo di Safety**:
+1. Inizializza `Work = Available` e `Finish[i] = false` per tutti i processi.
+2. Trova un indice $i$ tale che entrambi: (a) `Finish[i] == false` e (b) `Need_i <= Work`.
+3. Se trovato, `Work = Work + Allocation_i`, `Finish[i] = true`, e torna al passo 2.
+4. Se tutti i processi hanno `Finish[i] == true`, il sistema è in uno **stato sicuro**.
+
+---
+
+### 17.7 Rilevamento del Deadlock (Deadlock Detection)
+
+Si permette al sistema di entrare nello stato di deadlock, monitorandolo periodicamente.
+
+**Istanza Singola di Risorsa**:
+Si usa il **grafo wait-for** (grafo delle attese).
+- Nodi: Solo processi.
+- Archi: $P_i \rightarrow P_j$ se $P_i$ sta aspettando una risorsa tenuta da $P_j$.
+- Se il grafo contiene un ciclo $\Rightarrow$ c'è un deadlock.
+
+**Multiple Istanze di Risorse**:
+Si utilizzano strutture simili all'algoritmo del banchiere (`Work`, `Allocation`, `Request`).
+- Algoritmo: Simile a quello di safety, ma si usa la matrice `Request` invece di `Need`.
+- Se dopo l'esecuzione dell'algoritmo esiste un processo $i$ tale che `Finish[i] == false`, allora $P_i$ è in deadlock.
+
+---
+
+### 17.8 Ripristino dal Deadlock (Deadlock Recovery)
+
+Una volta rilevato il deadlock, il sistema deve intervenire tramite:
+
+1. **Terminazione di Processi**:
+    - Abort di tutti i processi coinvolti (molto dispendioso).
+    - Abort dei processi uno alla volta finché il ciclo viene eliminato.
+    - *Criteri di scelta della vittima*: Priorità del processo, tempo di lavoro, risorse usate, natura interattiva o batch.
+
+2. **Prelazione di Risorse (Resource Preemption)**:
+    - Selezionare una "vittima" da cui sottrarre risorse finché il deadlock non è risolto.
+    - **Rollback**: Il processo deve tornare in qualche safe state (es. ripartire da capo o da uno stato di salvataggio).
+    - **Starvation**: Evitare che lo stesso processo venga scelto ripetutamente come vittima includendo il numero di rollback precedenti nella funzione di costo.
+
+## Capitolo 12 - Deadlocks
+
+*(Lezione 14)*
+
+### 12.1 Livelock
+
+Il **livelock** è un'altra forma di fallimento di Liveness. In questo scenario, un gruppo di thread non è bloccato (non è in stato di attesa), ma non procede nell'esecuzione.
+
+- I thread tentano continuamente di eseguire un’azione che fallisce ed impedisce loro di avanzare.
+- **Esempio**: Due persone in un corridoio che non riescono ad evitarsi, muovendosi continuamente di lato nello stesso istante.
+
+**Esempio in C**:
+```c
+/* thread_one runs in this function */
+void *do_work_one(void *param)
+{
+    int done = 0;
+    while (!done) {
+        pthread_mutex_lock(&first_mutex);
+        if (pthread_mutex_trylock(&second_mutex)) {
+            /** Do some work */
+            pthread_mutex_unlock(&second_mutex);
+            pthread_mutex_unlock(&first_mutex);
+            done = 1;
+        }
+        else
+            pthread_mutex_unlock(&first_mutex);
+    }
+    pthread_exit(0);
+}
+
+/* thread_two runs in this function */
+void *do_work_two(void *param)
+{
+    int done = 0;
+    while (!done) {
+        pthread_mutex_lock(&second_mutex);
+        if (pthread_mutex_trylock(&first_mutex)) {
+            /** Do some work */
+            pthread_mutex_unlock(&first_mutex);
+            pthread_mutex_unlock(&second_mutex);
+            done = 1;
+        }
+        else
+            pthread_mutex_unlock(&second_mutex);
+    }
+    pthread_exit(0);
+}
+```
+*Nota: In alcuni casi si può risolvere con la randomizzazione (es. periodo backoff in protocolli di rete).*
+
+---
+
+### 12.2 Caratterizzazione dei Deadlock (Condizioni di Coffman)
+
+Un deadlock avviene se le seguenti quattro proprietà sono verificate contemporaneamente (**condizioni di Coffman**):
+
+- **Mutual exclusion**: almeno una risorsa deve essere tenuta in modalità esclusiva: solo un processo alla volta può usare la risorsa.
+- **Hold and wait**: almeno un thread deve mantenere almeno una risorsa ed essere in attesa di avere una risorsa aggiuntiva tenuta da altri processi.
+- **No preemption**: le risorse non possono essere prelazionate - una risorsa può essere rilasciata solo dal processo che la detiene dopo che tale processo ha completato il suo task.
+- **Circular wait**: esiste un insieme $\{P_0, P_1, \ldots, P_n\}$ di processi in attesa mutua, tali che $P_0$ è in attesa di una risorsa che è tenuta da $P_1$, $P_1$ attende la risorsa di $P_2$, …, $P_{n-1}$ attende la risorsa di $P_n$, e $P_n$ attenda la risorsa di $P_0$.
+
+*Le condizioni non sono tutte indipendenti (l'ultima implica hold and wait), ma è utile considerarle tutte.*
+
+---
+
+### 12.3 Modello del Sistema e Grafi di Allocazione delle Risorse
+
+**Modello del Sistema**:
+- I sistemi forniscono risorse di tipi $R_1, R_2, \ldots, R_m$ (es. cicli CPU, spazio di memoria, dispositivi I/O).
+- Ogni tipo di risorsa $R_i$ ha $W_i$ istanze.
+- Ogni processo utilizza una risorsa tramite le fasi: *request*, *use*, *release*.
+
+**Grafo di Allocazione delle Risorse**:
+Insieme di nodi $V$ e insieme di archi $E$.
+- $V$ è partizionata in due tipi:
+    - $P = \{P_1, P_2, \ldots, P_n\}$ (processi)
+    - $R = \{R_1, R_2, \ldots, R_m\}$ (tipi di risorse)
+- **Request edge** ($P_i \rightarrow R_j$): il processo $P_i$ richiede una risorsa di tipo $R_j$.
+- **Assignment edge** ($R_j \rightarrow P_i$): la risorsa di tipo $R_j$ è allocata al processo $P_i$.
+
+**Fatti di Base sui Grafi**:
+- Se il grafo non ha cicli $\Rightarrow$ non c'è deadlock.
+- Se il grafo contiene un ciclo:
+    - Se esiste una sola istanza per tipo di risorsa $\Rightarrow$ **deadlock**.
+    - Se esistono molte istanze $\Rightarrow$ c'è la *possibilità* di un deadlock, ma non si ha necessariamente il deadlock (poiché una risorsa nel ciclo potrebbe essere rilasciata da un altro processo).
+
+---
+
+### 12.4 Metodi di Gestione dei Deadlock
+
+Approcci alla gestione del problema del deadlock:
+
+1. **Ignorare il problema**: assumendo che i deadlocks non si presentino mai nel sistema (usato dalla maggior parte dei sistemi operativi, incluso UNIX).
+2. **Assicurare che il sistema non entri mai in uno stato di deadlock**:
+    - **Prevenzione di deadlock**: Limitare i modi in cui si fanno le richieste per evitare le condizioni di Coffman.
+    - **Evitamento del deadlock**: Valutare dinamicamente le richieste per evitare situazioni pericolose.
+3. **Permettere al sistema di entrare in uno stato di deadlock per poi recuperare** (deadlock recovery).
+
+---
+
+### 12.5 Prevenzione del Deadlock
+
+Limitare i modi in cui può essere fatta la richiesta tenendo presente le condizioni di deadlock:
+
+- **Mutual Exclusion**: non richiesta per risorse condivisibili (es. file read-only).
+- **Hold and Wait**: garantire che quando un processo richiede una risorsa, non detiene altre risorse.
+    - Imporre al processo di richiedere e allocare tutte le sue risorse prima che inizi l'esecuzione.
+    - Consentire al processo di richiedere risorse solo quando non ne è stata allocata alcuna.
+    - *Svantaggi*: basso utilizzo delle risorse; possibile starvation.
+- **No Preemption**: Se un processo che detiene risorse richiede un’altra risorsa non disponibile, tutte le risorse devono essere rilasciate. Le risorse prelazionate vengono aggiunte alla lista di attesa e il processo verrà riavviato solo quando può ottenere le vecchie più le nuove risorse.
+    - *Limite*: Funziona solo per risorse facilmente recuperabili (CPU, DB, ecc.), non per mutex o semafori.
+- **Circular Wait**: Imporre un ordine totale a tutti i tipi di risorse e richiedere che ogni processo le richieda in ordine crescente.
+    - Dato un ordine $F(R)$, un processo può richiedere risorse solo se $F(R_j) > F(R_i)$.
+
+**Esempio Pratico: Lock Ordering**
+Per prevenire il deadlock in sistemi multi-thread, si può imporre un ordine globale di acquisizione dei mutex.
+
+```cpp
+// Invece di acquisire i lock in ordine casuale:
+if (from.id < to.id) {
+    acquire(lock(from));
+    acquire(lock(to));
+} else {
+    acquire(lock(to));
+    acquire(lock(from));
+}
+```
+
+---
+
+### 12.6 Evitamento del Deadlock (Deadlock Avoidance)
+
+Il sistema deve avere informazioni a priori: i processi devono dichiarare il massimo numero di risorse necessarie. L'algoritmo esamina dinamicamente lo stato di allocazione per assicurare che non si entri mai in una situazione di circular-wait.
+
+**Stato Sicuro (Safe State)**:
+Un sistema è in uno **stato sicuro** se esiste una sequenza $<P_1, P_2, \ldots, P_n>$ di TUTTI i processi tale che, per ogni $P_i$, le risorse richieste da $P_i$ possono essere soddisfatte dalle risorse correntemente disponibili + le risorse tenute da tutti i $P_j$, con $j < i$.
+
+**Algoritmo del Banchiere (Banker's Algorithm)**:
+Utilizzato per gestire multiple istanze di risorse. Ogni processo deve dichiarare a priori il massimo utilizzo di risorse.
+- **Strutture Dati**:
+    - **Available**: Vettore delle risorse disponibili.
+    - **Max**: Matrice delle massime richieste per processo.
+    - **Allocation**: Matrice delle risorse correntemente allocate.
+    - **Need**: Matrice delle risorse rimanenti ($Need[i,j] = Max[i,j] - Allocation[i,j]$).
+
+**Algoritmo di Safety**:
+1. Inizializza `Work = Available` e `Finish[i] = false` per tutti i processi.
+2. Trova un indice $i$ tale che entrambi: (a) `Finish[i] == false` e (b) `Need_i <= Work`.
+3. Se trovato, `Work = Work + Allocation_i`, `Finish[i] = true`, e torna al passo 2.
+4. Se tutti i processi hanno `Finish[i] == true`, il sistema è in uno **stato sicuro**.
+
+---
+
+### 12.7 Rilevamento del Deadlock (Deadlock Detection)
+
+Si permette al sistema di entrare nello stato di deadlock, monitorandolo periodicamente.
+
+**Istanza Singola di Risorsa**:
+Si usa il **grafo wait-for** (grafo delle attese).
+- Nodi: Solo processi.
+- Archi: $P_i \rightarrow P_j$ se $P_i$ sta aspettando una risorsa tenuta da $P_j$.
+- Se il grafo contiene un ciclo $\Rightarrow$ c'è un deadlock.
+
+**Multiple Istanze di Risorse**:
+Si utilizzano strutture simili all'algoritmo del banchiere (`Work`, `Allocation`, `Request`).
+- Algoritmo: Simile a quello di safety, ma si usa la matrice `Request` invece di `Need`.
+- Se dopo l'esecuzione dell'algoritmo esiste un processo $i$ tale che `Finish[i] == false`, allora $P_i$ è in deadlock.
+
+---
+
+### 12.8 Ripristino dal Deadlock (Deadlock Recovery)
+
+Una volta rilevato il deadlock, il sistema deve intervenire tramite:
+
+1. **Terminazione di Processi**:
+    - Abort di tutti i processi coinvolti (molto dispendioso).
+    - Abort dei processi uno alla volta finché il ciclo viene eliminato.
+    - *Criteri di scelta della vittima*: Priorità del processo, tempo di lavoro, risorse usate, natura interattiva o batch.
+
+2. **Prelazione di Risorse (Resource Preemption)**:
+    - Selezionare una "vittima" da cui sottrarre risorse finché il deadlock non è risolto.
+    - **Rollback**: Il processo deve tornare in qualche safe state (es. ripartire da capo o da uno stato di salvataggio).
+    - **Starvation**: Evitare che lo stesso processo venga scelto ripetutamente come vittima includendo il numero di rollback precedenti nella funzione di costo.
+
+# Parte VIII - Gestione dei Deadlock
+
+## Capitolo 16 - Deadlocks
+
+*(Lezione 14)*
+
+### 16.1 Introduzione e Livelock
+
+Un **deadlock** è una situazione in cui un insieme di processi o thread si blocca a vicenda, impedendo il proseguimento del compito.
+
+**Livelock**:
+È un'altra forma di fallimento di Liveness. In questo scenario, un gruppo di thread non è bloccato (non è in stato di attesa), ma non procede nell'esecuzione.
+- I thread tentano continuamente di eseguire un’azione che fallisce, impedendo loro di avanzare.
+- **Esempio**: Due persone in un corridoio che non riescono ad evitarsi, muovendosi continuamente di lato nello stesso istante.
+- **Risoluzione**: Spesso può essere risolto tramite la **randomizzazione** (es. periodi di backoff casuali nei protocolli di rete).
+
+**Esempio di Livelock in C**:
+```c
+/* thread_one runs in this function */
+void *do_work_one(void *param)
+{
+    int done = 0;
+    while (!done) {
+        pthread_mutex_lock(&first_mutex);
+        if (pthread_mutex_trylock(&second_mutex)) {
+            /** Do some work */
+            pthread_mutex_unlock(&second_mutex);
+            pthread_mutex_unlock(&first_mutex);
+            done = 1;
+        }
+        else
+            pthread_mutex_unlock(&first_mutex);
+    }
+    pthread_exit(0);
+}
+
+/* thread_two runs in this function */
+void *do_work_two(void *param)
+{
+    int done = 0;
+    while (!done) {
+        pthread_mutex_lock(&second_mutex);
+        if (pthread_mutex_trylock(&first_mutex)) {
+            /** Do some work */
+            pthread_mutex_unlock(&first_mutex);
+            pthread_mutex_unlock(&second_mutex);
+            done = 1;
+        }
+        else
+            pthread_mutex_unlock(&second_mutex);
+    }
+    pthread_exit(0);
+}
+```
+
+---
+
+### 16.2 Caratterizzazione dei Deadlock (Condizioni di Coffman)
+
+Un deadlock avviene se le seguenti quattro proprietà sono verificate contemporaneamente (**condizioni di Coffman**):
+
+- **Mutual exclusion**: almeno una risorsa deve essere tenuta in modalità esclusiva: solo un processo alla volta può usare la risorsa.
+- **Hold and wait**: almeno un thread deve mantenere almeno una risorsa ed essere in attesa di avere una risorsa aggiuntiva tenuta da altri processi.
+- **No preemption**: le risorse non possono essere prelazionate - una risorsa può essere rilasciata solo dal processo che la detiene dopo che tale processo ha completato il suo task.
+- **Circular wait**: esiste un insieme $\{P_0, P_1, \ldots, P_n\}$ di processi in attesa mutua, tali che $P_0$ è in attesa di una risorsa che è tenuta da $P_1$, $P_1$ attende la risorsa di $P_2$, …, $P_{n-1}$ attende la risorsa di $P_n$, e $P_n$ attenda la risorsa di $P_0$.
+
+*Le condizioni non sono tutte indipendenti (l'ultima implica hold and wait), ma è utile considerarle tutte.*
+
+---
+
+### 16.3 Modello del Sistema e Grafi di Allocazione delle Risorse
+
+**Modello del Sistema**:
+- I sistemi forniscono risorse di tipi $R_1, R_2, \ldots, R_m$ (es. cicli CPU, spazio di memoria, dispositivi I/O).
+- Ogni tipo di risorsa $R_i$ ha $W_i$ istanze.
+- Ogni processo utilizza una risorsa tramite le fasi: *request*, *use*, *release*.
+
+**Grafo di Allocazione delle Risorse**:
+Insieme di nod
+
+## Capitolo 10 - Deadlocks
+
+*(Lezione 14)*
+
+### 10.1 Livelock
+
+Il **livelock** è un'altra forma di fallimento di Liveness. In questo scenario, un gruppo di thread non è bloccato (non è in stato di attesa), ma non procede nell'esecuzione.
+- I thread tentano continuamente di eseguire un’azione che fallisce ed impedisce loro di avanzare.
+- **Esempio**: Due persone in un corridoio che non riescono ad evitarsi, muovendosi continuamente di lato nello stesso istante.
+
+In alcuni casi si può risolvere con la **randomizzazione** (es. periodo backoff in protocolli di rete).
+
+**Esempio di Livelock in C**:
+```c
+/* thread_one runs in this function */
+void *
+
+## Capitolo 10 - Deadlocks
+
+*(Lezione 14)*
+
+### 10.1 Introduzione e Livelock
+
+Un **deadlock** è una situazione in cui un insieme di processi o thread si blocca a vicenda, impedendo il proseguimento del compito.
+
+**Livelock**:
+È un'altra forma di fallimento di Liveness. In questo scenario, un gruppo di thread non è bloccato (non è in stato di attesa), ma non procede nell'esecuzione.
+- I thread tentano continuamente di eseguire un’azione che fallisce, impedendo loro di avanzare.
+- **Esempio**: Due persone in un corridoio che non riescono ad evitarsi, muovendosi continuamente di lato nello stesso istante.
+
+In alcuni casi si può risolvere con la **randomizzazione** (es. periodo backoff in protocolli di rete).
+
+**Esempio di Livelock in C**:
+```c
+/* thread_one runs in this function */
+void *do_work_one(void *param)
+{
+    int done = 0;
+    while (!done) {
+        pthread_mutex_lock(&first_mutex);
+        if (pthread_mutex_trylock(&second_mutex)) {
+            /** Do some work */
+            pthread_mutex_unlock(&second_mutex);
+            pthread_mutex_unlock(&first_mutex);
+            done = 1;
+        }
+        else
+            pthread_mutex_unlock(&first_mutex);
+    }
+    pthread_exit(0);
+}
+
+/* thread_two runs in this function */
+void *do_work_two(void *param)
+{
+    int done = 0;
+    while (!done) {
+        pthread_mutex_lock(&second_mutex);
+        if (pthread_mutex_trylock(&first_mutex)) {
+            /** Do some work */
+            pthread_mutex_unlock(&first_mutex);
+            pthread_mutex_unlock(&second_mutex);
+            done = 1;
+        }
+        else
+            pthread_mutex_unlock(&second_mutex);
+    }
+    pthread_exit(0);
+}
+```
+
+---
+
+### 10.2 Caratterizzazione dei Deadlock (Condizioni di Coffman)
+
+Un deadlock avviene se le seguenti quattro proprietà sono verificate contemporaneamente (**condizioni di Coffman**):
+
+- **Mutual exclusion**: almeno una risorsa deve essere tenuta in modalità esclusiva: solo un processo alla volta può usare la risorsa.
+- **Hold and wait**: almeno un thread deve mantenere almeno una risorsa ed essere in attesa di avere una risorsa aggiuntiva tenuta da altri processi.
+- **No preemption**: le risorse non possono essere prelazionate - una risorsa può essere rilasciata solo dal processo che la detiene dopo che tale processo ha completato il suo task.
+- **Circular wait**: esiste un insieme $\{P_0, P_1, \ldots, P_n\}$ di processi in attesa mutua, tali che $P_0$ è in attesa di una risorsa che è tenuta da $P_1$, $P_1$ attende la risorsa di $P_2$, …, $P_{n-1}$ attende la risorsa di $P_n$, e $P_n$ attenda la risorsa di $P_0$.
+
+*Le condizioni non sono tutte indipendenti (l'ultima implica hold and wait), ma è utile considerarle tutte.*
+
+---
+
+### 10.3 Modello del Sistema e Grafi di Allocazione delle Risorse
+
+**Modello del Sistema**:
+- I sistemi forniscono risorse di tipi $R_1, R_2, \ldots, R_m$ (es. cicli CPU, spazio di memoria, dispositivi I/O).
+- Ogni tipo di risorsa $R_i$ ha $W_i$ istanze.
+- Ogni processo utilizza una risorsa tramite le fasi: *request*, *use*, *release*.
+
+**Grafo di Allocazione delle Risorse**:
+Insieme di nodi $V$ e insieme di archi $E$.
+- $V$ è partizionata in due tipi:
+    - $P = \{P_1, P_2, \ldots, P_n\}$ (processi)
+    - $R = \{R_1, R_2, \ldots, R_m\}$ (tipi di risorse)
+- **Request edge**: archi diretti $P_i \rightarrow R_j$ (il processo $P_i$ richiede la risorsa).
+- **Assignment edge**: archi diretti $R_j \rightarrow P_i$ (la risorsa è allocata al processo).
+
+**Fatti di Base sui Grafi**:
+- Se il grafo non contiene cicli $\Rightarrow$ non c'è deadlock.
+- Se il grafo contiene un ciclo:
+    - Se esiste una sola istanza per tipo di risorsa $\Rightarrow$ **deadlock**.
+    - Se esistono molte istanze $\Rightarrow$ c'è la *possibilità* di un deadlock, ma non si ha necessariamente il deadlock (poiché una risorsa nel ciclo potrebbe essere rilasciata da un altro processo).
+
+---
+
+### 10.4 Metodi di Gestione dei Deadlock
+
+Approcci alla gestione del problema del deadlock:
+
+1. **Ignorare il problema**: assumendo che i deadlocks non si presentino mai nel sistema (usato dalla maggior parte dei sistemi operativi, incluso UNIX).
+2. **Assicurare che il sistema non entri mai in uno stato di deadlock**:
+    - **Prevenzione di deadlock**: Limitare i modi in cui si fanno le richieste per evitare le condizioni di Coffman.
+    - **Evitamento del deadlock**: Valutare dinamicamente le richieste per evitare situazioni pericolose.
+3. **Permettere al sistema di entrare in uno stato di deadlock per poi recuperare** (deadlock recovery).
+
+---
+
+### 10.5 Prevenzione del Deadlock
+
+Limitare i modi in cui può essere fatta la richiesta tenendo presente le condizioni di deadlock:
+
+- **Mutual Exclusion**: non richiesta per risorse condivisibili (es. file read-only).
+- **Hold and Wait**: garantire che quando un processo richiede una risorsa, non detiene altre risorse.
+    - Imporre al processo di richiedere e allocare tutte le sue risorse prima che inizi l'esecuzione.
+    - Consentire al processo di richiedere risorse solo quando non ne è stata allocata alcuna.
+    - *Svantaggi*: basso utilizzo delle risorse; possibile starvation.
+- **No Preemption**: Se un processo che detiene risorse richiede un’altra risorsa non disponibile, tutte le risorse devono essere rilasciate. Le risorse prelazionate vengono aggiunte alla lista di attesa e il processo verrà riavviato solo quando può ottenere le vecchie più le nuove risorse.
+    - *Limite*: Funziona solo per risorse facilmente recuperabili (CPU, DB, ecc.), non per mutex o semafori.
+- **Circular Wait**: Imporre un ordine totale a tutti i tipi di risorse e richiedere che ogni processo le richieda in ordine crescente.
+    - Dato un ordine $F(R)$, un processo può richiedere risorse solo se $F(R_j) > F(R_i)$.
+
+**Esempio Pratico: Lock Ordering**
+Per prevenire il deadlock in sistemi multi-thread, si può imporre un ordine globale di acquisizione dei mutex.
+
+```cpp
+// Invece di acquisire i lock in ordine casuale:
+if (from.id < to.id) {
+    acquire(lock(from));
+    acquire(lock(to));
+} else {
+    acquire(lock(to));
+    acquire(lock(from));
+}
+```
+
+---
+
+### 10.6 Evitamento del Deadlock (Deadlock Avoidance)
+
+Il sistema deve avere informazioni a priori: i processi devono dichiarare il massimo numero di risorse necessarie. L'algoritmo esamina dinamicamente lo stato di allocazione per assicurare che non si entri mai in una situazione di circular-wait.
+
+**Stato Sicuro (Safe State)**:
+Un sistema è in uno **stato sicuro** se esiste una sequenza $<P_1, P_2, \ldots, P_n>$ di TUTTI i processi tale che, per ogni $P_i$, le risorse richieste da $P_i$ possono essere soddisfatte dalle risorse correntemente disponibili + le risorse tenute da tutti i $P_j$, con $j < i$.
+
+**Algoritmo del Banchiere (Banker's Algorithm)**:
+Utilizzato per gestire multiple istanze di risorse. Ogni processo deve dichiarare a priori il massimo utilizzo di risorse.
+- **Strutture Dati**:
+    - **Available**: Vettore delle risorse disponibili.
+    - **Max**: Matrice delle massime richieste per processo.
+    - **Allocation**: Matrice delle risorse correntemente allocate.
+    - **Need**: Matrice delle risorse rimanenti ($Need[i,j] = Max[i,j] - Allocation[i,j]$).
+
+**Algoritmo di Safety**:
+1. Inizializza `Work = Available` e `Finish[i] = false` per tutti i processi.
+2. Trova un indice $i$ tale che entrambi: (a) `Finish[i] == false` e (b) `Need_i <= Work`.
+3. Se trovato, `Work = Work + Allocation_i`, `Finish[i] = true`, e torna al passo 2.
+4. Se tutti i processi hanno `Finish[i] == true`, il sistema è in uno **stato sicuro**.
+
+---
+
+### 10.7 Rilevamento del Deadlock (Deadlock Detection)
+
+Si permette al sistema di entrare nello stato di deadlock, monitorandolo periodicamente.
+
+**Istanza Singola di Risorsa**:
+Si usa il **grafo wait-for** (grafo delle attese).
+- Nodi: Solo processi.
+- Archi: $P_i \rightarrow P_j$ se $P_i$ sta aspettando una risorsa tenuta da $P_j$.
+- Se il grafo contiene un ciclo $\Rightarrow$ c'è un deadlock.
+
+**Multiple Istanze di Risorse**:
+Si utilizzano strutture simili all'algoritmo del banchiere (`Work`, `Allocation`, `Request`).
+- Algoritmo: Simile a quello di safety, ma si usa la matrice `Request` invece di `Need`.
+- Se dopo l'esecuzione dell'algoritmo esiste un processo $i$ tale che `Finish[i] == false`, allora $P_i$ è in deadlock.
+
+---
+
+### 10.8 Ripristino dal Deadlock (Deadlock Recovery)
+
+Una volta rilevato il deadlock, il sistema deve intervenire tramite:
+
+1. **Terminazione di Processi**:
+    - Abort di tutti i processi coinvolti (molto dispendioso).
+    - Abort dei processi uno alla volta finché il ciclo viene eliminato.
+    - *Criteri di scelta della vittima*: Priorità del processo, tempo di lavoro, risorse usate, natura interattiva o batch.
+
+2. **Prelazione di Risorse (Resource Preemption)**:
+    - Selezionare una "vittima" da cui sottrarre risorse finché il deadlock non è risolto.
+    - **Rollback**: Il processo deve tornare in qualche safe state (es. ripartire da capo o da uno stato di salvataggio).
+    - **Starvation**: Evitare che lo stesso processo venga scelto ripetutamente come vittima includendo il numero di rollback precedenti nella funzione di costo.
