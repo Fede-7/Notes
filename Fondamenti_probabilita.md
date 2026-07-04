@@ -140,7 +140,7 @@ Con riferimento all’esempio # 2 ed agli eventi lì definiti: A e B sono incomp
 
 ## Un esperimento semplice: lancio di un dado
 
-Si supponga di lanciare un dado onesto n volte. Avremo quindi n risultati in $\Omega = \{ 1 , 2 , 3 , 4 , 5 , 6 \}$ : detto $n _ { j }$ il numero di volte (su n lanci) in cui il risultato è i , ci si aspetta che, per n suficientemente grande, i valori di $n _ { j }$ siano all’incirca uguali, $\begin{array} { r } { n _ { i } \simeq \frac { n } { | \Omega | } = \frac { n } { 6 } } \end{array}$ . Definiamo i due sottoinsiemi $A = \{ 1 , 3 , 5 \} \in B = \{ 2 , 4 , 6 \}$ ; detti ${ n _ { A } } \in \space  { n _ { B } }$ il numero di prove in cui si verificano A e B rispettivamente avremo: 
+Si supponga di lanciare un dado onesto n volte. Avremo quindi n risultati in $\Omega = \{ 1 , 2 , 3 , 4 , 5 , 6 \}$ : detto $n _ { j }$ il numero di volte (su n lanci) in cui il risultato è i , ci si aspetta che, per n suficientemente grande, i valori di $n _ { j }$ siano all’incirca uguali, $\begin{array} { r } { n _ { i } \simeq \frac { n } { | \Omega | } = \frac { n } { 6 } } \end{array}$ . Definiamo i due sottoinsiemi $A = \{ 1 , 3 , 5 \} \in B = \{ 2 , 4 , 6 \}$ ; detti $ { n _ { A } } \in  { n _ { B } }$ il numero di prove in cui si verificano A e B rispettivamente avremo: 
 
 $$
 n _ {A} = n _ {1} + n _ {3} + n _ {5} \simeq n \frac {| A |}{| \Omega |} \quad n _ {B} = n _ {2} + n _ {4} + n _ {6} \simeq n \frac {| B |}{| \Omega |}
@@ -244,7 +244,7 @@ Dato un insieme di n elementi, quante n−ple ordinate si possono formare?
 
 Risposta: E un caso speciale di enumerazione di<sup>`</sup> k−ple quando k = n, cioè: 
 
-$$ permutazioni di n elementi = n(n − 1) · . . . · 1 = n! $$
+# permutazioni di n elementi = n(n − 1) · . . . · 1 = n! 
 
 Questo ci conduce immediatamente al concetto di combinazioni. 
 
@@ -1486,16 +1486,7 @@ Si assegnano le due leggi congiunte $p _ { B _ { 1 } , B _ { 2 } , B _ { 3 } } (
 
 Dire se $( B _ { 1 } , B _ { 2 } ) , ( B _ { 1 } , B _ { 3 } ) , ( B _ { 2 } , B _ { 3 } ) , ( B _ { 1 } , B _ { 2 } , B _ { 3 } )$ sono o meno indipendent secondo $p _ { B _ { 1 } , B _ { 2 } , B _ { 3 } } ( b _ { 1 } , b _ { 2 } , b _ { 3 } ) / q _ { B _ { 1 } , B _ { 2 } , B _ { 3 } } ( b _ { 1 } , b _ { 2 } , b _ { 3 } )$ 
 
-| $(b_1, b_2, b_3)$ | $p_{B_1, B_2, B_3}(b_1, b_2, b_3)$ | $q_{B_1, B_2, B_3}(b_1, b_2, b_3)$ |
-| :--- | :--- | :--- |
-| 000 | $(1 - \alpha)^3$ | $(1 - \alpha)^2$ |
-| 001 | $\alpha(1 - \alpha)^2$ | 0 |
-| 010 | $\alpha(1 - \alpha)^2$ | 0 |
-| 011 | $\alpha^2(1 - \alpha)$ | $\alpha(1 - \alpha)$ |
-| 100 | $\alpha(1 - \alpha)^2$ | 0 |
-| 101 | $\alpha^2(1 - \alpha)$ | $\alpha(1 - \alpha)$ |
-| 110 | $\alpha^2(1 - \alpha)$ | $\alpha^2$ |
-| 111 | $\alpha^3$ | 0 |
+<table><tr><td><eq>(b_1, b_2, b_3)</eq></td><td><eq>p_{B_1, B_2, B_3}(b_1, b_2, b_3)</eq></td><td><eq>q_{B_1, B_2, B_3}(b_1, b_2, b_3)</eq></td></tr><tr><td>000</td><td><eq>$(1 - \alpha)^3$</eq></td><td><eq>(1 - \alpha)^2</eq></td></tr><tr><td>001</td><td><eq>\alpha(1 - \alpha)^2</eq></td><td>0</td></tr><tr><td>010</td><td><eq>\alpha(1 - \alpha)^2</eq></td><td>0</td></tr><tr><td>011</td><td><eq>\alpha^2(1 - \alpha)</eq></td><td><eq>\alpha(1 - \alpha)</eq></td></tr><tr><td>100</td><td><eq>\alpha(1 - \alpha)^2</eq></td><td>0</td></tr><tr><td>101</td><td><eq>\alpha^2(1 - \alpha)</eq></td><td><eq>\alpha(1 - \alpha)</eq></td></tr><tr><td>110</td><td><eq>\alpha^2(1 - \alpha)</eq></td><td><eq>\alpha^2</eq></td></tr><tr><td>111</td><td><eq>\alpha^3</eq></td><td>0</td></tr></table>
 
 ## Marginalizzazione di $p_{B_1,B_2,B_3}(b_1, b_2, b_3)$
 
@@ -1510,89 +1501,44 @@ e analoghe
 
 otteniamo le congiunte: 
 
-| $(b_1, b_2)$ | $p_{B_1, B_2}(b_1, b_2)$ |
-| :--- | :--- |
-| 00 | $(1 - \alpha)^2$ |
-| 01 | $\alpha(1 - \alpha)$ |
-| 10 | $\alpha(1 - \alpha)$ |
-| 11 | $\alpha^2$ |
+<table><tr><td><eq>(b_1, b_2)</eq></td><td><eq>p_{B_1, B_2}(b_1, b_2)</eq></td></tr><tr><td>00</td><td><eq>(1 - \alpha)^2</eq></td></tr><tr><td>01</td><td><eq>\alpha(1 - \alpha)</eq></td></tr><tr><td>10</td><td><eq>\alpha(1 - \alpha)</eq></td></tr><tr><td>11</td><td><eq>\alpha^2</eq></td></tr></table>
+
 
 Con un’ulteriore marginalizzazione: 
 
-| $(b_1, b_3)$ | $p_{B_1, B_3}(b_1, b_3)$ |
-| :--- | :--- |
-| 00 | $(1 - \alpha)^2$ |
-| 01 | $\alpha(1 - \alpha)$ |
-| 10 | $\alpha(1 - \alpha)$ |
-| 11 | $\alpha^2$ |
 
-| $(b_2, b_3)$ | $p_{B_2, B_3}(b_2, b_3)$ |
-| :--- | :--- |
-| 00 | $(1 - \alpha)^2$ |
-| 01 | $\alpha(1 - \alpha)$ |
-| 10 | $\alpha(1 - \alpha)^2$ |
-| 11 | $\alpha^2$ |
+<table><tr><td><eq>(b_1, b_3)</eq></td><td><eq>p_{B_1, B_3}(b_1, b_3)</eq></td></tr><tr><td>00</td><td><eq>(1 - \alpha)^2</eq></td></tr><tr><td>01</td><td><eq>\alpha(1 - \alpha)</eq></td></tr><tr><td>10</td><td><eq>\alpha(1 - \alpha)</eq></td></tr><tr><td>11</td><td><eq>\alpha^2</eq></td></tr></table>
+
+<table><tr><td><eq>(b_2, b_3)</eq></td><td><eq>p_{B_2, B_3}(b_2, b_3)</eq></td></tr><tr><td>00</td><td><eq>(1 - \alpha)^2</eq></td></tr><tr><td>01</td><td><eq>\alpha(1 - \alpha)</eq></td></tr><tr><td>10</td><td><eq>\alpha(1 - \alpha)^2</eq></td></tr><tr><td>11</td><td><eq>\alpha^2</eq></td></tr></table>
 
 $$
 p _ {B _ {1}} (b _ {1}) = p _ {B _ {1}, B _ {2}} (b _ {1}, 0) + p _ {B _ {1}, B _ {2}} (b _ {1}, 1)
 $$
 
 e analoghe 
-| $b_1$ | $p_{B_1}(b_1)$ |
-| :--- | :--- |
-| 0 | $(1-\alpha)$ |
-| 1 | $\alpha$ |
 
-| $b_2$ | $p_{B_2}(b_2)$ |
-| :--- | :--- |
-| 0 | $(1 - \alpha)$ |
-| 1 | $\alpha$ |
+<table><tr><td>$ b_{1} $</td><td>$ p_{B_{1}}(b_{1}) $</td></tr><tr><td>0</td><td>$ (1-\alpha) $</td></tr><tr><td>1</td><td>$ \alpha $</td></tr></table>
 
-| $b_3$ | $p_{B_3}(b_3)$ |
-| :--- | :--- |
-| 0 | $(1-\alpha)$ |
-| 1 | $\alpha$ |
+<table><tr><td><eq>b_2</eq></td><td><eq>p_{B_2}(b_2)</eq></td></tr><tr><td>0</td><td><eq>(1 - \alpha)</eq></td></tr><tr><td>1</td><td><eq>\alpha</eq></td></tr></table>
+
+<table><tr><td>$ b_{3} $</td><td>$ p_{B_{3}}(b_{3}) $</td></tr><tr><td>0</td><td>$ (1-\alpha) $</td></tr><tr><td>1</td><td>$ \alpha $</td></tr></table>
 
 
 Procedendo nello stesso modo otteniamo le congiunte: 
 
-| $(b_1, b_2)$ | $q_{B_1, B_2}(b_1, b_2)$ |
-| :--- | :--- |
-| 00 | $(1 - \alpha)^2$ |
-| 01 | $\alpha(1 - \alpha)$ |
-| 10 | $\alpha(1 - \alpha)$ |
-| 11 | $\alpha^2$ |
+<table><tr><td><eq>(b_1, b_2)</eq></td><td><eq>q_{B_1, B_2}(b_1, b_2)</eq></td></tr><tr><td>00</td><td><eq>(1 - \alpha)^2</eq></td></tr><tr><td>01</td><td><eq>\alpha(1 - \alpha)</eq></td></tr><tr><td>10</td><td><eq>\alpha(1 - \alpha)</eq></td></tr><tr><td>11</td><td><eq>\alpha^2</eq></td></tr></table>
 
-| $(b_1, b_3)$ | $q_{B_1, B_3}(b_1, b_3)$ |
-| :--- | :--- |
-| 00 | $(1 - \alpha)^2$ |
-| 01 | $\alpha(1 - \alpha)$ |
-| 10 | $\alpha^2$ |
-| 11 | $\alpha(1 - \alpha)$ |
+<table><tr><td><eq>(b_1, b_3)</eq></td><td><eq>q_{B_1, B_3}(b_1, b_3)</eq></td></tr><tr><td>00</td><td><eq>(1 - \alpha)^2</eq></td></tr><tr><td>01</td><td><eq>\alpha(1 - \alpha)</eq></td></tr><tr><td>10</td><td><eq>\alpha^2</eq></td></tr><tr><td>11</td><td><eq>\alpha(1 - \alpha)</eq></td></tr></table>
 
-| $(b_2, b_3)$ | $q_{B_2, B_3}(b_2, b_3)$ |
-| :--- | :--- |
-| 00 | $(1 - \alpha)^2$ |
-| 01 | $\alpha(1 - \alpha)$ |
-| 10 | $\alpha^2$ |
-| 11 | $\alpha(1 - \alpha)^2$ |
+<table><tr><td><eq>(b_2, b_3)</eq></td><td><eq>q_{B_2, B_3}(b_2, b_3)</eq></td></tr><tr><td>00</td><td><eq>(1 - \alpha)^2</eq></td></tr><tr><td>01</td><td><eq>\alpha(1 - \alpha)</eq></td></tr><tr><td>10</td><td><eq>\alpha^2</eq></td></tr><tr><td>11</td><td><eq>\alpha(1 - \alpha)^2</eq></td></tr></table>
 
 E le marginali: 
 
-| $b_1$ | $q_{B_1}(b_1)$ |
-| :--- | :--- |
-| 0 | $(1 - \alpha)$ |
-| 1 | $\alpha$ |
+<table><tr><td><eq>b_1</eq></td><td><eq>q_{B_1}(b_1)</eq></td></tr><tr><td>0</td><td><eq>(1 - \alpha)</eq></td></tr><tr><td>1</td><td><eq>\alpha</eq></td></tr></table>
 
-| $b_2$ | $q_{B_2}(b_2)$ |
-| :--- | :--- |
-| 0 | $(1 - \alpha)$ |
-| 1 | $\alpha$ |
+<table><tr><td><eq>b_2</eq></td><td><eq>q_{B_2}(b_2)</eq></td></tr><tr><td>0</td><td><eq>(1 - \alpha)</eq></td></tr><tr><td>1</td><td><eq>\alpha</eq></td></tr></table>
 
-| $b_3$ | $q_{B_3}(b_3)$ |
-| :--- | :--- |
-| 0 | $(1-\alpha)$ |
-| 1 | $\alpha$ |
+<table><tr><td>$ b_{3} $</td><td>$ q_{B_{3}}(b_{3}) $</td></tr><tr><td>0</td><td>$ (1-\alpha) $</td></tr><tr><td>1</td><td>$ \alpha $</td></tr></table>
 
 Come mai alcune delle congiunte a coppie e le marginali coincidono, ma le pmf delle terne sono diverse.
 Qual è il mistero? 
@@ -1650,19 +1596,18 @@ $$
 Si considerino due variabili doppie, $( X _ { 1 } , Y _ { 1 } ) \in \{ 0 , 1 \} ^ { 2 } \mathrm { ~ e ~ } ( X _ { 2 } , Y _ { 2 } ) \in \{ - 1 , 1 \} ^ { 2 }$ . Le pmf congiunte sono quelle riportate di seguito: 
 
 | $(x_1, y_1)$ | $p_{X_1, y_1}(x_1, y_1)$ |
-| :--- | :--- |
+|---|---|
 | 00 | $\frac{1}{3}$ |
 | 01 | $\frac{2}{9}$ |
 | 10 | $\frac{1}{9}$ |
 | 11 | $\frac{1}{3}$ |
 
 | $(x_2, y_2)$ | $p_{X_2, Y_2}(x_2, y_2)$ |
-| :--- | :--- |
+|---|---|
 | (-1,-1) | $\frac{1}{4}$ |
 | (-1,1) | $\frac{1}{2}$ |
 | (1,-1) | $\frac{1}{8}$ |
 | (1,1) | $\frac{1}{8}$ |
-
 
 Si caratterizzino le due variabili aleatorie $Z _ { 1 } = 3 X _ { 1 } ^ { 2 } + Y _ { 1 } \thinspace \thinspace \thinspace e \thinspace Z _ { 2 } = 3 X _ { 2 } ^ { 2 } + Y _ { 2 }$ 
 
@@ -1772,15 +1717,15 @@ $$
 
 Pertanto le condizionali si scrivono: 
 
-| $(x_1, y_1)$ | $p _ {X _ {1}, Y _ {1}}(x_1,y_1)$ |
-| :----------- | :-------------------------------------- | 
-| 00           | $\frac{1}{3} \frac{9}{4} = \frac{3}{4}$ |
-| 01           | $\frac{2}{9} \frac{9}{5} = \frac{2}{5}$ |
-| 10           | $\frac{1}{9} \frac{9}{4} = \frac{1}{4}$ |
-| 11           | $\frac{1}{3} \frac{9}{5} = \frac{3}{5}$ |
+| $(x_1, y_1)$ | $p_{X_1\|Y_1}(x_1\|y_1)$ |
+|---|---|
+| 00 | $\frac{1}{3} \frac{9}{4} = \frac{3}{4}$ |
+| 01 | $\frac{2}{9} \frac{9}{5} = \frac{2}{5}$ |
+| 10 | $\frac{1}{9} \frac{9}{4} = \frac{1}{4}$ |
+| 11 | $\frac{1}{3} \frac{9}{5} = \frac{3}{5}$ |
 
-| $(x_{2},y_{2})$ | $p _ {X _ {2}, Y _ {2}}(x_{2}, y_{2})$ |
-| :--- | :--- |
+| $(x_{2},y_{2})$ | $p_{X_{2}\|Y_{2}}(x_{2}\|y_{2})$ |
+|---|---|
 | (-1,-1) | $\frac{1}{4}\frac{8}{3}=\frac{2}{3}$ |
 | (-1,1) | $\frac{1}{2}\frac{8}{5}=\frac{4}{5}$ |
 | (1,-1) | $\frac{1}{8}\frac{8}{3}=\frac{1}{3}$ |
@@ -1879,38 +1824,33 @@ $$
 Date le due pmf congiunte dell’esempio della slide 81 definire quale delle due leggi d probabilità congiunta dà luogo a maggiore coeficiente di correlazione. Ricordiamo che 
 
 | $(x_1, y_1)$ | $p_{X_1, y_1}(x_1, y_1)$ |
-| :--- | :--- |
+|---|---|
 | 00 | $\frac{1}{3}$ |
 | 01 | $\frac{2}{9}$ |
 | 10 | $\frac{1}{9}$ |
 | 11 | $\frac{1}{3}$ |
 
-| $(x_2, y_2)$ | $pX_{2}, Y_2(x_2, y_2)$ |
-| :--- | :--- |
-| (-1,-1) | $\frac{1}{4}$ |
-| (-1,1) | $\frac{1}{2}$ |
-| (1,-1) | $\frac{1}{8}$ |
-| (1,1) | $\frac{1}{8}$ |
+<table><tr><td><eq>(x_2, y_2)</eq></td><td><eq>pX_2, Y_2(x_2, y_2)</eq></td></tr><tr><td>(-1,-1)</td><td><eq>\frac{1}{4}</eq></td></tr><tr><td>(-1,1)</td><td><eq>\frac{1}{2}</eq></td></tr><tr><td>(1,-1)</td><td><eq>\frac{1}{8}</eq></td></tr><tr><td>(1,1)</td><td><eq>\frac{1}{8}</eq></td></tr></table>
 
 Pertanto le marginali di $X _ { 1 } , X _ { 2 } , Y _ { 1 } \in Y _ { 2 }$ si scrivono: 
 
 | $X_1$ | $p_{X_1}(x_1)$ |
-| :--- | :--- |
+|---|---|
 | 0 | $\frac{5}{9}$ |
 | 1 | $\frac{4}{9}$ |
 
 | $Y_1$ | $p_{Y_1}(y_1)$ |
-| :--- | :--- |
+|---|---|
 | 0 | $\frac{4}{9}$ |
 | 1 | $\frac{5}{9}$ |
 
 | $X_{2}$ | $p_{X_{2}}(x_{2})$ |
-| :--- | :--- |
+|---|---|
 | -1 | $\frac{3}{4}$ |
 | 1 | $\frac{1}{4}$ |
 
 | $Y_2$ | $p_{Y_2}(y_2)$ |
-| :--- | :--- |
+|---|---|
 | -1 | $\frac{3}{8}$ |
 | 1 | $\frac{5}{8}$ |
 
@@ -3487,4 +3427,4 @@ $$
 \Phi_ {X} (s) = \sum_ {n = 0} ^ {\infty} \frac {\mathbb {E} [ X ^ {n} ]}{n !} s ^ {n}
 $$
 
-il che spiega il nome ”mgf”. 
+il che spiega il nome ”mgf”.
