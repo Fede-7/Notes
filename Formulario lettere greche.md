@@ -84,11 +84,33 @@ $$F_X(x) = \mathbb{P}(X \leq x)$$
 > La **funzione di massa di probabilità** $p_X(x)$ è definita per le variabili aleatorie discrete come:
 > $$p_X(x) = \mathbb{P}(X = x)$$
 
+La pmf viene utilizzata quando i possibili risultati di una variabile aleatoria sono isolati e numerabili (es. il numero di figli, il risultato di un lancio di dadi). Serve a fornire la probabilità esatta associata a ogni singolo valore possibile del dominio. 
+
+> [!important] Sintesi Matematica
+> $$p_X(x) = \mathbb{P}(X = x)$$
+> $$\sum_{x} p_X(x) = 1$$
+
+Richiede: **Variabile Aleatoria**. Usato in: **Distribuzione di Poisson**, **Distribuzione Binomiale**.
+
+> [!warning] Attenzione
+> La pmf è definita solo per variabili **discrete**. Per una variabile continua, la probabilità puntuale $\mathbb{P}(X=x)$ è sempre zero, rendendo la pmf non utile.
+
 ### 2. pdf (Probability Density Function)
 
 > [!important] Probability Density Function (pdf)
 > La **funzione di densità di probabilità** $f_X(x)$ è definita per le variabili aleatorie continue e descrive la distribuzione della probabilità tramite l'area sottesa alla curva:
 > $$\mathbb{P}(a \leq X \leq b) = \int_{a}^{b} f_X(x) \, dx$$
+
+Nelle variabili continue (come il tempo di attesa o l'altezza), la probabilità che una variabile assuma un valore esatto è nulla ($\mathbb{P}(X=x)=0$). La pdf risolve questo problema non fornendo probabilità puntuali, ma "densità": la probabilità viene calcolata come l'area sotto la curva in un intervallo.
+
+> [!important] Sintesi Matematica
+> $$\mathbb{P}(a \leq X \leq b) = \int_{a}^{b} f_X(x) \, dx$$
+> $$\int_{-\infty}^{+\infty} f_X(x)dx = 1$$
+
+Richiede: **Variabile Aleatoria**. Usato in: **Distribuzione Normale**, **Distribuzione Esponenziale**.
+
+> [!warning] Attenzione
+> Un errore comune è confondere il valore di $f_X(x)$ con la probabilità. Il valore della funzione può essere maggiore di 1 (poiché è una densità, non una probabilità), mentre la probabilità deve sempre essere $\leq 1$.
 
 ### 3. DF (Distribution Function / Funzione di Ripartizione)
 
@@ -96,10 +118,17 @@ $$F_X(x) = \mathbb{P}(X \leq x)$$
 > La **funzione di ripartizione** $F_X(x)$ è una funzione cumulativa che indica la probabilità che la variabile aleatoria $X$ assuma un valore minore o uguale a $x$:
 > $$F_X(x) = \mathbb{P}(X \leq x)$$
 
+La DF è lo strumento universale per descrivere la distribuzione di una variabile, indipendentemente dal fatto che sia discreta o continua. Permette di calcolare facilmente probabilità su intervalli e fornisce un ponte matematico tra pmf e pdf.
+
 La DF può essere ricavata dalle altre funzioni di distribuzione in base alla natura della variabile:
 1. **Caso Discreto:** La DF è la somma cumulativa delle masse di probabilità:
    $$F_X(x) = \sum_{x_i \leq x} p_X(x_i)$$
 2. **Caso Continuo:** La DF è l'integrale della densità fino al punto $x$:
    $$F_X(x) = \int_{-\infty}^{x} f_X(t) \, dt$$
+
+> [!important] Sintesi Matematica
+> $$F_X(x) = \mathbb{P}(X \leq x)$$
+> Discreta: $F_X(x) = \sum_{x_i \leq x} p_X($x_i$)$
+> Continua: $F_X(x) = \int_{-\infty}^{x} f_X(t) \, dt$
 
 Richiede: **Variabile Aleatoria**. Usato in: **Calcolo di probabilità su intervalli**, **Teorema di Distribuzione Cumulativa**.

@@ -416,14 +416,28 @@ $$
 
 Per contro, noi usiamo la notazione semplificata $\mathbb { P } ( X = x )$, talvolta ”complicandola” nella forma $\mathbb { P } ( \{ X = x \} )$, che evoca che a rigore ci riferiamo a un insieme di punti di $\Omega .$. Useremo queste notazioni intercambiabilmente ogni volta che non ci sia il pericolo di generare equivoci. 
 
-> [!attention]
-> Nello slang di ingegneria elettronica e delle telecomunicazioni, l'espressione "la pdf di X" o "la DF di X" viene spesso usata come sinonimo generico di 
->>"dimmi come si distribuisce la variabile X",
+> [!quote] Osservazione sull'uso del linguaggio tecnico
+> Nel gergo comune dell'ingegneria elettronica e delle telecomunicazioni, le espressioni "la pdf di $X$" o "la DF di $X$" vengono spesso utilizzate in modo colloquiale come sinonimi generici per indicare la legge di distribuzione della variabile aleatoria $X$, indipendentemente dal fatto che essa sia descritta da una funzione di massa (pmf), una densità (pdf) o una funzione cumulativa (DF).
+>> [!important] Probability Mass Function (pmf)
+>> La **funzione di massa di probabilità** $p_X(x)$ è definita per le variabili aleatorie discrete come:
+>> $$p_X(x) = \mathbb{P}(X = x)$$
 >
->a prescindere dal fatto che sia una sequenza di numeri (pmf), una densità (pdf) o una cumulativa (DF)
+>> [!important] Probability Density Function (pdf)
+>> La **funzione di densità di probabilità** $f_X(x)$ è definita per le variabili aleatorie continue e descrive la distribuzione della probabilità tramite l'area sottesa alla curva:
+>> $$\mathbb{P}(a \leq X \leq b) = \int_{a}^{b} f_X(x) \, dx$$
+>
+>> [!important] Funzione di Ripartizione (DF)
+>> La **funzione di ripartizione** $F_X(x)$ è una funzione cumulativa che indica la probabilità che la variabile aleatoria $X$ assuma un valore minore o uguale a $x$:
+>> $$F_X(x) = \mathbb{P}(X \leq x)$$
+>> La DF può essere ricavata dalle altre funzioni di distribuzione in base alla natura della variabile:
+>> 1. **Caso Discreto:** La DF è la somma cumulativa delle masse di probabilità:
+   $$F_X(x) = \sum_{x_i \leq x} p_X(x_i)$$
+ 2. **Caso Continuo:** La DF è l'integrale della densità fino al punto $x$:
+    >>$$F_X(x) = \int_{-\infty}^{x} f_X(t) \, dt$$
+
 ## La media campionaria
 
-Una variabile aleatoria $X$ si dice caratterizzata se è assegnata la sequenza de $| \mathcal { X } |$ valori della sua pmf; 
+Una variabile aleatoria $X$ si dice **caratterizzata** se conosci tutto quello che c'è da sapere dal punto di vista probabilistico su quella variabile; 
 
 Esistono caratterizzazioni meno precise che sono spesso utili: una di queste è la **media campionaria**.
 
@@ -437,7 +451,7 @@ $$
 \boxed {\overline {{X _ {n}}} = \frac {1}{n} \sum_ {i = 1} ^ {n} X (\omega_ {i})}
 $$
 
-## La media statistica
+## La media statistica / Valore atteso
 
 Riconsideriamo la media campionaria 
 
@@ -445,7 +459,7 @@ $$
 \overline {{X _ {n}}} = \frac {1}{n} \sum_ {i = 1} ^ {n} X (\omega_ {i})
 $$
 
-Naturalmente, siccome $X ( \omega _ { i } ) \in \mathcal { X } = \{ x _ { 1 } , . . . , x _ { M } \}$, al crescere di $n$ avremo che $X ( \omega )$ assumerà $n _ { 1 }$ volte il valore $x _ { 1 } , \ n _ { 2 }$ il valore $x _ { 2 }$ e così via (il caso $M = \infty$ va trattato come caso limite). Quindi, per $n  \infty ;$ 
+Naturalmente, siccome $X ( \omega _ { i } ) \in \mathcal { X } = \{ x _ { 1 } , . . . , x _ { M } \}$, al crescere di $n$ avremo che $X ( \omega )$ assumerà $n _ { 1 }$ volte il valore $x _ { 1 } , \ n _ { 2 }$ il valore $x _ { 2 }$ e così via (il caso $M = \infty$ va trattato come caso limite). Quindi, per $n \to  \infty ;$ 
 
 $$
 \boxed {\overline {{X _ {n}}} = \frac {1}{n} \sum_ {i = 1} ^ {M} n _ {i} x _ {i} = \sum_ {i = 1} ^ {M} x _ {i} f _ {n} (x _ {i}) \rightarrow \sum_ {i = 1} ^ {M} x _ {i} \mathbb {P} (X = x _ {i}) = \sum_ {i = 1} ^ {M} x _ {i} p _ {X} (x _ {i}) \stackrel {\text { def }} {=} \mathbb {E} [ X ]}
@@ -455,66 +469,9 @@ dove ricordiamo che $\begin{array} { r } { f _ { n } ( x _ { i } ) = \frac { n _
 
 La quantità $\mathbb { E } \left[ X \right]$ si definisce **media statistica** della variabile aleatoria $X$.
 
-## 1. Un esempio: il conteggio Bernoulliano - 1
-
-Consideriamo il lancio per $N$ volte di una moneta; 
-
-La moneta dà un risultato ”T” (testa) con frequenza che tende a $p < 1 \mathrm { ~ e ~ } ^ { \prime \prime } \mathsf { C } ^ { \prime \prime }$ e croce con frequenza che tende a $q = 1 - p ;$.
-
-I lanci ovviamente sono indipendenti, nel senso che l’esito di ogni lancio non dipende da quelli precedenti e successivi; 
-
-Quindi lo spazio campione è l’insieme delle $N$-ple del tipo: 
-
-$$
-\underbrace {(C , C , T , T , C , \dots,\dots, C , T , T)} _ {N}
-$$
-
-Definita $X _ { N } ( \omega )$ la variabile aleatoria che ”conta” il numero di ”T” (teste) che si realizzano in $N$ lanci, se ne vuole una caratterizzazione.
-
-## 2. Conteggio Bernoulliano - 2
-
-## La variabile aleatoria $X : \Omega \longrightarrow \mathcal { X } \dot { \mathrm {  ~ e ~ } }$
-
-$$
-X _ {N}: \omega \in \{T, C \} ^ {N} \longrightarrow X _ {N} (\omega) \in \overbrace {\{0 , \dots , N \}} ^ {\mathcal {X}} \quad X _ {N} (\omega) = k \text {   se   } \omega \text {   contiene   } k \text { '' } T
-$$
-
-Ora consideriamo $\boldsymbol { \omega } = [ \underbrace { T , \dots , T } _ { \mathrm { ~ } } , \underbrace { C , \dots , C } _ { \mathrm { ~ } } ]$. Per l’indipendenza dei lanci (vedi slide 38) avremo: 
-
-$$P(X=k) = \binom{N}{k} p^k (1-p)^{N-k}$$
-$$
-\mathbb {P} (\omega) = \mathbb {P} (\underbrace {T \cap \ldots \cap T} _ {k \text { volte}} \cap \underbrace {C \cap \ldots \cap C} _ {N - k \text { volte }}) = p ^ {k} q ^ {N - k}
-$$
-
-Le sequenze che hanno $k$ teste e $( N - k )$ croci sono dunque tutte equiprobabili e sono in numero $C _ { N , k } = \left( \begin{array} { c } { { N } } \\ { { k } } \end{array} \right)$.
-
-Sia $\Omega _ { N , k } = \cup _ { i } \{ \omega _ { i } ^ { * } \} _ { i = 1 } ^ { C _ { N , k } }$ l’insieme di queste sequenze. Avremo: 
-
-$$
-\mathbb {P} (X _ {N} = k) = p _ {X _ {N}} (k) = \mathbb {P} \left(\Omega_ {N, k}\right) = \mathbb {P} \left(\cup_ {i = 1} ^ {C _ {N, k}} \{\omega_ {i} ^ {*} \}\right)
-$$
-
-## 3. Conteggio Bernoulliano - 3
-
-Siccome gli eventi elementari sono sempre mutuamente esclusivi $\big ( \mathbb { P } \big ( \{ \omega _ { i } ^ { * } \} \cap \{ \omega _ { j } ^ { * } \} \big ) = 0$ $\forall \space \ : i \neq j$, avremo (vedi slide 34): 
-
-$$
-p _ {X _ {N}} (k) = \sum_ {i = 1} ^ {C _ {N, k}} \mathbb {P} (\{\omega_ {i} ^ {*} \}) = \left( \begin{array}{c} N \\ k \end{array} \right) p ^ {k} q ^ {N - k}
-$$
-
-che prende il nome di **pmf binomiale** di parametri $N \in p$ (in breve, $X _ { N } \sim \smash { \mathcal { B } ( N , p ) ) }$). Si noti: 
-
-$$
-p _ {X _ {N}} (k) \geq 0   \forall \space   k \quad \sum_ {x \in \mathcal {X}} p _ {X _ {N}} (x) = \sum_ {k = 0} ^ {N} \binom{N}{k} p ^ {k} q ^ {N - k} = (p + q) ^ {N} = 1
-$$
-
-Infine: 
-
-$$
-\mathbb {E} \left[ X _ {N} \right] = \sum_ {x \in \mathcal {X}} x p _ {X _ {N}} (x) = \sum_ {k = 0} ^ {N} k \binom{N}{k} p ^ {k} q ^ {N - k} = N p
-$$
-
-## 4. La variabile Uniforme
+> [!tip] Legge dei Grandi Numeri
+> Man mano che le osservazioni crescono, la media si avvicina al valore atteso teorico.
+## La variabile Uniforme
 
 Una variabile aleatoria $X$ che assuma valore in un qualsiasi alfabeto $\mathcal { X }$ di cardinalità finita, $| { \mathcal { X } } | = M$, si dice **uniformemente distribuita** su $\mathcal { X }$ (in breve, $X \sim \mathcal { U } ( \mathcal { X } ) )$) se: 
 
@@ -529,13 +486,7 @@ Il calcolo della media è immediato:
 $$E[X] = \frac{1}{n} \sum_{i=1}^n x_i$$
 $\mathbb { E } [ X ] = \sum _ { x \in \mathcal { X } } x p _ { X } ( x ) = \frac { 1 } { M } \sum _ { x \in \mathcal { X } } x =$ Media aritmetica dei valori dell’alfabeto 
 
-Un caso interessante è $\mathcal { X } = \{ 0 , 1 , \ldots , M - 1 \}$. In questo caso: 
-
-$$
-\sum_ {x \in \mathcal {X}} x = \sum_ {i = 0} ^ {M - 1} i = \frac {M (M - 1)}{2} \Rightarrow \mathbb {E} [ X ] = \frac {M - 1}{2}
-$$
-
-## 5. La variabile Poissoniana
+## La variabile Poissoniana
 
 Una variabile aleatoria $X$ si dice **Poissoniana** di parametro $\lambda$ (in breve, $X \sim \mathcal { P } ( \lambda ) )$) se: 
 
