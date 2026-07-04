@@ -1,0 +1,38 @@
+summaries:
+  Empty: values.filter(value.isType("null")).length
+  Filled: values.filter(!value.isType("null")).length
+views:
+  - type: table
+    name: Tabella Semestre
+    filters:
+      and:
+        - file.inFolder("00 - Obsidian Notes/2° Anno/2° Semestre")
+    order:
+      - file.name
+      - Date
+      - tags
+      - Professore
+    sort:
+      - property: Date
+        direction: DESC
+      - property: Professore
+        direction: DESC
+      - property: file.ctime
+        direction: DESC
+    summaries: {}
+    columnSize:
+      note.Date: 166
+  - type: table
+    name: Last notes
+  - type: cards
+    name: Home-Corsi
+    filters:
+      and:
+        - file.inFolder("00 - Obsidian Notes/Home-Settings")
+        - and:
+            - file.name != "Home"
+    order:
+      - file.name
+    cardSize: 140
+    imageAspectRatio: 1
+    indentProperties: false
