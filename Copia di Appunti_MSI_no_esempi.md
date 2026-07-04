@@ -490,9 +490,9 @@ $\mathbb { E } [ X ] = \sum _ { x \in \mathcal { X } } x p _ { X } ( x ) = \frac
 
 Una variabile aleatoria $X$ si dice **Poissoniana** di parametro $\lambda$ (in breve, $X \sim \mathcal { P } ( \lambda ) )$) se: 
 
-Il suo alfabeto è $\mathcal { X } = \{ 0 , 1 , 2 , . . . \} = \mathbb { N } _ { 0 }$ 
+1. Il suo alfabeto è $\mathcal { X } = \{ 0 , 1 , 2 , . . . \} = \mathbb { N } _ { 0 }$ 
 
-La sua pmf è data da: 
+2. La sua pmf è data da: 
 
 $$P(X=k) = \frac{e^{-\lambda} \lambda^k}{k!}$$
 $$
@@ -513,69 +513,20 @@ $$
 \mathbb {E} [ X ] = \sum_ {x \in \mathcal {X}} x p _ {X} (x) = e ^ {- \lambda} \sum_ {k = 1} ^ {\infty} k \frac {\lambda^ {k}}{k !} = \lambda e ^ {- \lambda} \sum_ {k = 1} ^ {\infty} \frac {\lambda^ {k - 1}}{(k - 1) !} = \lambda
 $$
 
-## 6. Pmf e medie condizionali
+## PMF e Medie condizionali
 
-Introduciamo l’argomento con un esercizio. 
-
-Supponiamo che $X \sim B \left( 1 6 , \frac { 1 } { 3 } \right)$, cioè: 
-
-$$P(X=x) = \frac{1}{16} \text{ per } x \in \{1, \dots, 16\}$$
-$$
-\mathcal {X} = \{0, 1, \dots , 1 6 \}
-$$
-
-$$E[X] = \sum_{x=1}^{16} x P(X=x) = \frac{1+2+\dots+16}{16} = 8.5$$
-$$
-p _ {X} (k) = \binom{1 6}{k} \left(\frac {1}{3}\right) ^ {k} \left(\frac {2}{3}\right) ^ {1 6 - k} \mathbb {E} [ X ] = \frac {1 6}{3}
-$$
-
-Supponiamo ora di assumere che sia verificata la condizione $X > 4 ;$: ci chiediamo come si distribuisca $X$ sotto questa condizione. 
-
-Dal punto di vista fisico significa considerare un insieme di $n$ esperimenti, scartare i valori di $X$ che siano inferiori a 5 e valutare le probabilità dei residui dodici valori sul campione così ridotto. 
-
-Possiamo quindi calcolare: 
-
-$$P(X=x | X \geq 5) = \frac{P(X=x \cap X \geq 5)}{P(X \geq 5)}$$
-$$
-p _ {X \mid X > 4} (k) = \mathbb {P} (X = k \mid X > 4) = \frac {\mathbb {P} (\{X = k \} \cap \{X > 4 \})}{\mathbb {P} (\{X > 4 \})} =
-$$
-
-$$P(X \geq 5) = \sum_{x=5}^{16} P(X=x) = \frac{12}{16}$$
-$$
-= \left\{ \begin{array}{c c} \frac {p _ {X} (k)}{\mathbb {P} (\{X > 4 \})} = \frac {p _ {X} (k)}{\sum_ {i = 5} ^ {1 6} p _ {X} (i)} & k \in \{5, \ldots , 1 6 \} \\ 0 & k <   5 \end{array} \right.
-$$
-
-## 7. Pmf e medie condizionali (cont.)
-
-Si noti che la pmf condizionale trovata è una pmf. Infatti: 
-
-$$\sum_{x=5}^{16} \frac{P(X=x)}{P(X \geq 5)} = \frac{1}{P(X \geq 5)} \sum_{x=5}^{16} P(X=x) = \frac{P(X \geq 5)}{P(X \geq 5)} = 1$$
-$$
-p _ {X \mid X > 4} (k) \geq 0 \quad \text { e } \quad \sum_ {k \in \mathbb {Z}} p _ {X \mid X > 4} (k) = \sum_ {k = 5} ^ {1 6} \frac {p _ {X} (k)}{\sum_ {i = 5} ^ {1 6} p _ {X} (i)} = 1
-$$
-
-Siamo quindi ora in grado di definire la pmf di una variabile aleatoria qualsiasi $X$ condizionata a un qualsiasi evento $A \subseteq \Omega$ a probabilità non nulla nella forma: 
+La pmf di una variabile aleatoria qualsiasi $X$ condizionata a un qualsiasi evento $A \subseteq \Omega$ a probabilità non nulla nella forma: 
 
 $$P(X=x | A) = \frac{P(\{X=x\} \cap A)}{P(A)}$$
 $$
 p _ {X \mid A} (x) = \mathbb {P} (x \mid A) = \frac {\mathbb {P} (\{X = x \} \cap A)}{\mathbb {P} (A)} \quad x \in \mathcal {X}
 $$
 
-Ovviamente, $p _ { X \mid A } ( x )$ al variare di $x$ in $X$ con $A$ prefissato è una pmf; 
-
-Nella prossima slide si mostrano gli andamenti delle pmf condizionali d $X \sim \dot { B } \left( 1 6 , \frac { 1 } { 3 } \right)$ condizionate all’evento $A = \{ X > 4 \} \ e \ B = \{ 2 \leq X \leq 6 \}$ 
-
-## 8. Andamenti delle pmf e pmf condizionali
-
-![image](https://cdn-mineru.openxlab.org.cn/result/2026-06-27/b5f5d426-9c48-4e21-b90d-66928c562c74/3953309ceb6f3537284ae0699eabe52cb82506d6ad8a48b4cf7add134b70a9c4.jpg)
-
-pmf e pmf condizionale di $X \sim B(16, 1)$
-
-![image](https://cdn-mineru.openxlab.org.cn/result/2026-06-27/b5f5d426-9c48-4e21-b90d-66928c562c74/1505d7f1c8d7e5072fd4a5ff4df58e490794d1f37dbf350dc82422eb0f117252.jpg)
+Ovviamente, $p _ { X \mid A } ( x )$ al variare di $x$ in $X$ con $A$ prefissato è una pmf.
 
 ## Regola della probabilità totale per le pmf
 
-Ricordiamo che (vedi slide 37), per un qualunque evento $C \subseteq \Omega$ e per una qualunque partizione $\{ E \} _ { i = 1 } ^ { M }$ si ha: 
+Ricordiamo che, per un qualunque evento $C \subseteq \Omega$ e per una qualunque partizione $\{ E \} _ { i = 1 } ^ { M }$ si ha: 
 
 $$
 \mathbb {P} (C) = \sum_ {i = 1} ^ {M} \mathbb {P} (C | E _ {i}) \mathbb {P} (E _ {i})
@@ -585,26 +536,6 @@ Pertanto, specializzando la precedente a $C = \{ X = x \}$ si ha:
 
 $$
 \mathbb {P} (X = x) = p _ {X} (x) = \sum_ {m = 1} ^ {M} \mathbb {P} (\{X = x \} | E _ {m}) \mathbb {P} (E _ {m}) = \sum_ {m = 1} ^ {M} p _ {X | E _ {m}} (x) \mathbb {P} (E _ {m})
-$$
-
-Con riferimento all’esempio precedente, quindi: 
-
-$$
-p _ {X} (k) = p _ {X | X > 4} (k) \mathbb {P} (X > 4) + p _ {X | X \leq 4} (k) \mathbb {P} (X \leq 4) =
-$$
-
-$$
-p _ {X \mid 2 \leq X \leq 6} (k) \mathbb {P} (2 \leq X \leq 6) + p _ {X \mid X \leq 1} (k) \mathbb {P} (X \leq 1) + p _ {X \mid X \geq 7} (k) \mathbb {P} (X \geq 7)
-$$
-
-essendo 
-
-$$
-\bullet \quad \Omega = E _ {1} \cup E _ {2} = \{X > 4 \} \cup \{X \leq 4 \}, E _ {1} \cap E _ {2} = \emptyset \space  ;
-$$
-
-$$
-\bullet \quad \Omega = E _ {1} ^ {\prime} \cup E _ {2} ^ {\prime} \cup E _ {3} ^ {\prime} = \{2 \leq X \leq 6 \} \cup \{X \leq 1 \} \cup \{X \geq 7 \}, E _ {i} ^ {\prime} \cap E _ {j} ^ {\prime} = \emptyset \space  \forall \space i \neq j.
 $$
 
 ## Medie e medie condizionali
