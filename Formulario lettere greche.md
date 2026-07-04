@@ -74,3 +74,32 @@ $$F_X(x) = \mathbb{P}(X \leq x)$$
 * **Cosa fa:** È una formula **cumulativa**. Non ti dice la probabilità di un punto fisso, ma la probabilità che la variabile sia *minore o uguale* a quel punto (accumula la probabilità da $-\infty$ fino a $x$).
 * Se la variabile è *discreta*, la DF si calcola con una **somma**: $F_X(x) = \sum_{x_i \leq x} p_X($x_i$)$
 * Se la variabile è *continua*, la DF si calcola con un **integrale**: $F_X(x) = \int_{-\infty}^{x} f_X(t) \, dt$
+
+
+## 2. Funzioni di Distribuzione
+
+### 1. pmf (Probability Mass Function)
+
+> [!important] Probability Mass Function (pmf)
+> La **funzione di massa di probabilità** $p_X(x)$ è definita per le variabili aleatorie discrete come:
+> $$p_X(x) = \mathbb{P}(X = x)$$
+
+### 2. pdf (Probability Density Function)
+
+> [!important] Probability Density Function (pdf)
+> La **funzione di densità di probabilità** $f_X(x)$ è definita per le variabili aleatorie continue e descrive la distribuzione della probabilità tramite l'area sottesa alla curva:
+> $$\mathbb{P}(a \leq X \leq b) = \int_{a}^{b} f_X(x) \, dx$$
+
+### 3. DF (Distribution Function / Funzione di Ripartizione)
+
+> [!important] Funzione di Ripartizione (DF)
+> La **funzione di ripartizione** $F_X(x)$ è una funzione cumulativa che indica la probabilità che la variabile aleatoria $X$ assuma un valore minore o uguale a $x$:
+> $$F_X(x) = \mathbb{P}(X \leq x)$$
+
+La DF può essere ricavata dalle altre funzioni di distribuzione in base alla natura della variabile:
+1. **Caso Discreto:** La DF è la somma cumulativa delle masse di probabilità:
+   $$F_X(x) = \sum_{x_i \leq x} p_X(x_i)$$
+2. **Caso Continuo:** La DF è l'integrale della densità fino al punto $x$:
+   $$F_X(x) = \int_{-\infty}^{x} f_X(t) \, dt$$
+
+Richiede: **Variabile Aleatoria**. Usato in: **Calcolo di probabilità su intervalli**, **Teorema di Distribuzione Cumulativa**.

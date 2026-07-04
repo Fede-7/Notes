@@ -379,8 +379,14 @@ $( A \cap B \neq \varnothing )$ . Osserviamo preliminarmente che $A = A \cup \le
 $$
 \mathbb {P} (A) = \mathbb {P} (A) + \underbrace {\mathbb {P} (B \cap \overline {{A}})} _ {= \mathbb {P} (B) - \mathbb {P} (A \cap B)} = \mathbb {P} (A) + \mathbb {P} (B) - \mathbb {P} (A \cap B)
 $$
-## Variabili Aleatoree
-Una variabile aleatoria (v.a.) $X$ è una funzione che mappa gli elementi dello spazio campionario $\Omega$ (gli esiti di un esperimento) sull'insieme dei numeri reali $\mathbb{R}$.In simboli:$$X: \omega \in \Omega \to X(\omega) \in \mathbb{R}$$A ogni possibile risultato elementare $\omega$ dell'esperimento, la variabile aleatoria associa uno e un solo numero reale $x = X(\omega)$.
+## Variabile Aleatoria
+
+Una **variabile aleatoria** è una funzione che associa a ogni possibile risultato elementare $\omega$ di un esperimento casuale un numero reale $x$.
+
+In termini formali, data uno spazio campionario $\Omega$, una variabile aleatoria $X$ è una funzione:
+$$X: \Omega \to \mathbb{R}$$
+tale che a ogni esito $\omega \in \Omega$ corrisponda un unico valore $x = X(\omega) \in \mathbb{R}$.
+
 ## Strumenti per descrivere la distribuzione di X
 
 La sequenza di numeri $\mathbb { P } ( X = x ) = p _ { X } ( x ) , x \in \mathcal { X }$ si chiama **probability mass function** (pmf) o **Distribution Function** (DF) o **probability density function** (pdf) della variabile aleatoria $X$. 
@@ -388,7 +394,7 @@ La sequenza di numeri $\mathbb { P } ( X = x ) = p _ { X } ( x ) , x \in \mathca
 Ovviamente, date le proprietà della probabilità: 
 
 $$
-p _ {X} (x) = \lim _ {n \rightarrow \infty} \frac {n _ {x}}{n} \rightarrow p _ {X} (x) \geq 0 \quad \sum_ {x \in \mathcal {X}} p _ {X} (x) = 1
+p _ {X} (x) = \lim _ {n \rightarrow \infty} \frac {n _ {x}}{n} \rightarrow p _ {X} (x) \geq 0 , \quad \sum_ {x \in \mathcal {X}} p _ {X} (x) = 1
 $$
 
 dove $n _ { x } = n _ { \{ X = x \} }$ rappresenta il numero di occorrenze dell’evento $\{ X = x \}$.
