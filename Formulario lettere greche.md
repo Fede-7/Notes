@@ -49,4 +49,28 @@ Se ti serve solo una lista veloce da copiare e incollare:
 - Due eventi $A$ e $B$ tali che $A \cap B = \emptyset \space$ si definiscono **incompatibili** o **mutuamente esclusivi**;
 - Se $A \subseteq B$ si dice che $A$ **implica** $B$, cioè il verificarsi di $A$ implica che si verifichi $B$.
 
+### 1. pmf (Probability Mass Function)
 
+* **Quando si usa:** Solo per variabili **discrete** (numeri isolati, es. $X = 1, 2, 3$).
+* **La formula:** 
+$$p_X(x) = \mathbb{P}(X = x)$$
+
+* **Cosa fa:** Ti dà la probabilità **esatta e puntuale** di un singolo valore. Se inserisci $x=2$, ti sputa fuori la probabilità esatta che esca 2. La somma di tutte le pmf fa 1 ($\sum p_X(x) = 1$).
+
+### 2. pdf (Probability Density Function)
+
+* **Quando si usa:** Solo per variabili **continue** (valori reali infiniti, es. tempo, altezza, peso).
+* **La formula:** 
+$$\mathbb{P}(a \leq X \leq b) = \int_{a}^{b} f_X(x) \, dx$$
+
+* **Cosa fa:** Nelle variabili continue la probabilità di un punto esatto è zero ($\mathbb{P}(X=2) = 0$). Quindi la formula della pdf **non è una probabilità**, ma una funzione di densità (l'altezza di una curva). Per trovare la probabilità devi calcolare un **integrale** (l'area sotto la curva) tra due punti. L'area totale sotto la curva fa 1 ($\int_{-\infty}^{+\infty} f_X(x)dx = 1$).
+
+### 3. DF (Distribution Function / Funzione di Ripartizione)
+
+* **Quando si usa:** Per **qualsiasi** tipo di variabile (sia discrete che continue).
+* **La formula:** 
+$$F_X(x) = \mathbb{P}(X \leq x)$$
+
+* **Cosa fa:** È una formula **cumulativa**. Non ti dice la probabilità di un punto fisso, ma la probabilità che la variabile sia *minore o uguale* a quel punto (accumula la probabilità da $-\infty$ fino a $x$).
+* Se la variabile è *discreta*, la DF si calcola con una **somma**: $F_X(x) = \sum_{x_i \leq x} p_X($x_i$)$
+* Se la variabile è *continua*, la DF si calcola con un **integrale**: $F_X(x) = \int_{-\infty}^{x} f_X(t) \, dt$

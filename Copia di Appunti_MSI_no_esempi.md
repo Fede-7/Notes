@@ -379,8 +379,9 @@ $( A \cap B \neq \varnothing )$ . Osserviamo preliminarmente che $A = A \cup \le
 $$
 \mathbb {P} (A) = \mathbb {P} (A) + \underbrace {\mathbb {P} (B \cap \overline {{A}})} _ {= \mathbb {P} (B) - \mathbb {P} (A \cap B)} = \mathbb {P} (A) + \mathbb {P} (B) - \mathbb {P} (A \cap B)
 $$
-
-## La pmf/DF/pdf di una variabile aleatoria
+## Variabili Aleatoree
+Una variabile aleatoria (v.a.) $X$ è una funzione che mappa gli elementi dello spazio campionario $\Omega$ (gli esiti di un esperimento) sull'insieme dei numeri reali $\mathbb{R}$.In simboli:$$X: \omega \in \Omega \to X(\omega) \in \mathbb{R}$$A ogni possibile risultato elementare $\omega$ dell'esperimento, la variabile aleatoria associa uno e un solo numero reale $x = X(\omega)$.
+## Strumenti per descrivere la distribuzione di X
 
 La sequenza di numeri $\mathbb { P } ( X = x ) = p _ { X } ( x ) , x \in \mathcal { X }$ si chiama **probability mass function** (pmf) o **Distribution Function** (DF) o **probability density function** (pdf) della variabile aleatoria $X$. 
 
@@ -392,16 +393,8 @@ $$
 
 dove $n _ { x } = n _ { \{ X = x \} }$ rappresenta il numero di occorrenze dell’evento $\{ X = x \}$.
 
-> [!example] Esempio 2
-> $\{ \mathcal { X } \} = \{ 1 , 2 , 3 , 4 \}$. Può $\bigl ( \textstyle { \frac { 1 } { 2 } } , \frac { 1 } { 4 } , \frac { 1 } { 8 } , \frac { 1 } { 8 } \bigr )$ essere una pdf?
-> 
-> $$
-> p _ {X} (x) \geq 0 \quad \sum_ {x \in \mathcal {X}} p _ {X} (x) = \sum_ {i = 1} ^ {4} p _ {X} \left(x _ {i}\right) = \sum_ {i = 1} ^ {4} \mathbb {P} (X = i) = 1
-> $$
-> 
-> Quindi la risposta è sì!
 
-Per come è stata definita, la probabilità è una funzione definita su un insieme di sottoinsiemi di $\Omega$ e a valori in $[0, 1]$, cioè: 
+Per come è stata definita, la probabilità è una funzione definita su un insieme di sottoinsiemi di $\Omega$ e ha valori in $[0, 1]$, cioè: 
 
 $$
 \mathbb {P}: A \subseteq \Omega \to \mathbb {P} (A) \in [ 0, 1 ]
@@ -417,6 +410,11 @@ $$
 
 Per contro, noi usiamo la notazione semplificata $\mathbb { P } ( X = x )$, talvolta ”complicandola” nella forma $\mathbb { P } ( \{ X = x \} )$, che evoca che a rigore ci riferiamo a un insieme di punti di $\Omega .$. Useremo queste notazioni intercambiabilmente ogni volta che non ci sia il pericolo di generare equivoci. 
 
+> [!attention]
+> Nello slang di ingegneria elettronica e delle telecomunicazioni, l'espressione "la pdf di X" o "la DF di X" viene spesso usata come sinonimo generico di 
+>>"dimmi come si distribuisce la variabile X",
+>
+>a prescindere dal fatto che sia una sequenza di numeri (pmf), una densità (pdf) o una cumulativa (DF)
 ## La media campionaria
 
 Una variabile aleatoria $X$ si dice caratterizzata se è assegnata la sequenza de $| \mathcal { X } |$ valori della sua pmf; 
