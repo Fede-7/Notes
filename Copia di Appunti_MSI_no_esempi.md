@@ -81,7 +81,7 @@ La branca che si occupa di questo problema si chiama **calcolo combinatorio**.
 
 Si considerino $k$ insiemi finiti, $A _ { 1 } , \ldots A _ { k }$, non necessariamente distinti. 
 
-> [!important] Prodotto Cartesiano
+> [!theorem] Prodotto Cartesiano
 > *Definizione*: Si definisce prodotto cartesiano $A ^ { ( k ) } = A _ { 1 } \times \ldots \times A _ { k }$ un insieme costituito dalle $k { \mathrm { - } } { \mathsf { p l e } }$ ordinate in cui il primo elemento appartenga a $A _ { 1 }$, il secondo a $A _ { 2 }$ e così via. 
 
 Siccome il primo elemento si può scegliere in $| A _ { 1 } |$ modi, il secondo $| A _ { 2 } |$ e così via, avremo: 
@@ -119,7 +119,7 @@ Questo ci conduce immediatamente al concetto di combinazioni.
 
 ## Combinazioni $( \overline { { G } } _ { m } ) _ { s } ^ { s }$
 
-> [!important] Combinazione
+> [!theorem] Combinazione
 > **Definizione**: Una combinazione è una selezione di elementi da un insieme in cui l'ordine degli elementi non è rilevante. In pratica, si contano i sottogruppi possibili senza preoccuparsi della sequenza in cui sono stati scelti.
 > 
 > **Formalizzazione**: Il numero di combinazioni di $n$ elementi presi $k$ alla volta è dato dal coefficiente binomiale:
@@ -326,7 +326,7 @@ $$
 
 che soddisfi i seguenti :
 
-> [!important] **Assiomi di Kolmogorov**: 
+> [!theorem] **Assiomi di Kolmogorov**: 
 > 1. Non negatività, cioè $\mathbb { P } ( A ) \geq 0 \ \forall \space A \in \mathcal { E }$ 
 > 2. Normalizzazione, cioè $\mathbb { P } ( \Omega ) = 1$ 
 > 3. Sub-additività, cioè: 
@@ -399,15 +399,15 @@ Per contro, noi usiamo la notazione semplificata $\mathbb { P } ( X = x )$, talv
 
 > [!quote] Osservazione sull'uso del linguaggio tecnico
 > Nel gergo comune dell'ingegneria elettronica e delle telecomunicazioni, le espressioni "la pdf di $X$" o "la DF di $X$" vengono spesso utilizzate in modo colloquiale come sinonimi generici per indicare la legge di distribuzione della variabile aleatoria $X$, indipendentemente dal fatto che essa sia descritta da una funzione di massa (pmf), una densità (pdf) o una funzione cumulativa (DF).
->> [!important] Probability Mass Function (pmf)
+>> [!def] Probability Mass Function (pmf)
 >> La **funzione di massa di probabilità** $p_X(x)$ è definita per le variabili aleatorie discrete come:
 >> $$p_X(x) = \mathbb{P}(X = x)$$
 >
->> [!important] Probability Density Function (pdf)
+>> [!def] Probability Density Function (pdf)
 >> La **funzione di densità di probabilità** $f_X(x)$ è definita per le variabili aleatorie continue e descrive la distribuzione della probabilità tramite l'area sottesa alla curva:
 >> $$\mathbb{P}(a \leq X \leq b) = \int_{a}^{b} f_X(x) \, dx$$
 >
->> [!important] Funzione di Ripartizione (DF)
+>> [!def] Funzione di Ripartizione (DF)
 >> La **funzione di ripartizione** $F_X(x)$ è una funzione cumulativa che indica la probabilità che la variabile aleatoria $X$ assuma un valore minore o uguale a $x$:
 >> $$F_X(x) = \mathbb{P}(X \leq x)$$
 >> La DF può essere ricavata dalle altre funzioni di distribuzione in base alla natura della variabile:
@@ -513,12 +513,11 @@ $$
 \mathbb {P} (C) = \sum_ {i = 1} ^ {M} \mathbb {P} (C | E _ {i}) \mathbb {P} (E _ {i})
 $$
 
-
 > [!rb] R.B.
-> **Contents**
 > Sappiamo che la probabilità che avvengano contemporaneamente $A$ e $B_i$ si può scrivere come:
 > 
 > $$\mathbb{P}(A \cap B_i) = \mathbb{P}(A | B_i) \cdot \mathbb{P}(B_i)$$
+
 Pertanto, specializzando la precedente a $C = \{ X = x \}$ si ha: 
 
 $$
@@ -617,7 +616,7 @@ $$
 
 Si noti comunque che l’equazione (1) include l’equazione (2) come caso speciale. In conclusione adottiamo la forma generale (1) che prende anche il nome di Teorema fondamentale per il calcolo della media.
 
-> [!important] Teorema (*Fondamentale per il calcolo della media*)
+> [!theorem] Teorema (*Fondamentale per il calcolo della media*)
 > Enunciato: La media di una funzione di una variabile aleatoria può essere calcolata come la media condizionata dei valori della funzione:
 > 
 > $$E[g(X)] = \sum_{y} g(y) P(Y=y)$$
@@ -953,7 +952,7 @@ $$
 p _ {X \mid Y} (x \mid y) = \frac {p _ {Y \mid X} (y \mid x) p _ {X} (x)}{p _ {Y} (y)}
 $$
 
-> [!important] Legge di Bayes
+> [!theorem] Legge di Bayes
 > $$
 > p_{X|Y}(x|y) = \frac{p_{Y|X}(y|x) p_X(x)}{p_Y(y)}
 > $$
@@ -1059,7 +1058,7 @@ $$
 
 Si consideri una **sorgente binaria** che emetta tre bit, siano essi $\left( B _ { 1 } , B _ { 2 } , B _ { 3 } \right)$ $B _ { i } \in \{ 0 , 1 \}$.
 
-> [!important] Definizione: Sorgente Binaria
+> [!theorem] Definizione: Sorgente Binaria
 > Una sorgente binaria è un processo stocastico che genera una sequenza di simboli appartenenti all'alfabeto $\{0, 1\}$. In termini probabilistici, ogni emissione è descritta da una distribuzione di probabilità su ogni possibile combinazione di bit.
 
 Si assegnano le due leggi congiunte $p _ { B _ { 1 } , B _ { 2 } , B _ { 3 } } ( b _ { 1 } , b _ { 2 } , b _ { 3 } ) \in q _ { B _ { 1 } , B _ { 2 } , B _ { 3 } } ( b _ { 1 } , b _ { 2 } , b _ { 3 } )$ della Tabella 1.
@@ -1084,7 +1083,7 @@ Tabella 1: Leggi di probabilità per l'emissione di 3 bit.
 
 L'analisi procede determinando la congiunta di tutte le possibili coppie secondo $p _ { B _ { 1 } , B _ { 2 } , B _ { 3 } } ( b _ { 1 } , b _ { 2 } , b _ { 3 } )$. Si richiama la **marginalizzazione**, proprietà fondamentale della teoria della probabilità che permette di ottenere la distribuzione di un sottoinsieme di variabili eliminando le altre.
 
-> [!important] Proprietà di Marginalizzazione
+> [!theorem] Proprietà di Marginalizzazione
 > Per una variabile casuale congiunta, la probabilità marginale di una variabile è ottenuta sommando le probabilità congiunte su tutti i possibili valori delle variabili non considerate:
 > 
 > $$
@@ -1122,7 +1121,7 @@ Tabella 3: Distribuzione congiunta $p_{B_2, B_3}(b_2, b_3)$
 | 10 | $\alpha(1 - \alpha)^2$ |
 | 11 | $\alpha^2$ |
 
-> [!important] Analisi delle Distribuzioni
+> [!theorem] Analisi delle Distribuzioni
 > Si osserva che:
 > 
 > $$
@@ -1427,7 +1426,7 @@ L’equivalente per le **pmf** (Probability Mass Functions) congiunte è la **co
 
 ## Definizioni
 
-> [!important] Correlazione
+> [!theorem] Correlazione
 > La correlazione tra $X \in Y$ è una misura della forza e della direzione della relazione lineare tra due variabili casuali. Intuitivamente, indica quanto le due variabili tendano a variare insieme in modo proporzionale.
 >
 > Formalmente:
@@ -1435,7 +1434,7 @@ L’equivalente per le **pmf** (Probability Mass Functions) congiunte è la **co
 > R _ {X, Y} = \mathbb {E} [ X Y ] = \sum_ {x \in \mathcal {X}} \sum_ {y \in \mathcal {Y}} x y p _ {X, Y} (x, y)
 > $$
 
-> [!important] Covarianza
+> [!theorem] Covarianza
 > La covarianza è una misura statistica che indica la direzione della relazione lineare tra due variabili aleatorie. Se la covarianza è positiva, le variabili tendono a crescere insieme; se è negativa, tendono a muoversi in direzioni opposte.
 >
 > Formalmente:
@@ -1670,7 +1669,7 @@ $$
 
 ## 3. Densità di probabilità (probability density function, pdf)
 
-> [!important] Definizione: Densità di probabilità
+> [!theorem] Definizione: Densità di probabilità
 > La **densità di probabilità** (probability density function, pdf) della variabile aleatoria continua $X$ è la funzione: 
 >
 > $$
@@ -2045,7 +2044,7 @@ $$
 Y = g (X) = g [ X (\omega) ] \in \mathcal {Y} \quad \text {   dove   } \mathcal {Y} = g (\mathcal {X})
 $$
 
-> [!important] Problema
+> [!theorem] Problema
 > Ricavare una caratterizzazione di $Y$ dalla caratterizzazione di $X$ in termini di pdf/CDF, $f_Y(y)$ $p _ { Y } ( y ) , y \in \mathcal { Y } ;$, media statistica, $E[Y]$ $\mathbb { E } [ Y ]$.
 
 ## Funzioni di variabili aleatorie continue -2
@@ -2447,7 +2446,7 @@ $$
 
 ### Teorema della media condizionata
 
-> [!important] Teorema (*Media Condizionata*)
+> [!theorem] Teorema (*Media Condizionata*)
 > Enunciato: 
 > $$
 > \mathbb {E} \left[ g (X, Y) \right] = \mathbb {E} \left[ \mathbb {E} \left[ g (X, Y) | Y \right] \right]
@@ -2895,7 +2894,7 @@ Figura 1: Realizzazioni di un processo quaternario.
 
 Tutte le definizioni introdotte per i processi continui si estendono ai **processi discreti**, con la sola differenza che le densità di probabilità sono ora sostituite dalle **funzioni di massa di probabilità** (DF).
 
-> [!important] Definizione: Funzione di Massa di Probabilità (DF)
+> [!theorem] Definizione: Funzione di Massa di Probabilità (DF)
 > Intuitivamente, la DF indica la probabilità che una variabile aleatoria discreta assuma un valore specifico. Ad esempio, in un lancio di un dado, la DF assegna $1/6$ a ogni numero da 1 a 6.
 >
 > Formalmente, per una variabile aleatoria discreta $X$, la funzione di massa $p(x)$ è definita come:
@@ -3084,14 +3083,14 @@ $$
 
 dove l’uguaglianza vale in tutti gli insiemi di continuità di $F(x)$.
 
-> [!important] Teorema (*Continuous Mapping*)
+> [!theorem] Teorema (*Continuous Mapping*)
 > Se $g$ è una funzione continua, allora si ha:
 >
 > $$
 > X_n \xrightarrow{d} X \implies g(X_n) \xrightarrow{d} g(X)
 > $$
 
-> [!important] Teorema (*Continuità di Levy*)
+> [!theorem] Teorema (*Continuità di Levy*)
 > Definendo la funzione generatrice dei momenti (moment generating function, mgf)
 >
 > $$
@@ -3115,7 +3114,7 @@ La **funzione generatrice dei momenti** (moment generating function, mgf) di una
 
 Analogamente, si può facilmente verificare che: 
 
-> [!important] Derivabilità della mgf
+> [!theorem] Derivabilità della mgf
 > Purché i momenti di ordine $r$ esistano, vale:
 >
 > $$
@@ -3141,7 +3140,7 @@ Assumiamo di avere un campione di dimensione $n$, diciamo $\pmb { x } \in \mathb
 
 Assumiamo che questo campione sia il risultato di un esperimento casuale, il che significa che il ri-campionamento porterebbe a un set di risultati differente, diciamo $\pmb { x } ^ { \prime } \in \mathbb { R } ^ { n }$.
 
-> [!important] Inferenza Statistica
+> [!theorem] Inferenza Statistica
 > **Inferenza statistica** è il processo di utilizzo dell'analisi dei dati per dedurre proprietà di una distribuzione di probabilità sottostante, ovvero definire una legge che qualsiasi campione — estratto casualmente — dovrebbe rispettare.
 > 
 > La statistica inferenziale può essere contrapposta alla **statistica descrittiva**. Quest'ultima si occupa esclusivamente delle proprietà dei dati osservati e non si basa sull'assunzione che i dati provengano da una popolazione più ampia.
@@ -3298,7 +3297,7 @@ $$
 
 di conseguenza, la media campionaria converge con probabilità uno alla media statistica della popolazione. Questa proprietà è definita nelle statistiche inferenziali come **forte coerenza**.
 
-> [!important] Forte Coerenza
+> [!theorem] Forte Coerenza
 > In statistica, un estimatore è forte coerente se converge quasi certamente (con probabilità 1) al valore vero del parametro che intende stimare all'aumentare della dimensione del campione.
 
 ## 2. Statistiche Inferenziali
@@ -3564,21 +3563,21 @@ In tutte le situazioni sopra citate, risulta praticamente impossibile assegnare 
 
 ## 3. Definizioni nel test di ipotesi
 
-> [!important] Ipotesi Nulla ($H_0$)
+> [!theorem] Ipotesi Nulla ($H_0$)
 > L'**ipotesi nulla**, tradizionalmente denotata $H _ { 0 }$, è l'assunzione di base che il set di dati osservati $\pmb { x } ^ { n }$ sia una realizzazione di un vettore casuale con una distribuzione condizionale nota, con pmf/pdf $p _ { X ^ { n } | H _ { 0 } } ( { \pmb x } ^ { n } | H _ { 0 } ) / f _ { { \pmb X } ^ { n } | H _ { 0 } } ( { \pmb x } ^ { n } | H _ { 0 } )$.
 
 Vogliamo decidere se o meno, dati i dati osservati $\pmb { x } ^ { n }$, l'ipotesi nulla debba essere rifiutata a favore di una legge diversa, diciamo $p _ { X ^ { n } \mid H _ { 1 } } ( { \pmb x } ^ { n } | H _ { 1 } ) / f _ { { \pmb X } ^ { n } \mid H _ { 1 } } ( { \pmb x } ^ { n } | H _ { 1 } )$. Per quanto riguarda la classificazione binaria, è necessario partizionare il dominio $\mathcal { X } ^ { n }$ in due regioni di decisione; tuttavia, il precedente framework di Bayes non è applicabile in questo contesto a causa della mancanza di informazioni a priori sufficienti.
 
 Nel progettare una regola di decisione (ovvero, un test), si definiscono i seguenti parametri:
 
-> [!important] Errore di tipo-I
+> [!theorem] Errore di tipo-I
 > L'**errore di tipo-I** del test, o probabilità di falso allarme, è definito come:
 > 
 > $$
 > \mathbb {P} \left\{D (\boldsymbol {X} ^ {n}) = 1 | H _ {0} \right\} = \left\{ \begin{array}{l l} \int_ {\Omega_ {1}} f _ {\boldsymbol {X} ^ {n} | H _ {0}} (\boldsymbol {x} ^ {n} | H _ {0}) d \boldsymbol {x} ^ {n} & \text { Continuous   Data } \\ \sum_ {\boldsymbol {x} ^ {n} \in \Omega_ {1}} p _ {\boldsymbol {X} ^ {n} | H _ {0}} (\boldsymbol {x} ^ {n} | H _ {0}) & \text { Discrete   Data } \end{array} \right.
 > $$
 
-> [!important] Potenza del test
+> [!theorem] Potenza del test
 > La **potenza del test** rappresenta la capacità del test di rifiutare correttamente l'ipotesi nulla quando essa è falsa ed è definita come:
 > 
 > $$
@@ -3676,7 +3675,7 @@ $$
 
 ## Stima dei Parametri
 
-> [!important] Definizione (Estimatore)
+> [!theorem] Definizione (Estimatore)
 > Un **estimatore** del parametro $\theta$ $\theta$ è una variabile casuale $\hat{\theta}$ ${ \widehat { \Theta } } ( X ^ { n } )$ — le cui realizzazioni sono $\hat{\theta}(\mathbf{x})$ $\widehat { \theta } ( { \pmb x } ^ { n } )$ — che tenta di "indovinare" il valore di $\theta$ $\theta$ basandosi su un'osservazione $\mathbf{x}$ $\pmb { x } ^ { n } \in \mathcal { X } ^ { n }$.
 
 Al fine di progettare un estimatore, definiamo prima un **Bayes Risk** medio, ovvero:
@@ -3866,19 +3865,19 @@ $$
 \widehat {\theta} _ {\mathrm{MMSE}} (\boldsymbol {x} ^ {n}) = \mathbb {E} \left[ \Theta | \boldsymbol {X} ^ {n} = \boldsymbol {x} ^ {n} \right] = \int \theta f _ {\Theta | \boldsymbol {X} ^ {n}} (\theta | \boldsymbol {x} ^ {n}) d \theta , \quad \widehat {\theta} _ {\mathrm{MAP}} (\boldsymbol {x} ^ {n}) = \arg \max _ {\theta} f _ {\Theta | \boldsymbol {X} ^ {n}} (\theta | \boldsymbol {x} ^ {n})
 $$
 
-> [!important] Non distorto (Unbiased)
+> [!theorem] Non distorto (Unbiased)
 > Un estimatore è non distorto (*unbiased*) se $\mathbb { E } \left[ \widehat { \Theta } ( \pmb { \cal X } ^ { n } ) - \Theta \right] = 0 ;$.
 
-> [!important] Asintoticamente non distorto
+> [!theorem] Asintoticamente non distorto
 > Un estimatore è asintoticamente non distorto se è non distorto solo nel limite di una dimensione del campione infinita.
 
-> [!important] Consistente
+> [!theorem] Consistente
 > Un estimatore è consistente se ${ \widehat { \Theta } } ( X ^ { n } ) \to \Theta$ in probabilità.
 
-> [!important] MS Consistente
+> [!theorem] MS Consistente
 > Un estimatore è MS consistente se ${ \widehat { \Theta } } ( X ^ { n } ) \to \Theta$ in media quadratica.
 
-> [!important] Fortemente Consistente
+> [!theorem] Fortemente Consistente
 > Un estimatore è fortemente consistente se ${ \widehat { \Theta } } ( X ^ { n } ) \to \Theta$ quasi certamente.
 
 ## Un esempio: Osservazioni Gaussiane con media casuale
@@ -4072,7 +4071,7 @@ Così il Limite di Cramér-Rao (CRB) diventa un limite inferiore imbattibile all
 
 Uno stimatore non distorto il cui MSE è uguale al CRB è definito **efficiente** 
 
-> [!important] Fatto importante
+> [!theorem] Fatto importante
 > Se esiste uno stimatore efficiente per un dato problema di stima non Bayesiana, questo coincide necessariamente con lo stimatore ML. 
 
 ## Un esempio: inferire la frequenza del cifrario di una sorgente senza memoria
@@ -4153,7 +4152,7 @@ $$
 
 ## L'estimatore MMSE
 
-> [!important] Estimatore MMSE
+> [!theorem] Estimatore MMSE
 > L'**MMSE** (Minimum Mean Square Error) è l'estimatore che minimizza il valore atteso del quadrato dell'errore tra la stima e il valore reale.
 > 
 > Formalizzazione:
@@ -4179,7 +4178,7 @@ $$
 
 ## L'estimatore MAP
 
-> [!important] Estimatore MAP
+> [!theorem] Estimatore MAP
 > La **MAP** (Maximum A Posteriori) è un metodo di stima che massimizza la probabilità a posteriori del parametro, combinando la verosimiglianza dei dati con la conoscenza a priori sulla distribuzione dei parametri.
 > 
 > Formalizzazione:
