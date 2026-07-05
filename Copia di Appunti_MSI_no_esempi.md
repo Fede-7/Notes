@@ -20,7 +20,7 @@
 > [!quote] Osservazione
 > Un evento è univocamente individuato dagli elementi che lo compongono; al contrario, la proposizione che lo definisce non è unica.
 
-## Qualche richiamo di insiemistica -1
+## Qualche richiamo di insiemistica
 
 Siano $\{ A _ { i } \} _ { i = 1 } ^ { M }$ $M$ sotto-insiemi di un insieme $\Omega .$. Definiamo:
 
@@ -33,19 +33,18 @@ $$
 A _ {1} \setminus A _ {2} = A _ {1} \cap \overline {{A _ {2}}}
 $$
 
-## Qualche richiamo di insiemistica -2
 
-Relazione di De Morgan tra unione, intersezione e complementazione:
+5. Relazione di De Morgan tra unione, intersezione e complementazione:
 $$
 \overline {{A _ {1} \cup A _ {2}}} = \overline {{A _ {1}}} \cap \overline {{A _ {2}}} \Longrightarrow \overline {{\overline {{A _ {1}}} \cup \overline {{A _ {3}}}}} = A _ {1} \cap A _ {2}
 $$
 
-Proprietà associativa di unione e intersezione:
+6. Proprietà associativa di unione e intersezione:
 $$
 \left(A _ {1} \cup A _ {2}\right) \cup A _ {3} = A _ {1} \cup \left(A _ {2} \cup A _ {3}\right) \quad \left(A _ {1} \cap A _ {2}\right) \cap A _ {3} = A _ {1} \cap \left(A _ {2} \cap A _ {3}\right)
 $$
 
-Proprietà distributiva dell’unione rispetto all’intersezione e dell’intersezione rispetto all’unione:
+7. Proprietà distributiva dell’unione rispetto all’intersezione e dell’intersezione rispetto all’unione:
 $$
 A _ {1} \cup \left(\cap_ {i = 2} ^ {M} A _ {i}\right) = \cap_ {i = 2} ^ {M} \left(A _ {1} \cup A _ {i}\right)
 $$
@@ -62,7 +61,7 @@ $$
 - Se $A \subseteq B$ si dice che $A$ **implica** $B$, cioè il verificarsi di $A$ implica che si verifichi $B$.
 
 
-## 5. Spazi finiti con eventi elementari equivalenti
+## Spazi finiti con eventi elementari equivalenti
 
 Sia $\Omega$ uno spazio dei campioni finito; 
 
@@ -78,7 +77,7 @@ Quindi per eventi equivalenti è importante saper contare le cardinalità dei so
 
 La branca che si occupa di questo problema si chiama **calcolo combinatorio**.
 
-## 6. Prodotti cartesiani
+## Prodotti cartesiani
 
 Si considerino $k$ insiemi finiti, $A _ { 1 } , \ldots A _ { k }$, non necessariamente distinti. 
 
@@ -93,7 +92,7 @@ $$
 
 Questa è la relazione fondamentale del calcolo combinatorio, dalla quale molte altre formule di conteggio derivano. 
 
-## 7. k-ple ordinate senza ripetizione
+## k-ple ordinate senza ripetizione
 
 Si supponga $A = \{ a _ { 1 } , \ldots a _ { n } \}$.
 
@@ -106,24 +105,6 @@ Pertanto il richiesto numero è
 $$
 \left| A ^ {(k)} \right| = n (n - 1) (n - 2) \cdot \dots \cdot (n - k + 1) = \prod_ {i = 0} ^ {k - 1} (n - i)
 $$
-
-## k-ple ordinate con ripetizione
-
-Si supponga $A = \{ a _ { 1 } , \ldots a _ { n } \}$.
-
-Si vogliono contare le stringhe di lunghezza $k$ di elementi di $A$ in cui ogni elemento di $A$ possa ripetersi (cioè le ripetizioni sono ammesse). 
-
-Questo implica - nella formula precedente - che $| A _ { 1 } | = | A _ { 2 } | = \ldots = | A _ { k } | = | A | = n ,$.
-
-Pertanto il richiesto numero è 
-
-$$
-\left| A ^ {(k)} \right| = n ^ {k}
-$$
-
-> [!example] Esempio 1 (k-ple binarie)
-> Il numero delle k-ple binarie è il numero di k-ple ordinate con ripetizione prese dall’insieme di cardinalità due $\{0, 1\}$ è $2 ^ { k }$.
-
 ## Permutazioni
 
 Un caso particolare - ma molto rilevante - del calcolo precedente è quando $k = n$. La domanda cui si vuole rispondere è: 
@@ -280,7 +261,7 @@ $$
 \boxed {\mathbb {P} (A) = \sum_ {i = 1} ^ {k} \mathbb {P} \left(A \cap B _ {i}\right) = \sum_ {i = 1} ^ {k} \mathbb {P} \left(A | B _ {i}\right) \mathbb {P} \left(B _ {i}\right)}
 $$
 
-# Eventi Indipendenti
+## Eventi Indipendenti
 
 Due eventi, $A \subseteq \Omega \mathrm { ~ e ~ } B \subseteq \Omega$ si dicono **indipendenti** quando il verificarsi di uno non ha nessuna influenza sul verificarsi o meno dell’altro. 
 
@@ -513,7 +494,7 @@ $$
 \mathbb {E} [ X ] = \sum_ {x \in \mathcal {X}} x p _ {X} (x) = e ^ {- \lambda} \sum_ {k = 1} ^ {\infty} k \frac {\lambda^ {k}}{k !} = \lambda e ^ {- \lambda} \sum_ {k = 1} ^ {\infty} \frac {\lambda^ {k - 1}}{(k - 1) !} = \lambda
 $$
 
-## PMF e Medie condizionali
+## PMF condizionali
 
 La pmf di una variabile aleatoria qualsiasi $X$ condizionata a un qualsiasi evento $A \subseteq \Omega$ a probabilità non nulla nella forma: 
 
@@ -532,13 +513,19 @@ $$
 \mathbb {P} (C) = \sum_ {i = 1} ^ {M} \mathbb {P} (C | E _ {i}) \mathbb {P} (E _ {i})
 $$
 
+
+> [!rb] R.B.
+> **Contents**
+> Sappiamo che la probabilità che avvengano contemporaneamente $A$ e $B_i$ si può scrivere come:
+> 
+> $$\mathbb{P}(A \cap B_i) = \mathbb{P}(A | B_i) \cdot \mathbb{P}(B_i)$$
 Pertanto, specializzando la precedente a $C = \{ X = x \}$ si ha: 
 
 $$
 \mathbb {P} (X = x) = p _ {X} (x) = \sum_ {m = 1} ^ {M} \mathbb {P} (\{X = x \} | E _ {m}) \mathbb {P} (E _ {m}) = \sum_ {m = 1} ^ {M} p _ {X | E _ {m}} (x) \mathbb {P} (E _ {m})
 $$
 
-## Medie e medie condizionali
+## Medie condizionali
 
 Un analogo sviluppo è possibile sulle medie. Infatti: 
 
