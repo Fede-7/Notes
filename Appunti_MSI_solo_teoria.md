@@ -773,304 +773,73 @@ $$p_{X|Y}(x|y) = \frac{p_{Y|X}(y|x) p_X(x)}{p_Y(y)}$$
 > p_{X|Y}(x|y) = \frac{p_{Y|X}(y|x) p_X(x)}{p_Y(y)}
 > $$
 
-#### Alcune proprietà delle pmf condizionate
+#### Alcune proprietà
 
-$p _ { Y \mid X } ( y | x )$ se $x$ resta fisso e $y$ varia in $Y$ è una legge di probabilità. Infatti: 
+Se fissiamo $x$ e facciamo variare $y \in \mathcal{Y}$, la funzione $p_{Y|X}(y|x)$ definisce una legge di probabilità. Infatti:
+$$
+p_{Y|X}(y|x) \geq 0, \quad \sum_{y \in \mathcal{Y}} p_{Y|X}(y|x) = \mathbb{P}\left(\bigcup_{y \in \mathcal{Y}} \{Y = y\} \mid \{X = x\}\right) = \mathbb{P}(\Omega \mid \{X = x\}) = 1
+$$
+La proprietà di marginalizzazione della pmf congiunta può essere espressa in termini di pmf condizionate come segue:
+$$p_X(x) = \sum_{y \in \mathcal{Y}} p_{X,Y}(x,y) = \sum_{y \in \mathcal{Y}} p_{X|Y}(x|y) p_Y(y)$$
+E viceversa:
+$$p_{X,Y}(x,y) = p_{Y|X}(y|x) p_X(x)$$
+$$p_Y(y) = \sum_{x \in \mathcal{X}} p_{X,Y}(x,y) = \sum_{x \in \mathcal{X}} p_{Y|X}(y|x) p_X(x)$$
 
-$$
-p _ {Y | X} (y | x) \geq 0 \quad \sum_ {y \in \mathcal {Y}} p _ {Y | X} (y | x) = \mathbb {P} \left(\cup_ {y \in \mathcal {Y}} \{Y = y \} | \{X = x \}\right) = \mathbb {P} (\Omega | \{X = x \}) = 1
-$$
+>[!rb] R.B.
+>Si noti che queste espressioni non sono altro che la **legge della probabilità totale** applicata rispettivamente:
+> 1. Per l'evento $\{X=x\}$ rispetto alla partizione $\Omega = \bigcup_{y \in \mathcal{Y}} \{Y=y\}$.
+> 2. Per l'evento $\{Y=y\}$ rispetto alla partizione $\Omega = \bigcup_{x \in \mathcal{X}} \{X=x\}$.
 
-La proprietà di marginalizzazione della pmf congiunta (vedi slide 71) si scrive in termini di pmf condizionali nella forma: 
+Infine, se le variabili $X$ e $Y$ sono **indipendenti**, le pmf condizionate si semplificano nelle rispettive marginali:
+$$p_{Y|X}(y|x) = p_Y(y) \quad \text{e} \quad p_{X|Y}(x|y) = p_X(x)$$
+#### Generalizzazione
 
-$$
-p _ {X} (x) = \sum_ {y \in \mathcal {Y}} p _ {X, Y} (x, y) = \sum_ {y \in \mathcal {Y}} p _ {X | Y} (x | y) p _ {Y} (y)
-$$
+Si consideri una terna di variabili aleatorie $(X, Y, Z)$ distribuite secondo la pmf congiunta $p_{X,Y,Z}(x,y,z)$, dove $(x,y,z) \in \mathcal{X} \times \mathcal{Y} \times \mathcal{Z}$.
 
-$$
-p_{X,Y}(x, y) = p_{Y|X}(y|x) p_X(x)
-$$
-$$
-p _ {Y} (y) = \sum_ {x \in \mathcal {X}} p _ {X, Y} (x, y) = \sum_ {x \in \mathcal {X}} p _ {Y | X} (y | x) p _ {X} (x)
-$$
-
-$$
-p_{X,Y}(x, y) = p_{X|Y}(x|y) p_Y(y)
-$$
-$$
-p _ {Y} (y) = \sum_ {x \in \mathcal {X}} p _ {X, Y} (x, y) = \sum_ {x \in \mathcal {X}} p _ {Y | X} (y | x) p _ {X} (x)
-$$
-
-Si noti che questa non è altro che la legge della probabilità totale (vedi slide 37) scritta, per la prima equazione, per l’evento $\{ X = x \}$ rispetto alla partizione $\Omega = \cup _ { y \in \mathcal { y } } \{ Y = y \}$ e, per la seconda equazione, per l’evento $\{ Y = y \}$ rispetto alla partizione $\Omega = \cup _ { x \in { \mathcal { X } } } \{ X = x \}$ 
-
-Si noti, infine, che se $X \textsf { e Y }$ sono indipendenti: 
-
-$$
-p _ {Y | X} (y | x) = p _ {Y} (y)
-$$
-
-$$
-p_{Y|X}(y|x) = p_Y(y)
-$$
-$$
-p _ {X \mid Y} (x \mid y) = p _ {X} (x)
-$$
-
-$$
-p_{X|Y}(x|y) = p_X(x)
-$$
-
-## Generalizzando...
-
-Si consideri una terna di variabili aleatorie $(X, Y, Z)$, distribuite secondo $p x , Y , Z ( x , y , z ) , ( x , y , z ) \in \mathcal { X } \times \mathcal { Y } \times \mathcal { Z } .$ 
-
-Usando consecutivamente la legge della probabilità composta, otteniamo: 
-
-$$
-\mathbb {P} (X = x, Y = y, Z = z) = \mathbb {P} (X = x, Y = y | Z = z) \mathbb {P} (Z = z) =
-$$
-
+Applicando consecutivamente la regola della probabilità composta, otteniamo diverse scomposizioni:
 $$
 p_{X,Y,Z}(x, y, z) = p_{Z|X,Y}(z|x,y) p_{Y|X}(y|x) p_X(x)
 $$
 $$
-\mathbb {P} (X = x \mid Z = z, Y = y) \mathbb {P} (Y = y \mid Z = z) \mathbb {P} (Z = z)
-$$
-
-$$
-p_{X,Y,Z}(x, y, z) = p_{Z|X,Y}(z|x,y) p_{X|Y}(x|y) p_Y(y)
-$$
-$$
-\mathbb {P} (X = x \mid Z = z, Y = y) \mathbb {P} (Y = y \mid Z = z) \mathbb {P} (Z = z)
-$$
-
-che ci introduce alla **regola della catena** (ogni permutazione dei pedici e degli argomenti è ovviamente possibile): 
-
-$$
-p _ {X \mid Y, Z} (x \mid y, z) = \frac {p _ {X , Y \mid Z} (x , y \mid z)}{p _ {Y \mid Z} (y \mid z)} \rightarrow p _ {X, Y, Z} (x, y, z) = p _ {Z} (z) p _ {Y \mid Z} (y \mid z) p _ {X \mid Y, Z} (x \mid y, z)
-$$
-
-$$
 p_{X,Y,Z}(x, y, z) = p_{X|Y,Z}(x|y,z) p_{Y|Z}(y|z) p_Z(z)
 $$
-$$
-p _ {X \mid Y, Z} (x \mid y, z) = \frac {p _ {X , Y \mid Z} (x , y \mid z)}{p _ {Y \mid Z} (y \mid z)} \rightarrow p _ {X, Y, Z} (x, y, z) = p _ {Z} (z) p _ {Y \mid Z} (y \mid z) p _ {X \mid Y, Z} (x \mid y, z)
-$$
-
-La terna è dunque indipendente se e solo se $p _ { X | Y , Z } ( x | y , z ) = p _ { X } ( x )$ 
-
-$$
-p _ {Y | X, Z} (y | x, z) = p _ {Y} (y) \in p _ {Z | X, Y} (z | x, y) = p _ {Z} (z).
-$$
-
-$$
-p_{X,Y,Z}(x, y, z) = p_X(x) p_Y(y) p_Z(z)
-$$
-$$
-p _ {Y | X, Z} (y | x, z) = p _ {Y} (y) \in p _ {Z | X, Y} (z | x, y) = p _ {Z} (z).
-$$
-
-## Esempio: Emissione di 3 bit da una sorgente binaria
-
-Si consideri una **sorgente binaria** che emetta tre bit, siano essi $\left( B _ { 1 } , B _ { 2 } , B _ { 3 } \right)$ $B _ { i } \in \{ 0 , 1 \}$.
-
-> [!theorem] Definizione: Sorgente Binaria
-> Una sorgente binaria è un processo stocastico che genera una sequenza di simboli appartenenti all'alfabeto $\{0, 1\}$. In termini probabilistici, ogni emissione è descritta da una distribuzione di probabilità su ogni possibile combinazione di bit.
-
-Si assegnano le due leggi congiunte $p _ { B _ { 1 } , B _ { 2 } , B _ { 3 } } ( b _ { 1 } , b _ { 2 } , b _ { 3 } ) \in q _ { B _ { 1 } , B _ { 2 } , B _ { 3 } } ( b _ { 1 } , b _ { 2 } , b _ { 3 } )$ della Tabella 1.
-
-> [!quote] Osservazione
-> Si determini se $( B _ { 1 } , B _ { 2 } ) , ( B _ { 1 } , B _ { 3 } ) , ( B _ { 2 } , B _ { 3 } ) , ( B _ { 1 } , B _ { 2 } , B _ { 3 } )$ sono o meno indipendenti secondo $p _ { B _ { 1 } , B _ { 2 } , B _ { 3 } } ( b _ { 1 } , b _ { 2 } , b _ { 3 } ) / q _ { B _ { 1 } , B _ { 2 } , B _ { 3 } } ( b _ { 1 } , b _ { 2 } , b _ { 3 } )$.
-
-| $(b_1, b_2, b_3)$ | $p_{B_1, B_2, B_3}(b_1, b_2, b_3)$ | $q_{B_1, B_2, B_3}(b_1, b_2, b_3)$ |
-|:---|:---:|:---:|
-| 000 | $(1 - \alpha)^3$ | $(1 - \alpha)^2$ |
-| 001 | $\alpha(1 - \alpha)^2$ | 0 |
-| 010 | $\alpha(1 - \alpha)^2$ | 0 |
-| 011 | $\alpha^2(1 - \alpha)$ | $\alpha(1 - \alpha)$ |
-| 100 | $\alpha(1 - \alpha)^2$ | 0 |
-| 101 | $\alpha^2(1 - \alpha)$ | $\alpha(1 - \alpha)$ |
-| 110 | $\alpha^2(1 - \alpha)$ | $\alpha^2$ |
-| 111 | $\alpha^3$ | 0 |
-
-Tabella 1: Leggi di probabilità per l'emissione di 3 bit.
-
-## Marginalizzazione di $p_{B_1,B_2,B_3}(b_1, b_2, b_3)$
-
-L'analisi procede determinando la congiunta di tutte le possibili coppie secondo $p _ { B _ { 1 } , B _ { 2 } , B _ { 3 } } ( b _ { 1 } , b _ { 2 } , b _ { 3 } )$. Si richiama la **marginalizzazione**, proprietà fondamentale della teoria della probabilità che permette di ottenere la distribuzione di un sottoinsieme di variabili eliminando le altre.
-
-> [!theorem] Proprietà di Marginalizzazione
-> Per una variabile casuale congiunta, la probabilità marginale di una variabile è ottenuta sommando le probabilità congiunte su tutti i possibili valori delle variabili non considerate:
-> 
-> $$
-> p _ {B _ {1}, B _ {2}} (b _ {1}, b _ {2}) = p _ {B _ {1}, B _ {2}, B _ {3}} (b _ {1}, b _ {2}, 0) + p _ {B _ {1}, B _ {2}, B _ {3}} (b _ {1}, b _ {2}, 1)
-> $$
-
-Applicando tale proprietà, si ottengono le distribuzioni congiunte per le coppie:
-
-Tabella 1: Distribuzione congiunta $p_{B_1, B_2}(b_1, b_2)$
-
-| **$(b_1, b_2)$** | **$p_{B_1, B_2}(b_1, b_2)$** |
-|:---|:---:|
-| 00 | $(1 - \alpha)^2$ |
-| 01 | $\alpha(1 - \alpha)$ |
-| 10 | $\alpha(1 - \alpha)$ |
-| 11 | $\alpha^2$ |
-
-Con un'ulteriore marginalizzazione, si ricavano le distribuzioni per le altre coppie:
-
-Tabella 2: Distribuzione congiunta $p_{B_1, B_3}(b_1, b_3)$
-
-| **$(b_1, b_3)$** | **$p_{B_1, B_3}(b_1, b_3)$** |
-|:---|:---:|
-| 00 | $(1 - \alpha)^2$ |
-| 01 | $\alpha(1 - \alpha)$ |
-| 10 | $\alpha(1 - \alpha)$ |
-| 11 | $\alpha^2$ |
-
-Tabella 3: Distribuzione congiunta $p_{B_2, B_3}(b_2, b_3)$
-
-| **$(b_2, b_3)$** | **$p_{B_2, B_3}(b_2, b_3)$** |
-|:---|:---:|
-| 00 | $(1 - \alpha)^2$ |
-| 01 | $\alpha(1 - \alpha)$ |
-| 10 | $\alpha(1 - \alpha)^2$ |
-| 11 | $\alpha^2$ |
-
-> [!theorem] Analisi delle Distribuzioni
-> Si osserva che:
-> 
-> $$
-> p _ {B _ {1}} (b _ {1}) = p _ {B _ {1}, B _ {2}} (b _ {1}, 0) + p _ {B _ {1}, B _ {2}} (b _ {1}, 1)
-> $$
-> 
-> e analoghe. Le distribuzioni marginali risultanti sono:
-> 
-> Tabella 4: Distribuzione di $ b_{1} $
->
-> | **$b_{1}$** | **$p_{B_{1}}(b_{1})$** |
-> |:---|:---:|
-> | 0 | $ (1-\alpha) $ |
-> | 1 | $ \alpha $ |
-> 
-> Tabella 5: Distribuzione di $b_2$
->
-> | **$b_2$** | **$p_{B_2}(b_2)$** |
-> |:---|:---:|
-> | 0 | $(1 - \alpha)$ |
-> | 1 | $\alpha$ |
-> 
-> Tabella 6: Distribuzione di $ b_{3} $
->
-> | **$ b_{3} $** | **$ p_{B_{3}}(b_{3}) $** |
-> |:---|:---:|
-> | 0 | $ (1-\alpha) $ |
-| 1 | $ \alpha $ |
-
-Procedendo nello stesso modo, si ottengono le congiunte $q$:
-
-Tabella 7: Distribuzione congiunta $q_{B_1, B_2}(b_1, b_2)$
-
-| **$(b_1, b_2)$** | **$q_{B_1, B_2}(b_1, b_2)$** |
-|:---|:---:|
-| 00 | $(1 - \alpha)^2$ |
-| 01 | $\alpha(1 - \alpha)$ |
-| 10 | $\alpha(1 - \alpha)$ |
-| 11 | $\alpha^2$ |
-
-Tabella 8: Distribuzione congiunta $q_{B_1, B_3}(b_1, b_3)$
-
-| **$(b_1, b_3)$** | **$q_{B_1, B_3}(b_1, b_3)$** |
-|:---|:---:|
-| 00 | $(1 - \alpha)^2$ |
-| 01 | $\alpha(1 - \alpha)$ |
-| 10 | $\alpha^2$ |
-| 11 | $\alpha(1 - \alpha)$ |
-
-Tabella 9: Distribuzione congiunta $q_{B_2, B_3}(b_2, b_3)$
-
-| **$(b_2, b_3)$** | **$q_{B_2, B_3}(b_2, b_3)$** |
-|:---|:---:|
-| 00 | $(1 - \alpha)^2$ |
-| 01 | $\alpha(1 - \alpha)$ |
-| 10 | $\alpha^2$ |
-| 11 | $\alpha(1 - \alpha)^2$ |
-
-Le marginali corrispondenti sono:
-
-Tabella 10: Distribuzione di $b_1$
-
-| **$b_1$** | **$q_{B_1}(b_1)$** |
-|:---|:---:|
-| 0 | $(1 - \alpha)$ |
-| 1 | $\alpha$ |
-
-Tabella 11: Distribuzione di $b_2$
-
-| **$b_2$** | **$q_{B_2}(b_2)$** |
-|:---|:---:|
-| 0 | $(1 - \alpha)$ |
-| 1 | $\alpha$ |
-
-Tabella 12: Distribuzione di $ b_{3} $
-
-| **$ b_{3} $** | **$ q_{B_{3}}(b_{3}) $** |
-|:---|:---:|
-| 0 | $ (1-\alpha) $ |
-| 1 | $ \alpha $ |
-
-> [!quote] Osservazione
-> Si nota come alcune delle congiunte a coppie e le marginali coincidano, mentre le funzioni di massa di probabilità (pmf) delle terne risultino diverse. Qual è la causa di tale discrepanza?
-
-## Soluzione
-
-Si osserva che, per quanto riguarda $p _ { B _ { 1 } , B _ { 2 } , B _ { 3 } } ( b _ { 1 } , b _ { 2 } , b _ { 3 } )$, si ha:
-
-$$
-p _ {B _ {1}, B _ {2}, B _ {3}} (b _ {1}, b _ {2}, b _ {3}) = \prod p _ {B _ {i}} (b _ {i}) \Rightarrow p _ {B _ {m}, B _ {k}} (b _ {m}, b _ {k}) = p _ {B _ {m}} (b _ {m}) p _ {B _ {k}} (b _ {k}) \forall \space m \neq k
-$$
-
-di conseguenza, $p _ { B _ { 1 } , B _ { 2 } , B _ { 3 } } ( b _ { 1 } , b _ { 2 } , b _ { 3 } )$ implica l'**indipendenza statistica** dell'intera terna.
-
-Viceversa, per $q _ { B _ { 1 } , B _ { 2 } , B _ { 3 } } ( b _ { 1 } , b _ { 2 } , b _ { 3 } )$ si verifica che:
-
-$$
-q _ {B _ {m}, B _ {k}} (b _ {m}, b _ {k}) = q _ {B _ {m}} (b _ {m}) q _ {B _ {k}} (b _ {k}) m = 1, k = 2 \quad q _ {B _ {1}, B _ {2}, B _ {3}} (b _ {1}, b _ {2}, b _ {3}) \neq \prod q _ {B _ {i}} (b _ {i})
-$$
-
-pertanto le variabili $B _ { 1 } , B _ { 2 }$ sono indipendenti, ma non lo è la terna, né lo sono $B _ { 1 } , B _ { 3 } \circ B _ { 2 } , B _ { 3 }$. Infatti, a titolo esemplificativo:
-
-$$
-p _ {B _ {3} = 1 \mid B _ {1} = 1, B _ {2} = 1} = \frac {p _ {B _ {1} , B _ {2} , B _ {3}} (1 , 1 , 1)}{p _ {B _ {1} , B _ {2}} (1 , 1)} = \frac {\alpha^ {3}}{\alpha^ {2}} = \alpha = p _ {B _ {3}} (1)
-$$
-
-$$
-q _ {B _ {3} = 1 | B _ {1} = 1, B _ {2} = 1} = \frac {q _ {B _ {1} , B _ {2} , B _ {3}} (1 , 1 , 1)}{q _ {B _ {1} , B _ {2}} (1 , 1)} = 0 \neq q _ {B _ {3}} (1)
-$$
-
-Si evince chiaramente che $B _ { 3 } = B _ { 1 } \oplus B _ { 2 }$ rappresenta un **bit di parità**.
-
+Queste formulazioni introducono la
+>[!def] **Regola della catena** 
+>(dove ogni permutazione dei pedici e degli argomenti è possibile). 
+>Ad esempio:
+$$p_{X|Y,Z}(x|y,z) = \frac{p_{X,Y|Z}(x,y|z)}{p_{Y|Z}(y|z)} \implies p_{X,Y,Z}(x,y,z) = p_Z(z) p_{Y|Z}(y|z) p_{X|Y,Z}(x|y,z)$$
+La terna è **indipendente** $\iff$ le pmf condizionate coincidono con le marginali:
+$$p_{X|Y,Z}(x|y,z) = p_X(x), \quad p_{Y|X,Z}(y|x,z) = p_Y(y), \quad p_{Z|X,Y}(z|x,y) = p_Z(z)$$
+In questo caso, la pmf congiunta si riduce al prodotto delle marginali:
+$$p_{X,Y,Z}(x,y,z) = p_X(x) p_Y(y) p_Z(z)$$
 ## Funzioni di variabili doppie
 
-Sia $( X , Y ) \sim p x , Y ( x , y ) ( x , y ) \in \mathcal { X } \times \mathcal { Y }$ una **variabile doppia** con pmf (funzione di probabilità) $p _ { X , Y } ( x , y )$. 
+Se una **variabile casuale doppia discreta** $(X, Y)$ è regolata da una funzione di massa di probabilità (pmf) congiunta $p_{X,Y}(x, y)$, definita su $\mathcal{X} \times \mathcal{Y}$.
 
-Sia $g ( x , y )$ una funzione di due variabili il cui dominio di esistenza includa $\mathcal { X } \times \mathcal { N } ;$. 
+E si vuole definire una nuova variabile casuale discreta $Z$ come trasformazione deterministica delle prime due attraverso una funzione scalare $g(x, y)$:
+$$Z = g(X, Y)$$
 
-Si vuole caratterizzare $Z = \boldsymbol { \mathrm { g } } ( \boldsymbol { X } , \boldsymbol { Y } )$ in termini di pmf e media statistica. 
+Determinare la legge di probabilità (pmf) della nuova variabile $Z$, indicata come $p_Z(z)$, a partire dalla conoscenza della pmf congiunta $p_{X,Y}(x, y)$. Dipende della natura della funzione $g(x,y)$:
 
-1. Si determini l’alfabeto $Z$. Se $| \mathcal { Z } | = | \mathcal { X } | | \mathcal { V } |$ $\neq$ $|$, allora – seguendo i ragionamenti della slide 59 – avremo che esiste un unico punto $( x ( z ) , y ( z ) ) : z = g ( x , y )$, per cui: 
+### 1. Trasformazione Biunivoca (Inversa Unica)
 
-$$
-\mathbb {P} (Z = z) = p _ {Z} (z) = p _ {X, Y} [ x (z), y (z) ]
-$$
+Se la funzione $g(x,y)$ mappa ogni singola coppia del dominio $(x,y)$ in un valore di $z$ unico e distinto (ovvero la funzione è iniettiva sullo spazio di supporto), esiste un'unica coppia invertibile $(x(z), y(z))$ tale per cui $z = g(x, y)$.
 
-2. Se $| \mathcal { Z } | < | \mathcal { X } | | \mathcal { V } |$ $\neq$ $|$, varrà la precedente per i punti in cui l’inversa è unica, mentre per i punti in cui l’inversa non esiste ci sarà un ”collassamento delle probabilità”: 
+In questo caso, la probabilità che $Z$ assuma il valore $z$ coincide esattamente con la probabilità congiunta dell'unico punto di partenza che lo ha generato:
 
-$$
-\operatorname{Se} g (x, y) = z \text { per } (x, y) \in \mathcal {A} (z) \subseteq \mathcal {X} \times \mathcal {Y} \Rightarrow p _ {Z} (z) = \sum_ {x, y \in \mathcal {A} (z)} p _ {X, Y} (x, y)
-$$
+$$p_Z(z) = \mathbb{P}(Z = z) = p_{X, Y}[x(z), y(z)]$$
+### 2. Trasformazione Non Biunivoca (Collassamento delle Probabilità)
 
-## Un esempio
+Se la funzione $g(x,y)$ assegna lo stesso valore $z$ a più coppie distinte $(x,y)$ (trasformazione *molti-a-uno*), si verifica un fenomeno di **collassamento (o accumulo) delle probabilità**.
+
+Per determinare la probabilità del punto $z$, è necessario individuare l'insieme di controimmagini $\mathcal{A}(z)$, definito come il sottoinsieme dello spazio di supporto contenente tutte le coppie che producono come output esattamente $z$:
+
+$$\mathcal{A}(z) = \{ (x, y) \in \mathcal{X} \times \mathcal{Y} : g(x, y) = z \}$$
+La pmf di $Z$ si ottiene applicando il principio di additività, ovvero **sommando** le probabilità congiunte di tutte le coppie appartenenti a tale insieme:
+
+$$p_Z(z) = \sum_{(x, y) \in \mathcal{A}(z)} p_{X, Y}(x, y)$$
+
+### Un esempio
 
 Si considerino due variabili doppie, $( X _ { 1 } , Y _ { 1 } ) \in \{ 0 , 1 \} ^ { 2 } \mathrm { ~ e ~ } ( X _ { 2 } , Y _ { 2 } ) \in \{ - 1 , 1 \} ^ { 2 }$. Le pmf congiunte sono quelle riportate di seguito: 
 
