@@ -521,7 +521,7 @@ $$
 Pertanto, specializzando la precedente a $C = \{ X = x \}$ si ha: 
 
 $$
-\mathbb {P} (X = x) = p _ {X} (x) = \sum_ {m = 1} ^ {M} \mathbb {P} (\{X = x \} | E _ {m}) \mathbb {P} (E _ {m}) = \sum_ {m = 1} ^ {M} p _ {X | E _ {m}} (x) \mathbb {P} (E _ {m})
+\mathbb {P} (X = x) = p _ {X} (x) = \sum_ {i = 1} ^ {M} \mathbb {P} (\{X = x \} | E _ {i}) \mathbb {P} (E _ {i}) = \sum_ {i = 1} ^ {M} p _ {X | E _ {i}} (x) \mathbb {P} (E _ {i})
 $$
 
 ## Medie condizionali
@@ -529,49 +529,38 @@ $$
 Un analogo sviluppo è possibile sulle medie. Infatti: 
 
 $$
-\mathbb {E} [ X ] = \sum_ {x \in \mathcal {X}} x p _ {X} (x) = \sum_ {x \in \mathcal {X}} x \sum_ {m = 1} ^ {M} p _ {X | E _ {m}} (x) \mathbb {P} (E _ {m}) =
+\mathbb {E} [ X ] = \sum_ {x \in \mathcal {X}} x p _ {X} (x) = \sum_ {x \in \mathcal {X}} x \sum_ {i = 1} ^ {M} p _ {X | E _ {i}} (x) \mathbb {P} (E _ {i}) =
 $$
 
 $$
-\boxed {\sum_ {m = 1} ^ {M} \mathbb {P} (E _ {m}) \underbrace {\sum_ {x \in \mathcal {X}} x p _ {X | E _ {m}} (x)} _ {\mathbb {E} [ X | E _ {m} ]}}
+\boxed {\sum_ {i = 1} ^ {I} \mathbb {P} (E _ {i}) \underbrace {\sum_ {x \in \mathcal {X}} x p _ {X | E _ {i}} (x)} _ {\mathbb {E} [ X | E _ {i} ]}}
 $$
 
 dove quindi si è definita la media condizionata 
 
 $$
-\boxed {\mathbb {E} \left[ X | E _ {m} \right] = \sum_ {x \in \mathcal {X}} x p _ {X | E _ {m}} (x)}
+\boxed {\mathbb {E} \left[ X | E _ {i} \right] = \sum_ {x \in \mathcal {X}} x p _ {X | E _ {i}} (x)}
 $$
 
-Si applichi questa formula agli esempi precedenti per ritrovare che, se $X \sim \mathcal { B } \left( 1 6 , p \right)$ 
+## Funzioni di variabili aleatorie
 
-$$
-\mathbb {E} [ X ] = \mathbb {P} (X \leq 4) \mathbb {E} [ X | X \leq 4 ] + \mathbb {P} (X > 4) \mathbb {E} [ X | X > 4 ] =
-$$
-
-$$
-\mathbb {P} (X \in \{2, 3, 4, 5, 6 \}) \mathbb {E} [ X | X \in \{2, 3, 4, 5, 6 \} ] + \mathbb {P} (X \notin \{2, 3, 4, 5, 6 \}) \mathbb {E} [ X | X \notin \{2, 3, 4, 5, 6 \} ]
-$$
-
-## Funzioni di variabili aleatorie -1
-
-Si assuma che $X = X ( \omega )$ sia una variabile aleatoria con alfabeto $X$ con pmf $\{ p \chi ( x ) \} _ { x \in \mathcal { X } }$ ; 
-
-Sia $g(\cdot)$ una funzione il cui insieme di definizione includa i punti di $X$ ; 
-
-Si forma la nuova variabile aleatoria: 
+Si assuma che:
+- $X = X ( \omega )$ sia una variabile aleatoria con alfabeto $X$ con pmf $\{ p _{X} \} _ { x \in \mathcal { X } }$ 
+- $g(\cdot)$ una funzione il cui insieme di definizione includa i punti di $X$ 
+- Si forma la nuova variabile aleatoria: 
 
 $$
 Y = g (X) = g [ X (\omega) ] \in \mathcal {Y} \quad \text {   dove   } \mathcal {Y} = g (\mathcal {X})
 $$
+> La pmf $p_Y(y)$ descrive la distribuzione di probabilità di $Y$ a partire dai valori di $X$.
 
 Problema: Ricavare una caratterizzazione di $Y$ dalla caratterizzazione di $X$ in termini di 
 
-pmf, $p _ { Y } ( y ) , y \in \mathcal { Y }$ 
+- pmf, $p _ { Y } ( y ) , \space y  \in \mathcal { Y }$ 
 
-media statistica, $\begin{array} { r } { \mathbb { E } [ Y ] = \sum _ { y \in \mathcal { Y } } y p _ { Y } ( y ) } \end{array}$ 
+- media statistica, $\begin{array} { r } { \mathbb { E } [ Y ] = \sum _ { y \in \mathcal { Y } } y p _ { Y } ( y ) } \end{array}$ 
 
-## Funzioni di variabili aleatorie -2
-
+### PMF
 Distinguiamo due casi:
 
 a) $\{ g ( x ) \} _ { x \in \mathcal { X } }$ biunivoca, cioè: 
@@ -598,7 +587,7 @@ $$
 p _ {Y} (y _ {k}) = \mathbb {P} \left(\cup_ {i = 1} ^ {L _ {k}} \{X = x _ {i} ^ {(k)} \}\right) = \sum_ {i = 1} ^ {L _ {k}} \mathbb {P} \left(X = x _ {i} ^ {(k)}\right) = \sum_ {i = 1} ^ {L _ {k}} p _ {X} (x _ {i} ^ {(k)})
 $$
 
-## Media di funzioni di variabili aleatorie
+### Media di funzioni di variabili aleatorie
 
 Cominciamo con il seguire la stessa suddivisione introdotta per il caso delle pmf. 
 
@@ -617,149 +606,38 @@ $$
 Si noti comunque che l’equazione (1) include l’equazione (2) come caso speciale. In conclusione adottiamo la forma generale (1) che prende anche il nome di Teorema fondamentale per il calcolo della media.
 
 > [!theorem] Teorema (*Fondamentale per il calcolo della media*)
-> Enunciato: La media di una funzione di una variabile aleatoria può essere calcolata come la media condizionata dei valori della funzione:
+>  La media di una funzione di una variabile aleatoria può essere calcolata come la media condizionata dei valori della funzione:
 > 
 > $$E[g(X)] = \sum_{y} g(y) P(Y=y)$$
 > (dove $Y = g(X)$)
 
-## Qualche esempio
-
-Sia $X \sim \mathcal { U } ( \{ - 2 , - 1 , 0 , 2 \}$ 
-
-Si trovi la pmf delle due variabili aleatorie: 
-
-$$
-Y _ {1} = X ^ {2} (Y = g (X), g (x) = x ^ {2}) \text {e} Y _ {2} = 3 \sin \left(\frac {2 \pi}{5} X\right) (Y = g (X), g (x) = \sin \left(\frac {2 \pi}{5} x\right)
-$$
-
-$Y _ { 1 }$ Avremo $\mathcal { V } _ { 1 } = \{ 0 , 1 , 4 \} , | \mathcal { V } _ { 1 } | = | \{ 0 , 1 , 4 \} | = 3 < | \mathcal { X } | = 4$ , per cui: 
-
-$$
-p _ {Y _ {1}} (0) = \mathbb {P} (X = 0) = \frac {1}{4} = p _ {Y _ {1}} (1) = \mathbb {P} (X = 1) = \frac {1}{4}
-$$
-
-$$
-p _ {Y _ {1}} (2) = \mathbb {P} \left(\{X = - 2 \} \cup \{X = 2 \}\right) = \mathbb {P} (X = - 2) + \mathbb {P} (X = 2) = \frac {1}{2}
-$$
-
-$$
-Y _ {2} \mathcal {Y} _ {2} = \left\{\overbrace {- 3 \sin \left(\frac {2 \pi}{5}\right)} ^ {- 2. 8 5}, \overbrace {- 3 \sin \left(\frac {4 \pi}{5}\right)} ^ {- 1. 7 4}, 0, \overbrace {3 \sin \left(\frac {4 \pi}{5}\right)} ^ {1. 7 4} \right\},
-$$
-
-$$
-| \mathcal {Y} _ {2} | = 4 = | \mathcal {X} |:
-$$
-
-$$
-p _ {Y _ {2}} (- 0. 9 5) = p _ {Y _ {2}} (\pm 0. 5 8) = p _ {Y _ {2}} (0) = \frac {1}{4} \Rightarrow Y _ {2} \sim \mathcal {U} \left(\mathcal {Y} _ {2}\right)
-$$
-
-## Valore quadratico medio e varianza di una variabile aleatoria
+### Valore quadratico medio e varianza di una variabile aleatoria
 
 Data una variabile aleatoria $X \sim p _ { X } ( x ) , x \in \mathcal { X }$ , con media $\mu _ { X } = \operatorname { \mathbb { E } } [ X ]$ definiamo: 
 
-Il valore quadratico medio (Mean Square) di $X$ : 
+Il **valore quadratico medio** (Mean Square) di $X$ : 
 
 $$
 X _ {\text { rms }} ^ {2} = \mathbb {E} \left[ X ^ {2} \right] = \sum_ {x \in \mathcal {X}} x ^ {2} p _ {X} (x)
 $$
 
-Il valore efficace (root mean square, rms) di $X$ : 
+Il **valore efficace** (root mean square, rms) di $X$ : 
 
 $$
 X _ {\text { rms }} = \sqrt {\mathbb {E} \left[ X ^ {2} \right]} = \sqrt {\sum_ {x \in \mathcal {X}} x ^ {2} p _ {X} (x)}
 $$
 
-La varianza di $X$ : 
+La **varianza** di $X$ : 
 
 $$
 \sigma_ {X} ^ {2} = \mathbb {E} \left[ (X - \mu_ {X}) ^ {2} \right] = \sum_ {x \in \mathcal {X}} (x ^ {2} + \mu_ {X} ^ {2} - 2 x \mu_ {X}) p _ {X} (x) = X _ {\mathrm{rms}} ^ {2} - \mu_ {X} ^ {2}
 $$
 
-La deviazione standard di $X$ : 
+La **deviazione standard** di $X$ : 
 
 $$
 \sigma_ {X} = \sqrt {\sigma_ {X} ^ {2}} = \sqrt {\mathbb {E} [ X ^ {2} ] - \mu_ {X} ^ {2}} = \sqrt {X _ {\mathrm{rms}} ^ {2} - \mu_ {X} ^ {2}}
 $$
-
-## Esempio #1: X ∼ B(N, p)
-
-Si noti che, per $N = 1$ , abbiamo: 
-
-$$
-\mathbb {E} [ X ] = p, \quad \mathbb {E} [ X ^ {2} ] = 1 \times p + 0 \times (1 - p) = p, \quad \sigma_ {X} ^ {2} = p - p ^ {2} = p (1 - p), \quad \sigma_ {X} = \sqrt {p (1 - p)}
-$$
-
-In generale: 
-
-$$
-\overbrace {\mathbb {E} [ X ^ {2} ]} ^ {\sum_ {x \in \mathcal {X}} x ^ {2} p _ {X} (x)} = \sum_ {k = 0} ^ {N} k ^ {2} \binom{N}{k} p ^ {k} (1 - p) ^ {N - k} = \sum_ {k = 1} ^ {N} k \frac {N !}{(k - 1) ! (N - k) !} p ^ {k} q ^ {N - k}
-$$
-
-$$
-= N p \left[ \frac {d}{d p} \sum_ {k = 1} ^ {N} \frac {(N - 1) !}{(k - 1) ! (N - k) !} p ^ {k} q ^ {N - k} \right] _ {q = 1 - p} = N p (1 - p) + \overbrace {N ^ {2} p ^ {2}} ^ {\mu_ {\chi} ^ {2}}
-$$
-
-per cui: 
-
-$$
-X _ {\mathrm{rms}} ^ {2} = N p (1 - p) + N ^ {2} p ^ {2} \quad \sigma_ {X} ^ {2} = N p (1 - p) \quad X _ {\mathrm{rms}} = \sqrt {N p (1 - p) + N ^ {2} p ^ {2}} \quad \sigma_ {X} = \sqrt {N p (1 - p)}
-$$
-
-> [!example] Esempio 1
-> Per una variabile aleatoria $X$ che segue una distribuzione binomiale $B(N, p)$:
-> 
-> $$E[X] = Np$$
-> $$Var(X) = Np(1-p)$$
-
-## Esempio #2: variabile uniforme
-
-Sia $X \sim \mathcal { U } ( \{ 0 , \dots , M - 1 \} )$ ), per cui $\begin{array} { r } { \mu _ { X } = \operatorname { \mathbb { E } } [ X ] = \frac { M - 1 } { 2 } } \end{array}$ . Il valore MS si scrive: 
-
-$$
-X _ {\mathrm{rms}} ^ {2} = \frac {1}{M} \sum_ {k = 1} ^ {M - 1} k ^ {2} = \frac {(M - 1) (2 M - 1)}{6}
-$$
-
-dove si è sfruttato il fatto che: 
-
-$$
-\sum_ {i = 1} ^ {n} i ^ {2} = \frac {n (n + 1) (2 n + 1)}{6}
-$$
-
-Avremo quindi: 
-
-$$
-\sigma_ {X} ^ {2} = \frac {M (2 M - 1)}{6} - \frac {(M - 1) ^ {2}}{4} = \frac {M ^ {2} - 1}{1 2}
-$$
-
-$$
-X _ {\mathrm{rms}} = \sqrt {\frac {M (2 M - 1)}{6}}
-$$
-
-$$
-\sigma_ {X} = \sqrt {\frac {M ^ {2} - 1}{1 2}}
-$$
-
-## Esempio #3: variabile di Poisson
-
-Sia $\begin{array} { r } { X \sim \mathcal { P } ( \lambda ) } \end{array}$ , per cui $\mu _ { X } = \operatorname { \mathbb { E } } [ X ] = \lambda$ . Il valore MS si scrive: 
-
-$$
-X _ {\mathrm{rms}} ^ {2} = e ^ {- \lambda} \sum_ {k = 1} ^ {\infty} k ^ {2} \frac {\lambda^ {k}}{k !} = e ^ {- \lambda} \sum_ {k = 1} ^ {\infty} k \frac {\lambda^ {k}}{(k - 1) !} = \lambda e ^ {- \lambda} \frac {d}{d \lambda} \left[ \sum_ {k = 1} ^ {\infty} \frac {\lambda^ {k}}{(k - 1) !} \right] =
-$$
-
-$$
-\lambda e ^ {- \lambda} \frac {d}{d \lambda} \left[ \lambda \sum_ {k = 1} ^ {\infty} \frac {\lambda^ {k - 1}}{(k - 1) !} \right] = \lambda e ^ {- \lambda} \frac {d}{d \lambda} \left[ \lambda e ^ {\lambda} \right] = \lambda e ^ {- \lambda} \left[ e ^ {\lambda} + \lambda e ^ {\lambda} \right] = \lambda + \lambda^ {2}
-$$
-
-Quindi: 
-
-$$
-\sigma_ {X} ^ {2} = \lambda \quad X _ {\mathrm{rms}} = \sqrt {\lambda + \lambda^ {2}} \quad \sigma_ {X} = \sqrt {\lambda}
-$$
-
-> [!quote] Osservazione
-> Per una variabile aleatoria che segue una distribuzione di Poisson, la media e la varianza coincidono.
 
 ## Il significato della varianza e della deviazione standard
 
@@ -798,30 +676,31 @@ $$
 
 ## Quadro sintetico delle proprietà di media e varianza
 
-Se $(a, b)$ sono costanti reali ${ \mathbb E } [ a X + b ] = a { \mathbb E } [ X ] + b$, dato che $\mathbb { E } [ b ] = b ;$:
+### Proprietà della Media ($\mathbb{E}$)
+*   **Linearità:** Se $(a, b)$ sono costanti reali:
+$$\mathbb{E}[aX + b] = a\mathbb{E}[X] + b$$
+*(Dato che $\mathbb{E}[b] = b$)*
 
-Se $X ( \omega ) \geq 0 \ \forall \space \omega \in \Omega$ (cioè, se $\mathcal { X } \subseteq [ 0 , + \infty [ )$), allora $\mathbb { E } [ X ] \geq 0 ;$.
+*   **Non-negatività:** Se $X(\omega) \geq 0$ per ogni $\omega \in \Omega$ (ovvero se $\mathcal{X} \subseteq [0, +\infty[$), allora:
+$$\mathbb{E}[X] \geq 0$$
+### Proprietà della Varianza ($\sigma^2$)
+*   **Non-negatività:** La varianza è sempre non negativa:
+$$\sigma_X^2 \geq 0$$
+*(In quanto media della variabile non negativa $(X - \mu_X)^2$)*
 
-- $\sigma _ { X } ^ { 2 } \geq 0$ (in quanto media della variabile non negativa $( X - \mu _ { X } ) ^ { 2 } )$).
+*   **Trasformazione Lineare:** Se $Y = aX + b$, allora la varianza è:
+$$\sigma_Y^2 = a^2 \sigma_X^2$$
 
-Se $\boldsymbol { Y } = \boldsymbol { a } \boldsymbol { X } + \boldsymbol { b }$, allora $\sigma _ { Y } ^ { 2 } = a ^ { 2 } \sigma _ { X } ^ { 2 }$. Infatti:
+**Dimostrazione:**
 
-$$
-\mu_ {Y} = a \mu_ {X} + b, \quad \mathbb {E} [ Y ^ {2} ] = \mathbb {E} [ a ^ {2} X ^ {2} + 2 a b X + b ^ {2} ] = a ^ {2} \mathbb {E} [ X ^ {2} ] + 2 a b \mathbb {E} [ X ] + b ^ {2}
-$$
-
-$$
-\sigma_ {Y} ^ {2} = a ^ {2} \mathbb {E} [ X ^ {2} ] + 2 a b \mu_ {X} + b ^ {2} - (a \mu_ {X} + b) ^ {2} = a ^ {2} \sigma_ {X} ^ {2}
-$$
-
+$$\mu_Y = a\mu_X + b$$
+$$\mathbb{E}[Y^2] = \mathbb{E}[a^2X^2 + 2abX + b^2] = a^2\mathbb{E}[X^2] + 2ab\mathbb{E}[X] + b^2$$
+$$\sigma_Y^2 = a^2\mathbb{E}[X^2] + 2ab\mu_X + b^2 - (a\mu_X + b)^2 = a^2\sigma_X^2$$
+### Relazioni Correlate
 Come conseguenza delle relazioni precedenti, si ottiene anche:
-
-$$
-\mathbb {E} [ Y ^ {2} ] = Y _ {\mathrm{rms}} ^ {2} = a ^ {2} X _ {\mathrm{rms}} ^ {2} + 2 a b \mu_ {X} + b ^ {2}
-$$
-
-Si noti infine che per variabili a media nulla $( \mu x = 0 )$, abbiamo $\sigma _ { X } ^ { 2 } = X _ { \mathrm { r m s } } ^ { 2 }$.
-
+$$\mathbb{E}[Y^2] = Y_{\text{rms}}^2 = a^2 X_{\text{rms}}^2 + 2ab\mu_X + b^2$$
+**Nota finale:** Per variabili a media nulla ($\mu_X = 0$), vale la relazione:
+$$\sigma_X^2 = X_{\text{rms}}^2$$
 ## Definizione di variabili multiple
 
 Formalmente, una coppia di variabili aleatorie (o **variabile doppia**) è definita — in analogia con le variabili singole — nella forma:

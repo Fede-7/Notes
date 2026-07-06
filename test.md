@@ -1,178 +1,76 @@
-# Fondamenti Probabilità
-## Definizioni
+# Funzioni di variabili aleatorie
 
-Esperimento: Operazione/azione - o insieme di operazioni/azioni - il cui esito dà uno tra tanti risultati possibili; 
+## Funzioni di variabili aleatorie discrete
 
-Spazio dei campioni - o spazio campione - comunemente denotato con Ω: insieme - non necessariamente numerico - di tutti i risultati possibili di un esperimento; 
+### Trasformazione della probability mass function (pmf)
 
-Ω può essere continuo o discreto: per il momento assumeremo che sia discreto, cioè finito o numerabile. 
+> [!important] Definizione (**Trasformazione della pmf per funzioni di VA**)
+> Sia $X$ una variabile aleatoria discreta con alfabeto $\mathcal{X}$ e probability mass function $p_X(x) = \mathbb{P}(X = x)$. Sia $g(\cdot)$ una funzione definita sui punti di $\mathcal{X}$ che genera una nuova variabile aleatoria $Y = g(X)$ con alfabeto $\mathcal{Y} = g(\mathcal{X})$. La pmf $p_Y(y)$ della variabile aleatoria $Y$ è definita per ogni $y \in \mathcal{Y}$ come:
+> $$p_Y(y) = \sum_{x \in \mathcal{X} : g(x) = y} p_X(x)$$
+> 
+> 
 
-Evento: un qualunque sotto-insieme di Ω definito matematicamente da un insieme di suoi elementi e lessicalmente da una proposizione; 
+#### Perché serve:
+Consente di determinare il comportamento probabilistico completo di una nuova variabile aleatoria ottenuta elaborando, filtrando o trasformando i dati di una variabile già nota, senza dover effettuare nuove misurazioni sperimentali sul sistema.
 
-Evento elementare: uno dei possibili |Ω| elementi di Ω. Si indica anche con $\omega \in \Omega$ 
+#### Derivazione:
+Per ricavare la caratterizzazione di $Y$ in termini di pmf a partire da quella di $X$, si distinguono due casi geometrici fondamentali:
 
-Un evento è univocamente individuato dagli elementi che lo compongono; 
+1. **Caso biunivoco:** La funzione $g(x)$ mappa ogni elemento di $\mathcal{X}$ in un unico elemento di $\mathcal{Y}$ in modo invertibile, per cui $|\mathcal{Y}| = |\mathcal{X}|$. Esiste allora la funzione inversa $x = g^{-1}(y)$. L'evento $\{Y = y_i\}$ equivale esattamente all'evento $\{X = g^{-1}($y_i$)\} = \{X = x_i\}$. Sfruttando l'uguaglianza logica tra gli eventi si ha: $$p_Y(y_i) = \mathbb{P}(Y = g(x_i)) = \mathbb{P}(X = g^{-1}(y_i)) = \mathbb{P}(X = x_i) = p_X(x_i)$$
 
-Al contrario, la proposizione che lo definisce non è unica. 
+2. **Caso univoco (non invertibile):** La funzione $g(x)$ associa a più valori distinti di $X$ lo stesso valore di $Y$, determinando una contrazione dell'alfabeto tale per cui $|\mathcal{X}| = n$ e $|\mathcal{Y}| = m$ con $n > m$. Per un generico punto $y_k \in \mathcal{Y}$, si definisce l'insieme delle sue controimmagini $x_1^{(k)}, x_2^{(k)}, \dots, x_{L_k}^{(k)}$ tali che $g(x_i^{(k)}) = y_k$ per ogni $i = 1, \dots, L_k$. L'evento $\{Y = y_k\}$ corrisponde all'unione disgiunta degli eventi elementari della variabile $X$: $$\{Y = y_k\} = \bigcup_{i = 1}^{L_k} \{X = x_i^{(k)}\}$$
 
-## Esempio #1 : lancio di una moneta
+Poiché i singoli eventi $\{X = x_i^{(k)}\}$ sono mutuamente esclusivi per definizione di variabile aleatoria, applicando l'assioma dell'additività lineare della probabilità si ottiene: $$p_Y(y_k) = \mathbb{P}\left(\bigcup_{i = 1}^{L_k} \{X = x_i^{(k)}\}\right) = \sum_{i = 1}^{L_k} \mathbb{P}(X = x_i^{(k)}) = \sum_{i = 1}^{L_k} p_X(x_i^{(k)})$$
 
-Lancio singolo: 
 
-Spazio campione: $\Omega = \{ \mathsf { T e s t a } , { \mathsf { C r o c e } } \} = \{ T , C \} , | \Omega | = 2 ;$ 
+#### Formule chiave:
 
-Esempi di eventi: 
+> [!important] Calcolo della pmf trasformata
+> $$p_Y(y) = \begin{cases} p_X(g^{-1}(y)) & \text{se } g \text{ è biunivoca} \\ \sum_{x: g(x)=y} p_X(x) & \text{se } g \text{ è univoca} \end{cases}$$
+> 
+> 
 
-$$
-A = \text {   Testa   } = \{T \} \quad B = \text {   Croce   } = \{C \} \quad \text {   Testa   o   Croce   } = A \cup B
-$$
+Collegamenti:
+Richiede: Definizione di variabile aleatoria discreta, probability mass function (pmf), eventi mutuamente esclusivi. Usato in: Calcolo dei momenti di variabili trasformate e analisi dei sistemi di modulazione numerica.
 
-Lancio doppio 
+> [!warning] Attenzione
+> Nel caso di trasformazioni non invertibili (univoche), dimenticare di sommare le probabilità di *tutte* le controimmagini $x$ che mappano nello stesso punto $y$ porta a una pmf non normalizzata, la cui somma su tutto l'alfabeto $\mathcal{Y}$ risulterebbe erroneamente inferiore a 1.
 
-Spazio campione: 
+---
 
-$$
-\Omega = \{T T, T C, C T, C C \} = \{T, C \} \times \{T, C \} = \{T, C \} ^ {2}.
-$$
+### Media di funzioni di variabili aleatorie
 
-Esempi di eventi: 
+> [!important] Teorema (**Teorema fondamentale per il calcolo della media**)
+> Sia $X$ una variabile aleatoria discreta con pmf $p_X(x)$ e sia $Y = g(X)$ una nuova variabile aleatoria ottenuta tramite la trasformazione $g(\cdot)$. Il valore atteso (o media statistica) di $Y$ può essere calcolato direttamente a partire dalla pmf di $X$ senza ricavare preventivamente la pmf $p_Y(y)$, secondo la relazione:
+> $$\mathbb{E}[g(X)] = \sum_{x \in \mathcal{X}} g(x) p_X(x) \tag{1}$$
+> 
+> 
 
-$$
-A = \{\# \text { croci   dispari } \} = \{T C, C T \}
-$$
+#### Perché serve:
+Evita il laborioso passaggio intermedio di determinazione della nuova pmf $p_Y(y)$ quando l'unico obiettivo dell'analisi è la conoscenza del valor medio o dei momenti statistici di ordine superiore (come la varianza) del segnale trasformato.
 
-$$
-B = \{\text { N   e   s   s   u   n   a   c   r   o   c   e } \} = \{T T \}
-$$
-## Qualche richiamo di insiemistica -1
+#### Derivazione:
+Si consideri la definizione formale di valore atteso applicata alla variabile aleatoria $Y$, per la quale si ha $\mathbb{E}[Y] = \sum_{y \in \mathcal{Y}} y p_Y(y)$.
 
-Siano $\{ A _ { i } \} _ { i = 1 } ^ { M }$ M sotto-insiemi di un insieme $\Omega .$ . Definiamo: 
+1. Se la funzione $g(\cdot)$ è biunivoca, si applica la ridenominazione diretta dell'alfabeto $y = g(x)$ e $p_Y(y) = p_X(x)$, ottenendo immediatamente:
+$$\mathbb{E}[Y] = \sum_{y \in \mathcal{Y}} y p_Y(y) = \sum_{x \in \mathcal{X}} g(x) p_X(x)$$
 
-Unione tra due sotto-insiemi, $A _ { 1 } \cup A _ { 2 }$ , un sotto-insieme di $\Omega$ che contenga tutti gli elementi di $A _ { 1 }$ e quelli di $A _ { 2 }$ , ovviamente contando una sola volta quelli comuni; 
+2. Se la funzione $g(\cdot)$ è univoca (non invertibile), si esprime $p_Y(y)$ come la somma delle probabilità delle sue controimmagini. Sostituendo tale espressione nella definizione di valore atteso si ricava:
+$$\mathbb{E}[Y] = \sum_{y \in \mathcal{Y}} y \left( \sum_{x: y = g(x)} p_X(x) \right)$$
 
-Complemento in $\Omega$ di un sotto-insieme $A _ { 1 }$ l’insieme $\overline { { A _ { 1 } } }$ che contiene tutti gli elementi di $\Omega$ che non appartengono a $A _ { 1 }$ ; ovviamente $\overline { { \Omega } } = \emptyset , \overline { { \overline { { A _ { 1 } } } } } = A _ { 1 } \mathrm { ~ e ~ } A _ { 1 } \cup \overline { { \overline { { A _ { 1 } } } } } = \Omega$ 
+3. Poiché la condizione sotto la sommazione interna impone che l'argomento $y$ sia esattamente pari a $g(x)$, è possibile portare $y$ dentro la seconda sommatoria sostituendolo con l'espressione funzionale equivalente $g(x)$:
+$$\mathbb{E}[Y] = \sum_{y \in \mathcal{Y}} \sum_{x: y = g(x)} g(x) p_X(x) \tag{2}$$
 
-Intersezione tra due sotto-insiemi, $A _ { 1 } \cap A _ { 2 }$ , l’insieme che contiene tutti e soli gli elementi comuni a $A _ { 1 }$ e $A _ { 2 }$ 
+4. Poiché l'unione disgiunta di tutti i sottoinsiemi di controimmagini $\{x \in \mathcal{X} : g(x) = y\}$ al variare di $y \in \mathcal{Y}$ ricostituisce esattamente l'intero alfabeto di partenza $\mathcal{X}$, la doppia sommatoria vincolata equivale a un'unica sommatoria estesa a tutti i punti di $\mathcal{X}$. Pertanto, l'equazione (1) include l'equazione (2) come caso speciale:
+$$\mathbb{E}[Y] = \sum_{x \in \mathcal{X}} g(x) p_X(x)$$
 
-Sottrazione tra due insiemi, $A _ { 1 } \setminus A _ { 2 }$ , l’insieme che contiene gli elementi di $A _ { 1 }$ che non appartengono a $A _ { 2 }$ . Ovviamente avremo: 
 
-$$
-A _ {1} \setminus A _ {2} = A _ {1} \cap \overline {{A _ {2}}}
-$$
+#### Formule chiave:
 
-## Alcune proprietà delle pmf condizionate
+> [!important] Valore atteso di una trasformazione
+> $$\mathbb{E}[Y] = \sum_{y \in \mathcal{Y}} y p_Y(y) = \sum_{x \in \mathcal{X}} g(x) p_X(x)$$
+> 
+> 
 
-$p _ { Y \mid X } ( y | x )$ se x resta fisso e y varia in Y è una legge di probabilità. Infatti: 
-
-$$
-p _ {Y | X} (y | x) \geq 0 \quad \sum_ {y \in \mathcal {Y}} p _ {Y | X} (y | x) = \mathbb {P} \left(\cup_ {y \in \mathcal {Y}} \{Y = y \} | \{X = x \}\right) = \mathbb {P} (\Omega | \{X = x \}) = 1
-$$
-
-La proprietà di marginalizzazione della pmf congiunta (vedi slide 71) si scrive in termini di pmf condizionali nella forma: 
-
-$$
-p _ {X} (x) = \sum_ {y \in \mathcal {Y}} p _ {X, Y} (x, y) = \sum_ {y \in \mathcal {Y}} p _ {X | Y} (x | y) p _ {Y} (y)
-$$
-
-$$
-p _ {Y} (y) = \sum_ {x \in \mathcal {X}} p _ {X, Y} (x, y) = \sum_ {x \in \mathcal {X}} p _ {Y | X} (y | x) p _ {X} (x)
-$$
-
-Si noti che questa non è altro che la legge della probabilità totale (vedi slide 37) scritta, per la prima equazione, per l’evento $\{ X = x \}$ rispetto alla partizione $\Omega = \cup _ { y \in \mathcal { y } } \{ Y = y \}$ e, per la seconda equazione, per l’evento $\{ Y = y \}$ rispetto alla partizione $\Omega = \cup _ { x \in { \mathcal { X } } } \{ X = x \}$ 
-
-Si noti, infine, che se $X \textsf { e Y }$ sono indipendenti: 
-
-$$
-p _ {Y | X} (y | x) = p _ {Y} (y)
-$$
-
-$$
-p _ {X \mid Y} (x \mid y) = p _ {X} (x)
-$$
-
-## Generalizzando...
-
-Si consideri una terna di variabili aleatorie (X , Y , Z ), distribuite secondo $p x , Y , Z ( x , y , z ) , ( x , y , z ) \in \mathcal { X } \times \mathcal { Y } \times \mathcal { Z } .$ 
-
-Usando consecutivamente la legge della probabilità composta, otteniamo: 
-
-$$
-\mathbb {P} (X = x, Y = y, Z = z) = \mathbb {P} (X = x, Y = y | Z = z) \mathbb {P} (Z = z) =
-$$
-
-$$
-\mathbb {P} (X = x \mid Z = z, Y = y) \mathbb {P} (Y = y \mid Z = z) \mathbb {P} (Z = z)
-$$
-
-che ci introduce alla ”regola della catena” (ogni permutazione dei pedici e degli argomenti è ovviamente possibile): 
-
-$$
-p _ {X \mid Y, Z} (x \mid y, z) = \frac {p _ {X , Y \mid Z} (x , y \mid z)}{p _ {Y \mid Z} (y \mid z)} \rightarrow p _ {X, Y, Z} (x, y, z) = p _ {Z} (z) p _ {Y \mid Z} (y \mid z) p _ {X \mid Y, Z} (x \mid y, z)
-$$
-
-La terna è dunque indipendente se e solo se $p _ { X | Y , Z } ( x | y , z ) = p _ { X } ( x )$ 
-
-$$
-p _ {Y | X, Z} (y | x, z) = p _ {Y} (y) \in p _ {Z | X, Y} (z | x, y) = p _ {Z} (z).
-$$
-
-## Esempio: Emissione di 3 bit da una sorgente binaria
-
-Si consideri una sorgente binaria che emetta tre bit, siano ess $\left( B _ { 1 } , B _ { 2 } , B _ { 3 } \right)$ $B _ { i } \in \{ 0 , 1 \}$ ; 
-
-Si assegnano le due leggi congiunte $p _ { B _ { 1 } , B _ { 2 } , B _ { 3 } } ( b _ { 1 } , b _ { 2 } , b _ { 3 } ) \in q _ { B _ { 1 } , B _ { 2 } , B _ { 3 } } ( b _ { 1 } , b _ { 2 } , b _ { 3 } )$ della tabella $( 0 < \alpha < 1 )$ 
-
-Dire se $( B _ { 1 } , B _ { 2 } ) , ( B _ { 1 } , B _ { 3 } ) , ( B _ { 2 } , B _ { 3 } ) , ( B _ { 1 } , B _ { 2 } , B _ { 3 } )$ sono o meno indipendent secondo $p _ { B _ { 1 } , B _ { 2 } , B _ { 3 } } ( b _ { 1 } , b _ { 2 } , b _ { 3 } ) / q _ { B _ { 1 } , B _ { 2 } , B _ { 3 } } ( b _ { 1 } , b _ { 2 } , b _ { 3 } )$ 
-
-<table><tr><td><eq>(b_1, b_2, b_3)</eq></td><td><eq>p_{B_1, B_2, B_3}(b_1, b_2, b_3)</eq></td><td><eq>q_{B_1, B_2, B_3}(b_1, b_2, b_3)</eq></td></tr><tr><td>000</td><td><eq>$(1 - \alpha)^3$</eq></td><td><eq>(1 - \alpha)^2</eq></td></tr><tr><td>001</td><td><eq>\alpha(1 - \alpha)^2</eq></td><td>0</td></tr><tr><td>010</td><td><eq>\alpha(1 - \alpha)^2</eq></td><td>0</td></tr><tr><td>011</td><td><eq>\alpha^2(1 - \alpha)</eq></td><td><eq>\alpha(1 - \alpha)</eq></td></tr><tr><td>100</td><td><eq>\alpha(1 - \alpha)^2</eq></td><td>0</td></tr><tr><td>101</td><td><eq>\alpha^2(1 - \alpha)</eq></td><td><eq>\alpha(1 - \alpha)</eq></td></tr><tr><td>110</td><td><eq>\alpha^2(1 - \alpha)</eq></td><td><eq>\alpha^2</eq></td></tr><tr><td>111</td><td><eq>\alpha^3</eq></td><td>0</td></tr></table>
-
-## pdf e CDF condizionali di variabili Laplaciane
-
-![image](https://cdn-mineru.openxlab.org.cn/result/2026-06-27/b5f5d426-9c48-4e21-b90d-66928c562c74/c9bb9b6105893847da5816e4162cf664c0a5d6c418d723bc46ff1a263cd47a27.jpg)
-
-![image](https://cdn-mineru.openxlab.org.cn/result/2026-06-27/b5f5d426-9c48-4e21-b90d-66928c562c74/c151e31d1c7e39157c315436b8b74f28bd1d6631fb7d6d648dfe224e47f288e4.jpg)
-
-## Legge della probabilità totale per pdf e medie
-
-In modo del tutto analogo al caso discreto (vedi slide 56) si può mostrare che, se $\{ E _ { m } \} _ { m = 1 } ^ { M }$ è una qualunque partizione di $\Omega ,$ , allora: 
-
-$$
-f _ {X} (x) = \sum_ {m = 1} ^ {M} f _ {X | E _ {m}} (x) \mathbb {P} (E _ {m}) \Longleftrightarrow F _ {X} (x) = \sum_ {m = 1} ^ {M} F _ {X | E _ {m}} (x) \mathbb {P} (E _ {m})
-$$
-
-Naturalmente, questo implica che per le medie valga un’analoga relazione (vedi slide 57): 
-
-$$
-\mathbb {E} \left[ X \right] = \sum_ {m = 1} ^ {M} \mathbb {E} \left[ X | E _ {m} \right] \mathbb {P} (E _ {m}) = \sum_ {m = 1} ^ {M} \mathbb {P} (E _ {m}) \int_ {\mathbb {R}} x f _ {X | E _ {m}} (x) d x
-$$
-
-Quindi, con riferimento all’esempio precedente con $\begin{array} { r } { X \sim \mathcal { L } ( \lambda ) } \end{array}$ 
-
-$$
-\mathbb {E} [ X ] = \mathbb {E} \left[ X | \{- 1 \leq X \leq 2 \} \right] \mathbb {P} (- 1 \leq X \leq 2) + \mathbb {E} \left[ X | \{X \notin [ - 1, 2 ] \} \right] \underbrace {\mathbb {P} (X \notin [ - 1 , 2 ])} _ {1 - \mathbb {P} (- 1 \leq X \leq 2)} = 0
-$$
-
-## Legge di Bayes per vettori aleatori
-• Consideriamo un vettore aleatorio discreto con pmf $p _ { X } ( { \pmb x } )$ . Sappiamo che la Legge di Bayes assicura che 
-
-$$
-\mathbb {P} (A \cap B) = \mathbb {P} (A | B) \mathbb {P} (B)
-$$
-
-• Posto $A = \{ X _ { n } = x _ { n } , \ldots , X _ { 2 } = x _ { 2 } \} \textsf { e } B = \{ X _ { 1 } = x _ { 1 } \}$ avremo 
-
-$$
-p _ {\boldsymbol {X}} (\boldsymbol {x}) = \mathbb {P} \left\{X _ {n} = x _ {n}, \dots , X _ {2} = x _ {2} | X _ {1} = x _ {1} \right\} \mathbb {P} \left\{X _ {1} = x _ {1} \right\}
-$$
-
-• Iterando il ragionamento avremo la regola della catena: 
-
-$$
-\begin{array}{c} p _ {X} (x) = \mathbb {P} \{X _ {1} = x _ {1} \} \mathbb {P} \left\{X _ {2} = x _ {2} | X _ {1} = x _ {1} \right\} \dots \mathbb {P} \left\{X _ {n} = x _ {n} | X _ {n - 1} = x _ {n - 1}, \ldots , X _ {1} = x _ {1} \right\} \\ = \prod_ {i = 1} ^ {n} p _ {X _ {i} | X _ {i - 1}, \ldots , X _ {1}} (x _ {i} | x _ {i - 1}, \ldots , x _ {1}), \qquad p _ {X _ {1} | X _ {0}} (x _ {1} | x _ {0}) = p _ {X _ {1}} (x _ {1}) \end{array}
-$$
-
-• Analogamente, per vettori continui avremo 
-
-$$
-f _ {\boldsymbol {X}} (\boldsymbol {x}) = \prod_ {i = 1} ^ {n} f _ {X _ {i} | X _ {i - 1}, \dots , X _ {1}} (x _ {i} | x _ {i - 1}, \dots , x _ {1})
-$$
+Collegamenti:
+Richiede: Definizione di valore atteso per variabili discrete, trasformazione della pmf. Usato in: Definizione di varianza ($\mathbb{E}[(X-\mu)^2]$), calcolo dei momenti e funzioni generatrici dei momenti.
