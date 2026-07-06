@@ -712,21 +712,22 @@ dove $\mathcal { X } \in \mathcal { V }$ sono gli alfabeti di $X$ e di $Y$ rispe
 
 In altre parole, il risultato di un esperimento $\omega _ { * }$ non è un unico valore $X ( \omega _ { * } ) = x _ { * } \in \mathcal { X }$, ma una coppia ordinata $( X ( \omega _ { * } ) , Y ( \omega _ { * } ) ) = ( x _ { * } , y _ { * } )$, che varia nel prodotto cartesiano $\mathcal { X } \times \mathcal { V }$.
 
-## pmf/DF/pdf congiunta
+### pmf/DF/pdf congiunta
 $$p_{X,Y}(x,y) = \mathbb{P}(\{X = x\} \cap \{Y = y\}) = \lim_{n \to \infty} \frac{n_{X=x, Y=y}}{n}, \quad (x,y) \in \mathcal{X} \times \mathcal{Y}$$
 In altre parole, $p_{X,Y}(x,y)$ è una tabella di $|\mathcal{X}| \cdot |\mathcal{Y}|$ numeri che — ovviamente — gode di opportune proprietà.
 
-### Proprietà
+#### Proprietà
 
 Le proprietà fondamentali della pmf congiunta (identiche alla pmf classica) sono:
 $$p_{X,Y}(x,y) \geq 0 \quad \text{e} \quad \sum_{x \in \mathcal{X}} \sum_{y \in \mathcal{Y}} p_{X,Y}(x,y) = 1$$
 
 >[!dim] Dimostrazione:
 $$1 = \mathbb{P}(\Omega) = \mathbb{P}\left(\bigcup_{x \in \mathcal{X}} \bigcup_{y \in \mathcal{Y}} \{X = x, Y = y\}\right) = \sum_{x \in \mathcal{X}} \sum_{y \in \mathcal{Y}} \underbrace{\mathbb{P}(\{X = x, Y = y\})}_{p_{X,Y}(x,y)}$$
-
 Questo perché l'evento elementare $\{X = x, Y = y\}$ è incompatibile con ogni altro evento elementare $\{X = x', Y = y'\}$ per $x \neq x'$ e/o $y \neq y'$.
 
-#### Marginalizzazione
+##### Marginalizzazione
+> Si usa per sapere la probabilità di una variabile aleatoria indipendentemente dall' altra. (riga o colonna della tabella di cui parlavamo)
+
 Si noti che $\bigcup_{x \in \mathcal{X}} \{X = x\} = \Omega$ e $\bigcup_{y \in \mathcal{Y}} \{Y = y\} = \Omega$, per cui:
 $$\{X = x\} = \{X = x\} \cap \Omega = \{X = x\} \cap \bigcup_{y \in \mathcal{Y}} \{Y = y\} = \bigcup_{y \in \mathcal{Y}} (\{X = x\} \cap \{Y = y\})$$
 Da cui deriva:
@@ -739,68 +740,40 @@ Caratterizzare congiuntamente $(X, Y)$ significa anche caratterizzarle marginalm
 
 ## Variabili indipendenti
 
-Due variabili aleatorie $X \in \mathcal { X } \mathrm { ~ e ~ } Y \in \mathcal { Y }$ sono **indipendenti** se (e solo se) gli eventi $\{ X = x \} \mathrm { ~ e ~ } \{ Y = y \}$ sono indipendenti; 
+Due variabili aleatorie $X \in \mathcal{X}$ e $Y \in \mathcal{Y}$ sono **indipendenti** $\iff$ gli eventi $\{X = x\}$ e $\{Y = y\}$ sono indipendenti.
 
-Per due variabili indipendenti la pmf congiunta si fattorizza nel prodotto delle marginali: 
+Per due variabili indipendenti, la pmf congiunta si fattorizza nel prodotto delle rispettive marginali:
+$$p_{X,Y}(x,y) = \mathbb{P}(\{X = x\} \cap \{Y = y\}) = \mathbb{P}(\{X = x\}) \mathbb{P}(\{Y = y\}) = p_X(x) p_Y(y)$$
+Questo è l'unico caso in cui la conoscenza delle sole pmf marginali $p_X(x)$ e $p_Y(y)$ è sufficiente per determinare univocamente la pmf congiunta.
 
-$$
-p _ {X, Y} (x, y) = \mathbb {P} (\{X = x \} \cap \{Y = y \}) = \mathbb {P} (\{X = x \}) \mathbb {P} (\{Y = y \}) = p _ {X} (x) p _ {Y} (y)
-$$
+### Generalizzazione a $m$ variabili aleatorie
+Poiché il concetto di pmf congiunta si estende a una $m$-pla di variabili aleatorie $(X_1, \dots, X_m) \in \mathcal{X}_1 \times \dots \times \mathcal{X}_m \subseteq \mathbb{R}^m$ attraverso la seguente definizione:
+$$p_{X_1, \dots, X_m}(x_1, \dots, x_m) = \mathbb{P}(\{X_1 = x_1\} \cap \dots \cap \{X_m = x_m\})$$
+il concetto di indipendenza può essere generalizzato analogamente:
+$$p_{X_1, \dots, X_m}(x_1, \dots, x_m) = \prod_{i=1}^m p_{X_i}(x_i)$$
+Che può essere espresso formalmente come:
+$$\prod_{i=1}^m \mathbb{P}(\{X_i = x_i\}) = \prod_{i=1}^m p_{X_i}(x_i)$$
+### Le pmf condizionate
 
-Questo è l’unico caso in cui assegnare le due pmf marginali $p x ( x ) \mathrm { ~ e ~ } p _ { Y } ( y )$ equivale ad assegnare la pmf congiunta. 
+Si considerino variabili aleatorie $X \in \mathcal{X}$ e $Y \in \mathcal{Y}$ con assegnata pmf congiunta $p_{X,Y}(x,y)$.
 
-Siccome il concetto di pmf congiunta si generalizza a una $m$-pla di variabili aleatorie $( X _ { 1 } , \ldots , X _ { m } ) \in { \mathcal { X } } _ { 1 } \times \ldots \times { \mathcal { X } } _ { m } \subseteq \mathbb { R } ^ { m }$ mediante la pmf congiunta: 
+Applicando all'evento $\{X = x, Y = y\} = \{X = x\} \cap \{Y = y\}$ la legge della probabilità composta:
+$$
+p_{X,Y}(x,y) = \mathbb{P}(\{X = x\} \cap \{Y = y\}) = \underbrace{\mathbb{P}(\{Y = y\} \mid \{X = x\})}_{p_{Y|X}(y|x)} \cdot \underbrace{\mathbb{P}(\{X = x\})}_{p_X(x)}
+$$
+$p_{Y|X}(y|x)$ è la **legge di probabilità condizionata** (o pmf condizionata) di $Y$ dato $x$. Come la legge congiunta, $p_{Y|X}(y|x)$ è una tabella di $|\mathcal{X}| \cdot |\mathcal{Y}|$ numeri che soddisfa alcune proprietà fondamentali.
 
-$$
-p _ {X _ {1}, \dots X _ {m}} (x _ {1}, \dots , x _ {m}) = \mathbb {P} \left(\{X _ {1} = x _ {1} \}, \dots , \{X _ {m} = x _ {m} \}\right)
-$$
-
-così si generalizza il concetto di indipendenza: 
-
-$$
-p _ {X _ {1}, \dots , X _ {m}} (x _ {1}, \dots , x _ {m}) = \mathbb {P} \left(\left\{X _ {1} = x _ {1} \right\}, \dots , \left\{X _ {m} = x _ {m} \right\}\right) =
-$$
-
-$$
-p_{X_1, \dots, X_m}(x_1, \dots, x_m) = \prod_{i=1}^m p_{X_i}(x_i)
-$$
-$$
-\prod_ {i = 1} ^ {m} \mathbb {P} \left(\left\{X _ {i} = x _ {i} \right\}\right) = \prod_ {i = 1} ^ {m} p _ {X _ {i}} \left(x _ {i}\right)
-$$
-
-## Le pmf condizionate
-
-Si considerino variabili aleatorie $X \in \mathcal { X } \mathrm { ~ e ~ } Y \in \mathcal { Y }$ con assegnata pmf congiunta $p _ { X , Y } ( x , y )$ ; 
-
-Applichiamo all’evento $\{ X = x , Y = y \} = \{ X = x \} \cap \{ Y = y \}$ la legge della probabilità composta (vedi slide 36): 
-
-$$
-p _ {X, Y} (x, y) = \mathbb {P} \left(\{X = x \} \cap \{Y = y \}\right) = \overbrace {\mathbb {P} \left(\{Y = y \} | \{X = x \}\right)} ^ {p _ {Y | X} (y | x)} \overbrace {\mathbb {P} \left(\{X = x \}\right)} ^ {p _ {X} (x)}
-$$
-
-$p _ { Y \mid X } ( y | x )$ è la **legge di probabilità condizionata** (o pmf condizionata) di $Y$ dato $x ;$ 
-
-Come la legge congiunta, $p _ { Y \mid X } ( y | x )$ è una tabella di $| \mathcal { X } | | \mathcal { D } |$ numeri che soddisfa alcune proprietà; 
-
-Ovviamente, abbiamo: 
-
-$$
-p _ {Y \mid X} (y \mid x) p _ {X} (x) = p _ {X \mid Y} (x \mid y) p _ {Y} (y) \Longrightarrow
-$$
-
-$$
-p_{Y|X}(y|x) = \frac{p_{X,Y}(x, y)}{p_X(x)}
-$$
-$$
-p _ {X \mid Y} (x \mid y) = \frac {p _ {Y \mid X} (y \mid x) p _ {X} (x)}{p _ {Y} (y)}
-$$
-
+Dalla definizione di probabilità condizionata, abbiamo:
+$$p_{Y|X}(y|x) p_X(x) = p_{X|Y}(x|y) p_Y(y)$$
+Da cui si ricavano le seguenti formule:
+$$p_{Y|X}(y|x) = \frac{p_{X,Y}(x, y)}{p_X(x)}$$
+$$p_{X|Y}(x|y) = \frac{p_{Y|X}(y|x) p_X(x)}{p_Y(y)}$$
 > [!theorem] Legge di Bayes
 > $$
 > p_{X|Y}(x|y) = \frac{p_{Y|X}(y|x) p_X(x)}{p_Y(y)}
 > $$
 
-## Alcune proprietà delle pmf condizionate
+#### Alcune proprietà delle pmf condizionate
 
 $p _ { Y \mid X } ( y | x )$ se $x$ resta fisso e $y$ varia in $Y$ è una legge di probabilità. Infatti: 
 
