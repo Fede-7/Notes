@@ -1,47 +1,34 @@
-Ecco una riscrittura completa del testo della slide strutturata come una vera e propria **scheda di teoria**, priva dei riferimenti all'esercizio e focalizzata esclusivamente sulle definizioni generali e sulle formule matematiche astratte.
+Ecco il testo ottimizzato. Ho pulito il codice LaTeX (che presentava molti spazi superflui e comandi non necessari), migliorato la fluidità della spiegazione e reso più rigorosa la definizione di $h(y)$.
+
+### Teorema della Media Condizionata
+
+Considerando la variabile casuale $Z = g(X, Y)$, possiamo esprimere il suo valore atteso utilizzando la legge di probabilità congiunta $p_{X,Y}(x, y)$ e la sua scomposizione in termini condizionali:
+$$
+\mathbb{E}[g(X, Y)] = \sum_{x \in \mathcal{X}} \sum_{y \in \mathcal{Y}} g(x, y) \underbrace{p_{X,Y}(x, y)}_{p_{X|Y}(x|y) p_Y(y)}
+$$
+Riorganizzando le sommatorie, otteniamo:
+$$
+\mathbb{E}[g(X, Y)] = \sum_{y \in \mathcal{Y}} p_Y(y) \sum_{x \in \mathcal{X}} g(x, y) p_{X|Y}(x|y) = \sum_{y \in \mathcal{Y}} h(y) p_Y(y)
+$$
+In questa espressione, $h(y)$ rappresenta il valore atteso della funzione $g$ condizionato a un valore fissato di $Y$:
+$$
+h(y) = \mathbb{E}[g(X, Y) | Y = y] \implies h(Y) = \mathbb{E}[g(X, Y) | Y]
+$$
+Sostituendo questa definizione nell'equazione precedente, si ottiene la formula fondamentale:
+$$
+\mathbb{E}[g(X, Y)] = \mathbb{E}\left[ \mathbb{E}[g(X, Y) | Y] \right]
+$$
+Questa relazione è nota come **Teorema della Media Condizionata** (o *Law of Iterated Expectations*), poiché dimostra che il valore atteso globale può essere calcolato come il valore atteso del valore atteso condizionato. È possibile scambiare i ruoli di $X$ e $Y$ analogamente, ottenendo $\mathbb{E}[g(X, Y)] = \mathbb{E}[\mathbb{E}[g(X, Y) | X]]$.
 
 ---
 
-# Funzioni di Variabili Casuali Doppie (o Multivariate)
+### Miglioramenti apportati:
 
-Sia data una **variabile casuale doppia discreta** $(X, Y)$ regolata da una funzione di massa di probabilità (pmf) congiunta $p_{X,Y}(x, y)$, definita sullo spazio di supporto complessivo dato dal prodotto cartesiano $\mathcal{X} \times \mathcal{Y}$.
-
-Si definisca una nuova variabile casuale discreta $Z$ come trasformazione deterministica delle prime due attraverso una funzione scalare $g(x, y)$:
-
-
-$$Z = g(X, Y)$$
-
-L'obiettivo teorico è determinare la legge di probabilità (pmf) della nuova variabile $Z$, indicata come $p_Z(z)$, a partire dalla conoscenza della pmf congiunta $p_{X,Y}(x, y)$. A seconda della natura della funzione $g(x,y)$, si distinguono due scenari matematici:
-
-### 1. Trasformazione Biunivoca (Inversa Unica)
-
-Se la funzione $g(x,y)$ mappa ogni singola coppia del dominio $(x,y)$ in un valore di $z$ unico e distinto (ovvero la funzione è iniettiva sullo spazio di supporto), esiste un'unica coppia invertibile $(x(z), y(z))$ tale per cui $z = g(x, y)$.
-
-In questo caso, la probabilità che $Z$ assuma il valore $z$ coincide esattamente con la probabilità congiunta dell'unico punto di partenza che lo ha generato:
-
-
-$$p_Z(z) = \mathbb{P}(Z = z) = p_{X, Y}[x(z), y(z)]$$
-
-### 2. Trasformazione Non Biunivoca (Collassamento delle Probabilità)
-
-Se la funzione $g(x,y)$ assegna lo stesso valore $z$ a più coppie distinte $(x,y)$ (trasformazione *molti-a-uno*), si verifica un fenomeno di **collassamento (o accumulo) delle probabilità**.
-
-Per determinare la probabilità del punto $z$, è necessario individuare l'insieme di controimmagini $\mathcal{A}(z)$, definito come il sottoinsieme dello spazio di supporto contenente tutte le coppie che producono come output esattamente $z$:
-
-
-$$\mathcal{A}(z) = \{ (x, y) \in \mathcal{X} \times \mathcal{Y} : g(x, y) = z \}$$
-
-La pmf di $Z$ si ottiene applicando il principio di additività, ovvero **sommando** le probabilità congiunte di tutte le coppie appartenenti a tale insieme:
-
-
-$$p_Z(z) = \sum_{(x, y) \in \mathcal{A}(z)} p_{X, Y}(x, y)$$
-
----
-
-### Regola Operativa Generale
-
-Per ricavare la distribuzione di $Z = g(X,Y)$ nel caso discreto:
-
-1. **Determinazione del supporto:** Si calcola l'insieme di tutti i valori numerici possibili $\mathcal{Z}$ generati dall'applicazione di $g(x,y)$ su ogni coppia del dominio.
-2. **Partizione dello spazio:** Per ogni elemento $z \in \mathcal{Z}$, si raggruppano le coppie di variabili originarie che soddisfano l'uguaglianza $g(x,y)=z$.
-3. **Marginalizzazione/Sommatoria:** Si sommano i valori di probabilità associati a tali coppie all'interno della distribuzione congiunta di partenza.
+1.  **Pulizia LaTeX:** Ho rimosso i comandi `\boldsymbol`, `\mathrm` e gli spazi bianchi eccessivi (`\ `) che rendevano il codice difficile da leggere e potenzialmente problematico in alcuni renderer di Obsidian.
+2.  **Precisione Logica:** Ho sostituito *"che prende il nome di"* con una struttura più formale, introducendo il termine inglese *Law of Iterated Expectations*, spesso usato nei testi accademici per identificare questo teorema.
+$$
+3.  **Fluidità Sintattica:**
+$$
+    *   Ho cambiato *"Con riferimento a..."* (leggermente arcaico) con *"Considerando la variabile casuale..."*.
+    *   Ho reso più esplicito il passaggio logico tra la somma doppia e la funzione $h(y)$.
+4.  **Correzione Simbologia:** Ho usato `\implies` per la derivazione logica, che è lo standard matematico per indicare "implica".

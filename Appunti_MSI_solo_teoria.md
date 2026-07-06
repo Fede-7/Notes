@@ -814,194 +814,73 @@ In questo caso, la pmf congiunta si riduce al prodotto delle marginali:
 $$p_{X,Y,Z}(x,y,z) = p_X(x) p_Y(y) p_Z(z)$$
 ## Funzioni di variabili doppie
 
-Se una **variabile casuale doppia discreta** $(X, Y)$ è regolata da una funzione di massa di probabilità (pmf) congiunta $p_{X,Y}(x, y)$, definita su $\mathcal{X} \times \mathcal{Y}$.
-
-E si vuole definire una nuova variabile casuale discreta $Z$ come trasformazione deterministica delle prime due attraverso una funzione scalare $g(x, y)$:
+Data una **variabile casuale doppia discreta** $(X, Y)$ regolata da una funzione di massa di probabilità (pmf) congiunta $p_{X,Y}(x, y)$, definita su $\mathcal{X} \times \mathcal{Y}$, si consideri una nuova variabile casuale discreta $Z$ come trasformazione deterministica delle prime due attraverso una funzione scalare $g(x, y)$:
 $$Z = g(X, Y)$$
+L'obiettivo è determinare la legge di probabilità (pmf) della nuova variabile $Z$, indicata come $p_Z(z)$, a partire dalla conoscenza della pmf congiunta $p_{X,Y}(x, y)$. Tale determinazione dipende dalla natura della funzione $g(x,y)$:
 
-Determinare la legge di probabilità (pmf) della nuova variabile $Z$, indicata come $p_Z(z)$, a partire dalla conoscenza della pmf congiunta $p_{X,Y}(x, y)$. Dipende della natura della funzione $g(x,y)$:
-
-### 1. Trasformazione Biunivoca (Inversa Unica)
+#### 1. Trasformazione Biunivoca (Inversa Unica)
 
 Se la funzione $g(x,y)$ mappa ogni singola coppia del dominio $(x,y)$ in un valore di $z$ unico e distinto (ovvero la funzione è iniettiva sullo spazio di supporto), esiste un'unica coppia invertibile $(x(z), y(z))$ tale per cui $z = g(x, y)$.
 
 In questo caso, la probabilità che $Z$ assuma il valore $z$ coincide esattamente con la probabilità congiunta dell'unico punto di partenza che lo ha generato:
-
-$$p_Z(z) = \mathbb{P}(Z = z) = p_{X, Y}[x(z), y(z)]$$
-### 2. Trasformazione Non Biunivoca (Collassamento delle Probabilità)
+$$p_Z(z) = \mathbb{P}(Z = z) = p_{X, Y}(x(z), y(z))$$
+#### 2. Trasformazione Non Biunivoca (Collassamento delle Probabilità)
 
 Se la funzione $g(x,y)$ assegna lo stesso valore $z$ a più coppie distinte $(x,y)$ (trasformazione *molti-a-uno*), si verifica un fenomeno di **collassamento (o accumulo) delle probabilità**.
 
 Per determinare la probabilità del punto $z$, è necessario individuare l'insieme di controimmagini $\mathcal{A}(z)$, definito come il sottoinsieme dello spazio di supporto contenente tutte le coppie che producono come output esattamente $z$:
-
 $$\mathcal{A}(z) = \{ (x, y) \in \mathcal{X} \times \mathcal{Y} : g(x, y) = z \}$$
 La pmf di $Z$ si ottiene applicando il principio di additività, ovvero **sommando** le probabilità congiunte di tutte le coppie appartenenti a tale insieme:
-
 $$p_Z(z) = \sum_{(x, y) \in \mathcal{A}(z)} p_{X, Y}(x, y)$$
 
-### Un esempio
+### Media / Valore Atteso
 
-Si considerino due variabili doppie, $( X _ { 1 } , Y _ { 1 } ) \in \{ 0 , 1 \} ^ { 2 } \mathrm { ~ e ~ } ( X _ { 2 } , Y _ { 2 } ) \in \{ - 1 , 1 \} ^ { 2 }$. Le pmf congiunte sono quelle riportate di seguito: 
+Nel contesto delle trasformazioni multivariate, data una **coppia di variabili casuali discrete** $(X, Y)$ regolata da una legge congiunta $p_{X,Y}(x, y)$, è possibile calcolare il valore atteso di una nuova variabile $Z = g(X, Y)$ senza doverne prima ricavare la funzione di massa di probabilità (pmf).
 
-Tabella 1: pmf congiunta di $(X_1, Y_1)$
+> [!rb] R.B. : Teorema del Calcolo della Media
+> Il valore atteso (o media statistica) di una funzione di due variabili casuali discrete si ottiene calcolando la media ponderata dei valori assunti dalla funzione $g(x,y)$, utilizzando come pesi le rispettive probabilità congiunte:
+> 
+> $$ \mathbb{E}[Z] = \sum_{x \in \mathcal{X}} \sum_{y \in \mathcal{Y}} g(x, y) p_{X,Y}(x, y) = \sum_{(x, y) \in \mathcal{X} \times \mathcal{Y}} g(x, y) p_{X,Y}(x, y) $$
+#### Proprietà: Il caso della combinazione lineare
 
-| **$(x_1, y_1)$** | **$p_{X_1, y_1}(x_1, y_1)$** |
-|:---|:---:|
-| 00 | $\frac{1}{3}$ |
-| 01 | $\frac{2}{9}$ |
-| 10 | $\frac{1}{9}$ |
-| 11 | $\frac{1}{3}$ |
+Un'applicazione di fondamentale importanza riguarda il caso in cui la trasformazione sia una **combinazione lineare** del tipo $Z = aX + bY$, dove $a$ e $b$ sono costanti deterministiche. 
 
-Tabella 2: pmf congiunta di $(X_2, Y_2)$
+Sfruttando la proprietà distributiva delle sommatorie e la definizione di pmf marginale, si dimostra formalmente la **linearità del valore atteso**:
+$$ \mathbb{E}[aX + bY] = \sum_{x \in \mathcal{X}} \sum_{y \in \mathcal{Y}} (ax + by) p_{X,Y}(x, y) $$
+Sviluppando il prodotto e separando i termini:
+$$ = a \sum_{x \in \mathcal{X}} x \underbrace{\sum_{y \in \mathcal{Y}} p_{X,Y}(x, y)}_{p_{X}(x)} + b \sum_{y \in \mathcal{Y}} y \underbrace{\sum_{x \in \mathcal{X}} p_{X,Y}(x, y)}_{p_{Y}(y)} $$
+$$ = a \mathbb{E}[X] + b \mathbb{E}[Y] $$
+> [!quote] Conseguenza Teorica
+> Il valore atteso di una combinazione lineare di variabili casuali è uguale alla combinazione lineare dei loro singoli valori attesi, **indipendentemente dal fatto che le variabili siano statisticamente indipendenti o dipendenti**.
 
-| **$(x_2, y_2)$** | **$p_{X_2, Y_2}(x_2, y_2)$** |
-|:---|:---:|
-| (-1,-1) | $\frac{1}{4}$ |
-| (-1,1) | $\frac{1}{2}$ |
-| (1,-1) | $\frac{1}{8}$ |
-| (1,1) | $\frac{1}{8}$ |
+#### Generalizzazione a $m$ variabili
 
-Si caratterizzino le due variabili aleatorie $Z _ { 1 } = 3 X _ { 1 } ^ { 2 } + Y _ { 1 } \thinspace \thinspace \thinspace e \thinspace Z _ { 2 } = 3 X _ { 2 } ^ { 2 } + Y _ { 2 }$. 
+Il principio di linearità si estende per induzione a un numero qualsiasi $m$ di variabili aleatorie $\{X_i\}_{i=1}^m$ regolate da una pmf congiunta arbitraria $p_{X_1, \dots, X_m}(x_1, \dots, x_m)$:
+$$ \mathbb{E}\left[ \sum_{i=1}^m a_i X_i \right] = \sum_{i=1}^m a_i \mathbb{E}[X_i] $$
+### Teorema della Media Condizionata
 
-Si noti che $| \mathcal { Z } _ { 1 } | = | \{ 0 , 1 , 3 , 4 \} | = | \{ 0 , 1 \} | ^ { 2 }$ $\neq$ $|$, per cui la corrispondenza è biunivoca. 
-
+Considerando la variabile casuale $Z = g(X, Y)$, possiamo esprimere il suo valore atteso utilizzando la legge di probabilità congiunta $p_{X,Y}(x, y)$ e la sua scomposizione in termini condizionali:
 $$
-p _ {Z _ {1}} (0) = p _ {X _ {1}, Y _ {1}} (0, 0) = \frac {1}{3} \quad p _ {Z _ {1}} (1) = p _ {X _ {1}, Y _ {1}} (0, 1) = \frac {2}{9}
+\mathbb{E}[g(X, Y)] = \sum_{x \in \mathcal{X}} \sum_{y \in \mathcal{Y}} g(x, y) \underbrace{p_{X,Y}(x, y)}_{p_{X|Y}(x|y) p_Y(y)}
 $$
-
+Riorganizzando le sommatorie, otteniamo:
 $$
-p _ {Z _ {1}} (3) = p _ {X _ {1}, Y _ {1}} (1, 0) = \frac {1}{9} \quad p _ {Z _ {1}} (4) = p _ {X _ {1}, Y _ {1}} (1, 1) = \frac {1}{3}
+\mathbb{E}[g(X, Y)] = \sum_{y \in \mathcal{Y}} p_Y(y) \sum_{x \in \mathcal{X}} g(x, y) p_{X|Y}(x|y) = \sum_{y \in \mathcal{Y}} h(y) p_Y(y)
 $$
-
-Viceversa, $| \mathcal { Z } _ { 2 } | = | \{ 2 , 4 \} | < | \{ 0 , 1 \} | ^ { 2 }$ $\neq$ $|$, per cui: 
-
+In questa espressione, $h(y)$ rappresenta il valore atteso della funzione $g$ condizionato a un valore fissato di $Y$:
 $$
-p _ {Z _ {2}} (2) = p _ {X _ {2}, Y _ {2}} (1, - 1) + p _ {X _ {2}, Y _ {2}} (- 1, - 1) = \frac {3}{8}
+h(y) = \mathbb{E}[g(X, Y) | Y = y] \implies h(Y) = \mathbb{E}[g(X, Y) | Y]
 $$
-
+Sostituendo questa definizione nell'equazione precedente, si ottiene la formula fondamentale:
 $$
-p _ {Z _ {2}} (4) = p _ {X _ {2}, Y _ {2}} (- 1, 1) + p _ {X _ {2}, Y _ {2}} (1, 1) = \frac {5}{8}
+\mathbb{E}[g(X, Y)] = \mathbb{E}\left[\space \mathbb{E}[g(X, Y) | Y] \space \right]
 $$
+Questa relazione è nota come 
+>[!theorem] **Teorema della Media Condizionata** (o *Law of Iterated Expectations*)
+> Il valore atteso globale $=$valore atteso del valore atteso condizionato. 
+> È possibile scambiare i ruoli di $X$ e $Y$ analogamente, ottenendo: $$\mathbb{E}[g(X, Y)] = \mathbb{E}[\mathbb{E}[g(X, Y) | X]]$$
 
-## Media di funzioni di variabili doppie
-
-Con riferimento alla trasformazione generica $Z = \boldsymbol { \mathrm { g } } ( \boldsymbol { X } , \boldsymbol { Y } )$ si vede immediatamente che il **Teorema Fondamentale** per il calcolo della Media (vedi slide 60) si traduce in: 
-
-$$
-\mathbb {E} [ Z ] = \sum_ {x \in \mathcal {X}} \sum_ {y \in \mathcal {Y}} g (x, y) p _ {X, Y} (x, y) = \sum_ {(x, y) \in \mathcal {X} \times \mathcal {Y}} g (x, y) p _ {X, Y} (x, y)
-$$
-
-Si noti che, se $Z = a X + b Y$ $\neq$ $|$, con $a$ e $b$ costanti deterministiche, allora: 
-
-$$
-\mathbb {E} [ a X + b Y ] = \sum_ {x \in \mathcal {X}} \sum_ {y \in \mathcal {Y}} (a x + b y) p _ {X, Y} (x, y) = a \sum_ {x \in \mathcal {X}} x \overbrace {\sum_ {y \in \mathcal {Y}} p _ {X , Y} (x , y)} ^ {p _ {X} (x)} +
-$$
-
-$$
-+ b \sum_ {y \in \mathcal {Y}} y \overbrace {\sum_ {x \in \mathcal {X}} p _ {X , Y} (x , y)} ^ {p _ {Y} (y)} = a \mathbb {E} [ X ] + b \mathbb {E} [ Y ]
-$$
-
-Più in generale, se $\{ X _ { i } \} _ { i = 1 } ^ { m }$ sono $m$ variabili aleatorie con pmf $p _ { X _ { 1 } , \ldots , X _ { m } } ( x _ { 1 } , \ldots , x _ { m } )$ 
-
-$$
-\mathbb {E} \left[ \sum_ {i = 1} ^ {m} a _ {i} X _ {i} \right] = \sum_ {i = 1} ^ {m} a _ {i} \mathbb {E} \left[ X _ {i} \right]
-$$
-
-## Teorema della media condizionata
-
-Con riferimento a $Z = \boldsymbol { \mathrm { g } } ( \boldsymbol { X } , \boldsymbol { Y } )$ osserviamo che: 
-
-$$
-\mathbb {E} \left[ Z \right] = \mathbb {E} \left[ g (X, Y) \right] = \sum_ {x \in \mathcal {X}} \sum_ {y \in \mathcal {Y}} g (x, y) \overbrace {p _ {X , Y} (x , y)} ^ {p _ {X | Y} (x | y) p _ {Y} (y)} =
-$$
-
-$$
-\sum_ {y \in \mathcal {Y}} p _ {Y} (y) \sum_ {x \in \mathcal {X}} g (x, y) p _ {X | Y} (x | y) = \sum_ {y \in \mathcal {Y}} h (y) p _ {Y} (y)
-$$
-
-Nella precedente, $h ( y )$ rappresenta la media di $g ( X , y )$ eseguita rispetto alla pmf condizionata $p _ { X \mid Y } ( x | y )$. Cioè: 
-
-$$
-h (y) = \mathbb {E} [ g (X, Y) | Y = y ] \Longrightarrow h (Y) = \mathbb {E} [ g (X, Y) | Y ] \Longrightarrow
-$$
-
-$$
-\mathbb {E} \left[ g (X, Y) \right] = \mathbb {E} \left[ h (Y) \right] = \mathbb {E} \left[ \mathbb {E} \left[ g (X, Y) | Y \right] \right]
-$$
-
-che prende il nome di **Teorema della Media Condizionata**, visto che $\mathbb { E } \left[ g ( X , Y ) | Y \right]$ è la media di $g ( X , Y )$ condizionata a $Y$. Ovviamente i ruoli di $X \textsf { e Y }$ si possono scambiare. 
-
-## Esempio di applicazione - 1
-
-Torniamo all’esempio della slide 81. Ovviamente avremo: 
-
-$$
-\mathbb {E} \left[ Z _ {1} \right] = \frac {2}{9} + \frac {3}{9} + \frac {4}{3} = \frac {1 7}{9} \quad \mathbb {E} \left[ Z _ {2} \right] = \frac {1 3}{4}
-$$
-
-Il teorema della media condizionata si scrive: 
-
-$$
-\mathbb {E} \left[ Z _ {1} \right] = \mathbb {E} \left[ \mathbb {E} \left[ Z _ {1} | Y _ {1} \right] \right]
-$$
-
-$$
-\mathbb {E} \left[ Z _ {2} \right] = \mathbb {E} \left[ \mathbb {E} \left[ Z _ {2} | Y _ {2} \right] \right]
-$$
-
-per cui occorre calcolare $p _ { X _ { 1 } | Y _ { 1 } } ( x _ { 1 } | y _ { 1 } ) , p _ { Y _ { 1 } } ( y _ { 1 } ) , p _ { X _ { 2 } | Y _ { 2 } } ( x _ { 2 } | y _ { 2 } , p _ { Y _ { 2 } } ( y _ { 2 } )$. Dal momento che 
-
-$$
-p _ {X _ {1} | Y _ {1}} (x _ {1} | y _ {1}) = \frac {p _ {X _ {1} , Y _ {1}} (x _ {1} , y _ {1})}{p _ {Y _ {1}} (y _ {1})} \quad p _ {X _ {2} | Y _ {2}} (x _ {2} | y _ {2}) = \frac {p _ {X _ {2} , Y _ {2}} (x _ {2} , y _ {2})}{p _ {Y _ {2}} (y _ {2})}
-$$
-
-calcoliamo innanzitutto $p _ { Y _ { 1 } } ( y _ { 1 } ) \mathtt { e } p _ { Y _ { 2 } } ( y _ { 2 } )$ mediante marginalizzazione delle relative congiunte.
-
-## Esempio di applicazione - 2
-
-$$
-p _ {Y _ {1}} (0) = p _ {X _ {1}, Y _ {1}} (0, 0) + p _ {X _ {1}, Y _ {1}} (1, 0) = \frac {4}{9} \quad p _ {Y _ {1}} (1) = 1 - p _ {Y _ {1}} (0) = \frac {5}{9}
-$$
-
-$$
-p _ {Y _ {2}} (- 1) = p _ {X _ {2}, Y _ {2}} (- 1, - 1) + p _ {X _ {2}, Y _ {2}} (1, - 1) = \frac {3}{8} \quad p _ {Y _ {2}} (1) = 1 - p _ {Y _ {2}} (- 1) = \frac {5}{8}
-$$
-
-Pertanto le condizionali si scrivono:
-
-| $(x_1, y_1)$ | $p_{X_1|Y_1}(x_1|y_1)$ |
-|:---|:---:|
-| 00 | $\frac{1}{3} \frac{9}{4} = \frac{3}{4}$ |
-| 01 | $\frac{2}{9} \frac{9}{5} = \frac{2}{5}$ |
-| 10 | $\frac{1}{9} \frac{9}{4} = \frac{1}{4}$ |
-| 11 | $\frac{1}{3} \frac{9}{5} = \frac{3}{5}$ |
-
-Tabella 1: Distribuzioni condizionali per $X_1$ dato $Y_1$.
-
-| $(x_{2},y_{2})$ | $p_{X_2|Y_2}(x_{2}|y_{2})$ |
-|:---|:---:|
-| (-1,-1) | $\frac{1}{4}\frac{8}{3}=\frac{2}{3}$ |
-| (-1,1) | $\frac{1}{2}\frac{8}{5}=\frac{4}{5}$ |
-| (1,-1) | $\frac{1}{8}\frac{8}{3}=\frac{1}{3}$ |
-| (1,1) | $\frac{1}{8}\frac{8}{5}=\frac{1}{5}$ |
-
-Tabella 2: Distribuzioni condizionali per $X_2$ dato $Y_2$.
-
-Ci limitiamo all’applicazione a $Z _ { 1 }$ , lasciando per esercizio l’applicazione a $Z _ { 2 }$ 
-
-$$
-\mathbb {E} \left[ Z _ {1} | Y _ {1} = 0 \right] = \mathbb {E} \left[ 3 X _ {1} ^ {2} + Y _ {1} | Y _ {1} = 0 \right] = \mathbb {E} \left[ 3 X _ {1} ^ {2} | Y _ {1} = 0 \right] = 3 p _ {X _ {1} | Y _ {1}} (1 | 0) = \frac {3}{4}
-$$
-
-$$
-\mathbb {E} \left[ Z _ {1} | Y _ {1} = 1 \right] = 3 \mathbb {E} \left[ X _ {1} ^ {2} | Y _ {1} = 1 \right] + 1 = 3 p _ {X _ {1} | Y _ {1}} (1 | 1) + 1 = \frac {1 4}{5} \Longrightarrow
-$$
-
-$$
-\mathbb {E} \left[ Z _ {1} \right] = p _ {Y _ {1}} (0) \mathbb {E} \left[ Z _ {1} | Y _ {1} = 0 \right] + p _ {Y _ {1}} (1) \mathbb {E} \left[ Z _ {1} | Y _ {1} = 1 \right] = \frac {4}{9} \frac {3}{4} + \frac {5}{9} \frac {1 4}{5} = \frac {1 7}{9}
-$$
-
-## La covarianza tra due variabili aleatorie - 1
+## La covarianza tra due variabili aleatorie
 
 Sia $( X , Y ) \sim p { x , } \{ x , y \} , ( x , y ) \in \mathcal { X } \times \mathcal { Y } ;$ 
 
@@ -1009,9 +888,7 @@ Abbiamo visto che le coppie $( \mu _ { X } , \sigma _ { X } ^ { 2 } ) \textsf { 
 
 L’equivalente per le **pmf** (Probability Mass Functions) congiunte è la **covarianza**, che dà un’idea - ancora abbastanza sommaria - del grado di ”dipendenza” tra $X$ e $Y$.
 
-## Definizioni
-
-> [!theorem] Correlazione
+> [!def] Correlazione
 > La correlazione tra $X \in Y$ è una misura della forza e della direzione della relazione lineare tra due variabili casuali. Intuitivamente, indica quanto le due variabili tendano a variare insieme in modo proporzionale.
 >
 > Formalmente:
@@ -1031,7 +908,7 @@ $$
 \sum_ {x \in \mathcal {X}} \sum_ {y \in \mathcal {Y}} (x - \mu_ {X}) (y - \mu_ {Y}) p _ {X, Y} (x, y)
 $$
 
-## Proprietà della covarianza - 1
+## Proprietà della covarianza
 
 ### [a] Relazione tra correlazione e covarianza:
 
@@ -1052,7 +929,7 @@ $$
 = \sum_ {x \in \mathcal {X}} (x - \mu_ {X}) p _ {X} (x) \sum_ {y \in \mathcal {Y}} (y - \mu_ {Y}) p _ {Y} (y) = \mathbb {E} [ X - \mu_ {X} ] \mathbb {E} [ Y - \mu_ {Y} ] = 0
 $$
 
-## Proprietà della covarianza - 2
+
 
 $$
 | \operatorname{COV} [ X, Y ] | \leq \sigma_ {X} \sigma_ {Y}
@@ -1172,7 +1049,6 @@ $$
 \sigma_ {Y _ {2}} ^ {2} = \frac {1 5}{1 6} = 0. 9 3 7 5
 $$
 
-## Esempio (continuazione)
 
 Si procede ora al calcolo delle covarianze. Le espressioni risultano:
 
