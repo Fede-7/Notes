@@ -882,86 +882,155 @@ Questa relazione è nota come
 
 ## La covarianza tra due variabili aleatorie
 
-Sia $( X , Y ) \sim p { x , } \{ x , y \} , ( x , y ) \in \mathcal { X } \times \mathcal { Y } ;$ 
+Sia $(X, Y) \sim p_{X,Y}(x, y)$ con $(x, y) \in \mathcal{X} \times \mathcal{Y}$. 
 
-Abbiamo visto che le coppie $( \mu _ { X } , \sigma _ { X } ^ { 2 } ) \textsf { e } ( \mu _ { Y } , \sigma _ { Y } ^ { 2 } )$ contengono delle informazioni globali - ancorché sommarie - delle due marginali $p _ { X } ( x ) \mathrm { ~ e ~ } p _ { Y } ( y )$ 
+Mentre le coppie $(\mu_X, \sigma_X^2)$ e $(\mu_Y, \sigma_Y^2)$ forniscono informazioni globali sulle distribuzioni marginali $p_X(x)$ e $p_Y(y)$, l'equivalente per le **pmf** (Probability Mass Functions) congiunte è la **covarianza**. Essa misura il grado di dipendenza lineare tra $X$ e $Y$.
 
-L’equivalente per le **pmf** (Probability Mass Functions) congiunte è la **covarianza**, che dà un’idea - ancora abbastanza sommaria - del grado di ”dipendenza” tra $X$ e $Y$.
-
-> [!def] Correlazione
-> La correlazione tra $X \in Y$ è una misura della forza e della direzione della relazione lineare tra due variabili casuali. Intuitivamente, indica quanto le due variabili tendano a variare insieme in modo proporzionale.
->
+> [!def] Covarianza
+> La covarianza è una misura statistica che indica la **direzione** della relazione lineare tra due variabili aleatorie.
+> * Se positiva, le variabili tendono a crescere insieme
+> * Se negativa, tendono a muoversi in direzioni opposte
+> 
+> 
+> *Nota: Il suo valore numerico dipende dall'unità di misura delle variabili, quindi non ne indica l'intensità.*
 > Formalmente:
-> $$
-> R _ {X, Y} = \mathbb {E} [ X Y ] = \sum_ {x \in \mathcal {X}} \sum_ {y \in \mathcal {Y}} x y p _ {X, Y} (x, y)
-> $$
+> 
+> $$\operatorname{COV}[X, Y] = \mathbb{E}\left[ (X - \mu_X)(Y - \mu_Y) \right] = \sum_{x \in \mathcal{X}} \sum_{y \in \mathcal{Y}} (x - \mu_X)(y - \mu_Y) p_{X,Y}(x, y)$$
+> 
+> 
 
-> [!theorem] Covarianza
-> La covarianza è una misura statistica che indica la direzione della relazione lineare tra due variabili aleatorie. Se la covarianza è positiva, le variabili tendono a crescere insieme; se è negativa, tendono a muoversi in direzioni opposte.
->
+> [!def] Correlazione (Coefficiente di Pearson)
+> Il coefficiente di correlazione (indicato con $\rho_{X,Y}$) è una misura della **forza** e della **direzione** della relazione lineare tra due variabili casuali. Essendo un valore standardizzato, è sempre compreso tra $-1$ e $+1$.
+> Intuitivamente, indica quanto le due variabili tendano a variare insieme in modo proporzionale, indipendentemente dalla loro unità di misura.
 > Formalmente:
-> $$
-> \sigma_ {X, Y} ^ {2} = \operatorname{COV} [ X, Y ] = \mathbb {E} \left[ (X - \mu_ {X}) (Y - \mu_ {Y}) \right] =
-> $$
+> 
+> $$\rho_{X, Y} = \frac{\operatorname{COV}[X, Y]}{\sigma_X \sigma_Y}$$
+> 
+> 
+> 
+> *(dove $\sigma_X$ e $\sigma_Y$ sono le deviazioni standard di $X$ e $Y$)*
 
-$$
-\sum_ {x \in \mathcal {X}} \sum_ {y \in \mathcal {Y}} (x - \mu_ {X}) (y - \mu_ {Y}) p _ {X, Y} (x, y)
-$$
+#### Rappresentazione della Covarianza
+```easy-tikz
+{
+  "dimension": false,
+  "documentSetup": true,
+  "title": "Covarianza (Dipendenza dalla Scala)",
+  "size_x_cm": 10,
+  "size_y_cm": 10,
+  "show_axis_label": true,
+  "axis_label_x": "X",
+  "axis_label_y": "Y",
+  "documentClose": true,
+  "showAxis": true,
+  "gridSize": 5,
+  "xmin": "-10",
+  "xmax": "10",
+  "ymin": "-10",
+  "ymax": "10",
+  "axis_style": "box",
+  "functions": [
+    {
+      "expression": "2*x",
+      "domain": "-5:5",
+      "showLegend": true,
+      "color": "blue",
+      "thickness": "thick",
+      "name": "Scala Ampia (Covarianza Maggiore)"
+    },
+    {
+      "expression": "0.5*x",
+      "domain": "-8:8",
+      "showLegend": true,
+      "color": "orange",
+      "thickness": "thick",
+      "name": "Scala Ridotta (Covarianza Minore)"
+    }
+  ],
+  "rotationX": 0,
+  "rotationZ": 0,
+  "coordinateSystem": "cartesian"
+}
 
-## Proprietà della covarianza
+```
+#### Rappresentazione della Correlazione
+```easy-tikz
+{
+  "dimension": false,
+  "documentSetup": true,
+  "title": "Correlazione (Standardizzata tra -1 e 1)",
+  "size_x_cm": 10,
+  "size_y_cm": 10,
+  "show_axis_label": true,
+  "axis_label_x": "X",
+  "axis_label_y": "Y",
+  "documentClose": true,
+  "showAxis": true,
+  "gridSize": 5,
+  "xmin": "-5",
+  "xmax": "5",
+  "ymin": "-5",
+  "ymax": "5",
+  "axis_style": "box",
+  "functions": [
+    {
+      "expression": "x",
+      "domain": "-4:4",
+      "showLegend": true,
+      "color": "green",
+      "thickness": "thick",
+      "name": "Relazione Perfetta (R = 1)"
+    },
+    {
+      "expression": "x + 0.3*sin(4*x)",
+      "domain": "-4:4",
+      "showLegend": true,
+      "color": "purple",
+      "thickness": "thin",
+      "name": "Dispersione/Rumore (R < 1)"
+    }
+  ],
+  "rotationX": 0,
+  "rotationZ": 0,
+  "coordinateSystem": "cartesian"
+}
 
-### [a] Relazione tra correlazione e covarianza:
+```
 
-$$
-\operatorname{COV} [ X, Y ] = \mathbb {E} [ X Y - \mu_ {X} Y - \mu_ {Y} X + \mu_ {X} \mu_ {Y} ] = \overbrace {\mathbb {E} [ X Y ]} ^ {R _ {X, Y}} - \mu_ {X} \mu_ {Y}
-$$
+### Proprietà della covarianza
 
-dove si è sfruttata la linearità della media. Si noti che se almeno una delle due variabili ha media nulla $\mathsf { C O V } [ X , Y ] = R x , Y$ 
+#### a) Relazione tra momento di ordine 2 e covarianza
+Sfruttando la linearità del valore atteso, possiamo scomporre la covarianza come segue:
+$$\operatorname{COV}[X, Y] = \mathbb{E}[XY - \mu_X Y - \mu_Y X + \mu_X \mu_Y] = \mathbb{E}[XY] - \mu_X \mu_Y$$
+Si noti che se almeno una delle due variabili ha media nulla ($\mu_X=0$ o $\mu_Y=0$), allora $\operatorname{COV}[X, Y] = \mathbb{E}[XY]$.
 
-### [b] Incorrelazione vs Indipendenza
-Due variabili che abbiano covarianza nulla si dicono **incorrelate**. Si noti che variabili indipendenti sono sempre incorrelate, ma la proposizione non si inverte, nel senso che l’incorrelazione non implica in genere l’indipendenza.
+#### b) Incorrelazione vs Indipendenza
+Due variabili con covarianza nulla sono dette **incorrelate**. È fondamentale ricordare che:
+*   **Indipendenza $\Rightarrow$ Incorrelazione**: Se $X$ e $Y$ sono indipendenti, la loro pmf congiunta è il prodotto delle marginali $p_{X,Y}(x,y) = p_X(x)p_Y(y)$.
+*   **Incorrelazione $\nRightarrow$ Indipendenza**: Due variabili possono essere incorrelate ma comunque dipendenti (ad esempio in relazioni non lineari).
 
-$$
-(X, Y) \sim p _ {X} (x) p _ {Y} (y) \Longrightarrow \operatorname{COV} [ X, Y ] = \sum_ {x \in \mathcal {X}} \sum_ {y \in \mathcal {Y}} (x - \mu_ {X}) (y - \mu_ {Y}) p _ {X} (x) p _ {Y} (y)
-$$
+Dimostrazione per variabili indipendenti:
+$$\operatorname{COV}[X, Y] = \sum_{x \in \mathcal{X}} \sum_{y \in \mathcal{Y}} (x - \mu_X)(y - \mu_Y) p_X(x)p_Y(y)$$
+$$= \left( \sum_{x \in \mathcal{X}} (x - \mu_X) p_X(x) \right) \left( \sum_{y \in \mathcal{Y}} (y - \mu_Y) p_Y(y) \right) = \mathbb{E}[X - \mu_X] \cdot \mathbb{E}[Y - \mu_Y] = 0 \cdot 0 = 0$$
 
-$$
-= \sum_ {x \in \mathcal {X}} (x - \mu_ {X}) p _ {X} (x) \sum_ {y \in \mathcal {Y}} (y - \mu_ {Y}) p _ {Y} (y) = \mathbb {E} [ X - \mu_ {X} ] \mathbb {E} [ Y - \mu_ {Y} ] = 0
-$$
+#### c) Coefficiente di Correlazione
+Si può dimostrare che $|\operatorname{COV}[X, Y]| \leq \sigma_X \sigma_Y$. Utilizzando la proprietà della non-negatività del valore atteso:
+$$0 \leq \mathbb{E} \left[ \left( \frac{X - \mu_X}{\sigma_X} \pm \frac{Y - \mu_Y}{\sigma_Y} \right)^2 \right] = \underbrace{\mathbb{E} \left[ \left(\frac{X - \mu_X}{\sigma_X}\right)^2 \right]}_{1} + \underbrace{\mathbb{E} \left[ \left(\frac{Y - \mu_Y}{\sigma_Y}\right)^2 \right]}_{1} \pm 2 \mathbb{E} \left[ \frac{(X - \mu_X)(Y - \mu_Y)}{\sigma_X \sigma_Y} \right]$$
+$$= 2 \pm 2 \frac{\operatorname{COV}[X, Y]}{\sigma_X \sigma_Y}$$
+Da cui deriva che $-1 \leq \frac{\operatorname{COV}[X, Y]}{\sigma_X \sigma_Y} \leq 1$. La quantità $\rho_{X,Y}$ è definita come **coefficiente di correlazione**:
+$$\rho_{X,Y} = \frac{\operatorname{COV}[X, Y]}{\sigma_X \sigma_Y} \in [-1, 1]$$
 
-
-
-$$
-| \operatorname{COV} [ X, Y ] | \leq \sigma_ {X} \sigma_ {Y}
-$$
-
-Questo potrebbe dimostrarsi con la disuguaglianza di Schwartz. Qui preferiamo un’altra strada. Si noti che: 
-
-$$
-0 \leq \mathbb {E} \left[ \left(\frac {X - \mu_ {X}}{\sigma_ {X}} \pm \frac {Y - \mu_ {Y}}{\sigma_ {Y}}\right) ^ {2} \right] = \overbrace {\mathbb {E} \left[ \left(\frac {X - \mu_ {X}}{\sigma_ {X}}\right) ^ {2} \right]} ^ {= 1} + \overbrace {\mathbb {E} \left[ \left(\frac {Y - \mu_ {Y}}{\sigma_ {Y}}\right) ^ {2} \right]}
-$$
-
-$$
-\pm 2 \mathbb {E} \left[ \left(\frac {X - \mu_ {X}}{\sigma_ {X}} \frac {Y - \mu_ {Y}}{\sigma_ {Y}}\right) \right] = 2 \pm 2 \frac {\operatorname{COV} [ X , Y ]}{\sigma_ {X} \sigma_ {Y}} \Longrightarrow - 1 \leq \frac {\operatorname{COV} [ X , Y ]}{\sigma_ {X} \sigma_ {X}} \leq 1
-$$
-
-La quantità $\begin{array} { r } { \rho _ { X , Y } = \frac { \mathsf { C O V } [ X , Y ] } { \sigma _ { X } \sigma _ { Y } } \in [ - 1 , 1 ] } \end{array}$ si definisce coefficiente di covarianza (ma più spesso di correlazione). 
-
-Infine, definendo $Z = a X + b Y$ , per cui $\mu _ { Z } = a \mu _ { X } + b \mu _ { Y }$ , avremo: 
-
-$$
-\sigma_ {Z} ^ {2} = \mathbb {E} [ Z ^ {2} ] - \mu_ {Z} ^ {2} = \mathbb {E} [ a X + b Y ] - (a \mu_ {X} + b \mu_ {Y}) ^ {2} =
-$$
-
-$$
-= a ^ {2} \sigma_ {X} ^ {2} + b ^ {2} \sigma_ {Y} ^ {2} + 2 a b \mathrm{COV} [ X, Y ]
-$$
+#### b) Varianza di una combinazione lineare
+Definendo $Z = aX + bY$, dove $\mu_Z = a\mu_X + b\mu_Y$, la varianza di $Z$ è:
+$$\sigma_Z^2 = \mathbb{E}[Z^2] - \mu_Z^2 = \mathbb{E}[(aX + bY)^2] - (a\mu_X + b\mu_Y)^2$$
+Sviluppando i termini e applicando la linearità:
+$$\sigma_Z^2 = a^2 \sigma_X^2 + b^2 \sigma_Y^2 + 2ab \operatorname{COV}[X, Y]$$
 
 ## Esempio
 
 Data la richiesta di confrontare le due **pmf** (probabilità di massa) congiunte fornite, è necessario determinare quale delle due leggi di probabilità congiunta generi il maggiore coefficiente di correlazione.
 
-> [!quote] Definizioni preliminari
+> [!rb] Definizioni preliminari
 > **PMF (Probability Mass Function)**
 > In termini intuitivi, la PMF indica la probabilità che una variabile casuale discreta assuma un determinato valore specifico. Ad esempio, se si lancia un dado, la PMF assegna la probabilità $1/6$ a ciascun numero da 1 a 6.
 > Formalmente, per una variabile casuale discreta $X$, la funzione di massa di probabilità è definita come:
