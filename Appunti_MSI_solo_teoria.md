@@ -691,8 +691,7 @@ $$\sigma_X^2 \geq 0$$
 *   **Trasformazione Lineare:** Se $Y = aX + b$, allora la varianza è:
 $$\sigma_Y^2 = a^2 \sigma_X^2$$
 
-**Dimostrazione:**
-
+>[!dim] Dimostrazione:
 $$\mu_Y = a\mu_X + b$$
 $$\mathbb{E}[Y^2] = \mathbb{E}[a^2X^2 + 2abX + b^2] = a^2\mathbb{E}[X^2] + 2ab\mathbb{E}[X] + b^2$$
 $$\sigma_Y^2 = a^2\mathbb{E}[X^2] + 2ab\mu_X + b^2 - (a\mu_X + b)^2 = a^2\sigma_X^2$$
@@ -713,67 +712,32 @@ dove $\mathcal { X } \in \mathcal { V }$ sono gli alfabeti di $X$ e di $Y$ rispe
 
 In altre parole, il risultato di un esperimento $\omega _ { * }$ non è un unico valore $X ( \omega _ { * } ) = x _ { * } \in \mathcal { X }$, ma una coppia ordinata $( X ( \omega _ { * } ) , Y ( \omega _ { * } ) ) = ( x _ { * } , y _ { * } )$, che varia nel prodotto cartesiano $\mathcal { X } \times \mathcal { V }$.
 
-> [!example] Esempio 1 (Variabili multiple)
-> Si consideri un elenco di tutti i residenti in Italia a una certa data, corredato di dati quali altezza ($X$), peso ($Y$) ed età ($Z$). Se si scelga un residente a caso e se ne leggano l'altezza $X ( \omega ) \in \{ 3 0 \mathsf { c m } , 3 1 \mathsf { c m } , \dots 2 1 0 \mathsf { c m } \}$, il peso $Y ( \omega ) \in \{ 0 . 5 \ : \mathrm { k g } , 0 . 6 \ : \mathrm { k g } , . \dots 1 7 0 \ : \mathrm { k g } \}$ e l'età $Z ( \omega ) \in \{ 0 \mathrm { a n n i , 0 . 5 a n n i , \dots 1 1 0 a n n i } \}$.
+## pmf/DF/pdf congiunta
+$$p_{X,Y}(x,y) = \mathbb{P}(\{X = x\} \cap \{Y = y\}) = \lim_{n \to \infty} \frac{n_{X=x, Y=y}}{n}, \quad (x,y) \in \mathcal{X} \times \mathcal{Y}$$
+In altre parole, $p_{X,Y}(x,y)$ è una tabella di $|\mathcal{X}| \cdot |\mathcal{Y}|$ numeri che — ovviamente — gode di opportune proprietà.
 
-## Possibili coppie sono
+### Proprietà
 
-$$
-(X (\omega), Y (\omega)) \in \mathcal {X} \times \mathcal {Y}, \quad (X (\omega), Z (\omega)) \in \mathcal {X} \times \mathcal {Z}, \quad (Y (\omega), Z (\omega)) \in \mathcal {Y} \times \mathcal {Z}
-$$
+Le proprietà fondamentali della pmf congiunta (identiche alla pmf classica) sono:
+$$p_{X,Y}(x,y) \geq 0 \quad \text{e} \quad \sum_{x \in \mathcal{X}} \sum_{y \in \mathcal{Y}} p_{X,Y}(x,y) = 1$$
 
-$( X ( \omega ) , Y ( \omega ) , Z ( \omega ) ) \in \mathcal { X } \times \mathcal { Y } \times \mathcal { Z } \ \dot { \rho }$ rappresenta una terna di variabili aleatorie.
+>[!dim] Dimostrazione:
+$$1 = \mathbb{P}(\Omega) = \mathbb{P}\left(\bigcup_{x \in \mathcal{X}} \bigcup_{y \in \mathcal{Y}} \{X = x, Y = y\}\right) = \sum_{x \in \mathcal{X}} \sum_{y \in \mathcal{Y}} \underbrace{\mathbb{P}(\{X = x, Y = y\})}_{p_{X,Y}(x,y)}$$
 
-## 2. pmf/DF/pdf congiunta
+Questo perché l'evento elementare $\{X = x, Y = y\}$ è incompatibile con ogni altro evento elementare $\{X = x', Y = y'\}$ per $x \neq x'$ e/o $y \neq y'$.
 
-Si supponga di considerare la coppia $( X , Y )$ (nel caso precedente, altezza e peso di un residente scelto a caso); 
+#### Marginalizzazione
+Si noti che $\bigcup_{x \in \mathcal{X}} \{X = x\} = \Omega$ e $\bigcup_{y \in \mathcal{Y}} \{Y = y\} = \Omega$, per cui:
+$$\{X = x\} = \{X = x\} \cap \Omega = \{X = x\} \cap \bigcup_{y \in \mathcal{Y}} \{Y = y\} = \bigcup_{y \in \mathcal{Y}} (\{X = x\} \cap \{Y = y\})$$
+Da cui deriva:
+$$\sum_{y \in \mathcal{Y}} p_{X,Y}(x,y) = p_X(x)$$
+$$\Longrightarrow \mathbb{P}(\{X = x\}) = \mathbb{P}\left(\bigcup_{y \in \mathcal{Y}} \{\{X = x\} \cap \{Y = y\}\}\right) = \sum_{y \in \mathcal{Y}} \mathbb{P}(\{X = x\} \cap \{Y = y\})$$
+Si ha quindi la proprietà di **marginalizzazione**:
+$$\sum_{y \in \mathcal{Y}} p_{X,Y}(x,y) = p_X(x) \quad \text{e} \quad \sum_{x \in \mathcal{X}} p_{X,Y}(x,y) = p_Y(y)$$
+**Conclusione:**
+Caratterizzare congiuntamente $(X, Y)$ significa anche caratterizzarle marginalmente, mentre il viceversa non è necessariamente vero.
 
-Si eseguano $n$ esperimenti (nel caso precedente, si scelga per $n$ volte a caso un nome dell’elenco); 
-
-Si registrino i relativi valori di $\{ ( \boldsymbol { X } ( \omega _ { i } ) , \boldsymbol { Y } ( \omega _ { i } ) ) \} _ { i = 1 } ^ { n }$ (nel caso precedente, altezza e peso del residente di volta in volta scelto); 
-
-Si indichi con $n _ { X = x , Y = y } = n _ { X = x , Y = y } ( n )$ il numero di volte in cui $X = x \in$ $Y = y$ (nel caso precedente, il numero di volte in cui l’utente scelto a caso ha una altezza $x$ e un peso $y$); 
-
-Ovviamente, l’evento $\{ X = x \} \cap \{ Y = y \}$ occorre $n x { = } x , Y { = } y$ volte su $n$ esperimenti. Definiamo allora la seguente **pmf congiunta** delle due variabili aleatorie $X \textsf { e Y }$ 
-
-$$
-p _ {X, Y} (x, y) = \mathbb {P} \left(\{X = x \} \cap \{Y = y \}\right) = \lim _ {n \rightarrow \infty} \frac {n _ {X = x , Y = y}}{n}, \quad (x, y) \in \mathcal {X} \times \mathcal {Y}
-$$
-
-In altre parole, $p x , v ( x , y ) \ { \dot { \mathbf { e } } }$ una tabella di $| \mathcal { X } | | \mathcal { D } |$ numeri che - ovviamente - gode di opportune proprietà. 
-
-## 3. Proprietà della pmf congiunta
-
-$\begin{array} { r } { p x , \gamma \geq 0 \in \sum _ { x \in \mathcal { X } } \sum _ { y \in \mathcal { Y } } p x , \gamma ( x , y ) = 1 } \end{array}$ . Infatti: 
-
-$$
-1 = \mathbb {P} (\Omega) = \mathbb {P} \left(\cup_ {x \in \mathcal {X}} \cup_ {y \in \mathcal {Y}} \{X = x, Y = y \}\right) = \sum_ {x \in \mathcal {X}} \sum_ {y \in \mathcal {Y}} \underbrace {\mathbb {P} \left(\{X = x , Y = y \}\right)} _ {p _ {X, Y} (x, y)}
-$$
-
-essendo l’evento elementare $\{ X = x , Y = y \}$ incompatibile con ogni altro evento elementare $\{ X = x ^ { \prime } , Y = y ^ { \prime } \}$ con $x \neq x ^ { \prime } \mathtt { e } / \circ y \neq y ^ { \prime }$ 
-
-Si noti che $\cup _ { x \in \mathcal { X } } \{ X = x \} = \Omega \textsf { e } \cup _ { y \in \mathcal { Y } } = \Omega$ , per cui: 
-
-$$
-\{X = x \} = \{X = x \} \cap \Omega = \{X = x \} \cap \cup_ {y \in \mathcal {Y}} \{Y = y \} = \cup_ {y \in \mathcal {Y}} \{X = x \} \cap \{Y = y \}
-$$
-
-$$
-\sum_{y \in \mathcal{Y}} p_{X,Y}(x, y) = p_X(x)
-$$
-$$
-\Longrightarrow \mathbb {P} (\{X = x \}) = \mathbb {P} \left(\cup_ {y \in \mathcal {Y}} \{\{X = x \} \cap \{Y = y \} \}\right) = \sum_ {y \in \mathcal {Y}} \mathbb {P} \left(\{X = x \} \cap \{Y = y \}\right)
-$$
-
-Si ha quindi la proprietà di **marginalizzazione**: 
-
-$$
-\sum_ {y \in \mathcal {Y}} p _ {X, Y} (x, y) = p _ {X} (x) \quad \sum_ {x \in \mathcal {X}} p _ {X, Y} (x, y) = p _ {Y} (y)
-$$
-
-per cui caratterizzare congiuntamente $(X, Y)$ significa anche caratterizzarle marginalmente, mentre il viceversa non è necessariamente vero. 
-
-## 4. Variabili indipendenti
+## Variabili indipendenti
 
 Due variabili aleatorie $X \in \mathcal { X } \mathrm { ~ e ~ } Y \in \mathcal { Y }$ sono **indipendenti** se (e solo se) gli eventi $\{ X = x \} \mathrm { ~ e ~ } \{ Y = y \}$ sono indipendenti; 
 
@@ -804,7 +768,7 @@ $$
 \prod_ {i = 1} ^ {m} \mathbb {P} \left(\left\{X _ {i} = x _ {i} \right\}\right) = \prod_ {i = 1} ^ {m} p _ {X _ {i}} \left(x _ {i}\right)
 $$
 
-## 5. Le pmf condizionate
+## Le pmf condizionate
 
 Si considerino variabili aleatorie $X \in \mathcal { X } \mathrm { ~ e ~ } Y \in \mathcal { Y }$ con assegnata pmf congiunta $p _ { X , Y } ( x , y )$ ; 
 
@@ -836,7 +800,7 @@ $$
 > p_{X|Y}(x|y) = \frac{p_{Y|X}(y|x) p_X(x)}{p_Y(y)}
 > $$
 
-## 6. Alcune proprietà delle pmf condizionate
+## Alcune proprietà delle pmf condizionate
 
 $p _ { Y \mid X } ( y | x )$ se $x$ resta fisso e $y$ varia in $Y$ è una legge di probabilità. Infatti: 
 
@@ -883,7 +847,7 @@ $$
 p_{X|Y}(x|y) = p_X(x)
 $$
 
-## 7. Generalizzando...
+## Generalizzando...
 
 Si consideri una terna di variabili aleatorie $(X, Y, Z)$, distribuite secondo $p x , Y , Z ( x , y , z ) , ( x , y , z ) \in \mathcal { X } \times \mathcal { Y } \times \mathcal { Z } .$ 
 
@@ -1505,7 +1469,7 @@ La tensione misurata a vuoto ai capi di un carico resistivo è sempre non nulla 
 1. Si assuma di misurare $n$ volte tale tensione: avremmo ovviamente che $X ( \omega ) = \omega = x \in \mathbb { R }$ e i risultati delle misure saranno $\{ x _ { i } \} _ { i = 1 } ^ { n }$.
 2. Si supponga di misurare la potenza trasferita al carico resistivo $R$. In questo caso lo spazio campione sarà ancora $\Omega$, ma la corrispondente variabile aleatoria sarà $X ( \omega ) = \omega ^ { 2 } / R = x \in \mathbb { R }$.
 
-## 1. Qualche considerazione iniziale
+## Qualche considerazione iniziale
 
 Continuando con l’esempio precedente, è chiaro che gli eventi elementari saranno in entrambi i casi $\{ X ( \omega _ { i } ) = x _ { i } \}$ ; 
 
@@ -1524,7 +1488,7 @@ Quello che possiamo dire è se la misura $X ( \omega _ { j } )$ cada o meno in u
 
 Quindi, se $X ( \omega )$ è una **variabile aleatoria continua**, gli eventi elementari $\{ X ( \omega ) = x \}$ hanno - a meno di casi degeneri - probabilità nulla. 
 
-## 2. Esperimenti e variabili continue
+## Esperimenti e variabili continue
 
 Supponiamo di compiere $n$ esperimenti, così da disporre di una collezione $\{ X ( \omega _ { i } ) \}$ di osservazioni di una variabile aleatoria continua $X ( \omega )$ 
 
@@ -1546,7 +1510,7 @@ $$
 P _ {X} (x; \Delta x) = \lim _ {n \to \infty} f _ {n} (x; \Delta x)
 $$
 
-## 3. Densità di probabilità (probability density function, pdf)
+## Densità di probabilità (probability density function, pdf)
 
 > [!theorem] Definizione: Densità di probabilità
 > La **densità di probabilità** (probability density function, pdf) della variabile aleatoria continua $X$ è la funzione: 
@@ -1572,7 +1536,7 @@ $$
 \int_ {- \infty} ^ {+ \infty} f _ {X} (t) d t = \mathbb {P} (X \in \mathbb {R}) = 1
 $$
 
-## 4. Qualche commento intuitivo sulla pdf - 1
+## Qualche commento intuitivo sulla pdf - 1
 
 Supponiamo di considerare un oggetto qualsiasi $C$, che occupi quindi un continuum di punti, $C \subseteq \mathbb { R } ^ { 3 }$ ; 
 
@@ -1595,9 +1559,9 @@ che potremmo definire $mdf$, *mass density function*.
 
 La nozione si generalizza a insiemi arbitrari. Ovviamente, occorrerà comunque definire per un insieme ”non canonico” la nozione di intorno (e quindi dare all’insieme una struttura topologica) e strutturare il dominio su cui si applica la funzione ”misura” in modo adeguato, - cioè introdurre uno **spazio di misura** - ma questo esula dallo scopo del corso. 
 
-## 5. Qualche commento intuitivo sulla pdf - 2
+## Qualche commento intuitivo sulla pdf - 2
 
-## 2. Misura e Densità di Probabilità
+## Misura e Densità di Probabilità
 
 Si consideri lo spazio $\Omega$ che, per evitare complicazioni topologiche, si assume coincidente con $\mathbb{R}$.
 
@@ -1628,7 +1592,7 @@ $$
 f _ {X} (x) = \lim _ {\mu_ {0} \left(\left[ x - \frac {\Delta x}{2}, x + \frac {\Delta x}{2} \right]\right)\rightarrow 0} \frac {\mu_ {1} \left(\left[ x - \frac {\Delta x}{2} , x + \frac {\Delta x}{2} \right]\right)}{\mu_ {0} \left(\left[ x - \frac {\Delta x}{2} , x + \frac {\Delta x}{2} \right]\right)} = \lim _ {\Delta x \rightarrow 0} \frac {P _ {X} (x ; \Delta x)}{\Delta x}
 $$
 
-## 3. La DF come pdf
+## La DF come pdf
 
 ### Ritorno sugli spazi discreti
 Se $A \subseteq \Omega \ { \dot { \mathsf { e } } }$ un insieme discreto, la misura "ordinaria" è ovviamente $\mu _ { 0 } ( A ) = c ( A ) = | A |$, anche detta **misura di conteggio**. 
@@ -1651,7 +1615,7 @@ dove l’integrale è un integrale di Lebesgue rispetto alla misura di conteggio
 
 In generale, la **Densità di Probabilità (DF)** è una particolare **pdf** (*probability density function*): ciò lascia intuire che tutte le proprietà dimostrate per le DF si estendono alle pdf e, con opportuni cambiamenti, a tutte le densità di una misura rispetto a un’altra.
 
-## 4. La Cumulative Distribution Function (CDF)
+## La Cumulative Distribution Function (CDF)
 
 Si noti preliminarmente che $f _ { X } ( x ) , x \in \mathbb { R } \ { \dot { \mathrm { ~ e ~ } } }$ è perfettamente adeguata a caratterizzare $X$. Infatti:
 
@@ -1669,7 +1633,7 @@ Talvolta si fa riferimento alla **Complementary Cumulative Distribution Function
 
 $$ S(x) = P(X > x) \tag{4} $$
 
-## 5. Proprietà della CDF
+## Proprietà della CDF
 
 Le proprietà derivano direttamente dalla definizione. In particolare:
 
@@ -1687,7 +1651,7 @@ $$
 > [!quote] Osservazione
 > La CDF potrebbe definirsi anche per variabili discrete, nel qual caso la proprietà di continuità andrebbe "rimodulata". Tuttavia, la CDF di variabili discrete non $\grave { \mathbf { e } }$ una grandezza utile.
 
-## 6. Media statistica di variabili continue - 1
+## Media statistica di variabili continue - 1
 
 Data una variabile aleatoria continua con pdf $f _ { X } ( x )$, definiamo la sua **media statistica** come:
 
@@ -1713,7 +1677,7 @@ $$
 \mathbb {E} [ X ] = \lim _ {\Delta \rightarrow 0} \mathbb {E} [ X ^ {\Delta} ] = \lim _ {\Delta \rightarrow 0} \sum_ {i = - \infty} ^ {\infty} x _ {i} f _ {X} (x _ {i}) \Delta = \int_ {\mathbb {R}} x f _ {X} (x) d x
 $$
 
-## 7. Media statistica di variabili continue - 2
+## Media statistica di variabili continue - 2
 
 Un’altra giustificazione deriva dalle considerazioni intuitive sulla riducibilità di una DF a una pdf. Infatti, se $\Omega \ { \dot { \mathsf { e } } }$ uno spazio discreto, sappiamo che:
 
@@ -2648,7 +2612,7 @@ $$
 f _ {\boldsymbol {X}} (\boldsymbol {x}) = \prod_ {i = 1} ^ {n} f _ {X _ {i} | X _ {i - 1}, \dots , X _ {1}} (x _ {i} | x _ {i - 1}, \dots , x _ {1})
 $$
 
-## 1. Processi aleatori tempo-discreti
+## Processi aleatori tempo-discreti
 
 Si definisce **processo aleatorio tempo-discreto** un’applicazione che ad ogni elemento dello spazio campione fa corrispondere una successione:
 
@@ -2670,7 +2634,7 @@ dove $\mathbb{Z}$ indica l’insieme degli interi.
 > ![image](https://cdn-mineru.openxlab.org.cn/result/2026-06-27/b5f5d426-9c48-4e21-b90d-66928c562c74/057411ab0f31edbb00e115bfa3816d1d5e5f1c3faed5ab464cbf318ca0bb423a.jpg)
 > Figura 3: Realizzazione 3
 
-## 2. Commenti e osservazioni
+## Commenti e osservazioni
 
 - Per ogni valore di $\omega \in \Omega$ il processo si realizza in una sequenza che assume valori nell’intervallo $[-1, 1]$;
 - Fissando l’istante di tempo $n = n _ { 0 }$ e facendo variare $\omega \in \Omega$ otteniamo $X ( n _ { 0 } , \omega )$ che è una variabile aleatoria (visto che ”campionando verticalmente” il processo otteniamo che al variare di $\omega X ( n _ { 0 } , \omega )$ assume diverse determinazioni);
@@ -2691,7 +2655,7 @@ $$
 > 
 > il processo è a media identicamente nulla.
 
-## 3. Un altro esempio: processo Gaussiano tempo-discreto
+## Un altro esempio: processo Gaussiano tempo-discreto
 
 Come secondo esempio, consideriamo un processo tempo-discreto stazionario al primo ordine con pdf:
 
@@ -2710,7 +2674,7 @@ Figura 5: Realizzazione Gaussiana 2
 ![image](https://cdn-mineru.openxlab.org.cn/result/2026-06-27/b5f5d426-9c48-4e21-b90d-66928c562c74/2c12f75b390651df009e373f8c5f9758ea1925d2f1a52f06939bfdc2260a96eb.jpg)
 Figura 6: Realizzazione Gaussiana 3
 
-## 4. Caratterizzazione del secondo ordine del processo
+## Caratterizzazione del secondo ordine del processo
 
 - Un processo aleatorio si dice **caratterizzato al primo ordine** se ne è nota la pdf $f _ { X ( n ) } ( x ; n )$ per ogni $n$. Se il processo è stazionario al primo ordine, questo equivale ad assegnare un’unica pdf.
 - Un processo aleatorio si dice **caratterizzato al secondo ordine** se ne è assegnata la pdf congiunta:
@@ -2728,7 +2692,7 @@ $$
 - In altre parole, un processo stazionario al secondo ordine è tale che la caratterizzazione congiunta di due suoi campioni dipende unicamente dalla loro ”distanza” temporale, ma non dalla loro posizione: in altre parole, la pdf congiunta è invariante ad atti di moto rigido dei due punti in anticipo o in ritardo.
 - Ovviamente un processo stazionario al secondo ordine lo è anche al primo, ma non è vero il viceversa. Perchè?
 
-## 5. Caratterizzazione completa di un processo
+## Caratterizzazione completa di un processo
 
 Un processo aleatorio $X ( n )$ si dice **completamente caratterizzato** se, detto $M$ un intero arbitrario e detti $n _ { 1 } , \ldots , n _ { M }$ $M$ istanti arbitrari, il vettore aleatorio:
 
@@ -2751,7 +2715,7 @@ $$
 f _ {X (n _ {1}), \dots , X (n _ {M})} (x _ {1}, \dots , x _ {M}) = f _ {X (n _ {1})} (x _ {1}) f _ {X (n _ {2})} (x _ {2}) \dots f _ {X (n _ {M})} (x _ {M}) = \prod_ {i = 1} ^ {M} f _ {X (n _ {i})} (x _ {i})
 $$
 
-## 6. Processi discreti
+## Processi discreti
 
 Si definisce **processo ampiezza discreto** (o - per brevità - **processo discreto**) un processo aleatorio in cui le cui realizzazioni siano sequenze di numeri che possano assumere valore in un alfabeto discreto.
 
@@ -2760,7 +2724,7 @@ Un caso di importanza notevole è quello di un **processo indipendente binario**
 ![image](https://cdn-mineru.openxlab.org.cn/result/2026-06-27/b5f5d426-9c48-4e21-b90d-66928c562c74/62faba250dc710ba5cb9fbd4a331bfdc4d2dc4cd5d3bd696b38454e5f14bc19a.jpg)
 Figura 7: Realizzazioni del processo di Bernoulli
 
-## 2. Un altro esempio: Un processo quaternario
+## Un altro esempio: Un processo quaternario
 
 Un ulteriore esempio si ha considerando un **alfabeto quaternario**, per esempio $X ( n ) \in \{ - 2 , - 1 , 1 , 2 \}$, con livelli equiprobabili (per cui ${ \mathbb { P } } \left\{ X ( n ) = i \right\} = { \textstyle { \frac { 1 } { 4 } } } \ \forall \space i )$).
 
@@ -2769,7 +2733,7 @@ Le realizzazioni del processo saranno quindi del tipo rappresentato in figura:
 ![image](https://cdn-mineru.openxlab.org.cn/result/2026-06-27/b5f5d426-9c48-4e21-b90d-66928c562c74/9f7957aa1d5176320b74eb7c6ea5945937ed809d0cfc9354252211d9f644fc02.jpg)
 Figura 1: Realizzazioni di un processo quaternario.
 
-## 3. Caratterizzazione di processi discreti
+## Caratterizzazione di processi discreti
 
 Tutte le definizioni introdotte per i processi continui si estendono ai **processi discreti**, con la sola differenza che le densità di probabilità sono ora sostituite dalle **funzioni di massa di probabilità** (DF).
 
@@ -2795,25 +2759,25 @@ $$
 
 dove $p _ { X } ( \cdot )$ è la DF marginale (ovviamente indipendente dal tempo).
 
-## 4. Caratterizzazione sintetica dei vettori aleatori
+## Caratterizzazione sintetica dei vettori aleatori
 
 Come per le variabili aleatorie, anche per i processi aleatori è possibile — a fronte di un’impossibilità di fornirne una caratterizzazione completa — definire una **caratterizzazione sintetica**, cioè assegnarne statistiche che siano significative.
 
 In modo del tutto analogo al caso scalare, dove abbiamo visto che la coppia media-varianza $( \mu x , \sigma _ { X } ^ { 2 } )$ offre spesso importanti informazioni sul comportamento della variabile $X$, e al caso delle coppie, in cui la cinquina $( m u _ { X } , \sigma _ { X } , \mu _ { Y } , \sigma _ { Y } , \mathrm { C O V } ( X , Y )$ offre analoghe informazioni sulla coppia $(X, Y)$, per un vettore aleatorio $\pmb { X } = [ X _ { 1 } , \ldots , X _ { n } ] ^ { T }$ abbiamo:
 
-### 4.1 La media statistica
+###1 La media statistica
 $$
 \boldsymbol {\mu} _ {\boldsymbol {X}} = \left(\mathbb {E} \left[ X _ {1} \right], \dots , \mathbb {E} \left[ X _ {n} \right]\right) ^ {T}
 $$
 
-### 4.2 La matrice di covarianza
+###2 La matrice di covarianza
 La **matrice di covarianza**, $C _ { X } = \mathbb { E } \left[ \left( X - \mu _ { X } \right) \left( X - \mu _ { X } \right) ^ { T } \right]$, è definita come:
 
 $$
 \left( \begin{array}{c c c c} \sigma_ {X _ {1}} ^ {2} & \operatorname{COV} (X _ {1}, X _ {2}) & \dots & \operatorname{COV} (X _ {1}, X _ {n}) \\ \operatorname{COV} (X _ {2}, X _ {1}) & \sigma_ {X _ {1}} ^ {2} & \dots & \operatorname{COV} (X _ {2}, X _ {n}) \\ \dots & \dots & \dots & \dots \\ \operatorname{COV} (X _ {n}, X _ {1}) & \operatorname{COV} (X _ {n}, X _ {2}) & \dots & \sigma_ {X _ {n}} ^ {2} \end{array} \right)
 $$
 
-## 5. Processi Stazionari in Senso Lato (SSL)
+## Processi Stazionari in Senso Lato (SSL)
 
 Focalizziamoci sui processi tempo discreti, ma quanto verrà detto vale anche per i processi tempo-continui. Abbiamo visto che un processo $X ( n ) \in { \mathcal { X } }$ è stazionario di ordine 2 se:
 
@@ -2841,7 +2805,7 @@ $$
 R _ {X} \left(t _ {1} / n _ {1}, t _ {2} / n _ {2}\right) = \mathbb {E} \left[ X \left(t _ {1} / n _ {1}\right) X \left(t _ {2} / n _ {2}\right) \right] = R _ {X} \left(t _ {2} - t _ {1} / n _ {2} - n _ {1}\right)
 $$
 
-## 6. Matrice di covarianza per processi SSL
+## Matrice di covarianza per processi SSL
 
 Sia $X ( t / n )$ un processo SSL, continuo o discreto, e sia $\pmb { x } = [ X _ { 1 } , \ldots , X _ { M } ] ^ { T }$ un vettore aleatorio $M$-dimensionale di campioni di $X ( t / n )$, presi negli istanti $( t _ { 1 } , \dots , t _ { M } ) / ( n _ { 1 } , \dots , n _ { M } )$.
 
@@ -3150,7 +3114,7 @@ Concludiamo quindi che la probabilità che la frequenza di occorrenza non sia ug
 
 Ciò implica che $f _ { n } ( a _ { i } ) \to p \chi ( a _ { i } )$ quasi certamente.
 
-## 1. Commenti
+## Commenti
 
 Si consideri un campione $\mathbf{x}$ $\pmb { x } ^ { n } \in \mathcal { X } ^ { n } , \mathcal { X } = \{ a _ { 1 } , . . . , a _ { M } \}$ estratto da un vettore casuale $\mathbf{X}$ $X ^ { n }$ di **pmf** (Probability Mass Function) sconosciuta.
 
@@ -3179,7 +3143,7 @@ di conseguenza, la media campionaria converge con probabilità uno alla media st
 > [!theorem] Forte Coerenza
 > In statistica, un estimatore è forte coerente se converge quasi certamente (con probabilità 1) al valore vero del parametro che intende stimare all'aumentare della dimensione del campione.
 
-## 2. Statistiche Inferenziali
+## Statistiche Inferenziali
 
 L'idea principale risiede nel fatto che, una volta osservato un campione sufficientemente ampio di una data popolazione di dati, è possibile inferire un numero di caratteristiche che qualsiasi altro campione dovrebbe rispettare.
 
@@ -3189,7 +3153,7 @@ Per iniziare, si assume che il campione sia noto come estratto da una famiglia d
 
 **Domanda:** Come elaboriamo il dataset disponibile per inferire il valore del parametro?
 
-## 3. Impostazione Bayesiana: Regola di decisione
+## Impostazione Bayesiana: Regola di decisione
 
 Si assuma di avere un dataset $\mathbf{x}$ $\pmb { x } ^ { n } \in \mathcal { X } ^ { n }$ che è una realizzazione di un vettore casuale $\mathbf{X}$ $X ^ { n }$. Si assuma che, in base allo stato della natura, i dati possano provenire da una qualsiasi delle $K$ $M$ diverse leggi di probabilità.
 
@@ -3209,7 +3173,7 @@ $$
 
 che permette di decidere quale dei possibili stati della natura sia quello effettivamente in vigore.
 
-## 4. Costi Bayesiani
+## Costi Bayesiani
 
 Si definisca la seguente matrice di costo $C$ $M \times M$:
 
@@ -3236,7 +3200,7 @@ Data una matrice di costo $C$ $C$, una regola di decisione ottimale è una mappa
 >
 > ovvero il rischio Bayesiano medio coincide con la probabilità di commettere un errore di classificazione.
 
-## 5. Problema di Classificazione Binaria
+## Problema di Classificazione Binaria
 
 Si assuma per il momento che $K=2$, che $\omega_1$ e $\omega_2$ $C _ { 1 , 1 } = C _ { 2 , 2 } = 0$ e $C _ { 1 , 2 } = C _ { 2 , 1 } = 1$ in modo che:
 
@@ -3403,7 +3367,7 @@ La quantità $L ( \pmb { x } ^ { n } )$ sul lato sinistro (LHS) è di nuovo chia
 >
 > Le quantità $\sum x _ { k }$ per questo problema e $w _ { H } ( \pmb x ^ { n } )$ per il precedente sono anche riferite come **statistiche sufficienti** nel linguaggio della statistica inferenziale.
 
-## 1. Valutazione delle prestazioni
+## Valutazione delle prestazioni
 
 Si noti che, sotto $H _ { j }$, la statistica del test $\begin{array} { r } { Z _ { n } = \frac { 1 } { n } \sum _ { i = 1 } ^ { n } X _ { i } } \end{array}$ è Gaussiana con media e varianza date da:
 
@@ -3427,7 +3391,7 @@ $$
 \mathbb {P} (e) = Q \left(\sqrt {n} \frac {\mu_ {1} - \mu_ {2}}{2 \sigma}\right)\rightarrow 0 \quad \text { as } n \rightarrow \infty
 $$
 
-## 2. Test di ipotesi: introduzione
+## Test di ipotesi: introduzione
 
 Esistono numerose situazioni in cui è necessario prendere una decisione tra due ipotesi, pur non disponendo dei mezzi per assegnare la matrice di costo $C$ né le probabilità a priori. 
 
@@ -3440,7 +3404,7 @@ Gli esempi includono diverse situazioni di interesse pratico, quali:
 
 In tutte le situazioni sopra citate, risulta praticamente impossibile assegnare un costo a un errore di giudizio sullo "stato della natura", ovvero a una decisione errata tra le due ipotesi "tutto normale" o "qualcosa sta accadendo". È inoltre di poca importanza assegnare una probabilità a priori che "anomalie statistiche" siano presenti nel set di dati.
 
-## 3. Definizioni nel test di ipotesi
+## Definizioni nel test di ipotesi
 
 > [!theorem] Ipotesi Nulla ($H_0$)
 > L'**ipotesi nulla**, tradizionalmente denotata $H _ { 0 }$, è l'assunzione di base che il set di dati osservati $\pmb { x } ^ { n }$ sia una realizzazione di un vettore casuale con una distribuzione condizionale nota, con pmf/pdf $p _ { X ^ { n } | H _ { 0 } } ( { \pmb x } ^ { n } | H _ { 0 } ) / f _ { { \pmb X } ^ { n } | H _ { 0 } } ( { \pmb x } ^ { n } | H _ { 0 } )$.
@@ -3466,7 +3430,7 @@ Nel progettare una regola di decisione (ovvero, un test), si definiscono i segue
 ### Dati Continui
 ### Dati Discreti
 
-## 4. Test di Neyman-Pearson
+## Test di Neyman-Pearson
 
 Dato il framework delineato precedentemente, un test di Neyman-Pearson è il risultato della seguente ottimizzazione vincolata:
 
@@ -3489,7 +3453,7 @@ $$
 > [!quote] Osservazione
 > L'applicazione di qualsiasi funzione monotonicamente crescente a entrambi i lati del test precedente non ne altera l'ottimalità. Pertanto, è possibile introdurre equivalentemente il log-likelihood $\ln$ $L \left( \pmb { x } ^ { n } \right) = \Lambda ( \pmb { x } ^ { n } )$ e confrontarlo con una soglia determinata in modo nuovo.
 
-## 5. Esempio: test della media di una popolazione Gaussiana
+## Esempio: test della media di una popolazione Gaussiana
 
 Assumiamo che l'ipotesi nulla sia che le osservazioni siano iid Gaussiane con media zero e varianza data, ovvero $X _ { i } \sim \mathcal { N } ( 0 , \sigma ^ { 2 } )$, mentre la sua alternativa è $X _ { i } \sim \mathcal { N } ( \mu , \sigma ^ { 2 } )$.
 
@@ -4200,7 +4164,7 @@ $$
 - 1 <   1 - \gamma \lambda_ {M A X} <   1 \Longrightarrow 0 <   \gamma <   \frac {2}{\lambda_ {M A X}}
 $$
 
-## 2. Un approccio diverso: statistica descrittiva
+## Un approccio diverso: statistica descrittiva
 
 In questa sezione si abbandona l'approccio probabilistico per adottare la **statistica descrittiva**, in cui i campioni sono considerati come entità dati e non come realizzazioni di vettori casuali.
 
@@ -4222,7 +4186,7 @@ $$ \mathbf{y} = \mathbf{X}\boldsymbol{\theta} + \boldsymbol{\epsilon} \tag{1} $$
 
 dove $\epsilon _ { n }$ incapsula l'errore di modellazione.
 
-## 3. L'estimatore dei Minimi Quadrati (Least Squares)
+## L'estimatore dei Minimi Quadrati (Least Squares)
 
 Data la natura del dataset $p$-dimensionale, si procede alla selezione di $a$ al fine di minimizzare la seguente funzione di costo:
 
@@ -4242,7 +4206,7 @@ $$
 \| \boldsymbol {X} ^ {T} \boldsymbol {a} - \boldsymbol {y} \| ^ {2} = \boldsymbol {a} ^ {T} \boldsymbol {X} \boldsymbol {X} ^ {T} \boldsymbol {a} + \| \boldsymbol {y} \| ^ {2} - 2 \boldsymbol {a} ^ {T} \boldsymbol {X} \boldsymbol {y}
 $$
 
-## 4. L'estimatore dei Minimi Quadrati - cont.
+## L'estimatore dei Minimi Quadrati - cont.
 
 Differenziando la funzione di costo rispetto a $a$, si ottiene:
 
@@ -4273,7 +4237,7 @@ Si consideri un'osservazione dell'ambiente a orizzonte infinito, tale che la dim
 
 È possibile regolare l'estimatore LS per gestire entrambi gli scenari con una complessità computazionale limitata.
 
-## 5. Apprendimento LS
+## Apprendimento LS
 
 Si supponga $p \geq n$ e che sia stata valutata la stima:
 
@@ -4294,7 +4258,7 @@ $$
 > 
 > L'operazione di inversione comporta una complessità $O(n^3)$, mentre il prodotto di matrici ha una complessità $O(n^2)$ (in termini di moltiplicazioni).
 
-## 6. La Formula di Sherman-Morrison
+## La Formula di Sherman-Morrison
 
 Sia $R$ una matrice invertibile di ordine $n ;$. Siano $u$ e $v$ vettori colonna $n$-dimensionali. Si applica il seguente lemma di inversione di matrice con aggiornamento *rank-1*:
 
@@ -4302,13 +4266,13 @@ $$
 \left(\boldsymbol {R} + \boldsymbol {u v} ^ {T}\right) ^ {- 1} = \boldsymbol {R} ^ {- 1} - \frac {\boldsymbol {R} ^ {- 1} \boldsymbol {u v} ^ {T} \boldsymbol {R} ^ {- 1}}{1 + \boldsymbol {u} ^ {T} \boldsymbol {R} ^ {- 1} \boldsymbol {v}}
 $$
 
-## 7. Generalità
+## Generalità
 
 *Marco Lops Elements of Decision Theory Elements of estimation theory Linear MMSE Estimation*
 
-## 8. Applicazione
+## Applicazione
 
-## 9. Notare che
+## Notare che
 
 $$ \dots $$
 
@@ -4332,9 +4296,9 @@ $$
 K (p + 1) = \boldsymbol {x} ^ {n T} (p + 1) \boldsymbol {R} ^ {- 1} (p) \boldsymbol {x} ^ {n} (p + 1)
 $$
 
-## 10. Applicazione - cont.
+## Applicazione - cont.
 
-## 11. D'altra parte abbiamo
+## D'altra parte abbiamo
 
 $$ \dots $$
 
@@ -4366,7 +4330,7 @@ $$
 
 L'operazione presenta una complessità $\mathcal { O } ( n ^ { 2 } )$, risultando indipendente (e non scalabile con) $p .$.
 
-## 2. Adattività in LS
+## Adattività in LS
 
 Al fine di gestire situazioni in cui l'ambiente circostante può essere (lentamente) variabile nel tempo, è opportuno forzare i dati storici a pesare meno rispetto ai dati più recenti ("freschi").
 
@@ -4386,7 +4350,7 @@ $$
 
 Questa formulazione è suscettibile di un'implementazione ricorsiva grazie all'applicazione del lemma di Sherman-Morrison.
 
-## 3. Generalizzazione
+## Generalizzazione
 
 Supponiamo ora che, mantenendo le stesse condizioni precedentemente analizzate, si desideri trovare un LS nella forma più generale:
 
