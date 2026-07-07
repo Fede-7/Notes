@@ -1103,9 +1103,13 @@ $$
 Per giustificare questa definizione, si possono utilizzare diversi argomenti:
 
 >[!dim] Dimostrazione 1: Dal discreto al continuo tramite il limite di una sommatoria
->Si consideri inizialmente una versione "quantizzata" di $X$ nella forma:
+>Per giustificare l'integrale, si quantizza $X$ in intervalli $\Delta$. Se $x_i$ è il valore rappresentativo dell'intervallo $[i\Delta, (i+1)\Delta)$, allora:
 >$$
-X ^ {\Delta} = x _ {i} \in [ i \Delta , (i + 1) \Delta [ \text {se} i \Delta \leq X <   (i + 1) \Delta \rightarrow \mathbb {P} (X = x _ {i}) = \int_ {i \Delta} ^ {(i + 1) \Delta} f _ {X} (x) d x
+X ^ {\Delta} = x _ {i} \in [ i \Delta , (i + 1) \Delta
+>$$
+>Se $\quad i \Delta \leq X <   (i + 1) \Delta$
+>$$
+ \mathbb {P} (X = x _ {i}) = \int_ {i \Delta} ^ {(i + 1) \Delta} f _ {X} (x) d x
 >$$
 >
 >Ovviamente avremo:
@@ -1114,30 +1118,17 @@ X ^ {\Delta} = x _ {i} \in [ i \Delta , (i + 1) \Delta [ \text {se} i \Delta \le
 \mathbb {E} \left[ X ^ {\Delta} \right] = \sum_ {i = - \infty} ^ {\infty} x _ {i} \underbrace {\int_ {i \Delta} ^ {(i + 1) \Delta} f _ {X} (x) d x} _ {p _ {X \Delta} (x _ {i})}
 >$$
 >
->Infine, se "$x \cdot f _ { X } ( x )$" è integrabile secondo Riemann:
+>Passando al limite per $\Delta \to 0$, la sommatoria converge all'integrale di Riemann:
 >
 >$$
 \mathbb {E} [ X ] = \lim _ {\Delta \rightarrow 0} \mathbb {E} [ X ^ {\Delta} ] = \lim _ {\Delta \rightarrow 0} \sum_ {i = - \infty} ^ {\infty} x _ {i} f _ {X} (x _ {i}) \Delta = \int_ {\mathbb {R}} x f _ {X} (x) d x
 >$$
 
 >[!dim] Dimostrazione 2: Visione Unificata (Integrale di Lebesgue)
-> Un’altra giustificazione deriva dalle considerazioni intuitive sulla riducibilità di una DF a una pdf. Infatti, se $\Omega \ { \dot { \mathsf { e } } }$ uno spazio discreto, sappiamo che:
->
->$$
-\mathbb {E} \left[ X \right] = \sum_ {x \in \mathcal {X}} x p _ {X} (x) = \int_ {\mathcal {X}} x f _ {X} (x) d c (x) = \int_ {\Omega} X (\omega) d \mu_ {1} (\omega)
->$$
->
->dove $\mu _ { 1 } ( \cdot ) \textsf { e }$ la misura di probabilità introdotta su $\Omega$ con densità (rispetto alla misura di conteggio) $\begin{array} { r } { \frac { d \mu _ { 1 } ( \omega ) } { d c ( \omega ) } = p _ { X } [ x ( \omega ) ] } \end{array}$.
->
->Quindi, è possibile definire la media statistica di una variabile aleatoria (indipendentemente dal fatto che sia discreta o continua) nella forma:
->
->$$ E[X] = \int_{\Omega} x \, dP(x) \tag{5} $$
->
->dove l’integrale è un integrale di Lebesgue. Per $\Omega = \mathbb { R }$ avremo ovviamente $d \mu _ { 1 } ( \omega ) = f _ { X } ( x )$ $dx$, per cui:
->
->$$
-\mathbb {E} [ X ] = \int_ {\mathbb {R}} x f _ {X} (x) d x
->$$
+In termini generali, si definisce la media tramite l'integrale di Lebesgue rispetto alla misura di probabilità $P$:
+$$\mathbb{E}[X] = \int_{\Omega} X(\omega) \, dP(\omega)$$
+> * Nel caso **discreto**, l'integrale si riduce alla sommatoria $\sum x p(x)$.
+> * Nel caso **continuo**, dato che $dP(\omega) = f_X(x)dx$, l'integrale diventa la classica formula dell'integrale di Riemann. Questa notazione è unificata e indipendente dalla natura della variabile.
 
 ## Tipi di Variabili
 ### Variabili Uniformi
@@ -1148,7 +1139,9 @@ $$
 f _ {X} (x) = \left\{ \begin{array}{l l} \frac {1}{b - a} & x \in [ a, b ] \\ 0 & \text { altrove } \end{array} \right.
 $$
 
-Siccome $\text{supp}(X) = [a, b]$ $[ f _ { X } ( x ) ] = [ a , b ]$, tale è il suo alfabeto (cioè $X$ non assume valori esterni all’intervallo). La sua **CDF** si scrive quindi: 
+> Siccome $\text{supp}(X) = [a, b]$ $[ f _ { X } ( x ) ] = [ a , b ]$, tale è il suo alfabeto (cioè $X$ non assume valori esterni all’intervallo). 
+
+La sua **CDF** si scrive quindi: 
 
 $$
 F _ {X} (x) = \int_ {- \infty} ^ {x} f _ {X} (t)   d t = \left\{ \begin{array}{l l} 0 & x <   a \\ \frac {x - a}{b - a} & a \leq x \leq b \\ 1 & x \geq b \end{array} \right.
@@ -1162,7 +1155,7 @@ $$
 
 L’andamento di pdf e CDF sono mostrati nella successiva slide.
 
-### pdf e CDF di variabili uniformi
+#### pdf e CDF di variabili uniformi
 
 ![image](https://cdn-mineru.openxlab.org.cn/result/2026-06-27/b5f5d426-9c48-4e21-b90d-66928c562c74/c3f6dc9e2a801980935c1605a6b11fb0b0f1678de5a63bed040d1bda1182b2e0.jpg)
 Figura 1: pdf della variabile uniforme
@@ -1192,7 +1185,7 @@ $$
 
 I relativi andamenti sono mostrati nella prossima slide.
 
-### pdf e CDF di variabili esponenziali
+#### pdf e CDF di variabili esponenziali
 
 ![image](https://cdn-mineru.openxlab.org.cn/result/2026-06-27/b5f5d426-9c48-4e21-b90d-66928c562c74/08ab3fd5b2e073a6d017a7f7cdf795cbed576c47f81a07d9415e45dde49d254f.jpg)
 Figura 3: pdf della variabile esponenziale
@@ -1225,7 +1218,7 @@ $$
 
 I relativi andamenti sono mostrati nella prossima slide.
 
-### pdf e CDF di variabili laplaciane
+#### pdf e CDF di variabili laplaciane
 
 ![image](https://cdn-mineru.openxlab.org.cn/result/2026-06-27/b5f5d426-9c48-4e21-b90d-66928c562c74/39f51fa4ff2eb7cb56cb12410ab682f44fdac428a7255317918a58910ce0f602.jpg)
 Figura 5: pdf della variabile laplaciana
@@ -1255,7 +1248,7 @@ $$
 
 I relativi andamenti sono mostrati nella prossima slide.
 
-### pdf e CDF di variabili di Cauchy
+#### pdf e CDF di variabili di Cauchy
 
 ![image](https://cdn-mineru.openxlab.org.cn/result/2026-06-27/b5f5d426-9c48-4e21-b90d-66928c562c74/37f192a92d3c0821ce4b3c544298a2f503630eea2717b9e0dc1ae55d1dbeea9d.jpg)
 Figura 7: pdf della variabile di Cauchy
@@ -1263,38 +1256,20 @@ Figura 7: pdf della variabile di Cauchy
 ![image](https://cdn-mineru.openxlab.org.cn/result/2026-06-27/b5f5d426-9c48-4e21-b90d-66928c562c74/da62d320d49b4d115fdd49c23baaf8c0b8c15ce9c200a43a8856f458817797aa.jpg)
 Figura 8: CDF di $X \sim C(a, b)$
 
-## pdf condizionate
+## PDF Condizionata: $f_{X|A}(x)$
 
-In modo del tutto analogo a quanto fatto per le variabili discrete, potremo scrivere: 
+Il concetto di probabilità condizionata si estende al caso continuo in modo intuitivo.
 
-$$
-\mathbb {P} \left[ X \in \left(x - \frac {\Delta x}{2}, x - \frac {\Delta x}{2}\right) \mid A \right] = P _ {X} (x, \Delta x | A) \Rightarrow f _ {X | A} (x) = \lim _ {\Delta x \rightarrow 0} \frac {P _ {X} (x , \Delta x | A)}{\Delta x}
-$$
+### 1. Definizione tramite Limite (Approccio locale)
 
-o, anche: 
+Analogamente al caso discreto, la PDF condizionata esprime la densità di probabilità di $X$ sapendo che si è verificato l'evento $A$:
+$$f_{X|A}(x) = \lim_{\Delta x \to 0} \frac{\mathbb{P}(x - \frac{\Delta x}{2} < X \leq x + \frac{\Delta x}{2} \mid A)}{\Delta x}$$
+### 2. Definizione tramite CDF (Approccio operativo)
 
-$$
-F _ {X \mid A} (x) = \mathbb {P} (X \leq x \mid A) = \frac {\mathbb {P} (\{X \leq x \} \mid \cap A)}{\mathbb {P} (A)} \Rightarrow f _ {X \mid A} (x) = \frac {d F _ {X \mid A} (x)}{d x}
-$$
-
-> [!example] Esempio 1
-> Per esempio, sia $X \sim L(\lambda)$ $X \sim { \mathcal { L } } ( \lambda ) \ { \textrm { e } } A = \{ - 1 \leq X \leq 2 \} \quad$. Avremo:
->
-> $$
-> F _ {X | \{- 1 \leq X \leq 2 \}} (x) = \frac {\mathbb {P} (\{X \leq x \} \cap \{- 1 \leq X \leq 2 \})}{F _ {X} (- 1 \leq X \leq 2)} = \left\{ \begin{array}{l l} 0 & x <   - 1 \\ \frac {F _ {X} (x) - F _ {X} (- 1)}{F _ {X} (2) - F _ {X} (- 1)} & - 1 \leq x \leq 2 \\ 1 & x \geq 2 \end{array} \right.
-> $$
->
-> $$
-> f _ {X | \{- 1 \leq X \leq 2 \}} (x) = \left\{ \begin{array}{c l} \frac {f _ {X} (x)}{F _ {X} (2) - F _ {X} (- 1)} = \frac {\frac {\lambda}{2} e ^ {- \lambda | x |}}{1 - \frac {1}{2} e ^ {- 2 \lambda} + \frac {1}{2} e ^ {- \lambda}} & x \in (- 1, 2) \\ 0 & x \notin (- 1, 2) \end{array} \right.
-> $$
-
-### pdf e CDF condizionali di variabili Laplaciane
-
-![image](https://cdn-mineru.openxlab.org.cn/result/2026-06-27/b5f5d426-9c48-4e21-b90d-66928c562c74/c9bb9b6105893847da5816e4162cf664c0a5d6c418d723bc46ff1a263cd47a27.jpg)
-Figura 9: pdf condizionata della variabile laplaciana
-
-![image](https://cdn-mineru.openxlab.org.cn/result/2026-06-27/b5f5d426-9c48-4e21-b90d-66928c562c74/c151e31d1c7e39157c315436b8b74f28bd1d6631fb7d6d648dfe224e47f288e4.jpg)
-Figura 10: CDF condizionata della variabile laplaciana
+È spesso più semplice passare attraverso la Funzione di Ripartizione condizionata:
+$$F_{X|A}(x) = \mathbb{P}(X \leq x \mid A) = \frac{\mathbb{P}(\{X \leq x\} \cap A)}{\mathbb{P}(A)}$$
+Da cui si ricava la densità derivando rispetto a $x$:
+$$f_{X|A}(x) = \frac{d}{dx} F_{X|A}(x)$$
 
 ## Legge della probabilità totale per pdf e medie
 
