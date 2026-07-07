@@ -1,50 +1,54 @@
-Dire che esiste un numero fisso di formule per la correlazione non è del tutto esatto, poiché la formula esatta varia in base alla **natura dei dati** (se continui o discreti) e al **tipo di relazione** che si vuole misurare.
 
-Tuttavia, nel campo della probabilità e della statistica, si fa generalmente distinzione tra **tre o quattro varianti principali** della formula di correlazione a seconda del contesto. Ecco quali sono:
+Compatta questa introduzione alle variabili continue, lo fa troppo logo le slide.
 
----
+## Qualche considerazione iniziale
 
-### 1. Correlazione Teorica (Variabili Casuali)
+Si rimuove ora l'ipotesi che lo spazio dei campioni $\Omega$ sia discreto.
 
-Questa è la formula matematica che definisce la correlazione (chiamata anche cross-correlazione) tra due variabili casuali astratte. Si divide in base alla natura delle variabili:
+In particolare, si supponga d'ora in poi che $\Omega \subseteq \mathbb { R }$ sia un sottoinsieme continuo dell'insieme reale; $\Omega$ potrebbe essere quindi esso stesso lo spazio delle misure osservabili oppure potrebbe rappresentare il dominio di una applicazione:
+$$
+X: \omega \in \Omega \to X (\omega) \in \mathcal {X}
+$$
+Naturalmente, su $X$ non varrà più la limitazione di essere un insieme finito; spesso accade che $X ( \omega ) = \omega \in \mathcal { X } = \Omega .$
 
-* **Per variabili discrete (quella della tua domanda precedente):**
-$$$$
+## Esempio
 
-* **Per variabili continue:**
-Invece delle somme si usano gli integrali e la densità di probabilità congiunta $f_{X,Y}(x,y)$:
-$$R_{X,Y} = \mathbb{E}[XY] = \int_{-\infty}^{+\infty} \int_{-\infty}^{+\infty} x y f_{X,Y}(x, y) \,dx\,dy$$
+La tensione misurata a vuoto ai capi di un carico resistivo è sempre non nulla per effetto dell'agitazione termica degli elettroni.
 
+1. Si assuma di misurare $n$ volte tale tensione: avremmo ovviamente che $X ( \omega ) = \omega = x \in \mathbb { R }$ e i risultati delle misure saranno $\{ x _ { i } \} _ { i = 1 } ^ { n }$.
+2. Si supponga di misurare la potenza trasferita al carico resistivo $R$. In questo caso lo spazio campione sarà ancora $\Omega$, ma la corrispondente variabile aleatoria sarà $X ( \omega ) = \omega ^ { 2 } / R = x \in \mathbb { R }$.
 
----
+## Qualche considerazione iniziale
 
-### 2. Indice di Correlazione Lineare di Pearson (La più usata in statistica)
+Continuando con l’esempio precedente, è chiaro che gli eventi elementari saranno in entrambi i casi $\{ X ( \omega _ { i } ) = x _ { i } \}$ ; 
 
-Spesso, quando si parla semplicemente di "correlazione" in statistica e analisi dei dati, ci si riferisce al **Coefficiente di correlazione di Pearson** ($\rho$ o $r$). Questo coefficiente non misura solo il valore atteso del prodotto, ma normalizza il risultato in un intervallo compreso tra $-1$ e $+1$ per capire quanto forte sia il legame lineare.
+Si potrebbe quindi essere tentati di definire: 
+$$
+\mathbb {P} \left(X = x _ {i}\right) = \lim _ {n \rightarrow \infty} \frac {n _ {X = x _ {i}}}{n}
+$$
+dove, come nel caso discreto, ${ \boldsymbol { n } } _ { X = x _ { i } }$ rappresenta il numero di occorrenze dell’evento al pedice; 
 
-* **Formula teorica (per popolazioni):**
-$$\rho_{X,Y} = \frac{\text{Cov}(X,Y)}{\sigma_X \sigma_Y} = \frac{\mathbb{E}[XY] - \mathbb{E}[X]\mathbb{E}[Y]}{\sqrt{\mathbb{E}[X^2] - \mathbb{E}[X]^2}\sqrt{\mathbb{E}[Y^2] - \mathbb{E}[Y]^2}}$$
+> [!warning] Problematica della misurazione esatta
+> Il problema di questa definizione - peraltro corretta - è che, se $X ( \omega _ { i } ) \in X ( \omega _ { j } )$ sono due realizzazioni distinte di una variabile aleatoria reale non saremo mai in grado di misurarle con esattezza: dovremmo infatti disporre di uno strumento a precisione infinita e - anche in questo caso - l’evento $\{ X ( \omega _ { i } ) = X ( \omega _ { j } ) \}$ } sarebbe impossibile; 
 
+Quello che possiamo dire è se la misura $X ( \omega _ { j } )$ cada o meno in un intorno della misura $X ( \omega _ { i } )$ 
 
-*(Mette in rapporto la covarianza con il prodotto delle deviazioni standard).*
-* **Formula empirica (per un campione di dati reali):**
-Se hai una serie di $n$ coppie di dati reali $($x_1$, $y_1$), ($x_2$, $y_2$), \dots, ($x_n$, $y_n$)$, la formula diventa:
-$$r = \frac{\sum_{i=1}^{n} (x_i - \bar{x})(y_i - \bar{y})}{\sqrt{\sum_{i=1}^{n} (x_i - \bar{x})^2 \sum_{i=1}^{n} (y_i - \bar{y})^2}}$$
+Quindi, se $X ( \omega )$ è una **variabile aleatoria continua**, gli eventi elementari $\{ X ( \omega ) = x \}$ hanno - a meno di casi degeneri - probabilità nulla. 
 
+## Esperimenti e variabili continue
 
-*(Dove $\bar{x}$ e $\bar{y}}$ sono le medie campionarie).*
+Supponiamo di compiere $n$ esperimenti, così da disporre di una collezione $\{ X ( \omega _ { i } ) \}$ di osservazioni di una variabile aleatoria continua $X ( \omega )$ 
 
----
+Sia $x \in \mathcal { X }$ : ci chiediamo quale sia la frequenza di coccorrenza dell’evento $\{X \text{ cade in un intorno di dimensione } $\Delta x { \mathrm { \sf ~ d i ~ } } x \}$ \}$. In conformità a quanto fatto in precedenza, avremo: 
+$$
+f _ {n} (x; \Delta x) = \frac {n _ {\{x - \frac {\Delta x}{2} \leq X \leq x + \frac {\Delta x}{2} \}}}{n}
+$$
+dove ora $\begin{array} { r } { \begin{array} { r } { n _ { \{ x - $\frac { \Delta x } { 2 }$ \leq X \leq x + $\frac { \Delta x } { 2 }$ \} } } \end{array} } \end{array}$ è il numero di volte (su $n$ esperimenti) in cui osserviamo $\begin{array} { r } { x - $\frac { \Delta x } { 2 }$ \leq X ( \omega ) \leq x + $\frac { \Delta x } { 2 }$ } \end{array}$ 
 
-### 3. Correlazione per Ranghi (Relazioni non lineari)
-
-Quando la relazione tra le variabili non è una linea retta, o i dati sono espressi sotto forma di classifiche (es. primo, secondo, terzo posto), la formula di Pearson non funziona bene. In questo caso si usano formule basate sui "ranghi" (le posizioni in classifica), tra cui le due principali sono:
-
-* **Coefficiente di Spearman ($\rho_s$):** Applica la formula di Pearson direttamente ai ranghi dei dati.
-* **Tau di Kendall ($\tau$):** Calcola la differenza tra le coppie di dati "concordi" e "discordi".
-
----
-
-### Riassunto
-
-In sintesi, si può dire che esistono **2 formule fondamentali per la definizione teorica** (una discreta e una continua) e **1 formula principale per l'applicazione pratica sui dati** (il coefficiente di Pearson), accompagnata da alcune varianti specifiche (come Spearman) per i casi non lineari.
+Possiamo allora definire la probabilità dell’evento $\begin{array} { r } { \left\{ x - $\frac { \Delta x } { 2 }$ \leq X \leq x + $\frac { \Delta x } { 2 }$ \right\} } \end{array}$ nella forma usuale (si riguardi l’avvertenza sulle notazioni della slide 45): 
+$$
+\mathbb {P} \left(\omega \in \Omega : \left\{x - \frac {\Delta x}{2} \leq X \leq x + \frac {\Delta x}{2} \right\}\right) = \mathbb {P} \left(X \in \left[ x - \frac {\Delta x}{2}, x + \frac {\Delta x}{2} \right]\right) =
+$$
+$$
+P _ {X} (x; \Delta x) = \lim _ {n \to \infty} f _ {n} (x; \Delta x)
+$$

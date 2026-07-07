@@ -1020,180 +1020,35 @@ $$\sigma_Z^2 = \mathbb{E}[Z^2] - \mu_Z^2 = \mathbb{E}[(aX + bY)^2] - (a\mu_X + b
 Sviluppando i termini e applicando la linearità:
 $$\sigma_Z^2 = a^2 \sigma_X^2 + b^2 \sigma_Y^2 + 2ab \operatorname{COV}[X, Y]$$
 
-## Esempio
 
-Data la richiesta di confrontare le due **pmf** (probabilità di massa) congiunte fornite, è necessario determinare quale delle due leggi di probabilità congiunta generi il maggiore coefficiente di correlazione.
+# Discreto $\to$ Continuo
+## Introduzione alle Variabili Continue
 
-> [!rb] Definizioni preliminari
-> **PMF (Probability Mass Function)**
-> In termini intuitivi, la PMF indica la probabilità che una variabile casuale discreta assuma un determinato valore specifico. Ad esempio, se si lancia un dado, la PMF assegna la probabilità $1/6$ a ciascun numero da 1 a 6.
-> Formalmente, per una variabile casuale discreta $X$, la funzione di massa di probabilità è definita come:
-> $$p_X(x) = P(X = x)$$
+Si abbandona l'ipotesi di spazio campionario discreto: d'ora in poi $\Omega \subseteq \mathbb{R}$ è un **sottoinsieme continuo** dei numeri reali. 
 
-Le distribuzioni congiunte sono fornite nelle seguenti tabelle:
+La variabile aleatoria descrive una mappa continua:
+$$X: \omega \in \Omega \to X(\omega) \in \mathcal{X}$$
+*Nota: Spesso lo spazio delle realizzazioni coincide con lo spazio campionario stesso ($\mathcal{X} = \Omega$).*
 
-| $(x_1, y_1)$ | $p_{X_1, Y_1}(x_1, y_1)$ |
-|:---|:---:|
-| 00 | $\frac{1}{3}$ |
-| 01 | $\frac{2}{9}$ |
-| 10 | $\frac{1}{9}$ |
-| 11 | $\frac{1}{3}$ |
+## Il Paradosso della Probabilità Puntuale
 
-Tabella 1: Distribuzione congiunta per la coppia $(X_1, Y_1)$
+Nelle variabili continue, l'approccio frequentista classico per i singoli punti fallisce:
+$$\mathbb{P}(X = x_i) = \lim_{n \rightarrow \infty} \frac{n_{X = x_i}}{n} = 0$$
+> [!bug] Il problema della precisione infinita
+> Per distinguere matematicamente due realizzazioni distinte $x_i \neq x_j$ servirebbe uno strumento a precisione infinita. Di conseguenza, in una variabile aleatoria continua, **la probabilità che $X$ assuma esattamente un valore specifico $x$ è nulla** ($\mathbb{P}(X = x) = 0$).
 
-| $(x_2, y_2)$ | $p_{X_2, Y_2}(x_2, y_2)$ |
-|:---|:---:|
-| (-1,-1) | $\frac{1}{4}$ |
-| (-1,1) | $\frac{1}{2}$ |
-| (1,-1) | $\frac{1}{8}$ |
-| (1,1) | $\frac{1}{8}$ |
+Non ha senso chiedersi se $X$ sia esattamente uguale a $x$, ma ha senso chiedersi se $X$ cada in un **intorno** di $x$.
 
-Tabella 2: Distribuzione congiunta per la coppia $(X_2, Y_2)$
+## Frequenza e Probabilità negli Intervalli
 
-Pertanto, le distribuzioni marginali di $X _ { 1 } , X _ { 2 } , Y _ { 1 } \in Y _ { 2 }$ si scrivono come segue:
-
-| $X_1$ | $p_{X_1}(x_1)$ |
-|:---|:---:|
-| 0 | $\frac{5}{9}$ |
-| 1 | $\frac{4}{9}$ |
-
-Tabella 3: Distribuzione marginale di $X_1$
-
-| $Y_1$ | $p_{Y_1}(y_1)$ |
-|:---|:---:|
-| 0 | $\frac{4}{9}$ |
-| 1 | $\frac{5}{9}$ |
-
-Tabella 4: Distribuzione marginale di $Y_1$
-
-| $X_2$ | $p_{X_2}(x_2)$ |
-|:---|:---:|
-| -1 | $\frac{3}{4}$ |
-| 1 | $\frac{1}{4}$ |
-
-Tabella 5: Distribuzione marginale di $X_2$
-
-| $Y_2$ | $p_{Y_2}(y_2)$ |
-|:---|:---:|
-| -1 | $\frac{3}{8}$ |
-| 1 | $\frac{5}{8}$ |
-
-Tabella 6: Distribuzione marginale di $Y_2$
-
-$$
-\mathbb {E} [ X _ {1} ] = \mu_ {X _ {1}} = \frac {4}{9}
-$$
-
-$$
-\mathbb {E} [ Y _ {1} ] = \mu_ {Y _ {1}} = \frac {5}{9}
-$$
-
-$$
-\mathbb {E} [ X _ {2} ] = \mu_ {X _ {2}} = - \frac {1}{2}
-$$
-
-$$
-\mathbb {E} [ Y _ {2} ] = \mu_ {Y _ {2}} = \frac {1}{4}
-$$
-
-$$
-\sigma_ {X _ {1}} ^ {2} = \mathbb {E} [ X _ {1} ^ {2} ] - \mu_ {X _ {1}} ^ {2} = 0. 2 4 7
-$$
-
-$$
-\sigma_ {Y _ {1}} ^ {2} = \mathbb {E} [ Y _ {1} ^ {2} ] - \mu_ {Y _ {1}} ^ {2} = 0. 2 4 7
-$$
-
-$$
-\sigma_ {X _ {2}} ^ {2} = \frac {3}{4}
-$$
-
-$$
-\sigma_ {Y _ {2}} ^ {2} = \frac {1 5}{1 6} = 0. 9 3 7 5
-$$
-
-
-Si procede ora al calcolo delle covarianze. Le espressioni risultano:
-
-$$
-\mathbb {E} [ X _ {1} Y _ {1} ] = p x _ {1}, y _ {1} (1, 1) = \frac {1}{3} \Longrightarrow \operatorname{COV} (X _ {1}, Y _ {1}) = \frac {1}{3} - \frac {2 0}{8 1} = \frac {7}{8 1} = 0. 0 8 6
-$$
-
-$$
-\begin{array}{c} \mathbb {E} [ X _ {2} Y _ {2} ] = p x _ {2}, y _ {2} (- 1, - 1) - p x _ {2}, y _ {2} (- 1, 1) - p x _ {2}, y _ {2} (1, - 1) + p x _ {2}, y _ {2} (1, 1) = \frac {3}{8} - \frac {5}{8} = - \frac {1}{4} \\ \implies \text { COV } (X _ {2}, Y _ {2}) = - \frac {1}{4} + \frac {1}{8} = - \frac {1}{8} \end{array}
-$$
-
-Di conseguenza:
-
-$$
-\rho_ {X _ {1}, Y _ {1}} = \frac {\operatorname{COV} \left(X _ {1} , Y _ {1}\right)}{\sigma_ {X _ {1}} \sigma_ {Y _ {1}}} = 0. 3 4 8 \quad \rho_ {X _ {2}, Y _ {2}} = \frac {\operatorname{COV} \left(X _ {2} , Y _ {2}\right)}{\sigma_ {X _ {2}} \sigma_ {Y _ {2}}} = - 0. 1 4 9
-$$
-
-Essendo $| \rho _ { X _ { 1 } , Y _ { 1 } } | > | \rho _ { X _ { 2 } , Y _ { 2 } } |$ , la coppia $( X _ { 1 } , Y _ { 1 } )$ risulta avere una correlazione assoluta maggiore. Si tenga tuttavia presente che l'essere negativamente correlate implica che ci si aspetta che $X _ { 2 }$ e $Y _ { 2 }$ abbiano segno diverso e che siano differenti i segni delle deviazioni dalle rispettive medie.
-
-## Qualche considerazione iniziale
-
-Si rimuove ora l'ipotesi che lo spazio dei campioni $\Omega$ sia discreto.
-
-In particolare, si supponga d'ora in poi che $\Omega \subseteq \mathbb { R }$ sia un sottoinsieme continuo dell'insieme reale; $\Omega$ potrebbe essere quindi esso stesso lo spazio delle misure osservabili oppure potrebbe rappresentare il dominio di una applicazione:
-
-$$
-X: \omega \in \Omega \to X (\omega) \in \mathcal {X}
-$$
-
-Naturalmente, su $X$ non varrà più la limitazione di essere un insieme finito; spesso accade che $X ( \omega ) = \omega \in \mathcal { X } = \Omega .$
-
-## Esempio
-
-La tensione misurata a vuoto ai capi di un carico resistivo è sempre non nulla per effetto dell'agitazione termica degli elettroni.
-
-1. Si assuma di misurare $n$ volte tale tensione: avremmo ovviamente che $X ( \omega ) = \omega = x \in \mathbb { R }$ e i risultati delle misure saranno $\{ x _ { i } \} _ { i = 1 } ^ { n }$.
-2. Si supponga di misurare la potenza trasferita al carico resistivo $R$. In questo caso lo spazio campione sarà ancora $\Omega$, ma la corrispondente variabile aleatoria sarà $X ( \omega ) = \omega ^ { 2 } / R = x \in \mathbb { R }$.
-
-## Qualche considerazione iniziale
-
-Continuando con l’esempio precedente, è chiaro che gli eventi elementari saranno in entrambi i casi $\{ X ( \omega _ { i } ) = x _ { i } \}$ ; 
-
-Si potrebbe quindi essere tentati di definire: 
-
-$$
-\mathbb {P} \left(X = x _ {i}\right) = \lim _ {n \rightarrow \infty} \frac {n _ {X = x _ {i}}}{n}
-$$
-
-dove, come nel caso discreto, ${ \boldsymbol { n } } _ { X = x _ { i } }$ rappresenta il numero di occorrenze dell’evento al pedice; 
-
-> [!warning] Problematica della misurazione esatta
-> Il problema di questa definizione - peraltro corretta - è che, se $X ( \omega _ { i } ) \in X ( \omega _ { j } )$ sono due realizzazioni distinte di una variabile aleatoria reale non saremo mai in grado di misurarle con esattezza: dovremmo infatti disporre di uno strumento a precisione infinita e - anche in questo caso - l’evento $\{ X ( \omega _ { i } ) = X ( \omega _ { j } ) \}$ } sarebbe impossibile; 
-
-Quello che possiamo dire è se la misura $X ( \omega _ { j } )$ cada o meno in un intorno della misura $X ( \omega _ { i } )$ 
-
-Quindi, se $X ( \omega )$ è una **variabile aleatoria continua**, gli eventi elementari $\{ X ( \omega ) = x \}$ hanno - a meno di casi degeneri - probabilità nulla. 
-
-## Esperimenti e variabili continue
-
-Supponiamo di compiere $n$ esperimenti, così da disporre di una collezione $\{ X ( \omega _ { i } ) \}$ di osservazioni di una variabile aleatoria continua $X ( \omega )$ 
-
-Sia $x \in \mathcal { X }$ : ci chiediamo quale sia la frequenza di coccorrenza dell’evento $\{X \text{ cade in un intorno di dimensione } $\Delta x { \mathrm { \sf ~ d i ~ } } x \}$ \}$. In conformità a quanto fatto in precedenza, avremo: 
-
-$$
-f _ {n} (x; \Delta x) = \frac {n _ {\{x - \frac {\Delta x}{2} \leq X \leq x + \frac {\Delta x}{2} \}}}{n}
-$$
-
-dove ora $\begin{array} { r } { \begin{array} { r } { n _ { \{ x - \frac { \Delta x } { 2 } \leq X \leq x + \frac { \Delta x } { 2 } \} } } \end{array} } \end{array}$ è il numero di volte (su $n$ esperimenti) in cui osserviamo $\begin{array} { r } { x - \frac { \Delta x } { 2 } \leq X ( \omega ) \leq x + \frac { \Delta x } { 2 } } \end{array}$ 
-
-Possiamo allora definire la probabilità dell’evento $\begin{array} { r } { \left\{ x - \frac { \Delta x } { 2 } \leq X \leq x + \frac { \Delta x } { 2 } \right\} } \end{array}$ nella forma usuale (si riguardi l’avvertenza sulle notazioni della slide 45): 
-
-$$
-\mathbb {P} \left(\omega \in \Omega : \left\{x - \frac {\Delta x}{2} \leq X \leq x + \frac {\Delta x}{2} \right\}\right) = \mathbb {P} \left(X \in \left[ x - \frac {\Delta x}{2}, x + \frac {\Delta x}{2} \right]\right) =
-$$
-
-$$
-P _ {X} (x; \Delta x) = \lim _ {n \to \infty} f _ {n} (x; \Delta x)
-$$
+Sia $x \in \mathcal{X}$ il punto di interesse e $\Delta x$ l'ampiezza dell'intorno. Su $n$ esperimenti, definiamo la **frequenza relativa** nell'intervallo $[x - \frac{\Delta x}{2}$, x + $\frac{\Delta x}{2}]$ come:
+$$f_n(x; \Delta x) = \frac{n_{\left\{x - \frac{\Delta x}{2} \leq X \leq x + \frac{\Delta x}{2}\right\}}}{n}$$
+Al limite per $n \to \infty$, questa frequenza definisce la **probabilità dell'intervallo**:
+$$\mathbb{P}\left(X \in \left[x - \frac{\Delta x}{2}, x + \frac{\Delta x}{2}\right]\right) = P_X(x; \Delta x) = \lim_{n \to \infty} f_n(x; \Delta x)$$
 
 ## Densità di probabilità (probability density function, pdf)
 
-> [!theorem] Definizione: Densità di probabilità
+> [!def] Definizione: Densità di probabilità
 > La **densità di probabilità** (probability density function, pdf) della variabile aleatoria continua $X$ è la funzione: 
 >
 > $$
@@ -1202,7 +1057,7 @@ $$
 >
 > Intuitivamente, la densità rappresenta la "concentrazione" di probabilità in un punto specifico. Poiché la probabilità di una singola istantanea per una variabile continua è nulla, la pdf indica quanto è probabile che la variabile cada in un intervallo infinitesimo attorno a quel punto.
 
-Per il teorema fondamentale del calcolo integrale abbiamo quindi: 
+Per il *Teorema Fondamentale del Calcolo Integrale* abbiamo quindi: 
 
 $$
 \mathbb {P} \left(x - \frac {\Delta x}{2} \leq X \leq x + \frac {\Delta x}{2}\right) = \int_ {x - \frac {\Delta x}{2}} ^ {x + \frac {\Delta x}{2}} f _ {X} (t) d t
@@ -1210,14 +1065,14 @@ $$
 
 Le densità di probabilità devono soddisfare dei vincoli costitutivi, cioè: 
 
-1. $f _ { X } ( x ) \geq 0 \forall \space x \in \mathbb { R }$ : infatti il suo integrale su un qualunque intervallo non può essere negativo. Basterebbe, in linea di principio, una non-negatività quasi ovunque. 
+1. $f _ { X } ( x ) \geq 0, \quad \forall \space x \in \mathbb { R }$ : infatti il suo integrale su un qualunque intervallo non può essere negativo. Basterebbe, in linea di principio, una non-negatività quasi ovunque. 
 2. $f _ { X } ( x )$ è sommabile su $\mathbb{R}$ e a integrale unitario. Infatti: 
 
 $$
 \int_ {- \infty} ^ {+ \infty} f _ {X} (t) d t = \mathbb {P} (X \in \mathbb {R}) = 1
 $$
 
-## Qualche commento intuitivo sulla pdf - 1
+## Qualche commento intuitivo sulla pdf
 
 Supponiamo di considerare un oggetto qualsiasi $C$, che occupi quindi un continuum di punti, $C \subseteq \mathbb { R } ^ { 3 }$ ; 
 
@@ -1239,8 +1094,6 @@ $$
 che potremmo definire $mdf$, *mass density function*. 
 
 La nozione si generalizza a insiemi arbitrari. Ovviamente, occorrerà comunque definire per un insieme ”non canonico” la nozione di intorno (e quindi dare all’insieme una struttura topologica) e strutturare il dominio su cui si applica la funzione ”misura” in modo adeguato, - cioè introdurre uno **spazio di misura** - ma questo esula dallo scopo del corso. 
-
-## Qualche commento intuitivo sulla pdf - 2
 
 ## Misura e Densità di Probabilità
 
@@ -1332,7 +1185,7 @@ $$
 > [!quote] Osservazione
 > La CDF potrebbe definirsi anche per variabili discrete, nel qual caso la proprietà di continuità andrebbe "rimodulata". Tuttavia, la CDF di variabili discrete non $\grave { \mathbf { e } }$ una grandezza utile.
 
-## Media statistica di variabili continue - 1
+## Media statistica di variabili continue
 
 Data una variabile aleatoria continua con pdf $f _ { X } ( x )$, definiamo la sua **media statistica** come:
 
@@ -1357,8 +1210,6 @@ Infine, se $x f _ { X } ( x ) \ { \overset { } { \in } }$ è integrabile secondo
 $$
 \mathbb {E} [ X ] = \lim _ {\Delta \rightarrow 0} \mathbb {E} [ X ^ {\Delta} ] = \lim _ {\Delta \rightarrow 0} \sum_ {i = - \infty} ^ {\infty} x _ {i} f _ {X} (x _ {i}) \Delta = \int_ {\mathbb {R}} x f _ {X} (x) d x
 $$
-
-## Media statistica di variabili continue - 2
 
 Un’altra giustificazione deriva dalle considerazioni intuitive sulla riducibilità di una DF a una pdf. Infatti, se $\Omega \ { \dot { \mathsf { e } } }$ uno spazio discreto, sappiamo che:
 
