@@ -1,54 +1,27 @@
+Hai perfettamente ragione: procedere un passo alla volta è il modo migliore per fare chiarezza senza creare confusione.
 
-Compatta questa introduzione alle variabili continue, lo fa troppo logo le slide.
+La sezione che hai postato è il classico esempio di **teoria che intralcia la pratica**. Serve a spiegare in modo matematicamente formale perché la sommatoria (discreta) e l'integrale (continuo) sono in realtà due facce della stessa medaglia.
 
-## Qualche considerazione iniziale
-
-Si rimuove ora l'ipotesi che lo spazio dei campioni $\Omega$ sia discreto.
-
-In particolare, si supponga d'ora in poi che $\Omega \subseteq \mathbb { R }$ sia un sottoinsieme continuo dell'insieme reale; $\Omega$ potrebbe essere quindi esso stesso lo spazio delle misure osservabili oppure potrebbe rappresentare il dominio di una applicazione:
+### Il mio consiglio: Elimina tutto questo blocco.
 $$
-X: \omega \in \Omega \to X (\omega) \in \mathcal {X}
+**Perché eliminarlo?**
 $$
-Naturalmente, su $X$ non varrà più la limitazione di essere un insieme finito; spesso accade che $X ( \omega ) = \omega \in \mathcal { X } = \Omega .$
+* **Ti sta distraendo:** Per studiare statistica o ingegneria non ti serve definire la "misura di conteggio" ($c(A)$) o l'integrale di Lebesgue rispetto a tale misura.
+* **È solo notazione, non concetto:** Quella parte sta cercando di dirti: *"guarda che la formula della media che usi nel discreto e quella che usi nel continuo sono la stessa cosa vista in contesti diversi"*. Ma lo fa usando simboli che rendono il concetto banale molto più oscuro di quanto sia.
 
-## Esempio
+### Cosa scrivere al suo posto (molto più utile)
 
-La tensione misurata a vuoto ai capi di un carico resistivo è sempre non nulla per effetto dell'agitazione termica degli elettroni.
+Se vuoi mantenere il collegamento tra discreto e continuo senza il "rumore" matematico, sostituisci tutto quel blocco con una nota concettuale semplice:
 
-1. Si assuma di misurare $n$ volte tale tensione: avremmo ovviamente che $X ( \omega ) = \omega = x \in \mathbb { R }$ e i risultati delle misure saranno $\{ x _ { i } \} _ { i = 1 } ^ { n }$.
-2. Si supponga di misurare la potenza trasferita al carico resistivo $R$. In questo caso lo spazio campione sarà ancora $\Omega$, ma la corrispondente variabile aleatoria sarà $X ( \omega ) = \omega ^ { 2 } / R = x \in \mathbb { R }$.
 
-## Qualche considerazione iniziale
+**Ti trovi d'accordo? Vuoi passare alla sezione successiva o vuoi modificare qualcos'altro in questa parte?**
 
-Continuando con l’esempio precedente, è chiaro che gli eventi elementari saranno in entrambi i casi $\{ X ( \omega _ { i } ) = x _ { i } \}$ ; 
 
-Si potrebbe quindi essere tentati di definire: 
-$$
-\mathbb {P} \left(X = x _ {i}\right) = \lim _ {n \rightarrow \infty} \frac {n _ {X = x _ {i}}}{n}
-$$
-dove, come nel caso discreto, ${ \boldsymbol { n } } _ { X = x _ { i } }$ rappresenta il numero di occorrenze dell’evento al pedice; 
 
-> [!warning] Problematica della misurazione esatta
-> Il problema di questa definizione - peraltro corretta - è che, se $X ( \omega _ { i } ) \in X ( \omega _ { j } )$ sono due realizzazioni distinte di una variabile aleatoria reale non saremo mai in grado di misurarle con esattezza: dovremmo infatti disporre di uno strumento a precisione infinita e - anche in questo caso - l’evento $\{ X ( \omega _ { i } ) = X ( \omega _ { j } ) \}$ } sarebbe impossibile; 
-
-Quello che possiamo dire è se la misura $X ( \omega _ { j } )$ cada o meno in un intorno della misura $X ( \omega _ { i } )$ 
-
-Quindi, se $X ( \omega )$ è una **variabile aleatoria continua**, gli eventi elementari $\{ X ( \omega ) = x \}$ hanno - a meno di casi degeneri - probabilità nulla. 
-
-## Esperimenti e variabili continue
-
-Supponiamo di compiere $n$ esperimenti, così da disporre di una collezione $\{ X ( \omega _ { i } ) \}$ di osservazioni di una variabile aleatoria continua $X ( \omega )$ 
-
-Sia $x \in \mathcal { X }$ : ci chiediamo quale sia la frequenza di coccorrenza dell’evento $\{X \text{ cade in un intorno di dimensione } $\Delta x { \mathrm { \sf ~ d i ~ } } x \}$ \}$. In conformità a quanto fatto in precedenza, avremo: 
-$$
-f _ {n} (x; \Delta x) = \frac {n _ {\{x - \frac {\Delta x}{2} \leq X \leq x + \frac {\Delta x}{2} \}}}{n}
-$$
-dove ora $\begin{array} { r } { \begin{array} { r } { n _ { \{ x - $\frac { \Delta x } { 2 }$ \leq X \leq x + $\frac { \Delta x } { 2 }$ \} } } \end{array} } \end{array}$ è il numero di volte (su $n$ esperimenti) in cui osserviamo $\begin{array} { r } { x - $\frac { \Delta x } { 2 }$ \leq X ( \omega ) \leq x + $\frac { \Delta x } { 2 }$ } \end{array}$ 
-
-Possiamo allora definire la probabilità dell’evento $\begin{array} { r } { \left\{ x - $\frac { \Delta x } { 2 }$ \leq X \leq x + $\frac { \Delta x } { 2 }$ \right\} } \end{array}$ nella forma usuale (si riguardi l’avvertenza sulle notazioni della slide 45): 
-$$
-\mathbb {P} \left(\omega \in \Omega : \left\{x - \frac {\Delta x}{2} \leq X \leq x + \frac {\Delta x}{2} \right\}\right) = \mathbb {P} \left(X \in \left[ x - \frac {\Delta x}{2}, x + \frac {\Delta x}{2} \right]\right) =
-$$
-$$
-P _ {X} (x; \Delta x) = \lim _ {n \to \infty} f _ {n} (x; \Delta x)
-$$
+>[!rb] **Nota di raccordo (Discreto vs Continuo):**
+> Sia nel caso discreto che in quello continuo, la probabilità di un evento $A$ si ottiene "sommando" i contributi di densità:
+> * **Nel discreto:** Sommiamo le probabilità puntuali: $\mathbb{P}(A) = \sum_{x \in A} p_X(x)$
+> * **Nel continuo:** Integriamo la densità: $\mathbb{P}(A) = \int_{A} f_X(x) \, dx$
+> 
+> 
+> In entrambi i casi, la densità è ciò che ci permette di passare dalla teoria alla capacità di calcolare effettivamente la probabilità di un evento.

@@ -1021,32 +1021,20 @@ Sviluppando i termini e applicando la linearità:
 $$\sigma_Z^2 = a^2 \sigma_X^2 + b^2 \sigma_Y^2 + 2ab \operatorname{COV}[X, Y]$$
 
 
-# Discreto $\to$ Continuo
+# Dal discreto al continuo
 ## Introduzione alle Variabili Continue
 
-Si abbandona l'ipotesi di spazio campionario discreto: d'ora in poi $\Omega \subseteq \mathbb{R}$ è un **sottoinsieme continuo** dei numeri reali. 
-
-La variabile aleatoria descrive una mappa continua:
-$$X: \omega \in \Omega \to X(\omega) \in \mathcal{X}$$
-*Nota: Spesso lo spazio delle realizzazioni coincide con lo spazio campionario stesso ($\mathcal{X} = \Omega$).*
-
-## Il Paradosso della Probabilità Puntuale
-
-Nelle variabili continue, l'approccio frequentista classico per i singoli punti fallisce:
-$$\mathbb{P}(X = x_i) = \lim_{n \rightarrow \infty} \frac{n_{X = x_i}}{n} = 0$$
-> [!bug] Il problema della precisione infinita
-> Per distinguere matematicamente due realizzazioni distinte $x_i \neq x_j$ servirebbe uno strumento a precisione infinita. Di conseguenza, in una variabile aleatoria continua, **la probabilità che $X$ assuma esattamente un valore specifico $x$ è nulla** ($\mathbb{P}(X = x) = 0$).
-
-Non ha senso chiedersi se $X$ sia esattamente uguale a $x$, ma ha senso chiedersi se $X$ cada in un **intorno** di $x$.
+Quando passiamo a un campo di definizione $\Omega \subseteq \mathbb{R}$, l'approccio frequentista basato su singoli punti perde significato. Poiché la probabilità che una variabile continua $X$ assuma un valore esatto è nulla ($\mathbb{P}(X=x)=0$), l'analisi deve spostarsi dai singoli punti agli **intervalli**.
 
 ## Frequenza e Probabilità negli Intervalli
+### Frequenza
 
 Sia $x \in \mathcal{X}$ il punto di interesse e $\Delta x$ l'ampiezza dell'intorno. Su $n$ esperimenti, definiamo la **frequenza relativa** nell'intervallo $[x - \frac{\Delta x}{2}$, x + $\frac{\Delta x}{2}]$ come:
 $$f_n(x; \Delta x) = \frac{n_{\left\{x - \frac{\Delta x}{2} \leq X \leq x + \frac{\Delta x}{2}\right\}}}{n}$$
 Al limite per $n \to \infty$, questa frequenza definisce la **probabilità dell'intervallo**:
 $$\mathbb{P}\left(X \in \left[x - \frac{\Delta x}{2}, x + \frac{\Delta x}{2}\right]\right) = P_X(x; \Delta x) = \lim_{n \to \infty} f_n(x; \Delta x)$$
 
-## Densità di probabilità (probability density function, pdf)
+### PDF
 
 > [!def] Definizione: Densità di probabilità
 > La **densità di probabilità** (probability density function, pdf) della variabile aleatoria continua $X$ è la funzione: 
@@ -1057,74 +1045,19 @@ $$\mathbb{P}\left(X \in \left[x - \frac{\Delta x}{2}, x + \frac{\Delta x}{2}\rig
 >
 > Intuitivamente, la densità rappresenta la "concentrazione" di probabilità in un punto specifico. Poiché la probabilità di una singola istantanea per una variabile continua è nulla, la pdf indica quanto è probabile che la variabile cada in un intervallo infinitesimo attorno a quel punto.
 
-Per il *Teorema Fondamentale del Calcolo Integrale* abbiamo quindi: 
+Grazie al *Teorema Fondamentale del Calcolo Integrale*, la probabilità che la variabile $X$ cada in un generico intervallo $[a, b]$ si ottiene integrando la densità:
 
 $$
 \mathbb {P} \left(x - \frac {\Delta x}{2} \leq X \leq x + \frac {\Delta x}{2}\right) = \int_ {x - \frac {\Delta x}{2}} ^ {x + \frac {\Delta x}{2}} f _ {X} (t) d t
 $$
 
-Le densità di probabilità devono soddisfare dei vincoli costitutivi, cioè: 
+#### Vincoli fondamentali
 
-1. $f _ { X } ( x ) \geq 0, \quad \forall \space x \in \mathbb { R }$ : infatti il suo integrale su un qualunque intervallo non può essere negativo. Basterebbe, in linea di principio, una non-negatività quasi ovunque. 
-2. $f _ { X } ( x )$ è sommabile su $\mathbb{R}$ e a integrale unitario. Infatti: 
+Affinché una funzione sia una valida pdf, deve soddisfare due proprietà:
 
-$$
-\int_ {- \infty} ^ {+ \infty} f _ {X} (t) d t = \mathbb {P} (X \in \mathbb {R}) = 1
-$$
-
-## Qualche commento intuitivo sulla pdf
-
-Supponiamo di considerare un oggetto qualsiasi $C$, che occupi quindi un continuum di punti, $C \subseteq \mathbb { R } ^ { 3 }$ ; 
-
-Esistono vari modi di ”misurarne” la dimensione, per esempio la Massa ($M$) e il volume ($V$). 
-
-Il criterio di misura (in breve, la **misura** - $\mu - )$ deve però soddisfare tre requisiti: 
-1. $\mu ( A ) \geq 0 \forall \space A \subseteq C$ ; 
-2. $\mu ( \varnothing ) = 0 ;$ 
-3. Se $A _ { 1 } \subseteq C , A _ { 2 } \subseteq C : A _ { 1 } \cap A _ { 2 } = \varnothing$ allora $\mu ( A _ { 1 } \cup A _ { 2 } ) = \mu ( A _ { 1 } ) + \mu ( A _ { 2 } )$ 
-
-Si noti che sia $M ( A )$ che $V ( A )$ soddisfano queste condizioni; 
-
-Si consideri allora $P = ( x , y , z ) \in C$ e un suo intorno $\mathcal { T } ( P )$ (per esempio, una piccola sfera). Si definisce densità dell’oggetto $C$ nel punto $P$ la quantità: 
-
-$$
-\rho (\boldsymbol {P}) = \lim _ {V (\mathcal {I} (\boldsymbol {P})) \rightarrow 0} \frac {M (\mathcal {I} (\boldsymbol {P}))}{V (\mathcal {I} (\boldsymbol {P}))} \rightarrow M (A) = \int_ {A} \rho (\boldsymbol {P}) d V (\mathcal {I} (\boldsymbol {P})) = \int_ {A} \rho (x, y, z) d x d y d z
-$$
-
-che potremmo definire $mdf$, *mass density function*. 
-
-La nozione si generalizza a insiemi arbitrari. Ovviamente, occorrerà comunque definire per un insieme ”non canonico” la nozione di intorno (e quindi dare all’insieme una struttura topologica) e strutturare il dominio su cui si applica la funzione ”misura” in modo adeguato, - cioè introdurre uno **spazio di misura** - ma questo esula dallo scopo del corso. 
-
-## Misura e Densità di Probabilità
-
-Si consideri lo spazio $\Omega$ che, per evitare complicazioni topologiche, si assume coincidente con $\mathbb{R}$.
-
-Il modo ordinario di misurare sottoinsiemi di $\Omega$ (ovvero intervalli) è la **misura di Lebesgue**, definita come la loro lunghezza:
-$$ \lambda(A) = \int_A dx \tag{1} $$
-
-Un modo "alternativo" di definire la misura potrebbe essere:
-$$ P(A) = \int_A f(x) \, dx \tag{2} $$
-purché, ovviamente, $\mu _ { 1 }$ soddisfi le condizioni per essere una misura. 
-
-All’uopo si notano le seguenti proprietà:
-
-$$
-a \mu_ {1} (A) \geq 0 \forall \space A \subseteq \Omega ;
-$$
-
-b) Se $A _ { 1 } \cap A _ { 2 } = \emptyset \space$ allora $\begin{array} { r } { X ( A _ { 1 } ) = \left( \left[ x _ { 1 } - \frac { \Delta _ { x } } { 2 } , x _ { 1 } + \frac { \Delta _ { x } } { 2 } \right] \right) } \end{array}$ $\begin{array} { r } { X ( A _ { 2 } ) = \left( \left[ x _ { 2 } - \frac { \Delta _ { x } } { 2 } , x _ { 2 } + \frac { \Delta _ { x } } { 2 } \right] \right) \mathbb { I } } \end{array}$ e i due intervalli sono disgiunti, per cui:
-
-$$
-\mu_ {1} (A _ {1} \cup A _ {2}) = \mathbb {P} (A _ {1} \cup A _ {2}) = P _ {X} (x _ {1}; \Delta x) + P _ {X} (x _ {2}; \Delta x)
-$$
-
-c) Infine $\mu _ { 1 } ( \varnothing ) = \operatorname { \mathbb { P } } ( \varnothing ) = \operatorname { \mathbb { P } } ( X \notin \mathbb { R } ) = 0 ;$ 
-
-Pertanto, analogamente al rapporto tra massa e volume in ${ \mathbb { R } } ^ { 3 }$, avremo:
-
-$$
-f _ {X} (x) = \lim _ {\mu_ {0} \left(\left[ x - \frac {\Delta x}{2}, x + \frac {\Delta x}{2} \right]\right)\rightarrow 0} \frac {\mu_ {1} \left(\left[ x - \frac {\Delta x}{2} , x + \frac {\Delta x}{2} \right]\right)}{\mu_ {0} \left(\left[ x - \frac {\Delta x}{2} , x + \frac {\Delta x}{2} \right]\right)} = \lim _ {\Delta x \rightarrow 0} \frac {P _ {X} (x ; \Delta x)}{\Delta x}
-$$
+1. **Non-negatività:** $f_X(x) \geq 0 \quad \forall x \in \mathbb{R}$
+2. **Normalizzazione:** L'area sottesa dalla curva sull'intero dominio deve essere unitaria:
+$$\int_{-\infty}^{+\infty} f_X(t) \, dt = 1$$
 
 ## La DF come pdf
 
