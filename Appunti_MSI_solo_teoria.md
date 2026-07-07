@@ -1059,64 +1059,38 @@ Affinché una funzione sia una valida pdf, deve soddisfare due proprietà:
 2. **Normalizzazione:** L'area sottesa dalla curva sull'intero dominio deve essere unitaria:
 $$\int_{-\infty}^{+\infty} f_X(t) \, dt = 1$$
 
-## La DF come pdf
+## Nota di raccordo 
 
-### Ritorno sugli spazi discreti
-Se $A \subseteq \Omega \ { \dot { \mathsf { e } } }$ un insieme discreto, la misura "ordinaria" è ovviamente $\mu _ { 0 } ( A ) = c ( A ) = | A |$, anche detta **misura di conteggio**. 
-
-Siano $\omega \in \Omega$ e $X ( \omega _ { * } ) = X _ { * }$: la misura ordinaria di $\{ \omega _ { * } \}$ sarebbe ovviamente $c ( \{ \omega _ { * } \} ) = 1$. Una misura alternativa è $\mu _ { 1 } ( \omega _ { * } ) = \mathbb { P } ( \omega _ { * } : X ( \omega _ { * } ) = x _ { * } ) = p _ { X } ( x _ { * } )$.
-
-Pertanto, la densità di $\mu _ { 1 } ( \omega _ { * } )$ rispetto a $\mu _ { 0 } ( \omega _ { * } ) \dot { \in } p _ { X } ( x _ { * } )$ può essere scritta (simbolicamente):
-
-$$
-p _ {X} (x _ {*}) = \left. \frac {d \mu_ {1} (\omega)}{d c (\omega)} \right| _ {\omega = \omega^ {*}}
-$$
-
-Se $A \subseteq \Omega \ \in X ( A ) = { \mathcal { X } } _ { A } \subseteq { \mathcal { X } }$, avremo allora:
-
-$$
-\mu_ {1} (A) = \mathbb {P} (A) = \int_ {A} d \mu_ {1} (\omega) = \int_ {\mathcal {X} _ {A}} p _ {X} (x) d c (x) = \sum_ {x \in \mathcal {X} _ {A}} p _ {X} (x)
-$$
-
-dove l’integrale è un integrale di Lebesgue rispetto alla misura di conteggio. 
-
-In generale, la **Densità di Probabilità (DF)** è una particolare **pdf** (*probability density function*): ciò lascia intuire che tutte le proprietà dimostrate per le DF si estendono alle pdf e, con opportuni cambiamenti, a tutte le densità di una misura rispetto a un’altra.
+>[!rb] **(Discreto vs Continuo):**
+> Sia nel caso discreto che in quello continuo, la probabilità di un evento $A$ si ottiene "sommando" i contributi di densità:
+> * **Nel discreto:** Sommiamo le probabilità puntuali: $\mathbb{P}(A) = \sum_{x \in A} p_X(x)$
+> * **Nel continuo:** Integriamo la densità: $\mathbb{P}(A) = \int_{A} f_X(x) \, dx$
+> 
+> 
+> In entrambi i casi, la densità è ciò che ci permette di passare dalla teoria alla capacità di calcolare effettivamente la probabilità di un evento.
 
 ## La Cumulative Distribution Function (CDF)
 
-Si noti preliminarmente che $f _ { X } ( x ) , x \in \mathbb { R } \ { \dot { \mathrm { ~ e ~ } } }$ è perfettamente adeguata a caratterizzare $X$. Infatti:
+Oltre alla densità di probabilità (PDF), si usa spesso la **Funzione di Ripartizione (CDF)**, che indica la probabilità che la variabile $X$ sia inferiore o uguale a un certo valore $x$:
+$$ F_X(x) = \mathbb{P}(-\infty < X \le x) = \int_{-\infty}^{x} f_X(t) \, dt \implies f_X(x) = \frac{dF_X(x)}{dx} $$
+Esiste anche la **CCDF (Complementare)**, che indica la probabilità che $X$ sia maggiore di $x$:
+$$ \overline{F}_X(x) = \mathbb{P}(X > x) = \int_{x}^{\infty} f_X(t) \, dt = 1 - F_X(x) \implies f_X(x) = -\frac{d\overline{F}_X(x)}{dx} $$
 
-$$
-\operatorname{supp} \left[ f _ {X} (x) \right] = \mathcal {X} \quad \mathbb {P} \left(a _ {1} \leq X \leq a _ {2}\right) = \int_ {a _ {1}} ^ {a _ {2}} f _ {X} (t) d t
-$$
-
-dove $\text{supp}[g(\cdot)]$ indica il supporto della funzione $g ( \cdot )$.
-
-Tuttavia, è invalso l’uso di caratterizzazioni alternative, tra cui la **Cumulative Distribution Function (CDF)**:
-
-$$ F(x) = P(X \le x) \tag{3} $$
-
-Talvolta si fa riferimento alla **Complementary Cumulative Distribution Function (CCDF)**:
-
-$$ S(x) = P(X > x) \tag{4} $$
-
-## Proprietà della CDF
-
-Le proprietà derivano direttamente dalla definizione. In particolare:
-
+### Proprietà
 - $F _ { X } ( x ) \in [ 0 , 1 ]$, in quanto rappresenta una probabilità;
 - $F _ { X } ( - \infty ) = 0 \textsf { e } F _ { X } ( + \infty ) = 1$ (in quanto funzione integrale di una pdf);
 - $F _ { X } ( x )$ è continua (in quanto funzione integrale di una funzione sommabile);
 - $F _ { X } ( x )$ è crescente, in quanto l’integrando $f _ { X } ( \cdot ) \ \dot { \mathrm { e } }$ è non negativo;
 
-Ovviamente risulta:
+**Concetto chiave**:
+$F(x)$ è la "probabilità accumulata" fino al punto $x$.
 
-$$
-\mathbb {P} \left(a _ {1} \leq X \leq a _ {2}\right) = \int_ {a _ {1}} ^ {a _ {2}} f _ {X} (t) d t = F _ {X} \left(a _ {2}\right) - F _ {X} \left(a _ {1}\right)
-$$
+* **Calcolo degli intervalli:** Per trovare la probabilità che $X$ sia compreso tra $a_1$ e $a_2$, non serve necessariamente calcolare l'integrale della PDF; basta la differenza tra i valori della CDF:
+$$\mathbb {P} \left(a _ {1} \leq X \leq a _ {2}\right) = \int_ {a _ {1}} ^ {a _ {2}} f _ {X} (t) d t = F _ {X} \left(a _ {2}\right) - F _ {X} \left(a _ {1}\right)$$
+
 
 > [!quote] Osservazione
-> La CDF potrebbe definirsi anche per variabili discrete, nel qual caso la proprietà di continuità andrebbe "rimodulata". Tuttavia, la CDF di variabili discrete non $\grave { \mathbf { e } }$ una grandezza utile.
+>  La CDF è definita anche per variabili discrete, ma in ambito operativo è uno strumento utilizzato quasi esclusivamente con variabili continue.*
 
 ## Media statistica di variabili continue
 
@@ -1126,43 +1100,47 @@ $$
 \mathbb {E} [ X ] = \mu_ {X} = \int_ {\mathbb {R}} x f _ {X} (x) d x
 $$
 
-Per giustificare questa definizione, si possono utilizzare diversi argomenti. Si consideri inizialmente una versione "quantizzata" di $X$ nella forma:
+Per giustificare questa definizione, si possono utilizzare diversi argomenti:
 
-$$
+>[!dim] Dimostrazione 1: Dal discreto al continuo tramite il limite di una sommatoria
+>Si consideri inizialmente una versione "quantizzata" di $X$ nella forma:
+>$$
 X ^ {\Delta} = x _ {i} \in [ i \Delta , (i + 1) \Delta [ \text {se} i \Delta \leq X <   (i + 1) \Delta \rightarrow \mathbb {P} (X = x _ {i}) = \int_ {i \Delta} ^ {(i + 1) \Delta} f _ {X} (x) d x
-$$
-
-Ovviamente avremo:
-
-$$
+>$$
+>
+>Ovviamente avremo:
+>
+>$$
 \mathbb {E} \left[ X ^ {\Delta} \right] = \sum_ {i = - \infty} ^ {\infty} x _ {i} \underbrace {\int_ {i \Delta} ^ {(i + 1) \Delta} f _ {X} (x) d x} _ {p _ {X \Delta} (x _ {i})}
-$$
-
-Infine, se $x f _ { X } ( x ) \ { \overset { } { \in } }$ è integrabile secondo Riemann:
-
-$$
+>$$
+>
+>Infine, se "$x \cdot f _ { X } ( x )$" è integrabile secondo Riemann:
+>
+>$$
 \mathbb {E} [ X ] = \lim _ {\Delta \rightarrow 0} \mathbb {E} [ X ^ {\Delta} ] = \lim _ {\Delta \rightarrow 0} \sum_ {i = - \infty} ^ {\infty} x _ {i} f _ {X} (x _ {i}) \Delta = \int_ {\mathbb {R}} x f _ {X} (x) d x
-$$
+>$$
 
-Un’altra giustificazione deriva dalle considerazioni intuitive sulla riducibilità di una DF a una pdf. Infatti, se $\Omega \ { \dot { \mathsf { e } } }$ uno spazio discreto, sappiamo che:
-
-$$
+>[!dim] Dimostrazione 2: Visione Unificata (Integrale di Lebesgue)
+> Un’altra giustificazione deriva dalle considerazioni intuitive sulla riducibilità di una DF a una pdf. Infatti, se $\Omega \ { \dot { \mathsf { e } } }$ uno spazio discreto, sappiamo che:
+>
+>$$
 \mathbb {E} \left[ X \right] = \sum_ {x \in \mathcal {X}} x p _ {X} (x) = \int_ {\mathcal {X}} x f _ {X} (x) d c (x) = \int_ {\Omega} X (\omega) d \mu_ {1} (\omega)
-$$
-
-dove $\mu _ { 1 } ( \cdot ) \textsf { e }$ la misura di probabilità introdotta su $\Omega$ con densità (rispetto alla misura di conteggio) $\begin{array} { r } { \frac { d \mu _ { 1 } ( \omega ) } { d c ( \omega ) } = p _ { X } [ x ( \omega ) ] } \end{array}$.
-
-Quindi, è possibile definire la media statistica di una variabile aleatoria (indipendentemente dal fatto che sia discreta o continua) nella forma:
-
-$$ E[X] = \int_{\Omega} x \, dP(x) \tag{5} $$
-
-dove l’integrale è un integrale di Lebesgue. Per $\Omega = \mathbb { R }$ avremo ovviamente $d \mu _ { 1 } ( \omega ) = f _ { X } ( x )$ $dx$, per cui:
-
-$$
+>$$
+>
+>dove $\mu _ { 1 } ( \cdot ) \textsf { e }$ la misura di probabilità introdotta su $\Omega$ con densità (rispetto alla misura di conteggio) $\begin{array} { r } { \frac { d \mu _ { 1 } ( \omega ) } { d c ( \omega ) } = p _ { X } [ x ( \omega ) ] } \end{array}$.
+>
+>Quindi, è possibile definire la media statistica di una variabile aleatoria (indipendentemente dal fatto che sia discreta o continua) nella forma:
+>
+>$$ E[X] = \int_{\Omega} x \, dP(x) \tag{5} $$
+>
+>dove l’integrale è un integrale di Lebesgue. Per $\Omega = \mathbb { R }$ avremo ovviamente $d \mu _ { 1 } ( \omega ) = f _ { X } ( x )$ $dx$, per cui:
+>
+>$$
 \mathbb {E} [ X ] = \int_ {\mathbb {R}} x f _ {X} (x) d x
-$$
+>$$
 
-## Variabili Uniformi
+## Tipi di Variabili
+### Variabili Uniformi
 
 Una **variabile aleatoria** $X$ si dice **uniformemente distribuita** su un intervallo $[a, b]$, $b \geq a \left( X \sim \mathcal { U } \left( a , b \right) \right)$ se: 
 
@@ -1192,7 +1170,7 @@ Figura 1: pdf della variabile uniforme
 ![image](https://cdn-mineru.openxlab.org.cn/result/2026-06-27/b5f5d426-9c48-4e21-b90d-66928c562c74/e00a692547928dec972c2b70ba912cb5b50498747f1c6f2e70e64a8250e0a9f7.jpg)
 Figura 2: CDF della variabile uniforme
 
-## Variabili esponenziali
+### Variabili esponenziali
 
 Una variabile aleatoria $X$ si dice **esponenziale** con parametro $\lambda > 0$ $\lambda \left( X \sim { \mathcal { E } } ( \lambda ) \right)$ se ha una pdf: 
 
@@ -1222,7 +1200,7 @@ Figura 3: pdf della variabile esponenziale
 ![image](https://cdn-mineru.openxlab.org.cn/result/2026-06-27/b5f5d426-9c48-4e21-b90d-66928c562c74/d6303810f7e1eab90d297d7ecd1e8a382e49fb1d59f93cbc76fb80a71f91ff09.jpg)
 Figura 4: CDF di $X \sim \varepsilon(\lambda)$
 
-## Variabili laplaciane
+### Variabili laplaciane
 
 Una variabile aleatoria $X$ si dice **laplaciana** con parametro $\lambda > 0$ $\lambda \left( X \sim { \mathcal { L } } ( \lambda ) \right)$ se ha una pdf: 
 
@@ -1255,7 +1233,7 @@ Figura 5: pdf della variabile laplaciana
 ![image](https://cdn-mineru.openxlab.org.cn/result/2026-06-27/b5f5d426-9c48-4e21-b90d-66928c562c74/68af4a0c86ad1fc90ac3bdd3f5e7d395f93a4b0223313d87385837c55eea2f86.jpg)
 Figura 6: CDF di $X \sim L(\lambda)$
 
-## Variabili di Cauchy
+### Variabili di Cauchy
 
 Una variabile aleatoria $X$ si dice di **Cauchy** con parametri $x_0$ e $\gamma > 0$ $( a , b ) \ ( \boldsymbol { X } \sim \mathcal { C } ( a , b ) )$ se ha una pdf: 
 
