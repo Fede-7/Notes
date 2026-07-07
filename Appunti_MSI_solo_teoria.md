@@ -891,24 +891,17 @@ Mentre le coppie $(\mu_X, \sigma_X^2)$ e $(\mu_Y, \sigma_Y^2)$ forniscono inform
 > * Se positiva, le variabili tendono a crescere insieme
 > * Se negativa, tendono a muoversi in direzioni opposte
 > 
-> 
-> *Nota: Il suo valore numerico dipende dall'unità di misura delle variabili, quindi non ne indica l'intensità.*
 > Formalmente:
-> 
 > $$\operatorname{COV}[X, Y] = \mathbb{E}\left[ (X - \mu_X)(Y - \mu_Y) \right] = \sum_{x \in \mathcal{X}} \sum_{y \in \mathcal{Y}} (x - \mu_X)(y - \mu_Y) p_{X,Y}(x, y)$$
 > 
 > 
-
-> [!def] Correlazione (Coefficiente di Pearson)
-> Il coefficiente di correlazione (indicato con $\rho_{X,Y}$) è una misura della **forza** e della **direzione** della relazione lineare tra due variabili casuali. Essendo un valore standardizzato, è sempre compreso tra $-1$ e $+1$.
-> Intuitivamente, indica quanto le due variabili tendano a variare insieme in modo proporzionale, indipendentemente dalla loro unità di misura.
-> Formalmente:
+ 
+> [!def] Correlazione (Cross-correlazione)
+> La correlazione tra $X$ e $Y$ (indicata con $R_{X,Y}$) è una misura statistica che quantifica la relazione tra due variabili aleatorie attraverso il valore atteso del loro prodotto. 
+>> Intuitivamente, indica quanto le due variabili tendano a variare insieme in modo concorde.
 > 
-> $$\rho_{X, Y} = \frac{\operatorname{COV}[X, Y]}{\sigma_X \sigma_Y}$$
-> 
-> 
-> 
-> *(dove $\sigma_X$ e $\sigma_Y$ sono le deviazioni standard di $X$ e $Y$)*
+> Formalmente (per variabili discrete):
+> $$R_{X,Y} = \mathbb{E}[XY] = \sum_{x \in \mathcal{X}} \sum_{y \in \mathcal{Y}} x y p_{X,Y}(x, y)$$
 
 #### Rappresentazione della Covarianza
 ```easy-tikz
@@ -1005,11 +998,11 @@ $$\operatorname{COV}[X, Y] = \mathbb{E}[XY - \mu_X Y - \mu_Y X + \mu_X \mu_Y] = 
 Si noti che se almeno una delle due variabili ha media nulla ($\mu_X=0$ o $\mu_Y=0$), allora $\operatorname{COV}[X, Y] = \mathbb{E}[XY]$.
 
 #### b) Incorrelazione vs Indipendenza
-Due variabili con covarianza nulla sono dette **incorrelate**. È fondamentale ricordare che:
+Due variabili con *covarianza nulla* sono dette **incorrelate**. È fondamentale ricordare che:
 *   **Indipendenza $\Rightarrow$ Incorrelazione**: Se $X$ e $Y$ sono indipendenti, la loro pmf congiunta è il prodotto delle marginali $p_{X,Y}(x,y) = p_X(x)p_Y(y)$.
 *   **Incorrelazione $\nRightarrow$ Indipendenza**: Due variabili possono essere incorrelate ma comunque dipendenti (ad esempio in relazioni non lineari).
 
-Dimostrazione per variabili indipendenti:
+>[!dim] Dimostrazione per variabili indipendenti:
 $$\operatorname{COV}[X, Y] = \sum_{x \in \mathcal{X}} \sum_{y \in \mathcal{Y}} (x - \mu_X)(y - \mu_Y) p_X(x)p_Y(y)$$
 $$= \left( \sum_{x \in \mathcal{X}} (x - \mu_X) p_X(x) \right) \left( \sum_{y \in \mathcal{Y}} (y - \mu_Y) p_Y(y) \right) = \mathbb{E}[X - \mu_X] \cdot \mathbb{E}[Y - \mu_Y] = 0 \cdot 0 = 0$$
 

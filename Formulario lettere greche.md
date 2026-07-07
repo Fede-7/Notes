@@ -1,31 +1,31 @@
 ### Alfabeto Greco
 
-| Maiuscola | Minuscola | Nome | Traslitterazione |
-| :---: | :---: | :--- | :--- |
-| $\mathrm{A}$ | $\alpha$ | Alpha | a |
-| $\mathrm{B}$ | $\beta$ | Beta | b |
-| $\Gamma$ | $\gamma$ | Gamma | g |
-| $\Delta$ | $\delta$ | Delta | d |
-| $\mathrm{E}$ | $\epsilon$ | Epsilon | e |
-| $\mathrm{Z}$ | $\zeta$ | Zeta | z |
-| $\mathrm{H}$ | $\eta$ | Eta | ē |
-| $\Theta$ | $\theta$ | Theta | th |
-| $\mathrm{I}$ | $\iota$ | Iota | i |
-| $\mathrm{K}$ | $\kappa$ | Kappa | k |
-| $\Lambda$ | $\lambda$ | Lambda | l |
-| $\mathrm{M}$ | $\mu$ | Mu | m |
-| $\mathrm{N}$ | $\nu$ | Nu | n |
-| $\Xi$ | $\xi$ | Xi | x |
-| $\mathrm{O}$ | $\omicron$ | Omicron | o |
-| $\Pi$ | $\pi$ | Pi | p |
-| $\mathrm{P}$ | $\rho$ | Rho | r |
-| $\Sigma$ | $\sigma, \varsigma$* | Sigma | s |
-| $\mathrm{T}$ | $\tau$ | Tau | t |
-| $\Upsilon$ | $\upsilon$ | Upsilon | y / u |
-| $\Phi$ | $\phi$ | Phi | ph / f |
-| $\mathrm{X}$ | $\chi$ | Chi | ch |
-| $\Psi$ | $\psi$ | Psi | ps |
-| $\Omega$ | $\omega$ | Omega | o |
+|  Maiuscola   |      Minuscola       | Nome    | Traslitterazione |
+| :----------: | :------------------: | :------ | :--------------- |
+| $\mathrm{A}$ |       $\alpha$       | Alpha   | a                |
+| $\mathrm{B}$ |       $\beta$        | Beta    | b                |
+|   $\Gamma$   |       $\gamma$       | Gamma   | g                |
+|   $\Delta$   |       $\delta$       | Delta   | d                |
+| $\mathrm{E}$ |      $\epsilon$      | Epsilon | e                |
+| $\mathrm{Z}$ |       $\zeta$        | Zeta    | z                |
+| $\mathrm{H}$ |        $\eta$        | Eta     | ē                |
+|   $\Theta$   |       $\theta$       | Theta   | th               |
+| $\mathrm{I}$ |       $\iota$        | Iota    | i                |
+| $\mathrm{K}$ |       $\kappa$       | Kappa   | k                |
+|  $\Lambda$   |      $\lambda$       | Lambda  | l                |
+| $\mathrm{M}$ |        $\mu$         | Mu      | m                |
+| $\mathrm{N}$ |        $\nu$         | Nu      | n                |
+|    $\Xi$     |        $\xi$         | Xi      | x                |
+| $\mathrm{O}$ |      $\omicron$      | Omicron | o                |
+|    $\Pi$     |        $\pi$         | Pi      | p                |
+| $\mathrm{P}$ |        $\rho$        | Rho     | r                |
+|   $\Sigma$   | $\sigma, \varsigma$* | Sigma   | s                |
+| $\mathrm{T}$ |        $\tau$        | Tau     | t                |
+|  $\Upsilon$  |      $\upsilon$      | Upsilon | y / u            |
+|    $\Phi$    |        $\phi$        | Phi     | ph / f           |
+| $\mathrm{X}$ |        $\chi$        | Chi     | ch               |
+|    $\Psi$    |        $\psi$        | Psi     | ps               |
+|   $\Omega$   |       $\omega$       | Omega   | o                |
 
 *\*Nota: La lettera Sigma ha due forme minuscole: $\sigma$ si usa all'interno delle parole, mentre $\varsigma$ si usa solo alla fine della parola.*
 
