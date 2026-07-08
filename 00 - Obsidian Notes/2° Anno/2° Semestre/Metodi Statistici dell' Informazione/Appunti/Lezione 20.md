@@ -519,7 +519,7 @@ $$\hat{\mu}_{ML} = \frac{1}{n}\sum_{i=1}^{n}x_i$$
 
 **Conclusione:** Lo stimatore ML della media è la **media campionaria**, non sorprendentemente.
 
-### CDF (Cumulative Distribution Function) e proprietà
+### Proprietà
 
 - **Non-polarizzato:** $\mathbb{E}[\hat{\mu}_{ML}] = \mu$
 - **Varianza:** $\text{Var}[\hat{\mu}_{ML}] = \frac{\sigma_0^2}{n}$

@@ -1,6 +1,12 @@
-# Fondamenti Probabilità
+```table-of-contents
+```
+# Capitolo 1: Fondamenti della Teoria della Probabilità
 
-## Definizioni
+## 1.1 Definizioni e Strumenti Matematici Preliminari
+
+
+### 1.1.1 Qualche richiamo di insiemistica (Parte iniziale - Definizioni di base)
+
 
 > **Esperimento**
 > Un'operazione o un'azione (o un insieme di esse) il cui esito produce uno tra diversi risultati possibili. Ad esempio, il lancio di un dado è un esperimento poiché l'esito non è noto a priori ma appartiene a un insieme di possibilità predefinite.
@@ -18,7 +24,8 @@
 > [!quote] Osservazione
 > Un evento è univocamente individuato dagli elementi che lo compongono; al contrario, la proposizione che lo definisce non è unica.
 
-## Qualche richiamo di insiemistica
+### 1.1.1 Qualche richiamo di insiemistica
+
 
 Siano $\{ A _ { i } \} _ { i = 1 } ^ { M }$ $M$ sotto-insiemi di un insieme $\Omega .$. Definiamo:
 
@@ -30,6 +37,7 @@ Siano $\{ A _ { i } \} _ { i = 1 } ^ { M }$ $M$ sotto-insiemi di un insieme $\Om
 $$
 A _ {1} \setminus A _ {2} = A _ {1} \cap \overline {{A _ {2}}}
 $$
+
 
 5. Relazione di De Morgan tra unione, intersezione e complementazione:
 $$
@@ -49,7 +57,9 @@ $$
 A _ {1} \cap \left(\cup_ {i = 2} ^ {M} A _ {i}\right) = \cup_ {i = 2} ^ {M} \left(A _ {1} \cap A _ {i}\right)
 $$
 
-## Nomenclatura probabilistica
+
+### 1.1.2 Nomenclatura probabilistica
+
 
 - $\Omega$ si definisce **evento certo**;
 - $\emptyset \space$  si definisce **evento impossibile**;
@@ -57,7 +67,12 @@ $$
 - Due eventi $A$ e $B$ tali che $A \cap B = \emptyset \space$  si definiscono **incompatibili** o **mutuamente esclusivi**;
 - Se $A \subseteq B$ si dice che $A$ **implica** $B$, cioè il verificarsi di $A$ implica che si verifichi $B$.
 
-## Spazi finiti con eventi elementari equivalenti
+
+
+### 1.1.3 Strumenti di calcolo combinatorio
+
+#### 1.1.3.2 Spazi finiti con eventi elementari equivalenti
+
 
 Sia $\Omega$ uno spazio dei campioni finito; 
 
@@ -73,7 +88,8 @@ Quindi per eventi equivalenti è importante saper contare le cardinalità dei so
 
 La branca che si occupa di questo problema si chiama **calcolo combinatorio**.
 
-## Prodotti cartesiani
+#### 1.1.3.1 Prodotti cartesiani
+
 
 Si considerino $k$ insiemi finiti, $A _ { 1 } , \ldots A _ { k }$, non necessariamente distinti. 
 
@@ -88,7 +104,9 @@ $$
 
 Questa è la relazione fondamentale del calcolo combinatorio, dalla quale molte altre formule di conteggio derivano. 
 
-## k-ple ordinate senza ripetizione
+
+#### 1.1.3.3 k-ple ordinate senza ripetizione
+
 
 Si supponga $A = \{ a _ { 1 } , \ldots a _ { n } \}$.
 
@@ -101,7 +119,9 @@ Pertanto il richiesto numero è
 $$
 \left| A ^ {(k)} \right| = n (n - 1) (n - 2) \cdot \dots \cdot (n - k + 1) = \prod_ {i = 0} ^ {k - 1} (n - i)
 $$
-## Permutazioni
+
+#### 1.1.3.4 Permutazioni
+
 
 Un caso particolare - ma molto rilevante - del calcolo precedente è quando $k = n$. La domanda cui si vuole rispondere è: 
 
@@ -113,7 +133,9 @@ Risposta: È un caso speciale di enumerazione di k-ple quando $k = n$, cioè:
 
 Questo ci conduce immediatamente al concetto di combinazioni. 
 
-## Combinazioni $( \overline { { G } } _ { m } ) _ { s } ^ { s }$
+
+#### 1.1.3.5 Combinazioni e formalismo $(\overline{G}_m)_s^s$
+
 
 > [!theorem] Combinazione
 > **Definizione**: Una combinazione è una selezione di elementi da un insieme in cui l'ordine degli elementi non è rilevante. In pratica, si contano i sottogruppi possibili senza preoccuparsi della sequenza in cui sono stati scelti.
@@ -130,7 +152,9 @@ C _ {n, k} = \frac {n (n - 1) \cdot \ldots (n - k + 1)}{k !} = \frac {n !}{k ! (
 $$
 
 dove $\left( \begin{array} { l } { n } \\ { k } \end{array} \right)$ è il coefficiente binomiale $( n , k )$.
-## Insieme delle parti di un insieme finito
+
+#### 1.1.3.6 Insieme delle parti di un insieme finito
+
 
 Si consideri un insieme $A$ con $n$ elementi. 
 
@@ -148,7 +172,11 @@ $$
 | \mathcal {P} (A) | = \sum_ {k = 0} ^ {n} \binom{n}{k} = 2 ^ {n}
 $$
 
-## Dalla frequenza alla probabilità
+
+## 1.2 Formulazione Frequentista ed Esperimenti Aleatori
+
+### 1.2.1 Dalla frequenza alla probabilità
+
 
 Dato uno spazio dei campioni discreto $\Omega$ e un suo qualunque sottoinsieme (o evento) $A$, si definisce **probabilità** che occorra $A$ come il limite della frequenza di occorrenza di $A$ quando il numero di esperimenti — o prove — tende all’infinito, cioè: 
 
@@ -166,7 +194,9 @@ $$
 
 dove $\Omega _ { A }$ contiene tutti gli eventi che comportano il verificarsi di $A$. 
 
-## Frequenza di occorrenza e probabilità su Spazi finiti
+
+### 1.2.2 Frequenza di occorrenza e probabilità su spazi finiti
+
 
 Sia $\Omega$ uno spazio campione discreto (cioè, finito o numerabile). Rimuovendo l’ipotesi che gli eventi elementari siano equiprobabili, la definizione di **probabilità** data in precedenza rimane valida. 
 
@@ -181,16 +211,21 @@ La principale differenza rispetto al caso di equiprobabilità è che non è più
 > [!quote] Osservazione
 > Quando gli eventi elementari non sono equiprobabili, un evento $A \subseteq \Omega$ ha una misura diversa da quella ordinaria data dal numero dei suoi elementi distinti. Di conseguenza, due eventi $A \subseteq \Omega \mathrm { ~ e ~ } B \subseteq \Omega$ di uguale cardinalità $( | A | = | B | )$ possono avere "pesi" (cioè misure) diversi e le tecniche di conteggio non sono più sufficienti ai fini del calcolo della probabilità.
 
-## Alcune proprietà della frequenza di occorrenza e della probabilità 
+
+### 1.2.3 Alcune proprietà della frequenza di occorrenza e della probabilità
+
 
 Siano $A$ e $B$ due eventi. Siano $N_A$ e $N_B$ il numero di occorrenze su $n$ prove, $\frac{N_A}{n}$ e $\frac{N_B}{n}$ le relative frequenze, e $P(A)$ e $P(B)$ i rispettivi limiti (ovvero le probabilità). Valgono le seguenti proprietà:
 
-### a Eventi complementari
+#### 1.2.3.1 Eventi complementari
+
 $$
 f _ {n} (\overline {{A}}) = \frac {n - n _ {A}}{n} = 1 - f _ {n} (A) \Longrightarrow \mathbb {P} (\overline {{A}}) = 1 - \mathbb {P} (A)
 $$
 
-### b Sub-additività
+
+#### 1.2.3.2 Sub-additività
+
 $$P(A \cup B) = P(A) + P(B) - P(A \cap B) \tag{1}$$
 $$
 f _ {n} (A \cup B) = \frac {n _ {A U B}}{n} = \frac {n _ {A} + n _ {B} - n _ {A \cap B}}{n} = f _ {n} (A) + f _ {n} (B) - f _ {n} (A \cap B) \rightarrow
@@ -201,7 +236,9 @@ $$
 
 Infatti, se $A$ e $B$ non sono incompatibili, sommare semplicemente $\frac{N_A}{n}$ e $\frac{N_B}{n}$ equivarrebbe a contare due volte le occorrenze di entrambi (cioè le occorrenze di $A \cap B )$), il che spiega il termine sottrattivo.
 
-### c Sottrazione tra insiemi
+
+#### 1.2.3.3 Sottrazione tra insiemi
+
 $$P(A \setminus B) = P(A) - P(A \cap B) \tag{2}$$
 $$
 f _ {n} (A \setminus B) = f _ {n} (A \cap \overline {{B}}) = \frac {n _ {A} - n _ {A \cap B}}{n} = f _ {n} (A) - f _ {n} (A \cap B) \rightarrow
@@ -212,14 +249,20 @@ $$
 
 Infatti, dovendosi verificare $A$ ma non $B$, bisogna sottrarre a $\frac{N_A}{n}$ il numero di esperimenti in cui si verificano entrambi, $n _ { A \cap B }$.
 
-### d Evento certo ed evento impossibile
+
+#### 1.2.3.4 Evento certo ed evento impossibile
+
 Banalmente:
 
 $$
 f _ {n} (\Omega) = \frac {n}{n} = 1 \rightarrow \mathbb {P} (\Omega) = 1 \rightarrow \mathbb {P} (\emptyset \space ) = \mathbb {P} (\overline {{\Omega}}) = 0
 $$
 
-## Frequenze e probabilità condizionate
+
+## 1.3 Probabilità Condizionata e Relazioni tra Eventi
+
+### 1.3.1 Frequenze e probabilità condizionate
+
 
 Siano $A$ e $B$ due eventi che occorrano $n _ { A } \in n _ { B }$ volte su $n$ esperimenti. Definiamo la **frequenza di occorrenza** di $A$ condizionata a $B \texttt { - } f _ { n } ( A | B )$ come il rapporto tra il numero di prove in cui si verificano entrambi $\left( n _ { A \cap B } \right)$ e il numero di volte in cui si verifica solo $B$, cioè, formalmente:
 
@@ -235,7 +278,9 @@ $$
 
 L’ultima relazione prende anche il nome di **legge della probabilità composta**.
 
-## Legge della probabilità totale
+
+### 1.3.2 Legge della probabilità totale
+
 
 Un’importante conseguenza della definizione di probabilità condizionata è la **legge della probabilità totale**.
 
@@ -268,6 +313,7 @@ Pertanto, sfruttando la legge della probabilità composta (o, equivalentemente, 
 $$
 f _ {n} (A \cap B) = f _ {n} (A) f _ {n} (B) \Leftrightarrow \mathbb {P} (A \cap B) = \mathbb {P} (A) \mathbb {P} (B)
 $$
+
 
 ## L’approccio assiomatico alla teoria della probabilità
 
@@ -311,7 +357,9 @@ c. Se $A$ è un evento qualsiasi, allora la minima algebra che contiene $A$ è $
 - $A$ deve essere elemento di $E$ per la chiusura rispetto alla complementazione; 
 - $A \cup { \overline { { A } } } = \Omega$ deve essere un elemento di $E$ per la proprietà di chiusura rispetto all’unione e $\varnothing = { \overline { { \Omega } } }$ deve esso stesso appartenervi per la chiusura rispetto alla complementazione. 
 
-## Spazi di probabilità
+
+### 1.4.2 Spazi di probabilità
+
 
 Si definisce **legge di probabilità** una funzione con dominio $E$ e co-dominio $[0, 1]$, cioè: 
 
@@ -335,7 +383,9 @@ A e B incompatibili $\implies$ $( A \cap B = \emptyset \space  ) \ \Longrightarr
 
 La terna $(\Omega, E, P)$ si definisce **Spazio di Probabilità**. 
 
-## Proprietà delle leggi di probabilità ("""dimosrazioni""")
+
+### 1.4.3 Proprietà delle leggi di probabilità (dimostrazioni)
+
 
 ### Eventi complementari
 $$
@@ -374,6 +424,7 @@ p _ {X} (x) = \lim _ {n \rightarrow \infty} \frac {n _ {x}}{n} \rightarrow p _ {
 $$
 
 dove $n _ { x } = n _ { \{ X = x \} }$ rappresenta il numero di occorrenze dell’evento $\{ X = x \}$.
+
 
 Per come è stata definita, la probabilità è una funzione definita su un insieme di sottoinsiemi di $\Omega$ e ha valori in $[0, 1]$, cioè: 
 
@@ -609,25 +660,25 @@ Si noti comunque che l’equazione (1) include l’equazione (2) come caso speci
 
 Data una variabile aleatoria $X \sim p _ { X } ( x ) , x \in \mathcal { X }$ , con media $\mu _ { X } = \operatorname { \mathbb { E } } [ X ]$ definiamo: 
 
-Il valore quadratico medio (Mean Square) di $X$ : 
+Il **valore quadratico medio** (Mean Square) di $X$ : 
 
 $$
 X _ {\text { rms }} ^ {2} = \mathbb {E} \left[ X ^ {2} \right] = \sum_ {x \in \mathcal {X}} x ^ {2} p _ {X} (x)
 $$
 
-Il valore efficace (root mean square, rms) di $X$ : 
+Il **valore efficace** (root mean square, rms) di $X$ : 
 
 $$
 X _ {\text { rms }} = \sqrt {\mathbb {E} \left[ X ^ {2} \right]} = \sqrt {\sum_ {x \in \mathcal {X}} x ^ {2} p _ {X} (x)}
 $$
 
-La varianza di $X$ : 
+La **varianza** di $X$ : 
 
 $$
 \sigma_ {X} ^ {2} = \mathbb {E} \left[ (X - \mu_ {X}) ^ {2} \right] = \sum_ {x \in \mathcal {X}} (x ^ {2} + \mu_ {X} ^ {2} - 2 x \mu_ {X}) p _ {X} (x) = X _ {\mathrm{rms}} ^ {2} - \mu_ {X} ^ {2}
 $$
 
-La deviazione standard di $X$ : 
+La **deviazione standard** di $X$ : 
 
 $$
 \sigma_ {X} = \sqrt {\sigma_ {X} ^ {2}} = \sqrt {\mathbb {E} [ X ^ {2} ] - \mu_ {X} ^ {2}} = \sqrt {X _ {\mathrm{rms}} ^ {2} - \mu_ {X} ^ {2}}
@@ -670,30 +721,30 @@ $$
 
 ## Quadro sintetico delle proprietà di media e varianza
 
-Se $(a, b)$ sono costanti reali ${ \mathbb E } [ a X + b ] = a { \mathbb E } [ X ] + b$, dato che $\mathbb { E } [ b ] = b ;$:
+### Proprietà della Media ($\mathbb{E}$)
+*   **Linearità:** Se $(a, b)$ sono costanti reali:
+$$\mathbb{E}[aX + b] = a\mathbb{E}[X] + b$$
+*(Dato che $\mathbb{E}[b] = b$)*
 
-Se $X ( \omega ) \geq 0 \ \forall \space \omega \in \Omega$ (cioè, se $\mathcal { X } \subseteq [ 0 , + \infty [ )$), allora $\mathbb { E } [ X ] \geq 0 ;$.
+*   **Non-negatività:** Se $X(\omega) \geq 0$ per ogni $\omega \in \Omega$ (ovvero se $\mathcal{X} \subseteq [0, +\infty[$), allora:
+$$\mathbb{E}[X] \geq 0$$
+### Proprietà della Varianza ($\sigma^2$)
+*   **Non-negatività:** La varianza è sempre non negativa:
+$$\sigma_X^2 \geq 0$$
+*(In quanto media della variabile non negativa $(X - \mu_X)^2$)*
 
-- $\sigma _ { X } ^ { 2 } \geq 0$ (in quanto media della variabile non negativa $( X - \mu _ { X } ) ^ { 2 } )$).
+*   **Trasformazione Lineare:** Se $Y = aX + b$, allora la varianza è:
+$$\sigma_Y^2 = a^2 \sigma_X^2$$
 
-Se $\boldsymbol { Y } = \boldsymbol { a } \boldsymbol { X } + \boldsymbol { b }$, allora $\sigma _ { Y } ^ { 2 } = a ^ { 2 } \sigma _ { X } ^ { 2 }$. Infatti:
-
-$$
-\mu_ {Y} = a \mu_ {X} + b, \quad \mathbb {E} [ Y ^ {2} ] = \mathbb {E} [ a ^ {2} X ^ {2} + 2 a b X + b ^ {2} ] = a ^ {2} \mathbb {E} [ X ^ {2} ] + 2 a b \mathbb {E} [ X ] + b ^ {2}
-$$
-
-$$
-\sigma_ {Y} ^ {2} = a ^ {2} \mathbb {E} [ X ^ {2} ] + 2 a b \mu_ {X} + b ^ {2} - (a \mu_ {X} + b) ^ {2} = a ^ {2} \sigma_ {X} ^ {2}
-$$
-
+>[!dim] Dimostrazione:
+$$\mu_Y = a\mu_X + b$$
+$$\mathbb{E}[Y^2] = \mathbb{E}[a^2X^2 + 2abX + b^2] = a^2\mathbb{E}[X^2] + 2ab\mathbb{E}[X] + b^2$$
+$$\sigma_Y^2 = a^2\mathbb{E}[X^2] + 2ab\mu_X + b^2 - (a\mu_X + b)^2 = a^2\sigma_X^2$$
+### Relazioni Correlate
 Come conseguenza delle relazioni precedenti, si ottiene anche:
-
-$$
-\mathbb {E} [ Y ^ {2} ] = Y _ {\mathrm{rms}} ^ {2} = a ^ {2} X _ {\mathrm{rms}} ^ {2} + 2 a b \mu_ {X} + b ^ {2}
-$$
-
-Si noti infine che per variabili a media nulla $( \mu x = 0 )$, abbiamo $\sigma _ { X } ^ { 2 } = X _ { \mathrm { r m s } } ^ { 2 }$.
-
+$$\mathbb{E}[Y^2] = Y_{\text{rms}}^2 = a^2 X_{\text{rms}}^2 + 2ab\mu_X + b^2$$
+**Nota finale:** Per variabili a media nulla ($\mu_X = 0$), vale la relazione:
+$$\sigma_X^2 = X_{\text{rms}}^2$$
 ## Definizione di variabili multiple
 
 Formalmente, una coppia di variabili aleatorie (o **variabile doppia**) è definita — in analogia con le variabili singole — nella forma:
@@ -706,628 +757,331 @@ dove $\mathcal { X } \in \mathcal { V }$ sono gli alfabeti di $X$ e di $Y$ rispe
 
 In altre parole, il risultato di un esperimento $\omega _ { * }$ non è un unico valore $X ( \omega _ { * } ) = x _ { * } \in \mathcal { X }$, ma una coppia ordinata $( X ( \omega _ { * } ) , Y ( \omega _ { * } ) ) = ( x _ { * } , y _ { * } )$, che varia nel prodotto cartesiano $\mathcal { X } \times \mathcal { V }$.
 
-> [!example] Esempio 1 (Variabili multiple)
-> Si consideri un elenco di tutti i residenti in Italia a una certa data, corredato di dati quali altezza ($X$), peso ($Y$) ed età ($Z$). Se si scelga un residente a caso e se ne leggano l'altezza $X ( \omega ) \in \{ 3 0 \mathsf { c m } , 3 1 \mathsf { c m } , \dots 2 1 0 \mathsf { c m } \}$, il peso $Y ( \omega ) \in \{ 0 . 5 \ : \mathrm { k g } , 0 . 6 \ : \mathrm { k g } , . \dots 1 7 0 \ : \mathrm { k g } \}$ e l'età $Z ( \omega ) \in \{ 0 \mathrm { a n n i , 0 . 5 a n n i , \dots 1 1 0 a n n i } \}$.
+### pmf/DF/pdf congiunta
+$$p_{X,Y}(x,y) = \mathbb{P}(\{X = x\} \cap \{Y = y\}) = \lim_{n \to \infty} \frac{n_{X=x, Y=y}}{n}, \quad (x,y) \in \mathcal{X} \times \mathcal{Y}$$
+In altre parole, $p_{X,Y}(x,y)$ è una tabella di $|\mathcal{X}| \cdot |\mathcal{Y}|$ numeri che — ovviamente — gode di opportune proprietà.
 
-## Possibili coppie sono
+#### Proprietà
 
+Le proprietà fondamentali della pmf congiunta (identiche alla pmf classica) sono:
+$$p_{X,Y}(x,y) \geq 0 \quad \text{e} \quad \sum_{x \in \mathcal{X}} \sum_{y \in \mathcal{Y}} p_{X,Y}(x,y) = 1$$
+
+>[!dim] Dimostrazione:
+$$1 = \mathbb{P}(\Omega) = \mathbb{P}\left(\bigcup_{x \in \mathcal{X}} \bigcup_{y \in \mathcal{Y}} \{X = x, Y = y\}\right) = \sum_{x \in \mathcal{X}} \sum_{y \in \mathcal{Y}} \underbrace{\mathbb{P}(\{X = x, Y = y\})}_{p_{X,Y}(x,y)}$$
+Questo perché l'evento elementare $\{X = x, Y = y\}$ è incompatibile con ogni altro evento elementare $\{X = x', Y = y'\}$ per $x \neq x'$ e/o $y \neq y'$.
+
+##### Marginalizzazione
+> Si usa per sapere la probabilità di una variabile aleatoria indipendentemente dall' altra. (riga o colonna della tabella di cui parlavamo)
+
+Si noti che $\bigcup_{x \in \mathcal{X}} \{X = x\} = \Omega$ e $\bigcup_{y \in \mathcal{Y}} \{Y = y\} = \Omega$, per cui:
+$$\{X = x\} = \{X = x\} \cap \Omega = \{X = x\} \cap \bigcup_{y \in \mathcal{Y}} \{Y = y\} = \bigcup_{y \in \mathcal{Y}} (\{X = x\} \cap \{Y = y\})$$
+Da cui deriva:
+$$\sum_{y \in \mathcal{Y}} p_{X,Y}(x,y) = p_X(x)$$
+$$\Longrightarrow \mathbb{P}(\{X = x\}) = \mathbb{P}\left(\bigcup_{y \in \mathcal{Y}} \{\{X = x\} \cap \{Y = y\}\}\right) = \sum_{y \in \mathcal{Y}} \mathbb{P}(\{X = x\} \cap \{Y = y\})$$
+Si ha quindi la proprietà di **marginalizzazione**:
+$$\sum_{y \in \mathcal{Y}} p_{X,Y}(x,y) = p_X(x) \quad \text{e} \quad \sum_{x \in \mathcal{X}} p_{X,Y}(x,y) = p_Y(y)$$
+**Conclusione:**
+Caratterizzare congiuntamente $(X, Y)$ significa anche caratterizzarle marginalmente, mentre il viceversa non è necessariamente vero.
+
+## Variabili indipendenti
+
+Due variabili aleatorie $X \in \mathcal{X}$ e $Y \in \mathcal{Y}$ sono **indipendenti** $\iff$ gli eventi $\{X = x\}$ e $\{Y = y\}$ sono indipendenti.
+
+Per due variabili indipendenti, la pmf congiunta si fattorizza nel prodotto delle rispettive marginali:
+$$p_{X,Y}(x,y) = \mathbb{P}(\{X = x\} \cap \{Y = y\}) = \mathbb{P}(\{X = x\}) \mathbb{P}(\{Y = y\}) = p_X(x) p_Y(y)$$
+Questo è l'unico caso in cui la conoscenza delle sole pmf marginali $p_X(x)$ e $p_Y(y)$ è sufficiente per determinare univocamente la pmf congiunta.
+
+### Generalizzazione a $m$ variabili aleatorie
+Poiché il concetto di pmf congiunta si estende a una $m$-pla di variabili aleatorie $(X_1, \dots, X_m) \in \mathcal{X}_1 \times \dots \times \mathcal{X}_m \subseteq \mathbb{R}^m$ attraverso la seguente definizione:
+$$p_{X_1, \dots, X_m}(x_1, \dots, x_m) = \mathbb{P}(\{X_1 = x_1\} \cap \dots \cap \{X_m = x_m\})$$
+il concetto di indipendenza può essere generalizzato analogamente:
+$$p_{X_1, \dots, X_m}(x_1, \dots, x_m) = \prod_{i=1}^m p_{X_i}(x_i)$$
+Che può essere espresso formalmente come:
+$$\prod_{i=1}^m \mathbb{P}(\{X_i = x_i\}) = \prod_{i=1}^m p_{X_i}(x_i)$$
+### Le pmf condizionate
+
+Si considerino variabili aleatorie $X \in \mathcal{X}$ e $Y \in \mathcal{Y}$ con assegnata pmf congiunta $p_{X,Y}(x,y)$.
+
+Applicando all'evento $\{X = x, Y = y\} = \{X = x\} \cap \{Y = y\}$ la legge della probabilità composta:
 $$
-(X (\omega), Y (\omega)) \in \mathcal {X} \times \mathcal {Y}, \quad (X (\omega), Z (\omega)) \in \mathcal {X} \times \mathcal {Z}, \quad (Y (\omega), Z (\omega)) \in \mathcal {Y} \times \mathcal {Z}
+p_{X,Y}(x,y) = \mathbb{P}(\{X = x\} \cap \{Y = y\}) = \underbrace{\mathbb{P}(\{Y = y\} \mid \{X = x\})}_{p_{Y|X}(y|x)} \cdot \underbrace{\mathbb{P}(\{X = x\})}_{p_X(x)}
 $$
+$p_{Y|X}(y|x)$ è la **legge di probabilità condizionata** (o pmf condizionata) di $Y$ dato $x$. Come la legge congiunta, $p_{Y|X}(y|x)$ è una tabella di $|\mathcal{X}| \cdot |\mathcal{Y}|$ numeri che soddisfa alcune proprietà fondamentali.
 
-$( X ( \omega ) , Y ( \omega ) , Z ( \omega ) ) \in \mathcal { X } \times \mathcal { Y } \times \mathcal { Z } \ \dot { \rho }$ rappresenta una terna di variabili aleatorie.
-
-## 2. pmf/DF/pdf congiunta
-
-Si supponga di considerare la coppia $( X , Y )$ (nel caso precedente, altezza e peso di un residente scelto a caso); 
-
-Si eseguano $n$ esperimenti (nel caso precedente, si scelga per $n$ volte a caso un nome dell’elenco); 
-
-Si registrino i relativi valori di $\{ ( \boldsymbol { X } ( \omega _ { i } ) , \boldsymbol { Y } ( \omega _ { i } ) ) \} _ { i = 1 } ^ { n }$ (nel caso precedente, altezza e peso del residente di volta in volta scelto); 
-
-Si indichi con $n _ { X = x , Y = y } = n _ { X = x , Y = y } ( n )$ il numero di volte in cui $X = x \in$ $Y = y$ (nel caso precedente, il numero di volte in cui l’utente scelto a caso ha una altezza $x$ e un peso $y$); 
-
-Ovviamente, l’evento $\{ X = x \} \cap \{ Y = y \}$ occorre $n x { = } x , Y { = } y$ volte su $n$ esperimenti. Definiamo allora la seguente **pmf congiunta** delle due variabili aleatorie $X \textsf { e Y }$ 
-
-$$
-p _ {X, Y} (x, y) = \mathbb {P} \left(\{X = x \} \cap \{Y = y \}\right) = \lim _ {n \rightarrow \infty} \frac {n _ {X = x , Y = y}}{n}, \quad (x, y) \in \mathcal {X} \times \mathcal {Y}
-$$
-
-In altre parole, $p x , v ( x , y ) \ { \dot { \mathbf { e } } }$ una tabella di $| \mathcal { X } | | \mathcal { D } |$ numeri che - ovviamente - gode di opportune proprietà. 
-
-## 3. Proprietà della pmf congiunta
-
-$\begin{array} { r } { p x , \gamma \geq 0 \in \sum _ { x \in \mathcal { X } } \sum _ { y \in \mathcal { Y } } p x , \gamma ( x , y ) = 1 } \end{array}$ . Infatti: 
-
-$$
-1 = \mathbb {P} (\Omega) = \mathbb {P} \left(\cup_ {x \in \mathcal {X}} \cup_ {y \in \mathcal {Y}} \{X = x, Y = y \}\right) = \sum_ {x \in \mathcal {X}} \sum_ {y \in \mathcal {Y}} \underbrace {\mathbb {P} \left(\{X = x , Y = y \}\right)} _ {p _ {X, Y} (x, y)}
-$$
-
-essendo l’evento elementare $\{ X = x , Y = y \}$ incompatibile con ogni altro evento elementare $\{ X = x ^ { \prime } , Y = y ^ { \prime } \}$ con $x \neq x ^ { \prime } \mathtt { e } / \circ y \neq y ^ { \prime }$ 
-
-Si noti che $\cup _ { x \in \mathcal { X } } \{ X = x \} = \Omega \textsf { e } \cup _ { y \in \mathcal { Y } } = \Omega$ , per cui: 
-
-$$
-\{X = x \} = \{X = x \} \cap \Omega = \{X = x \} \cap \cup_ {y \in \mathcal {Y}} \{Y = y \} = \cup_ {y \in \mathcal {Y}} \{X = x \} \cap \{Y = y \}
-$$
-
-$$
-\sum_{y \in \mathcal{Y}} p_{X,Y}(x, y) = p_X(x)
-$$
-$$
-\Longrightarrow \mathbb {P} (\{X = x \}) = \mathbb {P} \left(\cup_ {y \in \mathcal {Y}} \{\{X = x \} \cap \{Y = y \} \}\right) = \sum_ {y \in \mathcal {Y}} \mathbb {P} \left(\{X = x \} \cap \{Y = y \}\right)
-$$
-
-Si ha quindi la proprietà di **marginalizzazione**: 
-
-$$
-\sum_ {y \in \mathcal {Y}} p _ {X, Y} (x, y) = p _ {X} (x) \quad \sum_ {x \in \mathcal {X}} p _ {X, Y} (x, y) = p _ {Y} (y)
-$$
-
-per cui caratterizzare congiuntamente $(X, Y)$ significa anche caratterizzarle marginalmente, mentre il viceversa non è necessariamente vero. 
-
-## 4. Variabili indipendenti
-
-Due variabili aleatorie $X \in \mathcal { X } \mathrm { ~ e ~ } Y \in \mathcal { Y }$ sono **indipendenti** se (e solo se) gli eventi $\{ X = x \} \mathrm { ~ e ~ } \{ Y = y \}$ sono indipendenti; 
-
-Per due variabili indipendenti la pmf congiunta si fattorizza nel prodotto delle marginali: 
-
-$$
-p _ {X, Y} (x, y) = \mathbb {P} (\{X = x \} \cap \{Y = y \}) = \mathbb {P} (\{X = x \}) \mathbb {P} (\{Y = y \}) = p _ {X} (x) p _ {Y} (y)
-$$
-
-Questo è l’unico caso in cui assegnare le due pmf marginali $p x ( x ) \mathrm { ~ e ~ } p _ { Y } ( y )$ equivale ad assegnare la pmf congiunta. 
-
-Siccome il concetto di pmf congiunta si generalizza a una $m$-pla di variabili aleatorie $( X _ { 1 } , \ldots , X _ { m } ) \in { \mathcal { X } } _ { 1 } \times \ldots \times { \mathcal { X } } _ { m } \subseteq \mathbb { R } ^ { m }$ mediante la pmf congiunta: 
-
-$$
-p _ {X _ {1}, \dots X _ {m}} (x _ {1}, \dots , x _ {m}) = \mathbb {P} \left(\{X _ {1} = x _ {1} \}, \dots , \{X _ {m} = x _ {m} \}\right)
-$$
-
-così si generalizza il concetto di indipendenza: 
-
-$$
-p _ {X _ {1}, \dots , X _ {m}} (x _ {1}, \dots , x _ {m}) = \mathbb {P} \left(\left\{X _ {1} = x _ {1} \right\}, \dots , \left\{X _ {m} = x _ {m} \right\}\right) =
-$$
-
-$$
-p_{X_1, \dots, X_m}(x_1, \dots, x_m) = \prod_{i=1}^m p_{X_i}(x_i)
-$$
-$$
-\prod_ {i = 1} ^ {m} \mathbb {P} \left(\left\{X _ {i} = x _ {i} \right\}\right) = \prod_ {i = 1} ^ {m} p _ {X _ {i}} \left(x _ {i}\right)
-$$
-
-## 5. Le pmf condizionate
-
-Si considerino variabili aleatorie $X \in \mathcal { X } \mathrm { ~ e ~ } Y \in \mathcal { Y }$ con assegnata pmf congiunta $p _ { X , Y } ( x , y )$ ; 
-
-Applichiamo all’evento $\{ X = x , Y = y \} = \{ X = x \} \cap \{ Y = y \}$ la legge della probabilità composta (vedi slide 36): 
-
-$$
-p _ {X, Y} (x, y) = \mathbb {P} \left(\{X = x \} \cap \{Y = y \}\right) = \overbrace {\mathbb {P} \left(\{Y = y \} | \{X = x \}\right)} ^ {p _ {Y | X} (y | x)} \overbrace {\mathbb {P} \left(\{X = x \}\right)} ^ {p _ {X} (x)}
-$$
-
-$p _ { Y \mid X } ( y | x )$ è la **legge di probabilità condizionata** (o pmf condizionata) di $Y$ dato $x ;$ 
-
-Come la legge congiunta, $p _ { Y \mid X } ( y | x )$ è una tabella di $| \mathcal { X } | | \mathcal { D } |$ numeri che soddisfa alcune proprietà; 
-
-Ovviamente, abbiamo: 
-
-$$
-p _ {Y \mid X} (y \mid x) p _ {X} (x) = p _ {X \mid Y} (x \mid y) p _ {Y} (y) \Longrightarrow
-$$
-
-$$
-p_{Y|X}(y|x) = \frac{p_{X,Y}(x, y)}{p_X(x)}
-$$
-$$
-p _ {X \mid Y} (x \mid y) = \frac {p _ {Y \mid X} (y \mid x) p _ {X} (x)}{p _ {Y} (y)}
-$$
-
+Dalla definizione di probabilità condizionata, abbiamo:
+$$p_{Y|X}(y|x) p_X(x) = p_{X|Y}(x|y) p_Y(y)$$
+Da cui si ricavano le seguenti formule:
+$$p_{Y|X}(y|x) = \frac{p_{X,Y}(x, y)}{p_X(x)}$$
+$$p_{X|Y}(x|y) = \frac{p_{Y|X}(y|x) p_X(x)}{p_Y(y)}$$
 > [!theorem] Legge di Bayes
 > $$
 > p_{X|Y}(x|y) = \frac{p_{Y|X}(y|x) p_X(x)}{p_Y(y)}
 > $$
 
-## 6. Alcune proprietà delle pmf condizionate
+#### Alcune proprietà
 
-$p _ { Y \mid X } ( y | x )$ se $x$ resta fisso e $y$ varia in $Y$ è una legge di probabilità. Infatti: 
+Se fissiamo $x$ e facciamo variare $y \in \mathcal{Y}$, la funzione $p_{Y|X}(y|x)$ definisce una legge di probabilità. Infatti:
+$$
+p_{Y|X}(y|x) \geq 0, \quad \sum_{y \in \mathcal{Y}} p_{Y|X}(y|x) = \mathbb{P}\left(\bigcup_{y \in \mathcal{Y}} \{Y = y\} \mid \{X = x\}\right) = \mathbb{P}(\Omega \mid \{X = x\}) = 1
+$$
+La proprietà di marginalizzazione della pmf congiunta può essere espressa in termini di pmf condizionate come segue:
+$$p_X(x) = \sum_{y \in \mathcal{Y}} p_{X,Y}(x,y) = \sum_{y \in \mathcal{Y}} p_{X|Y}(x|y) p_Y(y)$$
+E viceversa:
+$$p_{X,Y}(x,y) = p_{Y|X}(y|x) p_X(x)$$
+$$p_Y(y) = \sum_{x \in \mathcal{X}} p_{X,Y}(x,y) = \sum_{x \in \mathcal{X}} p_{Y|X}(y|x) p_X(x)$$
 
-$$
-p _ {Y | X} (y | x) \geq 0 \quad \sum_ {y \in \mathcal {Y}} p _ {Y | X} (y | x) = \mathbb {P} \left(\cup_ {y \in \mathcal {Y}} \{Y = y \} | \{X = x \}\right) = \mathbb {P} (\Omega | \{X = x \}) = 1
-$$
+>[!rb] R.B.
+>Si noti che queste espressioni non sono altro che la **legge della probabilità totale** applicata rispettivamente:
+> 1. Per l'evento $\{X=x\}$ rispetto alla partizione $\Omega = \bigcup_{y \in \mathcal{Y}} \{Y=y\}$.
+> 2. Per l'evento $\{Y=y\}$ rispetto alla partizione $\Omega = \bigcup_{x \in \mathcal{X}} \{X=x\}$.
 
-La proprietà di marginalizzazione della pmf congiunta (vedi slide 71) si scrive in termini di pmf condizionali nella forma: 
+Infine, se le variabili $X$ e $Y$ sono **indipendenti**, le pmf condizionate si semplificano nelle rispettive marginali:
+$$p_{Y|X}(y|x) = p_Y(y) \quad \text{e} \quad p_{X|Y}(x|y) = p_X(x)$$
+#### Generalizzazione
 
-$$
-p _ {X} (x) = \sum_ {y \in \mathcal {Y}} p _ {X, Y} (x, y) = \sum_ {y \in \mathcal {Y}} p _ {X | Y} (x | y) p _ {Y} (y)
-$$
+Si consideri una terna di variabili aleatorie $(X, Y, Z)$ distribuite secondo la pmf congiunta $p_{X,Y,Z}(x,y,z)$, dove $(x,y,z) \in \mathcal{X} \times \mathcal{Y} \times \mathcal{Z}$.
 
-$$
-p_{X,Y}(x, y) = p_{Y|X}(y|x) p_X(x)
-$$
-$$
-p _ {Y} (y) = \sum_ {x \in \mathcal {X}} p _ {X, Y} (x, y) = \sum_ {x \in \mathcal {X}} p _ {Y | X} (y | x) p _ {X} (x)
-$$
-
-$$
-p_{X,Y}(x, y) = p_{X|Y}(x|y) p_Y(y)
-$$
-$$
-p _ {Y} (y) = \sum_ {x \in \mathcal {X}} p _ {X, Y} (x, y) = \sum_ {x \in \mathcal {X}} p _ {Y | X} (y | x) p _ {X} (x)
-$$
-
-Si noti che questa non è altro che la legge della probabilità totale (vedi slide 37) scritta, per la prima equazione, per l’evento $\{ X = x \}$ rispetto alla partizione $\Omega = \cup _ { y \in \mathcal { y } } \{ Y = y \}$ e, per la seconda equazione, per l’evento $\{ Y = y \}$ rispetto alla partizione $\Omega = \cup _ { x \in { \mathcal { X } } } \{ X = x \}$ 
-
-Si noti, infine, che se $X \textsf { e Y }$ sono indipendenti: 
-
-$$
-p _ {Y | X} (y | x) = p _ {Y} (y)
-$$
-
-$$
-p_{Y|X}(y|x) = p_Y(y)
-$$
-$$
-p _ {X \mid Y} (x \mid y) = p _ {X} (x)
-$$
-
-$$
-p_{X|Y}(x|y) = p_X(x)
-$$
-
-## 7. Generalizzando...
-
-Si consideri una terna di variabili aleatorie $(X, Y, Z)$, distribuite secondo $p x , Y , Z ( x , y , z ) , ( x , y , z ) \in \mathcal { X } \times \mathcal { Y } \times \mathcal { Z } .$ 
-
-Usando consecutivamente la legge della probabilità composta, otteniamo: 
-
-$$
-\mathbb {P} (X = x, Y = y, Z = z) = \mathbb {P} (X = x, Y = y | Z = z) \mathbb {P} (Z = z) =
-$$
-
+Applicando consecutivamente la regola della probabilità composta, otteniamo diverse scomposizioni:
 $$
 p_{X,Y,Z}(x, y, z) = p_{Z|X,Y}(z|x,y) p_{Y|X}(y|x) p_X(x)
 $$
 $$
-\mathbb {P} (X = x \mid Z = z, Y = y) \mathbb {P} (Y = y \mid Z = z) \mathbb {P} (Z = z)
-$$
-
-$$
-p_{X,Y,Z}(x, y, z) = p_{Z|X,Y}(z|x,y) p_{X|Y}(x|y) p_Y(y)
-$$
-$$
-\mathbb {P} (X = x \mid Z = z, Y = y) \mathbb {P} (Y = y \mid Z = z) \mathbb {P} (Z = z)
-$$
-
-che ci introduce alla **regola della catena** (ogni permutazione dei pedici e degli argomenti è ovviamente possibile): 
-
-$$
-p _ {X \mid Y, Z} (x \mid y, z) = \frac {p _ {X , Y \mid Z} (x , y \mid z)}{p _ {Y \mid Z} (y \mid z)} \rightarrow p _ {X, Y, Z} (x, y, z) = p _ {Z} (z) p _ {Y \mid Z} (y \mid z) p _ {X \mid Y, Z} (x \mid y, z)
-$$
-
-$$
 p_{X,Y,Z}(x, y, z) = p_{X|Y,Z}(x|y,z) p_{Y|Z}(y|z) p_Z(z)
 $$
-$$
-p _ {X \mid Y, Z} (x \mid y, z) = \frac {p _ {X , Y \mid Z} (x , y \mid z)}{p _ {Y \mid Z} (y \mid z)} \rightarrow p _ {X, Y, Z} (x, y, z) = p _ {Z} (z) p _ {Y \mid Z} (y \mid z) p _ {X \mid Y, Z} (x \mid y, z)
-$$
-
-La terna è dunque indipendente se e solo se $p _ { X | Y , Z } ( x | y , z ) = p _ { X } ( x )$ 
-
-$$
-p _ {Y | X, Z} (y | x, z) = p _ {Y} (y) \in p _ {Z | X, Y} (z | x, y) = p _ {Z} (z).
-$$
-
-$$
-p_{X,Y,Z}(x, y, z) = p_X(x) p_Y(y) p_Z(z)
-$$
-$$
-p _ {Y | X, Z} (y | x, z) = p _ {Y} (y) \in p _ {Z | X, Y} (z | x, y) = p _ {Z} (z).
-$$
-
-## Marginalizzazione di $p_{B_1,B_2,B_3}(b_1, b_2, b_3)$
-
-L'analisi procede determinando la congiunta di tutte le possibili coppie secondo $p _ { B _ { 1 } , B _ { 2 } , B _ { 3 } } ( b _ { 1 } , b _ { 2 } , b _ { 3 } )$. Si richiama la **marginalizzazione**, proprietà fondamentale della teoria della probabilità che permette di ottenere la distribuzione di un sottoinsieme di variabili eliminando le altre.
-
-> [!theorem] Proprietà di Marginalizzazione
-> Per una variabile casuale congiunta, la probabilità marginale di una variabile è ottenuta sommando le probabilità congiunte su tutti i possibili valori delle variabili non considerate:
-> 
-> $$
-> p _ {B _ {1}, B _ {2}} (b _ {1}, b _ {2}) = p _ {B _ {1}, B _ {2}, B _ {3}} (b _ {1}, b _ {2}, 0) + p _ {B _ {1}, B _ {2}, B _ {3}} (b _ {1}, b _ {2}, 1)
-> $$
-
-Applicando tale proprietà, si ottengono le distribuzioni congiunte per le coppie:
-
-Tabella 1: Distribuzione congiunta $p_{B_1, B_2}(b_1, b_2)$
-
-| **$(b_1, b_2)$** | **$p_{B_1, B_2}(b_1, b_2)$** |
-|:---|:---:|
-| 00 | $(1 - \alpha)^2$ |
-| 01 | $\alpha(1 - \alpha)$ |
-| 10 | $\alpha(1 - \alpha)$ |
-| 11 | $\alpha^2$ |
-
-Con un'ulteriore marginalizzazione, si ricavano le distribuzioni per le altre coppie:
-
-Tabella 2: Distribuzione congiunta $p_{B_1, B_3}(b_1, b_3)$
-
-| **$(b_1, b_3)$** | **$p_{B_1, B_3}(b_1, b_3)$** |
-|:---|:---:|
-| 00 | $(1 - \alpha)^2$ |
-| 01 | $\alpha(1 - \alpha)$ |
-| 10 | $\alpha(1 - \alpha)$ |
-| 11 | $\alpha^2$ |
-
-Tabella 3: Distribuzione congiunta $p_{B_2, B_3}(b_2, b_3)$
-
-| **$(b_2, b_3)$** | **$p_{B_2, B_3}(b_2, b_3)$** |
-|:---|:---:|
-| 00 | $(1 - \alpha)^2$ |
-| 01 | $\alpha(1 - \alpha)$ |
-| 10 | $\alpha(1 - \alpha)^2$ |
-| 11 | $\alpha^2$ |
-
-> [!theorem] Analisi delle Distribuzioni
-> Si osserva che:
-> 
-> $$
-> p _ {B _ {1}} (b _ {1}) = p _ {B _ {1}, B _ {2}} (b _ {1}, 0) + p _ {B _ {1}, B _ {2}} (b _ {1}, 1)
-> $$
-> 
-> e analoghe. Le distribuzioni marginali risultanti sono:
-> 
-> Tabella 4: Distribuzione di $ b_{1} $
->
-> | **$b_{1}$** | **$p_{B_{1}}(b_{1})$** |
-> |:---|:---:|
-> | 0 | $ (1-\alpha) $ |
-> | 1 | $ \alpha $ |
-> 
-> Tabella 5: Distribuzione di $b_2$
->
-> | **$b_2$** | **$p_{B_2}(b_2)$** |
-> |:---|:---:|
-> | 0 | $(1 - \alpha)$ |
-> | 1 | $\alpha$ |
-> 
-> Tabella 6: Distribuzione di $ b_{3} $
->
-> | **$ b_{3} $** | **$ p_{B_{3}}(b_{3}) $** |
-> |:---|:---:|
-> | 0 | $ (1-\alpha) $ |
-| 1 | $ \alpha $ |
-
-Procedendo nello stesso modo, si ottengono le congiunte $q$:
-
-Tabella 7: Distribuzione congiunta $q_{B_1, B_2}(b_1, b_2)$
-
-| **$(b_1, b_2)$** | **$q_{B_1, B_2}(b_1, b_2)$** |
-|:---|:---:|
-| 00 | $(1 - \alpha)^2$ |
-| 01 | $\alpha(1 - \alpha)$ |
-| 10 | $\alpha(1 - \alpha)$ |
-| 11 | $\alpha^2$ |
-
-Tabella 8: Distribuzione congiunta $q_{B_1, B_3}(b_1, b_3)$
-
-| **$(b_1, b_3)$** | **$q_{B_1, B_3}(b_1, b_3)$** |
-|:---|:---:|
-| 00 | $(1 - \alpha)^2$ |
-| 01 | $\alpha(1 - \alpha)$ |
-| 10 | $\alpha^2$ |
-| 11 | $\alpha(1 - \alpha)$ |
-
-Tabella 9: Distribuzione congiunta $q_{B_2, B_3}(b_2, b_3)$
-
-| **$(b_2, b_3)$** | **$q_{B_2, B_3}(b_2, b_3)$** |
-|:---|:---:|
-| 00 | $(1 - \alpha)^2$ |
-| 01 | $\alpha(1 - \alpha)$ |
-| 10 | $\alpha^2$ |
-| 11 | $\alpha(1 - \alpha)^2$ |
-
-Le marginali corrispondenti sono:
-
-Tabella 10: Distribuzione di $b_1$
-
-| **$b_1$** | **$q_{B_1}(b_1)$** |
-|:---|:---:|
-| 0 | $(1 - \alpha)$ |
-| 1 | $\alpha$ |
-
-Tabella 11: Distribuzione di $b_2$
-
-| **$b_2$** | **$q_{B_2}(b_2)$** |
-|:---|:---:|
-| 0 | $(1 - \alpha)$ |
-| 1 | $\alpha$ |
-
-Tabella 12: Distribuzione di $ b_{3} $
-
-| **$ b_{3} $** | **$ q_{B_{3}}(b_{3}) $** |
-|:---|:---:|
-| 0 | $ (1-\alpha) $ |
-| 1 | $ \alpha $ |
-
-> [!quote] Osservazione
-> Si nota come alcune delle congiunte a coppie e le marginali coincidano, mentre le funzioni di massa di probabilità (pmf) delle terne risultino diverse. Qual è la causa di tale discrepanza?
-
-## Soluzione
-
-Si osserva che, per quanto riguarda $p _ { B _ { 1 } , B _ { 2 } , B _ { 3 } } ( b _ { 1 } , b _ { 2 } , b _ { 3 } )$, si ha:
-
-$$
-p _ {B _ {1}, B _ {2}, B _ {3}} (b _ {1}, b _ {2}, b _ {3}) = \prod p _ {B _ {i}} (b _ {i}) \Rightarrow p _ {B _ {m}, B _ {k}} (b _ {m}, b _ {k}) = p _ {B _ {m}} (b _ {m}) p _ {B _ {k}} (b _ {k}) \forall \space m \neq k
-$$
-
-di conseguenza, $p _ { B _ { 1 } , B _ { 2 } , B _ { 3 } } ( b _ { 1 } , b _ { 2 } , b _ { 3 } )$ implica l'**indipendenza statistica** dell'intera terna.
-
-Viceversa, per $q _ { B _ { 1 } , B _ { 2 } , B _ { 3 } } ( b _ { 1 } , b _ { 2 } , b _ { 3 } )$ si verifica che:
-
-$$
-q _ {B _ {m}, B _ {k}} (b _ {m}, b _ {k}) = q _ {B _ {m}} (b _ {m}) q _ {B _ {k}} (b _ {k}) m = 1, k = 2 \quad q _ {B _ {1}, B _ {2}, B _ {3}} (b _ {1}, b _ {2}, b _ {3}) \neq \prod q _ {B _ {i}} (b _ {i})
-$$
-
-pertanto le variabili $B _ { 1 } , B _ { 2 }$ sono indipendenti, ma non lo è la terna, né lo sono $B _ { 1 } , B _ { 3 } \circ B _ { 2 } , B _ { 3 }$. Infatti, a titolo esemplificativo:
-
-$$
-p _ {B _ {3} = 1 \mid B _ {1} = 1, B _ {2} = 1} = \frac {p _ {B _ {1} , B _ {2} , B _ {3}} (1 , 1 , 1)}{p _ {B _ {1} , B _ {2}} (1 , 1)} = \frac {\alpha^ {3}}{\alpha^ {2}} = \alpha = p _ {B _ {3}} (1)
-$$
-
-$$
-q _ {B _ {3} = 1 | B _ {1} = 1, B _ {2} = 1} = \frac {q _ {B _ {1} , B _ {2} , B _ {3}} (1 , 1 , 1)}{q _ {B _ {1} , B _ {2}} (1 , 1)} = 0 \neq q _ {B _ {3}} (1)
-$$
-
-Si evince chiaramente che $B _ { 3 } = B _ { 1 } \oplus B _ { 2 }$ rappresenta un **bit di parità**.
-
+Queste formulazioni introducono la
+>[!def] **Regola della catena** 
+>(dove ogni permutazione dei pedici e degli argomenti è possibile). 
+>Ad esempio:
+$$p_{X|Y,Z}(x|y,z) = \frac{p_{X,Y|Z}(x,y|z)}{p_{Y|Z}(y|z)} \implies p_{X,Y,Z}(x,y,z) = p_Z(z) p_{Y|Z}(y|z) p_{X|Y,Z}(x|y,z)$$
+La terna è **indipendente** $\iff$ le pmf condizionate coincidono con le marginali:
+$$p_{X|Y,Z}(x|y,z) = p_X(x), \quad p_{Y|X,Z}(y|x,z) = p_Y(y), \quad p_{Z|X,Y}(z|x,y) = p_Z(z)$$
+In questo caso, la pmf congiunta si riduce al prodotto delle marginali:
+$$p_{X,Y,Z}(x,y,z) = p_X(x) p_Y(y) p_Z(z)$$
 ## Funzioni di variabili doppie
 
-Sia $( X , Y ) \sim p x , Y ( x , y ) ( x , y ) \in \mathcal { X } \times \mathcal { Y }$ una **variabile doppia** con pmf (funzione di probabilità) $p _ { X , Y } ( x , y )$. 
+Data una **variabile casuale doppia discreta** $(X, Y)$ regolata da una funzione di massa di probabilità (pmf) congiunta $p_{X,Y}(x, y)$, definita su $\mathcal{X} \times \mathcal{Y}$, si consideri una nuova variabile casuale discreta $Z$ come trasformazione deterministica delle prime due attraverso una funzione scalare $g(x, y)$:
+$$Z = g(X, Y)$$
+L'obiettivo è determinare la legge di probabilità (pmf) della nuova variabile $Z$, indicata come $p_Z(z)$, a partire dalla conoscenza della pmf congiunta $p_{X,Y}(x, y)$. Tale determinazione dipende dalla natura della funzione $g(x,y)$:
 
-Sia $g ( x , y )$ una funzione di due variabili il cui dominio di esistenza includa $\mathcal { X } \times \mathcal { N } ;$. 
+#### 1. Trasformazione Biunivoca (Inversa Unica)
 
-Si vuole caratterizzare $Z = \boldsymbol { \mathrm { g } } ( \boldsymbol { X } , \boldsymbol { Y } )$ in termini di pmf e media statistica. 
+Se la funzione $g(x,y)$ mappa ogni singola coppia del dominio $(x,y)$ in un valore di $z$ unico e distinto (ovvero la funzione è iniettiva sullo spazio di supporto), esiste un'unica coppia invertibile $(x(z), y(z))$ tale per cui $z = g(x, y)$.
 
-1. Si determini l’alfabeto $Z$. Se $| \mathcal { Z } | = | \mathcal { X } | | \mathcal { V } |$ $\neq$ $|$, allora – seguendo i ragionamenti della slide 59 – avremo che esiste un unico punto $( x ( z ) , y ( z ) ) : z = g ( x , y )$, per cui: 
+In questo caso, la probabilità che $Z$ assuma il valore $z$ coincide esattamente con la probabilità congiunta dell'unico punto di partenza che lo ha generato:
+$$p_Z(z) = \mathbb{P}(Z = z) = p_{X, Y}(x(z), y(z))$$
+#### 2. Trasformazione Non Biunivoca (Collassamento delle Probabilità)
 
+Se la funzione $g(x,y)$ assegna lo stesso valore $z$ a più coppie distinte $(x,y)$ (trasformazione *molti-a-uno*), si verifica un fenomeno di **collassamento (o accumulo) delle probabilità**.
+
+Per determinare la probabilità del punto $z$, è necessario individuare l'insieme di controimmagini $\mathcal{A}(z)$, definito come il sottoinsieme dello spazio di supporto contenente tutte le coppie che producono come output esattamente $z$:
+$$\mathcal{A}(z) = \{ (x, y) \in \mathcal{X} \times \mathcal{Y} : g(x, y) = z \}$$
+La pmf di $Z$ si ottiene applicando il principio di additività, ovvero **sommando** le probabilità congiunte di tutte le coppie appartenenti a tale insieme:
+$$p_Z(z) = \sum_{(x, y) \in \mathcal{A}(z)} p_{X, Y}(x, y)$$
+
+### Media / Valore Atteso
+
+Nel contesto delle trasformazioni multivariate, data una **coppia di variabili casuali discrete** $(X, Y)$ regolata da una legge congiunta $p_{X,Y}(x, y)$, è possibile calcolare il valore atteso di una nuova variabile $Z = g(X, Y)$ senza doverne prima ricavare la funzione di massa di probabilità (pmf).
+
+> [!rb] R.B. : Teorema del Calcolo della Media
+> Il valore atteso (o media statistica) di una funzione di due variabili casuali discrete si ottiene calcolando la media ponderata dei valori assunti dalla funzione $g(x,y)$, utilizzando come pesi le rispettive probabilità congiunte:
+> 
+> $$ \mathbb{E}[Z] = \sum_{x \in \mathcal{X}} \sum_{y \in \mathcal{Y}} g(x, y) p_{X,Y}(x, y) = \sum_{(x, y) \in \mathcal{X} \times \mathcal{Y}} g(x, y) p_{X,Y}(x, y) $$
+#### Proprietà: Il caso della combinazione lineare
+
+Un'applicazione di fondamentale importanza riguarda il caso in cui la trasformazione sia una **combinazione lineare** del tipo $Z = aX + bY$, dove $a$ e $b$ sono costanti deterministiche. 
+
+Sfruttando la proprietà distributiva delle sommatorie e la definizione di pmf marginale, si dimostra formalmente la **linearità del valore atteso**:
+$$ \mathbb{E}[aX + bY] = \sum_{x \in \mathcal{X}} \sum_{y \in \mathcal{Y}} (ax + by) p_{X,Y}(x, y) $$
+Sviluppando il prodotto e separando i termini:
+$$ = a \sum_{x \in \mathcal{X}} x \underbrace{\sum_{y \in \mathcal{Y}} p_{X,Y}(x, y)}_{p_{X}(x)} + b \sum_{y \in \mathcal{Y}} y \underbrace{\sum_{x \in \mathcal{X}} p_{X,Y}(x, y)}_{p_{Y}(y)} $$
+$$ = a \mathbb{E}[X] + b \mathbb{E}[Y] $$
+> [!quote] Conseguenza Teorica
+> Il valore atteso di una combinazione lineare di variabili casuali è uguale alla combinazione lineare dei loro singoli valori attesi, **indipendentemente dal fatto che le variabili siano statisticamente indipendenti o dipendenti**.
+
+#### Generalizzazione a $m$ variabili
+
+Il principio di linearità si estende per induzione a un numero qualsiasi $m$ di variabili aleatorie $\{X_i\}_{i=1}^m$ regolate da una pmf congiunta arbitraria $p_{X_1, \dots, X_m}(x_1, \dots, x_m)$:
+$$ \mathbb{E}\left[ \sum_{i=1}^m a_i X_i \right] = \sum_{i=1}^m a_i \mathbb{E}[X_i] $$
+### Teorema della Media Condizionata
+
+Considerando la variabile casuale $Z = g(X, Y)$, possiamo esprimere il suo valore atteso utilizzando la legge di probabilità congiunta $p_{X,Y}(x, y)$ e la sua scomposizione in termini condizionali:
 $$
-\mathbb {P} (Z = z) = p _ {Z} (z) = p _ {X, Y} [ x (z), y (z) ]
+\mathbb{E}[g(X, Y)] = \sum_{x \in \mathcal{X}} \sum_{y \in \mathcal{Y}} g(x, y) \underbrace{p_{X,Y}(x, y)}_{p_{X|Y}(x|y) p_Y(y)}
 $$
-
-2. Se $| \mathcal { Z } | < | \mathcal { X } | | \mathcal { V } |$ $\neq$ $|$, varrà la precedente per i punti in cui l’inversa è unica, mentre per i punti in cui l’inversa non esiste ci sarà un ”collassamento delle probabilità”: 
-
+Riorganizzando le sommatorie, otteniamo:
 $$
-\operatorname{Se} g (x, y) = z \text { per } (x, y) \in \mathcal {A} (z) \subseteq \mathcal {X} \times \mathcal {Y} \Rightarrow p _ {Z} (z) = \sum_ {x, y \in \mathcal {A} (z)} p _ {X, Y} (x, y)
+\mathbb{E}[g(X, Y)] = \sum_{y \in \mathcal{Y}} p_Y(y) \sum_{x \in \mathcal{X}} g(x, y) p_{X|Y}(x|y) = \sum_{y \in \mathcal{Y}} h(y) p_Y(y)
 $$
-
-## Un esempio
-
-Si considerino due variabili doppie, $( X _ { 1 } , Y _ { 1 } ) \in \{ 0 , 1 \} ^ { 2 } \mathrm { ~ e ~ } ( X _ { 2 } , Y _ { 2 } ) \in \{ - 1 , 1 \} ^ { 2 }$. Le pmf congiunte sono quelle riportate di seguito: 
-
-Tabella 1: pmf congiunta di $(X_1, Y_1)$
-
-| **$(x_1, y_1)$** | **$p_{X_1, y_1}(x_1, y_1)$** |
-|:---|:---:|
-| 00 | $\frac{1}{3}$ |
-| 01 | $\frac{2}{9}$ |
-| 10 | $\frac{1}{9}$ |
-| 11 | $\frac{1}{3}$ |
-
-Tabella 2: pmf congiunta di $(X_2, Y_2)$
-
-| **$(x_2, y_2)$** | **$p_{X_2, Y_2}(x_2, y_2)$** |
-|:---|:---:|
-| (-1,-1) | $\frac{1}{4}$ |
-| (-1,1) | $\frac{1}{2}$ |
-| (1,-1) | $\frac{1}{8}$ |
-| (1,1) | $\frac{1}{8}$ |
-
-Si caratterizzino le due variabili aleatorie $Z _ { 1 } = 3 X _ { 1 } ^ { 2 } + Y _ { 1 } \thinspace \thinspace \thinspace e \thinspace Z _ { 2 } = 3 X _ { 2 } ^ { 2 } + Y _ { 2 }$. 
-
-Si noti che $| \mathcal { Z } _ { 1 } | = | \{ 0 , 1 , 3 , 4 \} | = | \{ 0 , 1 \} | ^ { 2 }$ $\neq$ $|$, per cui la corrispondenza è biunivoca. 
-
+In questa espressione, $h(y)$ rappresenta il valore atteso della funzione $g$ condizionato a un valore fissato di $Y$:
 $$
-p _ {Z _ {1}} (0) = p _ {X _ {1}, Y _ {1}} (0, 0) = \frac {1}{3} \quad p _ {Z _ {1}} (1) = p _ {X _ {1}, Y _ {1}} (0, 1) = \frac {2}{9}
+h(y) = \mathbb{E}[g(X, Y) | Y = y] \implies h(Y) = \mathbb{E}[g(X, Y) | Y]
 $$
-
+Sostituendo questa definizione nell'equazione precedente, si ottiene la formula fondamentale:
 $$
-p _ {Z _ {1}} (3) = p _ {X _ {1}, Y _ {1}} (1, 0) = \frac {1}{9} \quad p _ {Z _ {1}} (4) = p _ {X _ {1}, Y _ {1}} (1, 1) = \frac {1}{3}
+\mathbb{E}[g(X, Y)] = \mathbb{E}\left[\space \mathbb{E}[g(X, Y) | Y] \space \right]
 $$
+Questa relazione è nota come 
+>[!theorem] **Teorema della Media Condizionata** (o *Law of Iterated Expectations*)
+> Il valore atteso globale $=$valore atteso del valore atteso condizionato. 
+> È possibile scambiare i ruoli di $X$ e $Y$ analogamente, ottenendo: $$\mathbb{E}[g(X, Y)] = \mathbb{E}[\mathbb{E}[g(X, Y) | X]]$$
 
-Viceversa, $| \mathcal { Z } _ { 2 } | = | \{ 2 , 4 \} | < | \{ 0 , 1 \} | ^ { 2 }$ $\neq$ $|$, per cui: 
+## La covarianza tra due variabili aleatorie
 
-$$
-p _ {Z _ {2}} (2) = p _ {X _ {2}, Y _ {2}} (1, - 1) + p _ {X _ {2}, Y _ {2}} (- 1, - 1) = \frac {3}{8}
-$$
+Sia $(X, Y) \sim p_{X,Y}(x, y)$ con $(x, y) \in \mathcal{X} \times \mathcal{Y}$. 
 
-$$
-p _ {Z _ {2}} (4) = p _ {X _ {2}, Y _ {2}} (- 1, 1) + p _ {X _ {2}, Y _ {2}} (1, 1) = \frac {5}{8}
-$$
+Mentre le coppie $(\mu_X, \sigma_X^2)$ e $(\mu_Y, \sigma_Y^2)$ forniscono informazioni globali sulle distribuzioni marginali $p_X(x)$ e $p_Y(y)$, l'equivalente per le **pmf** (Probability Mass Functions) congiunte è la **covarianza**. Essa misura il grado di dipendenza lineare tra $X$ e $Y$.
 
-## Media di funzioni di variabili doppie
-
-Con riferimento alla trasformazione generica $Z = \boldsymbol { \mathrm { g } } ( \boldsymbol { X } , \boldsymbol { Y } )$ si vede immediatamente che il **Teorema Fondamentale** per il calcolo della Media (vedi slide 60) si traduce in: 
-
-$$
-\mathbb {E} [ Z ] = \sum_ {x \in \mathcal {X}} \sum_ {y \in \mathcal {Y}} g (x, y) p _ {X, Y} (x, y) = \sum_ {(x, y) \in \mathcal {X} \times \mathcal {Y}} g (x, y) p _ {X, Y} (x, y)
-$$
-
-Si noti che, se $Z = a X + b Y$ $\neq$ $|$, con $a$ e $b$ costanti deterministiche, allora: 
-
-$$
-\mathbb {E} [ a X + b Y ] = \sum_ {x \in \mathcal {X}} \sum_ {y \in \mathcal {Y}} (a x + b y) p _ {X, Y} (x, y) = a \sum_ {x \in \mathcal {X}} x \overbrace {\sum_ {y \in \mathcal {Y}} p _ {X , Y} (x , y)} ^ {p _ {X} (x)} +
-$$
-
-$$
-+ b \sum_ {y \in \mathcal {Y}} y \overbrace {\sum_ {x \in \mathcal {X}} p _ {X , Y} (x , y)} ^ {p _ {Y} (y)} = a \mathbb {E} [ X ] + b \mathbb {E} [ Y ]
-$$
-
-Più in generale, se $\{ X _ { i } \} _ { i = 1 } ^ { m }$ sono $m$ variabili aleatorie con pmf $p _ { X _ { 1 } , \ldots , X _ { m } } ( x _ { 1 } , \ldots , x _ { m } )$ 
-
-$$
-\mathbb {E} \left[ \sum_ {i = 1} ^ {m} a _ {i} X _ {i} \right] = \sum_ {i = 1} ^ {m} a _ {i} \mathbb {E} \left[ X _ {i} \right]
-$$
-
-## Teorema della media condizionata
-
-Con riferimento a $Z = \boldsymbol { \mathrm { g } } ( \boldsymbol { X } , \boldsymbol { Y } )$ osserviamo che: 
-
-$$
-\mathbb {E} \left[ Z \right] = \mathbb {E} \left[ g (X, Y) \right] = \sum_ {x \in \mathcal {X}} \sum_ {y \in \mathcal {Y}} g (x, y) \overbrace {p _ {X , Y} (x , y)} ^ {p _ {X | Y} (x | y) p _ {Y} (y)} =
-$$
-
-$$
-\sum_ {y \in \mathcal {Y}} p _ {Y} (y) \sum_ {x \in \mathcal {X}} g (x, y) p _ {X | Y} (x | y) = \sum_ {y \in \mathcal {Y}} h (y) p _ {Y} (y)
-$$
-
-Nella precedente, $h ( y )$ rappresenta la media di $g ( X , y )$ eseguita rispetto alla pmf condizionata $p _ { X \mid Y } ( x | y )$. Cioè: 
-
-$$
-h (y) = \mathbb {E} [ g (X, Y) | Y = y ] \Longrightarrow h (Y) = \mathbb {E} [ g (X, Y) | Y ] \Longrightarrow
-$$
-
-$$
-\mathbb {E} \left[ g (X, Y) \right] = \mathbb {E} \left[ h (Y) \right] = \mathbb {E} \left[ \mathbb {E} \left[ g (X, Y) | Y \right] \right]
-$$
-
-che prende il nome di **Teorema della Media Condizionata**, visto che $\mathbb { E } \left[ g ( X , Y ) | Y \right]$ è la media di $g ( X , Y )$ condizionata a $Y$. Ovviamente i ruoli di $X \textsf { e Y }$ si possono scambiare. 
-
-## La covarianza tra due variabili aleatorie - 1
-
-Sia $( X , Y ) \sim p { x , } \{ x , y \} , ( x , y ) \in \mathcal { X } \times \mathcal { Y } ;$ 
-
-Abbiamo visto che le coppie $( \mu _ { X } , \sigma _ { X } ^ { 2 } ) \textsf { e } ( \mu _ { Y } , \sigma _ { Y } ^ { 2 } )$ contengono delle informazioni globali - ancorché sommarie - delle due marginali $p _ { X } ( x ) \mathrm { ~ e ~ } p _ { Y } ( y )$ 
-
-L’equivalente per le **pmf** (Probability Mass Functions) congiunte è la **covarianza**, che dà un’idea - ancora abbastanza sommaria - del grado di ”dipendenza” tra $X$ e $Y$.
-
-## Definizioni
-
-> [!theorem] Correlazione
-> La correlazione tra $X \in Y$ è una misura della forza e della direzione della relazione lineare tra due variabili casuali. Intuitivamente, indica quanto le due variabili tendano a variare insieme in modo proporzionale.
->
+> [!def] Covarianza
+> La covarianza è una misura statistica che indica la **direzione** della relazione lineare tra due variabili aleatorie.
+> * Se positiva, le variabili tendono a crescere insieme
+> * Se negativa, tendono a muoversi in direzioni opposte
+> 
 > Formalmente:
-> $$
-> R _ {X, Y} = \mathbb {E} [ X Y ] = \sum_ {x \in \mathcal {X}} \sum_ {y \in \mathcal {Y}} x y p _ {X, Y} (x, y)
-> $$
+> $$\operatorname{COV}[X, Y] = \mathbb{E}\left[ (X - \mu_X)(Y - \mu_Y) \right] = \sum_{x \in \mathcal{X}} \sum_{y \in \mathcal{Y}} (x - \mu_X)(y - \mu_Y) p_{X,Y}(x, y)$$
+> 
+> 
+ 
+> [!def] Correlazione (Cross-correlazione)
+> La correlazione tra $X$ e $Y$ (indicata con $R_{X,Y}$) è una misura statistica che quantifica la relazione tra due variabili aleatorie attraverso il valore atteso del loro prodotto. 
+>> Intuitivamente, indica quanto le due variabili tendano a variare insieme in modo concorde.
+> 
+> Formalmente (per variabili discrete):
+> $$R_{X,Y} = \mathbb{E}[XY] = \sum_{x \in \mathcal{X}} \sum_{y \in \mathcal{Y}} x y p_{X,Y}(x, y)$$
 
-> [!theorem] Covarianza
-> La covarianza è una misura statistica che indica la direzione della relazione lineare tra due variabili aleatorie. Se la covarianza è positiva, le variabili tendono a crescere insieme; se è negativa, tendono a muoversi in direzioni opposte.
->
-> Formalmente:
-> $$
-> \sigma_ {X, Y} ^ {2} = \operatorname{COV} [ X, Y ] = \mathbb {E} \left[ (X - \mu_ {X}) (Y - \mu_ {Y}) \right] =
-> $$
+#### Rappresentazione della Covarianza
+```easy-tikz
+{
+  "dimension": false,
+  "documentSetup": true,
+  "title": "Covarianza (Dipendenza dalla Scala)",
+  "size_x_cm": 10,
+  "size_y_cm": 10,
+  "show_axis_label": true,
+  "axis_label_x": "X",
+  "axis_label_y": "Y",
+  "documentClose": true,
+  "showAxis": true,
+  "gridSize": 5,
+  "xmin": "-10",
+  "xmax": "10",
+  "ymin": "-10",
+  "ymax": "10",
+  "axis_style": "box",
+  "functions": [
+    {
+      "expression": "2*x",
+      "domain": "-5:5",
+      "showLegend": true,
+      "color": "blue",
+      "thickness": "thick",
+      "name": "Scala Ampia (Covarianza Maggiore)"
+    },
+    {
+      "expression": "0.5*x",
+      "domain": "-8:8",
+      "showLegend": true,
+      "color": "orange",
+      "thickness": "thick",
+      "name": "Scala Ridotta (Covarianza Minore)"
+    }
+  ],
+  "rotationX": 0,
+  "rotationZ": 0,
+  "coordinateSystem": "cartesian"
+}
 
-$$
-\sum_ {x \in \mathcal {X}} \sum_ {y \in \mathcal {Y}} (x - \mu_ {X}) (y - \mu_ {Y}) p _ {X, Y} (x, y)
-$$
+```
+#### Rappresentazione della Correlazione
+```easy-tikz
+{
+  "dimension": false,
+  "documentSetup": true,
+  "title": "Correlazione (Standardizzata tra -1 e 1)",
+  "size_x_cm": 10,
+  "size_y_cm": 10,
+  "show_axis_label": true,
+  "axis_label_x": "X",
+  "axis_label_y": "Y",
+  "documentClose": true,
+  "showAxis": true,
+  "gridSize": 5,
+  "xmin": "-5",
+  "xmax": "5",
+  "ymin": "-5",
+  "ymax": "5",
+  "axis_style": "box",
+  "functions": [
+    {
+      "expression": "x",
+      "domain": "-4:4",
+      "showLegend": true,
+      "color": "green",
+      "thickness": "thick",
+      "name": "Relazione Perfetta (R = 1)"
+    },
+    {
+      "expression": "x + 0.3*sin(4*x)",
+      "domain": "-4:4",
+      "showLegend": true,
+      "color": "purple",
+      "thickness": "thin",
+      "name": "Dispersione/Rumore (R < 1)"
+    }
+  ],
+  "rotationX": 0,
+  "rotationZ": 0,
+  "coordinateSystem": "cartesian"
+}
 
-## Proprietà della covarianza - 1
+```
 
-### [a] Relazione tra correlazione e covarianza:
+### Proprietà della covarianza
 
-$$
-\operatorname{COV} [ X, Y ] = \mathbb {E} [ X Y - \mu_ {X} Y - \mu_ {Y} X + \mu_ {X} \mu_ {Y} ] = \overbrace {\mathbb {E} [ X Y ]} ^ {R _ {X, Y}} - \mu_ {X} \mu_ {Y}
-$$
+#### a) Relazione tra momento di ordine 2 e covarianza
+Sfruttando la linearità del valore atteso, possiamo scomporre la covarianza come segue:
+$$\operatorname{COV}[X, Y] = \mathbb{E}[XY - \mu_X Y - \mu_Y X + \mu_X \mu_Y] = \mathbb{E}[XY] - \mu_X \mu_Y$$
+Si noti che se almeno una delle due variabili ha media nulla ($\mu_X=0$ o $\mu_Y=0$), allora $\operatorname{COV}[X, Y] = \mathbb{E}[XY]$.
 
-dove si è sfruttata la linearità della media. Si noti che se almeno una delle due variabili ha media nulla $\mathsf { C O V } [ X , Y ] = R x , Y$ 
+#### b) Incorrelazione vs Indipendenza
+Due variabili con *covarianza nulla* sono dette **incorrelate**. È fondamentale ricordare che:
+*   **Indipendenza $\Rightarrow$ Incorrelazione**: Se $X$ e $Y$ sono indipendenti, la loro pmf congiunta è il prodotto delle marginali $p_{X,Y}(x,y) = p_X(x)p_Y(y)$.
+*   **Incorrelazione $\nRightarrow$ Indipendenza**: Due variabili possono essere incorrelate ma comunque dipendenti (ad esempio in relazioni non lineari).
 
-### [b] Incorrelazione vs Indipendenza
-Due variabili che abbiano covarianza nulla si dicono **incorrelate**. Si noti che variabili indipendenti sono sempre incorrelate, ma la proposizione non si inverte, nel senso che l’incorrelazione non implica in genere l’indipendenza.
+>[!dim] Dimostrazione per variabili indipendenti:
+$$\operatorname{COV}[X, Y] = \sum_{x \in \mathcal{X}} \sum_{y \in \mathcal{Y}} (x - \mu_X)(y - \mu_Y) p_X(x)p_Y(y)$$
+$$= \left( \sum_{x \in \mathcal{X}} (x - \mu_X) p_X(x) \right) \left( \sum_{y \in \mathcal{Y}} (y - \mu_Y) p_Y(y) \right) = \mathbb{E}[X - \mu_X] \cdot \mathbb{E}[Y - \mu_Y] = 0 \cdot 0 = 0$$
 
-$$
-(X, Y) \sim p _ {X} (x) p _ {Y} (y) \Longrightarrow \operatorname{COV} [ X, Y ] = \sum_ {x \in \mathcal {X}} \sum_ {y \in \mathcal {Y}} (x - \mu_ {X}) (y - \mu_ {Y}) p _ {X} (x) p _ {Y} (y)
-$$
+#### c) Coefficiente di Correlazione (Coefficiente di Pearson)
+Si può dimostrare che $|\operatorname{COV}[X, Y]| \leq \sigma_X \sigma_Y$. Utilizzando la proprietà della non-negatività del valore atteso:
+>[!dim]
+$$0 \leq \mathbb{E} \left[ \left( \frac{X - \mu_X}{\sigma_X} \pm \frac{Y - \mu_Y}{\sigma_Y} \right)^2 \right] = \underbrace{\mathbb{E} \left[ \left(\frac{X - \mu_X}{\sigma_X}\right)^2 \right]}_{1} + \underbrace{\mathbb{E} \left[ \left(\frac{Y - \mu_Y}{\sigma_Y}\right)^2 \right]}_{1} \pm 2 \mathbb{E} \left[ \frac{(X - \mu_X)(Y - \mu_Y)}{\sigma_X \sigma_Y} \right]$$
+$$= 2 \pm 2 \frac{\operatorname{COV}[X, Y]}{\sigma_X \sigma_Y}$$
+Da cui deriva che $-1 \leq \frac{\operatorname{COV}[X, Y]}{\sigma_X \sigma_Y} \leq 1$. La quantità $\rho_{X,Y}$ è definita come **coefficiente di correlazione**:
+$$\rho_{X,Y} = \frac{\operatorname{COV}[X, Y]}{\sigma_X \sigma_Y} \in [-1, 1]$$
 
-$$
-= \sum_ {x \in \mathcal {X}} (x - \mu_ {X}) p _ {X} (x) \sum_ {y \in \mathcal {Y}} (y - \mu_ {Y}) p _ {Y} (y) = \mathbb {E} [ X - \mu_ {X} ] \mathbb {E} [ Y - \mu_ {Y} ] = 0
-$$
+#### b) Varianza di una combinazione lineare
+Definendo $Z = aX + bY$, dove $\mu_Z = a\mu_X + b\mu_Y$, la varianza di $Z$ è:
+$$\sigma_Z^2 = \mathbb{E}[Z^2] - \mu_Z^2 = \mathbb{E}[(aX + bY)^2] - (a\mu_X + b\mu_Y)^2$$
+Sviluppando i termini e applicando la linearità:
+$$\sigma_Z^2 = a^2 \sigma_X^2 + b^2 \sigma_Y^2 + 2ab \operatorname{COV}[X, Y]$$
 
-## Proprietà della covarianza - 2
 
-$$
-| \operatorname{COV} [ X, Y ] | \leq \sigma_ {X} \sigma_ {Y}
-$$
+# Continuo
+## Introduzione alle Variabili Continue
 
-Questo potrebbe dimostrarsi con la disuguaglianza di Schwartz. Qui preferiamo un’altra strada. Si noti che: 
+Quando passiamo a un campo di definizione $\Omega \subseteq \mathbb{R}$, l'approccio frequentista basato su singoli punti perde significato. Poiché la probabilità che una variabile continua $X$ assuma un valore esatto è nulla ($\mathbb{P}(X=x)=0$), l'analisi deve spostarsi dai singoli punti agli **intervalli**.
 
-$$
-0 \leq \mathbb {E} \left[ \left(\frac {X - \mu_ {X}}{\sigma_ {X}} \pm \frac {Y - \mu_ {Y}}{\sigma_ {Y}}\right) ^ {2} \right] = \overbrace {\mathbb {E} \left[ \left(\frac {X - \mu_ {X}}{\sigma_ {X}}\right) ^ {2} \right]} ^ {= 1} + \overbrace {\mathbb {E} \left[ \left(\frac {Y - \mu_ {Y}}{\sigma_ {Y}}\right) ^ {2} \right]}
-$$
+## Frequenza e Probabilità negli Intervalli
+### Frequenza
 
-$$
-\pm 2 \mathbb {E} \left[ \left(\frac {X - \mu_ {X}}{\sigma_ {X}} \frac {Y - \mu_ {Y}}{\sigma_ {Y}}\right) \right] = 2 \pm 2 \frac {\operatorname{COV} [ X , Y ]}{\sigma_ {X} \sigma_ {Y}} \Longrightarrow - 1 \leq \frac {\operatorname{COV} [ X , Y ]}{\sigma_ {X} \sigma_ {X}} \leq 1
-$$
+Sia $x \in \mathcal{X}$ il punto di interesse e $\Delta x$ l'ampiezza dell'intorno. Su $n$ esperimenti, definiamo la **frequenza relativa** nell'intervallo $[x - \frac{\Delta x}{2}$, x + $\frac{\Delta x}{2}]$ come:
+$$f_n(x; \Delta x) = \frac{n_{\left\{x - \frac{\Delta x}{2} \leq X \leq x + \frac{\Delta x}{2}\right\}}}{n}$$
+Al limite per $n \to \infty$, questa frequenza definisce la **probabilità dell'intervallo**:
+$$\mathbb{P}\left(X \in \left[x - \frac{\Delta x}{2}, x + \frac{\Delta x}{2}\right]\right) = P_X(x; \Delta x) = \lim_{n \to \infty} f_n(x; \Delta x)$$
 
-La quantità $\begin{array} { r } { \rho _ { X , Y } = \frac { \mathsf { C O V } [ X , Y ] } { \sigma _ { X } \sigma _ { Y } } \in [ - 1 , 1 ] } \end{array}$ si definisce coefficiente di covarianza (ma più spesso di correlazione). 
+### PDF
 
-Infine, definendo $Z = a X + b Y$ , per cui $\mu _ { Z } = a \mu _ { X } + b \mu _ { Y }$ , avremo: 
-
-$$
-\sigma_ {Z} ^ {2} = \mathbb {E} [ Z ^ {2} ] - \mu_ {Z} ^ {2} = \mathbb {E} [ a X + b Y ] - (a \mu_ {X} + b \mu_ {Y}) ^ {2} =
-$$
-
-$$
-= a ^ {2} \sigma_ {X} ^ {2} + b ^ {2} \sigma_ {Y} ^ {2} + 2 a b \mathrm{COV} [ X, Y ]
-$$
-
-## Qualche considerazione iniziale
-
-Si rimuove ora l'ipotesi che lo spazio dei campioni $\Omega$ sia discreto.
-
-In particolare, si supponga d'ora in poi che $\Omega \subseteq \mathbb { R }$ sia un sottoinsieme continuo dell'insieme reale; $\Omega$ potrebbe essere quindi esso stesso lo spazio delle misure osservabili oppure potrebbe rappresentare il dominio di una applicazione:
-
-$$
-X: \omega \in \Omega \to X (\omega) \in \mathcal {X}
-$$
-
-Naturalmente, su $X$ non varrà più la limitazione di essere un insieme finito; spesso accade che $X ( \omega ) = \omega \in \mathcal { X } = \Omega .$
-
-## 1. Qualche considerazione iniziale
-
-Continuando con l’esempio precedente, è chiaro che gli eventi elementari saranno in entrambi i casi $\{ X ( \omega _ { i } ) = x _ { i } \}$ ; 
-
-Si potrebbe quindi essere tentati di definire: 
-
-$$
-\mathbb {P} \left(X = x _ {i}\right) = \lim _ {n \rightarrow \infty} \frac {n _ {X = x _ {i}}}{n}
-$$
-
-dove, come nel caso discreto, ${ \boldsymbol { n } } _ { X = x _ { i } }$ rappresenta il numero di occorrenze dell’evento al pedice; 
-
-> [!warning] Problematica della misurazione esatta
-> Il problema di questa definizione - peraltro corretta - è che, se $X ( \omega _ { i } ) \in X ( \omega _ { j } )$ sono due realizzazioni distinte di una variabile aleatoria reale non saremo mai in grado di misurarle con esattezza: dovremmo infatti disporre di uno strumento a precisione infinita e - anche in questo caso - l’evento $\{ X ( \omega _ { i } ) = X ( \omega _ { j } ) \}$ } sarebbe impossibile; 
-
-Quello che possiamo dire è se la misura $X ( \omega _ { j } )$ cada o meno in un intorno della misura $X ( \omega _ { i } )$ 
-
-Quindi, se $X ( \omega )$ è una **variabile aleatoria continua**, gli eventi elementari $\{ X ( \omega ) = x \}$ hanno - a meno di casi degeneri - probabilità nulla. 
-
-## 2. Esperimenti e variabili continue
-
-Supponiamo di compiere $n$ esperimenti, così da disporre di una collezione $\{ X ( \omega _ { i } ) \}$ di osservazioni di una variabile aleatoria continua $X ( \omega )$ 
-
-Sia $x \in \mathcal { X }$ : ci chiediamo quale sia la frequenza di coccorrenza dell’evento $\{X \text{ cade in un intorno di dimensione } $\Delta x { \mathrm { \sf ~ d i ~ } } x \}$ \}$. In conformità a quanto fatto in precedenza, avremo: 
-
-$$
-f _ {n} (x; \Delta x) = \frac {n _ {\{x - \frac {\Delta x}{2} \leq X \leq x + \frac {\Delta x}{2} \}}}{n}
-$$
-
-dove ora $\begin{array} { r } { \begin{array} { r } { n _ { \{ x - \frac { \Delta x } { 2 } \leq X \leq x + \frac { \Delta x } { 2 } \} } } \end{array} } \end{array}$ è il numero di volte (su $n$ esperimenti) in cui osserviamo $\begin{array} { r } { x - \frac { \Delta x } { 2 } \leq X ( \omega ) \leq x + \frac { \Delta x } { 2 } } \end{array}$ 
-
-Possiamo allora definire la probabilità dell’evento $\begin{array} { r } { \left\{ x - \frac { \Delta x } { 2 } \leq X \leq x + \frac { \Delta x } { 2 } \right\} } \end{array}$ nella forma usuale (si riguardi l’avvertenza sulle notazioni della slide 45): 
-
-$$
-\mathbb {P} \left(\omega \in \Omega : \left\{x - \frac {\Delta x}{2} \leq X \leq x + \frac {\Delta x}{2} \right\}\right) = \mathbb {P} \left(X \in \left[ x - \frac {\Delta x}{2}, x + \frac {\Delta x}{2} \right]\right) =
-$$
-
-$$
-P _ {X} (x; \Delta x) = \lim _ {n \to \infty} f _ {n} (x; \Delta x)
-$$
-
-## 3. Densità di probabilità (probability density function, pdf)
-
-> [!theorem] Definizione: Densità di probabilità
+> [!def] Definizione: Densità di probabilità
 > La **densità di probabilità** (probability density function, pdf) della variabile aleatoria continua $X$ è la funzione: 
 >
 > $$
@@ -1336,137 +1090,54 @@ $$
 >
 > Intuitivamente, la densità rappresenta la "concentrazione" di probabilità in un punto specifico. Poiché la probabilità di una singola istantanea per una variabile continua è nulla, la pdf indica quanto è probabile che la variabile cada in un intervallo infinitesimo attorno a quel punto.
 
-Per il teorema fondamentale del calcolo integrale abbiamo quindi: 
+Grazie al *Teorema Fondamentale del Calcolo Integrale*, la probabilità che la variabile $X$ cada in un generico intervallo $[a, b]$ si ottiene integrando la densità:
 
 $$
 \mathbb {P} \left(x - \frac {\Delta x}{2} \leq X \leq x + \frac {\Delta x}{2}\right) = \int_ {x - \frac {\Delta x}{2}} ^ {x + \frac {\Delta x}{2}} f _ {X} (t) d t
 $$
 
-Le densità di probabilità devono soddisfare dei vincoli costitutivi, cioè: 
+#### Vincoli fondamentali
 
-1. $f _ { X } ( x ) \geq 0 \forall \space x \in \mathbb { R }$ : infatti il suo integrale su un qualunque intervallo non può essere negativo. Basterebbe, in linea di principio, una non-negatività quasi ovunque. 
-2. $f _ { X } ( x )$ è sommabile su $\mathbb{R}$ e a integrale unitario. Infatti: 
+Affinché una funzione sia una valida pdf, deve soddisfare due proprietà:
 
-$$
-\int_ {- \infty} ^ {+ \infty} f _ {X} (t) d t = \mathbb {P} (X \in \mathbb {R}) = 1
-$$
+1. **Non-negatività:** $f_X(x) \geq 0 \quad \forall x \in \mathbb{R}$
+2. **Normalizzazione:** L'area sottesa dalla curva sull'intero dominio deve essere unitaria:
+$$\int_{-\infty}^{+\infty} f_X(t) \, dt = 1$$
 
-## 4. Qualche commento intuitivo sulla pdf - 1
+## Nota di raccordo 
 
-Supponiamo di considerare un oggetto qualsiasi $C$, che occupi quindi un continuum di punti, $C \subseteq \mathbb { R } ^ { 3 }$ ; 
+>[!rb] **(Discreto vs Continuo):**
+> Sia nel caso discreto che in quello continuo, la probabilità di un evento $A$ si ottiene "sommando" i contributi di densità:
+> * **Nel discreto:** Sommiamo le probabilità puntuali: $\mathbb{P}(A) = \sum_{x \in A} p_X(x)$
+> * **Nel continuo:** Integriamo la densità: $\mathbb{P}(A) = \int_{A} f_X(x) \, dx$
+> 
+> 
+> In entrambi i casi, la densità è ciò che ci permette di passare dalla teoria alla capacità di calcolare effettivamente la probabilità di un evento.
 
-Esistono vari modi di ”misurarne” la dimensione, per esempio la Massa ($M$) e il volume ($V$). 
+## La Cumulative Distribution Function (CDF)
 
-Il criterio di misura (in breve, la **misura** - $\mu - )$ deve però soddisfare tre requisiti: 
-1. $\mu ( A ) \geq 0 \forall \space A \subseteq C$ ; 
-2. $\mu ( \varnothing ) = 0 ;$ 
-3. Se $A _ { 1 } \subseteq C , A _ { 2 } \subseteq C : A _ { 1 } \cap A _ { 2 } = \varnothing$ allora $\mu ( A _ { 1 } \cup A _ { 2 } ) = \mu ( A _ { 1 } ) + \mu ( A _ { 2 } )$ 
+Oltre alla densità di probabilità (PDF), si usa spesso la **Funzione di Ripartizione (CDF)**, che indica la probabilità che la variabile $X$ sia inferiore o uguale a un certo valore $x$:
+$$ F_X(x) = \mathbb{P}(-\infty < X \le x) = \int_{-\infty}^{x} f_X(t) \, dt \implies f_X(x) = \frac{dF_X(x)}{dx} $$
+Esiste anche la **CCDF (Complementare)**, che indica la probabilità che $X$ sia maggiore di $x$:
+$$ \overline{F}_X(x) = \mathbb{P}(X > x) = \int_{x}^{\infty} f_X(t) \, dt = 1 - F_X(x) \implies f_X(x) = -\frac{d\overline{F}_X(x)}{dx} $$
 
-Si noti che sia $M ( A )$ che $V ( A )$ soddisfano queste condizioni; 
-
-Si consideri allora $P = ( x , y , z ) \in C$ e un suo intorno $\mathcal { T } ( P )$ (per esempio, una piccola sfera). Si definisce densità dell’oggetto $C$ nel punto $P$ la quantità: 
-
-$$
-\rho (\boldsymbol {P}) = \lim _ {V (\mathcal {I} (\boldsymbol {P})) \rightarrow 0} \frac {M (\mathcal {I} (\boldsymbol {P}))}{V (\mathcal {I} (\boldsymbol {P}))} \rightarrow M (A) = \int_ {A} \rho (\boldsymbol {P}) d V (\mathcal {I} (\boldsymbol {P})) = \int_ {A} \rho (x, y, z) d x d y d z
-$$
-
-che potremmo definire $mdf$, *mass density function*. 
-
-La nozione si generalizza a insiemi arbitrari. Ovviamente, occorrerà comunque definire per un insieme ”non canonico” la nozione di intorno (e quindi dare all’insieme una struttura topologica) e strutturare il dominio su cui si applica la funzione ”misura” in modo adeguato, - cioè introdurre uno **spazio di misura** - ma questo esula dallo scopo del corso. 
-
-## 5. Qualche commento intuitivo sulla pdf - 2
-
-## 2. Misura e Densità di Probabilità
-
-Si consideri lo spazio $\Omega$ che, per evitare complicazioni topologiche, si assume coincidente con $\mathbb{R}$.
-
-Il modo ordinario di misurare sottoinsiemi di $\Omega$ (ovvero intervalli) è la **misura di Lebesgue**, definita come la loro lunghezza:
-$$ \lambda(A) = \int_A dx \tag{1} $$
-
-Un modo "alternativo" di definire la misura potrebbe essere:
-$$ P(A) = \int_A f(x) \, dx \tag{2} $$
-purché, ovviamente, $\mu _ { 1 }$ soddisfi le condizioni per essere una misura. 
-
-All’uopo si notano le seguenti proprietà:
-
-$$
-a \mu_ {1} (A) \geq 0 \forall \space A \subseteq \Omega ;
-$$
-
-b) Se $A _ { 1 } \cap A _ { 2 } = \emptyset \space$ allora $\begin{array} { r } { X ( A _ { 1 } ) = \left( \left[ x _ { 1 } - \frac { \Delta _ { x } } { 2 } , x _ { 1 } + \frac { \Delta _ { x } } { 2 } \right] \right) } \end{array}$ $\begin{array} { r } { X ( A _ { 2 } ) = \left( \left[ x _ { 2 } - \frac { \Delta _ { x } } { 2 } , x _ { 2 } + \frac { \Delta _ { x } } { 2 } \right] \right) \mathbb { I } } \end{array}$ e i due intervalli sono disgiunti, per cui:
-
-$$
-\mu_ {1} (A _ {1} \cup A _ {2}) = \mathbb {P} (A _ {1} \cup A _ {2}) = P _ {X} (x _ {1}; \Delta x) + P _ {X} (x _ {2}; \Delta x)
-$$
-
-c) Infine $\mu _ { 1 } ( \varnothing ) = \operatorname { \mathbb { P } } ( \varnothing ) = \operatorname { \mathbb { P } } ( X \notin \mathbb { R } ) = 0 ;$ 
-
-Pertanto, analogamente al rapporto tra massa e volume in ${ \mathbb { R } } ^ { 3 }$, avremo:
-
-$$
-f _ {X} (x) = \lim _ {\mu_ {0} \left(\left[ x - \frac {\Delta x}{2}, x + \frac {\Delta x}{2} \right]\right)\rightarrow 0} \frac {\mu_ {1} \left(\left[ x - \frac {\Delta x}{2} , x + \frac {\Delta x}{2} \right]\right)}{\mu_ {0} \left(\left[ x - \frac {\Delta x}{2} , x + \frac {\Delta x}{2} \right]\right)} = \lim _ {\Delta x \rightarrow 0} \frac {P _ {X} (x ; \Delta x)}{\Delta x}
-$$
-
-## 3. La DF come pdf
-
-### Ritorno sugli spazi discreti
-Se $A \subseteq \Omega \ { \dot { \mathsf { e } } }$ un insieme discreto, la misura "ordinaria" è ovviamente $\mu _ { 0 } ( A ) = c ( A ) = | A |$, anche detta **misura di conteggio**. 
-
-Siano $\omega \in \Omega$ e $X ( \omega _ { * } ) = X _ { * }$: la misura ordinaria di $\{ \omega _ { * } \}$ sarebbe ovviamente $c ( \{ \omega _ { * } \} ) = 1$. Una misura alternativa è $\mu _ { 1 } ( \omega _ { * } ) = \mathbb { P } ( \omega _ { * } : X ( \omega _ { * } ) = x _ { * } ) = p _ { X } ( x _ { * } )$.
-
-Pertanto, la densità di $\mu _ { 1 } ( \omega _ { * } )$ rispetto a $\mu _ { 0 } ( \omega _ { * } ) \dot { \in } p _ { X } ( x _ { * } )$ può essere scritta (simbolicamente):
-
-$$
-p _ {X} (x _ {*}) = \left. \frac {d \mu_ {1} (\omega)}{d c (\omega)} \right| _ {\omega = \omega^ {*}}
-$$
-
-Se $A \subseteq \Omega \ \in X ( A ) = { \mathcal { X } } _ { A } \subseteq { \mathcal { X } }$, avremo allora:
-
-$$
-\mu_ {1} (A) = \mathbb {P} (A) = \int_ {A} d \mu_ {1} (\omega) = \int_ {\mathcal {X} _ {A}} p _ {X} (x) d c (x) = \sum_ {x \in \mathcal {X} _ {A}} p _ {X} (x)
-$$
-
-dove l’integrale è un integrale di Lebesgue rispetto alla misura di conteggio. 
-
-In generale, la **Densità di Probabilità (DF)** è una particolare **pdf** (*probability density function*): ciò lascia intuire che tutte le proprietà dimostrate per le DF si estendono alle pdf e, con opportuni cambiamenti, a tutte le densità di una misura rispetto a un’altra.
-
-## 4. La Cumulative Distribution Function (CDF)
-
-Si noti preliminarmente che $f _ { X } ( x ) , x \in \mathbb { R } \ { \dot { \mathrm { ~ e ~ } } }$ è perfettamente adeguata a caratterizzare $X$. Infatti:
-
-$$
-\operatorname{supp} \left[ f _ {X} (x) \right] = \mathcal {X} \quad \mathbb {P} \left(a _ {1} \leq X \leq a _ {2}\right) = \int_ {a _ {1}} ^ {a _ {2}} f _ {X} (t) d t
-$$
-
-dove $\text{supp}[g(\cdot)]$ indica il supporto della funzione $g ( \cdot )$.
-
-Tuttavia, è invalso l’uso di caratterizzazioni alternative, tra cui la **Cumulative Distribution Function (CDF)**:
-
-$$ F(x) = P(X \le x) \tag{3} $$
-
-Talvolta si fa riferimento alla **Complementary Cumulative Distribution Function (CCDF)**:
-
-$$ S(x) = P(X > x) \tag{4} $$
-
-## 5. Proprietà della CDF
-
-Le proprietà derivano direttamente dalla definizione. In particolare:
-
+### Proprietà
 - $F _ { X } ( x ) \in [ 0 , 1 ]$, in quanto rappresenta una probabilità;
 - $F _ { X } ( - \infty ) = 0 \textsf { e } F _ { X } ( + \infty ) = 1$ (in quanto funzione integrale di una pdf);
 - $F _ { X } ( x )$ è continua (in quanto funzione integrale di una funzione sommabile);
 - $F _ { X } ( x )$ è crescente, in quanto l’integrando $f _ { X } ( \cdot ) \ \dot { \mathrm { e } }$ è non negativo;
 
-Ovviamente risulta:
+**Concetto chiave**:
+$F(x)$ è la "probabilità accumulata" fino al punto $x$.
 
-$$
-\mathbb {P} \left(a _ {1} \leq X \leq a _ {2}\right) = \int_ {a _ {1}} ^ {a _ {2}} f _ {X} (t) d t = F _ {X} \left(a _ {2}\right) - F _ {X} \left(a _ {1}\right)
-$$
+* **Calcolo degli intervalli:** Per trovare la probabilità che $X$ sia compreso tra $a_1$ e $a_2$, non serve necessariamente calcolare l'integrale della PDF; basta la differenza tra i valori della CDF:
+$$\mathbb {P} \left(a _ {1} \leq X \leq a _ {2}\right) = \int_ {a _ {1}} ^ {a _ {2}} f _ {X} (t) d t = F _ {X} \left(a _ {2}\right) - F _ {X} \left(a _ {1}\right)$$
+
 
 > [!quote] Osservazione
-> La CDF potrebbe definirsi anche per variabili discrete, nel qual caso la proprietà di continuità andrebbe "rimodulata". Tuttavia, la CDF di variabili discrete non $\grave { \mathbf { e } }$ una grandezza utile.
+>  La CDF è definita anche per variabili discrete, ma in ambito operativo è uno strumento utilizzato quasi esclusivamente con variabili continue.*
 
-## 6. Media statistica di variabili continue - 1
+## Media statistica di variabili continue
 
 Data una variabile aleatoria continua con pdf $f _ { X } ( x )$, definiamo la sua **media statistica** come:
 
@@ -1474,45 +1145,38 @@ $$
 \mathbb {E} [ X ] = \mu_ {X} = \int_ {\mathbb {R}} x f _ {X} (x) d x
 $$
 
-Per giustificare questa definizione, si possono utilizzare diversi argomenti. Si consideri inizialmente una versione "quantizzata" di $X$ nella forma:
+Per giustificare questa definizione, si possono utilizzare diversi argomenti:
 
-$$
-X ^ {\Delta} = x _ {i} \in [ i \Delta , (i + 1) \Delta [ \text {se} i \Delta \leq X <   (i + 1) \Delta \rightarrow \mathbb {P} (X = x _ {i}) = \int_ {i \Delta} ^ {(i + 1) \Delta} f _ {X} (x) d x
-$$
-
-Ovviamente avremo:
-
-$$
+>[!dim] Dimostrazione 1: Dal discreto al continuo tramite il limite di una sommatoria
+>Per giustificare l'integrale, si quantizza $X$ in intervalli $\Delta$. Se $x_i$ è il valore rappresentativo dell'intervallo $[i\Delta, (i+1)\Delta)$, allora:
+>$$
+X ^ {\Delta} = x _ {i} \in [ i \Delta , (i + 1) \Delta
+>$$
+>Se $\quad i \Delta \leq X <   (i + 1) \Delta$
+>$$
+ \mathbb {P} (X = x _ {i}) = \int_ {i \Delta} ^ {(i + 1) \Delta} f _ {X} (x) d x
+>$$
+>
+>Ovviamente avremo:
+>
+>$$
 \mathbb {E} \left[ X ^ {\Delta} \right] = \sum_ {i = - \infty} ^ {\infty} x _ {i} \underbrace {\int_ {i \Delta} ^ {(i + 1) \Delta} f _ {X} (x) d x} _ {p _ {X \Delta} (x _ {i})}
-$$
-
-Infine, se $x f _ { X } ( x ) \ { \overset { } { \in } }$ è integrabile secondo Riemann:
-
-$$
+>$$
+>
+>Passando al limite per $\Delta \to 0$, la sommatoria converge all'integrale di Riemann:
+>
+>$$
 \mathbb {E} [ X ] = \lim _ {\Delta \rightarrow 0} \mathbb {E} [ X ^ {\Delta} ] = \lim _ {\Delta \rightarrow 0} \sum_ {i = - \infty} ^ {\infty} x _ {i} f _ {X} (x _ {i}) \Delta = \int_ {\mathbb {R}} x f _ {X} (x) d x
-$$
+>$$
 
-## 7. Media statistica di variabili continue - 2
+>[!dim] Dimostrazione 2: Visione Unificata (Integrale di Lebesgue)
+In termini generali, si definisce la media tramite l'integrale di Lebesgue rispetto alla misura di probabilità $P$:
+$$\mathbb{E}[X] = \int_{\Omega} X(\omega) \, dP(\omega)$$
+> * Nel caso **discreto**, l'integrale si riduce alla sommatoria $\sum x p(x)$.
+> * Nel caso **continuo**, dato che $dP(\omega) = f_X(x)dx$, l'integrale diventa la classica formula dell'integrale di Riemann. Questa notazione è unificata e indipendente dalla natura della variabile.
 
-Un’altra giustificazione deriva dalle considerazioni intuitive sulla riducibilità di una DF a una pdf. Infatti, se $\Omega \ { \dot { \mathsf { e } } }$ uno spazio discreto, sappiamo che:
-
-$$
-\mathbb {E} \left[ X \right] = \sum_ {x \in \mathcal {X}} x p _ {X} (x) = \int_ {\mathcal {X}} x f _ {X} (x) d c (x) = \int_ {\Omega} X (\omega) d \mu_ {1} (\omega)
-$$
-
-dove $\mu _ { 1 } ( \cdot ) \textsf { e }$ la misura di probabilità introdotta su $\Omega$ con densità (rispetto alla misura di conteggio) $\begin{array} { r } { \frac { d \mu _ { 1 } ( \omega ) } { d c ( \omega ) } = p _ { X } [ x ( \omega ) ] } \end{array}$.
-
-Quindi, è possibile definire la media statistica di una variabile aleatoria (indipendentemente dal fatto che sia discreta o continua) nella forma:
-
-$$ E[X] = \int_{\Omega} x \, dP(x) \tag{5} $$
-
-dove l’integrale è un integrale di Lebesgue. Per $\Omega = \mathbb { R }$ avremo ovviamente $d \mu _ { 1 } ( \omega ) = f _ { X } ( x )$ $dx$, per cui:
-
-$$
-\mathbb {E} [ X ] = \int_ {\mathbb {R}} x f _ {X} (x) d x
-$$
-
-## Variabili Uniformi
+## Tipi di Variabili
+### Variabili Uniformi
 
 Una **variabile aleatoria** $X$ si dice **uniformemente distribuita** su un intervallo $[a, b]$, $b \geq a \left( X \sim \mathcal { U } \left( a , b \right) \right)$ se: 
 
@@ -1520,7 +1184,9 @@ $$
 f _ {X} (x) = \left\{ \begin{array}{l l} \frac {1}{b - a} & x \in [ a, b ] \\ 0 & \text { altrove } \end{array} \right.
 $$
 
-Siccome $\text{supp}(X) = [a, b]$ $[ f _ { X } ( x ) ] = [ a , b ]$, tale è il suo alfabeto (cioè $X$ non assume valori esterni all’intervallo). La sua **CDF** si scrive quindi: 
+> Siccome $\text{supp}(X) = [a, b]$ $[ f _ { X } ( x ) ] = [ a , b ]$, tale è il suo alfabeto (cioè $X$ non assume valori esterni all’intervallo). 
+
+La sua **CDF** si scrive quindi: 
 
 $$
 F _ {X} (x) = \int_ {- \infty} ^ {x} f _ {X} (t)   d t = \left\{ \begin{array}{l l} 0 & x <   a \\ \frac {x - a}{b - a} & a \leq x \leq b \\ 1 & x \geq b \end{array} \right.
@@ -1534,7 +1200,7 @@ $$
 
 L’andamento di pdf e CDF sono mostrati nella successiva slide.
 
-### pdf e CDF di variabili uniformi
+#### pdf e CDF di variabili uniformi
 
 ![image](https://cdn-mineru.openxlab.org.cn/result/2026-06-27/b5f5d426-9c48-4e21-b90d-66928c562c74/c3f6dc9e2a801980935c1605a6b11fb0b0f1678de5a63bed040d1bda1182b2e0.jpg)
 Figura 1: pdf della variabile uniforme
@@ -1542,7 +1208,7 @@ Figura 1: pdf della variabile uniforme
 ![image](https://cdn-mineru.openxlab.org.cn/result/2026-06-27/b5f5d426-9c48-4e21-b90d-66928c562c74/e00a692547928dec972c2b70ba912cb5b50498747f1c6f2e70e64a8250e0a9f7.jpg)
 Figura 2: CDF della variabile uniforme
 
-## Variabili esponenziali
+### Variabili esponenziali
 
 Una variabile aleatoria $X$ si dice **esponenziale** con parametro $\lambda > 0$ $\lambda \left( X \sim { \mathcal { E } } ( \lambda ) \right)$ se ha una pdf: 
 
@@ -1564,7 +1230,7 @@ $$
 
 I relativi andamenti sono mostrati nella prossima slide.
 
-### pdf e CDF di variabili esponenziali
+#### pdf e CDF di variabili esponenziali
 
 ![image](https://cdn-mineru.openxlab.org.cn/result/2026-06-27/b5f5d426-9c48-4e21-b90d-66928c562c74/08ab3fd5b2e073a6d017a7f7cdf795cbed576c47f81a07d9415e45dde49d254f.jpg)
 Figura 3: pdf della variabile esponenziale
@@ -1572,7 +1238,7 @@ Figura 3: pdf della variabile esponenziale
 ![image](https://cdn-mineru.openxlab.org.cn/result/2026-06-27/b5f5d426-9c48-4e21-b90d-66928c562c74/d6303810f7e1eab90d297d7ecd1e8a382e49fb1d59f93cbc76fb80a71f91ff09.jpg)
 Figura 4: CDF di $X \sim \varepsilon(\lambda)$
 
-## Variabili laplaciane
+### Variabili laplaciane
 
 Una variabile aleatoria $X$ si dice **laplaciana** con parametro $\lambda > 0$ $\lambda \left( X \sim { \mathcal { L } } ( \lambda ) \right)$ se ha una pdf: 
 
@@ -1597,7 +1263,7 @@ $$
 
 I relativi andamenti sono mostrati nella prossima slide.
 
-### pdf e CDF di variabili laplaciane
+#### pdf e CDF di variabili laplaciane
 
 ![image](https://cdn-mineru.openxlab.org.cn/result/2026-06-27/b5f5d426-9c48-4e21-b90d-66928c562c74/39f51fa4ff2eb7cb56cb12410ab682f44fdac428a7255317918a58910ce0f602.jpg)
 Figura 5: pdf della variabile laplaciana
@@ -1605,7 +1271,7 @@ Figura 5: pdf della variabile laplaciana
 ![image](https://cdn-mineru.openxlab.org.cn/result/2026-06-27/b5f5d426-9c48-4e21-b90d-66928c562c74/68af4a0c86ad1fc90ac3bdd3f5e7d395f93a4b0223313d87385837c55eea2f86.jpg)
 Figura 6: CDF di $X \sim L(\lambda)$
 
-## Variabili di Cauchy
+### Variabili di Cauchy
 
 Una variabile aleatoria $X$ si dice di **Cauchy** con parametri $x_0$ e $\gamma > 0$ $( a , b ) \ ( \boldsymbol { X } \sim \mathcal { C } ( a , b ) )$ se ha una pdf: 
 
@@ -1627,7 +1293,7 @@ $$
 
 I relativi andamenti sono mostrati nella prossima slide.
 
-### pdf e CDF di variabili di Cauchy
+#### pdf e CDF di variabili di Cauchy
 
 ![image](https://cdn-mineru.openxlab.org.cn/result/2026-06-27/b5f5d426-9c48-4e21-b90d-66928c562c74/37f192a92d3c0821ce4b3c544298a2f503630eea2717b9e0dc1ae55d1dbeea9d.jpg)
 Figura 7: pdf della variabile di Cauchy
@@ -1635,89 +1301,66 @@ Figura 7: pdf della variabile di Cauchy
 ![image](https://cdn-mineru.openxlab.org.cn/result/2026-06-27/b5f5d426-9c48-4e21-b90d-66928c562c74/da62d320d49b4d115fdd49c23baaf8c0b8c15ce9c200a43a8856f458817797aa.jpg)
 Figura 8: CDF di $X \sim C(a, b)$
 
-## pdf condizionate
+## PDF Condizionata: $f_{X|A}(x)$
 
-In modo del tutto analogo a quanto fatto per le variabili discrete, potremo scrivere: 
+Il concetto di probabilità condizionata si estende al caso continuo in modo intuitivo.
 
-$$
-\mathbb {P} \left[ X \in \left(x - \frac {\Delta x}{2}, x - \frac {\Delta x}{2}\right) \mid A \right] = P _ {X} (x, \Delta x | A) \Rightarrow f _ {X | A} (x) = \lim _ {\Delta x \rightarrow 0} \frac {P _ {X} (x , \Delta x | A)}{\Delta x}
-$$
+### 1. Definizione tramite Limite (Approccio locale)
 
-o, anche: 
+Analogamente al caso discreto, la **PDF** condizionata esprime la densità di probabilità di $X$ sapendo che si è verificato l'evento $A$:
+$$f_{X|A}(x) = \lim_{\Delta x \to 0} \frac{\mathbb{P}(x - \frac{\Delta x}{2} < X \leq x + \frac{\Delta x}{2} \mid A)}{\Delta x}$$
+### 2. Definizione tramite CDF (Approccio operativo)
 
-$$
-F _ {X \mid A} (x) = \mathbb {P} (X \leq x \mid A) = \frac {\mathbb {P} (\{X \leq x \} \mid \cap A)}{\mathbb {P} (A)} \Rightarrow f _ {X \mid A} (x) = \frac {d F _ {X \mid A} (x)}{d x}
-$$
+È spesso più semplice passare attraverso la Funzione di Ripartizione condizionata:
+$$F_{X|A}(x) = \mathbb{P}(X \leq x \mid A) = \frac{\mathbb{P}(\{X \leq x\} \cap A)}{\mathbb{P}(A)}$$
+Da cui si ricava la densità(pdf) derivando rispetto a $x$:
+$$f_{X|A}(x) = \frac{d}{dx} F_{X|A}(x)$$
 
-> [!example] Esempio 1
-> Per esempio, sia $X \sim L(\lambda)$ $X \sim { \mathcal { L } } ( \lambda ) \ { \textrm { e } } A = \{ - 1 \leq X \leq 2 \} \quad$. Avremo:
->
-> $$
-> F _ {X | \{- 1 \leq X \leq 2 \}} (x) = \frac {\mathbb {P} (\{X \leq x \} \cap \{- 1 \leq X \leq 2 \})}{F _ {X} (- 1 \leq X \leq 2)} = \left\{ \begin{array}{l l} 0 & x <   - 1 \\ \frac {F _ {X} (x) - F _ {X} (- 1)}{F _ {X} (2) - F _ {X} (- 1)} & - 1 \leq x \leq 2 \\ 1 & x \geq 2 \end{array} \right.
-> $$
->
-> $$
-> f _ {X | \{- 1 \leq X \leq 2 \}} (x) = \left\{ \begin{array}{c l} \frac {f _ {X} (x)}{F _ {X} (2) - F _ {X} (- 1)} = \frac {\frac {\lambda}{2} e ^ {- \lambda | x |}}{1 - \frac {1}{2} e ^ {- 2 \lambda} + \frac {1}{2} e ^ {- \lambda}} & x \in (- 1, 2) \\ 0 & x \notin (- 1, 2) \end{array} \right.
-> $$
 
-### pdf e CDF condizionali di variabili Laplaciane
+### 1.3.2 Legge della probabilità totale
 
-![image](https://cdn-mineru.openxlab.org.cn/result/2026-06-27/b5f5d426-9c48-4e21-b90d-66928c562c74/c9bb9b6105893847da5816e4162cf664c0a5d6c418d723bc46ff1a263cd47a27.jpg)
-Figura 9: pdf condizionata della variabile laplaciana
 
-![image](https://cdn-mineru.openxlab.org.cn/result/2026-06-27/b5f5d426-9c48-4e21-b90d-66928c562c74/c151e31d1c7e39157c315436b8b74f28bd1d6631fb7d6d648dfe224e47f288e4.jpg)
-Figura 10: CDF condizionata della variabile laplaciana
+>[!rb] R.B.
+>In modo del tutto analogo al caso discreto.
+*Data una partizione dello spazio campionario $\Omega$ costituita dagli eventi $\{E_m\}_{m=1}^M$ (con $\mathbb{P}($E_m$) > 0$), valgono le seguenti relazioni:*
 
-## Legge della probabilità totale per pdf e medie
+ **1. Densità e Ripartizione:**
+$$f_X(x) = \sum_{m=1}^{M} f_{X|E_m}(x) \mathbb{P}(E_m) \quad \longleftrightarrow \quad F_X(x) = \sum_{m=1}^{M} F_{X|E_m}(x) \mathbb{P}(E_m)$$
+ 
+ **2. Valore Atteso (Legge dell'Aspettativa Totale):**
+$$\mathbb{E}[X] = \sum_{m=1}^{M} \mathbb{E}[X|E_m] \mathbb{P}(E_m)$$
+ 
+ 
+ *Dove la media condizionata è calcolata come:*
+$$\mathbb{E}[X|E_m] = \int_{-\infty}^{+\infty} x f_{X|E_m}(x) dx$$
+ 
+ 
+## Funzioni di variabili aleatorie continue
 
-In modo del tutto analogo al caso discreto (vedi slide 56) si può mostrare che, se $\{A_i\}$ $\{ E _ { m } \} _ { m = 1 } ^ { M }$ è una qualunque partizione di $\Omega$ $\Omega ,$, allora: 
-
-$$
-f _ {X} (x) = \sum_ {m = 1} ^ {M} f _ {X | E _ {m}} (x) \mathbb {P} (E _ {m}) \Longleftrightarrow F _ {X} (x) = \sum_ {m = 1} ^ {M} F _ {X | E _ {m}} (x) \mathbb {P} (E _ {m})
-$$
-
-Naturalmente, questo implica che per le medie valga un’analoga relazione (vedi slide 57): 
-
-$$
-\mathbb {E} \left[ X \right] = \sum_ {m = 1} ^ {M} \mathbb {E} \left[ X | E _ {m} \right] \mathbb {P} (E _ {m}) = \sum_ {m = 1} ^ {M} \mathbb {P} (E _ {m}) \int_ {\mathbb {R}} x f _ {X | E _ {m}} (x) d x
-$$
-
-Quindi, con riferimento all’esempio precedente con $X \sim L(\lambda)$ $\begin{array} { r } { X \sim \mathcal { L } ( \lambda ) } \end{array}$ 
-
-$$
-\mathbb {E} [ X ] = \mathbb {E} \left[ X | \{- 1 \leq X \leq 2 \} \right] \mathbb {P} (- 1 \leq X \leq 2) + \mathbb {E} \left[ X | \{X \notin [ - 1, 2 ] \} \right] \underbrace {\mathbb {P} (X \notin [ - 1 , 2 ])} _ {1 - \mathbb {P} (- 1 \leq X \leq 2)} = 0
-$$
-
-## Funzioni di variabili aleatorie continue -1
-
-Quest’argomento riproduce — come problematica — quello già affrontato nel caso di variabili discrete (vedi slide 58 e seguenti).
-
-Si assuma che $X$ $X = X ( \omega )$ sia una variabile aleatoria continua con alfabeto $\mathcal{X}$, pdf $f(x)$ $f _ { X } ( x ) \mathrm { ~ e ~ C D F ~ } F _ { X } ( x )$.
-
-Sia $g$ $g ( \cdot )$ una funzione il cui insieme di definizione includa i punti di $\mathcal{X}$ $\mathcal { X } \mathrm { ~ - ~ } \mathsf { a }$ meno di un sottoinsieme a (misura di) probabilità nulla;
-
-Si forma la nuova variabile aleatoria: 
+Data una variabile aleatoria continua $X$ con densità di probabilità $f_X(x)$ e funzione di ripartizione $F_X(x)$, consideriamo la trasformazione:
 
 $$
 Y = g (X) = g [ X (\omega) ] \in \mathcal {Y} \quad \text {   dove   } \mathcal {Y} = g (\mathcal {X})
 $$
 
-> [!theorem] Problema
-> Ricavare una caratterizzazione di $Y$ dalla caratterizzazione di $X$ in termini di pdf/CDF, $f_Y(y)$ $p _ { Y } ( y ) , y \in \mathcal { Y } ;$, media statistica, $E[Y]$ $\mathbb { E } [ Y ]$.
+A differenza di quanto analizzato nel caso discreto, si distinguono tre casi principali :
+1. $g(x)$ è **biunivoca** $\implies$ invertibile, continua e derivabile;
+2. $g(x)$ è **continua, derivabile e univoca $\implies$** **non** invertibile con $Y$ **continuo**;
+3. $g(x)$ è **univoca** $\implies$ **non** invertibile con $Y$ **discreto**
+	>Quest’ultimo caso corrisponde a una **conversione** $\mathsf { A } / \mathsf { D }$ della variabile continua (ovvero una sua quantizzazione o compressione con perdite) in analogia a quanto visto nella conversione $\mathsf { A } / \mathsf { D }$ di segnali e sequenze deterministiche.
 
-## Funzioni di variabili aleatorie continue -2
+### Funzioni invertibili
 
-A differenza di quanto analizzato nel caso discreto, si distinguono tre casi principali relativi alla trasformazione di una variabile aleatoria continua $X$ tramite una funzione $y = g(x)$:
+Si ricorda che se $g(x)$ è invertibile, allora essa è **strettamente monotona** $\forall \space x \in { \mathcal { X } }$. 
 
-1. $g(x)$ è **biunivoca**, ovvero invertibile, continua e derivabile;
-2. $g(x)$ è continua, derivabile e univoca — e quindi non invertibile — con $Y$ continuo;
-3. $g(x)$ è univoca — e quindi non invertibile — con $Y$ discreto: quest’ultimo caso corrisponde a una **conversione** $\mathsf { A } / \mathsf { D }$ della variabile continua (ovvero una sua quantizzazione o compressione con perdite) in analogia a quanto visto nella conversione $\mathsf { A } / \mathsf { D }$ di segnali e sequenze deterministiche.
-
-## Funzioni invertibili
-
-Si ricorda che se $g(x)$ è invertibile, allora essa è **strettamente monotona** $\forall \space x \in { \mathcal { X } }$. Pertanto:
-
-### Funzione strettamente crescente
+>[!def] PDF formula unica
+>In entrambi i casi, la **pdf** (Probability Density Function) $f_Y(y)$ si scrive in forma unificata:
+>$$
+f _ {Y} (y) = \frac {f _ {X} [ g ^ {- 1} (y) ]}{| g ^ {\prime} [ g ^ {- 1} (y) ] |}
+>$$
+>>[!quote] Nota:
+>>Il valore assoluto al denominatore ci assicura la non negatività della PDF e quindi stabilire se un funzione è crescente o decrescente.
+#### Funzione strettamente crescente
 Se $g(x)$ è strettamente crescente $( g ^ { \prime } ( x ) > 0 )$:
 
 $$
@@ -1725,10 +1368,10 @@ F _ {Y} (y) = \mathbb {P} (Y \leq y) = \mathbb {P} (g (X) \leq y) = \mathbb {P} 
 $$
 
 $$
-f _ {Y} (y) = \frac {d F _ {Y} (y)}{d y} = f _ {X} [ g ^ {- 1} (y) ] \frac {d g ^ {- 1} (y)}{d y} = \frac {f _ {X} [ g ^ {- 1} (y) ]}{g ^ {\prime} [ g ^ {- 1} (y) ]}
+f _ {Y} (y) = \frac {d F _ {Y} (y)}{d y} \longleftrightarrow f _ {X} [ g ^ {- 1} (y) ] \frac {d g ^ {- 1} (y)}{d y} = \frac {f _ {X} [ g ^ {- 1} (y) ]}{g ^ {\prime} [ g ^ {- 1} (y) ]}
 $$
 
-### Funzione strettamente decrescente
+#### Funzione strettamente decrescente
 Se $g(x)$ è strettamente decrescente $( g ^ { \prime } ( x ) < 0 )$:
 
 $$
@@ -1736,42 +1379,31 @@ F _ {Y} (y) = \mathbb {P} (Y \leq y) = \mathbb {P} (g (X) \leq y) = \mathbb {P} 
 $$
 
 $$
-f _ {Y} (y) = - \frac {d F _ {Y} (y)}{d y} = f _ {X} [ g ^ {- 1} (y) ] \frac {d g ^ {- 1} (y)}{d y} = \frac {f _ {X} [ g ^ {- 1} (y) ]}{- g ^ {\prime} [ g ^ {- 1} (y) ]}
+f _ {Y} (y) = - \frac {d F _ {Y} (y)}{d y} \longleftrightarrow f _ {X} [ g ^ {- 1} (y) ] \frac {d g ^ {- 1} (y)}{d y} = \frac {f _ {X} [ g ^ {- 1} (y) ]}{- g ^ {\prime} [ g ^ {- 1} (y) ]}
 $$
 
-In entrambi i casi, la **pdf** (Probability Density Function) $f_Y(y)$ si scrive in forma unificata:
 
-$$
-f _ {Y} (y) = \frac {f _ {X} [ g ^ {- 1} (y) ]}{| g ^ {\prime} [ g ^ {- 1} (y) ] |}
-$$
 
-## Funzioni non invertibili
 
-Si assuma ora che $g(x)$ non sia invertibile. Questo implica che:
+### Funzioni non invertibili
 
-$$
-\forall \space y \in \mathcal {Y} \exists \{x _ {i} (y) \} _ {i = 1} ^ {M (y)}: g [ x _ {i} (y) ] = y
-$$
+Se $g(x)$ non è invertibile, un valore $y$ può essere generato da più valori $x$. Sia $\{x_i(y)\}$ l'insieme dei punti tali che $g[x_i(y)] = y$.
 
-Supponiamo, per fissare le idee, $g(x) = x^2$ (per $x \in \mathbb{R}$): questo implica che $g'(x) = 2x$, che si annulla in $x=0$; ovviamente, $g'(x)$ sarà positivo e $g(x)$ crescente per $x > 0$. La funzione ripassa per il valore $y=0$ (con derivata nulla) e si mantiene al di sotto di $y$ fino a $x=0$. Quindi (vedi figura nella prossima slide):
+> [!def] PDF per funzioni non invertibili
+> Se la funzione è derivabile e $g'(x) \neq 0$ quasi ovunque, la pdf risultante è la somma dei contributi locali:
+> $$f_Y(y) = \sum_{i} \frac{f_X[x_i(y)]}{|g'[x_i(y)]|}$$
+> 
+> 
+#### Procedura operativa
 
-$$
-F _ {Y} (y) = \mathbb {P} (Y \leq y) = \mathbb {P} \left(\left\{x _ {1} (y) \leq X \leq x _ {2} (y) \right\} \cup \left\{x _ {4} (y) \leq X \leq x _ {3} (y) \right\}\right) =
-$$
+Non applicare la formula diretta. Per calcolare la densità di probabilità $f_Y(y)$:
 
-$$
-F _ {Y} [ x _ {2} (y) ] - F _ {Y} [ x _ {1} (y) ] + F _ {Y} [ x _ {4} (y) ] - F _ {Y} [ x _ {3} (y) ]
-$$
-
-dove si è ovviamente sfruttata la disgiunzione dei vari intervalli. Pertanto, derivando:
-
-$$
-f _ {Y} (y) = \sum_ {i = 1} ^ {4} (- 1) ^ {i} f _ {X} [ x _ {i} (y) ] x _ {i} ^ {\prime} (y) = \sum_ {i = 1} ^ {4} \frac {f _ {X} [ x _ {i} (y) ]}{| g ^ {\prime} [ x _ {i} (y) ] |}
-$$
-
-dove si è sfruttato il fatto che $g'(x) \neq 0$ quasi ovunque e che i segni sono alternati.
-
-### Rappresentazione grafica
+1. **Parti dalla CDF**:
+$$F_Y(y) = \mathbb{P}(Y \le y) = \mathbb{P}(g(X) \le y)$$
+2. **Esplicita l'evento**: Risolvi la disequazione $g(X) \le y$ per trovare gli intervalli di $X$ corrispondenti.
+3. **Calcola la probabilità**: Somma le probabilità degli intervalli trovati usando $F_X(x)$ o integrando $f_X(x)$.
+4. **Deriva**: Ottieni $f_Y(y) = \frac{d F_Y(y)}{d y}$.
+#### Rappresentazione grafica
 $$
 f _ {Y} (y _ {1}) = \sum_ {i = 1} ^ {3} f _ {X} \left[ x _ {i} (y _ {1}) \right] \left| \frac {d x _ {i} (y)}{d y} \right| _ {y = y _ {1}} = \sum_ {i = 1} ^ {3} \frac {f _ {X} \left[ x _ {i} (y _ {1}) \right]}{\left| g ^ {\prime} [ x _ {i} (y _ {1}) ] \right|}
 $$
@@ -1781,79 +1413,8 @@ f _ {Y} (y _ {2}) = \sum_ {i = 1} ^ {2} f _ {X} \left[ x _ {i} (y _ {2}) \right]
 $$
 
 ![image](https://cdn-mineru.openxlab.org.cn/result/2026-06-27/b5f5d426-9c48-4e21-b90d-66928c562c74/75daf37cde2197ea8b008ceadbbf1a23f380a8edcd7d8eeba4bc90f54e811575.jpg)
-Figura 1: Rappresentazione della funzione non invertibile $g(x) = x^2$.
-
-## Qualche esempio - 1
-
-Sia $X$ una variabile aleatoria con pdf $f_X(x)$. Si considerino le trasformazioni $y = g(x)$. Vogliamo determinare le pdf di $Y$.
-
-> [!example] Esempio 1
-> Per $g(x) = e^x$, si ha che, poiché $g'(x) = e^x > 0$ e $g(x)$ è biunivoca per $x \in \mathbb{R}$, la pdf sarà:
->
-> $$
-> x ^ {2} = y \rightarrow x (y) = \sqrt {y} \rightarrow x ^ {\prime} (y) = \left. \frac {1}{g ^ {\prime} (x)} \right| _ {x = \sqrt {y}} = \left. \frac {1}{2 x} \right| _ {x = \sqrt {y}} = \frac {1}{2 \sqrt {y}}
-> $$
->
-> Quindi:
->
-> $$
-> f _ {Y _ {1}} (y) = \left. \lambda e ^ {- \lambda x} u (x) \right| _ {x = \sqrt {y}} x ^ {\prime} (y) = \frac {\lambda}{2 \sqrt {y}} e ^ {- \lambda \sqrt {y}} u (y)
-> $$
-
-Per $g(x) = x^2$, invece, essendo $g(x)$ non biunivoca e l’equazione $y = x^2$ avente due soluzioni $x = \pm\sqrt{y}$ per $y > 0$. Si noti inoltre che $f_X(x)$ è simmetrica rispetto a $x=0$, cioè $f_X(x) = f_X(-x)$. Quindi:
-
-$$
-f _ {Y _ {2}} (y) = \left[ \frac {f _ {X} (\sqrt {y})}{| g ^ {\prime} (\sqrt {y}) |} + \frac {f _ {X} (- \sqrt {y})}{| g ^ {\prime} (- \sqrt {y}) |} \right] u (y), \quad \text { poichè } \quad f _ {X} (x) = \frac {1}{\pi} \frac {1}{1 + x ^ {2}} \Rightarrow
-$$
-
-$$
-f _ {Y _ {2}} (y) = \left(\frac {1}{2 \pi \sqrt {y}} \frac {1}{1 + y} + \frac {1}{2 \pi \sqrt {y}} \frac {1}{1 + y}\right) u (y) = \frac {1}{\pi \sqrt {y}} \frac {1}{1 + y} u (y)
-$$
-
-## Qualche esempio - 2
-
-Sia $X$ una variabile aleatoria. Vogliamo la pdf di $Y = g(X)$, cioè assumiamo $y = g(x)$.
-
-> [!example] Esempio 2
-> Notiamo preliminarmente che $g'(x) \neq 0$ qualunque sia $x$. Inoltre, $g(x)$ è monotona crescente: potrebbe non essere strettamente crescente se $g(x)$ non fosse connesso, ma escludiamo questo caso.
->
-> Avremo allora:
->
-> $$
-> g (x) = F _ {X} (x) \rightarrow x (y) = F _ {X} ^ {- 1} (y) \quad g ^ {\prime} (x) = f _ {X} (x) \Longrightarrow
-> $$
->
-> $$
-> f _ {Y} (y) = \frac {f _ {X} \left[ F _ {X} ^ {- 1} (y) \right]}{f _ {X} \left[ F _ {X} ^ {- 1} (y) \right]} \Pi \left(y - \frac {1}{2}\right) = \Pi \left(y - \frac {1}{2}\right)
-> $$
->
-> cioè $f_Y(y) = f_X(g^{-1}(y)) \cdot |(g^{-1})'(y)|$ $Y \sim \mathcal { U } ( 0 , 1 )$.
->
-> Quindi, se si ha una variabile aleatoria uniforme $X \sim U(0, 1)$, la trasformazione $g(x)$ genera una variabile aleatoria con pdf arbitraria $f_Y(y) = f_X(g^{-1}(y)) \cdot |(g^{-1})'(y)|$: questo ha delle notevoli conseguenze nelle procedure di simulazione dei sistemi numerici.
-
-## Qualche esempio - 3
-
-Sia $X$ una variabile aleatoria con pdf $f_X(x)$. Vogliamo la pdf di $Y = g(X)$.
-
-> [!example] Esempio 3
-> Notiamo preliminarmente che $g'(x) \neq 0$ e che la trasformazione non è biunivoca. Infatti:
->
-> $$
-> y = A \cos (2 \pi x + \varphi) \rightarrow 2 \pi x (y) + \varphi = \pm \arccos \left(\frac {x}{A}\right)
-> $$
->
-> Valutando la derivata dell’inversa si ha:
->
-> $$
-> \begin{array}{l} x ^ {\prime} (y) = \frac {1}{g ^ {\prime} (x)} \Big | _ {x = x (y)} = - \frac {1}{2 \pi A \sin (2 \pi x + \varphi)} \Big | _ {2 \pi x = \pm \arccos \left(\frac {y}{A}\right) - \varphi} = \\ = \pm \frac {1}{2 \pi A \sin [ \arccos (\frac {y}{A}) ]} = \pm \frac {1}{2 \pi A \sqrt {1 - (\frac {y}{A}) ^ {2}}} \end{array}
-> $$
->
-> Poiché $g'(x) \neq 0$, applicando le formule precedenti si ha:
->
-> $$
-> f _ {Y} (y) = \frac {1}{\pi A \sqrt {1 - \left(\frac {y}{A}\right) ^ {2}}}, \qquad y \in [ - A, A ]
-> $$
-
+Figura 1: Rappresentazione della funzione non invertibile $g(x) = boh$.
+ 
 # Conversione A/D di variabili aleatorie
 
 Quando $X$ è una variabile continua e $Y$ è una variabile discreta, si ha una **conversione** $\mathsf { A } / \mathsf { D }$ di una quantità aleatoria (confronta anche l’ultima sezione della parte ”Conversione $\mathsf { A } / \mathsf { D } ^ { \prime \prime } )$").
@@ -2427,7 +1988,7 @@ $$
 f _ {\boldsymbol {X}} (\boldsymbol {x}) = \prod_ {i = 1} ^ {n} f _ {X _ {i} | X _ {i - 1}, \dots , X _ {1}} (x _ {i} | x _ {i - 1}, \dots , x _ {1})
 $$
 
-## 1. Processi aleatori tempo-discreti
+## Processi aleatori tempo-discreti
 
 Si definisce **processo aleatorio tempo-discreto** un’applicazione che ad ogni elemento dello spazio campione fa corrispondere una successione:
 
@@ -2449,7 +2010,7 @@ dove $\mathbb{Z}$ indica l’insieme degli interi.
 > ![image](https://cdn-mineru.openxlab.org.cn/result/2026-06-27/b5f5d426-9c48-4e21-b90d-66928c562c74/057411ab0f31edbb00e115bfa3816d1d5e5f1c3faed5ab464cbf318ca0bb423a.jpg)
 > Figura 3: Realizzazione 3
 
-## 2. Commenti e osservazioni
+## Commenti e osservazioni
 
 - Per ogni valore di $\omega \in \Omega$ il processo si realizza in una sequenza che assume valori nell’intervallo $[-1, 1]$;
 - Fissando l’istante di tempo $n = n _ { 0 }$ e facendo variare $\omega \in \Omega$ otteniamo $X ( n _ { 0 } , \omega )$ che è una variabile aleatoria (visto che ”campionando verticalmente” il processo otteniamo che al variare di $\omega X ( n _ { 0 } , \omega )$ assume diverse determinazioni);
@@ -2470,7 +2031,7 @@ $$
 > 
 > il processo è a media identicamente nulla.
 
-## 3. Un altro esempio: processo Gaussiano tempo-discreto
+## Un altro esempio: processo Gaussiano tempo-discreto
 
 Come secondo esempio, consideriamo un processo tempo-discreto stazionario al primo ordine con pdf:
 
@@ -2489,7 +2050,7 @@ Figura 5: Realizzazione Gaussiana 2
 ![image](https://cdn-mineru.openxlab.org.cn/result/2026-06-27/b5f5d426-9c48-4e21-b90d-66928c562c74/2c12f75b390651df009e373f8c5f9758ea1925d2f1a52f06939bfdc2260a96eb.jpg)
 Figura 6: Realizzazione Gaussiana 3
 
-## 4. Caratterizzazione del secondo ordine del processo
+## Caratterizzazione del secondo ordine del processo
 
 - Un processo aleatorio si dice **caratterizzato al primo ordine** se ne è nota la pdf $f _ { X ( n ) } ( x ; n )$ per ogni $n$. Se il processo è stazionario al primo ordine, questo equivale ad assegnare un’unica pdf.
 - Un processo aleatorio si dice **caratterizzato al secondo ordine** se ne è assegnata la pdf congiunta:
@@ -2507,7 +2068,7 @@ $$
 - In altre parole, un processo stazionario al secondo ordine è tale che la caratterizzazione congiunta di due suoi campioni dipende unicamente dalla loro ”distanza” temporale, ma non dalla loro posizione: in altre parole, la pdf congiunta è invariante ad atti di moto rigido dei due punti in anticipo o in ritardo.
 - Ovviamente un processo stazionario al secondo ordine lo è anche al primo, ma non è vero il viceversa. Perchè?
 
-## 5. Caratterizzazione completa di un processo
+## Caratterizzazione completa di un processo
 
 Un processo aleatorio $X ( n )$ si dice **completamente caratterizzato** se, detto $M$ un intero arbitrario e detti $n _ { 1 } , \ldots , n _ { M }$ $M$ istanti arbitrari, il vettore aleatorio:
 
@@ -2530,7 +2091,7 @@ $$
 f _ {X (n _ {1}), \dots , X (n _ {M})} (x _ {1}, \dots , x _ {M}) = f _ {X (n _ {1})} (x _ {1}) f _ {X (n _ {2})} (x _ {2}) \dots f _ {X (n _ {M})} (x _ {M}) = \prod_ {i = 1} ^ {M} f _ {X (n _ {i})} (x _ {i})
 $$
 
-## 6. Processi discreti
+## Processi discreti
 
 Si definisce **processo ampiezza discreto** (o - per brevità - **processo discreto**) un processo aleatorio in cui le cui realizzazioni siano sequenze di numeri che possano assumere valore in un alfabeto discreto.
 
@@ -2539,7 +2100,7 @@ Un caso di importanza notevole è quello di un **processo indipendente binario**
 ![image](https://cdn-mineru.openxlab.org.cn/result/2026-06-27/b5f5d426-9c48-4e21-b90d-66928c562c74/62faba250dc710ba5cb9fbd4a331bfdc4d2dc4cd5d3bd696b38454e5f14bc19a.jpg)
 Figura 7: Realizzazioni del processo di Bernoulli
 
-## 2. Un altro esempio: Un processo quaternario
+## Un altro esempio: Un processo quaternario
 
 Un ulteriore esempio si ha considerando un **alfabeto quaternario**, per esempio $X ( n ) \in \{ - 2 , - 1 , 1 , 2 \}$, con livelli equiprobabili (per cui ${ \mathbb { P } } \left\{ X ( n ) = i \right\} = { \textstyle { \frac { 1 } { 4 } } } \ \forall \space i )$).
 
@@ -2548,7 +2109,7 @@ Le realizzazioni del processo saranno quindi del tipo rappresentato in figura:
 ![image](https://cdn-mineru.openxlab.org.cn/result/2026-06-27/b5f5d426-9c48-4e21-b90d-66928c562c74/9f7957aa1d5176320b74eb7c6ea5945937ed809d0cfc9354252211d9f644fc02.jpg)
 Figura 1: Realizzazioni di un processo quaternario.
 
-## 3. Caratterizzazione di processi discreti
+## Caratterizzazione di processi discreti
 
 Tutte le definizioni introdotte per i processi continui si estendono ai **processi discreti**, con la sola differenza che le densità di probabilità sono ora sostituite dalle **funzioni di massa di probabilità** (DF).
 
@@ -2574,25 +2135,25 @@ $$
 
 dove $p _ { X } ( \cdot )$ è la DF marginale (ovviamente indipendente dal tempo).
 
-## 4. Caratterizzazione sintetica dei vettori aleatori
+## Caratterizzazione sintetica dei vettori aleatori
 
 Come per le variabili aleatorie, anche per i processi aleatori è possibile — a fronte di un’impossibilità di fornirne una caratterizzazione completa — definire una **caratterizzazione sintetica**, cioè assegnarne statistiche che siano significative.
 
 In modo del tutto analogo al caso scalare, dove abbiamo visto che la coppia media-varianza $( \mu x , \sigma _ { X } ^ { 2 } )$ offre spesso importanti informazioni sul comportamento della variabile $X$, e al caso delle coppie, in cui la cinquina $( m u _ { X } , \sigma _ { X } , \mu _ { Y } , \sigma _ { Y } , \mathrm { C O V } ( X , Y )$ offre analoghe informazioni sulla coppia $(X, Y)$, per un vettore aleatorio $\pmb { X } = [ X _ { 1 } , \ldots , X _ { n } ] ^ { T }$ abbiamo:
 
-### 4.1 La media statistica
+###1 La media statistica
 $$
 \boldsymbol {\mu} _ {\boldsymbol {X}} = \left(\mathbb {E} \left[ X _ {1} \right], \dots , \mathbb {E} \left[ X _ {n} \right]\right) ^ {T}
 $$
 
-### 4.2 La matrice di covarianza
+###2 La matrice di covarianza
 La **matrice di covarianza**, $C _ { X } = \mathbb { E } \left[ \left( X - \mu _ { X } \right) \left( X - \mu _ { X } \right) ^ { T } \right]$, è definita come:
 
 $$
 \left( \begin{array}{c c c c} \sigma_ {X _ {1}} ^ {2} & \operatorname{COV} (X _ {1}, X _ {2}) & \dots & \operatorname{COV} (X _ {1}, X _ {n}) \\ \operatorname{COV} (X _ {2}, X _ {1}) & \sigma_ {X _ {1}} ^ {2} & \dots & \operatorname{COV} (X _ {2}, X _ {n}) \\ \dots & \dots & \dots & \dots \\ \operatorname{COV} (X _ {n}, X _ {1}) & \operatorname{COV} (X _ {n}, X _ {2}) & \dots & \sigma_ {X _ {n}} ^ {2} \end{array} \right)
 $$
 
-## 5. Processi Stazionari in Senso Lato (SSL)
+## Processi Stazionari in Senso Lato (SSL)
 
 Focalizziamoci sui processi tempo discreti, ma quanto verrà detto vale anche per i processi tempo-continui. Abbiamo visto che un processo $X ( n ) \in { \mathcal { X } }$ è stazionario di ordine 2 se:
 
@@ -2620,7 +2181,7 @@ $$
 R _ {X} \left(t _ {1} / n _ {1}, t _ {2} / n _ {2}\right) = \mathbb {E} \left[ X \left(t _ {1} / n _ {1}\right) X \left(t _ {2} / n _ {2}\right) \right] = R _ {X} \left(t _ {2} - t _ {1} / n _ {2} - n _ {1}\right)
 $$
 
-## 6. Matrice di covarianza per processi SSL
+## Matrice di covarianza per processi SSL
 
 Sia $X ( t / n )$ un processo SSL, continuo o discreto, e sia $\pmb { x } = [ X _ { 1 } , \ldots , X _ { M } ] ^ { T }$ un vettore aleatorio $M$-dimensionale di campioni di $X ( t / n )$, presi negli istanti $( t _ { 1 } , \dots , t _ { M } ) / ( n _ { 1 } , \dots , n _ { M } )$.
 
@@ -2642,6 +2203,33 @@ Pertanto, la matrice di covarianza di un vettore tratto da un processo SSL è si
 
 > [!quote] Osservazione
 > Se il passo di campionamento del processo è costante (cioè, $( t _ { i + 1 } - t _ { i } ) / ( n _ { i + 1 } - n _ { i } )$ costante $\forall \space i ,$), allora la matrice assume una forma di **Toeplitz**.
+
+## Esercizio: La matrice di covarianza è sempre definita non-negativa
+
+> [!example] Esercizio 1
+> Si dimostri che la **matrice di covarianza** è una matrice definita non negativa.
+>
+> *Suggerimento: Considerare il prodotto scalare tra un vettore e la matrice applicato a un vettore arbitrario.*
+
+Si ricorda che una matrice $A \in \mathbb{R}^{M \times M}$ è definita non negativa se, detto $x \in \mathbb{R}^M$ un qualunque vettore $M$-dimensionale risulta $x^T A x \geq 0$.
+
+Consideriamo un vettore aleatorio $M$-dimensionale $X$ di media $\mu$ e matrice di covarianza $\Sigma$. La quantità $X^T \Sigma X$ è ovviamente una variabile aleatoria scalare con $\mathbb{E}[X^T \Sigma X] = \text{tr}(\Sigma \Sigma^T)$. Inoltre,
+
+$$
+\mathbb{E}[(X-\mu)^T \Sigma (X-\mu)] = \mathbb{E}[\sum_{i=1}^M \sum_{j=1}^M (X_i - \mu_i) \Sigma_{ij} (X_j - \mu_j)]
+$$
+
+Avremo allora la catena di disuguaglianze:
+
+$$
+\mathbb{E}[(X-\mu)^T \Sigma (X-\mu)] = \sum_{i=1}^M \sum_{j=1}^M \Sigma_{ij} \mathbb{E}[(X_i - \mu_i)(X_j - \mu_j)]
+$$
+
+$$
+= \sum_{i=1}^M \sum_{j=1}^M \Sigma_{ij} \Sigma_{ij} = \sum_{i=1}^M \sum_{j=1}^M \Sigma_{ij}^2 \geq 0
+$$
+
+dove si è sfruttato il fatto che $\mathbb{E}[(X_i - \mu_i)(X_j - \mu_j)] = \Sigma_{ij}$.
 
 ## Estensione ai processi continui: definizioni
 
@@ -2902,7 +2490,7 @@ Concludiamo quindi che la probabilità che la frequenza di occorrenza non sia ug
 
 Ciò implica che $f _ { n } ( a _ { i } ) \to p \chi ( a _ { i } )$ quasi certamente.
 
-## 1. Commenti
+## Commenti
 
 Si consideri un campione $\mathbf{x}$ $\pmb { x } ^ { n } \in \mathcal { X } ^ { n } , \mathcal { X } = \{ a _ { 1 } , . . . , a _ { M } \}$ estratto da un vettore casuale $\mathbf{X}$ $X ^ { n }$ di **pmf** (Probability Mass Function) sconosciuta.
 
@@ -2931,7 +2519,7 @@ di conseguenza, la media campionaria converge con probabilità uno alla media st
 > [!theorem] Forte Coerenza
 > In statistica, un estimatore è forte coerente se converge quasi certamente (con probabilità 1) al valore vero del parametro che intende stimare all'aumentare della dimensione del campione.
 
-## 2. Statistiche Inferenziali
+## Statistiche Inferenziali
 
 L'idea principale risiede nel fatto che, una volta osservato un campione sufficientemente ampio di una data popolazione di dati, è possibile inferire un numero di caratteristiche che qualsiasi altro campione dovrebbe rispettare.
 
@@ -2941,7 +2529,7 @@ Per iniziare, si assume che il campione sia noto come estratto da una famiglia d
 
 **Domanda:** Come elaboriamo il dataset disponibile per inferire il valore del parametro?
 
-## 3. Impostazione Bayesiana: Regola di decisione
+## Impostazione Bayesiana: Regola di decisione
 
 Si assuma di avere un dataset $\mathbf{x}$ $\pmb { x } ^ { n } \in \mathcal { X } ^ { n }$ che è una realizzazione di un vettore casuale $\mathbf{X}$ $X ^ { n }$. Si assuma che, in base allo stato della natura, i dati possano provenire da una qualsiasi delle $K$ $M$ diverse leggi di probabilità.
 
@@ -2961,7 +2549,7 @@ $$
 
 che permette di decidere quale dei possibili stati della natura sia quello effettivamente in vigore.
 
-## 4. Costi Bayesiani
+## Costi Bayesiani
 
 Si definisca la seguente matrice di costo $C$ $M \times M$:
 
@@ -2988,7 +2576,7 @@ Data una matrice di costo $C$ $C$, una regola di decisione ottimale è una mappa
 >
 > ovvero il rischio Bayesiano medio coincide con la probabilità di commettere un errore di classificazione.
 
-## 5. Problema di Classificazione Binaria
+## Problema di Classificazione Binaria
 
 Si assuma per il momento che $K=2$, che $\omega_1$ e $\omega_2$ $C _ { 1 , 1 } = C _ { 2 , 2 } = 0$ e $C _ { 1 , 2 } = C _ { 2 , 1 } = 1$ in modo che:
 
@@ -3059,6 +2647,37 @@ $$
 \mathbb {P} (e) = P \left(H _ {1}\right) P \left(e \mid H _ {1}\right) + P \left(H _ {2}\right) P \left(e \mid H _ {2}\right)
 $$
 
+## Esempio: classificazione di sorgenti binarie
+
+> [!example] Esempio 1 (Classificazione di sorgenti binarie)
+> Assumiamo che le osservazioni siano variabili binarie iid che possono provenire con probabilità uguali da una sorgente con ${ \mathbb { P } } \left\{ X _ { i } = 1 \right\} = p _ { 1 }$ o da una sorgente con ${ \mathbb { P } } \left\{ X _ { i } = 1 \right\} = p _ { 2 }$, con $p _ { 1 } > p _ { 2 }$.
+>
+> Abbiamo quindi:
+>
+> $$
+> p _ {\boldsymbol {X} ^ {n}} (\boldsymbol {x} ^ {n} | H _ {i}) = p _ {i} ^ {w _ {H} (\boldsymbol {x} ^ {n})} (1 - p _ {i}) ^ {n - w _ {H} (\boldsymbol {x} ^ {n})}
+> $$
+>
+> dove $w _ { H } ( \pmb { x } ^ { n } )$ è il **peso di Hamming** della sequenza binaria osservata $\pmb { x } ^ { n }$ coincidente con il numero dei suoi 1.
+>
+> Il test di probabilità di errore minima è
+>
+> $$
+> \left(\frac {p _ {1}}{p _ {2}}\right) ^ {w _ {H} (x ^ {n})} \left[ \frac {(1 - p _ {1})}{(1 - p _ {2})} \right] ^ {n - w _ {H} (x ^ {n})} \underset {H _ {2}} {\overset {H _ {1}} {\gtrless}} 1
+> $$
+>
+> o, equivalentemente
+>
+> $$
+> w _ {H} (\boldsymbol {x} ^ {n}) \ln \left(\frac {p _ {1}}{p _ {2}}\right) + (n - w _ {H} (\boldsymbol {x} ^ {n})) \ln \left(\frac {1 - p _ {1}}{1 - p _ {2}}\right) \underset {H _ {2}} {\overset {H _ {1}} {\gtrless}} 0
+> $$
+>
+> che si riduce a
+>
+> $$
+> w _ {H} \big (\boldsymbol {x} ^ {n} \big) \left[ \ln \left(\frac {p _ {1}}{1 - p _ {1}} \frac {1 - p _ {2}}{p _ {2}}\right) \right] \underset {H _ {2}} {\overset {H _ {1}} {\gtrless}} n \ln \left(\frac {1 - p _ {2}}{1 - p _ {1}}\right)
+> $$
+
 ## Valutazione delle prestazioni
 
 Si noti che, poiché $p _ { 1 } > p _ { 2 }$, tutti i logaritmi sono non negativi; il test può quindi essere riscritto nella forma
@@ -3105,7 +2724,26 @@ $$
 
 La quantità $L ( \pmb { x } ^ { n } )$ sul lato sinistro (LHS) è di nuovo chiamata **rapporto di verosimiglianza** tra le due ipotesi alternative.
 
-## 1. Valutazione delle prestazioni
+## Esempio: test della media di una popolazione Gaussiana
+
+> [!example] Esempio 2 (Test della media di una popolazione Gaussiana)
+> Assumiamo che il set di dati $\pmb { x } ^ { n }$ abbia la stessa probabilità di essere una realizzazione di un vettore casuale Gaussiano indipendente i cui elementi hanno la stessa varianza e medie diverse $\mu _ { 1 }$ e $\mu _ { 2 } < \mu _ { 1 }$.
+>
+> Poiché $\begin{array} { r } { f _ { X ^ { n } | H _ { i } } ( x ^ { n } | H _ { i } ) = \prod _ { k = 1 } ^ { n } \frac { 1 } { \sqrt { 2 \pi \sigma ^ { 2 } } } e ^ { - \frac { ( x _ { k } - \mu _ { i } ) ^ { 2 } } { 2 \sigma ^ { 2 } } } } \end{array}$ il test ottimo è scritto come
+>
+> $$
+> L (\boldsymbol {x} ^ {n}) = \frac {f _ {\boldsymbol {X} ^ {n} | H _ {1}} (\boldsymbol {x} ^ {n} | H _ {1})}{f _ {\boldsymbol {X} ^ {n} | H _ {2}} (\boldsymbol {x} ^ {n} | H _ {2})} = e ^ {\frac {\sum_ {k = 1} ^ {n} (x _ {k} - \mu_ {2}) ^ {2} - (x _ {k} - \mu_ {1}) ^ {2}}{2 \sigma^ {2}}} \underset {H _ {2}} {\overset {H _ {1}} {\gtrless}} 1
+> $$
+>
+> Prendendo il logaritmo su entrambi i lati ed elaborando otteniamo il test equivalente
+>
+> $$
+> \frac {1}{n} \sum_ {k = 1} ^ {n} x _ {k} \underset {H _ {2}} {\overset {H _ {1}} {\gtrless}} \frac {\mu_ {1} + \mu_ {2}}{2} = \eta
+> $$
+>
+> Le quantità $\sum x _ { k }$ per questo problema e $w _ { H } ( \pmb x ^ { n } )$ per il precedente sono anche riferite come **statistiche sufficienti** nel linguaggio della statistica inferenziale.
+
+## Valutazione delle prestazioni
 
 Si noti che, sotto $H _ { j }$, la statistica del test $\begin{array} { r } { Z _ { n } = \frac { 1 } { n } \sum _ { i = 1 } ^ { n } X _ { i } } \end{array}$ è Gaussiana con media e varianza date da:
 
@@ -3129,7 +2767,7 @@ $$
 \mathbb {P} (e) = Q \left(\sqrt {n} \frac {\mu_ {1} - \mu_ {2}}{2 \sigma}\right)\rightarrow 0 \quad \text { as } n \rightarrow \infty
 $$
 
-## 2. Test di ipotesi: introduzione
+## Test di ipotesi: introduzione
 
 Esistono numerose situazioni in cui è necessario prendere una decisione tra due ipotesi, pur non disponendo dei mezzi per assegnare la matrice di costo $C$ né le probabilità a priori. 
 
@@ -3142,7 +2780,8 @@ Gli esempi includono diverse situazioni di interesse pratico, quali:
 
 In tutte le situazioni sopra citate, risulta praticamente impossibile assegnare un costo a un errore di giudizio sullo "stato della natura", ovvero a una decisione errata tra le due ipotesi "tutto normale" o "qualcosa sta accadendo". È inoltre di poca importanza assegnare una probabilità a priori che "anomalie statistiche" siano presenti nel set di dati.
 
-## 3. Definizioni nel test di ipotesi
+### 1.1.1 Qualche richiamo di insiemistica (Parte iniziale - Definizioni di base)
+
 
 > [!theorem] Ipotesi Nulla ($H_0$)
 > L'**ipotesi nulla**, tradizionalmente denotata $H _ { 0 }$, è l'assunzione di base che il set di dati osservati $\pmb { x } ^ { n }$ sia una realizzazione di un vettore casuale con una distribuzione condizionale nota, con pmf/pdf $p _ { X ^ { n } | H _ { 0 } } ( { \pmb x } ^ { n } | H _ { 0 } ) / f _ { { \pmb X } ^ { n } | H _ { 0 } } ( { \pmb x } ^ { n } | H _ { 0 } )$.
@@ -3168,7 +2807,7 @@ Nel progettare una regola di decisione (ovvero, un test), si definiscono i segue
 ### Dati Continui
 ### Dati Discreti
 
-## 4. Test di Neyman-Pearson
+## Test di Neyman-Pearson
 
 Dato il framework delineato precedentemente, un test di Neyman-Pearson è il risultato della seguente ottimizzazione vincolata:
 
@@ -3191,7 +2830,7 @@ $$
 > [!quote] Osservazione
 > L'applicazione di qualsiasi funzione monotonicamente crescente a entrambi i lati del test precedente non ne altera l'ottimalità. Pertanto, è possibile introdurre equivalentemente il log-likelihood $\ln$ $L \left( \pmb { x } ^ { n } \right) = \Lambda ( \pmb { x } ^ { n } )$ e confrontarlo con una soglia determinata in modo nuovo.
 
-## 5. Esempio: test della media di una popolazione Gaussiana
+## Esempio: test della media di una popolazione Gaussiana
 
 Assumiamo che l'ipotesi nulla sia che le osservazioni siano iid Gaussiane con media zero e varianza data, ovvero $X _ { i } \sim \mathcal { N } ( 0 , \sigma ^ { 2 } )$, mentre la sua alternativa è $X _ { i } \sim \mathcal { N } ( \mu , \sigma ^ { 2 } )$.
 
@@ -3303,6 +2942,50 @@ $$
 
 che corrisponde certamente a un minimo data la convessità del rischio Bayes scelto. 
 
+## Esempio: Bernoulli Composta
+
+> [!example] Esempio 1 (Bernoulli Composta)
+> Assumiamo che $\mathbf{X}$ $X ^ { n } \in \{ 0 , 1 \} ^ { n }$ sia condizionalmente Bernoulli con parametro $\theta$ $\beta ,$, con $p(\theta)$ $B \sim \mathcal { U } ( 0 , 1 )$.
+> 
+> Il peso di Hamming $w(\mathbf{x})$ $w ( \pmb { x } ^ { n } )$ di una sequenza binaria è il numero di uno che contiene. Abbiamo: 
+> 
+> $$
+> p _ {\boldsymbol {X} ^ {n} | B} (\boldsymbol {x} ^ {n} | \beta) = \beta^ {w (\boldsymbol {x} ^ {n})} (1 - \beta) ^ {n - w (\boldsymbol {x} ^ {n})}
+> $$
+> 
+> Facendo la media su $\mathbf{B}$ otteniamo la legge incondizionata: 
+> 
+> $$
+> p \mathbf {x} ^ {n} (\mathbf {x} ^ {n}) = \int_ {0} ^ {1} \beta^ {w (\mathbf {x} ^ {n})} (1 - \beta) ^ {n - w (\mathbf {x} ^ {n})} d \beta = \frac {\Gamma (w + 1) \Gamma (n - w + 1)}{\Gamma (n + 2)} = \frac {1}{\binom{n + 1}{w (\mathbf {x} ^ {n})}}
+> $$
+> 
+> La legge condizionale è quindi 
+> 
+> $$
+> f _ {B | \boldsymbol {X} ^ {n}} (\beta | \boldsymbol {x} ^ {n}) = \frac {\beta^ {w (\boldsymbol {x} ^ {n})} (1 - \beta) ^ {n - w (\boldsymbol {x} ^ {n})}}{p _ {\boldsymbol {X} ^ {n}} (\boldsymbol {x} ^ {n})} = \frac {\beta^ {w (\boldsymbol {x} ^ {n})} (1 - \beta) ^ {n - w (\boldsymbol {x} ^ {n})}}{\binom{n + 1}{w (\boldsymbol {x} ^ {n})}}
+> $$
+
+## Esempio: Bernoulli Composta - cont.)
+
+> [!example] Esempio 2 (Bernoulli Composta - cont.)
+> La stima MMSE è quindi 
+> 
+> $$
+> \frac {1}{p \boldsymbol {x} ^ {n} (\boldsymbol {x} ^ {n})} \int_ {0} ^ {1} \beta^ {w (\boldsymbol {x} ^ {n}) + 1} (1 - \beta) ^ {n - w (\boldsymbol {x} ^ {n})} d \beta
+> $$
+> 
+> Risolvendo l'integrale si ottiene
+> 
+> $$
+> \hat {\beta} _ {\text {MMSE}} (\boldsymbol {x} ^ {n}) = \frac {\Gamma (w + 2) \Gamma (n - w + 1)}{\Gamma (n + 3)} \frac {1}{\binom{n + 1}{w (\boldsymbol {x} ^ {n})}} = \frac {w (\boldsymbol {x} ^ {n}) + 1}{n + 2}
+> $$
+> 
+> che è la stima ottenuta tramite l'estimatore MMSE: 
+> 
+> $$
+> \hat {B} _ {\text { MMSE }} (\boldsymbol {X} ^ {n}) = \frac {w (\boldsymbol {X} ^ {n}) + 1}{n + 2}
+> $$
+
 ## Estimatore Maximum A Posteriori (MAPE)
 
 Assumiamo ora la seguente funzione di costo: 
@@ -3390,7 +3073,8 @@ $$
 
 Si può dimostrare che entrambi gli estimatori sono **fortemente consistenti**, nel senso che ${ \widehat { B } } ( X ^ { n } ) \to B$ quasi certamente.
 
-## Definizioni Generali
+### 1.1.1 Qualche richiamo di insiemistica (Parte iniziale - Definizioni di base)
+
 
 Consideriamo un campione $\mathbf{X}$ estratto da un vettore casuale $\mathbf{Y}$. 
 
@@ -3858,7 +3542,7 @@ $$
 - 1 <   1 - \gamma \lambda_ {M A X} <   1 \Longrightarrow 0 <   \gamma <   \frac {2}{\lambda_ {M A X}}
 $$
 
-## 2. Un approccio diverso: statistica descrittiva
+## Un approccio diverso: statistica descrittiva
 
 In questa sezione si abbandona l'approccio probabilistico per adottare la **statistica descrittiva**, in cui i campioni sono considerati come entità dati e non come realizzazioni di vettori casuali.
 
@@ -3880,7 +3564,7 @@ $$ \mathbf{y} = \mathbf{X}\boldsymbol{\theta} + \boldsymbol{\epsilon} \tag{1} $$
 
 dove $\epsilon _ { n }$ incapsula l'errore di modellazione.
 
-## 3. L'estimatore dei Minimi Quadrati (Least Squares)
+## L'estimatore dei Minimi Quadrati (Least Squares)
 
 Data la natura del dataset $p$-dimensionale, si procede alla selezione di $a$ al fine di minimizzare la seguente funzione di costo:
 
@@ -3900,7 +3584,7 @@ $$
 \| \boldsymbol {X} ^ {T} \boldsymbol {a} - \boldsymbol {y} \| ^ {2} = \boldsymbol {a} ^ {T} \boldsymbol {X} \boldsymbol {X} ^ {T} \boldsymbol {a} + \| \boldsymbol {y} \| ^ {2} - 2 \boldsymbol {a} ^ {T} \boldsymbol {X} \boldsymbol {y}
 $$
 
-## 4. L'estimatore dei Minimi Quadrati - cont.
+## L'estimatore dei Minimi Quadrati - cont.
 
 Differenziando la funzione di costo rispetto a $a$, si ottiene:
 
@@ -3931,7 +3615,7 @@ Si consideri un'osservazione dell'ambiente a orizzonte infinito, tale che la dim
 
 È possibile regolare l'estimatore LS per gestire entrambi gli scenari con una complessità computazionale limitata.
 
-## 5. Apprendimento LS
+## Apprendimento LS
 
 Si supponga $p \geq n$ e che sia stata valutata la stima:
 
@@ -3952,7 +3636,7 @@ $$
 > 
 > L'operazione di inversione comporta una complessità $O(n^3)$, mentre il prodotto di matrici ha una complessità $O(n^2)$ (in termini di moltiplicazioni).
 
-## 6. La Formula di Sherman-Morrison
+## La Formula di Sherman-Morrison
 
 Sia $R$ una matrice invertibile di ordine $n ;$. Siano $u$ e $v$ vettori colonna $n$-dimensionali. Si applica il seguente lemma di inversione di matrice con aggiornamento *rank-1*:
 
@@ -3960,13 +3644,13 @@ $$
 \left(\boldsymbol {R} + \boldsymbol {u v} ^ {T}\right) ^ {- 1} = \boldsymbol {R} ^ {- 1} - \frac {\boldsymbol {R} ^ {- 1} \boldsymbol {u v} ^ {T} \boldsymbol {R} ^ {- 1}}{1 + \boldsymbol {u} ^ {T} \boldsymbol {R} ^ {- 1} \boldsymbol {v}}
 $$
 
-## 7. Generalità
+## Generalità
 
 *Marco Lops Elements of Decision Theory Elements of estimation theory Linear MMSE Estimation*
 
-## 8. Applicazione
+## Applicazione
 
-## 9. Notare che
+## Notare che
 
 $$ \dots $$
 
@@ -3990,9 +3674,9 @@ $$
 K (p + 1) = \boldsymbol {x} ^ {n T} (p + 1) \boldsymbol {R} ^ {- 1} (p) \boldsymbol {x} ^ {n} (p + 1)
 $$
 
-## 10. Applicazione - cont.
+## Applicazione - cont.
 
-## 11. D'altra parte abbiamo
+## D'altra parte abbiamo
 
 $$ \dots $$
 
@@ -4024,7 +3708,7 @@ $$
 
 L'operazione presenta una complessità $\mathcal { O } ( n ^ { 2 } )$, risultando indipendente (e non scalabile con) $p .$.
 
-## 2. Adattività in LS
+## Adattività in LS
 
 Al fine di gestire situazioni in cui l'ambiente circostante può essere (lentamente) variabile nel tempo, è opportuno forzare i dati storici a pesare meno rispetto ai dati più recenti ("freschi").
 
@@ -4044,7 +3728,7 @@ $$
 
 Questa formulazione è suscettibile di un'implementazione ricorsiva grazie all'applicazione del lemma di Sherman-Morrison.
 
-## 3. Generalizzazione
+## Generalizzazione
 
 Supponiamo ora che, mantenendo le stesse condizioni precedentemente analizzate, si desideri trovare un LS nella forma più generale:
 

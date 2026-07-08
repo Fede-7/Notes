@@ -1,4 +1,4 @@
-## Definizioni e Nomenclatura
+## Definizioni
 
 Esperimento: Operazione/azione - o insieme di operazioni/azioni - il cui esito dà uno tra tanti risultati possibili; 
 
@@ -114,7 +114,7 @@ $$
 A _ {1} \cap \left(\cup_ {i = 2} ^ {M} A _ {i}\right) = \cup_ {i = 2} ^ {M} \left(A _ {1} \cap A _ {i}\right)
 $$
 
-## Definizioni e Nomenclatura
+## Nomenclatura probabilistica
 
 Ω si definisce evento certo; 
 
@@ -126,7 +126,7 @@ Due eventi A e B tali che $A \cap B = \emptyset$ si definiscono incompatibili o 
 
 Se $A \subseteq B$ si dice che A implica B, cioè il verificarsi di A implica che si verifichi B. 
 
-## Introduzione e CDF
+## Qualche esempio
 
 Con riferimento al lancio singolo di una moneta, T = {Risultato Testa} e C = {Risultato Croce} sono eventi complementari (e quindi mutuamente esclusivi), ${ \overline { { T } } } \cap { \overline { { C } } } = { \overline { { T \cup C } } } = { \overline { { \Omega } } } = \emptyset$ l’evento impossibile. 
 
@@ -176,7 +176,7 @@ $$
 \boxed {\frac {n _ {A}}{n} \simeq \frac {| A |}{| \Omega |} = \frac {1 1}{3 6}}
 $$
 
-### Spazi finiti ed eventi elementari
+## Spazi finiti con eventi elementari equivalenti
 
 Sia Ω uno spazio dei campioni finito; 
 
@@ -192,7 +192,7 @@ Quindi per eventi equivalenti è importante saper contare le cardinalità dei so
 
 La branca che si occupa di questo problema si chiama calcolo 
 
-### Prodotti cartesiani e k-ple ordinate
+## Prodotti cartesiani
 
 Si considerino k insiemi finiti, $A _ { 1 } , \ldots A _ { k }$ , non necessariamente distinti. 
 
@@ -236,7 +236,7 @@ $$
 
 Esempio: il numero delle k−ple binarie è il numero di k−ple ordinate con ripetizione prese dall’insieme di cardinalità due {0, 1} è $2 ^ { k }$ 
 
-### Permutazioni e Combinazioni
+## Permutazioni
 
 Un caso particolare - ma molto rilevante - del calcolo precedente è quando k = n. La domanda cui si vuole rispondere è: 
 
@@ -248,7 +248,7 @@ Risposta: E un caso speciale di enumerazione di<sup>`</sup> k−ple quando k = n
 
 Questo ci conduce immediatamente al concetto di combinazioni. 
 
-### Permutazioni e Combinazioni
+## Combinazioni $( \overline { { G } } _ { m } ) _ { s } ^ { s }$
 
 Le combinazioni $C _ { n , k }$ di ”n elementi su $k$ posti” è il numero di $k { \mathrm { - } } { \mathsf { p l e } }$ non ordinate che si possono formare con n elementi (cioè, il numero di sottoinsiemi di $\Omega$ di cardinalità $k )$ 
 
@@ -288,7 +288,7 @@ $$
 \binom{4}{2} \binom{4 8}{3} = 6 9 1 8 4
 $$
 
-### Insieme delle parti
+## Insieme delle parti di un insieme finito
 
 Si consideri un insieme A con n elementi. 
 
@@ -320,7 +320,7 @@ Analogamente sono ineficaci le (n − k)! permutazioni degli ”0” sulle posiz
 
 In conclusione il numero richesto è $\left( \begin{array} { l } { n } \\ { k } \end{array} \right)$ 
 
-## Frequenza e Probabilità
+## Dalla frequenza alla probabilità
 
 Dato uno spazio dei campioni discreto $\Omega$ e un suo qualunque sottoinsieme (o evento) A si definisce probabilità che occorra A i limite della frequenza di occorrenza di A quando il numero di esperimenti - o prove - tende all’infinito, cioè: 
 
@@ -430,7 +430,7 @@ $$
 \left| C _ {P} \right| = 5 6 - 5 = 5 1 \rightarrow \mathbb {P} \left\{C _ {P} \right\} = \frac {5 1}{2 0 1 3 7 6} = 0. 0 0 0 2 5 \rightarrow \mathbb {P} \{\text { colore } \} = 0. 0 0 1
 $$
 
-### Frequenza di occorrenza e Leggi probabilistiche
+## Frequenza di occorrenza e probabilità su Spazi finiti
 
 Sia Ω uno spazio campione discreto (cioè, finito o numerabile); 
 
@@ -546,7 +546,7 @@ $$
 
 L’ultima relazione prende anche il nome di legge della probabilità composta. 
 
-### Legge della probabilità totale
+## Legge della probabilità totale
 
 Un’importante conseguenza della definizione di probabilità condizionata è la legge della probabilità totale. 
 
@@ -568,7 +568,7 @@ $$
 \boxed {\mathbb {P} (A) = \sum_ {i = 1} ^ {M} \mathbb {P} \left(A \cap E _ {i}\right) = \sum_ {i = 1} ^ {M} \mathbb {P} \left(A | E _ {i}\right) \mathbb {P} \left(E _ {i}\right)}
 $$
 
-### Eventi indipendenti
+## Eventi Indipendenti
 
 Due eventi, $A \subseteq \Omega \mathrm { ~ e ~ } B \subseteq \Omega$ si dicono indipendenti quando il verificarsi di uno non ha nessuna influenza sul verificarsi o meno dell’altro. 
 
@@ -586,7 +586,7 @@ $$
 \mathbb {P} (\{i, j \}) = \mathbb {P} (\{i \}) \mathbb {P} (\{j \}) = \frac {1}{6} \frac {1}{6} = \frac {1}{3 6}
 $$
 
-### Approccio assiomatico
+## L’approccio assiomatico alla teoria della probabilità
 
 Si consideri una famiglia di sottoinsiemi di Ω, sia essa $\mathcal { E } = \{ A _ { 1 } , . . . , A _ { N } \}$ 
 
@@ -608,7 +608,7 @@ Sotto le precedenti condizioni, E si definisce un’Algebra di sotto-insiemi di 
 
 Se la collezione E contiene un’infinità (numerabile) di elementi, allora E si definisce una σ−algebra se, oltre ad essere chiusa rispetto alla complementazione e all’unione, è anche chiusa rispetto all’unione di un’infinità numerabile di suoi elementi. 
 
-## Teoria dell'Assiomatica
+## Proprietà delle Algebre
 
 Se A, $B \in { \mathcal { E } }$ allora $A \cap B \in { \mathcal { E } }$ . Infatti, per la relazione di De Morgan abbiamo: 
 
@@ -626,7 +626,7 @@ Se A è un evento qualsiasi, allora la minima algebra che contiene A è $\mathca
 
 † $A \cup { \overline { { A } } } = \Omega$ deve essere un elemento di E per la proprietà di chiusura rispetto all’unione e $\varnothing = { \overline { { \Omega } } }$ deve esso stesso appartenervi per la chiusura rispetto alla complementazione. 
 
-### Algebre e Spazi di probabilità
+## Spazi di probabilità
 
 Si definisce legge di probabilità una funzione con dominio E e co-dominio [0, 1], cioè: 
 
@@ -772,7 +772,7 @@ $$
 
 Per contro, noi usiamo la notazione semplificata $\mathbb { P } ( X = x )$ , talvolta ”complicandola” nella forma $\mathbb { P } ( \{ X = x \} )$ , che evoca che a rigore ci riferiamo a un insieme di punti d $\Omega .$ . Useremo queste notazioni intercambiabilmente ogni volta che non ci sia il pericolo di generare equivoci. 
 
-### Valore atteso (Media statistica) e Media campionaria
+## La media campionaria
 
 Una variabile aleatoria X si dice caratterizzata se è assegnata la sequenza de $| \mathcal { X } |$ valori della sua pmf; 
 
@@ -868,7 +868,7 @@ $$
 \mathbb {E} \left[ X _ {N} \right] = \sum_ {x \in \mathcal {X}} x p _ {X _ {N}} (x) = \sum_ {k = 0} ^ {N} k \binom{N}{k} p ^ {k} q ^ {N - k} = N p
 $$
 
-### Variabile Uniforme
+## La variabile Uniforme
 
 Una variabile aleatoria X che assuma valore in un qualsiasi alfabeto $\mathcal { X }$ di cardinalità finita, $| { \mathcal { X } } | = M$ si dice uniformemente distribuita su $\mathcal { X }$ (in breve, $X \sim \mathcal { U } ( \mathcal { X } ) )$ ) se: 
 
@@ -888,7 +888,7 @@ $$
 \sum_ {x \in \mathcal {X}} x = \sum_ {i = 0} ^ {M - 1} i = \frac {M (M - 1)}{2} \Rightarrow \mathbb {E} [ X ] = \frac {M - 1}{2}
 $$
 
-### Variabile Poissoniana
+## La variabile Poissoniana
 
 Una variabile aleatoria X si dice Poissoniana di parametro λ (in breve, $X \sim \mathcal { P } ( \lambda ) )$ se: 
 
@@ -970,7 +970,7 @@ pmf e pmf condizionale di X ∼ B (16, 1)
 ![image](https://cdn-mineru.openxlab.org.cn/result/2026-06-27/b5f5d426-9c48-4e21-b90d-66928c562c74/1505d7f1c8d7e5072fd4a5ff4df58e490794d1f37dbf350dc82422eb0f117252.jpg)
 
 
-### Trasformazioni e PMF condizionali
+## Regola della probabilità totale per le pmf
 
 Ricordiamo che (vedi slide 37), per un qualunque evento $C \subseteq \Omega$ e per una qualunque partizione $\{ E \} _ { i = 1 } ^ { M }$ si ha: 
 
@@ -1096,7 +1096,7 @@ $$
 
 Si noti comunque che l’equazione (1) include l’equazione (2) come caso speciale. In conclusione adottiamo la forma generale (1) che prende anche il nome di Teorema fondamentale per il calcolo della media 
 
-## Introduzione e CDF
+## Qualche esempio
 
 Sia $X \sim \mathcal { U } ( \{ - 2 , - 1 , 0 , 2 \}$ 
 
@@ -1246,7 +1246,7 @@ $$
 
 Si capisce quindi che un parametro fondamentale è il rapporto $\frac { \mu _ { X } } { \sigma _ { X } }$ : valori elevat di questo rapporto indicano una pmf molto concentrata intorno alla media (cioè una variabile ”poco aleatoria”), mentre valori bassi implicano un’elevata aleatorietà. 
 
-### Disuguaglianza di Chebyshev
+## La disuguaglianza di Chebyshev
 
 Sia $Z$ una variabile non negativa definita su un alfabeto discreto ${ \mathcal { Z } } \subseteq [ 0 , + \infty [$ secondo una pmf $p _ { Z } ( z )$ 
 
@@ -1268,7 +1268,7 @@ $$
 \mathbb {E} [ Z ^ {2} ] = \mathbb {E} [ | X - \mu_ {X} | ^ {2} ] = \mathbb {E} [ (X - \mu_ {X}) ^ {2} ] = \sigma_ {X} ^ {2}.
 $$
 
-### Proprietà operative di Media e Varianza
+## Quadro sintetico delle proprietà di media e varianza
 
 Se (a, b) sono costanti reali ${ \mathbb E } [ a X + b ] = a { \mathbb E } [ X ] + b$ , visto che $\mathbb { E } [ b ] = b ;$ 
 
@@ -1294,7 +1294,7 @@ $$
 
 Si noti infine che per variabili a media nulla $( \mu x = 0 )$ , abbiamo $\sigma _ { X } ^ { 2 } = X _ { \mathrm { r m s } } ^ { 2 }$ 
 
-# 3. Variabili Aleatorie Multiple
+## Definizione di variabili multiple
 
 Formalmente, una coppia di variabili aleatorie (o variabile doppia) è definita - in analogia con quelle singole - nella forma: 
 
@@ -1368,7 +1368,7 @@ $$
 
 per cui caratterizzare congiuntamente (X , Y ) significa anche caratterizzarle marginalmente, mentre il viceversa non è necessariamente vero. 
 
-## Indipendenza
+## Variabili indipendenti
 
 Due varibili aleatorie $X \in \mathcal { X } \mathrm { ~ e ~ } Y \in \mathcal { Y }$ sono indipendenti se (e solo se) gli event $\{ X = x \} \mathrm { ~ e ~ } \{ Y = y \}$ sono indipendenti; 
 
@@ -1571,7 +1571,7 @@ $$
 
 Si vede facilmente che $B _ { 3 } = B _ { 1 } \oplus B _ { 2 }$ è un bit di parità. 
 
-## Trasformazioni di variabili doppie
+## Funzioni di variabili doppie
 
 Sia $( X , Y ) \sim p x , Y ( x , y ) ( x , y ) \in \mathcal { X } \times \mathcal { Y }$ una variabile doppia con pmf $p _ { X , Y } ( x , y )$ ; 
 
@@ -1753,7 +1753,7 @@ Abbiamo visto che le coppie $( \mu _ { X } , \sigma _ { X } ^ { 2 } ) \textsf { 
 
 L’equivalente per le pmf congiunte è la covarianza, che dà un’idea - ancora abbastanza sommaria - del grado di ”dipendenza” tra X e Y . 
 
-## Definizioni e Nomenclatura
+## Definizioni
 
 Si definisce correlazione tra $X \in Y$ la quantità: 
 
@@ -2070,7 +2070,7 @@ dove l’integrale è un integrale di Lebesgue rispetto alla misura di conteggio
 
 Quindi, in generale la DF è una particolare pdf: questo lascia intuire che tutte le proprietà dimostrate per le DF si estendono alle pdf (e, con opportun cambiamenti, a tutte le densità di una misura rispetto a un’altra). 
 
-### CDF (Cumulative Distribution Function) e proprietà
+## La Cumulative Distribution Function (CDF)
 
 Si noti preliminarmente che $f _ { X } ( x ) , x \in \mathbb { R } \ { \dot { \mathrm { ~ e ~ } } }$ perfettamente adeguata a caratterizzare X . Infatti: 
 
@@ -2539,7 +2539,7 @@ $$
 
 Ovviamente tanto la partizione quanto i livelli di rappresentazione sono gradi d libertà a disposizione del progettista. 
 
-## Introduzione e CDF
+## Media di funzioni di variabili aleatorie continue
 
 Sia $X \sim f _ { X } ( x )$ e sia $Y = g ( X )$ , con $\mathcal { V } = g ( \mathcal { X } )$ . Vogliamo estendere alle variabili continue il Teorema Fondamentale per il calcolo della media (vedi slide 60 e seguenti). Il risultato principale - diretta derivazione del caso discreto - è che, qualunque sia $g ( x )$ 
 
@@ -2561,7 +2561,7 @@ $$
 \mathbb {E} \left[ Y \right] = \lim _ {\Delta \rightarrow 0} \mathbb {E} \left[ Y ^ {\Delta} \right] = \lim _ {\Delta \rightarrow 0} \sum_ {i = 1} ^ {M} g (x _ {i}) \underbrace {f _ {X} (x _ {i}) \Delta} _ {\simeq \mathbb {P} (i \Delta \leq X <   (i + 1) \Delta)} = \int_ {\mathbb {R}} g (x) f _ {X} (x)   d x
 $$
 
-## Introduzione e CDF
+## Valore quadratico medio e varianza di variabili continue
 
 E a questo punto immediata la generalizzazione dei concetti introdotti nella slide 62<sup>`</sup> per variabili discrete a variabili continue. 
 
@@ -2593,7 +2593,7 @@ $$
 
 Tutte le proprietà della slide 68 ovviamente valgono per variabili continue. 
 
-## Introduzione e CDF
+## Qualche esempio
 
 Sia $X \sim \mathcal { U } ( a , b )$ . Si ottiene facilmente: 
 
@@ -2637,7 +2637,7 @@ $$
 X _ {1}, \dots , X _ {m}: \omega \in \Omega \longrightarrow (X _ {1} (\omega), \dots , X _ {m} (\omega)) \in \mathcal {X} _ {1} \times \dots \times \mathcal {X} _ {m} \subseteq \mathbb {R} ^ {m}
 $$
 
-### PDF congiunta e marginalizzazione
+## pdf congiunta di due variabili aleatorie
 
 Si consideri una coppia di variabili continue, $X \in \mathcal { X } \mathrm { ~ e ~ } Y \in \mathcal { Y }$ , la loro pdf congiunta s definisce in perfetta analogia con la pdf di variabili continue singole (vedi slide 94): 
 
@@ -2663,7 +2663,7 @@ $$
 \int_ {\mathbb {R} ^ {2}} f _ {X, Y} (x, y) d x d y = \int_ {- \infty} ^ {+ \infty} \int_ {- \infty} ^ {+ \infty} f _ {X, Y} (x, y) d x d y = \mathbb {P} ((X, Y) \in \mathbb {R} ^ {2}) = 1
 $$
 
-### PDF congiunta e marginalizzazione
+## Proprietà della pdf congiunta
 
 La pdf congiunta $f _ { X , Y } ( x , y )$ condivide con la pmf congiunta $p x , \gamma ( x , y ) \textrm { - e }$ , per alcune, con tutte le densità - le seguenti proprietà: 
 
@@ -2687,7 +2687,7 @@ $$
 f _ {X _ {1}, \dots , X _ {m}} (x _ {1}, \dots , x _ {m}) = \prod_ {i = 1} ^ {m} f _ {X _ {i}} (x _ {i}), \qquad (x _ {1}, \dots , x _ {m}) \in \mathbb {R} ^ {m}
 $$
 
-## PDF Condizionata
+## Le pdf condizionate
 
 Si considerino varibili aleatorie $X \in \mathcal { X } \mathrm { ~ e ~ } Y \in \mathcal { Y }$ con assegnata pdf congiunta $f _ { X , Y } ( x , y )$ 
 
@@ -2713,7 +2713,7 @@ che, come c’era da attendersi, riproduce l’analoga definizione per la pmf co
 
 Di conseguenza tutte le proprietà delle pmf condizionali si estendono alle pdf condizionali. 
 
-## PDF Condizionata
+## Proprietà delle pdf condizionate
 
 Data l’analogia con le variabili discrete, ci limitiamo qui a riscrivere le proprietà della slide 74 
 
@@ -2739,7 +2739,7 @@ $$
 f _ {X, Y} (x, y) = f _ {Y} (y) f _ {X | Y} (x | y) = f _ {X} (x) f _ {Y | X} (y | x) \Rightarrow f _ {Y | X} (y | x) = \frac {f _ {Y} (y) f _ {X | Y} (x | y)}{f _ {X} (x)}
 $$
 
-## Analisi multivariata continua
+## Altre estensioni...
 
 Come nel caso discreto, avremo: 
 
@@ -2771,7 +2771,7 @@ $$
 h \left[ Y (\omega) \right] = \int_ {\mathbb {R}} g (x, Y) f _ {X | Y} (x | Y) d x
 $$
 
-## Correlazione e Covarianza
+## Covarianza tra due variabili continue
 
 Siano $( X , Y ) \sim f _ { X , Y } ( x , y )$ . Denotiamo con $( \mu _ { X } , \mu _ { Y } )$ le rispettive medie e $( \sigma _ { X } ^ { 2 } , \sigma _ { Y } ^ { 2 } )$ le rispettive varianze. Avremo, in analogia al caso discreto: 
 
@@ -2791,7 +2791,7 @@ Incorrelazione tra $X \textsf { e } Y \colon { \mathsf { C O V } } [ X , Y ] = 0
 
 Indipendenza implica incorrelazione, ma incorrelazione non implica indipendenza. 
 
-# 5. Variabili Gaussiane e Processi Aleatori
+## Variabili Gaussiane: Caratterizzazione marginale
 
 Una variabile aleatoria $X _ { 0 } \in \mathcal { X } = \mathbb { R }$ si dice Gaussiana (o Normale) standard - $X _ { 0 } \sim \mathcal { N } ( 0 , 1 )$ se: 
 
@@ -2815,12 +2815,12 @@ $$
 \mathbb {E} \left[ (X - \mu_ {X}) ^ {2} \right] = \operatorname{VAR} \left[ \sigma_ {X} X _ {0} + \mu_ {X} \right] = \sigma_ {X} ^ {2}
 $$
 
-### Caratterizzazione marginale e andamenti
+## Andamenti di pdf Gaussiane
 
 ![image](https://cdn-mineru.openxlab.org.cn/result/2026-06-27/b5f5d426-9c48-4e21-b90d-66928c562c74/14bd5c980e8521e5eb02a7517ff1fac46626c196028264217617a09b4afc4823.jpg)
 
 
-### Funzione Q(x) e sue proprietà
+## La funzione Q(x)
 
 Sia $X _ { 0 } \sim \mathcal { N } ( 0 , 1 )$ : nè la sua CDF nè la sua CCDF sono note in forma esplicita, poichè $e ^ { - \gamma x ^ { 2 } }$ non ammette primitive elementari. 
 
@@ -2844,7 +2844,7 @@ $$
 
 Dato il suo uso frequente, nella prossima slide è presentato un diagramma della funzione $Q ( x ) , x \geq 0$ 
 
-### Funzione Q(x) e sue proprietà
+## Andamento di Q(x)
 
 $$
 Q (x) \sim \frac {1}{x \sqrt {2 \pi}} e ^ {- \frac {x ^ {2}}{2}} <   e ^ {- \frac {x ^ {2}}{2}}, \qquad x \to \infty
@@ -2853,7 +2853,7 @@ $$
 ![image](https://cdn-mineru.openxlab.org.cn/result/2026-06-27/b5f5d426-9c48-4e21-b90d-66928c562c74/9e014a72e6bb4cff5f6045f5e3af68f8479b85e9889bcb10a79b45de356eb16a.jpg)
 
 
-### Funzione Q(x) e sue proprietà
+## Alcune utili proprietà della funzione Q(x)
 
 Si noti preliminarmente che 
 
@@ -2879,7 +2879,7 @@ $$
 \mathbb {P} (X \geq \eta) = \mathbb {P} (X _ {0} \sigma_ {X} + \mu_ {X} \geq \eta) = \mathbb {P} (X _ {0} \geq \frac {\eta - \mu_ {X}}{\sigma_ {X}}) = Q (\frac {\eta - \mu_ {X}}{\sigma_ {X}})
 $$
 
-### Caratterizzazione congiunta (Matrice di covarianza)
+## Caratterizzazione congiunta di variabili Gaussiane
 
 Siano $X _ { 1 } \sim \mathcal { N } ( \mu _ { 1 } , \sigma _ { 1 } ^ { 2 } ) \in X _ { 2 } \sim \mathcal { N } ( \mu _ { 2 } , \sigma _ { 2 } ^ { 2 } )$ . Noi sappiamo che: 
 
@@ -2899,7 +2899,7 @@ $$
 = \mathbb {E} \left[ \begin{array}{c c} (X _ {1} - \mu_ {1}) ^ {2} & (X _ {1} - \mu_ {1}) (X _ {2} - \mu_ {2}) \\ (X _ {2} - \mu_ {2}) (X _ {1} - \mu_ {1}) & (X _ {2} - \mu_ {2}) ^ {2} \end{array} \right] = \left( \begin{array}{c c} \sigma_ {1} ^ {2} & \sigma_ {1} \sigma_ {2} \rho_ {1, 2} \\ \sigma_ {1} \sigma_ {2} \rho_ {1, 2} & \sigma_ {2} ^ {2} \end{array} \right)
 $$
 
-### Caratterizzazione congiunta (Matrice di covarianza)
+## Alcune proprietà della matrice di covarianza
 
 Poichè $| \boldsymbol { K } \boldsymbol { x } | = \sigma _ { 1 } ^ { 2 } \sigma _ { 2 } ^ { 2 } \bigl ( 1 - \rho _ { 1 , 2 } ^ { 2 } \bigr ) \geq 0 , \boldsymbol { K } \boldsymbol { x }$ è definita non negativa; 
 
@@ -2923,7 +2923,7 @@ $$
 \boldsymbol {K} _ {\boldsymbol {X}} = \left( \begin{array}{c c} \sigma_ {1} ^ {2} & 0 \\ 0 & \sigma_ {2} ^ {2} \end{array} \right) \Longrightarrow \boldsymbol {K} _ {\boldsymbol {X}} ^ {- 1} = \left( \begin{array}{c c} \frac {1}{\sigma_ {1} ^ {2}} & 0 \\ 0 & \frac {1}{\sigma_ {2} ^ {2}} \end{array} \right)
 $$
 
-### Processi Gaussiani
+## Variabili congiuntamente Gaussiane
 
 Le due variabili $X _ { 1 } \sim \mathcal { N } ( \mu _ { 1 } , \sigma _ { 1 } ^ { 2 } ) \in X _ { 2 } \sim \mathcal { N } ( \mu _ { 2 } , \sigma _ { 2 } ^ { 2 } )$ si dicono congiuntamente Gaussiane se la loro pdf congiunta - cioè la pdf del vettore $\pmb { X } = ( X _ { 1 } X _ { 2 } ) ^ { T }$ - si scrive: 
 
@@ -2945,7 +2945,7 @@ $$
 
 cioè se due variabili sono congiuntamente Gaussiane (e solo in questo caso) l’incorrelazione implica l’indipendenza statistica! 
 
-### Trasformazioni lineari
+## Proprietà di chiusura rispetto a trasformazioni lineari
 
 Se $\pmb { x } \sim \mathcal { N } ( \pmb { \mu } \pmb { x } , \pmb { K } \pmb { x } )$ allora ogni trasformazione lineare di X dà luogo a un nuovo vettore Gaussiano. 
 
@@ -2969,7 +2969,7 @@ $$
 \mathbf {Z} \sim \mathcal {N} (\boldsymbol {\mu_ {Z}}, \mathbf {K _ {Z}})
 $$
 
-# 5. Variabili Gaussiane e Processi Aleatori
+## Richiami sulle variabili aleatorie
 
 • Si consideri uno spazio di probabilità arbitrario, $\Omega , \tau , \mathbb { P }$ , dove $\Omega \ { \dot { \mathbf { e } } }$ lo spazio dei campioni, T una σ−algebra di eventi di $\Omega \textsf { e l P } \colon { \mathcal { T } }  [ 0 , 1 ]$ una legge di probabilità. 
 
@@ -3003,7 +3003,7 @@ $$
 p _ {X, Y} (x, y) = \mathbb {P} \{X = x, Y = y \} \forall x \in \mathcal {X} \times \mathcal {Y}
 $$
 
-### Definizione e vettori aleatori
+## Vettori aleatori
 
 • Una n-pla aleatoria è una ovvia generalizzazione del concetto di coppia d variabili aleatorie, cioè: 
 
@@ -3033,7 +3033,7 @@ $$
 
 dove $\pmb { x } = [ x _ { 1 } , \dots , x _ { n } ] ^ { T } \in \mathbb { R } ^ { n }$ 
 
-### Leggi di Bayes per densità
+## Legge di Bayes per vettori aleatori
 
 • Consideriamo un vettore aleatorio discreto con pmf $p _ { X } ( { \pmb x } )$ . Sappiamo che la Legge di Bayes assicura che 
 
@@ -3059,7 +3059,7 @@ $$
 f _ {\boldsymbol {X}} (\boldsymbol {x}) = \prod_ {i = 1} ^ {n} f _ {X _ {i} | X _ {i - 1}, \dots , X _ {1}} (x _ {i} | x _ {i - 1}, \dots , x _ {1})
 $$
 
-### Processi tempo-discreti e continui
+## Processi aleatori tempo-discreti
 
 Si definisce processo aleatorio tempo-discreto un’applicazione che ad ogn elemento dello spazio campione fa corrispondere una successione: 
 
@@ -3080,7 +3080,7 @@ dove <sup>Z</sup> indica l’insieme degli interi.
 ![image](https://cdn-mineru.openxlab.org.cn/result/2026-06-27/b5f5d426-9c48-4e21-b90d-66928c562c74/057411ab0f31edbb00e115bfa3816d1d5e5f1c3faed5ab464cbf318ca0bb423a.jpg)
 
 
-# 5. Variabili Gaussiane e Processi Aleatori
+## Commenti e osservazioni
 
 • Per ogni valore di $\omega \in \Omega$ il processo si realizza in una sequenza che assume valori nell’intervallo [−1, 1]; 
 
@@ -3104,7 +3104,7 @@ $$
 
 il processo è a media identicamente nulla. 
 
-### Processi Gaussiani
+## Un altro esempio: processo Gaussiano tempo-discreto
 
 • Come secondo esempio, consideriamo un processo tempo-discreto stazionario al primo ordine con pdf 
 
@@ -3123,7 +3123,7 @@ quindi con densità marginale Gaussiana a media −0.5 e varianza unitaria. Otte
 ![image](https://cdn-mineru.openxlab.org.cn/result/2026-06-27/b5f5d426-9c48-4e21-b90d-66928c562c74/2c12f75b390651df009e373f8c5f9758ea1925d2f1a52f06939bfdc2260a96eb.jpg)
 
 
-### Caratterizzazione: Primo, secondo ordine e completa
+## Caratterizzazione del secondo ordine del processo
 
 • Un processo aleatorio si dice caratterizzato al primo ordine se ne è nota la pdf $f _ { X ( n ) } ( x ; n )$ per ogni n. Se il processo è stazionario al primo ordine, questo equivale ad assegnare un’unica pdf. 
 
@@ -3143,7 +3143,7 @@ $$
 
 • Ovviamente un processo stazionario al secondo ordine lo è anche al primo, ma non è vero il viceversa Perchè?. 
 
-### Caratterizzazione: Primo, secondo ordine e completa
+## Caratterizzazione completa di un processo
 
 • Un processo aleatorio $X ( n )$ si dice completamente caratterizzato se, detto M un intero arbitrario e detti $n _ { 1 } , \ldots , n _ { M }$ M istanti arbitrari, il vettore aleatorio 
 
@@ -3167,7 +3167,7 @@ $$
 f _ {X (n _ {1}), \dots , X (n _ {M})} (x _ {1}, \dots , x _ {M}) = f _ {X (n _ {1})} (x _ {1}) f _ {X (n _ {2})} (x _ {2}) \dots f _ {X (n _ {M})} (x _ {M}) = \prod_ {i = 1} ^ {M} f _ {X (n _ {i})} (x _ {i})
 $$
 
-### Processi tempo-discreti e continui
+## Processi discreti
 
 • Si definisce processo ampiezza discreto o - per brevità - processo discreto un processo aleatorio in cui le cui realizzazioni siano sequenze di numeri che possano assumere valore in un alfabeto discreto. 
 
@@ -3176,7 +3176,7 @@ $$
 ![image](https://cdn-mineru.openxlab.org.cn/result/2026-06-27/b5f5d426-9c48-4e21-b90d-66928c562c74/62faba250dc710ba5cb9fbd4a331bfdc4d2dc4cd5d3bd696b38454e5f14bc19a.jpg)
 
 
-### Processi tempo-discreti e continui
+## Un altro esempio: Un processo quaternario
 
 • Un ulteriore esempio si ha considerando un alfabeto quaternario, per esempio $X ( n ) \in \{ - 2 , - 1 , 1 , 2 \}$ , con livelli equiprobabili (per cu ${ \mathbb { P } } \left\{ X ( n ) = i \right\} = { \textstyle { \frac { 1 } { 4 } } } \ \forall i )$ 
 
@@ -3185,7 +3185,7 @@ $$
 ![image](https://cdn-mineru.openxlab.org.cn/result/2026-06-27/b5f5d426-9c48-4e21-b90d-66928c562c74/9f7957aa1d5176320b74eb7c6ea5945937ed809d0cfc9354252211d9f644fc02.jpg)
 
 
-### Caratterizzazione: Primo, secondo ordine e completa
+## Caratterizzazione di processi discreti
 
 Tutte le definizioni introdotte per i processi continui si estendono ai process discreti, con la sola diferenza che le densità di probabilità sono ora sostituite dalle DF; 
 
@@ -3205,7 +3205,7 @@ $$
 
 dove $p _ { X } ( \cdot )$ è la DF marginale (ovviamente indipendente dal tempo) 
 
-### Definizione e vettori aleatori
+## Caratterizzazione sintetica dei vettori aleatori
 
 Come per le variabili aleatorie, anche per i processi aleatori è possibile - a fronte di un’impossibilità di fornirne una caratterizzazione completa - definire una caratterizzazione sintetica, cioè assegnarne statistiche che siano significative. 
 
@@ -3223,7 +3223,7 @@ $$
 \left( \begin{array}{c c c c} \sigma_ {X _ {1}} ^ {2} & \operatorname{COV} (X _ {1}, X _ {2}) & \dots & \operatorname{COV} (X _ {1}, X _ {n}) \\ \operatorname{COV} (X _ {2}, X _ {1}) & \sigma_ {X _ {1}} ^ {2} & \dots & \operatorname{COV} (X _ {2}, X _ {n}) \\ \dots & \dots & \dots & \dots \\ \operatorname{COV} (X _ {n}, X _ {1}) & \operatorname{COV} (X _ {n}, X _ {2}) & \dots & \sigma_ {X _ {n}} ^ {2} \end{array} \right)
 $$
 
-### Stazionarietà in senso lato (SSL)
+## Processi Stazionari in Senso Lato (SSL)
 
 • Focalizziamoci sui processi tempo discreti, ma quanto verrà detto vale anche per i processi tempo-continui. 
 
@@ -3257,7 +3257,7 @@ $$
 R _ {X} \left(t _ {1} / n _ {1}, t _ {2} / n _ {2}\right) = \mathbb {E} \left[ X \left(t _ {1} / n _ {1}\right) X \left(t _ {2} / n _ {2}\right) \right] = R _ {X} \left(t _ {2} - t _ {1} / n _ {2} - n _ {1}\right)
 $$
 
-### Stazionarietà in senso lato (SSL)
+## Matrice di covarianza per processi SSL
 
 • Sia $X ( t / n )$ un processo SSL, continuo o discreto, e sia $\pmb { x } = [ X _ { 1 } , \ldots , X _ { M } ] ^ { T }$ un vettore aleatorio M dimensionale di campioni di $X ( t / n )$ , presi negli istanti $( t _ { 1 } , \dots , t _ { M } ) / ( n _ { 1 } , \dots , n _ { M } )$ 
 
@@ -3279,7 +3279,7 @@ $$
 
 • Si noti che se il passo di campionamento del processo è costante (cioè, $( t _ { i + 1 } - t _ { i } ) / ( n _ { i + 1 } - n _ { i } )$ costante $\forall i ,$ , allora la matrice assume una forma di Toeplitz. 
 
-### Stazionarietà in senso lato (SSL)
+## Esercizio: La matrice di covarianza è sempre definita non-negativa
 
 • Ricordiamo che una matrice $\pmb { C } \in \mathbb { R } ^ { M \times M }$ è definita non negativa se, detto $\pmb q \in \mathbb { R } ^ { M }$ un qualunque vettore M−dimensionale risulta $\pmb q ^ { T } \pmb { C q } \geq 0$ 
 
@@ -3305,7 +3305,7 @@ $$
 \boldsymbol {C} _ {\boldsymbol {X}} = \mathbb {E} \left[ (\boldsymbol {X} - \boldsymbol {\mu}) (\boldsymbol {X} - \boldsymbol {\mu}) ^ {T} \right] = \mathbb {E} \left[ \boldsymbol {X} \boldsymbol {X} ^ {T} \right] - \boldsymbol {\mu} \boldsymbol {\mu} ^ {T}
 $$
 
-### Processi tempo-discreti e continui
+## Estensione ai processi continui: definizioni
 
 • Quanto detto sui processi ampiezza-discreti si estende ai processi ampiezza continui; 
 
@@ -3327,7 +3327,7 @@ $$
 
 • Ovviamente le definizioni di stazionarietà in senso lato e in senso stretto si estendono tal quali ai processi ampiezza continui. 
 
-### Processi Gaussiani
+## Un esempio: Processi Gaussiani
 
 • Un processo $X ( t / n )$ si dice Gaussiano se un qualungue suo campione d dimensione M definisce un vettore aleatorio X Gaussiano. 
 
@@ -3345,7 +3345,7 @@ $$
 
 dove $| c \pmb { x } |$ denota il determinante della matrice di covarianza. 
 
-### Processi Gaussiani
+## Proprietà dei processi Gaussiani
 
 • La stazionarietà in senso lato implica quella in senso stretto. Si verifichi questo asserto ricordando che nel caso di stazionarietà in senso lato la matrice di covarianza ha struttura Toeplitz; 
 
@@ -3361,7 +3361,7 @@ $$
 f _ {\boldsymbol {X}} (\boldsymbol {x}) = \left(\prod_ {i = 1} ^ {M} \frac {1}{\sigma_ {i} \sqrt {2 \pi}}\right) \exp \left[ - \sum_ {i = 1} ^ {M} \frac {(x _ {i} - \mu_ {i}) ^ {2}}{2 \sigma_ {i} ^ {2}} \right] = \prod_ {i = 1} ^ {M} f _ {X _ {i}} (x _ {i})
 $$
 
-### Tipi di convergenza
+## Tipi di convergenza
 
 • Sia $\{ X _ { n } \}$ una successione di variabili aleatorie con densità $\{ f _ { X _ { n } } \} \in \mathsf { C D F } \left\{ F _ { X _ { n } } \right\}$ 
 
@@ -3379,7 +3379,7 @@ $$
 
 † La convergenza quasi certa (o con probabilità 1); 
 
-### Tipi di convergenza
+## Convergenza in distribuzione
 
 • La successione $\{ X _ { n } \}$ si dice convergente in distribuzione alla variabile X (e si scrive $x _ { n } { \overset { d } { \to } } X$ se 
 
@@ -3403,7 +3403,7 @@ $$
 
 per i valori di s per cui l’integrale esiste, la convergenza puntuale di $\Phi _ { n } ( s )$ a Φ(s) implica $\boldsymbol { X _ { n } } \overset { d } { \to } \boldsymbol { X } \mathrm { ~ e ~ }$ viceversa. 
 
-### Funzione generatrice dei momenti
+## La funzione generatrice dei momenti
 
 • La funzione generatrice dei momenti (moment generating function, mgf) di una variabile aleatoria gode di alcune rilevanti proprietà. Notiamo che 
 

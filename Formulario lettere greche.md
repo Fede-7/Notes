@@ -41,7 +41,7 @@ Se ti serve solo una lista veloce da copiare e incollare:
 α, β, γ, δ, ε, ζ, η, θ, ι, κ, λ, μ, ν, ξ, ο, π, ρ, σ, τ, υ, φ, χ, ψ, ω
 
 
-## Definizioni e Nomenclatura
+## Nomenclatura probabilistica
 
 - $\Omega$ si definisce **evento certo**;
 - $\emptyset \space$ si definisce **evento impossibile**;
