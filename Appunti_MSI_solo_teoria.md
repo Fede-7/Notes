@@ -152,6 +152,7 @@ $$
 | \mathcal {P} (A) | = \sum_ {k = 0} ^ {n} \binom{n}{k} = 2 ^ {n}
 $$
 
+# Discreto
 ## Dalla frequenza alla probabilità
 
 Dato uno spazio dei campioni discreto $\Omega$ e un suo qualunque sottoinsieme (o evento) $A$, si definisce **probabilità** che occorra $A$ come il limite della frequenza di occorrenza di $A$ quando il numero di esperimenti — o prove — tende all’infinito, cioè: 
@@ -1262,59 +1263,45 @@ Il concetto di probabilità condizionata si estende al caso continuo in modo int
 
 ### 1. Definizione tramite Limite (Approccio locale)
 
-Analogamente al caso discreto, la PDF condizionata esprime la densità di probabilità di $X$ sapendo che si è verificato l'evento $A$:
+Analogamente al caso discreto, la **PDF** condizionata esprime la densità di probabilità di $X$ sapendo che si è verificato l'evento $A$:
 $$f_{X|A}(x) = \lim_{\Delta x \to 0} \frac{\mathbb{P}(x - \frac{\Delta x}{2} < X \leq x + \frac{\Delta x}{2} \mid A)}{\Delta x}$$
 ### 2. Definizione tramite CDF (Approccio operativo)
 
 È spesso più semplice passare attraverso la Funzione di Ripartizione condizionata:
 $$F_{X|A}(x) = \mathbb{P}(X \leq x \mid A) = \frac{\mathbb{P}(\{X \leq x\} \cap A)}{\mathbb{P}(A)}$$
-Da cui si ricava la densità derivando rispetto a $x$:
+Da cui si ricava la densità(pdf) derivando rispetto a $x$:
 $$f_{X|A}(x) = \frac{d}{dx} F_{X|A}(x)$$
 
-## Legge della probabilità totale per pdf e medie
+## Legge della probabilità totale per PDF, CDF e Medie
 
-In modo del tutto analogo al caso discreto (vedi slide 56) si può mostrare che, se $\{A_i\}$ $\{ E _ { m } \} _ { m = 1 } ^ { M }$ è una qualunque partizione di $\Omega$ $\Omega ,$, allora: 
+>[!rb] R.B.
+>In modo del tutto analogo al caso discreto.
+*Data una partizione dello spazio campionario $\Omega$ costituita dagli eventi $\{E_m\}_{m=1}^M$ (con $\mathbb{P}($E_m$) > 0$), valgono le seguenti relazioni:*
 
-$$
-f _ {X} (x) = \sum_ {m = 1} ^ {M} f _ {X | E _ {m}} (x) \mathbb {P} (E _ {m}) \Longleftrightarrow F _ {X} (x) = \sum_ {m = 1} ^ {M} F _ {X | E _ {m}} (x) \mathbb {P} (E _ {m})
-$$
+ **1. Densità e Ripartizione:**
+$$f_X(x) = \sum_{m=1}^{M} f_{X|E_m}(x) \mathbb{P}(E_m) \quad \longleftrightarrow \quad F_X(x) = \sum_{m=1}^{M} F_{X|E_m}(x) \mathbb{P}(E_m)$$
+ 
+ **2. Valore Atteso (Legge dell'Aspettativa Totale):**
+$$\mathbb{E}[X] = \sum_{m=1}^{M} \mathbb{E}[X|E_m] \mathbb{P}(E_m)$$
+ 
+ 
+ *Dove la media condizionata è calcolata come:*
+$$\mathbb{E}[X|E_m] = \int_{-\infty}^{+\infty} x f_{X|E_m}(x) dx$$
+ 
+ 
+## Funzioni di variabili aleatorie continue
 
-Naturalmente, questo implica che per le medie valga un’analoga relazione (vedi slide 57): 
-
-$$
-\mathbb {E} \left[ X \right] = \sum_ {m = 1} ^ {M} \mathbb {E} \left[ X | E _ {m} \right] \mathbb {P} (E _ {m}) = \sum_ {m = 1} ^ {M} \mathbb {P} (E _ {m}) \int_ {\mathbb {R}} x f _ {X | E _ {m}} (x) d x
-$$
-
-Quindi, con riferimento all’esempio precedente con $X \sim L(\lambda)$ $\begin{array} { r } { X \sim \mathcal { L } ( \lambda ) } \end{array}$ 
-
-$$
-\mathbb {E} [ X ] = \mathbb {E} \left[ X | \{- 1 \leq X \leq 2 \} \right] \mathbb {P} (- 1 \leq X \leq 2) + \mathbb {E} \left[ X | \{X \notin [ - 1, 2 ] \} \right] \underbrace {\mathbb {P} (X \notin [ - 1 , 2 ])} _ {1 - \mathbb {P} (- 1 \leq X \leq 2)} = 0
-$$
-
-## Funzioni di variabili aleatorie continue -1
-
-Quest’argomento riproduce — come problematica — quello già affrontato nel caso di variabili discrete (vedi slide 58 e seguenti).
-
-Si assuma che $X$ $X = X ( \omega )$ sia una variabile aleatoria continua con alfabeto $\mathcal{X}$, pdf $f(x)$ $f _ { X } ( x ) \mathrm { ~ e ~ C D F ~ } F _ { X } ( x )$.
-
-Sia $g$ $g ( \cdot )$ una funzione il cui insieme di definizione includa i punti di $\mathcal{X}$ $\mathcal { X } \mathrm { ~ - ~ } \mathsf { a }$ meno di un sottoinsieme a (misura di) probabilità nulla;
-
-Si forma la nuova variabile aleatoria: 
+Data una variabile aleatoria continua $X$ con densità di probabilità $f_X(x)$ e funzione di ripartizione $F_X(x)$, consideriamo la trasformazione:
 
 $$
 Y = g (X) = g [ X (\omega) ] \in \mathcal {Y} \quad \text {   dove   } \mathcal {Y} = g (\mathcal {X})
 $$
 
-> [!theorem] Problema
-> Ricavare una caratterizzazione di $Y$ dalla caratterizzazione di $X$ in termini di pdf/CDF, $f_Y(y)$ $p _ { Y } ( y ) , y \in \mathcal { Y } ;$, media statistica, $E[Y]$ $\mathbb { E } [ Y ]$.
-
-## Funzioni di variabili aleatorie continue -2
-
-A differenza di quanto analizzato nel caso discreto, si distinguono tre casi principali relativi alla trasformazione di una variabile aleatoria continua $X$ tramite una funzione $y = g(x)$:
-
-1. $g(x)$ è **biunivoca**, ovvero invertibile, continua e derivabile;
-2. $g(x)$ è continua, derivabile e univoca — e quindi non invertibile — con $Y$ continuo;
-3. $g(x)$ è univoca — e quindi non invertibile — con $Y$ discreto: quest’ultimo caso corrisponde a una **conversione** $\mathsf { A } / \mathsf { D }$ della variabile continua (ovvero una sua quantizzazione o compressione con perdite) in analogia a quanto visto nella conversione $\mathsf { A } / \mathsf { D }$ di segnali e sequenze deterministiche.
+A differenza di quanto analizzato nel caso discreto, si distinguono tre casi principali :
+1. $g(x)$ è **biunivoca** $\implies$ invertibile, continua e derivabile;
+2. $g(x)$ è **continua**, derivabile e univoca $\implies$ **non** invertibile con $Y$ **continuo**;
+3. $g(x)$ è **univoca** $\implies$ **non** invertibile con $Y$ **discreto**
+	>Quest’ultimo caso corrisponde a una **conversione** $\mathsf { A } / \mathsf { D }$ della variabile continua (ovvero una sua quantizzazione o compressione con perdite) in analogia a quanto visto nella conversione $\mathsf { A } / \mathsf { D }$ di segnali e sequenze deterministiche.
 
 ## Funzioni invertibili
 
