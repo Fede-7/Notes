@@ -1588,50 +1588,36 @@ $$
 f _ {X _ {0}} (x _ {0}) = \frac {1}{\sqrt {2 \pi}} e ^ {- \frac {x _ {0} ^ {2}}{2}}, \quad x \in \mathbb {R} \quad \Longrightarrow \quad \mathbb {E} [ X _ {0} ] = 0 \quad \sigma_ {X _ {0}} ^ {2} = \mathbb {E} [ X _ {0} ^ {2} ] = 1
 $$
 
-Consideriamo ora la variabile aleatoria $X = \sigma _ { X } X _ { 0 } + \mu _ { X } , \sigma _ { X } > 0 \mathrm { ~ e ~ } \mu _ { X } \in \mathbb { R }$. Applicando i risultati delle slide 114 e seguenti alla funzione lineare $g ( x ) = \sigma { x } { x } + \mu { x }$ otteniamo: 
+>[!dim] dimostrazione della densità della variabile aleatoria Normale (o Gaussiana) generica.
+>Partendo da $X_0 \sim \mathcal{N}(0, 1)$ con $f_{X_0}($x_0) = \frac{1}{$\sqrt{2 \pi}$} e^{-$\frac{x_0^2}{2}$}$ e applicando la trasformazione lineare $X = \sigma_X $X_0$ + \mu_X$:
+>1. **Inversa e Derivata:**
+$$x_0 = g^{-1}(x) = \frac{x - \mu_X}{\sigma_X} \implies \left| \frac{d}{dx} g^{-1}(x) \right| = \frac{1}{\sigma_X}$$
+>2. **Cambio di Variabile ($f_X(x) = f_{X_0}(g^{-1}(x)) \cdot | \frac{d}{dx} g^{-1}(x) |$):**
+$$f_X(x) = \frac{1}{\sqrt{2 \pi}} e^{-\frac{1}{2} \left(\frac{x - \mu_X}{\sigma_X}\right)^2} \cdot \frac{1}{\sigma_X} = \frac{1}{\sqrt{2 \pi \sigma_ {X} ^ {2}}} e ^ {- \frac {(x - \mu_ {X}) ^ {2}}{2 \sigma_ {X} ^ {2}}} \implies X \sim \mathcal{N}(\mu_X, \sigma_X^2)$$
+>3. **Momenti Corretti:**
+$$\mathbb{E}[X] = \sigma_X \mathbb{E}[X_0] + \mu_X = \mu_X \quad \text{(refuso slide: } \neq 0\text{)}$$
+$$\operatorname{VAR}[X] = \operatorname{VAR}[\sigma_X X_0 + \mu_X] = \sigma_X^2 \operatorname{VAR}[X_0] = \sigma_X^2$$
 
-$$
-f _ {X} (x) = \frac {1}{\sqrt {2 \pi \sigma_ {X} ^ {2}}} e ^ {- \frac {(x - \mu_ {X}) ^ {2}}{2 \sigma_ {X} ^ {2}}}, \quad x \in \mathbb {R} \quad \Longrightarrow X \sim \mathcal {N} (\mu_ {X}, \sigma_ {X} ^ {2})
-$$
-
-dove ovviamente: 
-
-$$
-\mathbb {E} [ X ] = \mathbb {E} \left[ \sigma_ {X} X _ {0} + \mu_ {X} \right] = 0
-$$
-
-$$
-\mathbb {E} \left[ (X - \mu_ {X}) ^ {2} \right] = \operatorname{VAR} \left[ \sigma_ {X} X _ {0} + \mu_ {X} \right] = \sigma_ {X} ^ {2}
-$$
-
-### Andamenti di pdf Gaussiane
+#### Andamenti di pdf Gaussiane
 
 ![image](https://cdn-mineru.openxlab.org.cn/result/2026-06-27/b5f5d426-9c48-4e21-b90d-66928c562c74/14bd5c980e8521e5eb02a7517ff1fac46626c196028264217617a09b4afc4823.jpg)
 Figura 1: Andamenti di pdf Gaussiane.
 
-### La funzione Q(x) - Fu
+### La funzione Q(x) - Coda
 
-Sia $X _ { 0 } \sim \mathcal { N } ( 0 , 1 )$: nè la sua CDF né la sua CCDF sono note in forma esplicita, poiché $e ^ { - \gamma x ^ { 2 } }$ non ammette primitive elementari. 
+Sia $X_0 \sim \mathcal{N}(0, 1)$ una variabile casuale normale standard. Poiché l'integrale della funzione $e^{-\frac{t^2}{2}}$ non ammette primitive elementari, la sua funzione di ripartizione (CDF) e la sua funzione complementare (CCDF) non possono essere espresse in forma chiusa.
 
-Definiamo: 
+Per questo motivo, si definisce la **funzione $Q(x)$**:
+$$Q(x) \stackrel{\text{def}}{=} \mathbb{P}(X_0 \geq x) = 1 - F_{X_0}(x) = \frac{1}{\sqrt{2\pi}} \int_x^\infty e^{-\frac{t^2}{2}} dt$$
 
-$$
-Q (x) \stackrel {\mathrm{def}} {=} \mathbb {P} (X \geq x) = 1 - F _ {X _ {0}} (x) = \frac {1}{\sqrt {2 \pi}} \int_ {x} ^ {\infty} e ^ {- \frac {t ^ {2}}{2}} d t
-$$
+Da questa definizione si ottengono facilmente le seguenti relazioni:
+*   **Funzione di ripartizione:** $F_{X_0}(x) = 1 - Q(x)$
+*   **Probabilità in un intervallo:** $\mathbb{P}_{X_0}(x; \Delta x) = Q\left(x - \frac{\Delta x}{2}\right) - Q\left(x + \frac{\Delta x}{2}\right)$
 
-per cui: 
+Per una variabile casuale generale $X \sim \mathcal{N}(\mu_X, \sigma_X^2)$, che può essere espressa come $X = X_0 \sigma_X + \mu_X$, la probabilità complementare è data da:
+$$1 - F_X(x) = Q\left(\frac{x - \mu_X}{\sigma_X}\right)$$
 
-$$
-F _ {X _ {0}} (x) = 1 - Q (x) \quad P _ {X _ {0}} (x; \Delta x) = Q \left(x - \frac {\Delta x}{2}\right) - Q \left(x + \frac {\Delta x}{2}\right)
-$$
-
-Ovviamente, se $X \sim \mathcal { X } ( \mu _ { X } , \sigma _ { X } ^ { 2 } )$, avremo $X = X _ { 0 } \sigma _ { X } + \mu _ { X }$, per cui: 
-
-$$
-1 - F _ {X} (x) = \frac {1}{\sqrt {2 \pi \sigma_ {X} ^ {2}}} \int_ {x} ^ {\infty} e ^ {- \frac {(t - \mu_ {X}) ^ {2}}{2 \sigma_ {X} ^ {2}}} d t = Q \left(\frac {x - \mu_ {X}}{\sigma_ {X}}\right)
-$$
-
-Dato il suo uso frequente, nella prossima slide è presentato un diagramma della funzione $Q ( x ) , x \geq 0$. 
+Il comportamento della funzione $Q(x)$ per $x \geq 0$ è illustrato nel diagramma nella slide successiva.
 
 #### Andamento di Q(x)
 
@@ -1642,31 +1628,22 @@ $$
 ![image](https://cdn-mineru.openxlab.org.cn/result/2026-06-27/b5f5d426-9c48-4e21-b90d-66928c562c74/9e014a72e6bb4cff5f6045f5e3af68f8479b85e9889bcb10a79b45de356eb16a.jpg)
 Figura 2: Andamento di Q(x).
 
-#### Alcune utili proprietà della funzione Q(x)
+#### Proprietà della funzione $Q(x)$
 
-Si noti preliminarmente che 
+Si considerino preliminarmente i valori limite della funzione:
+$$Q(-\infty) = \frac{1}{\sqrt{2\pi}} \int_{\mathbb{R}} e^{-\frac{t^2}{2}} dt = 1 \qquad \text{e} \qquad Q(+\infty) = 0$$
 
-$$
-Q (- \infty) = \frac {1}{\sqrt {2 \pi}} \int_ {\mathbb {R}} e ^ {- \frac {t ^ {2}}{2}} d x = 1 \qquad Q (\infty) = 0
-$$
+Inoltre, derivando la funzione $Q(x)$, si ottiene:
+$$\frac{dQ(x)}{dx} = -\frac{1}{\sqrt{2\pi}} e^{-\frac{x^2}{2}} < 0 \quad \forall x \in \mathbb{R}$$
+Questo conferma che $Q(x)$ è una funzione strettamente decrescente.
 
-Inoltre: 
+##### Simmetria
+La funzione $Q(x)$ soddisfa la seguente proprietà di simmetria:
+$$Q(-x) = \frac{1}{\sqrt{2\pi}} \int_{-x}^\infty e^{-\frac{t^2}{2}} dt = 1 - Q(x)$$
 
-$$
-\frac {d Q (x)}{d x} = - \frac {1}{\sqrt {2 \pi}} e ^ {- \frac {x ^ {2}}{2}} <   0 \forall \space x \rightarrow Q (x) \text {   è   decrescente   in   } x
-$$
-
-#### Simmetria
-
-$$
-Q (- x) = \frac {1}{\sqrt {2 \pi}} \int_ {- x} ^ {\infty} e ^ {- \frac {t ^ {2}}{2}} d t = 1 - \underbrace {\frac {1}{\sqrt {2 \pi}} \int_ {- \infty} ^ {- x} e ^ {- \frac {t ^ {2}}{2}} d t} _ {= Q (x)} = 1 - Q (x)
-$$
-
-Se $X \sim \mathcal N ( \mu _ { X } , \sigma _ { X } ^ { 2 } )$ allora: 
-
-$$
-\mathbb {P} (X \geq \eta) = \mathbb {P} (X _ {0} \sigma_ {X} + \mu_ {X} \geq \eta) = \mathbb {P} (X _ {0} \geq \frac {\eta - \mu_ {X}}{\sigma_ {X}}) = Q (\frac {\eta - \mu_ {X}}{\sigma_ {X}})
-$$
+##### Generalizzazione
+Per una variabile casuale $X \sim \mathcal{N}(\mu_X, \sigma_X^2)$, la probabilità che $X$ superi un valore $\eta$ può essere espressa in termini della funzione $Q$ come segue:
+$$\mathbb{P}(X \geq \eta) = \mathbb{P}\left(X_0 \sigma_X + \mu_X \geq \eta\right) = \mathbb{P}\left(X_0 \geq \frac{\eta - \mu_X}{\sigma_X}\right) = Q\left(\frac{\eta - \mu_X}{\sigma_X}\right)$$
 
 ### Caratterizzazione congiunta di variabili Gaussiane
 
