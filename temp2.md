@@ -1,7 +1,3 @@
-Ecco una versione revisionata del testo. Ho ottimizzato la fluidità, uniformato il codice LaTeX e migliorato la struttura didattica mantenendo il rigore matematico richiesto.
-
----
-
 # Variabili Gaussiane: Caratterizzazione Marginale
 
 Una variabile aleatoria $X_0 \in \mathbb{R}$ si definisce **Gaussiana** (o Normale) standard se segue la distribuzione $X_0 \sim \mathcal{N}(0, 1)$, la cui funzione di densità di probabilità (PDF) è data da:
@@ -29,7 +25,7 @@ $$\mathbb{E}[X_0] = 0, \quad \sigma_{X_0}^2 = \mathbb{E}[X_0^2] = 1$$
 ![image](https://cdn-mineru.openxlab.org.cn/result/2026-06-27/b5f5d426-9c48-4e21-b90d-66928c562c74/14bd5c980e8521e5eb02a7517ff1fac46626c196028264217617a09b4afc4823.jpg)
 *Figura 1: Confronto tra diverse funzioni di densità di probabilità Gaussiane.*
 
----
+
 
 # La Funzione $Q(x)$ e la Coda della Distribuzione
 
@@ -100,7 +96,7 @@ $$
 \boldsymbol{K}_{\pmb{X}} = \begin{pmatrix} \mathbb{E}[(X_1 - \mu_1)^2] & \mathbb{E}[(X_1 - \mu_1)(X_2 - \mu_2)] \\ \mathbb{E}[(X_2 - \mu_2)(X_1 - \mu_1)] & \mathbb{E}[(X_2 - \mu_2)^2] \end{pmatrix} = \begin{pmatrix} \sigma_1^2 & \sigma_1 \sigma_2 \rho_{1,2} \\ \sigma_1 \sigma_2 \rho_{1,2} & \sigma_2^2 \end{pmatrix} \tag{1}
 $$
 
-#### Proprietà della matrice di covarianza
+##### Proprietà della matrice di covarianza
 
 La matrice $\boldsymbol{K}_{\pmb{X}}$ possiede le seguenti proprietà fondamentali:
 
@@ -130,10 +126,6 @@ $$
 > [!IMPORTANT]
 > La caratterizzazione congiunta tramite la matrice di covarianza $\boldsymbol{K}_{\pmb{X}}$ è sufficiente a definire completamente la distribuzione di una coppia di variabili Gaussiani, poiché essa cattura sia le varianze individuali che la correlazione tra le componenti.
 
-Ecco una versione revisionata del testo. Ho ottimizzato la fluidità, corretto le incongruenze nei simboli (come l'uso di $\mu_Y$ invece di $\mu_Z$) e strutturato il contenuto per una migliore leggibilità didattica.
-
----
-
 # Distribuzioni Gaussiane e Trasformazioni Lineari
 
 ## La Distribuzione Gaussiana Bivariata
@@ -157,7 +149,7 @@ $$f_{\mathbf{X}}(x_1, x_2) = f_{X_1, X_2}(x_1, x_2) = \frac {1}{2 \pi \sqrt {\si
 [!NOTE] Proprietà Fondamentale
 Per le variabili congiuntamente Gaussiane, l'**incorrelazione implica l'indipendenza statistica**. Questa proprietà è specifica della famiglia gaussiana.
 
----
+
 
 ## Proprietà di Chiusura rispetto a Trasformazioni Lineari
 Se $\mathbf{X} \sim \mathcal{N}(\boldsymbol{\mu}_X, \mathbf{K}_X)$, ogni trasformazione lineare di $\mathbf{X}$ produce una nuova variabile aleatoria che segue una distribuzione gaussiana.
@@ -179,7 +171,7 @@ Più in generale, data la trasformazione $\mathbf{Z} = \mathbf{A}\mathbf{X} + \m
 Pertanto, la distribuzione risultante è:
 $$\mathbf{Z} \sim \mathcal{N}(\boldsymbol{\mu}_Z, \mathbf{K}_Z)$$
 
----
+
 
 ## Fondamenti sulle Variabili Aleatorie
 Si consideri uno spazio di probabilità $(\Omega, \mathcal{T}, \mathbb{P})$, dove $\Omega$ è lo spazio dei campioni, $\mathcal{T}$ è una $\sigma$-algebra di eventi e $\mathbb{P}: \mathcal{T} \to [0, 1]$ è la legge di probabilità.
@@ -201,10 +193,6 @@ Per una coppia $(X, Y)$, le funzioni corrispondenti sono:
 - **CDF Bivariata:** $F_{X,Y}(x,y) = \mathbb{P}\{X \leq x, Y \leq y\}$
 - **PDF Bivariata:** $f_{X,Y}(x,y) = \frac{\partial^2 F_{X,Y}(x,y)}{\partial x \partial y}$
 - **PMF Bivariata:** $p_{X,Y}(x,y) = \mathbb{P}\{X = x, Y = y\}$
-
-Ecco una versione revisionata del testo, ottimizzata per la chiarezza didattica e il rigore accademico.
-
----
 
 # Vettori Aleatori
 
@@ -244,9 +232,9 @@ $$
 
 dove $\boldsymbol{x} = [x_1, \dots, x_n]^T \in \mathbb{R}^n$.
 
----
 
-# Legge di Bayes per Vettori Aleatori
+
+## Legge di Bayes
 
 Consideriamo un vettore aleatorio discreto con PMF $p_{\boldsymbol{X}}(\boldsymbol{x})$. La **Legge di Bayes** stabilisce che:
 
@@ -281,7 +269,7 @@ $$
 > [!IMPORTANT]
 > La regola della catena è fondamentale per modellare sistemi sequenziali e processi stocastici, poiché permette di descrivere la probabilità di una sequenza come il prodotto delle probabilità condizionate dei singoli eventi.
 
----
+
 
 # Processi Aleatori Tempo-Discreti
 
@@ -303,43 +291,11 @@ $$
 > ![image](https://cdn-mineru.openxlab.org.cn/result/2026-06-27/b5f5d426-9c48-4e21-b90d-66928c562c74/057411ab0f31edbb00e115bfa3816d1d5e5f1c3faed5ab464cbf318ca0bb423a.jpg)
 > *Figura 3: Realizzazione 3*
 
-Ecco una versione revisionata del testo, ottimizzata per la chiarezza didattica, la fluidità formale e il rigore matematico.
 
----
 
 ## Analisi delle Proprietà del Processo Aleatorio
 
-### Caratterizzazione al Primo Ordine
-Consideriamo un processo aleatorio $X(n, \omega)$ definito su uno spazio campionario $\Omega$. Per ogni realizzazione $\omega \in \Omega$, il processo evolve in una sequenza di valori appartenenti all'intervallo $[-1, 1]$.
-
-*   **Variabile Aleatoria:** Fissando un istante temporale $n = n_0$ e variando la realizzazione $\omega$, otteniamo la variabile aleatoria $X(n_0, \omega)$. Questo avviene poiché il "campionamento verticale" (ovvero la valutazione del processo in un punto fisso per diverse realizzazioni) produce una distribuzione di valori diversi.
-*   **Stazionarietà al Primo Ordine:** La variabile aleatoria $X(n_0)$ possiede una funzione di densità di probabilità (pdf) $f_{X(n)}(x; n)$. Se tale pdf è indipendente dall'istante di campionamento $n$, il processo è definito **stazionario al primo ordine**.
-
-**Esempio Pratico:**
-Nel caso in esame, il processo è generato assumendo stazionarietà al primo ordine e una distribuzione marginale uniforme nell'intervallo $[-0.5, 0.5]$. La pdf è dunque:
-$$f_{X(n)}(x) = \Pi(x - 0.5)$$
-
-> [!IMPORTANT] Osservazione sulla Media
-> Poiché la pdf è simmetrica rispetto all'origine, il valore atteso del processo è nullo:
-> $$\mathbb{E}[X(n)] = \int_{-0.5}^{0.5} x \Pi(x - 0.5) \, dx = 0$$
-> Il processo è pertanto a media identicamente nulla.
-
----
-
-### Esempio: Processo Gaussiano Tempo-Discreto
-Consideriamo un secondo esempio di processo tempo-discreto stazionario al primo ordine, caratterizzato da una pdf gaussiana:
-$$f_{X(n)}(x) = \frac{1}{\sqrt{2\pi}} \exp \left[ -\frac{(x + 0.5)^2}{2} \right]$$
-
-Questa espressione descrive una densità marginale con media $\mu = -0.5$ e varianza $\sigma^2 = 1$. Le figure sottostanti illustrano diverse realizzazioni del processo:
-
-*(Inserire qui le immagini)*
-*   **Figura 4:** Realizzazione Gaussiana 1
-*   **Figura 5:** Realizzazione Gaussiana 2
-*   **Figura 6:** Realizzazione Gaussiana 3
-
----
-
-## Caratterizzazione del Secondo Ordine
+### Caratterizzazione del Secondo Ordine
 
 La descrizione statistica di un processo può essere approfondita analizzando le relazioni tra campioni diversi:
 
@@ -351,16 +307,10 @@ La descrizione statistica di un processo può essere approfondita analizzando le
 
 In termini intuitivi, un processo stazionario al secondo ordine presenta una caratterizzazione congiunta che è invariante rispetto a traslazioni temporali (atti di moto rigido). In altre parole, la statistica del processo dipende dalla "distanza" tra i punti e non dalla loro posizione assoluta nel tempo.
 
-> [!NOTE] Relazione tra Stazionarietà al Primo e Secondo Ordine
+> [!warning] Relazione tra Stazionarietà al Primo e Secondo Ordine
 > È fondamentale notare che ogni processo stazionario al secondo ordine è necessariamente stazionario al primo ordine. Tuttavia, la conversione non è reciproca: un processo può presentare una media costante (stazionarietà al primo ordine) pur avendo correlazioni tra campioni che variano nel tempo (mancanza di stazionarietà al secondo ordine).
 
-Ecco una versione revisionata e formattata del testo, ottimizzata per la chiarezza didattica e il rigore accademico.
-
----
-
-# Caratterizzazione dei Processi Aleatori
-
-## Definizione di Caratterizzazione Completa
+### Definizione di Caratterizzazione Completa
 Un processo aleatorio $X(n)$ è definito **completamente caratterizzato** se, per ogni intero $M$ e per ogni insieme di istanti arbitrari $\{n_1, \dots, n_M\}$, il vettore aleatorio:
 
 $$ \mathbf{X} = [X(n_1), \dots, X(n_M)]^T $$
@@ -395,20 +345,7 @@ Questo modello è comunemente noto come **Processo di Bernoulli**.
 ![image](https://cdn-mineru.openxlab.org.cn/result/2026-06-27/b5f5d426-9c48-4e21-b90d-66928c562c74/62faba250dc710ba5cb9fbd4a331bfdc4d2dc4cd5d3bd696b38454e5f14bc19a.jpg)
 *Figura 7: Realizzazioni del processo di Bernoulli.*
 
-### Esempio: Processo Quaternario
-Un'estensione comune prevede l'utilizzo di un **alfabeto quaternario**, ad esempio $X(n) \in \{-2, -1, 1, 2\}$. In questo scenario, si assume che i livelli siano equiprobabili:
-$$ \mathbb{P}\{X(n) = i\} = \frac{1}{4}, \quad \forall i \in \{-2, -1, 1, 2\} $$
-
-Le realizzazioni di tale processo sono illustrate nella figura seguente:
-
-![image](https://cdn-mineru.openxlab.org.cn/result/2026-06-27/b5f5d426-9c48-4e21-b90d-66928c562c74/9f7957aa1d5176320b74eb7c6ea5945937ed809d0cfc9354252211d9f644fc02.jpg)
-*Figura 1: Realizzazioni di un processo quaternario.*
-
-Ecco una versione revisionata del testo, ottimizzata per la chiarezza accademica e il rigore tecnico.
-
----
-
-# Caratterizzazione dei Processi Discreti
+### Caratterizzazione dei Processi Discreti
 
 Le definizioni relative ai processi continui sono estendibili ai **processi discreti**, con l'unica distinzione fondamentale che le densità di probabilità vengono sostituite dalle **funzioni di massa di probabilità** (PMF, *Probability Mass Function*).
 
@@ -418,7 +355,7 @@ Le definizioni relative ai processi continui sono estendibili ai **processi disc
 > Formalmente, per una variabile aleatoria discreta $X$, la funzione di massa $p(x)$ è definita come:
 > $$p(x) = P(X = x)$$
 
-## Stazionarietà e Indipendenza
+#### Stazionarietà e Indipendenza
 
 Un processo discreto si definisce **stazionario in senso stretto** se, per ogni intero $M \geq 1$, il vettore aleatorio $\mathbf{X} = [X(n_1), \dots, X(n_M)]^T$ soddisfa la seguente proprietà per ogni spostamento temporale $h$:
 
@@ -428,7 +365,7 @@ $$
 \end{aligned}
 $$
 
-### Osservazioni chiave:
+#### Osservazioni chiave:
 *   **Gerarchia della stazionarietà:** La stazionarietà di ordine $M$ implica necessariamente la stazionarietà di ogni ordine $k \leq M$.
 *   **Marginali:** Un processo stazionario possiede una PMF marginale indipendente dal tempo.
 
@@ -440,7 +377,7 @@ $$
 
 dove $p_X(\cdot)$ è la PMF marginale, invariante rispetto al tempo.
 
----
+
 
 # Caratterizzazione Sintetica dei Vettori Aleatori
 
@@ -474,10 +411,6 @@ $$
 > [!IMPORTANT] Nota Tecnica
 > La matrice di covarianza è per definizione **simmetrica** e **semidefinita positiva**, garantendo che le varianze sulla diagonale principale siano sempre non negative.
 
-Ecco una versione revisionata del testo. Ho ottimizzato la fluidità, corretto la notazione matematica (eliminando spazi superflui e migliorando la coerenza dei simboli) e strutturato il contenuto per una migliore leggibilità didattica.
-
----
-
 # Processi Stazionari in Senso Lato (SSL)
 
 Sebbene l'analisi si concentri sui processi a tempo discreto, le proprietà descritte sono valide anche per i processi a tempo continuo. Un processo $X(n) \in \mathcal{X}$ è definito **stazionario di secondo ordine** se soddisfa le seguenti condizioni:
@@ -503,7 +436,7 @@ Un processo $X(t)$ (continuo o discreto), non necessariamente stazionario di sec
 > [!IMPORTANT]
 > Un processo è SSL se le sue statistiche di primo e secondo ordine sono invarianti rispetto a traslazioni temporali.
 
----
+
 
 # Matrice di Covarianza per Processi SSL
 
@@ -531,46 +464,7 @@ Per costruzione, la matrice di covarianza di un vettore estratto da un processo 
 > [!NOTE]
 > **Struttura di Toeplitz:** Se il passo di campionamento del processo è costante (ovvero $\Delta t = t_{i+1} - t_i$ è costante per ogni $i$), la matrice di covarianza assume una forma di **Toeplitz**, in cui ogni diagonale contiene elementi identici.
 
-Ecco una versione revisionata del testo, ottimizzata per la chiarezza didattica, il rigore formale e la fluidità della lettura.
-
----
-
 # Analisi dei Processi Stocastici: Proprietà e Convergenze
-
-## Esercizio: Semidefinitività della Matrice di Covarianza
-
-> [!example] Esercizio 1
-> Dimostrare che la **matrice di covarianza** $\Sigma$ è una matrice definita non negativa.
->
-> *Suggerimento: Analizzare il prodotto quadratico tra un vettore arbitrario e la matrice di covarianza.*
-
-### Definizione Preliminare
-Si ricorda che una matrice $A \in \mathbb{R}^{M \times M}$ è definita non negativa se, per ogni vettore $x \in \mathbb{R}^M$, si verifica la condizione:
-$$x^T A x \geq 0$$
-
-### Dimostrazione
-Consideriamo un vettore aleatorio $M$-dimensionale $X$ con media $\mu$ e matrice di covarianza $\Sigma$. Definiamo il prodotto quadratico $(X-\mu)^T \Sigma (X-\mu)$. Tale quantità è una variabile aleatoria scalare la cui aspettativa può essere espansa come segue:
-
-$$
-\mathbb{E}[(X-\mu)^T \Sigma (X-\mu)] = \mathbb{E}\left[\sum_{i=1}^M \sum_{j=1}^M (X_i - \mu_i) \Sigma_{ij} (X_j - \mu_j)\right]
-$$
-
-Utilizzando la linearità dell'operatore di aspettativa, possiamo scambiare il segno di sommatoria con l'integrale:
-
-$$
-\mathbb{E}[(X-\mu)^T \Sigma (X-\mu)] = \sum_{i=1}^M \sum_{j=1}^M \Sigma_{ij} \mathbb{E}[(X_i - \mu_i)(X_j - \mu_j)]
-$$
-
-Poiché, per definizione, $\mathbb{E}[(X_i - \mu_i)(X_j - \mu_j)] = \Sigma_{ij}$, la derivazione si semplifica in:
-
-$$
-\sum_{i=1}^M \sum_{j=1}^M \Sigma_{ij} \Sigma_{ij} = \sum_{i=1}^M \sum_{j=1}^M \Sigma_{ij}^2 \geq 0
-$$
-
-[!IMPORTANT]
-**Conclusione:** Poiché la somma dei quadrati $\sum \Sigma_{ij}^2$ è sempre non negativa, ne consegue che la matrice di covarianza $\Sigma$ è definita non negativa.
-
----
 
 ## Estensione ai Processi Continui
 
@@ -581,7 +475,7 @@ Le proprietà derivate per i processi a ampiezza discreta sono estendibili ai **
 
 Le definizioni di stazionarietà in senso lato (WSS) e in senso stretto si applicano analogamente ai processi continui.
 
----
+
 
 ## Processi Gaussiani
 
@@ -607,7 +501,7 @@ dove $|\Sigma|$ indica il determinante della matrice di covarianza.
 *   **Incorrelazione vs Indipendenza:** Per i processi Gaussiani, l'incorrelazione implica l'indipendenza statistica. Se un processo è incorrelato, la matrice di covarianza è diagonale: $\Sigma = \text{diag}(\sigma_1^2, \dots, \sigma_M^2)$. Sostituendo nella PDF, otteniamo il prodotto delle densità marginali:
     $$f(x) = \prod_{i=1}^M \frac{1}{\sqrt{2\pi\sigma_i^2}} \exp\left(-\frac{(x_i-\mu_i)^2}{2\sigma_i^2}\right)$$
 
----
+
 
 ## Tipi di Convergenza
 
@@ -619,10 +513,6 @@ Sia $\{X_n\}$ una successione di variabili aleatorie con densità $f_n(x)$. Defi
 2.  **Convergenza in Media Quadratica:** La successione converge se $\mathbb{E}[|X_n - X|^2] \to 0$.
 3.  **Convergenza in Probabilità:** La probabilità che la differenza tra $X_n$ e $X$ superi una soglia $\epsilon$ tende a zero per ogni $\epsilon > 0$.
 4.  **Convergenza in Distribuzione:** La forma più debole, dove la legge di probabilità della successione converge a quella del limite.
-
-Ecco una versione revisionata del testo, ottimizzata per fluidità, rigore accademico e chiarezza didattica.
-
----
 
 # Convergenza in Distribuzione
 
@@ -677,7 +567,7 @@ Sotto tali condizioni di esistenza, la mgf ammette lo sviluppo in serie di MacLa
 > [!IMPORTANT]
 > Questa espansione giustifica la denominazione di "funzione generatrice dei momenti": i coefficienti della serie sono direttamente proporzionali ai momenti della variabile aleatoria $X$.
 
----
+
 
 # Elementi di Statistica Inferenziale
 
@@ -697,13 +587,9 @@ Assumiamo che tale campione sia il risultato di un esperimento casuale; ne conse
 > 1. **Test delle Ipotesi:** Valutare la validità di affermazioni riguardanti i parametri della popolazione.
 > 2. **Stima dei Parametri:** Determinare valori puntuali o intervalli di confidenza per le caratteristiche ignote della distribuzione.
 
-Ecco una versione revisionata del testo. Ho ottimizzato la fluidità, uniformato la notazione matematica e migliorato la struttura didattica mantenendo il rigore richiesto.
-
----
-
 # Analisi della Media Campionaria e Distribuzione Empirica
 
-## 1. La media campionaria e le Leggi dei Grandi Numeri
+## La media campionaria e le Leggi dei Grandi Numeri
 
 Sia $\mathbf{x}^n \in \mathcal{X}^n \subseteq \mathbb{R}^n$ un insieme di dati osservati. La **media campionaria** è definita come:
 
@@ -725,7 +611,7 @@ La natura di tale convergenza dipende dalla legge statistica sottostante. In par
 > *   **Convergenza in media quadratica (Mean-Square):** La varianza dell'errore tende a zero:
 >     $$ \lim_{n \to \infty} \mathbb{E} \left[ \left(\bar{X}_n - \mathbb{E}[X]\right)^2 \right] = 0 $$
 
-## 2. Rappresentazione tramite frequenze e densità
+## Rappresentazione tramite frequenze e densità
 
 Assumiamo che lo spazio campionario $\mathcal{X} = \{a_1, \dots, a_M\}$ sia discreto e finito. La media campionaria può essere espressa come una somma pesata sulle frequenze relative:
 
@@ -748,7 +634,7 @@ $$
 > [!NOTE] Inferenza Statistica
 > Se si può dimostrare che $f_n(a_i) \to p_X(a_i)$ in un senso di convergenza appropriato, allora $\mathbf{x}^n$ può essere considerato un campione estratto da una popolazione governata dalla densità marginale $\{p_X(a_i)\}_{i=1}^M$.
 
-## 3. La distribuzione empirica
+## La distribuzione empirica
 
 Sia $\mathbf{x}^n$ un campione di $n$ variabili casuali i.i.d. con marginale $\{p_X(a_i)\}_{i=1}^M$ non noto a priori. La frequenza di occorrenza dell'evento $X_k = a_i$ è una variabile casuale. 
 
@@ -770,9 +656,6 @@ $$
 \lim_{n \to \infty} \mathbb{E}\left[ \left( \frac{N_i}{n} - p_X(a_i) \right)^2 \right] = 0
 $$
 
-Ecco una versione revisionata del testo. Ho migliorato la fluidità sintattica, standardizzato il codice LaTeX e strutturato il contenuto per massimizzare la chiarezza didattica, mantenendo intatto il rigore matematico originale.
-
----
 
 # Analisi della Convergenza Quasi Certa
 
@@ -846,10 +729,6 @@ Di conseguenza, la media campionaria converge con probabilità uno alla media de
 > [!THEOREM] Forte Coerenza
 > Un estimatore è definito *forte coerente* se converge quasi certamente (con probabilità 1) al valore vero del parametro che intende stimare all'aumentare della dimensione del campione $n$.
 
-Ecco una versione revisionata del testo. Ho ottimizzato la fluidità sintattica, uniformato la notazione matematica e strutturato il contenuto per una migliore leggibilità didattica.
-
----
-
 # Statistica Inferenziale
 
 Il principio fondamentale della statistica inferenziale risiede nella capacità di dedurre le caratteristiche di una popolazione partendo dall'analisi di un campione sufficientemente ampio. L'obiettivo è identificare proprietà statistiche che ogni altro campione estratto dalla medesima popolazione dovrebbe, con alta probabilità, rispettare.
@@ -900,10 +779,6 @@ Data una matrice di costo $\mathbf{C}$, una regola di decisione è definita **ot
 >
 > $$R = \sum_{k=1}^M P(H_k) \sum_{j=1}^M P(D(\mathbf{X}^n)=j \mid H_k) C_{k,j}$$
 
-Ecco una versione revisionata del testo, ottimizzata per la chiarezza accademica e il rigore tecnico.
-
----
-
 # Problema di Classificazione Binaria
 
 Si consideri un problema di classificazione binaria in cui $K=2$. Definiamo le matrici di costo tali che $C_{1,1} = C_{2,2} = 0$ (costo nullo per la decisione corretta) e $C_{1,2} = C_{2,1} = 1$ (costo unitario per l'errore). In questo contesto, la probabilità di errore totale $\mathbb{P}(e)$ è espressa come:
@@ -952,10 +827,6 @@ $$
 > [!IMPORTANT] Concetto Chiave
 > La quantità $L(\mathbf{x}^n)$ definita sul lato sinistro (LHS) è il **rapporto di verosimiglianza** (*likelihood ratio*) tra le due ipotesi alternative. Il valore critico $\eta$ rappresenta la soglia di decisione ottimale basata sulle probabilità a priori delle ipotesi.
 
-Ecco una versione revisionata del testo. Ho migliorato la fluidità sintattica, uniformato la notazione matematica e strutturato il contenuto per una migliore leggibilità didattica.
-
----
-
 ## Analisi della Regola di Decisione
 
 La regola di decisione precedentemente definita è nota come **Massima Probabilità a Posteriori (MAP)**. Tale definizione deriva direttamente dalla legge di Bayes:
@@ -979,35 +850,7 @@ $$
 \mathbb{P}(e) = P(H_1) P(e \mid H_1) + P(H_2) P(e \mid H_2)
 $$
 
----
 
-## Esempio: Classificazione di Sorgenti Binarie
-
-> [!EXAMPLE] Esempio 1: Classificazione di sorgenti binarie
-> Si considerino osservazioni $\boldsymbol{X}^n$ come variabili binarie i.i.d. provenienti da una delle due sorgenti con probabilità uguali. Le probabilità di successo per le due sorgenti sono $p_1$ e $p_2$, con $p_1 > p_2$.
-> 
-> La funzione di verosimiglianza è espressa come:
-> $$
-> p_{\boldsymbol{X}^n}(\boldsymbol{x}^n \mid H_i) = p_i^{w_H(\boldsymbol{x}^n)} (1 - p_i)^{n - w_H(\boldsymbol{x}^n)}
-> $$
-> dove $w_H(\boldsymbol{x}^n)$ rappresenta il **peso di Hamming** della sequenza osservata $\boldsymbol{x}^n$ (ovvero il numero di bit pari a 1).
->
-> Il test per la minimizzazione della probabilità di errore è definito da:
-> $$
-> \left( \frac{p_1}{p_2} \right)^{w_H(\boldsymbol{x}^n)} \left[ \frac{1 - p_1}{1 - p_2} \right]^{n - w_H(\boldsymbol{x}^n)} \underset{H_2}{\overset{H_1}{\gtrless}} 1
-> $$
->
-> Applicando il logaritmo naturale, la condizione diventa:
-> $$
-> w_H(\boldsymbol{x}^n) \ln\left( \frac{p_1}{p_2} \right) + (n - w_H(\boldsymbol{x}^n)) \ln\left( \frac{1 - p_1}{1 - p_2} \right) \underset{H_2}{\overset{H_1}{\gtrless}} 0
-> $$
->
-> Semplificando l'espressione, otteniamo la forma finale del test:
-> $$
-> w_H(\boldsymbol{x}^n) \left[ \ln\left( \frac{p_1}{1 - p_1} \cdot \frac{1 - p_2}{p_2} \right) \right] \underset{H_2}{\overset{H_1}{\gtrless}} n \ln\left( \frac{1 - p_2}{1 - p_1} \right)
-> $$
-
----
 
 ## Valutazione delle Prestazioni
 
@@ -1032,10 +875,6 @@ La probabilità di errore media, assumendo ipotesi equiprobabili, è:
 $$
 \mathbb{P}(e) = \frac{1}{2} \mathbb{P}(e \mid H_1) + \frac{1}{2} \mathbb{P}(e \mid H_2)
 $$
-
-Ecco una versione revisionata del testo, ottimizzata per la chiarezza accademica e la fluidità didattica, mantenendo il rigore matematico richiesto.
-
----
 
 ## Classificazione Binaria: Legge dei Dati Continui
 
@@ -1062,29 +901,6 @@ $$
 > [!IMPORTANT]
 > La quantità $L(\mathbf{x}^n)$ rappresenta il rapporto di verosimiglianza tra le due ipotesi alternative e costituisce la base per la decisione statistica.
 
----
-
-## Esempio: Test della Media di una Popolazione Gaussiana
-
-> [!example] Esempio 2 (Test della media di una popolazione Gaussiana)
->
-> Si assuma che il set di dati $\mathbf{x}^n$ sia una realizzazione di un vettore casuale gaussiano indipendente, i cui elementi condividono la stessa varianza $\sigma^2$, ma presentano medie distinte $\mu_1$ e $\mu_2$, con $\mu_2 < \mu_1$.
->
-> Data la funzione di densità:
-> $$f_{\mathbf{X}^n | H_i}(\mathbf{x}^n | H_i) = \prod_{k=1}^n \frac{1}{\sqrt{2\pi\sigma^2}} e^{-\frac{(x_k - \mu_i)^2}{2\sigma^2}}$$
->
-> Il test ottimo è espresso dal rapporto di verosimiglianza:
-> $$L(\mathbf{x}^n) = \frac{f_{\mathbf{X}^n | H_1}(\mathbf{x}^n | H_1)}{f_{\mathbf{X}^n | H_2}(\mathbf{x}^n | H_2})} = e^{\frac{\sum_{k=1}^n (x_k - \mu_2)^2 - (x_k - \mu_1)^2}{2\sigma^2}} \underset{H_2}{\overset{H_1}{\gtrless}} 1$$
->
-> Applicando il logaritmo naturale a entrambi i membri e semplificando l'espressione, otteniamo il test equivalente:
-> $$\frac{1}{n} \sum_{k=1}^n x_k \underset{H_2}{\overset{H_1}{\gtrless}} \frac{\mu_1 + \mu_2}{2} = \eta$$
->
-> In questo contesto, la quantità $\sum x_k$ è definita come una **statistica sufficiente**, poiché contiene tutta l'informazione necessaria dal set di dati per il parametro di interesse.
-
-Ecco la versione revisionata del testo, ottimizzata per chiarezza accademica, fluidità e rigore tecnico.
-
----
-
 # Valutazione delle prestazioni
 
 Sotto l'ipotesi $H_j$, la statistica del test definita da 
@@ -1110,7 +926,7 @@ $$\mathbb{P}(e) = Q\left(\sqrt{n} \frac{\mu_1 - \mu_2}{2\sigma}\right) \xrightar
 > [!IMPORTANT]
 > **Conclusione:** La probabilità di errore decade esponenzialmente al crescere della dimensione del campione $n$, garantendo la convergenza del test.
 
----
+
 
 # Introduzione al Test di Ipotesi
 
@@ -1124,10 +940,6 @@ Tali situazioni sono comuni in diversi ambiti critici, tra cui:
 *   **Difesa:** Numerose applicazioni in ambito militare.
 
 In questi contesti, risulta spesso impraticabile quantificare il costo economico o sociale di un errore di giudizio sullo "stato della natura" (ovvero la distinzione tra "condizioni normali" e "presenza di anomalie"). Analogamente, l'assegnazione di una probabilità a priori alla presenza di anomalie nel set di dati è spesso considerata trascurabile o non determinabile con precisione.
-
-Ecco una versione revisionata del testo, ottimizzata per la chiarezza accademica, la fluidità espositiva e il rigore matematico.
-
----
 
 # Fondamenti del Test di Ipotesi
 
@@ -1152,7 +964,7 @@ Per progettare una regola di decisione (test), si definiscono i seguenti paramet
 > La **potenza del test** rappresenta la capacità di rifiutare correttamente $H_0$ quando essa è falsa. È definita come:
 > $$ 1 - \beta = \mathbb{P}\{D(\mathbf{X}^n) = 1 | H_1\} = \begin{cases} \int_{\Omega_1} f_{\mathbf{X}^n | H_1}(\mathbf{x}^n | H_1) d\mathbf{x}^n & \text{Dati Continui} \\ \sum_{\mathbf{x}^n \in \Omega_1} p_{\mathbf{X}^n | H_1}(\mathbf{x}^n | H_1) & \text{Dati Discreti} \end{cases} $$
 
----
+
 
 ## Il Test di Neyman-Pearson
 
@@ -1175,10 +987,6 @@ $$ \mathbb{P}\{L(\mathbf{X}^n) > \eta | H_0\} = \alpha $$
 > Poiché l'applicazione di una funzione monotonicamente crescente non altera l'ordine delle disuguaglianze, è possibile applicare il logaritmo naturale al rapporto di verosimiglianza senza perdere l'ottimalità del test. Si definisce così la *log-likelihood*:
 > $$\Lambda(\mathbf{x}^n) = \ln L(\mathbf{x}^n)$$
 > Il confronto avviene quindi rispetto a una nuova soglia determinata analiticamente.
-
-Ecco una versione revisionata del testo, ottimizzata per la chiarezza accademica e il rigore tecnico.
-
----
 
 # Test della media per popolazioni Gaussiane
 
@@ -1221,10 +1029,6 @@ $$\lim_{n \to \infty} (1 - \beta) = \lim_{n \to \infty} Q\left( \sqrt{n} \frac{\
 > [!IMPORTANT]
 > **Conclusione:** Nel limite asintotico ($n \to \infty$), il test converge alla prestazione ideale, dove la probabilità di errore di tipo I rimane $\alpha$ e la potenza del test tende a $1$.
 
-Ecco una versione revisionata del testo. Ho ottimizzato la fluidità, rimosso le ridondanze nei simboli LaTeX (pulendo i comandi superflui) e strutturato il contenuto per una migliore leggibilità didattica.
-
----
-
 # Stima dei Parametri: Generalità
 
 Sia $\mathbf{X}^n \in \mathcal{X}^n$ un dataset costituito da una realizzazione del vettore casuale $\mathbf{X}^n$. Assumiamo che tale vettore sia estratto da una famiglia di distribuzioni caratterizzate dalla funzione di probabilità (pmf) o densità di probabilità (pdf):
@@ -1247,7 +1051,7 @@ $$f_{\mathbf{X}^n}(\mathbf{x}^n) = \int f_{\mathbf{X}^n|\Theta}(\mathbf{x}^n | \
 > [!IMPORTANT] Osservazione
 > Se $\Theta$ è una variabile discreta, il problema di stima si riduce a un problema di **classificazione**. L'equazione sopra descrive la probabilità che il parametro appartenga a una determinata classe data l'osservazione.
 
----
+
 
 # Teoria della Stima dei Parametri
 
@@ -1274,13 +1078,9 @@ Di conseguenza, la stima Bayes-ottimale per un campione osservato $\mathbf{x}^n$
 
 $$\hat{\theta}(\mathbf{x}^n) = \arg \min_{\hat{\theta}} \int C(\hat{\theta} - \theta) f_{\Theta|\mathbf{X}^n}(\theta | \mathbf{x}^n) d\theta$$
 
-Ecco una versione revisionata del testo. Ho ottimizzato la fluidità, corretto le incongruenze nei simboli (come l'uso di $\beta$ e $\theta$) e strutturato il contenuto per una migliore leggibilità accademica.
-
----
-
 # Estimatori Bayesiani: MMSE e MAP
 
-## 1. Estimatore del Minimo Errore Quadratico Medio (MMSE)
+## Estimatore del Minimo Errore Quadratico Medio (MMSE)
 
 Si consideri la funzione di costo quadratica definita da:
 $$C(\hat{\theta}, \theta) = (\hat{\theta} - \theta)^2$$
@@ -1300,47 +1100,9 @@ $$
 > [!IMPORTANT]
 > La stima MMSE corrisponde esattamente all'**aspettativa condizionata** del parametro dato l'osservato. Tale soluzione garantisce un minimo globale poiché la funzione di rischio scelta è convessa.
 
----
 
-## 2. Esempio: Modello Bernoulli Composto
 
-Si consideri una sequenza binaria $\mathbf{X}^n \in \{0, 1\}^n$ condizionalmente distribuita come Bernoulli con parametro $\beta$, assumendo una distribuzione a priori uniforme $p(\beta) \sim \mathcal{U}(0, 1)$.
-
-### Derivazione della Legge di Probabilità
-Il peso di Hamming $w(\mathbf{x}^n)$ rappresenta il numero di successi (ovvero il numero di uno) nella sequenza. La verosimiglianza è data da:
-
-$$
-p_{\mathbf{X}^n|\beta}(\mathbf{x}^n | \beta) = \beta^{w(\mathbf{x}^n)} (1 - \beta)^{n - w(\mathbf{x}^n)}
-$$
-
-Integrando su $\beta$ per ottenere la legge incondizionata, si ha:
-
-$$
-p_{\mathbf{X}^n}(\mathbf{x}^n) = \int_0^1 \beta^{w(\mathbf{x}^n)} (1 - \beta)^{n - w(\mathbf{x}^n)} \, d\beta = \frac{\Gamma(w+1)\Gamma(n-w+1)}{\Gamma(n+2)} = \frac{1}{\binom{n+1}{w(\mathbf{x}^n)}}
-$$
-
-Di conseguenza, la legge condizionale (posterior) è:
-
-$$
-f_{\beta|\mathbf{X}^n}(\beta | \mathbf{x}^n) = \frac{\beta^{w(\mathbf{x}^n)} (1 - \beta)^{n - w(\mathbf{x}^n)}}{\binom{n+1}{w(\mathbf{x}^n)}}
-$$
-
-### Calcolo della Stima MMSE
-Applicando la definizione di aspettativa condizionata:
-
-$$
-\hat{\beta}_{\text{MMSE}}(\mathbf{x}^n) = \frac{1}{p_{\mathbf{X}^n}(\mathbf{x}^n)} \int_0^1 \beta \cdot \beta^{w(\mathbf{x}^n)} (1 - \beta)^{n - w(\mathbf{x}^n)} \, d\beta
-$$
-
-Risolvendo l'integrale tramite la funzione Beta, si ottiene:
-
-$$
-\hat{\beta}_{\text{MMSE}}(\mathbf{x}^n) = \frac{\Gamma(w+2)\Gamma(n-w+1)}{\Gamma(n+3)} \cdot \frac{1}{\binom{n+1}{w(\mathbf{x}^n)}} = \frac{w(\mathbf{x}^n) + 1}{n + 2}
-$$
-
----
-
-## 3. Estimatore Maximum A Posteriori (MAP)
+## Estimatore Maximum A Posteriori (MAP)
 
 Si consideri ora una funzione di costo basata sulla distanza discreta:
 
@@ -1367,10 +1129,6 @@ $$
 
 > [!NOTE]
 > Mentre l'estimatore **MMSE** "regolarizza" la stima aggiungendo un termine di bias (corrispondente alla media a priori), l'estimatore **MAP** fornisce la massima verosimiglianza corretta dalla distribuzione a priori, che in questo caso specifico coincide con la frequenza relativa dei successi.
-
-Ecco una versione revisionata del testo, ottimizzata per la chiarezza accademica e il rigore tecnico.
-
----
 
 ## Analisi delle Prestazioni degli Estimatori
 
@@ -1401,7 +1159,7 @@ Analizziamo il bias per i due stimatori:
 > [!IMPORTANT] Conclusione sul Bias
 > Lo stimatore **MMSE** è distorto (*biased*), mentre lo stimatore **MAP** è non distorto (*unbiased*). Tuttavia, l'MMSE è asintoticamente non distorto, poiché il bias svanisce per $n \to \infty$.
 
----
+
 
 ### 2. Errori Casuali e Consistenza
 L'analisi dell'errore quadratico medio (MSE) permette di valutare la precisione degli stimatori:
@@ -1419,10 +1177,6 @@ $$ \forall \epsilon > 0, \quad \lim_{n \to \infty} \text{Pr}\left\{ |\hat{B}(\bo
 
 Inoltre, è possibile dimostrare che entrambi gli stimatori sono **fortemente consistenti**, ovvero:
 $$ \hat{B}(\boldsymbol{X}^n) \xrightarrow{\text{a.s.}} B \quad \text{per } n \to \infty $$
-
-Ecco una versione revisionata del testo, ottimizzata per la chiarezza accademica e il rigore tecnico.
-
----
 
 # Fondamenti di Stima Statistica e Inferenza Bayesiana
 
@@ -1449,40 +1203,7 @@ Le due principali strategie di stima sono definite come segue:
 > 4. **MS Consistente:** Un estimatore è MS consistente se $\widehat{\Theta}(\mathbf{X}^n) \xrightarrow{MS} \Theta$ (convergenza in media quadratica).
 > 5. **Fortemente Consistente:** Un estimatore è fortemente consistente se $\widehat{\Theta}(\mathbf{X}^n) \xrightarrow{a.s.} \Theta$ (convergenza quasi certa).
 
----
 
-## Esempio Applicativo: Osservazioni Gaussiane con Media Casuale
-
-Consideriamo un modello in cui $x_i$ è estratto da una distribuzione Gaussiana con media $\mu$, dove $\mu$ è essa stessa una variabile casuale. La verosimiglianza (likelihood) è data da:
-
-$$f_{\mathbf{X}^n \mid M}(\mathbf{x}^n \mid \mu) = \prod_{i=1}^{n} \frac{1}{\sqrt{2\pi\sigma^2}} \exp \left[ -\frac{(x_i - \mu)^2}{2\sigma^2} \right]$$
-
-L'obiettivo è inferire il valore di $\mu$. Assumendo un prior Gaussiano per la media, $M \sim \mathcal{N}(\mu_0, \sigma_M^2)$, la densità a posteriori risulta essere:
-
-$$f_{M \mid \mathbf{X}^n}(\mu \mid \mathbf{x}^n) = \frac{f_{\mathbf{X}^n \mid M}(\mathbf{x}^n \mid \mu) f_M(\mu)}{f_{\mathbf{X}^n}(\mathbf{x}^n)} = \mathcal{N} \left( \frac{\sum_{i=1}^{n} x_i}{n + \frac{\sigma^2}{\sigma_M^2}}, \frac{1}{\frac{n}{\sigma^2} + \frac{1}{\sigma_M^2}} \right)$$
-
-> [!NOTE] Proprietà della Distribuzione Coniugata
-> In questo contesto, la distribuzione Gaussiana è il **prior coniugato** per la media di una distribuzione Gaussiana; ciò implica che la distribuzione a posteriori mantiene la stessa forma funzionale del prior.
-
-### Confronto tra Stimatori MMSE e MAP
-
-Dalla derivazione della densità a posteriori, si ottengono i seguenti stimatori:
-
-1.  **Stima MMSE:**
-    $$\widehat{\mu}_{\text{MMSE}}(\mathbf{x}^n) = \frac{\sum_{i=1}^{n} x_i}{n + \frac{\sigma^2}{\sigma_M^2}}$$
-
-2.  **Stima MAP:**
-    Partendo dal logaritmo della densità a posteriori:
-    $$\ln f_{M \mid \mathbf{X}^n}(\mu \mid \mathbf{x}^n) = \ln f_{\mathbf{X}^n \mid M}(\mathbf{x}^n \mid \mu) + \ln f_M(\mu) - \ln f_{\mathbf{X}^n}(\mathbf{x}^n)$$
-    Massimizzando rispetto a $\mu$, otteniamo:
-    $$\widehat{\mu}_{\text{MAP}}(\mathbf{x}^n) = \frac{\sum_{i=1}^{n} x_i}{n + \frac{\sigma^2}{\sigma_M^2}}$$
-
-> [!QUOTE] Osservazione Teorica
-> Si nota che, in questo specifico modello Gaussiano, gli stimatori **MMSE e MAP coincidono**. Questa non è una coincidenza casuale: per distribuzioni con simmetria gaussiana, il valore atteso (MMSE) e la moda (MAP) della distribuzione a posteriori coincidono esattamente.
-
-Ecco una versione revisionata del testo. Ho ottimizzato la fluidità, uniformato la notazione matematica e strutturato il contenuto per massimizzare la chiarezza didattica.
-
----
 
 # Unicità degli stimatori Bayesiani
 
@@ -1498,7 +1219,7 @@ In queste condizioni, lo stimatore **MMSE** (Minimum Mean Square Error) minimizz
 > **Nota sulla stima MAP:** Sebbene la funzione di costo 0-1 utilizzata per derivare lo stimatore MAP non sia differenziabile, si può dimostrare che, sotto la condizione di simmetria sopra indicata, le due stime coincidono:
 > $$\widehat{\mu}_{\text{MAP}}(\mathbf{x}^n) = \widehat{\mu}_{\text{MMSE}}(\mathbf{x}^n)$$
 
----
+
 
 # Inferenza non Bayesiana: Stima di parametri non casuali
 
@@ -1522,7 +1243,7 @@ $$\widehat{\theta}_{\text{ML}}(\mathbf{x}^n) = \arg \max_{\theta \in \mathcal{S}
 Essa rappresenta una specifica realizzazione dello stimatore di Massima Verosimiglianza (MLE):
 $$\widehat{\Theta}_{\text{ML}}(\mathbf{X}^n) = \arg \max_{\theta \in \mathcal{S}} \log f_{\mathbf{X}^n}(\mathbf{X}^n; \theta)$$
 
----
+
 
 # Inferenza non Bayesiana: Misure di prestazione
 
@@ -1547,10 +1268,6 @@ La convergenza dello stimatore verso il valore vero $\theta$ può essere classif
 *   **Debolmente consistente:** $\Theta(\mathbf{x}^n) \xrightarrow{P} \theta$ (convergenza in probabilità).
 *   **Fortemente consistente:** $\Theta(\mathbf{x}^n) \xrightarrow{a.s.} \theta$ (convergenza quasi certa).
 *   **MS consistente:** $\overline{e_n^2} \to 0$ (convergenza in senso quadratico medio).
-
-Ecco una versione revisionata del testo, ottimizzata per la chiarezza didattica e il rigore accademico.
-
----
 
 # Il Limite di Cramér-Rao: Fondamenti e Derivazione
 
@@ -1600,10 +1317,6 @@ $$ \left| \text{Cov} \left[ \widehat{\Theta}(\mathbf{X}^n), \frac{\partial \log 
 Da cui si deduce il limite inferiore per la varianza dello stimatore:
 $$ \text{Var}[\widehat{\Theta}(\mathbf{X}^n)] \geq \frac{[1 + b_n'(\theta)]^2}{\text{Var} \left[ \frac{\partial \log f_{\mathbf{X}^n}(\mathbf{X}^n; \theta)}{\partial \theta} \right]} $$
 
-Ecco una versione revisionata del testo, ottimizzata per chiarezza didattica, fluidità e rigore tecnico.
-
----
-
 # Limite di Cramér-Rao: Analisi Avanzata e Applicazioni
 
 ## Fondamenti del Limite di Cramér-Rao (CRB)
@@ -1641,57 +1354,7 @@ Pertanto, il Limite di Cramér-Rao (CRB) stabilisce il limite inferiore per l'Er
 > 
 > **Nota teorica:** Se esiste uno stimatore efficiente per un problema di stima non Bayesiana, esso coincide necessariamente con lo stimatore del Massimo di Verosimiglianza (Maximum Likelihood Estimator - MLE).
 
----
 
-## Esempio Applicativo: Inferenza della Frequenza di Cifratura
-
-Consideriamo una sorgente senza memoria che produce una sequenza $\mathbf{x}^n \in \{0, 1\}^n$ estratta da una distribuzione binomiale $\mathbf{X}^n \sim \mathcal{B}(1, \beta)$, dove $\beta$ è il parametro sconosciuto (frequenza di cifratura).
-
-### 1. Derivazione della MLE
-Sia $w(\mathbf{x}^n)$ il peso di Hamming della sequenza osservata. La funzione di verosimiglianza è data da:
-$$
-p_{\mathbf{X}^n}(\mathbf{x}^n) = \beta^{w(\mathbf{x}^n)} (1 - \beta)^{n - w(\mathbf{x}^n)}
-$$
-
-Per trovare lo stimatore MLE, massimizziamo il logaritmo della verosimiglianza:
-$$
-\frac{\partial \log p_{\mathbf{X}^n}(\mathbf{x}^n)}{\partial \beta} = 0 \implies \widehat{\beta}_{\mathrm{ML}}(\mathbf{x}^n) = \frac{w(\mathbf{x}^n)}{n}
-$$
-
-### 2. Proprietà dello stimatore $\widehat{\beta}$
-Lo stimatore $\widehat{\beta}(\mathbf{X}^n) = \frac{w(\mathbf{X}^n)}{n}$ presenta le seguenti proprietà:
-*   **Non distorsione:** $\mathbb{E}\left[ \frac{w(\mathbf{X}^n)}{n} \right] = \beta$
-*   **Consistenza:** Lo stimatore è consistente in MSE.
-
-### 3. Verifica dell'Efficienza
-Per determinare se lo stimatore è efficiente, calcoliamo l'Informazione di Fisher. Partendo dal logaritmo della verosimiglianza:
-$$
-\log p_{\mathbf{X}^n}(\mathbf{X}^n; \beta) = w(\mathbf{X}^n) \log \beta + [n - w(\mathbf{X}^n)] \log(1 - \beta)
-$$
-
-Le derivate prime e seconde rispetto a $\beta$ sono:
-$$
-\frac{\partial \log p_{\mathbf{X}^n}(\mathbf{X}^n; \beta)}{\partial \beta} = \frac{w(\mathbf{X}^n)}{\beta} - \frac{n - w(\mathbf{X}^n)}{1 - \beta}
-$$
-$$
-\frac{\partial^2 \log p_{\mathbf{X}^n}(\mathbf{X}^n; \beta)}{\partial \beta^2} = -\frac{w(\mathbf{X}^n)}{\beta^2} - \frac{n - w(\mathbf{X}^n)}{(1 - \beta)^2}
-$$
-
-Utilizzando l'aspettativa $\mathbb{E}[w(\mathbf{X}^n)] = n\beta$, otteniamo:
-$$
-I_n(\beta) = -\mathbb{E}\left[ \frac{\partial^2 \log p_{\mathbf{X}^n}}{\partial \beta^2} \right] = \frac{n\beta}{\beta^2} + \frac{n - n\beta}{(1 - \beta)^2} = \frac{n}{\beta} + \frac{n}{1 - \beta} = \frac{n}{\beta(1 - \beta)}
-$$
-
-Di conseguenza, il limite di Cramér-Rao è:
-$$
-\mathrm{CRB} = \frac{1}{I_n(\beta)} = \frac{\beta(1 - \beta)}{n}
-$$
-
-Poiché la varianza dello stimatore $\widehat{\beta}_{\mathrm{ML}}$ è esattamente $\operatorname{var}\left[ \frac{w(\mathbf{X}^n)}{n} \right] = \frac{\beta(1 - \beta)}{n}$, concludiamo che **la MLE della frequenza di cifratura è efficiente**.
-
-Ecco una revisione professionale del testo, ottimizzata per la chiarezza didattica e il rigore accademico.
-
----
 
 # Inferenza Bayesiana con Parametri Multipli
 
@@ -1740,10 +1403,6 @@ $$ \frac{\partial f_{\Theta|\pmb{X}^n}(\pmb{\theta} | \pmb{x}^n)}{\partial \thet
 In termini vettoriali, la stima MAP risolve l'equazione del gradiente nullo della pdf a posteriori:
 $$ \nabla_{\pmb{\theta}} f_{\pmb{\Theta}|\pmb{X}^n}(\pmb{\theta} | \pmb{x}^n) \Big|_{\pmb{\theta} = \widehat{\pmb{\theta}}(\pmb{x}^n)} = 0 $$
 
-Ecco una versione revisionata del testo, ottimizzata per la chiarezza didattica e il rigore accademico.
-
----
-
 # Stima non Bayesiana di parametri multipli
 
 Assumiamo che il vettore dei parametri $\boldsymbol{\theta}$ sia reale e deterministico. Consideriamo un insieme di dati osservati $\mathbf{x}^n$ estratti da una famiglia di distribuzioni $f_{\mathbf{X}^n}(\mathbf{x}^n; \boldsymbol{\theta})$. 
@@ -1763,7 +1422,7 @@ $$
 > [!IMPORTANT]
 > L'estimatore $\widehat{\Theta}(\mathbf{X}^n)$ derivato in questo modo gode di proprietà fondamentali quali la consistenza e l'efficienza asintotica.
 
----
+
 
 # Estimatori MMSE Lineari (LMMSE)
 
@@ -1820,10 +1479,6 @@ $$
 $$
 dove $\mathbf{s}$ rappresenta il vettore di cross-correlazione tra l'osservabile e il parametro da stimare.
 
-Ecco una versione revisionata del testo, ottimizzata per la chiarezza didattica e il rigore accademico.
-
----
-
 # Analisi dell'Algoritmo del Gradiente e Approccio Least Squares
 
 ## 1. L'Algoritmo del Gradiente per il problema LMMSE
@@ -1872,7 +1527,7 @@ $$
 > $$
 > dove $\lambda_{\max}$ rappresenta il valore proprio massimo di $\boldsymbol{M}$.
 
----
+
 
 ## 2. Approccio basato sulla Statistica Descrittiva
 
@@ -1921,10 +1576,6 @@ Espandendo il prodotto scalare, otteniamo la forma quadratica:
 $$
 \|\boldsymbol{X}^{T} \boldsymbol{a} - \boldsymbol{y}\|^2 = \boldsymbol{a}^{T} \boldsymbol{X} \boldsymbol{X}^{T} \boldsymbol{a} + \|\boldsymbol{y}\|^2 - 2 \boldsymbol{a}^{T} \boldsymbol{X} \boldsymbol{y}
 $$
-
-Ecco una versione revisionata del testo. Ho ottimizzato la fluidità, uniformato la notazione matematica e strutturato il contenuto per massimizzare la chiarezza didattica, mantenendo il rigore tecnico richiesto.
-
----
 
 # L'Estimatore dei Minimi Quadrati (LS)
 
@@ -1986,7 +1637,7 @@ $$ K(p+1) = \boldsymbol{x}^{nT}(p+1)\boldsymbol{R}^{-1}(p)\boldsymbol{x}^n(p+1) 
 
 Ecco una revisione professionale del testo, ottimizzata per la chiarezza didattica e il rigore accademico.
 
----
+
 
 ## Derivazione dell'Aggiornamento Ricorsivo
 
