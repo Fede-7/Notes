@@ -1448,32 +1448,6 @@ $$
 > [!tip] Nota
 > Tutte le proprietà della slide 68 valgono ovviamente anche per variabili continue. 
 
-## Qualche esempio
-
-> [!example] Esempio 1 (*Calcolo Media*)
-> Sia $X$ una variabile aleatoria con pdf $f_X(x) = \frac{1}{2}$ per $x \in [-1, 1]$. Si ottiene facilmente: 
->
-> $$
-> \mu_ {X} = \frac {a + b}{2} \qquad \mathbb {E} \left[ X ^ {2} \right] = \frac {a ^ {2} + b ^ {2} + a b}{3} \qquad \sigma_ {X} ^ {2} = \mathbb {E} \left[ X ^ {2} \right] - \mu_ {X} ^ {2} = \frac {(b - a) ^ {2}}{1 2}
-> $$
-
-> [!example] Esempio 2 (*Calcolo Varianza*)
-> Sia $f_X(x) = x$ per $x \in [0, 1]$. Avremo: 
->
-> $$
-> \mu_ {X} = \frac {1}{\lambda} \qquad \mathbb {E} \left[ X ^ {2} \right] = \frac {2}{\lambda^ {2}} \qquad \sigma_ {X} ^ {2} = \mathbb {E} \left[ X ^ {2} \right] - \mu_ {X} ^ {2} = \frac {1}{\lambda^ {2}}
-> $$
-
-> [!example] Esempio 3 (*Calcolo RMS*)
-> Sia $f_X(x) = \frac{1}{2}$ per $x \in [0, 2]$. Avremo: 
->
-> $$
-> \mu_ {X} = 0 \qquad \mathbb {E} \left[ X ^ {2} \right] = \frac {2}{\lambda^ {2}} \qquad \sigma_ {X} ^ {2} = \mathbb {E} [ X ^ {2} ] = \frac {2}{\lambda^ {2}}
-> $$
-
-> [!example] Esempio 4 (*Caso non integrabile*)
-> Sia $f_X(x) = \frac{1}{x^2}$ per $x \in [1, \infty)$. Non esistono in questo caso né la media, né la varianza, né, quindi, il valore rms o la deviazione standard. 
-
 ## Variabili continue multiple 
 
 In perfetta analogia con quanto fatto per variabili discrete (vedi slide 69), una coppia di variabili continue (o variabile doppia) è definita nella forma: 
@@ -1951,18 +1925,6 @@ $$
 
 dove $\mathbb{Z}$ indica l’insieme degli interi.
 
-> [!example] Esempio 1 (Realizzazioni di un processo tempo-discreto)
-> Di seguito sono riportate tre realizzazioni di un processo tempo-discreto.
->
-> ![image](https://cdn-mineru.openxlab.org.cn/result/2026-06-27/b5f5d426-9c48-4e21-b90d-66928c562c74/7e76ee276ef5ef4aa0a28d11f4fc129e3b4bfc5e7363b6e3ebb01def91168f7a.jpg)
-> Figura 1: Realizzazione 1
->
-> ![image](https://cdn-mineru.openxlab.org.cn/result/2026-06-27/b5f5d426-9c48-4e21-b90d-66928c562c74/eef731154ce7b72b160d3d277cbe6b34a0a3867f94f145234edd9dd15d98f5db.jpg)
-> Figura 2: Realizzazione 2
->
-> ![image](https://cdn-mineru.openxlab.org.cn/result/2026-06-27/b5f5d426-9c48-4e21-b90d-66928c562c74/057411ab0f31edbb00e115bfa3816d1d5e5f1c3faed5ab464cbf318ca0bb423a.jpg)
-> Figura 3: Realizzazione 3
-
 ## Commenti e osservazioni
 
 - Per ogni valore di $\omega \in \Omega$ il processo si realizza in una sequenza che assume valori nell’intervallo $[-1, 1]$;
@@ -1983,25 +1945,6 @@ $$
 > $$
 > 
 > il processo è a media identicamente nulla.
-
-## Un altro esempio: processo Gaussiano tempo-discreto
-
-Come secondo esempio, consideriamo un processo tempo-discreto stazionario al primo ordine con pdf:
-
-$$
-f _ {X (n)} (x) = \frac {1}{\sqrt {2 \pi}} \exp \left[ - \frac {(x + 0 . 5) ^ {2}}{2} \right]
-$$
-
-quindi con densità marginale Gaussiana a media $-0.5$ e varianza unitaria. Otteniamo realizzazioni del tipo rappresentate in figura:
-
-![image](https://cdn-mineru.openxlab.org.cn/result/2026-06-27/b5f5d426-9c48-4e21-b90d-66928c562c74/48a5eafdb76a91cfaeec049306e38b42c43e3516620a31cd0a3e5059967ed7ab.jpg)
-Figura 4: Realizzazione Gaussiana 1
-
-![image](https://cdn-mineru.openxlab.org.cn/result/2026-06-27/b5f5d426-9c48-4e21-b90d-66928c562c74/51684a9d1e2c1908853f9b305d6cbfc31882599c788d4ca54497b82c5cfb42be.jpg)
-Figura 5: Realizzazione Gaussiana 2
-
-![image](https://cdn-mineru.openxlab.org.cn/result/2026-06-27/b5f5d426-9c48-4e21-b90d-66928c562c74/2c12f75b390651df009e373f8c5f9758ea1925d2f1a52f06939bfdc2260a96eb.jpg)
-Figura 6: Realizzazione Gaussiana 3
 
 ## Caratterizzazione del secondo ordine del processo
 
@@ -2157,33 +2100,6 @@ Pertanto, la matrice di covarianza di un vettore tratto da un processo SSL è si
 > [!quote] Osservazione
 > Se il passo di campionamento del processo è costante (cioè, $( t _ { i + 1 } - t _ { i } ) / ( n _ { i + 1 } - n _ { i } )$ costante $\forall \space i ,$), allora la matrice assume una forma di **Toeplitz**.
 
-## Esercizio: La matrice di covarianza è sempre definita non-negativa
-
-> [!example] Esercizio 1
-> Si dimostri che la **matrice di covarianza** è una matrice definita non negativa.
->
-> *Suggerimento: Considerare il prodotto scalare tra un vettore e la matrice applicato a un vettore arbitrario.*
-
-Si ricorda che una matrice $A \in \mathbb{R}^{M \times M}$ è definita non negativa se, detto $x \in \mathbb{R}^M$ un qualunque vettore $M$-dimensionale risulta $x^T A x \geq 0$.
-
-Consideriamo un vettore aleatorio $M$-dimensionale $X$ di media $\mu$ e matrice di covarianza $\Sigma$. La quantità $X^T \Sigma X$ è ovviamente una variabile aleatoria scalare con $\mathbb{E}[X^T \Sigma X] = \text{tr}(\Sigma \Sigma^T)$. Inoltre,
-
-$$
-\mathbb{E}[(X-\mu)^T \Sigma (X-\mu)] = \mathbb{E}[\sum_{i=1}^M \sum_{j=1}^M (X_i - \mu_i) \Sigma_{ij} (X_j - \mu_j)]
-$$
-
-Avremo allora la catena di disuguaglianze:
-
-$$
-\mathbb{E}[(X-\mu)^T \Sigma (X-\mu)] = \sum_{i=1}^M \sum_{j=1}^M \Sigma_{ij} \mathbb{E}[(X_i - \mu_i)(X_j - \mu_j)]
-$$
-
-$$
-= \sum_{i=1}^M \sum_{j=1}^M \Sigma_{ij} \Sigma_{ij} = \sum_{i=1}^M \sum_{j=1}^M \Sigma_{ij}^2 \geq 0
-$$
-
-dove si è sfruttato il fatto che $\mathbb{E}[(X_i - \mu_i)(X_j - \mu_j)] = \Sigma_{ij}$.
-
 ## Estensione ai processi continui: definizioni
 
 Quanto detto sui processi ampiezza-discreti si estende ai processi ampiezza continui. Detto $X(t)$ tratto da un processo stazionario, la sua caratterizzazione implica l’assegnazione di una delle due funzioni:
@@ -2199,24 +2115,6 @@ $$
 dove $\mu(t)$ è la media e $R(t_1, t_2)$ è la funzione di autocorrelazione.
 
 Ovviamente le definizioni di stazionarietà in senso lato e in senso stretto si estendono tal quali ai processi ampiezza continui.
-
-## Un esempio: Processi Gaussiani
-
-Un processo $X(t)$ si dice **Gaussiano** se un qualunque suo campione di dimensione $M$ definisce un vettore aleatorio $X$ Gaussiano.
-
-Dato un vettore aleatorio $X$ con media e matrice di covarianza assegnati:
-
-$$
-\begin{cases} \mathbb{E}[X] = \mu \\ \text{Cov}(X) = \Sigma \end{cases}
-$$
-
-questo si dice Gaussiano se la sua pdf si scrive nella forma
-
-$$
-f(x) = \frac{1}{\sqrt{(2\pi)^M |\Sigma|}} \exp\left(-\frac{1}{2}(x-\mu)^T \Sigma^{-1} (x-\mu)\right)
-$$
-
-dove $|\Sigma|$ denota il determinante della matrice di covarianza.
 
 ## Proprietà dei processi Gaussiani
 
@@ -2600,37 +2498,6 @@ $$
 \mathbb {P} (e) = P \left(H _ {1}\right) P \left(e \mid H _ {1}\right) + P \left(H _ {2}\right) P \left(e \mid H _ {2}\right)
 $$
 
-## Esempio: classificazione di sorgenti binarie
-
-> [!example] Esempio 1 (Classificazione di sorgenti binarie)
-> Assumiamo che le osservazioni siano variabili binarie iid che possono provenire con probabilità uguali da una sorgente con ${ \mathbb { P } } \left\{ X _ { i } = 1 \right\} = p _ { 1 }$ o da una sorgente con ${ \mathbb { P } } \left\{ X _ { i } = 1 \right\} = p _ { 2 }$, con $p _ { 1 } > p _ { 2 }$.
->
-> Abbiamo quindi:
->
-> $$
-> p _ {\boldsymbol {X} ^ {n}} (\boldsymbol {x} ^ {n} | H _ {i}) = p _ {i} ^ {w _ {H} (\boldsymbol {x} ^ {n})} (1 - p _ {i}) ^ {n - w _ {H} (\boldsymbol {x} ^ {n})}
-> $$
->
-> dove $w _ { H } ( \pmb { x } ^ { n } )$ è il **peso di Hamming** della sequenza binaria osservata $\pmb { x } ^ { n }$ coincidente con il numero dei suoi 1.
->
-> Il test di probabilità di errore minima è
->
-> $$
-> \left(\frac {p _ {1}}{p _ {2}}\right) ^ {w _ {H} (x ^ {n})} \left[ \frac {(1 - p _ {1})}{(1 - p _ {2})} \right] ^ {n - w _ {H} (x ^ {n})} \underset {H _ {2}} {\overset {H _ {1}} {\gtrless}} 1
-> $$
->
-> o, equivalentemente
->
-> $$
-> w _ {H} (\boldsymbol {x} ^ {n}) \ln \left(\frac {p _ {1}}{p _ {2}}\right) + (n - w _ {H} (\boldsymbol {x} ^ {n})) \ln \left(\frac {1 - p _ {1}}{1 - p _ {2}}\right) \underset {H _ {2}} {\overset {H _ {1}} {\gtrless}} 0
-> $$
->
-> che si riduce a
->
-> $$
-> w _ {H} \big (\boldsymbol {x} ^ {n} \big) \left[ \ln \left(\frac {p _ {1}}{1 - p _ {1}} \frac {1 - p _ {2}}{p _ {2}}\right) \right] \underset {H _ {2}} {\overset {H _ {1}} {\gtrless}} n \ln \left(\frac {1 - p _ {2}}{1 - p _ {1}}\right)
-> $$
-
 ## Valutazione delle prestazioni
 
 Si noti che, poiché $p _ { 1 } > p _ { 2 }$, tutti i logaritmi sono non negativi; il test può quindi essere riscritto nella forma
@@ -2676,25 +2543,6 @@ L (\boldsymbol {x} ^ {n}) = \frac {f _ {\boldsymbol {X} ^ {n} | H _ {1}} (\bolds
 $$
 
 La quantità $L ( \pmb { x } ^ { n } )$ sul lato sinistro (LHS) è di nuovo chiamata **rapporto di verosimiglianza** tra le due ipotesi alternative.
-
-## Esempio: test della media di una popolazione Gaussiana
-
-> [!example] Esempio 2 (Test della media di una popolazione Gaussiana)
-> Assumiamo che il set di dati $\pmb { x } ^ { n }$ abbia la stessa probabilità di essere una realizzazione di un vettore casuale Gaussiano indipendente i cui elementi hanno la stessa varianza e medie diverse $\mu _ { 1 }$ e $\mu _ { 2 } < \mu _ { 1 }$.
->
-> Poiché $\begin{array} { r } { f _ { X ^ { n } | H _ { i } } ( x ^ { n } | H _ { i } ) = \prod _ { k = 1 } ^ { n } \frac { 1 } { \sqrt { 2 \pi \sigma ^ { 2 } } } e ^ { - \frac { ( x _ { k } - \mu _ { i } ) ^ { 2 } } { 2 \sigma ^ { 2 } } } } \end{array}$ il test ottimo è scritto come
->
-> $$
-> L (\boldsymbol {x} ^ {n}) = \frac {f _ {\boldsymbol {X} ^ {n} | H _ {1}} (\boldsymbol {x} ^ {n} | H _ {1})}{f _ {\boldsymbol {X} ^ {n} | H _ {2}} (\boldsymbol {x} ^ {n} | H _ {2})} = e ^ {\frac {\sum_ {k = 1} ^ {n} (x _ {k} - \mu_ {2}) ^ {2} - (x _ {k} - \mu_ {1}) ^ {2}}{2 \sigma^ {2}}} \underset {H _ {2}} {\overset {H _ {1}} {\gtrless}} 1
-> $$
->
-> Prendendo il logaritmo su entrambi i lati ed elaborando otteniamo il test equivalente
->
-> $$
-> \frac {1}{n} \sum_ {k = 1} ^ {n} x _ {k} \underset {H _ {2}} {\overset {H _ {1}} {\gtrless}} \frac {\mu_ {1} + \mu_ {2}}{2} = \eta
-> $$
->
-> Le quantità $\sum x _ { k }$ per questo problema e $w _ { H } ( \pmb x ^ { n } )$ per il precedente sono anche riferite come **statistiche sufficienti** nel linguaggio della statistica inferenziale.
 
 ## Valutazione delle prestazioni
 
@@ -2894,50 +2742,6 @@ $$
 
 che corrisponde certamente a un minimo data la convessità del rischio Bayes scelto. 
 
-## Esempio: Bernoulli Composta
-
-> [!example] Esempio 1 (Bernoulli Composta)
-> Assumiamo che $\mathbf{X}$ $X ^ { n } \in \{ 0 , 1 \} ^ { n }$ sia condizionalmente Bernoulli con parametro $\theta$ $\beta ,$, con $p(\theta)$ $B \sim \mathcal { U } ( 0 , 1 )$.
-> 
-> Il peso di Hamming $w(\mathbf{x})$ $w ( \pmb { x } ^ { n } )$ di una sequenza binaria è il numero di uno che contiene. Abbiamo: 
-> 
-> $$
-> p _ {\boldsymbol {X} ^ {n} | B} (\boldsymbol {x} ^ {n} | \beta) = \beta^ {w (\boldsymbol {x} ^ {n})} (1 - \beta) ^ {n - w (\boldsymbol {x} ^ {n})}
-> $$
-> 
-> Facendo la media su $\mathbf{B}$ otteniamo la legge incondizionata: 
-> 
-> $$
-> p \mathbf {x} ^ {n} (\mathbf {x} ^ {n}) = \int_ {0} ^ {1} \beta^ {w (\mathbf {x} ^ {n})} (1 - \beta) ^ {n - w (\mathbf {x} ^ {n})} d \beta = \frac {\Gamma (w + 1) \Gamma (n - w + 1)}{\Gamma (n + 2)} = \frac {1}{\binom{n + 1}{w (\mathbf {x} ^ {n})}}
-> $$
-> 
-> La legge condizionale è quindi 
-> 
-> $$
-> f _ {B | \boldsymbol {X} ^ {n}} (\beta | \boldsymbol {x} ^ {n}) = \frac {\beta^ {w (\boldsymbol {x} ^ {n})} (1 - \beta) ^ {n - w (\boldsymbol {x} ^ {n})}}{p _ {\boldsymbol {X} ^ {n}} (\boldsymbol {x} ^ {n})} = \frac {\beta^ {w (\boldsymbol {x} ^ {n})} (1 - \beta) ^ {n - w (\boldsymbol {x} ^ {n})}}{\binom{n + 1}{w (\boldsymbol {x} ^ {n})}}
-> $$
-
-## Esempio: Bernoulli Composta - cont.)
-
-> [!example] Esempio 2 (Bernoulli Composta - cont.)
-> La stima MMSE è quindi 
-> 
-> $$
-> \frac {1}{p \boldsymbol {x} ^ {n} (\boldsymbol {x} ^ {n})} \int_ {0} ^ {1} \beta^ {w (\boldsymbol {x} ^ {n}) + 1} (1 - \beta) ^ {n - w (\boldsymbol {x} ^ {n})} d \beta
-> $$
-> 
-> Risolvendo l'integrale si ottiene
-> 
-> $$
-> \hat {\beta} _ {\text {MMSE}} (\boldsymbol {x} ^ {n}) = \frac {\Gamma (w + 2) \Gamma (n - w + 1)}{\Gamma (n + 3)} \frac {1}{\binom{n + 1}{w (\boldsymbol {x} ^ {n})}} = \frac {w (\boldsymbol {x} ^ {n}) + 1}{n + 2}
-> $$
-> 
-> che è la stima ottenuta tramite l'estimatore MMSE: 
-> 
-> $$
-> \hat {B} _ {\text { MMSE }} (\boldsymbol {X} ^ {n}) = \frac {w (\boldsymbol {X} ^ {n}) + 1}{n + 2}
-> $$
-
 ## Estimatore Maximum A Posteriori (MAPE)
 
 Assumiamo ora la seguente funzione di costo: 
@@ -3051,49 +2855,6 @@ $$
 
 > [!theorem] Fortemente Consistente
 > Un estimatore è fortemente consistente se ${ \widehat { \Theta } } ( X ^ { n } ) \to \Theta$ quasi certamente.
-
-## Un esempio: Osservazioni Gaussiane con media casuale
-
-Sia $x$ estratto da $y$ con: 
-
-$$
-f _ {\boldsymbol {X} ^ {n} | M} (\boldsymbol {x} ^ {n} | \mu) = \prod_ {i = 1} ^ {n} \frac {1}{\sqrt {2 \pi \sigma^ {2}}} \exp \left[ - \frac {(x _ {i} - \mu) ^ {2}}{2 \sigma^ {2}} \right]
-$$
-
-Sia $\mathbf{x}$ una realizzazione di $\mathbf{y}$. 
-
-Vogliamo inferire il valore $\mu$ di $M$ appartenente all'osservazione $\mathbf{x}$ di $\mathbf{y}$. 
-
-Si noti che la densità a posteriori della media è: 
-
-$$
-f _ {M | \boldsymbol {X} ^ {n}} (\mu | \boldsymbol {x} ^ {n}) = \frac {f _ {\boldsymbol {X} ^ {n} | M} (\boldsymbol {x} ^ {n} | \mu) f _ {M} (\mu)}{f _ {\boldsymbol {X} ^ {n}} (\boldsymbol {x} ^ {n})} = \mathcal {N} \left(\frac {\sum_ {i = 1} ^ {n} x _ {i}}{n + \frac {\sigma^ {2}}{\sigma_ {M} ^ {2}}}, \frac {1}{\frac {n}{\sigma^ {2}} + \frac {1}{\sigma_ {M} ^ {2}}}\right)
-$$
-
-In altri termini, il prior coniugato della media di una distribuzione Gaussiana è nuovamente Gaussiano. 
-
-Abbiamo quindi che la stima MMSE della media è: 
-
-$$
-\widehat {\mu} _ {\text { MMSE }} (\boldsymbol {x} ^ {n}) = \frac {\sum_ {i = 1} ^ {n} x _ {i}}{n + \frac {\sigma^ {2}}{\sigma_ {M} ^ {2}}} \Longleftrightarrow \widehat {M} _ {\text { MMSE }} (\boldsymbol {X} ^ {n}) = \frac {\sum_ {i = 1} ^ {n} X _ {i}}{n + \frac {\sigma^ {2}}{\sigma_ {M} ^ {2}}}
-$$
-
-Consideriamo ora la stima MAP. È possibile scrivere: 
-
-$$
-\ln f _ {M | \boldsymbol {X} ^ {n}} (\mu | \boldsymbol {x} ^ {n}) = \ln f _ {\boldsymbol {X} ^ {n} | M} (\boldsymbol {x} ^ {n} | \mu) + \ln f _ {M} (\mu) - \ln f _ {\boldsymbol {X} ^ {n}} (\boldsymbol {x} ^ {n})
-$$
-
-Massimizzando rispetto a $\mu$ si ottiene lo stimatore MAP: 
-
-$$
-\widehat {\mu} _ {\text {MAP}} (\boldsymbol {x} ^ {n}) = \frac {\sum_ {i = 1} ^ {n} X _ {i}}{n + \frac {\sigma^ {2}}{\sigma_ {M} ^ {2}}} \Longleftrightarrow \widehat {M} _ {\text {MAP}} (\boldsymbol {X} ^ {n}) = \frac {\sum_ {i = 1} ^ {n} X _ {i}}{n + \frac {\sigma^ {2}}{\sigma_ {M} ^ {2}}}
-$$
-
-che coincide con l'MMSEE. 
-
-> [!quote] Osservazione
-> È casuale o esiste un motivo più profondo per la coincidenza di questi due stimatori?
 
 ## Unicità degli stimatori Bayesiani
 
@@ -3245,34 +3006,6 @@ Uno stimatore non distorto il cui MSE è uguale al CRB è definito **efficiente*
 
 > [!theorem] Fatto importante
 > Se esiste uno stimatore efficiente per un dato problema di stima non Bayesiana, questo coincide necessariamente con lo stimatore ML. 
-
-## Un esempio: inferire la frequenza del cifrario di una sorgente senza memoria
-
-Consideriamo inizialmente $\pmb { x } ^ { n } \in \{ 0 , 1 \} ^ { n }$ , estratto da $\pmb { X } ^ { n } \sim  { \mathcal { B } } ( 1 , \beta )$ , $\beta$ sconosciuto; 
-
-Abbiamo visto che, se $w ( \pmb { x } ^ { n } )$ è il peso di Hamming della sequenza osservata, allora: 
-
-$$
-p _ {\boldsymbol {X} ^ {n}} (\boldsymbol {x} ^ {n}) = \beta^ {w (\boldsymbol {x} ^ {n})} (1 - \beta) ^ {n - w (\boldsymbol {x} ^ {n})}
-$$
-
-La stima ML viene quindi trovata come: 
-
-$$
-\frac {\partial \log p _ {X ^ {n}} (x ^ {n})}{\partial \beta} = 0 \Longrightarrow \widehat {\beta} _ {\mathrm{ML}} (x ^ {n}) = \frac {w (x ^ {n})}{n}
-$$
-
-L'estimatore $\begin{array} { r } { \beta ( \pmb { X } ^ { n } ) = \frac { w ( \pmb { X } ^ { n } ) } { n } } \end{array}$ è tale che: 
-
-$$
-\mathbb {E} \left[ \frac {w (\boldsymbol {X} ^ {n})}{n} \right] = \beta  ,
-$$
-
-$$
-\operatorname{var} \left[ \frac {w (\boldsymbol {X} ^ {n})}{n} \right] = \frac {\beta (1 - \beta)}{n}
-$$
-
-Di conseguenza, è non distorto (unbiased) e MS consistente. È efficiente?
 
 ## Frequenza di cifratura - cont.
 
