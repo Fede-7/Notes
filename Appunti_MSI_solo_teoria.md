@@ -1069,6 +1069,7 @@ $$\int_{-\infty}^{+\infty} f_X(t) \, dt = 1$$
 > 
 > In entrambi i casi, la densità è ciò che ci permette di passare dalla teoria alla capacità di calcolare effettivamente la probabilità di un evento.
 
+
 ## La Cumulative Distribution Function (CDF)
 
 Oltre alla densità di probabilità (PDF), si usa spesso la **Funzione di Ripartizione (CDF)**, che indica la probabilità che la variabile $X$ sia inferiore o uguale a un certo valore $x$:
@@ -1368,135 +1369,62 @@ $$
 ![image](https://cdn-mineru.openxlab.org.cn/result/2026-06-27/b5f5d426-9c48-4e21-b90d-66928c562c74/75daf37cde2197ea8b008ceadbbf1a23f380a8edcd7d8eeba4bc90f54e811575.jpg)
 Figura 1: Rappresentazione della funzione non invertibile $g(x) = boh$.
  
-# Conversione A/D di variabili aleatorie
+## Conversione A/D di variabili aleatorie
 
-Quando $X$ è una variabile continua e $Y$ è una variabile discreta, si ha una **conversione** $\mathsf { A } / \mathsf { D }$ di una quantità aleatoria (confronta anche l’ultima sezione della parte ”Conversione $\mathsf { A } / \mathsf { D } ^ { \prime \prime } )$").
+Si ha una conversione Analogico/Digitale quando una variabile continua $X$ viene mappata in una variabile discreta $Y$.
+**Procedimento:**
+1. **Parametri:** Si sceglie una rappresentazione a $R$ bit, ottenendo $M = 2^R$ livelli di uscita.
+2. **Partizione:** Il dominio di $X$ viene diviso in $M$ intervalli tramite i punti $\{x_i\}_{i=1}^{M+1}$.
+3. **Mappatura:** La variabile discreta $Y$ assume il valore $y_i$ se $X$ cade nell'intervallo corrispondente:
+$$Y = y_i \quad \text{se} \quad x_i \leq X < x_{i+1} \quad (i = 1, \dots, M)$$
 
-Supponiamo di voler rappresentare $X$ con $R$ bit, ovvero con $M = 2 ^ { R }$ livelli. 
+**Calcolo della PMF di $Y$:**
+La probabilità che $Y$ assuma il valore $y_i$ è pari alla probabilità che $X$ cada nell'intervallo $[$x_i$, x_{i+1})$:
+$$p_Y(y_i) = F_X(x_{i+1}) - F_X(x_i)$$
+*Nota: La scelta dei livelli $y_i$ e della partizione $\{x_i\}$ è a discrezione del progettista.*
+Ecco una sintesi operativa, pulita dal rumore accademico e pronta per essere inserita in Obsidian.
 
-Definiamo una variabile aleatoria $\boldsymbol { Y } = \boldsymbol { g } ( \boldsymbol { X } )$ con $\mathcal { Y } = \{ y _ { 1 } , \dots , y _ { M } \}$. 
+## Media di funzioni di variabili aleatorie
 
-Definiamo una partizione di $X$ in $M$ intervalli, definiti dai punti $\{ x _ { i } \} _ { i = 1 } ^ { M + 1 }$. 
+Per una variabile aleatoria continua $X$ con pdf $f_X(x)$, il valore atteso di una sua funzione $Y = g(X)$ si calcola come:
+$$\mathbb{E}[g(X)] = \int_{-\mathbb{R}} g(x) f_X(x) dx$$
+*(Il risultato deriva dal limite per $\Delta \to 0$ della versione quantizzata della variabile).*
 
-Si definisce rappresentazione a $R$ bit di $X$ la variabile aleatoria discreta: 
+## Valore quadratico medio e Varianza
 
-$$
-Y = y _ {i} \quad \text { se } x _ {i} \leq X \leq x _ {i + 1} \quad i = 1, \dots , M
-$$
+Generalizzazione dei concetti per variabili continue, data la media $\mu_X = \mathbb{E}[X]$:
 
-La **pmf** (Probability Mass Function) di $Y$ quindi si scrive facilmente nella forma: 
+### 1. Valore Quadratico Medio (Mean Square)
+$$X_{\text{rms}}^2 = \mathbb{E}[X^2] = \int_{-\mathbb{R}} x^2 f_X(x) dx$$
+### 2. Valore Efficace (RMS - Root Mean Square)
+$$X_{\text{rms}} = \sqrt{\mathbb{E}[X^2]} = \sqrt{\int_{-\mathbb{R}} x^2 f_X(x) dx}$$
+### 3. Varianza ($\sigma_X^2$)
 
-$$
-p _ {Y} (y _ {i}) = P _ {X} \left(\frac {x _ {i + 1} + x _ {i}}{2}; \frac {x _ {i + 1} - x _ {i}}{2}\right) = F _ {X} (x _ {i + 1}) - F _ {X} (x _ {i}), \quad i = 1, \ldots , M
-$$
-
-> [!quote] Osservazione
-> Ovviamente tanto la partizione quanto i livelli di rappresentazione sono gradi di libertà a disposizione del progettista. 
-
-## Media di funzioni di variabili aleatorie continue
-
-Sia $X$ una variabile aleatoria continua con pdf $f_X(x)$ e sia $g(x)$ una funzione tale che $\mathcal { V } = g ( \mathcal { X } )$. Vogliamo estendere alle variabili continue il Teorema Fondamentale per il calcolo della media (vedi slide 60 e seguenti). Il risultato principale - diretta derivazione del caso discreto - è che, qualunque sia $g(x)$, vale:
-
-$$
-\mathbb {E} \left[ Y \right] = \mathbb {E} \left[ g (X) \right] = \int_ {\mathbb {R}} g (x) f _ {X} (x) d x
-$$
-
-Definiamo una versione quantizzata di $X$ a $M$ livelli, $x ^ { \Delta }$, in modo del tutto analogo a quanto fatto per ricavare la media di variabili continue (vedi slide 100). 
-
-A questa applichiamo la trasformazione $g ( \cdot )$, ottenendo la variabile discreta ${ \cal Y } ^ { \Delta } = g ( X ^ { \Delta } )$: 
-
-$$
-X ^ {\Delta} = x _ {i} \in [ i \Delta , (i + 1) \Delta [ \quad i \Delta \leq X <   (i + 1) \Delta \Rightarrow g (X ^ {\Delta}) = g (x _ {i})
-$$
-
-Il teorema quindi segue - se $g ( x ) f _ { X } ( x )$ è Riemann-integrabile - dall’essere:
-
-$$
-\mathbb {E} \left[ Y \right] = \lim _ {\Delta \rightarrow 0} \mathbb {E} \left[ Y ^ {\Delta} \right] = \lim _ {\Delta \rightarrow 0} \sum_ {i = 1} ^ {M} g (x _ {i}) \underbrace {f _ {X} (x _ {i}) \Delta} _ {\simeq \mathbb {P} (i \Delta \leq X <   (i + 1) \Delta)} = \int_ {\mathbb {R}} g (x) f _ {X} (x)   d x
-$$
-
-## Valore quadratico medio e varianza di variabili continue
-
-A questo punto è immediata la generalizzazione dei concetti introdotti per variabili discrete a variabili continue. 
-
-Data una variabile aleatoria $X$ con media $\mu _ { X } = \operatorname { \mathbb { E } } [ X ]$, definiamo: 
-
-Il **valore quadratico medio** (Mean Square) di $X$: 
-
-$$
-X _ {\mathrm{rms}} ^ {2} = \mathbb {E} \left[ X ^ {2} \right] = \int_ {\mathbb {R}} x ^ {2} f _ {X} (x) d x
-$$
-
-Il **valore efficace** (root mean square, rms) di $X$: 
-
-$$
-X _ {\mathrm{rms}} = \sqrt {\mathbb {E} \left[ X ^ {2} \right]} = \sqrt {\int_ {\mathbb {R}} x ^ {2} f _ {X} (x) d x}
-$$
-
-La **varianza** di $X$: 
-
-$$
-\sigma_ {X} ^ {2} = \mathbb {E} \left[ (X - \mu_ {X}) ^ {2} \right] = \int_ {\mathbb {R}} (x ^ {2} + \mu_ {X} ^ {2} - 2 x \mu_ {X}) f _ {X} (x) d x = X _ {\mathrm{rms}} ^ {2} - \mu_ {X} ^ {2}
-$$
-
-La **deviazione standard** di $X$: 
-
-$$
-\sigma_ {X} = \sqrt {\sigma_ {X} ^ {2}} = \sqrt {\mathbb {E} [ X ^ {2} ] - \mu_ {X} ^ {2}} = \sqrt {X _ {\mathrm{rms}} ^ {2} - \mu_ {X} ^ {2}}
-$$
-
-> [!tip] Nota
-> Tutte le proprietà della slide 68 valgono ovviamente anche per variabili continue. 
-
-## Qualche esempio
-
-> [!example] Esempio 1 (*Calcolo Media*)
-> Sia $X$ una variabile aleatoria con pdf $f_X(x) = \frac{1}{2}$ per $x \in [-1, 1]$. Si ottiene facilmente: 
->
-> $$
-> \mu_ {X} = \frac {a + b}{2} \qquad \mathbb {E} \left[ X ^ {2} \right] = \frac {a ^ {2} + b ^ {2} + a b}{3} \qquad \sigma_ {X} ^ {2} = \mathbb {E} \left[ X ^ {2} \right] - \mu_ {X} ^ {2} = \frac {(b - a) ^ {2}}{1 2}
-> $$
-
-> [!example] Esempio 2 (*Calcolo Varianza*)
-> Sia $f_X(x) = x$ per $x \in [0, 1]$. Avremo: 
->
-> $$
-> \mu_ {X} = \frac {1}{\lambda} \qquad \mathbb {E} \left[ X ^ {2} \right] = \frac {2}{\lambda^ {2}} \qquad \sigma_ {X} ^ {2} = \mathbb {E} \left[ X ^ {2} \right] - \mu_ {X} ^ {2} = \frac {1}{\lambda^ {2}}
-> $$
-
-> [!example] Esempio 3 (*Calcolo RMS*)
-> Sia $f_X(x) = \frac{1}{2}$ per $x \in [0, 2]$. Avremo: 
->
-> $$
-> \mu_ {X} = 0 \qquad \mathbb {E} \left[ X ^ {2} \right] = \frac {2}{\lambda^ {2}} \qquad \sigma_ {X} ^ {2} = \mathbb {E} [ X ^ {2} ] = \frac {2}{\lambda^ {2}}
-> $$
-
-> [!example] Esempio 4 (*Caso non integrabile*)
-> Sia $f_X(x) = \frac{1}{x^2}$ per $x \in [1, \infty)$. Non esistono in questo caso né la media, né la varianza, né, quindi, il valore rms o la deviazione standard. 
-
+Misura la dispersione attorno alla media. Si calcola preferibilmente con la formula:
+$$\sigma_X^2 = \mathbb{E}[(X - \mu_X)^2] = X_{\text{rms}}^2 - \mu_X^2$$
+### 4. Deviazione Standard ($\sigma_X$)
+$$\sigma_X = \sqrt{\sigma_X^2} = \sqrt{X_{\text{rms}}^2 - \mu_X^2}$$
+> [!info] Nota
+> Tutte le proprietà di linearità e invarianza valide per le variabili discrete si applicano analogamente anche al caso continuo.
 ## Variabili continue multiple 
 
-In perfetta analogia con quanto fatto per variabili discrete (vedi slide 69), una coppia di variabili continue (o variabile doppia) è definita nella forma: 
+Il concetto di variabile singola si estende naturalmente a più variabili (vettori aleatori) mappando l'evento $\omega \in \Omega$ in uno spazio multidimensionale $\mathbb{R}^m$.
 
-$$
-X, Y: \omega \in \Omega \longrightarrow (X (\omega), Y (\omega)) \in \mathcal {X} \times \mathcal {Y} \subseteq \mathbb {R} ^ {2}
-$$
+>[!def]
+Dato un insieme di $m$ variabili aleatorie $X_1, \dots, X_m$, il vettore aleatorio è definito come:
+>$$(X_1, \dots, X_m) : \omega \in \Omega \longrightarrow (X_1(\omega), \dots, X_m(\omega)) \in \mathcal{X}_1 \times \dots \times \mathcal{X}_m \subseteq \mathbb{R}^m$$
+#### Casi particolari
 
-dove $\mathcal { X } \in \mathcal { V }$ sono gli alfabeti di $X$ e di $Y$ rispettivamente. 
+* **Variabile doppia (coppia):**
+$$(X, Y) : \omega \in \Omega \longrightarrow (X(\omega), Y(\omega)) \in \mathcal{X} \times \mathcal{Y} \subseteq \mathbb{R}^2$$
 
-Analogamente, date tre variabili aleatorie - a questo punto non importa più se tutte continue o meno $\begin{array} { r } { - X ( \omega ) \in \mathcal { X } , y ( \omega ) \in \mathcal { Y } , Z ( \omega ) \in \mathcal { Z } ; } \end{array}$ 
+* **Variabile tripla (terna):**
+$$(X, Y, Z) : \omega \in \Omega \longrightarrow (X(\omega), Y(\omega), Z(\omega)) \in \mathcal{X} \times \mathcal{Y} \times \mathcal{Z} \subseteq \mathbb{R}^3$$
 
-$$
-X, Y, Z: \omega \in \Omega \longrightarrow (X (\omega), Y (\omega), Z (\omega)) \in \mathcal {X} \times \mathcal {Y} \times \mathcal {Z} \subseteq \mathbb {R} ^ {3}
-$$
 
-e, date $m$ variabili aleatorie $X _ { i } \in \mathcal { X } _ { i } \subseteq \mathbb { R }$, avremo la $m$-pla aleatoria: 
-
-$$
-X _ {1}, \dots , X _ {m}: \omega \in \Omega \longrightarrow (X _ {1} (\omega), \dots , X _ {m} (\omega)) \in \mathcal {X} _ {1} \times \dots \times \mathcal {X} _ {m} \subseteq \mathbb {R} ^ {m}
-$$
-
-## pdf congiunta di due variabili aleatorie
+> [!info] Nota
+> La definizione non dipende dalla natura delle variabili (continue o discrete); la struttura rimane valida per qualsiasi combinazione di variabili aleatorie.
+### pdf congiunta di due variabili aleatorie
 
 Si consideri una coppia di variabili continue, $X \in \mathcal { X } \mathrm { ~ e ~ } Y \in \mathcal { Y }$, la loro **pdf congiunta** $f_{X,Y}(x,y)$ si definisce in perfetta analogia con la pdf di variabili continue singole (vedi slide 94): 
 
@@ -1522,11 +1450,11 @@ $$
 \int_ {\mathbb {R} ^ {2}} f _ {X, Y} (x, y) d x d y = \int_ {- \infty} ^ {+ \infty} \int_ {- \infty} ^ {+ \infty} f _ {X, Y} (x, y) d x d y = \mathbb {P} ((X, Y) \in \mathbb {R} ^ {2}) = 1
 $$
 
-## Proprietà della pdf congiunta
+#### Proprietà della pdf congiunta
 
 La **pdf congiunta** $f _ { X , Y } ( x , y )$ condivide con la pmf congiunta $p x , \gamma ( x , y ) \textrm { - e }$, per alcune, con tutte le densità, le seguenti proprietà: 
 
-### Proprietà di marginalizzazione
+##### Proprietà di marginalizzazione
 
 $$
 \int_ {\mathbb {R}} f _ {X, Y} (x, y) d y = f _ {X} (x) \qquad \int_ {\mathbb {R}} f _ {X, Y} (x, y) d x = f _ {Y} (y)
@@ -1534,7 +1462,7 @@ $$
 
 Per cui caratterizzare congiuntamente $( X , Y )$ significa anche caratterizzarle marginalmente, mentre il viceversa non è necessariamente vero. 
 
-### Indipendenza statistica
+##### Indipendenza statistica
 
 Due variabili aleatorie sono **indipendenti** se e solo se 
 
@@ -1548,7 +1476,7 @@ $$
 f _ {X _ {1}, \dots , X _ {m}} (x _ {1}, \dots , x _ {m}) = \prod_ {i = 1} ^ {m} f _ {X _ {i}} (x _ {i}), \qquad (x _ {1}, \dots , x _ {m}) \in \mathbb {R} ^ {m}
 $$
 
-## Le pdf condizionate
+### Le pdf condizionate
 
 Si considerino variabili aleatorie $X \in \mathcal { X } \mathrm { ~ e ~ } Y \in \mathcal { Y }$ con assegnata pdf congiunta $f _ { X , Y } ( x , y )$. 
 
@@ -1574,7 +1502,7 @@ che, come c’era da attendersi, riproduce l’analoga definizione per la pmf co
 
 Di conseguenza tutte le proprietà delle pmf condizionali si estendono alle pdf condizionali. 
 
-## Proprietà delle pdf condizionate
+#### Proprietà delle pdf condizionate
 
 Data l’analogia con le variabili discrete, ci limitiamo qui a riscrivere le proprietà della slide 74. 
 
@@ -1584,7 +1512,7 @@ $$
 f _ {X | Y} (x | y) \geq 0 \int_ {\mathbb {R}} f _ {X | Y} (x | y) d x = 1
 $$
 
-### Legge della probabilità totale per le pdf
+##### Legge della probabilità totale per le pdf
 
 $$
 f _ {X} (x) = \int_ {\mathbb {R}} f _ {X, Y} (x, y) d y = \int_ {\mathbb {R}} f _ {X | Y} (x | y) f _ {Y} (y) d y
@@ -1594,13 +1522,11 @@ $$
 f _ {Y} (y) = \int_ {\mathbb {R}} f _ {X, Y} (x, y) d x = \int_ {\mathbb {R}} f _ {Y | X} (y | x) f _ {X} (x) d x
 $$
 
-### Leggi della probabilità composta e di Bayes per le densità
+##### Leggi della probabilità composta e di Bayes per le densità
 
 $$
 f _ {X, Y} (x, y) = f _ {Y} (y) f _ {X | Y} (x | y) = f _ {X} (x) f _ {Y | X} (y | x) \Rightarrow f _ {Y | X} (y | x) = \frac {f _ {Y} (y) f _ {X | Y} (x | y)}{f _ {X} (x)}
 $$
-
-## Altre estensioni...
 
 Come nel caso discreto, avremo: 
 
@@ -1610,13 +1536,13 @@ $$
 \mathbb {E} [ Z ] = \int_ {\mathbb {R} ^ {2}} g (x, y) f _ {X}, \gamma (x, y) d x d y
 $$
 
-### Linearità della media
+##### Linearità della media
 
 $$
 \mathbb {E} \left[ \sum_ {i = 1} ^ {m} a _ {i} X _ {i} \right] = \sum_ {i = 1} ^ {m} a _ {i} \mathbb {E} \left[ X _ {i} \right]
 $$
 
-### Teorema della media condizionata
+##### Teorema della media condizionata
 
 > [!theorem] Teorema (*Media Condizionata*)
 > Enunciato: 
@@ -1633,23 +1559,23 @@ $$
 > h \left[ Y (\omega) \right] = \int_ {\mathbb {R}} g (x, Y) f _ {X | Y} (x | Y) d x
 > $$
 
-## Covarianza tra due variabili continue
+### Covarianza tra due variabili continue
 
 Siano $( X , Y ) \sim f _ { X , Y } ( x , y )$. Denotiamo con $( \mu _ { X } , \mu _ { Y } )$ le rispettive medie e $( \sigma _ { X } ^ { 2 } , \sigma _ { Y } ^ { 2 } )$ le rispettive varianze. Avremo, in analogia al caso discreto: 
 
-### Covarianza tra $X \in Y ;$
+#### Covarianza tra $X \in Y ;$
 
 $$
 \operatorname{COV} [ X, Y ] = \mathbb {E} \left[ (X - \mu_ {X}) (Y - \mu_ {Y}) \right] = \mathbb {E} [ X Y ] - \mu_ {X} \mu_ {Y}
 $$
 
-### Coefficiente di correlazione tra $X \textsf { e Y }$
+#### Coefficiente di correlazione tra $X \textsf { e Y }$
 
 $$
 \rho_ {X, Y} = \frac {\operatorname{COV} [ X , Y ]}{\sigma_ {X} \sigma_ {Y}}, \quad \left| \rho_ {X, Y} \right| \leq 1
 $$
 
-### Incorrelazione tra $X \textsf { e } Y \colon { \mathsf { C O V } } [ X , Y ] = 0$
+#### Incorrelazione tra $X \textsf { e } Y \colon { \mathsf { C O V } } [ X , Y ] = 0$
 
 > [!quote] Osservazione
 > Indipendenza implica incorrelazione, ma incorrelazione non implica indipendenza. 
@@ -1678,12 +1604,12 @@ $$
 \mathbb {E} \left[ (X - \mu_ {X}) ^ {2} \right] = \operatorname{VAR} \left[ \sigma_ {X} X _ {0} + \mu_ {X} \right] = \sigma_ {X} ^ {2}
 $$
 
-## Andamenti di pdf Gaussiane
+### Andamenti di pdf Gaussiane
 
 ![image](https://cdn-mineru.openxlab.org.cn/result/2026-06-27/b5f5d426-9c48-4e21-b90d-66928c562c74/14bd5c980e8521e5eb02a7517ff1fac46626c196028264217617a09b4afc4823.jpg)
 Figura 1: Andamenti di pdf Gaussiane.
 
-## La funzione Q(x)
+### La funzione Q(x) - Fu
 
 Sia $X _ { 0 } \sim \mathcal { N } ( 0 , 1 )$: nè la sua CDF né la sua CCDF sono note in forma esplicita, poiché $e ^ { - \gamma x ^ { 2 } }$ non ammette primitive elementari. 
 
@@ -1707,7 +1633,7 @@ $$
 
 Dato il suo uso frequente, nella prossima slide è presentato un diagramma della funzione $Q ( x ) , x \geq 0$. 
 
-## Andamento di Q(x)
+#### Andamento di Q(x)
 
 $$
 Q (x) \sim \frac {1}{x \sqrt {2 \pi}} e ^ {- \frac {x ^ {2}}{2}} <   e ^ {- \frac {x ^ {2}}{2}}, \qquad x \to \infty
@@ -1716,7 +1642,7 @@ $$
 ![image](https://cdn-mineru.openxlab.org.cn/result/2026-06-27/b5f5d426-9c48-4e21-b90d-66928c562c74/9e014a72e6bb4cff5f6045f5e3af68f8479b85e9889bcb10a79b45de356eb16a.jpg)
 Figura 2: Andamento di Q(x).
 
-## Alcune utili proprietà della funzione Q(x)
+#### Alcune utili proprietà della funzione Q(x)
 
 Si noti preliminarmente che 
 
@@ -1730,7 +1656,7 @@ $$
 \frac {d Q (x)}{d x} = - \frac {1}{\sqrt {2 \pi}} e ^ {- \frac {x ^ {2}}{2}} <   0 \forall \space x \rightarrow Q (x) \text {   è   decrescente   in   } x
 $$
 
-### Simmetria
+#### Simmetria
 
 $$
 Q (- x) = \frac {1}{\sqrt {2 \pi}} \int_ {- x} ^ {\infty} e ^ {- \frac {t ^ {2}}{2}} d t = 1 - \underbrace {\frac {1}{\sqrt {2 \pi}} \int_ {- \infty} ^ {- x} e ^ {- \frac {t ^ {2}}{2}} d t} _ {= Q (x)} = 1 - Q (x)
@@ -1742,7 +1668,7 @@ $$
 \mathbb {P} (X \geq \eta) = \mathbb {P} (X _ {0} \sigma_ {X} + \mu_ {X} \geq \eta) = \mathbb {P} (X _ {0} \geq \frac {\eta - \mu_ {X}}{\sigma_ {X}}) = Q (\frac {\eta - \mu_ {X}}{\sigma_ {X}})
 $$
 
-## Caratterizzazione congiunta di variabili Gaussiane
+### Caratterizzazione congiunta di variabili Gaussiane
 
 Siano $X _ { 1 } \sim \mathcal { N } ( \mu _ { 1 } , \sigma _ { 1 } ^ { 2 } ) \in X _ { 2 } \sim \mathcal { N } ( \mu _ { 2 } , \sigma _ { 2 } ^ { 2 } )$. Noi sappiamo che: 
 
@@ -1766,7 +1692,7 @@ $$
 = \mathbb {E} \left[ \begin{array}{c c} (X _ {1} - \mu_ {1}) ^ {2} & (X _ {1} - \mu_ {1}) (X _ {2} - \mu_ {2}) \\ (X _ {2} - \mu_ {2}) (X _ {1} - \mu_ {1}) & (X _ {2} - \mu_ {2}) ^ {2} \end{array} \right] = \left( \begin{array}{c c} \sigma_ {1} ^ {2} & \sigma_ {1} \sigma_ {2} \rho_ {1, 2} \\ \sigma_ {1} \sigma_ {2} \rho_ {1, 2} & \sigma_ {2} ^ {2} \end{array} \right)
 $$
 
-## Alcune proprietà della matrice di covarianza
+#### Alcune proprietà della matrice di covarianza
 
 Poiché $| \boldsymbol { K } \boldsymbol { x } | = \sigma _ { 1 } ^ { 2 } \sigma _ { 2 } ^ { 2 } \bigl ( 1 - \rho _ { 1 , 2 } ^ { 2 } \bigr ) \geq 0 , \boldsymbol { K } \boldsymbol { x }$ è definita non negativa; 
 
@@ -1790,7 +1716,7 @@ $$
 \boldsymbol {K} _ {\boldsymbol {X}} = \left( \begin{array}{c c} \sigma_ {1} ^ {2} & 0 \\ 0 & \sigma_ {2} ^ {2} \end{array} \right) \Longrightarrow \boldsymbol {K} _ {\boldsymbol {X}} ^ {- 1} = \left( \begin{array}{c c} \frac {1}{\sigma_ {1} ^ {2}} & 0 \\ 0 & \frac {1}{\sigma_ {2} ^ {2}} \end{array} \right)
 $$
 
-## Variabili congiuntamente Gaussiane
+#### Variabili congiuntamente Gaussiane
 
 Le due variabili $X _ { 1 } \sim \mathcal { N } ( \mu _ { 1 } , \sigma _ { 1 } ^ { 2 } ) \in X _ { 2 } \sim \mathcal { N } ( \mu _ { 2 } , \sigma _ { 2 } ^ { 2 } )$ si dicono **congiuntamente Gaussiane** se la loro pdf congiunta - cioè la pdf del vettore $\pmb { X } = ( X _ { 1 } X _ { 2 } ) ^ { T }$ - si scrive: 
 
