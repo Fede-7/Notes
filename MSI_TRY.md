@@ -1,12 +1,7 @@
-```table-of-contents
-```
-# Capitolo 1: Fondamenti della Teoria della Probabilità
 
-## 1.1 Definizioni e Strumenti Matematici Preliminari
+# Fondamenti Probabilità
 
-
-### 1.1.1 Qualche richiamo di insiemistica (Parte iniziale - Definizioni di base)
-
+## Definizioni
 
 > **Esperimento**
 > Un'operazione o un'azione (o un insieme di esse) il cui esito produce uno tra diversi risultati possibili. Ad esempio, il lancio di un dado è un esperimento poiché l'esito non è noto a priori ma appartiene a un insieme di possibilità predefinite.
@@ -24,8 +19,7 @@
 > [!quote] Osservazione
 > Un evento è univocamente individuato dagli elementi che lo compongono; al contrario, la proposizione che lo definisce non è unica.
 
-### 1.1.1 Qualche richiamo di insiemistica
-
+## Qualche richiamo di insiemistica
 
 Siano $\{ A _ { i } \} _ { i = 1 } ^ { M }$ $M$ sotto-insiemi di un insieme $\Omega .$. Definiamo:
 
@@ -57,9 +51,7 @@ $$
 A _ {1} \cap \left(\cup_ {i = 2} ^ {M} A _ {i}\right) = \cup_ {i = 2} ^ {M} \left(A _ {1} \cap A _ {i}\right)
 $$
 
-
-### 1.1.2 Nomenclatura probabilistica
-
+## Nomenclatura probabilistica
 
 - $\Omega$ si definisce **evento certo**;
 - $\emptyset \space$  si definisce **evento impossibile**;
@@ -68,11 +60,7 @@ $$
 - Se $A \subseteq B$ si dice che $A$ **implica** $B$, cioè il verificarsi di $A$ implica che si verifichi $B$.
 
 
-
-### 1.1.3 Strumenti di calcolo combinatorio
-
-#### 1.1.3.2 Spazi finiti con eventi elementari equivalenti
-
+## Spazi finiti con eventi elementari equivalenti
 
 Sia $\Omega$ uno spazio dei campioni finito; 
 
@@ -88,8 +76,7 @@ Quindi per eventi equivalenti è importante saper contare le cardinalità dei so
 
 La branca che si occupa di questo problema si chiama **calcolo combinatorio**.
 
-#### 1.1.3.1 Prodotti cartesiani
-
+## Prodotti cartesiani
 
 Si considerino $k$ insiemi finiti, $A _ { 1 } , \ldots A _ { k }$, non necessariamente distinti. 
 
@@ -104,9 +91,7 @@ $$
 
 Questa è la relazione fondamentale del calcolo combinatorio, dalla quale molte altre formule di conteggio derivano. 
 
-
-#### 1.1.3.3 k-ple ordinate senza ripetizione
-
+## k-ple ordinate senza ripetizione
 
 Si supponga $A = \{ a _ { 1 } , \ldots a _ { n } \}$.
 
@@ -119,9 +104,7 @@ Pertanto il richiesto numero è
 $$
 \left| A ^ {(k)} \right| = n (n - 1) (n - 2) \cdot \dots \cdot (n - k + 1) = \prod_ {i = 0} ^ {k - 1} (n - i)
 $$
-
-#### 1.1.3.4 Permutazioni
-
+## Permutazioni
 
 Un caso particolare - ma molto rilevante - del calcolo precedente è quando $k = n$. La domanda cui si vuole rispondere è: 
 
@@ -133,9 +116,7 @@ Risposta: È un caso speciale di enumerazione di k-ple quando $k = n$, cioè:
 
 Questo ci conduce immediatamente al concetto di combinazioni. 
 
-
-#### 1.1.3.5 Combinazioni e formalismo $(\overline{G}_m)_s^s$
-
+## Combinazioni $( \overline { { G } } _ { m } ) _ { s } ^ { s }$
 
 > [!theorem] Combinazione
 > **Definizione**: Una combinazione è una selezione di elementi da un insieme in cui l'ordine degli elementi non è rilevante. In pratica, si contano i sottogruppi possibili senza preoccuparsi della sequenza in cui sono stati scelti.
@@ -152,9 +133,7 @@ C _ {n, k} = \frac {n (n - 1) \cdot \ldots (n - k + 1)}{k !} = \frac {n !}{k ! (
 $$
 
 dove $\left( \begin{array} { l } { n } \\ { k } \end{array} \right)$ è il coefficiente binomiale $( n , k )$.
-
-#### 1.1.3.6 Insieme delle parti di un insieme finito
-
+## Insieme delle parti di un insieme finito
 
 Si consideri un insieme $A$ con $n$ elementi. 
 
@@ -172,11 +151,8 @@ $$
 | \mathcal {P} (A) | = \sum_ {k = 0} ^ {n} \binom{n}{k} = 2 ^ {n}
 $$
 
-
-## 1.2 Formulazione Frequentista ed Esperimenti Aleatori
-
-### 1.2.1 Dalla frequenza alla probabilità
-
+# Discreto
+## Dalla frequenza alla probabilità
 
 Dato uno spazio dei campioni discreto $\Omega$ e un suo qualunque sottoinsieme (o evento) $A$, si definisce **probabilità** che occorra $A$ come il limite della frequenza di occorrenza di $A$ quando il numero di esperimenti — o prove — tende all’infinito, cioè: 
 
@@ -194,9 +170,7 @@ $$
 
 dove $\Omega _ { A }$ contiene tutti gli eventi che comportano il verificarsi di $A$. 
 
-
-### 1.2.2 Frequenza di occorrenza e probabilità su spazi finiti
-
+## Frequenza di occorrenza e probabilità su Spazi finiti
 
 Sia $\Omega$ uno spazio campione discreto (cioè, finito o numerabile). Rimuovendo l’ipotesi che gli eventi elementari siano equiprobabili, la definizione di **probabilità** data in precedenza rimane valida. 
 
@@ -211,21 +185,16 @@ La principale differenza rispetto al caso di equiprobabilità è che non è più
 > [!quote] Osservazione
 > Quando gli eventi elementari non sono equiprobabili, un evento $A \subseteq \Omega$ ha una misura diversa da quella ordinaria data dal numero dei suoi elementi distinti. Di conseguenza, due eventi $A \subseteq \Omega \mathrm { ~ e ~ } B \subseteq \Omega$ di uguale cardinalità $( | A | = | B | )$ possono avere "pesi" (cioè misure) diversi e le tecniche di conteggio non sono più sufficienti ai fini del calcolo della probabilità.
 
-
-### 1.2.3 Alcune proprietà della frequenza di occorrenza e della probabilità
-
+## Alcune proprietà della frequenza di occorrenza e della probabilità 
 
 Siano $A$ e $B$ due eventi. Siano $N_A$ e $N_B$ il numero di occorrenze su $n$ prove, $\frac{N_A}{n}$ e $\frac{N_B}{n}$ le relative frequenze, e $P(A)$ e $P(B)$ i rispettivi limiti (ovvero le probabilità). Valgono le seguenti proprietà:
 
-#### 1.2.3.1 Eventi complementari
-
+### a Eventi complementari
 $$
 f _ {n} (\overline {{A}}) = \frac {n - n _ {A}}{n} = 1 - f _ {n} (A) \Longrightarrow \mathbb {P} (\overline {{A}}) = 1 - \mathbb {P} (A)
 $$
 
-
-#### 1.2.3.2 Sub-additività
-
+### b Sub-additività
 $$P(A \cup B) = P(A) + P(B) - P(A \cap B) \tag{1}$$
 $$
 f _ {n} (A \cup B) = \frac {n _ {A U B}}{n} = \frac {n _ {A} + n _ {B} - n _ {A \cap B}}{n} = f _ {n} (A) + f _ {n} (B) - f _ {n} (A \cap B) \rightarrow
@@ -236,9 +205,7 @@ $$
 
 Infatti, se $A$ e $B$ non sono incompatibili, sommare semplicemente $\frac{N_A}{n}$ e $\frac{N_B}{n}$ equivarrebbe a contare due volte le occorrenze di entrambi (cioè le occorrenze di $A \cap B )$), il che spiega il termine sottrattivo.
 
-
-#### 1.2.3.3 Sottrazione tra insiemi
-
+### c Sottrazione tra insiemi
 $$P(A \setminus B) = P(A) - P(A \cap B) \tag{2}$$
 $$
 f _ {n} (A \setminus B) = f _ {n} (A \cap \overline {{B}}) = \frac {n _ {A} - n _ {A \cap B}}{n} = f _ {n} (A) - f _ {n} (A \cap B) \rightarrow
@@ -249,20 +216,14 @@ $$
 
 Infatti, dovendosi verificare $A$ ma non $B$, bisogna sottrarre a $\frac{N_A}{n}$ il numero di esperimenti in cui si verificano entrambi, $n _ { A \cap B }$.
 
-
-#### 1.2.3.4 Evento certo ed evento impossibile
-
+### d Evento certo ed evento impossibile
 Banalmente:
 
 $$
 f _ {n} (\Omega) = \frac {n}{n} = 1 \rightarrow \mathbb {P} (\Omega) = 1 \rightarrow \mathbb {P} (\emptyset \space ) = \mathbb {P} (\overline {{\Omega}}) = 0
 $$
 
-
-## 1.3 Probabilità Condizionata e Relazioni tra Eventi
-
-### 1.3.1 Frequenze e probabilità condizionate
-
+## Frequenze e probabilità condizionate
 
 Siano $A$ e $B$ due eventi che occorrano $n _ { A } \in n _ { B }$ volte su $n$ esperimenti. Definiamo la **frequenza di occorrenza** di $A$ condizionata a $B \texttt { - } f _ { n } ( A | B )$ come il rapporto tra il numero di prove in cui si verificano entrambi $\left( n _ { A \cap B } \right)$ e il numero di volte in cui si verifica solo $B$, cioè, formalmente:
 
@@ -278,9 +239,7 @@ $$
 
 L’ultima relazione prende anche il nome di **legge della probabilità composta**.
 
-
-### 1.3.2 Legge della probabilità totale
-
+## Legge della probabilità totale
 
 Un’importante conseguenza della definizione di probabilità condizionata è la **legge della probabilità totale**.
 
@@ -357,9 +316,7 @@ c. Se $A$ è un evento qualsiasi, allora la minima algebra che contiene $A$ è $
 - $A$ deve essere elemento di $E$ per la chiusura rispetto alla complementazione; 
 - $A \cup { \overline { { A } } } = \Omega$ deve essere un elemento di $E$ per la proprietà di chiusura rispetto all’unione e $\varnothing = { \overline { { \Omega } } }$ deve esso stesso appartenervi per la chiusura rispetto alla complementazione. 
 
-
-### 1.4.2 Spazi di probabilità
-
+## Spazi di probabilità
 
 Si definisce **legge di probabilità** una funzione con dominio $E$ e co-dominio $[0, 1]$, cioè: 
 
@@ -383,9 +340,7 @@ A e B incompatibili $\implies$ $( A \cap B = \emptyset \space  ) \ \Longrightarr
 
 La terna $(\Omega, E, P)$ si definisce **Spazio di Probabilità**. 
 
-
-### 1.4.3 Proprietà delle leggi di probabilità (dimostrazioni)
-
+## Proprietà delle leggi di probabilità ("""dimosrazioni""")
 
 ### Eventi complementari
 $$
@@ -1316,9 +1271,7 @@ $$F_{X|A}(x) = \mathbb{P}(X \leq x \mid A) = \frac{\mathbb{P}(\{X \leq x\} \cap 
 Da cui si ricava la densità(pdf) derivando rispetto a $x$:
 $$f_{X|A}(x) = \frac{d}{dx} F_{X|A}(x)$$
 
-
-### 1.3.2 Legge della probabilità totale
-
+## Legge della probabilità totale per PDF, CDF e Medie
 
 >[!rb] R.B.
 >In modo del tutto analogo al caso discreto.
@@ -2780,8 +2733,7 @@ Gli esempi includono diverse situazioni di interesse pratico, quali:
 
 In tutte le situazioni sopra citate, risulta praticamente impossibile assegnare un costo a un errore di giudizio sullo "stato della natura", ovvero a una decisione errata tra le due ipotesi "tutto normale" o "qualcosa sta accadendo". È inoltre di poca importanza assegnare una probabilità a priori che "anomalie statistiche" siano presenti nel set di dati.
 
-### 1.1.1 Qualche richiamo di insiemistica (Parte iniziale - Definizioni di base)
-
+## Definizioni nel test di ipotesi
 
 > [!theorem] Ipotesi Nulla ($H_0$)
 > L'**ipotesi nulla**, tradizionalmente denotata $H _ { 0 }$, è l'assunzione di base che il set di dati osservati $\pmb { x } ^ { n }$ sia una realizzazione di un vettore casuale con una distribuzione condizionale nota, con pmf/pdf $p _ { X ^ { n } | H _ { 0 } } ( { \pmb x } ^ { n } | H _ { 0 } ) / f _ { { \pmb X } ^ { n } | H _ { 0 } } ( { \pmb x } ^ { n } | H _ { 0 } )$.
@@ -3073,8 +3025,7 @@ $$
 
 Si può dimostrare che entrambi gli estimatori sono **fortemente consistenti**, nel senso che ${ \widehat { B } } ( X ^ { n } ) \to B$ quasi certamente.
 
-### 1.1.1 Qualche richiamo di insiemistica (Parte iniziale - Definizioni di base)
-
+## Definizioni Generali
 
 Consideriamo un campione $\mathbf{X}$ estratto da un vettore casuale $\mathbf{Y}$. 
 
