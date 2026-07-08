@@ -38,7 +38,7 @@ Richiede: Definizione di variabile aleatoria discreta, probability mass function
 
 ---
 
-### Media di funzioni di variabili aleatorie
+### Media di funzioni e LOTUS
 
 > [!important] Teorema (**Teorema fondamentale per il calcolo della media**)
 > Sia $X$ una variabile aleatoria discreta con pmf $p_X(x)$ e sia $Y = g(X)$ una nuova variabile aleatoria ottenuta tramite la trasformazione $g(\cdot)$. Il valore atteso (o media statistica) di $Y$ può essere calcolato direttamente a partire dalla pmf di $X$ senza ricavare preventivamente la pmf $p_Y(y)$, secondo la relazione:

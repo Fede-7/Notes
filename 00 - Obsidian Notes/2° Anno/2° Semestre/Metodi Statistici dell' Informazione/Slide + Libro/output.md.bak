@@ -1,18 +1,24 @@
 ## Elementi di Statistica inferenziale
 
-## Inferenza Bayesiana
+Marco Lops 
+
+lops@unina.it 
+
+https://docenti.unina.it/marco.lops 
+
+## Alcune Definizioni
 
 Assumiamo di avere un campione di dimensione n, diciamo $\pmb { x } \in \mathbb { R } ^ { n }$ 
 
-Assumiamo che questo campione sia il risultato di un esperimento casuale, il che significa che il ri-campionamento porterebbe a un set di risultati differente, diciamo $\pmb { x } ^ { \prime } \in \mathbb { R } ^ { n }$; 
+Assumiamo che questo campione sia il risultato di un esperimento casuale, il che significa che il ri-campionamento porterebbe a un set di risultati diverso, diciamo $\pmb { x } ^ { \prime } \in \mathbb { R } ^ { n }$; 
 
 L'inferenza statistica è il processo di utilizzo dell'analisi dei dati per dedurre proprietà di una distribuzione di probabilità sottostante, ovvero definire una legge che qualsiasi campione - estratto casualmente - dovrebbe rispettare; 
 
-La statistica inferenziale può essere contrapposta alla statistica descrittiva. La statistica descrittiva si occupa esclusivamente delle proprietà dei dati osservati e non si basa sull'assunzione che i dati provengano da una popolazione più ampia.
+La statistica inferenziale può essere contrastata con la statistica descrittiva. La statistica descrittiva si occupa esclusivamente delle proprietà dei dati osservati e non si basa sull'assunzione che i dati provengano da una popolazione più ampia.
 
 Gli obiettivi di base dell'inferenza statistica sono il Test delle Ipotesi e la Stima dei Parametri. 
 
-## Inferenza Bayesiana
+## Un esempio: la media campionaria
 
 Assumiamo di avere un set di dati $\pmb { x } ^ { n } \in \mathcal { X } ^ { n } \subseteq \mathbb { R } ^ { n }$; 
 
@@ -32,13 +38,13 @@ La convergenza debole (cioè, convergenza in probabilità) ci dice che la freque
 
 La convergenza forte afferma che nel limite la probabilità di discostarsi da $\mathbb { E } [ X ]$ è zero; 
 
-La convergenza in media quadratica (Mean-Square) afferma che 
+La convergenza in media quadratica (Mean-Square convergence) afferma che 
 
 $$
 \lim _ {n} \mathbb {E} \left[ \left(\overline {{X}} _ {n} - \mathbb {E} [ X ]\right) ^ {2} \right] = 0
 $$
 
-## Inferenza Bayesiana
+## La media campionaria - cont.
 
 Assumiamo che $\pmb { x } ^ { n } \in \mathcal { X } ^ { n }$, con $\mathcal { X } = ( a _ { 1 } , \dotsc , a _ { M } )$ discreto e finito; 
 
@@ -64,9 +70,9 @@ $$
 
 Si noti che se possiamo affermare che $f _ { n } ( a _ { i } ) \to p \chi ( a _ { i } )$ (in qualche senso), allora possiamo inferire che $\pmb { x } ^ { n }$ è un campione da una popolazione i cui elementi sono estratti da un vettore casuale $X ^ { n }$ con densità marginale $\{ p _ { X } ( a _ { i } ) \} _ { i = 1 } ^ { M }$ 
 
-## Inferenza Bayesiana
+## La distribuzione empirica
 
-Assumiamo che $\pmb { x } ^ { n }$ sia estratto da $X ^ { n }$, un set di n variabili casuali iid con marginale sconosciuto $\{ p _ { X } ( a _ { i } ) \} _ { i = 1 } ^ { M }$ • 
+Assumiamo che $\pmb { x } ^ { n }$ sia estratto da $X ^ { n }$, un set di n variabili casuali iid con marginale sconosciuta $\{ p _ { X } ( a _ { i } ) \} _ { i = 1 } ^ { M }$ • 
 
 La frequenza di occorrenza dell'evento $X _ { k } = a _ { i }$ è essa stessa casuale. Se $N _ { j }$ è il numero di volte in cui $X _ { k } = a _ { i }$ nel nostro campione n-dimensionale, abbiamo: 
 
@@ -86,7 +92,7 @@ $$
 \lim _ {n \rightarrow \infty} \mathbb {E} \left[\left(\frac {N _ {i}}{n} - p _ {X} (a _ {i})\right) ^ {2} \right] = 0
 $$
 
-### Tipi di convergenza
+## Convergenza quasi certa
 
 Assumiamo che $\{ q ( a _ { i } ) \}$ sia qualsiasi altra pmf su $\mathcal { X }$ differente dalla vera distribuzione $p _ { X } { \left( a _ { i } \right) }$ in almeno due elementi. Abbiamo: 
 
@@ -112,7 +118,7 @@ $$
 \binom{n}{n q (a _ {i})} \sim 2 ^ {n H _ {2} (q (a _ {i}), 1 - q (a _ {i}))}
 $$
 
-### Tipi di convergenza
+## Convergenza quasi certa - cont.
 
 Consideriamo ora un valore $a _ { j }$ per il quale $q ( a _ { i } ) \neq p _ { X } ( a _ { i } )$ 
 
@@ -132,7 +138,7 @@ Concludiamo quindi che la probabilità che la frequenza di occorrenza non sia ug
 
 Ciò implica che $f _ { n } ( a _ { i } ) \to p \chi ( a _ { i } )$ quasi certamente. 
 
-# 6. Statistica Inferenziale e Stima
+## Commenti
 
 Assumiamo di avere un campione $\pmb { x } ^ { n } \in \mathcal { X } ^ { n } , \mathcal { X } = \{ a _ { 1 } , . . . , a _ { M } \}$ estratto da un vettore casuale $X ^ { n }$ di pmf sconosciuta; 
 
@@ -156,9 +162,9 @@ $$
 \operatorname * {P r} \left\{\lim _ {n \rightarrow \infty} f (\boldsymbol {X} ^ {n}) = \lim _ {n \rightarrow \infty} f (\boldsymbol {x} ^ {n}) \right\} = 1
 $$
 
-Così, la media campionaria converge con probabilità uno alla media statistica della popolazione.Questa proprietà è anche definita nelle statistiche inferenziali come forte coerenza.
+Così, la media campionaria converge con probabilità uno alla media statistica della popolazione.Questa proprietà è anche definita nella statistica inferenziale come forte coerenza.
 
-## Inferenza Bayesiana
+## Statistica Inferenziale
 
 L'idea principale è che, una volta osservato un campione sufficientemente ampio di una data popolazione di dati, possiamo inferire un numero di caratteristiche che qualsiasi altro campione dovrebbe rispettare;
 
@@ -170,127 +176,99 @@ Per iniziare, assumiamo che il campione sia noto come estratto da una famiglia d
 
 Domanda: Come elaboriamo il dataset disponibile per inferire il valore del parametro?
 
-### Teoria della decisione e Costi Bayesiani
+## Impostazione Bayesiana: Regola di decisione
 
-Assumiamo di avere un dataset $\pmb { x } ^ { n } \in \mathcal { X } ^ { n }$ che è una realizzazione di un vettore casuale $X ^ { n }$;
+Assumiamo di avere un dataset $\llbracket\text{MATHINLINE\_0204}\rrbracket$ che è una realizzazione di un vettore casuale $\llbracket\text{MATHINLINE\_0205}\rrbracket$;
 
 Assumiamo che - in base allo stato della natura - i dati possano provenire da una qualsiasi delle $M$ diverse leggi di probabilità.
 
-Abbiamo quindi un insieme di $M$ ipotesi diverse e mutuamente esclusive $\{ H _ { i } \} _ { i = 1 } ^ { M }$, ciascuna delle quali definisce una diversa legge condizionale per il set di dati, ovvero:
+Abbiamo quindi un insieme di $M$ ipotesi diverse e mutuamente esclusive $\llbracket\text{MATHINLINE\_0206}\rrbracket$, ciascuna delle quali definisce una diversa legge condizionale per il set di dati, ovvero:
 
-$$
-p _ {\boldsymbol {X} ^ {n}} \left(\boldsymbol {x} ^ {n} \mid H _ {i}\right), \quad i = 1, \dots , M
-$$
+$\llbracket\text{MATHBLOCK\_0018}\rrbracket$
 
-Assumiamo che il vettore casuale $X ^ { n }$ sia estratto da una famiglia di distribuzioni con pmf $p _ { X ^ { n } | \Theta } ( { \pmb x } ^ { n } | \theta )$, dove il valore di $\theta$ è sconosciuto;
+Assumiamo che il vettore casuale $\llbracket\text{MATHINLINE\_0207}\rrbracket$ sia estratto da una famiglia di distribuzioni con pmf $\llbracket\text{MATHINLINE\_0208}\rrbracket$, dove il valore di $\llbracket\text{MATHINLINE\_0209}\rrbracket$ è sconosciuto;
 
-Assumiamo anche che le probabilità a priori - $\{ p ( H _ { i } ) \} _ { i = 1 } ^ { M }$ - di questi stati della natura siano assegnate;
+Assumiamo anche che le probabilità a priori - $\llbracket\text{MATHINLINE\_0210}\rrbracket$ - di questi stati della natura siano assegnate;
 
 Una regola di decisione è una mappa:
 
-$$
-D: \mathbf {x} ^ {n} \in \mathcal {X} ^ {n} \Longrightarrow D (\mathbf {x} ^ {n}) \in \{1, \dots , M \}
-$$
+$\llbracket\text{MATHBLOCK\_0019}\rrbracket$
 
 che ci permette di decidere quale dei possibili stati della natura sia quello effettivamente in vigore.
 
-### Teoria della decisione e Costi Bayesiani
+## Costi Bayesiani
 
-Assumiamo di definire la seguente matrice di costo $M \times M$
+Assumiamo di definire la seguente matrice di costo $\llbracket\text{MATHINLINE\_0211}\rrbracket$
 
-$$
-\boldsymbol {C} = \left[ \begin{array}{c c c c} C _ {1, 1} & C _ {1, 2} & \ldots & C _ {1, M} \\ \ldots & \ldots & \ldots & \ldots \\ C _ {M, 1} & C _ {M, 2} & \ldots & C _ {M, M} \end{array} \right]
-$$
+$\llbracket\text{MATHBLOCK\_0020}\rrbracket$
 
-dove $C _ { i , j }$ è il costo associato all'evento in cui prendiamo la decisione $D ( \pmb { x } ^ { n } ) = i$ e lo stato della natura è $H _ { j }$
+dove $\llbracket\text{MATHINLINE\_0212}\rrbracket$ è il costo associato all'evento in cui prendiamo la decisione $\llbracket\text{MATHINLINE\_0213}\rrbracket$ e lo stato della natura è $\llbracket\text{MATHINLINE\_0214}\rrbracket$
 
 Definiamo il rischio Bayesiano medio come:
 
-$$
-\mathcal {R} = \sum_ {i = 1} ^ {M} \sum_ {j = 1} ^ {M} C _ {i, j} \mathbb {P} \left\{D (\boldsymbol {X} ^ {n}) = i, H = H _ {j} \right\}
-$$
+$\llbracket\text{MATHBLOCK\_0021}\rrbracket$
 
-Data una matrice di costo $C$, una regola di decisione ottimale è una mappa $D ( \pmb { x } ^ { n } )$ che minimizza il rischio Bayesiano;
+Data una matrice di costo $C$, una regola di decisione ottimale è una mappa $\llbracket\text{MATHINLINE\_0215}\rrbracket$ che minimizza il rischio Bayesiano;
 
-Si noti che, se $C _ { i , i } = 0 ~ i = 1 , . . .$, $M$ e $C _ { i , j } = 1 \forall i \neq j$, allora
+Si noti che, se $\llbracket\text{MATHINLINE\_0216}\rrbracket$, $M$ e $\llbracket\text{MATHINLINE\_0217}\rrbracket$, allora
 
-$$
-\mathcal {R} = \sum_ {i = 1} ^ {M} \sum_ {j \neq} ^ {M} \mathbb {P} \left\{D (\boldsymbol {X} ^ {n}) = i, H = H _ {j} \right\} = \mathbb {P} (e)
-$$
+$\llbracket\text{MATHBLOCK\_0022}\rrbracket$
 
 ovvero il rischio Bayesiano medio coincide con la probabilità di commettere un errore di classificazione.
 
-### Classificazione Binaria (Discreta e Continua)
+## Problema di Classificazione Binaria
 
-Assumiamo per il momento che $M = 2$, che $C _ { 1 , 1 } = C _ { 2 , 2 } = 0$ e $C _ { 1 , 2 } = C _ { 2 , 1 } = 1$ in modo che
+Assumiamo per il momento che $\llbracket\text{MATHINLINE\_0218}\rrbracket$, che $\llbracket\text{MATHINLINE\_0219}\rrbracket$ e $\llbracket\text{MATHINLINE\_0220}\rrbracket$ in modo che
 
-$$
-\mathcal {R} = \mathbb {P} \left\{D (\boldsymbol {X} ^ {n}) = 2, H _ {1} \right\} + \mathbb {P} \left\{D (\boldsymbol {X} ^ {n}) = 1, H _ {2} \right\} = \mathbb {P} (e)
-$$
+$\llbracket\text{MATHBLOCK\_0023}\rrbracket$
 
-Progettare una regola di decisione implica determinare una partizione di $\mathcal { X } ^ { n }$ in due sottoinsiemi, $\Omega _ { 1 }$ e $\Omega _ { 2 }$, tali che
+Progettare una regola di decisione implica determinare una partizione di $\llbracket\text{MATHINLINE\_0221}\rrbracket$ in due sottoinsiemi, $\llbracket\text{MATHINLINE\_0222}\rrbracket$ e $\llbracket\text{MATHINLINE\_0223}\rrbracket$, tali che
 
-$$
-D (\boldsymbol {x} ^ {n}) = \left\{ \begin{array}{l l} 1 & \text { if } \boldsymbol {x} ^ {n} \in \Omega_ {1} \\ 2 & \text { if } \boldsymbol {x} ^ {n} \in \Omega_ {2} \end{array} \right.
-$$
+$\llbracket\text{MATHBLOCK\_0024}\rrbracket$
 
 La corrispondente probabilità di errore è quindi scritta come:
 
-$$
-\mathbb {P} (e) = \mathbb {P} \left\{\boldsymbol {X} ^ {n} \in \Omega_ {1}, H _ {2} \right\} + \mathbb {P} \left\{\boldsymbol {X} ^ {n} \in \Omega_ {2}, H _ {1} \right\}
-$$
+$\llbracket\text{MATHBLOCK\_0025}\rrbracket$
 
-Vogliamo determinare la legge di decisione ottimale (cioè con la minima probabilità di errore) per questo problema di classificazione binaria.
+Vogliamo determinare la legge di decisione ottimale (cioè, con la minima probabilità di errore) per questo problema di classificazione binaria.
 
 ## Classificazione Binaria: leggi di dati discreti
 
-Assumiamo che le osservazioni $X ^ { n }$ siano un vettore casuale discreto con pmf condizionali dati $p { \pmb X } ^ { m } \big ( { \pmb x } ^ { n } | H _ { i } \big )$;
+Assumiamo che le osservazioni $\llbracket\text{MATHINLINE\_0224}\rrbracket$ siano un vettore casuale discreto con pmf condizionali dati $\llbracket\text{MATHINLINE\_0225}\rrbracket$;
 
-Abbiamo ovviamente $\begin{array} { r } { \mathbb { P } \left\{ \pmb { X } ^ { n } \in \Omega _ { i } , H _ { j } \right\} = \pmb { 1 } - \sum _ { \pmb { x } ^ { n } \in \Omega _ { i } } p ( H _ { i } ) \mathbb { P } \left\{ \pmb { X } ^ { n } = \pmb { x } ^ { n } | H _ { i } \right\} } \end{array}$ dove la probabilità di errore è scritta come
+Abbiamo ovviamente $\llbracket\text{MATHINLINE\_0226}\rrbracket$ dove la probabilità di errore è scritta come
 
-$$
-\mathbb {P} (e) = 1 - \left[ \sum_ {\boldsymbol {x} ^ {n} \in \Omega_ {1}} p \left(H _ {1}\right) \mathbb {P} \left\{\boldsymbol {X} ^ {n} = \boldsymbol {x} ^ {n} \mid H _ {1} \right\} + \sum_ {\boldsymbol {x} ^ {n} \in \Omega_ {2}} p \left(H _ {2}\right) \mathbb {P} \left\{\boldsymbol {X} ^ {n} = \boldsymbol {x} ^ {n} \mid H _ {2} \right\} \right]
-$$
+$\llbracket\text{MATHBLOCK\_0026}\rrbracket$
 
 che è minima quando la quantità tra parentesi è massima.
 
 Otteniamo quindi la seguente regola di decisione ottimale:
 
-$$
-\boldsymbol {x} ^ {n} \in \Omega_ {i} \text {   iff   } p _ {\boldsymbol {X} ^ {n} | H _ {1}} (\boldsymbol {x} ^ {n} | H _ {1}) P (H _ {1}) > p _ {\boldsymbol {X} ^ {n} | H _ {2}} (\boldsymbol {x} ^ {n} | H _ {2}) P (H _ {2})
-$$
+$\llbracket\text{MATHBLOCK\_0027}\rrbracket$
 
 o equivalentemente
 
-$$
-L (\boldsymbol {x} ^ {n}) = \frac {p _ {\boldsymbol {X} ^ {n}} (\boldsymbol {x} ^ {n} | H _ {1})}{p _ {\boldsymbol {X} ^ {n}} (\boldsymbol {x} ^ {n} | H _ {2})} \underset {H _ {2}} {\overset {H _ {1}} {\gtrless}} \frac {P (H _ {2})}{P (H _ {1})} = \eta
-$$
+$\llbracket\text{MATHBLOCK\_0028}\rrbracket$
 
-La quantità $L ( \pmb { x } ^ { n } )$ sul lato sinistro (LHS) è chiamata rapporto di verosimiglianza tra le due ipotesi alternative.
+La quantità $\llbracket\text{MATHINLINE\_0227}\rrbracket$ sul lato sinistro (LHS) è chiamata rapporto di verosimiglianza tra le due ipotesi alternative.
 
-### Classificazione Binaria (Discreta e Continua)
+## Alcuni commenti
 
-La precedente regola di decisione è nota anche come regola di decisione a Massima Probabilità a Posteriori (MAP), in quanto, per la legge di Bayes:
+La precedente regola di decisione è nota anche come regola di decisione a Massima Probabilità a Posteriori (MAP), in quanto, dalla legge di Bayes:
 
-$$
-\mathbb {P} \left\{H = H _ {i} | \boldsymbol {X} ^ {n} = \boldsymbol {x} ^ {n} \right\} = \frac {\mathbb {P} \left\{\boldsymbol {X} ^ {n} = \boldsymbol {x} ^ {n} \mid H _ {i} \right\} P (H _ {i})}{\mathbb {P} \left\{\boldsymbol {X} ^ {n} = \boldsymbol {x} ^ {n} \right\}} = \frac {p _ {\boldsymbol {X} ^ {n}} (\boldsymbol {x} ^ {n} \mid H _ {i}) P (H _ {i})}{p _ {\boldsymbol {X} ^ {n}} (\boldsymbol {x} ^ {n})}
-$$
+$\llbracket\text{MATHBLOCK\_0029}\rrbracket$
 
-mostrando che la regola decide per l'ipotesi la cui probabilità a posteriori dati i dati osservati è massima.
+mostrando che la regola decide per l'ipotesi la cui probabilità a posteriori data dai dati osservati è massima.
 
-Nel caso speciale in cui le due ipotesi siano ugualmente probabili, la soglia è $\eta = 1$ e la regola di decisione diventa una regola di decisione a Massima Verosimiglianza (ML).
+Nel caso speciale in cui le due ipotesi siano ugualmente probabili, la soglia è $\llbracket\text{MATHINLINE\_0228}\rrbracket$ e la regola di decisione diventa una regola di decisione a Massima Verosimiglianza (ML).
 
 Poiché le probabilità di errore condizionali sono:
 
-$$
-P (e | H _ {1}) = \mathbb {P} \left\{L (\boldsymbol {X} ^ {n}) <   \eta | H _ {1} \right\} \quad P (e | H _ {2}) = \mathbb {P} \left\{L (\boldsymbol {X} ^ {n}) > \eta | H _ {2} \right\}
-$$
+$\llbracket\text{MATHBLOCK\_0030}\rrbracket$
 
 la probabilità di errore è
 
-$$
-\mathbb {P} (e) = P \left(H _ {1}\right) P \left(e \mid H _ {1}\right) + P \left(H _ {2}\right) P \left(e \mid H _ {2}\right)
-$$
+$\llbracket\text{MATHBLOCK\_0031}\rrbracket$
 
 ## Esempio: classificazione di sorgenti binarieAssumiamo che le osservazioni siano variabili binarie iid che possono provenire con probabilità uguali da una sorgente con ${ \mathbb { P } } \left\{ X _ { i } = 1 \right\} = p _ { 1 }$ o da una sorgente con ${ \mathbb { P } } \left\{ X _ { i } = 1 \right\} = p _ { 2 }$ , con $p _ { 1 } > p _ { 2 }$ 
 
@@ -320,7 +298,7 @@ $$
 w _ {H} \big (\boldsymbol {x} ^ {n} \big) \left[ \ln \left(\frac {p _ {1}}{1 - p _ {1}} \frac {1 - p _ {2}}{p _ {2}}\right) \right] \underset {H _ {2}} {\overset {H _ {1}} {\gtrless}} n \ln \left(\frac {1 - p _ {2}}{1 - p _ {1}}\right)
 $$
 
-### Classificazione Binaria (Discreta e Continua)
+## Valutazione delle prestazioni
 
 Si noti che, poiché $p _ { 1 } > p _ { 2 }$ , tutti i logaritmi sono non negativi; 
 
@@ -346,7 +324,7 @@ $$
 \mathbb {P} (e) = \frac {1}{2} \mathbb {P} (e | H _ {1}) + \frac {1}{2} \mathbb {P} (e | H _ {2})
 $$
 
-### Classificazione Binaria (Discreta e Continua)
+## Classificazione binaria: legge dei dati continui
 
 Assumiamo ora che i dati possano essere estratti da M possibili leggi di probabilità continue, dove ci viene fornito un insieme di funzioni di densità di probabilità condizionali candidate $\{ f _ { \pmb { X } ^ { n } | H _ { i } } ( \pmb { x } ^ { n } | \pmb { H } _ { i } ) \} _ { i = 1 } ^ { M }$ ; 
 
@@ -370,7 +348,7 @@ $$
 
 La quantità $L ( \pmb { x } ^ { n } )$ sul lato sinistro (LHS) è di nuovo chiamata rapporto di verosimiglianza tra le due ipotesi alternative. 
 
-### Test di ipotesi e Neyman-Pearson
+## Esempio: test della media di una popolazione Gaussiana
 
 Assumiamo che il set di dati $\pmb { x } ^ { n }$ abbia la stessa probabilità di essere una realizzazione di un vettore casuale Gaussiano indipendente i cui elementi hanno la stessa varianza e medie diverse $\mu _ { 1 }$ e $\mu _ { 2 } < \mu _ { 1 }$ ; 
 
@@ -388,7 +366,7 @@ $$
 
 Le quantità $\sum x _ { k }$ per questo problema e $w _ { H } ( \pmb x ^ { n } )$ per il precedente sono anche riferite come statistiche sufficienti nel linguaggio della statistica inferenziale. 
 
-### Classificazione Binaria (Discreta e Continua)
+## Valutazione delle prestazioni
 
 Si noti che, sotto $H _ { j }$ , la statistica del test $\begin{array} { r } { Z _ { n } = \frac { 1 } { n } \sum _ { i = 1 } ^ { n } X _ { i } } \end{array}$ è Gaussiana con media e varianza date da: 
 
@@ -412,9 +390,9 @@ $$
 \mathbb {P} (e) = Q \left(\sqrt {n} \frac {\mu_ {1} - \mu_ {2}}{2 \sigma}\right)\rightarrow 0 \quad \text { as } n \rightarrow \infty
 $$
 
-### Test di ipotesi e Neyman-Pearson
+## Test di ipotesi: introduzione
 
-Esistono numerose situazioni in cui dobbiamo prendere una decisione tra due ipotesi, ma non abbiamo mezzi per assegnare la matrice di costo C né le probabilità a priori; 
+Esistono numerose situazioni in cui dobbiamo prendere una decisione tra due ipotesi, ma non abbiamo mezzi per assegnare la matrice dei costi C né le probabilità a priori; 
 
 Gli esempi includono un numero di situazioni di interesse pratico, ovvero: 
 
@@ -430,15 +408,15 @@ Innumerevoli applicazioni militari;
 
 In tutte le situazioni sopra citate, è praticamente impossibile assegnare un costo a un errore di giudizio sullo "stato della natura", ovvero a una decisione errata tra le due ipotesi "tutto normale" o "qualcosa sta accadendo"; 
 
-È inoltre di poca importanza assegnare una probabilità a priori che "anomalie statistiche" siano presenti nel set di dati. 
+È anche di poca importanza assegnare una probabilità a priori che "anomalie statistiche" nel set di dati siano presenti. 
 
-### Test di ipotesi e Neyman-Pearson
+## Definizioni nel test di ipotesi
 
 0 Innanzitutto, definiamo un'ipotesi nulla, tradizionalmente denotata $H _ { 0 }$ , che il set di dati osservati $\pmb { x } ^ { n }$ sia una realizzazione di un vettore casuale con una distribuzione condizionale nota, con pmf/pdf $p _ { X ^ { n } | H _ { 0 } } ( { \pmb x } ^ { n } | H _ { 0 } ) / f _ { { \pmb X } ^ { n } | H _ { 0 } } ( { \pmb x } ^ { n } | H _ { 0 } )$ ; 
 
 Vogliamo decidere se o meno, dati i dati osservati $\pmb { x } ^ { n }$ , l'ipotesi nulla debba essere rifiutata a favore di una legge diversa, diciamo $p _ { X ^ { n } \mid H _ { 1 } } ( { \pmb x } ^ { n } | H _ { 1 } ) / f _ { { \pmb X } ^ { n } \mid H _ { 1 } } ( { \pmb x } ^ { n } | H _ { 1 } )$ ;Per quanto riguarda la classificazione binaria, dobbiamo partizionare il dominio $\mathcal { X } ^ { n }$ in due regioni di decisione, ma il precedente framework di Bayes non è più applicabile qui a causa della mancanza di informazioni a priori sufficienti;
 
-Nel progettare una regola di decisione (ovvero, un test), definiamo quindi:
+Nel progettare una regola di decisione (ovvero un test), definiamo quindi:
 
 L'errore di tipo-I del test, o probabilità di falso allarme, come
 
@@ -456,7 +434,7 @@ Dati Continui
 
 Dati Discreti
 
-### Test di ipotesi e Neyman-Pearson
+## Test di Neyman-Pearson
 
 Dato il framework delineato nella slide precedente, un test di Neyman-Pearson è il risultato della seguente ottimizzazione vincolata:
 
@@ -478,9 +456,9 @@ $$
 \mathbb {P} \left\{L (\boldsymbol {X} ^ {n}) > \eta | H _ {0} \right\} = \alpha
 $$
 
-Si noti che l'applicazione di qualsiasi funzione monotonicamente crescente a entrambi i lati del test precedente non ne altera l'ottimalità, per cui possiamo introdurre equivalentemente il log-likelihood ln $L \left( \pmb { x } ^ { n } \right) = \Lambda ( \pmb { x } ^ { n } )$ e confrontarlo con una soglia determinata in modo nuovo.
+Si noti che l'applicazione di qualsiasi funzione monotonicamente crescente a entrambi i lati del test precedente non ne altera l'ottimalità, per cui possiamo introdurre equivalentemente la log-verosimiglianza ln $L \left( \pmb { x } ^ { n } \right) = \Lambda ( \pmb { x } ^ { n } )$ e confrontarla con una soglia determinata in modo nuovo.
 
-### Test di ipotesi e Neyman-Pearson
+## Esempio: test della media di una popolazione Gaussiana
 
 Assumiamo che l'ipotesi nulla sia che le osservazioni siano iid Gaussiane con media zero e varianza data, ovvero $X _ { i } \sim \mathcal { N } ( 0 , \sigma ^ { 2 } )$, mentre la sua alternativa è $X _ { i } \sim \mathcal { N } ( \mu , \sigma ^ { 2 } )$;
 
@@ -500,7 +478,7 @@ $$
 
 dove $\eta ^ { \prime }$ dovrebbe essere scelto in modo da garantire che la probabilità di errore di tipo-I sia uguale al valore di progetto α.
 
-### Test di ipotesi e Neyman-Pearson
+## Prestazioni del test
 
 Dobbiamo prima impostare la soglia di rilevamento. Si noti che la statistica del test, sotto $H _ { 0 }$, è Gaussiana con media zero e varianza $\frac { \sigma ^ { 2 } } { n }$ (vedere slide 18). Di conseguenza:
 
@@ -522,17 +500,17 @@ $$
 
 ovvero arriviamo alla prestazione ideale $\alpha = 0 , 1 - \beta = 1$
 
-## Inferenza Bayesiana
+## Stima dei parametri: generalità
 
 Assumiamo di avere un dataset $\pmb { x } ^ { n } \in \mathcal { X } ^ { n }$ che è una realizzazione di un vettore casuale $X ^ { n }$;
 
 Assumiamo che il vettore casuale $X ^ { n }$ sia estratto da una famiglia di distribuzioni con pmf/pdf $p _ { X ^ { n } | \Theta } ( \pmb { x } ^ { n } | \theta ) / f _ { \pmb { X } ^ { n } | \Theta } ( \pmb { x } ^ { n } | \theta )$, dove il valore di $\theta$ è sconosciuto;
 
-θ è tipicamente un parametro continuo, che può essere una realizzazione di una variabile casuale continua Θ con marginale noto $f _ { \Theta } ( \theta )$ (impostazione Bayesiana) o una quantità deterministica sconosciuta che assume valori in un insieme continuo;
+θ è tipicamente un parametro continuo, che può essere una realizzazione di una variabile casuale continua Θ con marginale nota $f _ { \Theta } ( \theta )$ (impostazione Bayesiana) o una quantità deterministica sconosciuta che assume valori in un insieme continuo;
 
 Domanda: Come stimiamo θ basandoci sul campione raccolto?
 
-Si noti che, nell'impostazione Bayesiana, l'applicazione diretta della regola di Bayes produce:
+Si osservi che, nell'impostazione Bayesiana, l'applicazione diretta della regola di Bayes fornisce:
 
 $$
 f _ {\Theta | \boldsymbol {X} ^ {n}} (\theta | \boldsymbol {x} ^ {n}) = \left\{ \begin{array}{c} p _ {\boldsymbol {X} ^ {n} | \Theta} (\boldsymbol {x} ^ {n} | \theta) f _ {\Theta} (\theta) \\ \hline \int p _ {\boldsymbol {X} ^ {n} | \theta} (\boldsymbol {x} ^ {n} | \theta) f _ {\Theta} (\theta) d \theta \\ f _ {\boldsymbol {X} ^ {n} | \Theta} (\boldsymbol {x} ^ {n} | \theta) f _ {\Theta} (\theta) \\ \hline \int f _ {\boldsymbol {X} ^ {n} | \theta} (\boldsymbol {x} ^ {n} | \theta) f _ {\Theta} (\theta) d \theta \end{array} \right.
@@ -542,17 +520,17 @@ dati discreti
 
 dati continui
 
-Si noti che, se $\Theta$ è discreto, quanto sopra diventa un problema di classificazione. Si noti inoltre che nell'equazione sopra abbiamo usato il fatto che
+Si osservi che, se $\Theta$ è discreto, quanto sopra diventa un problema di classificazione. Si noti inoltre che nell'equazione sopra abbiamo usato il fatto che
 
 $$
 p _ {\boldsymbol {X} ^ {n}} (\boldsymbol {x} ^ {n}) = \int p _ {\boldsymbol {X} ^ {n} | \theta} (\boldsymbol {x} ^ {n} | \theta) f _ {\Theta} (\theta) d \theta \quad f _ {\boldsymbol {X} ^ {n}} (\boldsymbol {x} ^ {n}) = \int f _ {\boldsymbol {X} ^ {n} | \theta} (\boldsymbol {x} ^ {n} | \theta) f _ {\Theta} (\theta) d \theta
 $$
 
-## Inferenza Bayesiana
+## Stima dei Parametri
 
 Un estimatore del parametro $\theta$ è una variabile casuale ${ \widehat { \Theta } } ( X ^ { n } )$ — le cui realizzazioni sono $\widehat { \theta } ( { \pmb x } ^ { n } )$ — che tenta di "indovinare" il valore di $\theta$ basandosi su un'osservazione $\pmb { x } ^ { n } \in \mathcal { X } ^ { n }$
 
-Al fine di progettare un estimatore, definiamo prima un Bayes Risk medio, ovvero:
+Al fine di progettare un estimatore, definiamo prima un Risk di Bayes medio, ovvero:
 
 $$
 \mathcal {R} = \mathbb {E} \left[ C (\widehat {\Theta} (\boldsymbol {X} ^ {n}) - \Theta) \right] = \mathbb {E} _ {\boldsymbol {X} ^ {n}} \left[ \mathbb {E} \left[ C (\widehat {\Theta} (\boldsymbol {X} ^ {n}) - \Theta) \mid \boldsymbol {X} ^ {n} \right] \right]
@@ -560,7 +538,7 @@ $$
 
 dove $C ( \cdot )$ è una funzione di costo adeguatamente definita.
 
-Un estimatore ottimo è quello che minimizza il Bayes risk, ovvero:
+Un estimatore ottimo è quello che minimizza il risk di Bayes, ovvero:
 
 $$
 \widehat {\Theta} _ {\text { opt }} (\boldsymbol {X} ^ {n}) = \arg \min \mathbb {E} \left[ C (\widehat {\Theta} (\boldsymbol {X} ^ {n}) - \Theta) \right]
@@ -592,9 +570,9 @@ $$
 \widehat {\theta} (\boldsymbol {x} ^ {n}) = \int \theta f _ {\Theta | \boldsymbol {X} ^ {n}} (\theta | \boldsymbol {x} ^ {n}) d \theta = \mathbb {E} [ \Theta | \boldsymbol {X} ^ {n} = \boldsymbol {x} ^ {n} ]
 $$
 
-che corrisponde certamente a un minimo data la convessità del rischio Bayes scelto. 
+che corrisponde certamente a un minimo data la convessità del rischio di Bayes scelto. 
 
-### Estimatori (MMSE, MAP)
+## Esempio: Bernoulli Composta
 
 Assumiamo che $X ^ { n } \in \{ 0 , 1 \} ^ { n }$ sia condizionalmente Bernoulli con parametro $\beta ,$, con $B \sim \mathcal { U } ( 0 , 1 )$ 
 
@@ -604,19 +582,19 @@ $$
 p _ {\boldsymbol {X} ^ {n} | B} (\boldsymbol {x} ^ {n} | \beta) = \beta^ {w (\boldsymbol {x} ^ {n})} (1 - \beta) ^ {n - w (\boldsymbol {x} ^ {n})}
 $$
 
-Facendo la media su B otteniamo la legge incondizionata: 
+Facendo la media su B otteniamo la legge non condizionata: 
 
 $$
 p \mathbf {x} ^ {n} (\mathbf {x} ^ {n}) = \int_ {0} ^ {1} \beta^ {w (\mathbf {x} ^ {n})} (1 - \beta) ^ {n - w (\mathbf {x} ^ {n})} d \beta = \frac {\Gamma (w + 1) \Gamma (n - w + 1)}{\Gamma (n + 2)} = \frac {1}{\binom{n + 1}{w (\mathbf {x} ^ {n})}}
 $$
 
-La legge condizionale è quindi 
+La legge condizionata è quindi 
 
 $$
 f _ {B | \boldsymbol {X} ^ {n}} (\beta | \boldsymbol {x} ^ {n}) = \frac {\beta^ {w (\boldsymbol {x} ^ {n})} (1 - \beta) ^ {n - w (\boldsymbol {x} ^ {n})}}{p _ {\boldsymbol {X} ^ {n}} (\boldsymbol {x} ^ {n})} = \frac {\beta^ {w (\boldsymbol {x} ^ {n})} (1 - \beta) ^ {n - w (\boldsymbol {x} ^ {n})}}{\binom{n + 1}{w (\boldsymbol {x} ^ {n})}}
 $$
 
-### Estimatori (MMSE, MAP)
+## Esempio: Bernoulli Composta - cont.)
 
 La stima MMSE è quindi 
 
@@ -630,13 +608,13 @@ $$
 \hat {\beta} _ {\text {MMSE}} (\boldsymbol {x} ^ {n}) = \frac {\Gamma (w + 2) \Gamma (n - w + 1)}{\Gamma (n + 3)} \frac {1}{\binom{n + 1}{w (\boldsymbol {x} ^ {n})}} = \frac {w (\boldsymbol {x} ^ {n}) + 1}{n + 2}
 $$
 
-che è la stima ottenuta tramite l'estimatore MMSE: 
+che è la stima ottenuta attraverso l'estimatore MMSE: 
 
 $$
 \hat {B} _ {\text { MMSE }} (\boldsymbol {X} ^ {n}) = \frac {w (\boldsymbol {X} ^ {n}) + 1}{n + 2}
 $$
 
-### Estimatori (MMSE, MAP)
+## Estimatore a Massima Verosimiglianza a Posteriori (MAPE)
 
 Assumiamo ora la seguente funzione di costo: 
 
@@ -662,7 +640,7 @@ $$
 \widehat {B} _ {\mathrm{MAP}} (\boldsymbol {X} ^ {n}) = \frac {w (\boldsymbol {X} ^ {n})}{n}
 $$
 
-### Estimatori (MMSE, MAP)
+## Prestazioni dell'Estimatore: Errore Sistematico (Bias)
 
 Notiamo preliminarmente che: 
 
@@ -698,7 +676,7 @@ Concludiamo che l'MMSEE è un estimatore distorto (biased), mentre il MAP non lo
 
 Si noti che l'MMSEE è asintoticamente non distorto, poiché l'errore sistematico svanisce all'aumentare di n. 
 
-### Estimatori (MMSE, MAP)
+## Errori Casuali: Consistenza
 
 Dopo lunghi - seppur elementari - calcoli, troviamo: 
 
@@ -714,7 +692,7 @@ Non c'è bisogno di dire che abbiamo $\overline { { e ^ { 2 } } } _ { \mathsf { 
 
 Poiché entrambi gli MSE tendono a zero all'aumentare di n, abbiamo che i due estimatori sono definiti MS consistenti, nel senso che l'errore casuale ha un valore MS asintoticamente zero; 
 
-Sfruttando la disuguaglianza di Tchebyshev, abbiamo che entrambi gli estimatori tendono a B in probabilità (consistenza, nota anche come consistenza debole). Se ${ \widehat { B } } ( X ^ { n } )$ è uno dei due estimatori, abbiamo quindi: 
+Sfruttando la disuguaglianza di Tchebyshev, abbiamo che entrambi gli estimatori tendono a B in probabilità (consistenza, detta anche consistenza debole). Se ${ \widehat { B } } ( X ^ { n } )$ è uno dei due estimatori, abbiamo quindi: 
 
 $$
 \forall \epsilon > 0 \quad \lim _ {n \rightarrow \infty} \operatorname * {P r} \left\{\left| \widehat {B} (\boldsymbol {X} ^ {n}) - B \right| > \epsilon \right\} = 0
@@ -722,7 +700,7 @@ $$
 
 Si può dimostrare che entrambi gli estimatori sono fortemente consistenti, nel senso che ${ \widehat { B } } ( X ^ { n } ) \to B$ quasi certamente. 
 
-## Inferenza Bayesiana
+## Definizioni Generali
 
 Consideriamo un campione $\pmb { x } ^ { n }$ estratto da un vettore casuale $\pmb { X } ^ { n } \in \mathcal { X } ^ { n } \subseteq \mathbb { R } ^ { n }$ 
 
@@ -736,7 +714,7 @@ $$
 
 Un estimatore è non distorto (unbiased) se $\mathbb { E } \left[ \widehat { \Theta } ( \pmb { \cal X } ^ { n } ) - \Theta \right] = 0 ;$ 
 
-Un estimatore è asintoticamente non distorto se è non distorto solo nel limite di una dimensione del campione infinita; 
+Un estimatore è asintoticamente non distorto se è non distorto solo nel limite di una dimensione campionaria infinita; 
 
 Un estimatore è consistente se ${ \widehat { \Theta } } ( X ^ { n } ) \to \Theta$ in probabilità; 
 
@@ -744,7 +722,7 @@ Un estimatore è MS consistente se ${ \widehat { \Theta } } ( X ^ { n } ) \to \T
 
 Un estimatore è fortemente consistente se ${ \widehat { \Theta } } ( X ^ { n } ) \to \Theta$ quasi certamente. 
 
-### Estimatori (MMSE, MAP)
+## Un esempio: Osservazioni Gaussiane con media casuale
 
 Sia $\pmb { x } ^ { n }$ estratto da $X ^ { n }$ con: 
 
@@ -762,7 +740,7 @@ $$
 f _ {M | \boldsymbol {X} ^ {n}} (\mu | \boldsymbol {x} ^ {n}) = \frac {f _ {\boldsymbol {X} ^ {n} | M} (\boldsymbol {x} ^ {n} | \mu) f _ {M} (\mu)}{f _ {\boldsymbol {X} ^ {n}} (\boldsymbol {x} ^ {n})} = \mathcal {N} \left(\frac {\sum_ {i = 1} ^ {n} x _ {i}}{n + \frac {\sigma^ {2}}{\sigma_ {M} ^ {2}}}, \frac {1}{\frac {n}{\sigma^ {2}} + \frac {1}{\sigma_ {M} ^ {2}}}\right)
 $$
 
-Detto in altro modo, il prior coniugato della media di una distribuzione Gaussiana è di nuovo Gaussiano; 
+In altre parole, il prior coniugato della media di una distribuzione Gaussiana è di nuovo Gaussiano; 
 
 Abbiamo quindi che la stima MMSE della media è 
 
@@ -784,7 +762,7 @@ che coincide con l'MMSEE!!
 
 Domanda: è casuale o c'è un motivo più profondo per la coincidenza di questi due stimatori? 
 
-### Estimatori (MMSE, MAP)
+## Unicità degli stimatori Bayesiani
 
 Sia C (·) una funzione di costo arbitraria dell'errore di stima; 
 
@@ -838,7 +816,7 @@ $$
 \widehat {\Theta} _ {M L} \left(\boldsymbol {X} ^ {n}\right) = \arg \max _ {\theta \in \mathcal {S}} \log f _ {\boldsymbol {X} ^ {n}} \left(\boldsymbol {X} ^ {n}; \theta\right)
 $$
 
-## Inferenza non Bayesiana
+## Inferenza non Bayesiana: Misure di prestazione
 
 Data uno stimatore $\Theta ( { \pmb x } ^ { n } )$ del parametro non casuale $\theta ,$, abbiamo: 
 
@@ -848,7 +826,7 @@ $$
 
 con $b _ { n } ( \theta )$ il bias dello stimatore; 
 
-Lo stimatore è non distorto (unbiased) se $b _ { n } ( \theta ) = 0$, mentre è solo asintoticamente non distorto se $b _ { n } ( \theta )$ diventa infinitesimale con $n ;$ 
+Lo stimatore è non distorto (unbiased) se $b _ { n } ( \theta ) = 0$, mentre è solo asintoticamente non distorto se $b _ { n } ( \theta )$ diventa trascurabile con $n ;$ 
 
 L'errore casuale dello stimatore è solitamente quantificato tramite il suo valore Mean Square, ovvero: 
 
@@ -864,7 +842,7 @@ $$
 
 Uno stimatore è debolmente consistente se $\Theta ( { \pmb x } ^ { n } ) \to \theta$ in probabilità, fortemente consistente se $\Theta ( { \pmb x } ^ { n } ) \to \theta$ quasi certamente, MS consistente se $\overline { { e _ { n } ^ { 2 } } } \to 0$ 
 
-### Limite di Cramér-Rao
+## Limite di Cramér-Rao - Fatti preliminari
 
 Sia $\pmb { x } ^ { n }$ un campione estratto da un vettore casuale ${ \pmb X } ^ { n } \sim f _ { { \pmb X } ^ { n } } ( { \pmb x } ^ { n } ; { \pmb \theta } )$ con $\theta$ non casuale; 
 
@@ -886,7 +864,7 @@ $$
 \begin{array}{c} \mathbb {E} \left[ \left(\frac {\partial \log f _ {\boldsymbol {X} ^ {n}} (\boldsymbol {X} ^ {n} ; \theta)}{\partial \theta}\right) ^ {2} \right] = \text {var} \left[ \frac {\partial \log f _ {\boldsymbol {X} ^ {n}} (\boldsymbol {X} ^ {n} ; \theta)}{\partial \theta} \right] = \\ = - \mathbb {E} \left[ \frac {\partial^ {2} \log f _ {\boldsymbol {X} ^ {n}} (\boldsymbol {X} ^ {n} ; \theta)}{\partial \theta^ {2}} \right] \end{array}
 $$
 
-### Limite di Cramér-Rao
+## Limite di Cramér-Rao - Derivazione
 
 Sia $\widehat { \Theta } ( X ^ { n } )$ uno stimatore del parametro non casuale $\theta$ con: 
 
@@ -906,7 +884,7 @@ $$
 \left| \operatorname{COV} \left[ \Theta (\boldsymbol {X} ^ {n}), \frac {\partial \log f _ {\boldsymbol {X} ^ {n}} (\boldsymbol {X} ^ {n} ; \theta)}{\partial \theta} \right] \right| ^ {2} = \left[ 1 + b _ {n} ^ {\prime} (\theta) \right] ^ {2} \leq \operatorname{Var} \left[ \Theta (\boldsymbol {X} ^ {n}) \right] \operatorname{Var} \left[ \frac {\partial \log f _ {\boldsymbol {X} ^ {n}} (\boldsymbol {X} ^ {n} ; \theta)}{\partial \theta} \right]
 $$
 
-### Limite di Cramér-Rao
+## Limite di Cramér-Rao - Ulteriori discussioni
 
 Elaborando le derivazioni precedenti, otteniamo un limite inferiore imbattibile alla varianza di qualsiasi stimatore del parametro non casuale $\theta$ nella forma: 
 
@@ -920,7 +898,7 @@ $$
 I _ {n} (\theta) = \mathbb {E} \left[ \left(\frac {\partial \log f _ {\boldsymbol {X} ^ {n}} (\boldsymbol {X} ^ {n} ; \theta)}{\partial \theta}\right) ^ {2} \right] = - \mathbb {E} \left[ \frac {\partial^ {2} \log f _ {\boldsymbol {X} ^ {n}} (\boldsymbol {X} ^ {n} ; \theta)}{\partial \theta^ {2}} \right]
 $$
 
-### Limite di Cramér-Rao
+## Limite di Cramér-Rao - Stimatori non distorti
 
 Come anticipato, lo stimatore $\Theta ( { \pmb x } ^ { n } )$ è non distorto se <sup>E</sup> $[ \Theta ( { \pmb x } ^ { n } ) ] = \theta$ 
 
@@ -962,7 +940,7 @@ $$
 
 Di conseguenza, è non distorto (unbiased) e MS consistente. È efficiente? 
 
-## Inferenza non Bayesiana
+## Frequenza di cifratura - cont.
 
 Si noti che abbiamo: 
 
@@ -988,7 +966,7 @@ $$
 
 Concludiamo che la MLE della frequenza di cifratura è efficiente. 
 
-## Inferenza Bayesiana
+## Parametri multipli - inferenza Bayesiana
 
 Assumiamo ora di avere m parametri casuali, $\pmb { \theta } [ \theta _ { 1 } , \ldots , \theta _ { m } ] ^ { T }$ estratti da una pdf nota $f _ { \Theta } ( \pmb { \theta } )$ e un set di dati $\pmb { x } ^ { n }$ estratti da una pdf condizionale $f _ { { \pmb X } ^ { n } | \pmb \theta } ( { \pmb x } ^ { n } | \pmb \theta )$ 
 
@@ -1010,7 +988,7 @@ $$
 \widehat {\Theta} \left(\boldsymbol {X} ^ {n}\right) = \arg \min \int_ {\mathbb {R} ^ {m}} C \left(\boldsymbol {\theta} - \widehat {\theta} \left(\boldsymbol {X} ^ {n}\right)\right) f _ {\Theta | \boldsymbol {X} ^ {n}} \left(\boldsymbol {\theta} \mid \boldsymbol {X} ^ {n}\right) d \boldsymbol {\theta}
 $$
 
-### Estimatori (MMSE, MAP)
+## L'estimatore MMSE
 
 Assumiamo che la funzione di costo sia 
 
@@ -1018,7 +996,7 @@ $$
 C (\boldsymbol {\theta} - \widehat {\boldsymbol {\theta}}) = \sum_ {i = 1} ^ {m} \left(\theta_ {i} - \widehat {\theta} _ {i} (\boldsymbol {x} ^ {n}))\right)
 $$
 
-Poiché il problema di minimizzazione è disgiunto (ovvero, separabile), abbiamo: 
+Poiché il problema di minimizzazione è disgiunto (cioè, separabile), abbiamo: 
 
 $$
 \widehat {\theta} _ {i} (\boldsymbol {x} ^ {n}) = \mathbb {E} \left[ \Theta_ {i} | \boldsymbol {X} ^ {n} = \boldsymbol {x} ^ {n} \right] = \int \theta_ {i} f _ {\theta_ {i} | \boldsymbol {X} ^ {n}} (\theta_ {i} | \boldsymbol {x} ^ {n}) d \theta_ {i}
@@ -1030,7 +1008,7 @@ $$
 \widehat {\Theta} \left(\boldsymbol {X} ^ {n}\right) = \mathbb {E} \left[ \Theta | \boldsymbol {X} ^ {n} \right]
 $$
 
-### Estimatori (MMSE, MAP)
+## L'estimatore MAP
 
 Se assumiamo 
 
@@ -1050,7 +1028,7 @@ $$
 \nabla_ {\boldsymbol {\theta}} f _ {\boldsymbol {\Theta} | \boldsymbol {X} ^ {n}} (\boldsymbol {\theta} | \boldsymbol {x} ^ {n}) \big | _ {\boldsymbol {\theta} = \widehat {\boldsymbol {\theta}} (x ^ {n})} = 0
 $$
 
-## Inferenza non Bayesiana
+## Stima non Bayesiana di parametri multipli
 
 Assumiamo ora che il vettore dei parametri $\pmb { \theta }$ sia reale e deterministico; 
 
@@ -1068,7 +1046,7 @@ $$
 
 L'estimatore corrispondente $\widehat { \Theta } ( X ^ { n } )$ è di nuovo definito come un estimatore Maximum Likelihood (ML) e gode di una serie di proprietà fondamentali. 
 
-## Inferenza non Bayesiana
+## Estimatori LMMSE lineari
 
 0 Iniziamo con un semplice problema scalare. Assumiamo che $\pmb { x } ^ { n }$ sia il campione osservato, estratto da $X ^ { n }$ , e assumiamo di voler progettare un estimatore lineare di un parametro casuale $\Theta ,$ , distribuito secondo una legge nota, nella forma: 
 
@@ -1090,9 +1068,9 @@ $$
 
 dove $\pmb { R } = \mathbb { E } \left[ \pmb { X } ^ { n } \pmb { X } ^ { n T } \right]$ è la matrice di correlazione del vettore casuale $X ^ { n }$ 
 
-## Inferenza non Bayesiana
+## Estimatori LMMSE lineari (cont.)
 
-Annullando il gradiente rispetto ad a e la derivata rispetto a $b$ otteniamo: 
+Annullando il gradiente rispetto a a e la derivata rispetto a $b$ otteniamo: 
 
 $$
 \nabla_ {\boldsymbol {a}} \mathbb {E} \left[ (\boldsymbol {a} ^ {T} \boldsymbol {X} ^ {n} + b - \Theta) ^ {2} \right] = 2 \boldsymbol {M} \boldsymbol {a} - 2 \mathbb {E} [ \boldsymbol {X} ^ {n} \Theta ] = 0
@@ -1102,7 +1080,7 @@ $$
 \frac {\partial \mathbb {E} \left[ (\boldsymbol {a} ^ {T} \boldsymbol {X} ^ {n} + b - \Theta) ^ {2} \right]}{\partial b} = 2 b - 2 \overline {{\Theta}} - 2 \boldsymbol {a} ^ {T} \mathbb {E} [ \boldsymbol {X} ^ {n} ] = 0
 $$
 
-## Inferenza non Bayesiana
+## Risolvendo per b si ottiene
 
 $$
 b _ {\text { LMMSE }} = \mathbb {E} [ \Theta ] - \boldsymbol {a} ^ {T} \mathbb {E} [ \boldsymbol {X} ^ {n} ]
@@ -1124,7 +1102,7 @@ $$
 \boldsymbol {a} _ {\text { LMMSE }} = \boldsymbol {M} ^ {- 1} \mathbb {E} \left[ \left(\boldsymbol {X} ^ {n} - \mathbb {E} [ \boldsymbol {X} ^ {n} ]\right) (\Theta - \mathbb {E} [ \Theta ]) \right] = \boldsymbol {M} ^ {- 1} \boldsymbol {s}
 $$
 
-### Adattività e Algoritmo del Gradiente
+## L'algoritmo del gradiente
 
 Assumiamo di voler risolvere iterativamente il problema LMMSE delineato in precedenza; 
 
@@ -1148,7 +1126,7 @@ $$
 \boldsymbol {a} ^ {(n + 1)} = \boldsymbol {a} ^ {(n)} - \gamma \boldsymbol {M} \left(\boldsymbol {a} ^ {(n)} - \underbrace {\boldsymbol {M} ^ {- 1} \boldsymbol {s}} _ {\boldsymbol {a} _ {\text { LMMSE }}}\right)
 $$
 
-### Adattività e Algoritmo del Gradiente
+## L'algoritmo del Gradiente - cont.
 
 L'errore alla (n + 1)-es iterazione si legge 
 
@@ -1164,7 +1142,7 @@ $$
 
 dove Λ è la matrice diagonale dei valori propri di M e U contiene i suoi autovettori. 
 
-L'errore converge quindi a zero se il modulo massimo dei valori propri o $\pmb { I } - \gamma \pmb { M }$ è minore di uno, cioè: 
+L'errore converge quindi a zero se il modulo massimo dei valori propri o $\pmb { I } - \gamma \pmb { M }$ è minore di uno, ovvero: 
 
 $$
 - 1 <   1 - \gamma \lambda_ {M A X} <   1 \Longrightarrow 0 <   \gamma <   \frac {2}{\lambda_ {M A X}}
@@ -1192,7 +1170,7 @@ $$
 
 con $\epsilon _ { n }$ che incapsula l'errore.
 
-### Minimi Quadrati (Least Squares)
+## L'estimatore dei Minimi Quadrati (Least Squares)
 
 Poiché abbiamo un dataset $p$-dimensionale, vogliamo selezionare $a$ in modo tale da minimizzare:
 
@@ -1212,7 +1190,7 @@ $$
 \| \boldsymbol {X} ^ {T} \boldsymbol {a} - \boldsymbol {y} \| ^ {2} = \boldsymbol {a} ^ {T} \boldsymbol {X} \boldsymbol {X} ^ {T} \boldsymbol {a} + \| \boldsymbol {y} \| ^ {2} - 2 \boldsymbol {a} ^ {T} \boldsymbol {X} \boldsymbol {y}
 $$
 
-### Minimi Quadrati (Least Squares)
+## L'estimatore dei Minimi Quadrati - cont.
 
 Differenziando rispetto a $a$ si ottiene così
 
@@ -1244,7 +1222,7 @@ b Vogliamo adattarci a condizioni potenzialmente variabili "dimenticando" le vec
 
 Possiamo regolare l'estimatore LS in modo tale da tenere conto di entrambe le situazioni sopra citate, e possiamo farlo con una complessità limitata.
 
-### Minimi Quadrati (Least Squares)
+## Apprendimento LS
 
 Supponiamo $p \geq n$ e supponiamo di aver valutato
 
@@ -1264,7 +1242,7 @@ Domanda: Dobbiamo ricalcolare tutto da zero?
 
 Notiamo che l'operazione di inversione comporta una complessità $\mathcal { O } ( n ^ { 3 } )$, mentre l'operazione di prodotto di matrici ha una complessità $\mathcal { O } ( n p )$ (in termini di moltiplicazioni).
 
-### Formula di Sherman-Morrison
+## La Formula di Sherman-Morrison
 
 Sia $R$ una matrice invertibile di ordine $n ;$
 
@@ -1278,9 +1256,9 @@ $$
 
 ## Generalità - Marco Lops Elements of Decision Theory Elements of estimation theory Linear MMSE Estimation
 
-## Inferenza non Bayesiana
+## Applicazione
 
-## Inferenza non Bayesiana
+## Notare che
 
 $$
 \underbrace {\boldsymbol {X} (p + 1) \boldsymbol {X} ^ {T} (p + 1)} _ {\boldsymbol {R} (p + 1)} = \sum_ {i = 1} ^ {p + 1} \boldsymbol {x} ^ {n} (i) \boldsymbol {x} ^ {n T} (i) = \underbrace {\boldsymbol {X} (p) \boldsymbol {X} ^ {T} (p)} _ {\boldsymbol {R} (p)} + \boldsymbol {x} ^ {n} (p + 1) \boldsymbol {x} ^ {n T} (p + 1)
@@ -1298,9 +1276,9 @@ $$
 K (p + 1) = \boldsymbol {x} ^ {n T} (p + 1) \boldsymbol {R} ^ {- 1} (p) \boldsymbol {x} ^ {n} (p + 1)
 $$
 
-## Inferenza non Bayesiana
+## Applicazione - cont.
 
-## Inferenza non Bayesiana
+## D'altra parte abbiamo
 
 $$
 \boldsymbol {X} (p + 1) = \left[ \boldsymbol {X} (p) \boldsymbol {x} ^ {n} (p + 1) \right], \quad \boldsymbol {y} (p + 1) = \left[ \boldsymbol {y} (p) \theta (p + 1) \right] ^ {T}
@@ -1324,7 +1302,7 @@ $$
 
 che ha una complessità $\mathcal { O } ( n ^ { 2 } )$, indipendente (e non scalabile con) $p .$
 
-### Minimi Quadrati (Least Squares)
+## Adattività in LS
 
 Al fine di gestire situazioni in cui l'ambiente circostante può essere (lentamente) variabile nel tempo, potremmo voler forzare i "dati vecchi" a pesare meno dei dati "freschi".
 
@@ -1344,7 +1322,7 @@ $$
 
 stesso suscettibile di un'implementazione ricorsiva alla luce del lemma di Sherman-Morrison.
 
-## Inferenza non Bayesiana
+## Generalizzazione
 
 Supponiamo ora che, sotto le stesse condizioni viste sopra, vogliamo trovare un LS nella forma più generale
 
@@ -1352,7 +1330,7 @@ $$
 \widehat {\theta} (\boldsymbol {x} ^ {n}) = \boldsymbol {a} ^ {T} \boldsymbol {x} ^ {n} + b
 $$
 
-Calcoli lunghi, sebbene semplici, portano alla forma LMS generale
+Calcoli lunghi, seppur semplici, portano alla forma LMS generale
 
 $$
 \boldsymbol {a} _ {\text { LMS }} = (\boldsymbol {X} _ {0} \boldsymbol {X} _ {0} ^ {T}) ^ {- 1} \boldsymbol {X} _ {0} \boldsymbol {y} _ {0}, \qquad b _ {\text { LMS }} = \underbrace {\frac {1}{p} \sum_ {i = 1} ^ {p} \theta (i)} _ {\widetilde {\theta}} - \frac {1}{p} \boldsymbol {1} _ {p} ^ {T} \boldsymbol {X} ^ {T} \boldsymbol {a} _ {\text { LMS }}

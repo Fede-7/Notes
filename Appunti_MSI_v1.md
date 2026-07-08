@@ -1,8 +1,8 @@
 ```table-of-contents
 ```
-# Fondamenti Probabilità
+# 1. Fondamenti di Probabilità
 
-## Definizioni
+## Definizioni e Nomenclatura
 
 > **Esperimento**
 > Un'operazione o un'azione (o un insieme di esse) il cui esito produce uno tra diversi risultati possibili. Ad esempio, il lancio di un dado è un esperimento poiché l'esito non è noto a priori ma appartiene a un insieme di possibilità predefinite.
@@ -102,7 +102,7 @@ $$
 A _ {1} \cap \left(\cup_ {i = 2} ^ {M} A _ {i}\right) = \cup_ {i = 2} ^ {M} \left(A _ {1} \cap A _ {i}\right)
 $$
 
-## Nomenclatura probabilistica
+## Definizioni e Nomenclatura
 
 - $\Omega$ si definisce **evento certo**;
 - $\emptyset$ si definisce **evento impossibile**;
@@ -222,7 +222,7 @@ $$
 > [!example] Esempio 1 (k-ple binarie)
 > Il numero delle k-ple binarie è il numero di k-ple ordinate con ripetizione prese dall’insieme di cardinalità due $\{0, 1\}$ è $2 ^ { k }$.
 
-## Permutazioni
+### Permutazioni e Combinazioni
 
 Un caso particolare - ma molto rilevante - del calcolo precedente è quando $k = n$. La domanda cui si vuole rispondere è: 
 
@@ -234,7 +234,7 @@ Risposta: È un caso speciale di enumerazione di k-ple quando $k = n$, cioè:
 >
 >Questo ci conduce immediatamente al concetto di combinazioni. 
 
-## Combinazioni $( \overline { { G } } _ { m } ) _ { s } ^ { s }$
+### Permutazioni e Combinazioni
 
 > [!important] Combinazione
 > **Definizione**: Una combinazione è una selezione di elementi da un insieme in cui l'ordine degli elementi non è rilevante. In pratica, si contano i sottogruppi possibili senza preoccuparsi della sequenza in cui sono stati scelti.
@@ -280,7 +280,7 @@ $$
 \binom{4}{2} \binom{4 8}{3} = 6 9 1 8 4
 $$
 
-## Insieme delle parti di un insieme finito
+### Insieme delle parti
 
 Si consideri un insieme $A$ con $n$ elementi. 
 
@@ -312,7 +312,7 @@ Analogamente sono inefficaci le $(n - k)!$ permutazioni degli ”0” sulle posi
 
 In conclusione il numero richiesto è $\left( \begin{array} { l } { n } \\ { k } \end{array} \right)$.
 
-## Dalla frequenza alla probabilità
+## Frequenza e Probabilità
 
 Dato uno spazio dei campioni discreto $\Omega$ e un suo qualunque sottoinsieme (o evento) $A$, si definisce **probabilità** che occorra $A$ come il limite della frequenza di occorrenza di $A$ quando il numero di esperimenti — o prove — tende all’infinito, cioè: 
 
@@ -419,7 +419,7 @@ $$
 \left| C _ {P} \right| = 5 6 - 5 = 5 1 \rightarrow \mathbb {P} \left\{C _ {P} \right\} = \frac {5 1}{2 0 1 3 7 6} = 0. 0 0 0 2 5 \rightarrow \mathbb {P} \{\text { colore } \} = 0. 0 0 1
 $$
 
-## Frequenza di occorrenza e probabilità su Spazi finiti
+### Frequenza di occorrenza e Leggi probabilistiche
 
 Sia $\Omega$ uno spazio campione discreto (cioè, finito o numerabile). Rimuovendo l’ipotesi che gli eventi elementari siano equiprobabili, la definizione di **probabilità** data in precedenza rimane valida. 
 
@@ -470,12 +470,12 @@ Laddove con tecniche di conteggio avremmo trovato che, essendo $| A | = | B | = 
 
 Siano $A$ e $B$ due eventi. Siano $N_A$ e $N_B$ il numero di occorrenze su $n$ prove, $\frac{N_A}{n}$ e $\frac{N_B}{n}$ le relative frequenze, e $P(A)$ e $P(B)$ i rispettivi limiti (ovvero le probabilità). Valgono le seguenti proprietà:
 
-### a Eventi complementari
+### Proprietà: Complementari, Sub-additività, Sottrazione
 $$
 f _ {n} (\overline {{A}}) = \frac {n - n _ {A}}{n} = 1 - f _ {n} (A) \Longrightarrow \mathbb {P} (\overline {{A}}) = 1 - \mathbb {P} (A)
 $$
 
-### b Sub-additività
+### Proprietà: Complementari, Sub-additività, Sottrazione
 $$P(A \cup B) = P(A) + P(B) - P(A \cap B) \tag{1}$$
 $$
 f _ {n} (A \cup B) = \frac {n _ {A U B}}{n} = \frac {n _ {A} + n _ {B} - n _ {A \cap B}}{n} = f _ {n} (A) + f _ {n} (B) - f _ {n} (A \cap B) \rightarrow
@@ -488,7 +488,7 @@ Infatti, se $A$ e $B$ non sono incompatibili, sommare semplicemente $\frac{N_A}{
 
 ## Alcune proprietà della frequenza di occorrenza e della probabilità - 2
 
-### c Sottrazione tra insiemi
+### Proprietà: Complementari, Sub-additività, Sottrazione
 $$P(A \setminus B) = P(A) - P(A \cap B) \tag{2}$$
 $$
 f _ {n} (A \setminus B) = f _ {n} (A \cap \overline {{B}}) = \frac {n _ {A} - n _ {A \cap B}}{n} = f _ {n} (A) - f _ {n} (A \cap B) \rightarrow
@@ -499,14 +499,14 @@ $$
 
 Infatti, dovendosi verificare $A$ ma non $B$, bisogna sottrarre a $\frac{N_A}{n}$ il numero di esperimenti in cui si verificano entrambi, $n _ { A \cap B }$.
 
-### d Evento certo ed evento impossibile
+### Evento certo e impossibile
 Banalmente:
 
 $$
 f _ {n} (\Omega) = \frac {n}{n} = 1 \rightarrow \mathbb {P} (\Omega) = 1 \rightarrow \mathbb {P} (\emptyset) = \mathbb {P} (\overline {{\Omega}}) = 0
 $$
 
-## Frequenze e probabilità condizionate
+### Frequenze e probabilità condizionate
 
 Siano $A$ e $B$ due eventi che occorrano $n _ { A } \in n _ { B }$ volte su $n$ esperimenti. Definiamo la **frequenza di occorrenza** di $A$ condizionata a $B \texttt { - } f _ { n } ( A | B )$ come il rapporto tra il numero di prove in cui si verificano entrambi $\left( n _ { A \cap B } \right)$ e il numero di volte in cui si verifica solo $B$, cioè, formalmente:
 
@@ -522,7 +522,7 @@ $$
 
 L’ultima relazione prende anche il nome di **legge della probabilità composta**.
 
-## Legge della probabilità totale
+### Legge della probabilità totale
 
 Un’importante conseguenza della definizione di probabilità condizionata è la **legge della probabilità totale**.
 
@@ -563,7 +563,7 @@ $$
 > \mathbb {P} (\{i, j \}) = \mathbb {P} (\{i \}) \mathbb {P} (\{j \}) = \frac {1}{6} \frac {1}{6} = \frac {1}{3 6}
 > $$
 
-## L’approccio assiomatico alla teoria della probabilità
+### Approccio assiomatico
 
 Si consideri una famiglia di sottoinsiemi di $\Omega$, sia essa $\mathcal { E } = \{ A _ { 1 } , . . . , A _ { N } \}$ 
 
@@ -583,7 +583,7 @@ Sotto le precedenti condizioni, $E$ si definisce un’**Algebra di sotto-insiemi
 
 Se la collezione $E$ contiene un’infinità (numerabile) di elementi, allora $E$ si definisce una **$\sigma$-algebra** se, oltre ad essere chiusa rispetto alla complementazione e all’unione, è anche chiusa rispetto all’unione di un’infinità numerabile di suoi elementi. 
 
-## Proprietà delle Algebre
+## Teoria dell'Assiomatica
 
 Se $A \in E$, allora $B \in { \mathcal { E } }$ $\implies$ $A \cap B \in { \mathcal { E } }$. Infatti, per la relazione di De Morgan abbiamo: 
 
@@ -600,7 +600,7 @@ Se $A$ è un evento qualsiasi, allora la minima algebra che contiene $A$ è $\ma
 - $A$ deve essere elemento di $E$ per la chiusura rispetto alla complementazione; 
 - $A \cup { \overline { { A } } } = \Omega$ deve essere un elemento di $E$ per la proprietà di chiusura rispetto all’unione e $\varnothing = { \overline { { \Omega } } }$ deve esso stesso appartenervi per la chiusura rispetto alla complementazione. 
 
-## Spazi di probabilità
+### Algebre e Spazi di probabilità
 
 Si definisce **legge di probabilità** una funzione con dominio $E$ e co-dominio $[0, 1]$, cioè: 
 
@@ -625,19 +625,19 @@ La terna $(\Omega, E, P)$ si definisce **Spazio di Probabilità**.
 
 ## Proprietà delle leggi di probabilità (qualche esempio)
 
-### Eventi complementari
+### Proprietà: Complementari, Sub-additività, Sottrazione
 $$
 \mathbb {P} (\Omega) = \mathbb {P} (A \cup \overline {{A}}) = \mathbb {P} (A) + \mathbb {P} (\overline {{A}}) = 1 \implies \mathbb {P} (\overline {{A}}) = 1 - \mathbb {P} (A)
 $$
 
-### Sottrazione tra insiemi
+### Proprietà: Complementari, Sub-additività, Sottrazione
 $$
 A = A \cap \Omega = A = A \cap (B \cup \overline {{B}}) = (A \cap B) \cup (A \cap \overline {{B}})
 $$
 
 Siccome $( A \cap B ) \in ( A \cap { \overline { { B } } } )$ sono incompatibili, allora ritroviamo la proprietà $\mathbb { P } ( A \cap { \overline { { B } } } ) = \mathbb { P } ( A \setminus B ) = \mathbb { P } ( A ) - \mathbb { P } ( A \cap B )$. 
 
-### Unione di eventi non incompatibili
+### Proprietà: Complementari, Sub-additività, Sottrazione
 $( A \cap B \neq \varnothing )$ . Osserviamo preliminarmente che $A = A \cup \left( B \cap { \overline { { A } } } \right)$, per cui:
 
 $$
@@ -746,7 +746,7 @@ $$
 
 Per contro, noi usiamo la notazione semplificata $\mathbb { P } ( X = x )$, talvolta ”complicandola” nella forma $\mathbb { P } ( \{ X = x \} )$, che evoca che a rigore ci riferiamo a un insieme di punti di $\Omega .$. Useremo queste notazioni intercambiabilmente ogni volta che non ci sia il pericolo di generare equivoci. 
 
-## La media campionaria
+### Valore atteso (Media statistica) e Media campionaria
 
 Una variabile aleatoria $X$ si dice caratterizzata se è assegnata la sequenza de $| \mathcal { X } |$ valori della sua pmf; 
 
@@ -947,7 +947,7 @@ pmf e pmf condizionale di $X \sim B(16, 1)$
 
 ![image](https://cdn-mineru.openxlab.org.cn/result/2026-06-27/b5f5d426-9c48-4e21-b90d-66928c562c74/1505d7f1c8d7e5072fd4a5ff4df58e490794d1f37dbf350dc82422eb0f117252.jpg)
 
-## Regola della probabilità totale per le pmf
+### Trasformazioni e PMF condizionali
 
 Ricordiamo che (vedi slide 37), per un qualunque evento $C \subseteq \Omega$ e per una qualunque partizione $\{ E \} _ { i = 1 } ^ { M }$ si ha: 
 
@@ -1079,7 +1079,7 @@ Si noti comunque che l’equazione (1) include l’equazione (2) come caso speci
 > $$E[g(X)] = \sum_{y} g(y) P(Y=y)$$
 > (dove $Y = g(X)$)
 
-## Qualche esempio
+## Introduzione e CDF
 
 Sia $X \sim \mathcal { U } ( \{ - 2 , - 1 , 0 , 2 \}$ 
 
@@ -1218,7 +1218,7 @@ $$
 > [!quote] Osservazione
 > Per una variabile aleatoria che segue una distribuzione di Poisson, la media e la varianza coincidono.
 
-## Il significato della varianza e della deviazione standard
+### Varianza e Deviazione standard
 
 Supponiamo di non avere una caratterizzazione completa di una variabile aleatoria $X$.
 
@@ -1234,7 +1234,7 @@ Si deduce che un parametro fondamentale è il rapporto $\frac { \mu _ { X } } { 
 - Valori elevati di questo rapporto indicano una **pmf** (funzione di probabilità) molto concentrata intorno alla media (variabile "poco aleatoria").
 - Valori bassi implicano un'elevata aleatorietà.
 
-## La disuguaglianza di Chebyshev
+### Disuguaglianza di Chebyshev
 
 Sia $Z$ una variabile non negativa definita su un alfabeto discreto ${ \mathcal { Z } } \subseteq [ 0 , + \infty [$ secondo una pmf $p _ { Z } ( z )$. Si valuti la probabilità che $Z$ sia non inferiore a un qualunque valore $\delta \in { \mathcal { Z } }$:
 
@@ -1253,7 +1253,7 @@ $$
 \mathbb {E} [ Z ^ {2} ] = \mathbb {E} [ | X - \mu_ {X} | ^ {2} ] = \mathbb {E} [ (X - \mu_ {X}) ^ {2} ] = \sigma_ {X} ^ {2}.
 $$
 
-## Quadro sintetico delle proprietà di media e varianza
+### Proprietà operative di Media e Varianza
 
 Se $(a, b)$ sono costanti reali ${ \mathbb E } [ a X + b ] = a { \mathbb E } [ X ] + b$, dato che $\mathbb { E } [ b ] = b ;$:
 
@@ -1279,7 +1279,7 @@ $$
 
 Si noti infine che per variabili a media nulla $( \mu x = 0 )$, abbiamo $\sigma _ { X } ^ { 2 } = X _ { \mathrm { r m s } } ^ { 2 }$.
 
-## Definizione di variabili multiple
+# 3. Variabili Aleatorie Multiple
 
 Formalmente, una coppia di variabili aleatorie (o **variabile doppia**) è definita — in analogia con le variabili singole — nella forma:
 
@@ -1691,7 +1691,7 @@ $$
 
 Si evince chiaramente che $B _ { 3 } = B _ { 1 } \oplus B _ { 2 }$ rappresenta un **bit di parità**.
 
-## Funzioni di variabili doppie
+## Trasformazioni di variabili doppie
 
 Sia $( X , Y ) \sim p x , Y ( x , y ) ( x , y ) \in \mathcal { X } \times \mathcal { Y }$ una **variabile doppia** con pmf (funzione di probabilità) $p _ { X , Y } ( x , y )$. 
 
@@ -1881,7 +1881,7 @@ Abbiamo visto che le coppie $( \mu _ { X } , \sigma _ { X } ^ { 2 } ) \textsf { 
 
 L’equivalente per le **pmf** (Probability Mass Functions) congiunte è la **covarianza**, che dà un’idea - ancora abbastanza sommaria - del grado di ”dipendenza” tra $X$ e $Y$.
 
-## Definizioni
+## Definizioni e Nomenclatura
 
 > [!important] Correlazione
 > La correlazione tra $X \in Y$ è una misura della forza e della direzione della relazione lineare tra due variabili casuali. Intuitivamente, indica quanto le due variabili tendano a variare insieme in modo proporzionale.
@@ -2653,7 +2653,7 @@ Sia $X$ una variabile aleatoria con pdf $f_X(x)$. Vogliamo la pdf di $Y = g(X)$.
 > f _ {Y} (y) = \frac {1}{\pi A \sqrt {1 - \left(\frac {y}{A}\right) ^ {2}}}, \qquad y \in [ - A, A ]
 > $$
 
-# Conversione A/D di variabili aleatorie
+# 4. Variabili Aleatorie Continue
 
 Quando $X$ è una variabile continua e $Y$ è una variabile discreta, si ha una **conversione** $\mathsf { A } / \mathsf { D }$ di una quantità aleatoria (confronta anche l’ultima sezione della parte ”Conversione $\mathsf { A } / \mathsf { D } ^ { \prime \prime } )$").
 
@@ -2678,7 +2678,7 @@ $$
 > [!quote] Osservazione
 > Ovviamente tanto la partizione quanto i livelli di rappresentazione sono gradi di libertà a disposizione del progettista. 
 
-## Media di funzioni di variabili aleatorie continue
+## Introduzione e CDF
 
 Sia $X$ una variabile aleatoria continua con pdf $f_X(x)$ e sia $g(x)$ una funzione tale che $\mathcal { V } = g ( \mathcal { X } )$. Vogliamo estendere alle variabili continue il Teorema Fondamentale per il calcolo della media (vedi slide 60 e seguenti). Il risultato principale - diretta derivazione del caso discreto - è che, qualunque sia $g(x)$, vale:
 
@@ -2700,7 +2700,7 @@ $$
 \mathbb {E} \left[ Y \right] = \lim _ {\Delta \rightarrow 0} \mathbb {E} \left[ Y ^ {\Delta} \right] = \lim _ {\Delta \rightarrow 0} \sum_ {i = 1} ^ {M} g (x _ {i}) \underbrace {f _ {X} (x _ {i}) \Delta} _ {\simeq \mathbb {P} (i \Delta \leq X <   (i + 1) \Delta)} = \int_ {\mathbb {R}} g (x) f _ {X} (x)   d x
 $$
 
-## Valore quadratico medio e varianza di variabili continue
+## Introduzione e CDF
 
 A questo punto è immediata la generalizzazione dei concetti introdotti per variabili discrete a variabili continue. 
 
@@ -2733,7 +2733,7 @@ $$
 > [!tip] Nota
 > Tutte le proprietà della slide 68 valgono ovviamente anche per variabili continue. 
 
-## Qualche esempio
+## Introduzione e CDF
 
 > [!example] Esempio 1 (*Calcolo Media*)
 > Sia $X$ una variabile aleatoria con pdf $f_X(x) = \frac{1}{2}$ per $x \in [-1, 1]$. Si ottiene facilmente: 
@@ -2759,7 +2759,7 @@ $$
 > [!example] Esempio 4 (*Caso non integrabile*)
 > Sia $f_X(x) = \frac{1}{x^2}$ per $x \in [1, \infty)$. Non esistono in questo caso né la media, né la varianza, né, quindi, il valore rms o la deviazione standard. 
 
-## Variabili continue multiple 
+## Analisi multivariata continua
 
 In perfetta analogia con quanto fatto per variabili discrete (vedi slide 69), una coppia di variabili continue (o variabile doppia) è definita nella forma: 
 
@@ -2781,7 +2781,7 @@ $$
 X _ {1}, \dots , X _ {m}: \omega \in \Omega \longrightarrow (X _ {1} (\omega), \dots , X _ {m} (\omega)) \in \mathcal {X} _ {1} \times \dots \times \mathcal {X} _ {m} \subseteq \mathbb {R} ^ {m}
 $$
 
-## pdf congiunta di due variabili aleatorie
+### PDF congiunta e marginalizzazione
 
 Si consideri una coppia di variabili continue, $X \in \mathcal { X } \mathrm { ~ e ~ } Y \in \mathcal { Y }$, la loro **pdf congiunta** $f_{X,Y}(x,y)$ si definisce in perfetta analogia con la pdf di variabili continue singole (vedi slide 94): 
 
@@ -2807,11 +2807,11 @@ $$
 \int_ {\mathbb {R} ^ {2}} f _ {X, Y} (x, y) d x d y = \int_ {- \infty} ^ {+ \infty} \int_ {- \infty} ^ {+ \infty} f _ {X, Y} (x, y) d x d y = \mathbb {P} ((X, Y) \in \mathbb {R} ^ {2}) = 1
 $$
 
-## Proprietà della pdf congiunta
+### PDF congiunta e marginalizzazione
 
 La **pdf congiunta** $f _ { X , Y } ( x , y )$ condivide con la pmf congiunta $p x , \gamma ( x , y ) \textrm { - e }$, per alcune, con tutte le densità, le seguenti proprietà: 
 
-### Proprietà di marginalizzazione
+### PDF congiunta e marginalizzazione
 
 $$
 \int_ {\mathbb {R}} f _ {X, Y} (x, y) d y = f _ {X} (x) \qquad \int_ {\mathbb {R}} f _ {X, Y} (x, y) d x = f _ {Y} (y)
@@ -2833,7 +2833,7 @@ $$
 f _ {X _ {1}, \dots , X _ {m}} (x _ {1}, \dots , x _ {m}) = \prod_ {i = 1} ^ {m} f _ {X _ {i}} (x _ {i}), \qquad (x _ {1}, \dots , x _ {m}) \in \mathbb {R} ^ {m}
 $$
 
-## Le pdf condizionate
+## PDF Condizionata
 
 Si considerino variabili aleatorie $X \in \mathcal { X } \mathrm { ~ e ~ } Y \in \mathcal { Y }$ con assegnata pdf congiunta $f _ { X , Y } ( x , y )$. 
 
@@ -2859,7 +2859,7 @@ che, come c’era da attendersi, riproduce l’analoga definizione per la pmf co
 
 Di conseguenza tutte le proprietà delle pmf condizionali si estendono alle pdf condizionali. 
 
-## Proprietà delle pdf condizionate
+## PDF Condizionata
 
 Data l’analogia con le variabili discrete, ci limitiamo qui a riscrivere le proprietà della slide 74. 
 
@@ -2869,7 +2869,7 @@ $$
 f _ {X | Y} (x | y) \geq 0 \int_ {\mathbb {R}} f _ {X | Y} (x | y) d x = 1
 $$
 
-### Legge della probabilità totale per le pdf
+### Legge della probabilità totale
 
 $$
 f _ {X} (x) = \int_ {\mathbb {R}} f _ {X, Y} (x, y) d y = \int_ {\mathbb {R}} f _ {X | Y} (x | y) f _ {Y} (y) d y
@@ -2879,13 +2879,13 @@ $$
 f _ {Y} (y) = \int_ {\mathbb {R}} f _ {X, Y} (x, y) d x = \int_ {\mathbb {R}} f _ {Y | X} (y | x) f _ {X} (x) d x
 $$
 
-### Leggi della probabilità composta e di Bayes per le densità
+### Leggi di Bayes per densità
 
 $$
 f _ {X, Y} (x, y) = f _ {Y} (y) f _ {X | Y} (x | y) = f _ {X} (x) f _ {Y | X} (y | x) \Rightarrow f _ {Y | X} (y | x) = \frac {f _ {Y} (y) f _ {X | Y} (x | y)}{f _ {X} (x)}
 $$
 
-## Altre estensioni...
+## Analisi multivariata continua
 
 Come nel caso discreto, avremo: 
 
@@ -2895,13 +2895,13 @@ $$
 \mathbb {E} [ Z ] = \int_ {\mathbb {R} ^ {2}} g (x, y) f _ {X}, \gamma (x, y) d x d y
 $$
 
-### Linearità della media
+### Proprietà operative di Media e Varianza
 
 $$
 \mathbb {E} \left[ \sum_ {i = 1} ^ {m} a _ {i} X _ {i} \right] = \sum_ {i = 1} ^ {m} a _ {i} \mathbb {E} \left[ X _ {i} \right]
 $$
 
-### Teorema della media condizionata
+### Media di funzioni e LOTUS
 
 > [!important] Teorema (*Media Condizionata*)
 > Enunciato: 
@@ -2918,28 +2918,28 @@ $$
 > h \left[ Y (\omega) \right] = \int_ {\mathbb {R}} g (x, Y) f _ {X | Y} (x | Y) d x
 > $$
 
-## Covarianza tra due variabili continue
+## Correlazione e Covarianza
 
 Siano $( X , Y ) \sim f _ { X , Y } ( x , y )$. Denotiamo con $( \mu _ { X } , \mu _ { Y } )$ le rispettive medie e $( \sigma _ { X } ^ { 2 } , \sigma _ { Y } ^ { 2 } )$ le rispettive varianze. Avremo, in analogia al caso discreto: 
 
-### Covarianza tra $X \in Y ;$
+### Covarianza: Definizione e proprietà
 
 $$
 \operatorname{COV} [ X, Y ] = \mathbb {E} \left[ (X - \mu_ {X}) (Y - \mu_ {Y}) \right] = \mathbb {E} [ X Y ] - \mu_ {X} \mu_ {Y}
 $$
 
-### Coefficiente di correlazione tra $X \textsf { e Y }$
+### Correlazione e Coefficiente di Pearson
 
 $$
 \rho_ {X, Y} = \frac {\operatorname{COV} [ X , Y ]}{\sigma_ {X} \sigma_ {Y}}, \quad \left| \rho_ {X, Y} \right| \leq 1
 $$
 
-### Incorrelazione tra $X \textsf { e } Y \colon { \mathsf { C O V } } [ X , Y ] = 0$
+### Incorrelazione vs Indipendenza
 
 > [!quote] Osservazione
 > Indipendenza implica incorrelazione, ma incorrelazione non implica indipendenza. 
 
-## Variabili Gaussiane: Caratterizzazione marginale
+# 5. Variabili Gaussiane e Processi Aleatori
 
 Una variabile aleatoria $X _ { 0 } \in \mathcal { X } = \mathbb { R }$ si dice **Gaussiana** (o Normale) standard - $X _ { 0 } \sim \mathcal { N } ( 0 , 1 )$ se: 
 
@@ -2963,12 +2963,12 @@ $$
 \mathbb {E} \left[ (X - \mu_ {X}) ^ {2} \right] = \operatorname{VAR} \left[ \sigma_ {X} X _ {0} + \mu_ {X} \right] = \sigma_ {X} ^ {2}
 $$
 
-## Andamenti di pdf Gaussiane
+### Caratterizzazione marginale e andamenti
 
 ![image](https://cdn-mineru.openxlab.org.cn/result/2026-06-27/b5f5d426-9c48-4e21-b90d-66928c562c74/14bd5c980e8521e5eb02a7517ff1fac46626c196028264217617a09b4afc4823.jpg)
 Figura 1: Andamenti di pdf Gaussiane.
 
-## La funzione Q(x)
+### Funzione Q(x) e sue proprietà
 
 Sia $X _ { 0 } \sim \mathcal { N } ( 0 , 1 )$: nè la sua CDF né la sua CCDF sono note in forma esplicita, poiché $e ^ { - \gamma x ^ { 2 } }$ non ammette primitive elementari. 
 
@@ -2992,7 +2992,7 @@ $$
 
 Dato il suo uso frequente, nella prossima slide è presentato un diagramma della funzione $Q ( x ) , x \geq 0$. 
 
-## Andamento di Q(x)
+### Funzione Q(x) e sue proprietà
 
 $$
 Q (x) \sim \frac {1}{x \sqrt {2 \pi}} e ^ {- \frac {x ^ {2}}{2}} <   e ^ {- \frac {x ^ {2}}{2}}, \qquad x \to \infty
@@ -3001,7 +3001,7 @@ $$
 ![image](https://cdn-mineru.openxlab.org.cn/result/2026-06-27/b5f5d426-9c48-4e21-b90d-66928c562c74/9e014a72e6bb4cff5f6045f5e3af68f8479b85e9889bcb10a79b45de356eb16a.jpg)
 Figura 2: Andamento di Q(x).
 
-## Alcune utili proprietà della funzione Q(x)
+### Funzione Q(x) e sue proprietà
 
 Si noti preliminarmente che 
 
@@ -3015,7 +3015,7 @@ $$
 \frac {d Q (x)}{d x} = - \frac {1}{\sqrt {2 \pi}} e ^ {- \frac {x ^ {2}}{2}} <   0 \forall x \rightarrow Q (x) \text {   è   decrescente   in   } x
 $$
 
-### Simmetria
+### Funzione Q(x) e sue proprietà
 
 $$
 Q (- x) = \frac {1}{\sqrt {2 \pi}} \int_ {- x} ^ {\infty} e ^ {- \frac {t ^ {2}}{2}} d t = 1 - \underbrace {\frac {1}{\sqrt {2 \pi}} \int_ {- \infty} ^ {- x} e ^ {- \frac {t ^ {2}}{2}} d t} _ {= Q (x)} = 1 - Q (x)
@@ -3027,7 +3027,7 @@ $$
 \mathbb {P} (X \geq \eta) = \mathbb {P} (X _ {0} \sigma_ {X} + \mu_ {X} \geq \eta) = \mathbb {P} (X _ {0} \geq \frac {\eta - \mu_ {X}}{\sigma_ {X}}) = Q (\frac {\eta - \mu_ {X}}{\sigma_ {X}})
 $$
 
-## Caratterizzazione congiunta di variabili Gaussiane
+### Caratterizzazione congiunta (Matrice di covarianza)
 
 Siano $X _ { 1 } \sim \mathcal { N } ( \mu _ { 1 } , \sigma _ { 1 } ^ { 2 } ) \in X _ { 2 } \sim \mathcal { N } ( \mu _ { 2 } , \sigma _ { 2 } ^ { 2 } )$. Noi sappiamo che: 
 
@@ -3051,7 +3051,7 @@ $$
 = \mathbb {E} \left[ \begin{array}{c c} (X _ {1} - \mu_ {1}) ^ {2} & (X _ {1} - \mu_ {1}) (X _ {2} - \mu_ {2}) \\ (X _ {2} - \mu_ {2}) (X _ {1} - \mu_ {1}) & (X _ {2} - \mu_ {2}) ^ {2} \end{array} \right] = \left( \begin{array}{c c} \sigma_ {1} ^ {2} & \sigma_ {1} \sigma_ {2} \rho_ {1, 2} \\ \sigma_ {1} \sigma_ {2} \rho_ {1, 2} & \sigma_ {2} ^ {2} \end{array} \right)
 $$
 
-## Alcune proprietà della matrice di covarianza
+### Caratterizzazione congiunta (Matrice di covarianza)
 
 Poiché $| \boldsymbol { K } \boldsymbol { x } | = \sigma _ { 1 } ^ { 2 } \sigma _ { 2 } ^ { 2 } \bigl ( 1 - \rho _ { 1 , 2 } ^ { 2 } \bigr ) \geq 0 , \boldsymbol { K } \boldsymbol { x }$ è definita non negativa; 
 
@@ -3075,7 +3075,7 @@ $$
 \boldsymbol {K} _ {\boldsymbol {X}} = \left( \begin{array}{c c} \sigma_ {1} ^ {2} & 0 \\ 0 & \sigma_ {2} ^ {2} \end{array} \right) \Longrightarrow \boldsymbol {K} _ {\boldsymbol {X}} ^ {- 1} = \left( \begin{array}{c c} \frac {1}{\sigma_ {1} ^ {2}} & 0 \\ 0 & \frac {1}{\sigma_ {2} ^ {2}} \end{array} \right)
 $$
 
-## Variabili congiuntamente Gaussiane
+### Processi Gaussiani
 
 Le due variabili $X _ { 1 } \sim \mathcal { N } ( \mu _ { 1 } , \sigma _ { 1 } ^ { 2 } ) \in X _ { 2 } \sim \mathcal { N } ( \mu _ { 2 } , \sigma _ { 2 } ^ { 2 } )$ si dicono **congiuntamente Gaussiane** se la loro pdf congiunta - cioè la pdf del vettore $\pmb { X } = ( X _ { 1 } X _ { 2 } ) ^ { T }$ - si scrive: 
 
@@ -3104,7 +3104,7 @@ $$
 
 cioè se due variabili sono congiuntamente Gaussiane (e solo in questo caso) l’incorrelazione implica l’indipendenza statistica! 
 
-## Proprietà di chiusura rispetto a trasformazioni lineari
+### Trasformazioni lineari
 
 Se $\pmb { x } \sim \mathcal { N } ( \pmb { \mu } \pmb { x } , \pmb { K } \pmb { x } )$ allora ogni trasformazione lineare di $X$ dà luogo a un nuovo vettore Gaussiano. 
 
@@ -3136,7 +3136,7 @@ $$
 \mathbf {Z} \sim \mathcal {N} (\boldsymbol {\mu_ {Z}}, \mathbf {K _ {Z}})
 $$
 
-## Richiami sulle variabili aleatorie
+# 5. Variabili Gaussiane e Processi Aleatori
 
 - Si consideri uno spazio di probabilità arbitrario, $\Omega , \tau , \mathbb { P }$, dove $\Omega \ { \dot { \mathbf { e } } }$ lo spazio dei campioni, $\mathcal{T}$ una $\sigma$-algebra di eventi di $\Omega \textsf { e l P } \colon { \mathcal { T } }  [ 0 , 1 ]$ una legge di probabilità. 
 
@@ -3170,7 +3170,7 @@ $$
 p _ {X, Y} (x, y) = \mathbb {P} \{X = x, Y = y \} \forall x \in \mathcal {X} \times \mathcal {Y}
 $$
 
-## Vettori aleatori
+### Definizione e vettori aleatori
 
 - Una **n-pla aleatoria** è una ovvia generalizzazione del concetto di coppia di variabili aleatorie, cioè: 
 
@@ -3200,7 +3200,7 @@ $$
 
 dove $\pmb { x } = [ x _ { 1 } , \dots , x _ { n } ] ^ { T } \in \mathbb { R } ^ { n }$ 
 
-## Legge di Bayes per vettori aleatori
+### Leggi di Bayes per densità
 
 - Consideriamo un vettore aleatorio discreto con pmf $p _ { X } ( { \pmb x } )$. Sappiamo che la **Legge di Bayes** assicura che 
 
@@ -3442,7 +3442,7 @@ Pertanto, la matrice di covarianza di un vettore tratto da un processo SSL è si
 > [!quote] Osservazione
 > Se il passo di campionamento del processo è costante (cioè, $( t _ { i + 1 } - t _ { i } ) / ( n _ { i + 1 } - n _ { i } )$ costante $\forall i ,$), allora la matrice assume una forma di **Toeplitz**.
 
-## Esercizio: La matrice di covarianza è sempre definita non-negativa
+### Stazionarietà in senso lato (SSL)
 
 > [!example] Esercizio 1
 > Si dimostri che la **matrice di covarianza** è una matrice definita non negativa.
@@ -3469,7 +3469,7 @@ $$
 
 dove si è sfruttato il fatto che $\mathbb{E}[(X_i - \mu_i)(X_j - \mu_j)] = \Sigma_{ij}$.
 
-## Estensione ai processi continui: definizioni
+### Processi tempo-discreti e continui
 
 Quanto detto sui processi ampiezza-discreti si estende ai processi ampiezza continui. Detto $X(t)$ tratto da un processo stazionario, la sua caratterizzazione implica l’assegnazione di una delle due funzioni:
 
@@ -3485,7 +3485,7 @@ dove $\mu(t)$ è la media e $R(t_1, t_2)$ è la funzione di autocorrelazione.
 
 Ovviamente le definizioni di stazionarietà in senso lato e in senso stretto si estendono tal quali ai processi ampiezza continui.
 
-## Un esempio: Processi Gaussiani
+### Processi Gaussiani
 
 Un processo $X(t)$ si dice **Gaussiano** se un qualunque suo campione di dimensione $M$ definisce un vettore aleatorio $X$ Gaussiano.
 
@@ -3503,7 +3503,7 @@ $$
 
 dove $|\Sigma|$ denota il determinante della matrice di covarianza.
 
-## Proprietà dei processi Gaussiani
+### Processi Gaussiani
 
 - La stazionarietà in senso lato implica quella in senso stretto. Si verifichi questo asserto ricordando che nel caso di stazionarietà in senso lato la matrice di covarianza ha struttura **Toeplitz**.
 - Chiusura rispetto a trasformazioni lineari. Se $X$ è un vettore Gaussiano, $X \sim \mathcal{N}(\mu, \Sigma)$, allora, avremo
@@ -3518,7 +3518,7 @@ $$
 f(x) = \prod_{i=1}^M \frac{1}{\sqrt{2\pi\sigma_i^2}} \exp\left(-\frac{(x_i-\mu_i)^2}{2\sigma_i^2}\right)
 $$
 
-## Tipi di convergenza
+### Tipi di convergenza
 
 Sia $X_n$ una successione di variabili aleatorie con densità $f_n(x)$. Ci chiediamo come definire la convergenza di tale successione a un dato limite, sia esso $X$.
 
@@ -3530,7 +3530,7 @@ Altre forme di convergenza più ”deboli” (con diversa gradazione) sono:
 - La convergenza in media quadratica;
 - La convergenza quasi certa (o con probabilità 1).
 
-## Convergenza in distribuzione
+### Tipi di convergenza
 
 La successione $X_n$ si dice convergente in distribuzione alla variabile $X$ (e si scrive $X_n \xrightarrow{d} X$) se
 
@@ -3556,7 +3556,7 @@ dove l’uguaglianza vale in tutti gli insiemi di continuità di $F(x)$.
 >
 > per i valori di $s$ per cui l’integrale esiste, la convergenza puntuale di $M_{X_n}(s)$ a $M_X(s)$ implica $X_n \xrightarrow{d} X$ e viceversa.
 
-## La funzione generatrice dei momenti
+### Funzione generatrice dei momenti
 
 La **funzione generatrice dei momenti** (moment generating function, mgf) di una variabile aleatoria gode di alcune rilevanti proprietà. 
 
@@ -3589,9 +3589,9 @@ Pertanto, nelle condizioni precedenti, la mgf ammette il seguente sviluppo in se
 
 ---
 
-# Elementi di Statistica inferenziale
+# 6. Statistica Inferenziale e Stima
 
-## Alcune Definizioni
+## Inferenza Bayesiana
 
 Assumiamo di avere un campione di dimensione $n$, diciamo $\pmb { x } \in \mathbb { R } ^ { n }$. 
 
@@ -3606,7 +3606,7 @@ Assumiamo che questo campione sia il risultato di un esperimento casuale, il che
 > 1. Test delle Ipotesi.
 > 2. Stima dei Parametri.
 
-## Un esempio: la media campionaria
+## Inferenza Bayesiana
 
 Assumiamo di avere un set di dati $\pmb { x } ^ { n } \in \mathcal { X } ^ { n } \subseteq \mathbb { R } ^ { n }$. 
 
@@ -3633,7 +3633,7 @@ $$
 \lim _ {n} \mathbb {E} \left[ \left(\overline {{X}} _ {n} - \mathbb {E} [ X ]\right) ^ {2} \right] = 0
 > $$
 
-## La media campionaria - cont.
+## Inferenza Bayesiana
 
 Assumiamo che $\pmb { x } ^ { n } \in \mathcal { X } ^ { n }$, con $\mathcal { X } = ( a _ { 1 } , \dotsc , a _ { M } )$ discreto e finito; 
 
@@ -3660,7 +3660,7 @@ $$
 > [!quote] Osservazione
 > Si noti che se possiamo affermare che $f _ { n } ( a _ { i } ) \to p \chi ( a _ { i } )$ (in qualche senso), allora possiamo inferire che $\pmb { x } ^ { n }$ è un campione da una popolazione i cui elementi sono estratti da un vettore casuale $X ^ { n }$ con densità marginale $\{ p _ { X } ( a _ { i } ) \} _ { i = 1 } ^ { M }$.
 
-## La distribuzione empirica
+## Inferenza Bayesiana
 
 Assumiamo che $\pmb { x } ^ { n }$ sia estratto da $X ^ { n }$, un set di $n$ variabili casuali iid con marginale sconosciuto $\{ p _ { X } ( a _ { i } ) \} _ { i = 1 } ^ { M }$. 
 
@@ -3682,7 +3682,7 @@ $$
 \lim _ {n \rightarrow \infty} \mathbb {E} \left[\left(\frac {N _ {i}}{n} - p _ {X} (a _ {i})\right) ^ {2} \right] = 0
 $$
 
-## Convergenza quasi certa
+### Tipi di convergenza
 
 Assumiamo che $\{ q ( a _ { i } ) \}$ sia qualsiasi altra pmf su $\mathcal { X }$ differente dalla vera distribuzione $p _ { X } { \left( a _ { i } \right) }$ in almeno due elementi. Abbiamo: 
 
@@ -3708,7 +3708,7 @@ $$
 \binom{n}{n q (a _ {i})} \sim 2 ^ {n H _ {2} (q (a _ {i}), 1 - q (a _ {i}))}
 $$
 
-## Convergenza quasi certa - cont.
+### Tipi di convergenza
 
 Consideriamo ora un valore $a _ { j }$ per il quale $q ( a _ { i } ) \neq p _ { X } ( a _ { i } )$ 
 
@@ -3836,7 +3836,7 @@ $$
 
 L'obiettivo è determinare la legge di decisione ottimale (ovvero con la minima probabilità di errore) per questo problema di classificazione binaria.
 
-# Classificazione Binaria: leggi di dati discreti
+### Classificazione Binaria (Discreta e Continua)
 
 Assumiamo che le osservazioni $X ^ { n }$ siano un **vettore casuale discreto** con pmf condizionali dati $p { \pmb X } ^ { m } \big ( { \pmb x } ^ { n } | H _ { i } \big )$.
 
@@ -3861,7 +3861,7 @@ $$
 > [!quote] Osservazione
 > La quantità $L ( \pmb { x } ^ { n } )$ sul lato sinistro (LHS) è chiamata **rapporto di verosimiglianza** tra le due ipotesi alternative.
 
-## Alcuni commenti
+### Classificazione Binaria (Discreta e Continua)
 
 La precedente regola di decisione è nota anche come regola di decisione a **Massima Probabilità a Posteriori** (MAP), in quanto, per la legge di Bayes:
 
@@ -3885,7 +3885,7 @@ $$
 \mathbb {P} (e) = P \left(H _ {1}\right) P \left(e \mid H _ {1}\right) + P \left(H _ {2}\right) P \left(e \mid H _ {2}\right)
 $$
 
-## Esempio: classificazione di sorgenti binarie
+### Classificazione Binaria (Discreta e Continua)
 
 > [!example] Esempio 1 (Classificazione di sorgenti binarie)
 > Assumiamo che le osservazioni siano variabili binarie iid che possono provenire con probabilità uguali da una sorgente con ${ \mathbb { P } } \left\{ X _ { i } = 1 \right\} = p _ { 1 }$ o da una sorgente con ${ \mathbb { P } } \left\{ X _ { i } = 1 \right\} = p _ { 2 }$, con $p _ { 1 } > p _ { 2 }$.
@@ -3916,7 +3916,7 @@ $$
 > w _ {H} \big (\boldsymbol {x} ^ {n} \big) \left[ \ln \left(\frac {p _ {1}}{1 - p _ {1}} \frac {1 - p _ {2}}{p _ {2}}\right) \right] \underset {H _ {2}} {\overset {H _ {1}} {\gtrless}} n \ln \left(\frac {1 - p _ {2}}{1 - p _ {1}}\right)
 > $$
 
-## Valutazione delle prestazioni
+### Classificazione Binaria (Discreta e Continua)
 
 Si noti che, poiché $p _ { 1 } > p _ { 2 }$, tutti i logaritmi sono non negativi; il test può quindi essere riscritto nella forma
 
@@ -3940,7 +3940,7 @@ $$
 \mathbb {P} (e) = \frac {1}{2} \mathbb {P} (e | H _ {1}) + \frac {1}{2} \mathbb {P} (e | H _ {2})
 $$
 
-## Classificazione binaria: legge dei dati continui
+### Classificazione Binaria (Discreta e Continua)
 
 Assumiamo ora che i dati possano essere estratti da $M$ possibili leggi di probabilità continue, dove ci viene fornito un insieme di funzioni di densità di probabilità condizionali candidate $\{ f _ { \pmb { X } ^ { n } | H _ { i } } ( \pmb { x } ^ { n } | \pmb { H } _ { i } ) \} _ { i = 1 } ^ { M }$. L'unica differenza con il caso discreto è che ora
 
@@ -3962,7 +3962,7 @@ $$
 
 La quantità $L ( \pmb { x } ^ { n } )$ sul lato sinistro (LHS) è di nuovo chiamata **rapporto di verosimiglianza** tra le due ipotesi alternative.
 
-## Esempio: test della media di una popolazione Gaussiana
+### Test di ipotesi e Neyman-Pearson
 
 > [!example] Esempio 2 (Test della media di una popolazione Gaussiana)
 > Assumiamo che il set di dati $\pmb { x } ^ { n }$ abbia la stessa probabilità di essere una realizzazione di un vettore casuale Gaussiano indipendente i cui elementi hanno la stessa varianza e medie diverse $\mu _ { 1 }$ e $\mu _ { 2 } < \mu _ { 1 }$.
@@ -4041,8 +4041,8 @@ Nel progettare una regola di decisione (ovvero, un test), si definiscono i segue
 > 1 - \beta = \mathbb {P} \left\{D (\boldsymbol {X} ^ {n}) = 1 | H _ {1} \right\} = \left\{ \begin{array}{l l} \int_ {\Omega_ {1}} f _ {\boldsymbol {X} ^ {n} | H _ {1}} (\boldsymbol {x} ^ {n} | H _ {1}) d \boldsymbol {x} ^ {n} \\ \sum_ {\boldsymbol {x} ^ {n} \in \Omega_ {1}} p _ {\boldsymbol {X} ^ {n} | H _ {1}} (\boldsymbol {x} ^ {n} | H _ {1}) \end{array} \right.
 > $$
 
-### Dati Continui
-### Dati Discreti
+### Test di ipotesi e Neyman-Pearson
+### Test di ipotesi e Neyman-Pearson
 
 ## 4. Test di Neyman-Pearson
 
@@ -4085,7 +4085,7 @@ $$
 
 dove $\eta ^ { \prime }$ deve essere scelto in modo da garantire che la probabilità di errore di tipo-I sia uguale al valore di progetto $\alpha$.
 
-## Prestazioni del test
+### Test di ipotesi e Neyman-Pearson
 
 Dobbiamo prima impostare la soglia di rilevamento. Si noti che la statistica del test, sotto $H _ { 0 }$, è Gaussiana con media zero e varianza $\frac { \sigma ^ { 2 } } { n }$ (vedere slide 18). Di conseguenza:
 
@@ -4107,7 +4107,7 @@ $$
 
 ovvero arriviamo alla prestazione ideale $\alpha = 0 , 1 - \beta = 1$
 
-## Stima dei parametri: generalità
+## Inferenza Bayesiana
 
 Assumiamo di avere un dataset $\mathbf{X}$ $\pmb { x } ^ { n } \in \mathcal { X } ^ { n }$ che è una realizzazione di un vettore casuale $\mathbf{X}$ $X ^ { n }$;
 
@@ -4130,7 +4130,7 @@ $$
 > p _ {\boldsymbol {X} ^ {n}} (\boldsymbol {x} ^ {n}) = \int p _ {\boldsymbol {X} ^ {n} | \theta} (\boldsymbol {x} ^ {n} | \theta) f _ {\Theta} (\theta) d \theta \quad f _ {\boldsymbol {X} ^ {n}} (\boldsymbol {x} ^ {n}) = \int f _ {\boldsymbol {X} ^ {n} | \theta} (\boldsymbol {x} ^ {n} | \theta) f _ {\Theta} (\theta) d \theta
 > $$
 
-## Stima dei Parametri
+## Inferenza Bayesiana
 
 > [!important] Definizione (Estimatore)
 > Un **estimatore** del parametro $\theta$ $\theta$ è una variabile casuale $\hat{\theta}$ ${ \widehat { \Theta } } ( X ^ { n } )$ — le cui realizzazioni sono $\hat{\theta}(\mathbf{x})$ $\widehat { \theta } ( { \pmb x } ^ { n } )$ — che tenta di "indovinare" il valore di $\theta$ $\theta$ basandosi su un'osservazione $\mathbf{x}$ $\pmb { x } ^ { n } \in \mathcal { X } ^ { n }$.
@@ -4161,7 +4161,7 @@ $$
 \widehat {\theta} (\boldsymbol {x} ^ {n}) = \arg \min \int C (\widehat {\theta} (\boldsymbol {x} ^ {n}) - \theta) f _ {\Theta | \boldsymbol {X} ^ {n}} (\theta | \boldsymbol {x} ^ {n}) d \theta
 $$
 
-## Estimatore del Minimo Errore Quadratico Medio (MMSEE)
+### Estimatori (MMSE, MAP)
 
 Assumiamo che $L(\theta, \hat{\theta}) = (\theta - \hat{\theta})^2$ $C ( \widehat { \Theta } ( X ^ { n } ) - \Theta ) = ( \widehat { \Theta } ( X ^ { n } ) - \Theta ) ^ { 2 }$.
 
@@ -4179,7 +4179,7 @@ $$
 
 che corrisponde certamente a un minimo data la convessità del rischio Bayes scelto. 
 
-## Esempio: Bernoulli Composta
+### Estimatori (MMSE, MAP)
 
 > [!example] Esempio 1 (Bernoulli Composta)
 > Assumiamo che $\mathbf{X}$ $X ^ { n } \in \{ 0 , 1 \} ^ { n }$ sia condizionalmente Bernoulli con parametro $\theta$ $\beta ,$, con $p(\theta)$ $B \sim \mathcal { U } ( 0 , 1 )$.
@@ -4202,7 +4202,7 @@ che corrisponde certamente a un minimo data la convessità del rischio Bayes sce
 > f _ {B | \boldsymbol {X} ^ {n}} (\beta | \boldsymbol {x} ^ {n}) = \frac {\beta^ {w (\boldsymbol {x} ^ {n})} (1 - \beta) ^ {n - w (\boldsymbol {x} ^ {n})}}{p _ {\boldsymbol {X} ^ {n}} (\boldsymbol {x} ^ {n})} = \frac {\beta^ {w (\boldsymbol {x} ^ {n})} (1 - \beta) ^ {n - w (\boldsymbol {x} ^ {n})}}{\binom{n + 1}{w (\boldsymbol {x} ^ {n})}}
 > $$
 
-## Esempio: Bernoulli Composta - cont.)
+### Estimatori (MMSE, MAP)
 
 > [!example] Esempio 2 (Bernoulli Composta - cont.)
 > La stima MMSE è quindi 
@@ -4223,7 +4223,7 @@ che corrisponde certamente a un minimo data la convessità del rischio Bayes sce
 > \hat {B} _ {\text { MMSE }} (\boldsymbol {X} ^ {n}) = \frac {w (\boldsymbol {X} ^ {n}) + 1}{n + 2}
 > $$
 
-## Estimatore Maximum A Posteriori (MAPE)
+### Estimatori (MMSE, MAP)
 
 Assumiamo ora la seguente funzione di costo: 
 
@@ -4249,7 +4249,7 @@ $$
 \widehat {B} _ {\mathrm{MAP}} (\boldsymbol {X} ^ {n}) = \frac {w (\boldsymbol {X} ^ {n})}{n}
 $$
 
-## Prestazioni dell'Estimatore: Errore Sistematico (Bias)
+### Estimatori (MMSE, MAP)
 
 Si analizzano preliminarmente le proprietà di distorsione degli stimatori considerati.
 
@@ -4286,7 +4286,7 @@ Si conclude che l'**MMSEE** è un estimatore distorto (*biased*), mentre il **MA
 > [!quote] Osservazione
 > L'MMSEE è asintoticamente non distorto, poiché l'errore sistematico svanisce all'aumentare di $n$.
 
-## Errori Casuali: Consistenza
+### Estimatori (MMSE, MAP)
 
 A seguito dei calcoli relativi alla varianza e all'errore casuale, si ottengono i seguenti risultati: 
 
@@ -4310,7 +4310,7 @@ $$
 
 Si può dimostrare che entrambi gli estimatori sono **fortemente consistenti**, nel senso che ${ \widehat { B } } ( X ^ { n } ) \to B$ quasi certamente.
 
-## Definizioni Generali
+## Inferenza Bayesiana
 
 Consideriamo un campione $\mathbf{X}$ estratto da un vettore casuale $\mathbf{Y}$. 
 
@@ -4337,7 +4337,7 @@ $$
 > [!important] Fortemente Consistente
 > Un estimatore è fortemente consistente se ${ \widehat { \Theta } } ( X ^ { n } ) \to \Theta$ quasi certamente.
 
-## Un esempio: Osservazioni Gaussiane con media casuale
+### Estimatori (MMSE, MAP)
 
 Sia $x$ estratto da $y$ con: 
 
@@ -4380,7 +4380,7 @@ che coincide con l'MMSEE.
 > [!quote] Osservazione
 > È casuale o esiste un motivo più profondo per la coincidenza di questi due stimatori?
 
-## Unicità degli stimatori Bayesiani
+### Estimatori (MMSE, MAP)
 
 Sia $C(\cdot)$ una funzione di costo arbitraria dell'errore di stima. 
 
@@ -4400,7 +4400,7 @@ $$
 \widehat {\mu} _ {\text { MAP }} (\boldsymbol {x} ^ {n}) = \widehat {\mu} _ {\text { MMSE }} (\boldsymbol {x} ^ {n})
 $$
 
-# Inferenza non Bayesiana: Stima di parametri non casuali
+## Inferenza non Bayesiana
 
 Assumiamo ora che le osservazioni $\pmb { x } ^ { n } \in \mathcal { X } ^ { n }$ siano estratte da una famiglia di pdf, $f _ { { \pmb X } ^ { n } } \big ( { \pmb x } ^ { n } ; { \boldsymbol \theta } \big )$; 
 
@@ -4432,7 +4432,7 @@ $$
 \widehat {\Theta} _ {M L} \left(\boldsymbol {X} ^ {n}\right) = \arg \max _ {\theta \in \mathcal {S}} \log f _ {\boldsymbol {X} ^ {n}} \left(\boldsymbol {X} ^ {n}; \theta\right)
 $$
 
-## Inferenza non Bayesiana: Misure di prestazione
+## Inferenza non Bayesiana
 
 Data uno stimatore $\Theta ( { \pmb x } ^ { n } )$ del parametro non casuale $\theta ,$, abbiamo: 
 
@@ -4458,7 +4458,7 @@ $$
 
 Uno stimatore è debolmente consistente se $\Theta ( { \pmb x } ^ { n } ) \to \theta$ in probabilità, fortemente consistente se $\Theta ( { \pmb x } ^ { n } ) \to \theta$ quasi certamente, MS consistente se $\overline { { e _ { n } ^ { 2 } } } \to 0$ 
 
-## Limite di Cramér-Rao - Fatti preliminari
+### Limite di Cramér-Rao
 
 Sia $\pmb { x } ^ { n }$ un campione estratto da un vettore casuale ${ \pmb X } ^ { n } \sim f _ { { \pmb X } ^ { n } } ( { \pmb x } ^ { n } ; { \pmb \theta } )$ con $\theta$ non casuale; 
 
@@ -4480,7 +4480,7 @@ $$
 \begin{array}{c} \mathbb {E} \left[ \left(\frac {\partial \log f _ {\boldsymbol {X} ^ {n}} (\boldsymbol {X} ^ {n} ; \theta)}{\partial \theta}\right) ^ {2} \right] = \text {var} \left[ \frac {\partial \log f _ {\boldsymbol {X} ^ {n}} (\boldsymbol {X} ^ {n} ; \theta)}{\partial \theta} \right] = \\ = - \mathbb {E} \left[ \frac {\partial^ {2} \log f _ {\boldsymbol {X} ^ {n}} (\boldsymbol {X} ^ {n} ; \theta)}{\partial \theta^ {2}} \right] \end{array}
 $$
 
-## Limite di Cramér-Rao - Derivazione
+### Limite di Cramér-Rao
 
 Sia $\widehat { \Theta } ( X ^ { n } )$ uno stimatore del parametro non casuale $\theta$ con: 
 
@@ -4500,7 +4500,7 @@ $$
 \left| \operatorname{COV} \left[ \Theta (\boldsymbol {X} ^ {n}), \frac {\partial \log f _ {\boldsymbol {X} ^ {n}} (\boldsymbol {X} ^ {n} ; \theta)}{\partial \theta} \right] \right| ^ {2} = \left[ 1 + b _ {n} ^ {\prime} (\theta) \right] ^ {2} \leq \operatorname{Var} \left[ \Theta (\boldsymbol {X} ^ {n}) \right] \operatorname{Var} \left[ \frac {\partial \log f _ {\boldsymbol {X} ^ {n}} (\boldsymbol {X} ^ {n} ; \theta)}{\partial \theta} \right]
 $$
 
-## Limite di Cramér-Rao - Ulteriori discussioni
+### Limite di Cramér-Rao
 
 Elaborando le derivazioni precedenti, otteniamo un limite inferiore imbattibile alla varianza di qualsiasi stimatore del parametro non casuale $\theta$ nella forma: 
 
@@ -4514,7 +4514,7 @@ $$
 I _ {n} (\theta) = \mathbb {E} \left[ \left(\frac {\partial \log f _ {\boldsymbol {X} ^ {n}} (\boldsymbol {X} ^ {n} ; \theta)}{\partial \theta}\right) ^ {2} \right] = - \mathbb {E} \left[ \frac {\partial^ {2} \log f _ {\boldsymbol {X} ^ {n}} (\boldsymbol {X} ^ {n} ; \theta)}{\partial \theta^ {2}} \right]
 $$
 
-## Limite di Cramér-Rao - Stimatori non distorti
+### Limite di Cramér-Rao
 
 Come anticipato, lo stimatore $\Theta ( { \pmb x } ^ { n } )$ è non distorto se $\mathbb{E}$ $[ \Theta ( { \pmb x } ^ { n } ) ] = \theta$ 
 
@@ -4531,7 +4531,7 @@ Uno stimatore non distorto il cui MSE è uguale al CRB è definito **efficiente*
 > [!important] Fatto importante
 > Se esiste uno stimatore efficiente per un dato problema di stima non Bayesiana, questo coincide necessariamente con lo stimatore ML. 
 
-## Un esempio: inferire la frequenza del cifrario di una sorgente senza memoria
+## Inferenza non Bayesiana
 
 Consideriamo inizialmente $\pmb { x } ^ { n } \in \{ 0 , 1 \} ^ { n }$ , estratto da $\pmb { X } ^ { n } \sim  { \mathcal { B } } ( 1 , \beta )$ , $\beta$ sconosciuto; 
 
@@ -4559,7 +4559,7 @@ $$
 
 Di conseguenza, è non distorto (unbiased) e MS consistente. È efficiente?
 
-## Frequenza di cifratura - cont.
+## Inferenza non Bayesiana
 
 Si noti che abbiamo: 
 
@@ -4585,7 +4585,7 @@ $$
 
 Concludiamo che la **MLE** (Maximum Likelihood Estimation) della frequenza di cifratura è efficiente. 
 
-## Parametri multipli - inferenza Bayesiana
+## Inferenza Bayesiana
 
 Assumiamo ora di avere $m$ parametri casuali, $\pmb { \theta } [ \theta _ { 1 } , \ldots , \theta _ { m } ] ^ { T }$ estratti da una pdf nota $f _ { \Theta } ( \pmb { \theta } )$ e un set di dati $\pmb { x } ^ { n }$ estratti da una pdf condizionale $f _ { { \pmb X } ^ { n } | \pmb \theta } ( { \pmb x } ^ { n } | \pmb \theta )$.
 
@@ -4607,7 +4607,7 @@ $$
 \widehat {\Theta} \left(\boldsymbol {X} ^ {n}\right) = \arg \min \int_ {\mathbb {R} ^ {m}} C \left(\boldsymbol {\theta} - \widehat {\theta} \left(\boldsymbol {X} ^ {n}\right)\right) f _ {\Theta | \boldsymbol {X} ^ {n}} \left(\boldsymbol {\theta} \mid \boldsymbol {X} ^ {n}\right) d \boldsymbol {\theta}
 $$
 
-## L'estimatore MMSE
+### Estimatori (MMSE, MAP)
 
 > [!important] Estimatore MMSE
 > L'**MMSE** (Minimum Mean Square Error) è l'estimatore che minimizza il valore atteso del quadrato dell'errore tra la stima e il valore reale.
@@ -4633,7 +4633,7 @@ $$
 \widehat {\Theta} \left(\boldsymbol {X} ^ {n}\right) = \mathbb {E} \left[ \Theta | \boldsymbol {X} ^ {n} \right]
 $$
 
-## L'estimatore MAP
+### Estimatori (MMSE, MAP)
 
 > [!important] Estimatore MAP
 > La **MAP** (Maximum A Posteriori) è un metodo di stima che massimizza la probabilità a posteriori del parametro, combinando la verosimiglianza dei dati con la conoscenza a priori sulla distribuzione dei parametri.
@@ -4659,7 +4659,7 @@ $$
 \nabla_ {\boldsymbol {\theta}} f _ {\boldsymbol {\Theta} | \boldsymbol {X} ^ {n}} (\boldsymbol {\theta} | \boldsymbol {x} ^ {n}) \big | _ {\boldsymbol {\theta} = \widehat {\boldsymbol {\theta}} (x ^ {n})} = 0
 $$
 
-## Stima non Bayesiana di parametri multipli
+## Inferenza non Bayesiana
 
 Assumiamo ora che il vettore dei parametri $\pmb { \theta }$ sia reale e deterministico; 
 
@@ -4677,7 +4677,7 @@ $$
 
 L'estimatore corrispondente $\widehat { \Theta } ( X ^ { n } )$ è di nuovo definito come un estimatore Maximum Likelihood (ML) e gode di una serie di proprietà fondamentali. 
 
-## Estimatori MMSE lineari
+## Inferenza non Bayesiana
 
 0 Iniziamo con un semplice problema scalare. Assumiamo che $\pmb { x } ^ { n }$ sia il campione osservato, estratto da $X ^ { n }$, e assumiamo di voler progettare un estimatore lineare di un parametro casuale $\Theta ,$, distribuito secondo una legge nota, nella forma: 
 
@@ -4699,7 +4699,7 @@ $$
 
 dove $\pmb { R } = \mathbb { E } \left[ \pmb { X } ^ { n } \pmb { X } ^ { n T } \right]$ è la matrice di correlazione del vettore casuale $X ^ { n }$.
 
-## Estimatori MMSE lineari (cont.)
+## Inferenza non Bayesiana
 
 Annullando il gradiente rispetto ad $\mathbf{a}$ e la derivata rispetto a $b$ otteniamo: 
 
@@ -4711,7 +4711,7 @@ $$
 \frac {\partial \mathbb {E} \left[ (\boldsymbol {a} ^ {T} \boldsymbol {X} ^ {n} + b - \Theta) ^ {2} \right]}{\partial b} = 2 b - 2 \overline {{\Theta}} - 2 \boldsymbol {a} ^ {T} \mathbb {E} [ \boldsymbol {X} ^ {n} ] = 0
 $$
 
-## Risolvendo per b si ottiene
+## Inferenza non Bayesiana
 
 $$
 b _ {\text { LMMSE }} = \mathbb {E} [ \Theta ] - \boldsymbol {a} ^ {T} \mathbb {E} [ \boldsymbol {X} ^ {n} ]
@@ -4733,7 +4733,7 @@ $$
 \boldsymbol {a} _ {\text { LMMSE }} = \boldsymbol {M} ^ {- 1} \mathbb {E} \left[ \left(\boldsymbol {X} ^ {n} - \mathbb {E} [ \boldsymbol {X} ^ {n} ]\right) (\Theta - \mathbb {E} [ \Theta ]) \right] = \boldsymbol {M} ^ {- 1} \boldsymbol {s}
 $$
 
-## L'algoritmo del gradiente
+### Adattività e Algoritmo del Gradiente
 
 Assumiamo di voler risolvere iterativamente il problema LMMSE delineato in precedenza; 
 Abbiamo visto che il gradiente dell'MSE è scritto come 
@@ -4756,7 +4756,7 @@ $$
 \boldsymbol {a} ^ {(n + 1)} = \boldsymbol {a} ^ {(n)} - \gamma \boldsymbol {M} \left(\boldsymbol {a} ^ {(n)} - \underbrace {\boldsymbol {M} ^ {- 1} \boldsymbol {s}} _ {\boldsymbol {a} _ {\text { LMMSE }}}\right)
 $$
 
-## L'algoritmo del Gradiente - cont.
+### Adattività e Algoritmo del Gradiente
 
 L'errore alla $(n + 1)$-es iterazione si legge 
 
