@@ -1,14 +1,24 @@
-### Matrice di covarianza per processi SSL
+La **funzione generatrice dei momenti (MGF)**, definita come $\Phi_X(s) = \mathbb{E}[e^{sX}]$, è uno strumento analitico fondamentale per semplificare il calcolo e lo studio delle variabili aleatorie.
 
-Dato un vettore aleatorio $\pmb{X}$ di $M$ campioni estratto da un processo stazionario in senso lato (SSL).
+Ecco le sue utilità principali:
 
-*   **Vettore Media**: $\pmb{\mu}_{\pmb{X}} = \mu \mathbf{1}$ (tutti i campioni hanno lo stesso valore atteso $\mu$).
-*   **Proprietà Statistiche**: La varianza $\sigma_X^2$ è costante e la correlazione tra due campioni dipende solo dalla loro distanza temporale $|i-j|$.
-*   **Struttura della Matrice**: La matrice di covarianza $C_X$ assume una forma simmetrica legata ai coefficienti di correlazione $\rho_{i,j}$:
-$$
-\boldsymbol {C} _ {\boldsymbol {X}} = \sigma_ {X} ^ {2} \begin{pmatrix} 1 & \rho_ {1, 2} & \dots & \rho_ {1, M} \\ \rho_ {1, 2} & 1 & \dots & \rho_ {2, M} \\ \vdots & \vdots & \ddots & \vdots \\ \rho_ {1, M} & \rho_ {2, M} & \dots & 1 \end{pmatrix}
-$$
-#### Caratteristiche chiave
-*   **Simmetria**: La matrice è sempre simmetrica rispetto alla diagonale principale.
-*   **Matrice di Toeplitz**: Se il passo di campionamento è costante, tutti gli elementi sulle diagonali parallele a quella principale sono uguali tra loro.
-*   **Definita non-negativa**: Il prodotto scalare tra un vettore arbitrario e la matrice di covarianza è sempre $\ge 0$.****
+### 1. Calcolo rapido dei momenti
+Invece di risolvere integrali complessi per ogni momento, basta derivare la MGF e valutare il risultato in $s=0$:
+*   **Media**: $\mathbb{E}[X] = \Phi'(0)$.
+*   **Varianza**: si ricava dal secondo momento $\mathbb{E}[X^2] = \Phi''(0)$.
+*   **Momento n-esimo**: $\mathbb{E}[X^n] = \Phi^{(n)}(0)$.
+
+### 2. Caratterizzazione univoca
+Esiste una corrispondenza biunivoca tra MGF e funzione di ripartizione: una specifica MGF identifica **una e una sola** distribuzione di probabilità.
+
+### 3. Somma di variabili indipendenti
+La MGF trasforma l'operazione di somma di variabili aleatorie indipendenti (che richiederebbe una convoluzione) in una semplice **moltiplicazione**:
+$$\Phi_{X+Y}(s) = \Phi_X(s) \cdot \Phi_Y(s)$$
+Questa proprietà è usata per dimostrare che la somma di variabili Normali, di Poisson o Gamma segue ancora la stessa famiglia di distribuzione.
+
+### 4. Studio della convergenza (Teorema di Levy)
+La MGF è essenziale per l'analisi asintotica: se una successione di MGF $\Phi_{X_n}(s)$ converge puntualmente a $\Phi_X(s)$, allora la successione di variabili $X_n$ **converte in distribuzione** a $X$.
+
+### 5. Sviluppo in serie
+La MGF può essere espressa tramite lo sviluppo in serie di **MacLaurin**, dove i coefficienti della serie sono direttamente i momenti della variabile:
+$$\Phi_X(s) = \sum_{n=0}^{\infty} \frac{\mathbb{E}[X^n]}{n!} s^n$$
