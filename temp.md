@@ -1,91 +1,101 @@
-Ecco il testo completo, sistemato e ripulito da rumore tipografico, spazi spuri nelle formule, notazioni incoerenti (come $p\chi$ al posto di $p_X$, o frammenti di testo sovrapposti) e refusi di formattazione LaTeX (come l'operatore `\operatorname*` errato o vettori duplicati).
+Mentre la **statistica descrittiva** si limita a "fotografare" e riassumere i dati che abbiamo già raccolto, la **statistica inferenziale** usa quelle informazioni per capire come funziona l'intero fenomeno (la popolazione) da cui i dati provengono. Il suo scopo è trarre conclusioni generali partendo da un piccolo gruppo di osservazioni, tenendo conto che i risultati sono influenzati dal caso.
 
-Viene mantenuta l'impaginazione in Markdown e LaTeX originale con i blocchi di citazione/teorema formattati correttamente.
+>[!quote] Come funziona in breve
+L'idea di base è che i dati che analizziamo siano il risultato di un **esperimento casuale**. 
+>*   Abbiamo un **campione** di $n$ misure (es. l'altezza di 100 persone).
+>*   Sappiamo che se ripetessimo l'indagine oggi stesso, otterremmo valori leggermente diversi proprio a causa della natura casuale del campionamento.
+>*   L'inferenza statistica cerca di definire una "legge" (modello probabilistico) che sia valida per qualsiasi campione estratto correttamente dalla stessa popolazione.
 
----
+>[!focus] I due obiettivi principali
+L'inferenza si muove lungo due binari fondamentali:
+>
+>1.  **Stima dei Parametri (*Parameter Estimation*):** Si cerca di "indovinare" i valori ignoti della popolazione (come la media o la varianza) usando i dati del campione. Possiamo fornire un singolo numero (stima puntuale) o un intervallo di valori entro cui siamo fiduciosi si trovi il vero parametro (intervallo di confidenza).
+>$\space$
+>2.  **Test delle Ipotesi (*Hypothesis Testing*):** Si definisce una procedura per decidere se un'affermazione su un fenomeno (ad esempio: "questo farmaco è efficace") sia coerente o meno con i dati che abbiamo osservato.
 
-## Un esempio: la media campionaria
+In sintesi, la statistica inferenziale è lo strumento che permette di trasformare i dati grezzi in **conoscenza affidabile** sull'intera realtà che ci circonda.
 
-Assumiamo di avere un set di dati $\pmb{x}^{n} \in \mathcal{X}^{n} \subseteq \mathbb{R}^{n}$.
+### La Media Campionaria ($\overline{X}_n$)
 
-Sappiamo che la **media campionaria** è definita come
-$$\overline{{x}}_{n} = \frac{1}{n} \sum_{i = 1}^{n} x_{i}$$
-La **Legge dei Grandi Numeri** ci dice che $\overline{X}_{n} \to \mathbb{E}[X]$ (il tipo di convergenza dipende dalla legge statistica sottostante), nel senso che, denotando con $X^{n}$ un campione casuale estratto dalla popolazione, abbiamo
-$$\frac{1}{n} \sum_{i = 1}^{n} X_{i} \to \mathbb{E}[X]$$
-> [!rb] Osservazione
-> La **convergenza debole** (cioè, convergenza in probabilità) ci dice che la frequenza dei campioni la cui media campionaria si discosta significativamente da $\mathbb{E}[X]$ è piccola quanto desideriamo;
-> La **convergenza forte** afferma che nel limite la probabilità di discostarsi da $\mathbb{E}[X]$ è zero;
-> La **convergenza in media quadratica** (Mean-Square) afferma che
+> [!def] Definizione di Media Campionaria
+> Dato un set di dati $\pmb{x}^{n} = \{$x_1$, \dots, x_n\}$, la media campionaria è:
+> $$\overline{x}_{n} = \frac{1}{n} \sum_{i = 1}^{n} x_{i}
 > $$
-\lim_{n \to \infty} \mathbb{E} \left[ \left(\overline{X}_{n} - \mathbb{E}[X]\right)^{2} \right] = 0
-> $$
 
-Assumiamo che $\pmb{x}^{n} \in \mathcal{X}^{n}$, con $\mathcal{X} = \{ a_{1}, \dotsc, a_{M} \}$ discreto e finito; sappiamo che
-$$\overline{{x}}_{n} = \sum_{i = 1}^{M} a_{i} f_{n}(a_{i})$$
-dove $f_{n}(a_{i})$ è la frazione dei valori del campione che assumono il valore $a_{i}$.
+> [!theorem] Legge dei Grandi Numeri (LLN)
+> Afferma che la media campionaria converge al valore atteso della popolazione:
+> $$\overline{X}_{n} \to \mathbb{E}[X]$$
 
-Sappiamo che, se $X$ è una variabile casuale con pmf $\{ p_{X}(a_{i}) \}_{i = 1}^{M}$, allora:
-$$\mathbb{E}[X] = \sum_{i = 1}^{M} a_{i} p_{X}(a_{i})$$
-Di conseguenza, abbiamo
-$$| \overline{{x}}_{n} - \mathbb{E}[X] | \leq \sum_{i = 1}^{M} | a_{i} | | f_{n}(a_{i}) - p_{X}(a_{i}) |$$
-> [!note] Osservazione
-> Si noti che se possiamo affermare che $f_{n}(a_{i}) \to p_{X}(a_{i})$ (in qualche senso), allora possiamo inferire che $\pmb{x}^{n}$ è un campione da una popolazione i cui elementi sono estratti da un vettore casuale $X^{n}$ con densità marginale $\{ p_{X}(a_{i}) \}_{i = 1}^{M}$.
+> [!rb] Tipi di Convergenza
+> 1. **Debole (in Probabilità):** La frequenza dei campioni la cui media si discosta significativamente da $\mathbb{E}[X]$ è piccola a piacere.
+> 2. **Forte (Quasi Certa):** Il limite della probabilità di discostarsi da $\mathbb{E}[X]$ è zero.
+> 3. **In Media Quadratica (Mean-Square):** 
+>    $$\lim_{n \to \infty} \mathbb{E} \left[ \left(\overline{X}_{n} - \mathbb{E}[X]\right)^{2} \right] = 0$$
 
-## La distribuzione empirica
 
-> [!def] Distribuzione Empirica
-> Metodo per inferire la legge di probabilità ignota di una popolazione osservando la frequenza con cui determinati valori compaiono in un campione di dati.
+### La Distribuzione Empirica
 
-Assumiamo che un campione di dati $\pmb{x}^{n}$ sia composto da $n$ variabili casuali **i.i.d.** con probabilità marginale $\{ p_{X}(a_{i}) \}_{i = 1}^{M}$ non nota.
+> [!def] Frequenza di Occorrenza
+> Se $N_i$ è il numero di volte in cui l'evento $X_k = a_i$ si verifica in un campione di dimensione $n$ i.i.d. (indipendenti e identicamente distribuite), il conteggio segue una **distribuzione binomiale**:
+> $$\operatorname{Pr} \left\{N_{i} = k \right\} = \binom{n}{k} p_{X}(a_{i})^{k} \left[ 1 - p_{X}(a_{i}) \right]^{n - k}$$
 
-> [!rb] I.I.D. (Indipendenti Identicamente Distribuite)
-> Variabili casuali che sono indipendenti tra loro e condividono esattamente la stessa legge di probabilità.
+> [!dim] Proprietà dello Stimatore di Frequenza
+> La frequenza relativa $\frac{N_i}{n}$ converge alla probabilità vera $p_X($a_i$)$ in media quadratica poiché:
+> - **Valore Atteso:** $\mathbb{E} \left[ \frac{N_{i}}{n} \right] = p_{X}(a_{i})$
+> - **Varianza:** $\operatorname{var} \left[ \frac{N_{i}}{n} \right] = \frac{p_{X}(a_{i}) (1 - p_{X}(a_{i}))}{n}$
+> - **Limite MS:** $\lim_{n \rightarrow \infty} \mathbb{E} \left[\left(\frac{N_{i}}{n} - p_{X}(a_{i})\right)^{2} \right] = 0$
 
-### Modello Statistico e Frequenze
-Il numero di volte $N_{i}$ in cui l'evento $X_{k} = a_{i}$ si verifica nel campione è una variabile casuale che segue la **distribuzione binomiale**:
-$$\operatorname{Pr} \left\{N_{i} = k \right\} = \binom{n}{k} p_{X}(a_{i})^{k} \left[ 1 - p_{X}(a_{i}) \right]^{n - k}$$.
 
-> [!theorem] Caratterizzazione della Frequenza Relativa
-> La frazione del campione $\frac{N_{i}}{n}$ che assume il valore $a_i$ (frequenza relativa) agisce come stimatore della probabilità teorica $p_X($a_i$)$ con le seguenti proprietà:
-> - **Valore Atteso (Non distorsione)**: $\mathbb{E} \left[ \frac{N_{i}}{n} \right] = p_{X}(a_{i})$
-> - **Varianza (Incertezza)**: $\operatorname{var} \left[ \frac{N_{i}}{n} \right] = \frac{p_{X}(a_{i}) (1 - p_{X}(a_{i}))}{n}$.
 
-### Convergenza
-> [!dim] Consistenza in Media Quadratica
-> All'aumentare della dimensione del campione ($n \to \infty$), la frequenza relativa converge alla probabilità vera poiché l'errore quadratico medio tende a zero:
-> $$\lim_{n \rightarrow \infty} \mathbb{E} \left[\left(\frac{N_{i}}{n} - p_{X}(a_{i})\right)^{2} \right] = 0$$.## Convergenza quasi certa
+## Convergenza quasi certa
 
-Assumiamo che $\{ q(a_{i}) \}$ sia qualsiasi altra pmf su $\mathcal{X}$ differente dalla vera distribuzione $p_{X}(a_{i})$ in almeno due elementi. Abbiamo:
-$$\operatorname{Pr} \left\{N_{i} = n q(a_{i}) \right\} = \binom{n}{n q(a_{i})} p_{X}(a_{i})^{n q(a_{i})} \left[ 1 - p_{X}(a_{i}) \right]^{n (1 - q(a_{i}))}$$
-Utilizzando il limite di Stirling per il coefficiente binomiale:
-$$\sqrt{\frac{n}{8 k (n - k)}} \leq \binom{n}{k} 2^{- n H_2\left(\frac{k}{n}\right)} \leq \sqrt{\frac{n}{\pi k (n - k)}}$$
-abbiamo, impostando $k = n q(a_{i})$:
-$$\sqrt{\frac{1}{8 n q(a_{i}) (1 - q(a_{i}))}} \leq \binom{n}{n q(a_{i})} 2^{- n \left[ q(a_{i}) \log_2 \frac{1}{q(a_{i})} + (1 - q(a_{i})) \log_2 \frac{1}{1 - q(a_{i})} \right]} \leq \sqrt{\frac{1}{\pi n q(a_{i}) (1 - q(a_{i}))}}$$
-da cui si deduce che, per $n$ sempre più grandi:
-$$\binom{n}{n q(a_{i})} \sim 2^{n H_{2}(q(a_{i}), 1 - q(a_{i}))}$$
-Consideriamo ora un valore $a_{i}$ per il quale $q(a_{i}) \neq p_{X}(a_{i})$. Quando $n$ diventa grande abbiamo:
-$$\begin{aligned} 
-\operatorname{Pr} \big\{N_{i} = n q(a_{i}) \big\} & \sim 2^{n H_{2}(q(a_{i}), 1 - q(a_{i}))} p_{X}(a_{i})^{n q(a_{i})} \left[ 1 - p_{X}(a_{i}) \right]^{n (1 - q(a_{i}))} \\ 
-& = 2^{n H_{2}(q(a_{i}), 1 - q(a_{i}))} 2^{n [ q(a_{i}) \log_2 p_{X}(a_{i}) + (1 - q(a_{i})) \log_2 (1 - p_{X}(a_{i})) ]} \\ 
-& = 2^{n \left[ q(a_{i}) \log_2 \frac{p_{X}(a_{i})}{q(a_{i})} + (1 - q(a_{i})) \log_2 \frac{1 - p_{X}(a_{i})}{1 - q(a_{i})} \right]} = 2^{- n D_{i}} 
-\end{aligned}$$
-con
-$$D_{i} = q(a_{i}) \log_2 \frac{q(a_{i})}{p_{X}(a_{i})} + [ 1 - q(a_{i}) ] \log_2 \frac{1 - q(a_{i})}{1 - p_{X}(a_{i})} > 0$$
-Concludiamo quindi che la probabilità che la frequenza empirica devii dalla vera probabilità tende a zero esponenzialmente con $n$. Ciò implica che $f_{n}(a_{i}) \to p_{X}(a_{i})$ quasi certamente.
+> [!def] Convergenza quasi certa (Forte Coerenza)
+> In statistica inferenziale, un estimatore si dice **fortemente coerente** (o consistente) se la probabilità che esso devii dal valore vero del parametro tende a zero all'aumentare della dimensione del campione. In termini di frequenze, ciò significa che la frequenza empirica $f_n($a_i$)$ converge alla probabilità reale $p_X($a_i$)$ con probabilità pari a 1 ($f_n($a_i$) \xrightarrow{q.c.} p_X($a_i$)$).
+
+Assumiamo che un campione $\pmb{x}^n$ sia estratto da una popolazione con distribuzione di probabilità (pmf) $p_X($a_i$)$ sconosciuta. Per dimostrare che la frequenza osservata non mente, ipotizziamo una distribuzione alternativa errata $\{q($a_i$)\}$ che differisca dalla vera pmf in almeno due elementi.
+
+> [!dim] Dimostrazione asintotica della coerenza
+> 1. **Modello Binomiale**: La probabilità che il numero di occorrenze $N_i$ segua la distribuzione errata $q($a_i$)$ è:
+>    $$\operatorname{Pr}\left\{N_i = n q(a_i) \right\} = \binom{n}{n q(a_i)} p_X(a_i)^{n q(a_i)} \left[ 1 - p_X(a_i) \right]^{n (1 - q(a_i))} \quad$$
+> 
+> 2. **Limite Combinatorio**: Utilizzando il limite basato sull'entropia $H$:
+>    $$\sqrt{\frac{n}{8 k (n - k)}} \leq \binom{n}{k} 2 ^ {- n H \left(\frac {k}{n}\right)} \leq \sqrt{\frac{n}{\pi k (n - k)}} \quad$$
+> 
+> 3. **Approssimazione del coefficiente**: Per $n \to \infty$, impostando $k = n q($a_i$)$, l'espressione del coefficiente binomiale scala con l'entropia binaria $H_2$:
+>    $$\binom{n}{n q (a _ {i})} \sim 2 ^ {n H _ {2} (q (a _ {i}), 1 - q (a _ {i}))} \quad$$
+> 
+> 4. **Decadimento esponenziale**: Raggruppando i termini, la probabilità che si verifichi la frequenza errata collassa in forma esponenziale:
+>    $$\operatorname{Pr} \big \{N_i = n q(a_i) \big \} \sim 2^{- n D_i} \quad$$
+> 
+> 5. **Tasso di errore (Divergenza)**: Il termine $D_i$ rappresenta la divergenza informativa (sempre positiva):
+>    $$D_i = q(a_i) \log \frac{q(a_i)}{p_X(a_i)} + [ 1 - q(a_i) ] \log \frac{1 - q(a_i)}{1 - p_X(a_i)} > 0 \quad$$
+Poiché $D_i > 0$, il termine $2^{-nD_i}$ tende a zero in modo esponenzialmente veloce per $n \to \infty$. Questo garantisce che la frequenza empirica coincida quasi certamente con la vera probabilità teorica al limite.
+
+> [!theorem] Teorema del Limite Deterministico
+> La convergenza quasi certa implica che campioni diversi estratti dalla stessa popolazione mostreranno lo stesso comportamento statistico limite. Per ogni funzione continua $f(\cdot)$ dei dati vale:
+> $$\operatorname{Pr} \left\{\lim_{n \rightarrow \infty} f(\boldsymbol{X}^n) = \lim_{n \rightarrow \infty} f(\boldsymbol{x}^n) \right\} = 1 \quad$$
+> [!rb] Proprietà della Media Campionaria
+> Come conseguenza del teorema precedente, la media campionaria è un estimatore **fortemente coerente**: essa converge con probabilità 1 alla media statistica della popolazione ($\mathbb{E}[X]$), eliminando ogni fluttuazione dovuta al caso nel limite asintotico.
 
 ## Commenti
 
-Si consideri un campione $\pmb{x}^{n} \in \mathcal{X}^{n}$, con $\mathcal{X} = \{ a_{1}, \ldots, a_{M} \}$, estratto da un vettore casuale $X^{n}$ di pmf (Probability Mass Function) sconosciuta.
+In statistica inferenziale, una volta osservato un campione sufficientemente ampio, è possibile estrarre leggi che ogni altro campione estratto casualmente dalla stessa popolazione dovrebbe rispettare.
 
-Se si calcolano le frequenze di occorrenza empiriche:
-$$f_{n}(a_{i}) = \frac{\# \text{ di elementi uguali a } a_{i}}{n}, \qquad i = 1, \ldots, M$$
-si ottiene che:
-$$\operatorname{Pr} \left\{\lim_{n \rightarrow \infty} \frac{N_{i}}{n} = \lim_{n \rightarrow \infty} f_{n}(a_{i}) = p_{X}(a_{i}) \right\} = 1$$
-Ciò implica che qualsiasi altro campione, ad esempio $\pmb{y}^{n}$, estratto dalla stessa popolazione mostrerà, per $n \to \infty$, lo stesso comportamento statistico.
+> [!def] Frequenza di occorrenza empirica ($f_n$)
+> Considerando un campione $\pmb{x}^n \in \mathcal{X}^n$ estratto da una popolazione con spazio campionario $\mathcal{X} = \{ $a_1$, \ldots, a_M \}$ e pmf sconosciuta, la frazione di elementi osservati uguali ad $a_i$ su un totale di $n$ campioni è:
+> $$f_n(a_i) = \frac{\# \text{ di elementi uguali a } a_i}{n}, \qquad i = 1, \ldots, M$$
 
-Risulta evidente che per ogni funzione continua $f(\cdot)$ dei dati vale la relazione:
-$$\operatorname{Pr} \left\{\lim_{n \rightarrow \infty} f(\boldsymbol{X}^{n}) = \lim_{n \rightarrow \infty} f(\boldsymbol{x}^{n}) \right\} = 1$$
-Di conseguenza, la media campionaria converge con probabilità uno alla media statistica della popolazione. Questa proprietà è definita in statistica inferenziale come **forte consistenza** (o coerenza forte).
+> [!theorem] Limite deterministico delle frequenze
+> Per $n \to \infty$, il comportamento delle frequenze diventa deterministico. La frequenza empirica converge con probabilità 1 (quasi certamente) alla probabilità teorica reale della popolazione:
+> $$\operatorname{Pr} \left\{\lim_{n \rightarrow \infty} \frac{N_i}{n} = \lim_{n \rightarrow \infty} f_n(a_i) = p_X(a_i) \right\} = 1$$
+> Ciò implica che qualsiasi altro campione $\pmb{y}^n$ estratto dalla stessa popolazione mostrerà lo stesso identico comportamento statistico limite.
 
-> [!theorem] Forte Consistenza
-> In statistica, un estimatore si dice fortemente consistente se converge quasi certamente (con probabilità 1) al valore vero del parametro che intende stimare all'aumentare della dimensione del campione.
+> [!dim] Invarianza per funzioni continue
+> Questo principio si estende a qualsiasi funzione continua $f(\cdot)$ dei dati. Il comportamento statistico limite di un campione casuale $\boldsymbol{X}^n$ è identico a quello del campione osservato $\pmb{x}^n$:
+> $$\operatorname{Pr} \left\{\lim_{n \rightarrow \infty} f(\boldsymbol{X}^n) = \lim_{n \rightarrow \infty} f(\boldsymbol{x}^n) \right\} = 1$$
+
+> [!def] Forte Coerenza (o Consistenza Forte)
+> Un estimatore si dice **fortemente coerente** se converge quasi certamente (con probabilità 1) al valore vero del parametro che intende stimare all'aumentare della dimensione del campione ($n \to \infty$).
+
+> [!rb] Convergenza della Media Campionaria
+> Come conseguenza diretta del teorema precedente applicata alla funzione media, la media campionaria converge con probabilità uno alla media statistica della popolazione ($\mathbb{E}[X]$), soddisfacendo il requisito di **forte coerenza**.
