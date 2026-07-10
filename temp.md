@@ -15,3 +15,4 @@
 > $$
 > 1 - \beta = \mathbb{P} \{D(\boldsymbol{X}^n) = 1 | H_1\} = \begin{cases} \int_{\Omega_1} f_{\boldsymbol{X}^n | H_1} (\boldsymbol{x}^n | H_1) d \boldsymbol{x}^n & \text{Dati Continui} \\ \sum_{\boldsymbol{x}^n \in \Omega_1} p_{\boldsymbol{X}^n | H_1} (\boldsymbol{x}^n | H_1) & \text{Dati Discreti} \end{cases}
 > $$
+
