@@ -47,84 +47,64 @@ Sotto la medesima condizione di simmetria, lo stimatore MAP e lo stimatore MMSE 
 > $$\widehat{\theta}_{\mathrm{ML}}(\boldsymbol{x}^n) = \arg\max_{\theta \in \mathcal{S}}\, \log f_{\boldsymbol{X}^n}(\boldsymbol{x}^n;\theta)$$
 
 ## Misure di prestazione
-
+Sono i criteri di valutazione, che servono a capire quanto lo stimatore ottenuto sia "buono" e affidabile.
 Dato uno stimatore $\widehat{\Theta}(\boldsymbol{X}^n)$ con bias $b_n(\theta)$:
 
 $$
-\mathbb{E}[\widehat{\Theta}(\boldsymbol{X}^n)] = \theta + b_n(\theta), \qquad \mathbb{E}\!\left[(\widehat{\Theta}(\boldsymbol{X}^n) - \theta)^2\right] = \overline{e_n^2}
+\mathbb{E}[\widehat{\Theta}(\boldsymbol{X}^n)] = \theta + b_n(\theta), \qquad
+$$
+L'errore casuale dello stimatore è solitamente quantificato tramite il suo valore Mean Square, ovvero: 
+$$
+\mathbb {E} \left[ (\Theta (\boldsymbol {X} ^ {n}) - \theta) ^ {2} \right] = \overline {{e _ {n} ^ {2}}}
 $$
 
-Uno stimatore unbiased MMSE minimizza la varianza $\operatorname{Var}[\widehat{\Theta}] = \mathbb{E}[\widehat{\Theta}^2] - \theta^2$. Consistenza: debole ($\to\theta$ in prob.), forte ($\to\theta$ q.c.), MS ($\overline{e_n^2}\to 0$).
+Uno stimatore *unbiased MMSE* minimizza la varianza $\operatorname{Var}[\widehat{\Theta}] = \mathbb{E}[\widehat{\Theta}^2] - \theta^2$. 
+Consistenza: 
+- debole ($\to\theta$ in prob.), 
+- forte ($\to\theta$ q.c.), 
+- MS ($\overline{e_n^2}\to 0$).
 
 ## Limite di Cramér-Rao
 
-### Fatti preliminari
+Fornisce un benchmark fondamentale per valutare la qualità di uno stimatore. Permette di capire se uno stimatore è il "migliore possibile" (ovvero se è **efficiente**) senza dover cercare ulteriormente altri algoritmi, poiché nessuna procedura statistica può scendere sotto questa soglia di errore.
 
-Differenziando $\int f_{\boldsymbol{X}^n}(\boldsymbol{x}^n;\theta)\,d\boldsymbol{x}^n = 1$ rispetto a $\theta$:
+>[!theorem] **Limite di Cramér-Rao**
+>Stabilisce un limite inferiore insuperabile per la varianza di qualunque stimatore $\widehat{\Theta}$ di un parametro deterministico $\theta$. 
+>
+Dato un campione $\pmb{x}^n$ estratto da una PDF $f_{\pmb{X}^n}(\pmb{x}^n; \theta)$, la varianza dello stimatore soddisfa la disuguaglianza:
+$$\operatorname{Var}[\widehat{\Theta}] \geq \frac{[1 + b_n^{\prime}(\theta)]^2}{I_n(\theta)}$$
+dove $b_n^{\prime}(\theta)$ è la derivata del bias e $I_n(\theta)$ è l'Informazione di Fisher.
 
-$$
-\mathbb{E}\!\left[\frac{\partial \log f_{\boldsymbol{X}^n}(\boldsymbol{X}^n;\theta)}{\partial\theta}\right] = 0
-$$
-
-Differenziando ancora:
-
-$$
-\mathbb{E}\!\left[\!\left(\frac{\partial \log f_{\boldsymbol{X}^n}(\boldsymbol{X}^n;\theta)}{\partial\theta}\right)^{\!2}\right] = -\mathbb{E}\!\left[\frac{\partial^2 \log f_{\boldsymbol{X}^n}(\boldsymbol{X}^n;\theta)}{\partial\theta^2}\right]
-$$
-
-### Derivazione
-
-Differenziando rispetto a $\theta$ la definizione di bias si ottiene:
-
-$$
-\operatorname{Cov}\!\left[\widehat{\Theta}(\boldsymbol{X}^n),\;\frac{\partial \log f_{\boldsymbol{X}^n}(\boldsymbol{X}^n;\theta)}{\partial\theta}\right] = 1 + b_n'(\theta)
-$$
-
-Applicando Cauchy-Schwarz:
-
-$$
-\left[1 + b_n'(\theta)\right]^2 \leq \operatorname{Var}[\widehat{\Theta}(\boldsymbol{X}^n)]\cdot\operatorname{Var}\!\left[\frac{\partial \log f_{\boldsymbol{X}^n}(\boldsymbol{X}^n;\theta)}{\partial\theta}\right]
-$$
+> [!dim]
+> ###### 1. Fatti preliminari
+> Si parte dall'identità di normalizzazione della densità di probabilità (PDF):
+> $$\int_{\mathbb{R}^n} f_{\boldsymbol{X}^n}(\boldsymbol{x}^n;\theta)\,d\boldsymbol{x}^n = 1$$
+> Differenziando rispetto a $\theta$ (applicando la proprietà $\frac{\partial f}{\partial \theta} = f \frac{\partial \log f}{\partial \theta}$), si ottiene che il valore atteso della **funzione di punteggio** è nullo:
+> $$\mathbb{E}\!\left[\frac{\partial \log f_{\boldsymbol{X}^n}(\boldsymbol{X}^n;\theta)}{\partial\theta}\right] = 0$$
+> Differenziando ulteriormente si definisce l'**Informazione di Fisher** $I_n(\theta)$:
+> $$I_n(\theta) = \mathbb{E}\!\left[\!\left(\frac{\partial \log f_{\boldsymbol{X}^n}(\boldsymbol{X}^n;\theta)}{\partial\theta}\right)^{\!2}\right] = -\mathbb{E}\!\left[\frac{\partial^2 \log f_{\boldsymbol{X}^n}(\boldsymbol{X}^n;\theta)}{\partial\theta^2}\right]$$
+> ###### 2. Derivazione
+> 1.  **Definizione di Bias**: Dato uno stimatore $\widehat{\Theta}(\boldsymbol{X}^n)$ con bias $b_n(\theta)$:
+>     $$\mathbb{E}[\widehat{\Theta}(\boldsymbol{X}^n)] = \theta + b_n(\theta)$$
+> 2.  **Calcolo della Covarianza**: Differenziando l'identità precedente rispetto a $\theta$, si ricava la covarianza tra lo stimatore e la funzione di punteggio:
+>     $$\operatorname{COV}\!\left[\widehat{\Theta}(\boldsymbol{X}^n),\;\frac{\partial \log f_{\boldsymbol{X}^n}(\boldsymbol{X}^n;\theta)}{\partial\theta}\right] = 1 + b_n'(\theta)$$
+> 3.  **Disuguaglianza di Cauchy-Schwarz**: Il quadrato della covarianza è sempre $\leq$ al prodotto delle varianze:
+>     $$\left[1 + b_n'(\theta)\right]^2 \leq \operatorname{Var}[\widehat{\Theta}(\boldsymbol{X}^n)] \cdot \operatorname{Var}\!\left[\frac{\partial \log f_{\boldsymbol{X}^n}(\boldsymbol{X}^n;\theta)}{\partial\theta}\right]$$
+> 4.  **Sostituzione**: Sapendo che $\operatorname{Var}[\frac{\partial \log f}{\partial \theta}] = I_n(\theta)$, si isola la varianza dello stimatore.
 
 ### Risultato
 
-> **Informazione di Fisher**
-> $$I_n(\theta) = \mathbb{E}\!\left[\!\left(\frac{\partial \log f_{\boldsymbol{X}^n}(\boldsymbol{X}^n;\theta)}{\partial\theta}\right)^{\!2}\right] = -\mathbb{E}\!\left[\frac{\partial^2 \log f_{\boldsymbol{X}^n}(\boldsymbol{X}^n;\theta)}{\partial\theta^2}\right]$$
-
-> [!theorem] Cramér-Rao Bound (CRB)
-> $$\operatorname{Var}[\widehat{\Theta}(\boldsymbol{X}^n)] \geq \frac{[1+b_n'(\theta)]^2}{I_n(\theta)}$$
-> Per stimatori **unbiased** ($b_n = 0$):
-> $$\operatorname{Var}[\widehat{\Theta}] = \mathbb{E}\!\left[(\widehat{\Theta}-\theta)^2\right] \geq \frac{1}{I_n(\theta)}$$
-
-> **Stimatore efficiente**
-> Uno stimatore unbiased il cui MSE raggiunge il CRB.
-
-> [!theorem]
-> Se esiste uno stimatore efficiente per un dato problema di stima non bayesiana, coincide necessariamente con lo stimatore ML.
-
-## Un esempio: Stima della frequenza Bernoulli
-
-$\boldsymbol{X}^n \sim \mathcal{B}(1,\beta)$, $\beta$ sconosciuto; $w(\boldsymbol{x}^n)$ = peso di Hamming della sequenza.
-
-$$
-p_{\boldsymbol{X}^n}(\boldsymbol{x}^n;\beta) = \beta^{w(\boldsymbol{x}^n)}(1-\beta)^{n-w(\boldsymbol{x}^n)}
-$$
-
-Annullando la derivata della log-likelihood:
-
-$$
-\frac{\partial \log p_{\boldsymbol{X}^n}(\boldsymbol{x}^n;\beta)}{\partial\beta} = 0 \implies \widehat{\beta}_{\mathrm{ML}}(\boldsymbol{x}^n) = \frac{w(\boldsymbol{x}^n)}{n}
-$$
-
-Lo stimatore $\widehat{\beta} = w(\boldsymbol{X}^n)/n$ è unbiased e ha varianza $\beta(1-\beta)/n$. Per l'efficienza si calcola:
-
-$$
-I_n(\beta) = \frac{n}{\beta} + \frac{n}{1-\beta} = \frac{n}{\beta(1-\beta)} \implies \mathrm{CRB} = \frac{\beta(1-\beta)}{n}
-$$
-
-La varianza raggiunge il CRB: la MLE è **efficiente**.
-
----
+#### Informazione di Fisher ($I_n(\theta)$)
+Rappresenta quanta "informazione" i dati forniscono sul parametro. Matematicamente esprime la curvatura media della log-verosimiglianza:
+$$I_n(\theta) = \mathbb{E}\!\left[\!\left(\frac{\partial \log f_{\boldsymbol{X}^n}(\boldsymbol{X}^n;\theta)}{\partial\theta}\right)^{\!2}\right] = -\mathbb{E}\!\left[\frac{\partial^2 \log f_{\boldsymbol{X}^n}(\boldsymbol{X}^n;\theta)}{\partial\theta^2}\right]$$
+#### Cramér-Rao Bound (CRB)
+Stabilisce il limite inferiore insuperabile per la varianza di qualunque stimatore $\widehat{\Theta}$:
+*   **Caso generale**: $$\operatorname{Var}[\widehat{\Theta}(\boldsymbol{X}^n)] \geq \frac{[1+b_n'(\theta)]^2}{I_n(\theta)}$$
+*   **Caso non distorto (Unbiased, $b_n = 0$)**: La varianza coincide con l'errore quadratico medio (MSE):
+$$\operatorname{Var}[\widehat{\Theta}] = \mathbb{E}\!\left[(\widehat{\Theta}-\theta)^2\right] \geq \frac{1}{I_n(\theta)}$$
+#### Efficienza e MLE
+*   **Stimatore efficiente**: Uno stimatore non distorto che raggiunge il CRB (uguaglianza nella formula).
+*   **Relazione chiave**: Se per un dato problema esiste uno stimatore efficiente, esso **coincide necessariamente** con lo stimatore di Massima Verosimiglianza (MLE).
 
 # Stima a parametri multipli
 
