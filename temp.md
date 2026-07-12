@@ -104,7 +104,7 @@ Stabilisce il limite inferiore insuperabile per la varianza di qualunque stimato
 $$\operatorname{Var}[\widehat{\Theta}] = \mathbb{E}\!\left[(\widehat{\Theta}-\theta)^2\right] \geq \frac{1}{I_n(\theta)}$$
 #### Efficienza e MLE
 *   **Stimatore efficiente**: Uno stimatore non distorto che raggiunge il CRB (uguaglianza nella formula).
-*   **Relazione chiave**: Se per un dato problema esiste uno stimatore efficiente, esso **coincide necessariamente** con lo stimatore di Massima Verosimiglianza (MLE).
+*   **Relazione chiave**: Se per un dato problema esiste uno stimatore efficiente, esso **coincide necessariamente** con lo stimatore di Massima Verosimiglianza (ML).
 
 # Stima a parametri multipli
 
