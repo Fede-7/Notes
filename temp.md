@@ -23,13 +23,24 @@ Questo richiede che $p \geq n$ affinché la matrice $\boldsymbol{X}\boldsymbol{X
 Per $p \to \infty$ emergono due scenari: 
 - aggiornamento *continuo* con nuovi dati in arrivo, 
 - *adattamento* a ambienti che cambiano nel tempo.
-
+  
 ### LS Ricorsivo (Continuo)
 
 Quando arriva un nuovo campione $\boldsymbol{x}^n(p+1)$ con label $\theta(p+1)$, in teoria devi ricalcolare l'intera inversione $(\boldsymbol{X}(p+1)\boldsymbol{X}^T(p+1))^{-1}$, il che costa $\mathcal{O}($n^3$)$ operazioni, troppo lento se i dati arrivano continuamente.
 
 **Soluzione**: la **Formula di Sherman-Morrison** aggiorna la soluzione precedente senza ricalcolare tutto da capo.
 
+> [!quote] Nota:
+> Prossimamente, partendo dalla soluzione LS, 
+> Definiamo:
+> $$
+> \boldsymbol{R}(p) = \boldsymbol{X}(p)\boldsymbol{X}^T(p)
+> $$
+> $\boldsymbol{a}_{\mathrm{LS}}$, diventa:
+> $$
+> \boldsymbol{a}_{\mathrm{LS}}(p) = \boldsymbol{R}^{-1}(p)\boldsymbol{X}(p)\boldsymbol{y}(p)
+> $$
+> 
 #### La Formula di Sherman-Morrison
 
 > [!theorem] Lemma
