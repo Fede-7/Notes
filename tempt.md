@@ -327,16 +327,12 @@ $$
 ### Gamma($\alpha, \beta$)
 Generalizzazione dell'esponenziale.
 
-| Proprietà | Valore |
-$$
-|---|---|
-$$
-| **PDF** | $f_X(x) = $\frac{\beta^\alpha}{\Gamma(\alpha)}$ x^{\alpha-1} e^{-\beta x}$ per $x > 0$ |
-| **E[X]** | $\alpha/\beta$ |
-| **Var(X)** | $\alpha/\beta^2$ |
-$$
+| Proprietà  | Valore                                                                               |
+| ---------- | ------------------------------------------------------------------------------------ |
+| **PDF**    | $f_X(x) = \frac{\beta^\alpha}{\Gamma(\alpha)} x^{\alpha-1} e^{-\beta x}$ per $x > 0$ |
+| **E[X]**   | $\alpha/\beta$                                                                       |
+| **Var(X)** | $\alpha/\beta^2$                                                                     |
 **Casi speciali:**
-$$
 - $\alpha = 1$: Esponenziale($\beta$)
 - $\alpha = n/2$, $\beta = 1/2$: Chi-quadrato($n$)
 
@@ -697,35 +693,30 @@ $$\mathbf{a}(p+1) = \mathbf{a}(p) + \mathbf{R}^{-1}(p+1)\mathbf{x}^n(p+1)[\theta
 
 ## L.1 Simboli Comuni
 
-| Simbolo | Significato | Contesto |
-$$
-|---------|------------|---------|
-$$
-| $\Omega$ | Spazio dei campioni | Probabilità di base |
-| $\mathcal{F}$ o $\mathcal{A}$ | σ-algebra di eventi | Spazi di probabilità |
-| $P(A)$ | Probabilità di evento $A$ | Assiomi di Kolmogorov |
-| $X$ | Variabile aleatoria | Variabili discrete/continue |
-| $E[X]$ | Valore atteso (media) | Momenti |
-| $\text{Var}(X)$ | Varianza | Dispersione |
-| $\sigma$ | Deviazione standard | $\sqrt{\text{Var}(X)}$ |
-| $\sigma^2$ | Varianza | Matrici di covarianza |
-| $\rho$ | Correlazione | Relazione tra due v.a. |
-| $\sim$ | "segue distribuzione" | Notazione |
-| $\xrightarrow{P}$ | Converge in probabilità | Convergenza |
-| $\xrightarrow{d}$ | Converge in distribuzione | TCL |
-| $\mathcal{N}(\mu, \sigma^2)$ | Distribuzione normale | Gaussiana |
-| $I(X;Y)$ | Informazione mutua | Teoria dell'informazione |
-| $H(X)$ | Entropia | Shannon |
+| Simbolo                       | Significato               | Contesto                    |
+| ----------------------------- | ------------------------- | --------------------------- |
+| $\Omega$                      | Spazio dei campioni       | Probabilità di base         |
+| $\mathcal{F}$ o $\mathcal{A}$ | σ-algebra di eventi       | Spazi di probabilità        |
+| $P(A)$                        | Probabilità di evento $A$ | Assiomi di Kolmogorov       |
+| $X$                           | Variabile aleatoria       | Variabili discrete/continue |
+| $E[X]$                        | Valore atteso (media)     | Momenti                     |
+| $\text{Var}(X)$               | Varianza                  | Dispersione                 |
+| $\sigma$                      | Deviazione standard       | $\sqrt{\text{Var}(X)}$      |
+| $\sigma^2$                    | Varianza                  | Matrici di covarianza       |
+| $\rho$                        | Correlazione              | Relazione tra due v.a.      |
+| $\sim$                        | "segue distribuzione"     | Notazione                   |
+| $\xrightarrow{P}$             | Converge in probabilità   | Convergenza                 |
+| $\xrightarrow{d}$             | Converge in distribuzione | TCL                         |
+| $\mathcal{N}(\mu, \sigma^2)$  | Distribuzione normale     | Gaussiana                   |
+| $I(X;Y)$                      | Informazione mutua        | Teoria dell'informazione    |
+| $H(X)$                        | Entropia                  | Shannon                     |
 
 ---
 
 ## L.2 Formule Algebriche Utili
-$$
+
 | Formula | Valore/Uso |
-$$
-$$
 |---------|-----------|
-$$
 | Somma di Gauss | $\sum_{k=1}^{n} k = \frac{n(n+1)}{2}$ |
 | Somma quadrati | $\sum_{k=1}^{n} k^2 = \frac{n(n+1)(2n+1)}{6}$ |
 | Serie geometrica | $\sum_{k=0}^{\infty} r^k = \frac{1}{1-r}$ per $\|r\| < 1$ |
