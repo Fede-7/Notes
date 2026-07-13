@@ -1,88 +1,86 @@
-# Spiegazione semplice e veloce
+# Un approccio diverso: Statistica Descrittiva
 
-Questo paragrafo parla di **regressione lineare nel mondo reale** quando hai tanti dati che arrivano continuamente.
+In questa sezione i campioni sono **entità dati concrete** (non variabili casuali). Organizzi i dati in una matrice $\boldsymbol{X} \in \mathbb{R}^{n\times p}$ (features) e un vettore $\boldsymbol{y} \in \mathbb{R}^p$ (target/output).
+**Modello lineare**:
+$$
+\boldsymbol{y} = \boldsymbol{X}^T\boldsymbol{a} + \boldsymbol{\epsilon}
+$$
+Cioè: ogni output è una combinazione lineare degli input, più un termine di errore $\boldsymbol{\epsilon}$.
 
-## **Il problema di base: Least Squares (LS)**
+## L'estimatore Least Squares (LS)
 
-Hai dati organizzati in una matrice $\boldsymbol{X}$ (features) e un vettore $\boldsymbol{y}$ (quello che vuoi predire).
+Per trovare i coefficienti $\boldsymbol{a}$, minimizzi l'errore quadratico totale: $\|\boldsymbol{X}^T\boldsymbol{a} - \boldsymbol{y}\|^2$.
 
-**Modello**: $\boldsymbol{y} = \boldsymbol{X}^T\boldsymbol{a} + \boldsymbol{\epsilon}$
+Derivando rispetto ad $\boldsymbol{a}$ e uguagliando a zero:
+$$
+\nabla_{\boldsymbol{a}}\|\boldsymbol{X}^T\boldsymbol{a} - \boldsymbol{y}\|^2 = 2\boldsymbol{X}\boldsymbol{X}^T\boldsymbol{a} - 2\boldsymbol{X}\boldsymbol{y} = 0
+$$
+**Soluzione**:
+$$
+\boldsymbol{a}_{\mathrm{LS}}(p) = (\boldsymbol{X}(p)\boldsymbol{X}^T(p))^{-1}\boldsymbol{X}(p)\boldsymbol{y}(p)
+$$
+Questo richiede che $p \geq n$ affinché la matrice $\boldsymbol{X}\boldsymbol{X}^T$ sia invertibile. 
+Per $p \to \infty$ emergono due scenari: 
+- aggiornamento *continuo* con nuovi dati in arrivo, 
+- *adattamento* a ambienti che cambiano nel tempo.
 
-Cioè: ogni output è una combinazione lineare degli input, più rumore.
+### LS Ricorsivo (Continuo)
 
-**Soluzione**: $\boldsymbol{a}_{\mathrm{LS}} = (\boldsymbol{X}\boldsymbol{X}^T)^{-1}\boldsymbol{X}\boldsymbol{y}$
+Quando arriva un nuovo campione $\boldsymbol{x}^n(p+1)$ con label $\theta(p+1)$, in teoria devi ricalcolare l'intera inversione $(\boldsymbol{X}(p+1)\boldsymbol{X}^T(p+1))^{-1}$, il che costa $\mathcal{O}($n^3$)$ operazioni, troppo lento se i dati arrivano continuamente.
 
-Trovi i coefficienti $\boldsymbol{a}$ che minimizzano l'errore quadratico.
+**Soluzione**: la **Formula di Sherman-Morrison** aggiorna la soluzione precedente senza ricalcolare tutto da capo.
 
----
+#### La Formula di Sherman-Morrison
 
-## **Il problema pratico: i dati arrivano continuamente 📊**
+> [!theorem] Lemma
+> Se $\boldsymbol{R}$ è invertibile e $\boldsymbol{u}, \boldsymbol{v}$ sono vettori colonna $n$-dimensionali:
+> $$
+> \left(\boldsymbol{R} + \boldsymbol{u}\boldsymbol{v}^T\right)^{-1} = \boldsymbol{R}^{-1} - \frac{\boldsymbol{R}^{-1}\boldsymbol{u}\boldsymbol{v}^T\boldsymbol{R}^{-1}}{1+\boldsymbol{v}^T\boldsymbol{R}^{-1}\boldsymbol{u}}
+> $$
 
-Immagina un sistema che riceve **nuovi dati ogni secondo** (come un sensore IoT o un'app mobile).
+Applicando questo al tuo problema, poiché $\boldsymbol{R}(p+1) = \boldsymbol{R}(p) + \boldsymbol{x}^n(p+1)\boldsymbol{x}^{nT}(p+1)$:
+$$
+\boldsymbol{R}^{-1}(p+1) = \boldsymbol{R}^{-1}(p) - \frac{\boldsymbol{R}^{-1}(p)\,\boldsymbol{x}^n(p+1)\,\boldsymbol{x}^{nT}(p+1)\,\boldsymbol{R}^{-1}(p)}{1+K(p+1)}
+$$
+dove $K(p+1) = \boldsymbol{x}^{nT}(p+1)\boldsymbol{R}^{-1}(p)\boldsymbol{x}^n(p+1)$.
 
-❌ **Approccio naive**: ogni volta che arriva un nuovo dato, ricalcoli tutta l'inversione della matrice. Costo: $\mathcal{O}($n^3$)$ — **molto lento!**
+L'aggiornamento dei coefficienti diventa:
+$$
+\boldsymbol{a}(p+1) = \left[\boldsymbol{I}_n - \frac{\boldsymbol{R}^{-1}(p)\,\boldsymbol{x}^n(p+1)\,\boldsymbol{x}^{nT}(p+1)}{1+K(p+1)}\right]\!\left[\boldsymbol{a}(p) + \theta(p+1)\,\boldsymbol{R}^{-1}(p)\,\boldsymbol{x}^n(p+1)\right]
+$$
+**Vantaggio**: complessità $\mathcal{O}($n^2$)$, indipendente dal numero di dati $p$.
 
-✅ **Soluzione intelligente**: **Formula di Sherman-Morrison**
+### LS Esponenziale (adattivo)
 
-Invece di ricalcolare tutto da zero, **aggiorni** la soluzione precedente usando solo il nuovo dato. Costo: $\mathcal{O}($n^2$)$ — **100x più veloce!**
+In ambienti che cambiano nel tempo, non tutti i dati hanno lo stesso valore. Usa una **media mobile esponenziale** con fattore di decadimento $w < 1$ che riduce il peso dei dati vecchi:
+$$
+\sum_{i=1}^p w^{p-i}\left[\boldsymbol{a}^T\boldsymbol{x}^n(i) - \theta(i)\right]^2
+$$
+Minimizzando questa somma pesata, ottieni l'**LS esponenzialmente pesato**:
+$$
+\boldsymbol{a} = \left[\sum_{i=1}^p w^{p-i}\boldsymbol{x}^n(i)\boldsymbol{x}^{nT}(i)\right]^{-1}\sum_{i=1}^p w^{p-i}\boldsymbol{x}^n(i)\theta(i)
+$$
+Anche questo è implementabile ricorsivamente usando Sherman-Morrison.
 
----
+## LS con Bias (intercetta)
 
-## **Esempio reale: Sistema di raccomandazione 🎬**
+Spesso il modello include un termine costante:
+$$
+\widehat{\theta} = \boldsymbol{a}^T\boldsymbol{x}^n + b
+$$
+Per trovare sia $\boldsymbol{a}$ che $b$, **centra i dati** prima di calcolare: sottrai le medie da ogni feature e dal target.
 
-Stai tracciando: come un utente interagisce con film (features) → rating che dà (target).
+Definisci i dati centrati come:
+- $\boldsymbol{X}_0 = \boldsymbol{X} - \bar{\boldsymbol{x}}\mathbf{1}_p^T$ (feature minus their means)
+- $\boldsymbol{y}_0 = \boldsymbol{y} - \tilde{\theta}\mathbf{1}_p$ (target minus its mean)
 
-- **Primo giorno**: hai 1000 utenti, calcoli $\boldsymbol{a}_{\mathrm{LS}}$
-- **Domani**: arriva 1 nuovo utente con il suo rating
-  - ❌ Ricalcoli tutto: $\mathcal{O}($n^3$)$ **lentissimo**
-  - ✅ Usi Sherman-Morrison: aggiorni in $\mathcal{O}($n^2$)$ **quasi istantaneo**
-
----
-
-## **Adattività (LS esponenzialmente pesato) 🔄**
-
-In ambienti che **cambiano nel tempo**, non tutti i dati vecchi valgono uguale.
-
-**Idea**: dai più peso ai dati recenti, dimentica gradualmente quelli vecchi.
-
-Usi un fattore $w < 1$:
-- Dati di oggi: peso $w^0 = 1$ (massimo)
-- Dati di ieri: peso $w^1$ (ridotto)
-- Dati di un mese fa: peso $w^{30}$ (quasi trascurabile)
-
-**Uso reale**: previsione di traffico, previsioni meteorologiche, volatilità di borsa.
-
----
-
-## **LS con bias 📌**
-
-Aggiungi un termine costante $b$ (intercetta) al modello:
-$$\widehat{\theta} = \boldsymbol{a}^T\boldsymbol{x}^n + b$$
-La soluzione richiede di **centrare i dati** (sottrarre le medie) prima di calcolare $\boldsymbol{a}$, poi recuperare $b$ dalla media del target.
-
----
-
-## **Riassunto**
-
-| Metodo                              | Quando lo usi                   | Vantaggio                   |
-| ----------------------------------- | ------------------------------- | --------------------------- |
-| **LS base**                         | Dati statici, calcolo una volta | Semplice                    |
-| **LS ricorsivo (Sherman-Morrison)** | Dati arrivano continuamente     | Veloce anche con tanti dati |
-| **LS esponenziale**                 | Ambiente che cambia nel tempo   | Si adatta automaticamente   |
-| **LS con bias**                     | Vuoi intercetta nel modello     | Più flessibile              |
-
----
-
-
-
-
-Il simbolo con il doppio modulo ($\|\cdot\|$) rappresenta la **norma di un vettore**. 
-
-Ecco l'essenziale per l'esame:
-
-*   **Significato geometrico**: È la generalizzazione del valore assoluto per i vettori.
-*   **Contesto MMSE (Parametri Multipli)**: Indica la **somma dei quadrati degli errori** di tutte le componenti del vettore.
-*   **Contesto Minimi Quadrati (Least Squares)**: Viene usato per indicare l'errore totale del modello ($\|\boldsymbol{\epsilon}_n\|^2$), calcolato come la somma dei quadrati degli scarti tra dati osservati e modello lineare.
-*   **Perché si usa**: Serve a trasformare un vettore di errori (che ha diverse direzioni) in un unico valore scalare positivo che ne misuri l'entità complessiva.
-
-**In sintesi**: Se hai un solo parametro usi $|x|$, se ne hai molti (vettore) usi $\|\boldsymbol{x}\|$.
+Allora:
+$$
+\boldsymbol{a}_{\mathrm{LS}} = (\boldsymbol{X}_0\boldsymbol{X}_0^T)^{-1}\boldsymbol{X}_0\boldsymbol{y}_0
+$$
+$$
+b_{\mathrm{LS}} = \tilde{\theta} - \frac{1}{p}\mathbf{1}_p^T\boldsymbol{X}^T\boldsymbol{a}_{\mathrm{LS}}
+$$
+dove:
+- $\tilde{\theta} = \frac{1}{p}\sum_i\theta(i)$ è la media dei target
+- $\bar{x}_k = \frac{1}{p}\sum_i x_k(i)$ è la media della $k$-esima feature
