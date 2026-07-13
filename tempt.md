@@ -265,9 +265,9 @@ Proprietà:
 - $\int_{-\infty}^{\infty} f_X(x) dx = 1$
 - $P(X = x) = 0$ per ogni $x$ (no atomi)
 
-### Funzione di Distribuzione Cumulativa
+### Funzione di Distribuzione Cumulativa (CDF)
 $$F_X(x) = P(X \leq x) = \int_{-\infty}^{x} f_X(t) dt$$
-Relazione inversa: $f_X(x) = $\frac{d}{dx}$ F_X(x)$
+Relazione inversa: $f_X(x) = \frac{d}{dx} F_X(x)$
 
 ---
 
