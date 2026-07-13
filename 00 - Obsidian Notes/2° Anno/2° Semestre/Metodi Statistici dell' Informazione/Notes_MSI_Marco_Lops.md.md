@@ -1385,25 +1385,25 @@ $$p_Y(y_i) = F_X(x_{i+1}) - F_X(x_i)$$
 *Nota: La scelta dei livelli $y_i$ e della partizione $\{x_i\}$ è a discrezione del progettista.*
 Ecco una sintesi operativa, pulita dal rumore accademico e pronta per essere inserita in Obsidian.
 
-## Media di funzioni di variabili aleatorie
+### Media di funzioni di variabili aleatorie
 
 Per una variabile aleatoria continua $X$ con pdf $f_X(x)$, il valore atteso di una sua funzione $Y = g(X)$ si calcola come:
 $$\mathbb{E}[g(X)] = \int_{-\mathbb{R}} g(x) f_X(x) dx$$
 *(Il risultato deriva dal limite per $\Delta \to 0$ della versione quantizzata della variabile).*
 
-## Valore quadratico medio e Varianza
+### Valore quadratico medio e Varianza
 
 Generalizzazione dei concetti per variabili continue, data la media $\mu_X = \mathbb{E}[X]$:
 
-### 1. Valore Quadratico Medio (Mean Square)
+#### 1. Valore Quadratico Medio (Mean Square)
 $$X_{\text{rms}}^2 = \mathbb{E}[X^2] = \int_{-\mathbb{R}} x^2 f_X(x) dx$$
-### 2. Valore Efficace (RMS - Root Mean Square)
+#### 2. Valore Efficace (RMS - Root Mean Square)
 $$X_{\text{rms}} = \sqrt{\mathbb{E}[X^2]} = \sqrt{\int_{-\mathbb{R}} x^2 f_X(x) dx}$$
-### 3. Varianza ($\sigma_X^2$)
+#### 3. Varianza ($\sigma_X^2$)
 
 Misura la dispersione attorno alla media. Si calcola preferibilmente con la formula:
 $$\sigma_X^2 = \mathbb{E}[(X - \mu_X)^2] = X_{\text{rms}}^2 - \mu_X^2$$
-### 4. Deviazione Standard ($\sigma_X$)
+#### 4. Deviazione Standard ($\sigma_X$)
 $$\sigma_X = \sqrt{\sigma_X^2} = \sqrt{X_{\text{rms}}^2 - \mu_X^2}$$
 > [!info] Nota
 > Tutte le proprietà di linearità e invarianza valide per le variabili discrete si applicano analogamente anche al caso continuo.
