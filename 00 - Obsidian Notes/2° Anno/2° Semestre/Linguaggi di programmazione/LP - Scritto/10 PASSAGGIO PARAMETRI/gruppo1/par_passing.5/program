@@ -1,0 +1,43 @@
+program p1
+int a; int b; int c; int d; 
+     procedure p2([MODE] int c,[IN OUT x rif] int d)
+     int b; 
+          procedure p3([IN x copia] int d)
+          int a; int b; 
+          BEGIN
+          a=d-4;
+          b=2;
+          if c>1 then d=d*4 else d=1;
+          c=c*4;
+          write(a,b,c,d);
+          END
+
+     BEGIN
+     b=1;
+     c=4;
+     d=b+1;
+     a=1;
+     p3(c);
+     write(a,b,c,d);
+     END
+
+     procedure p4([IN OUT x rif] int a,[IN OUT x rif] int d)
+     int c; 
+     BEGIN
+     if a>2 then c=b else c=1;
+     a=d-3;
+     d=a+1;
+     b=b*1;
+     p2(a, d);
+     write(a,b,c,d);
+     END
+
+BEGIN
+a=3;
+b=2;
+c=0;
+d=3;
+p4(a, c);
+write(a,b,c,d);
+END
+

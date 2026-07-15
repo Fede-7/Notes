@@ -1,0 +1,5 @@
+********* SOLUTION
+********* Mode: out_copia
+********* Scoping: dynamic
+Compile time error:
+Illegal usage b=c+1 of out_copia parameter c of p4

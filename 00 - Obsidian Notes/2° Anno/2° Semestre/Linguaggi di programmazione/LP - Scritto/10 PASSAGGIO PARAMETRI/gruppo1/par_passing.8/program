@@ -1,0 +1,43 @@
+program p1
+int q; int r; int s; int t; 
+     procedure p2([IN OUT x copia] int q)
+     int s; 
+     BEGIN
+     s=1;
+     q=2;
+     t=q+2;
+     if r=9 then r=s+4 else r=r;
+     p3(s, q);
+     write(q,r,s,t);
+     END
+
+     procedure p3([MODE] int t,[IN x copia] int q)
+     int s; 
+          procedure p4([IN OUT x copia] int s)
+          int q; int r; 
+          BEGIN
+          q=t+3;
+          r=t-2;
+          s=s;
+          t=q-2;
+          write(q,r,s,t);
+          END
+
+     BEGIN
+     s=3;
+     t=s-3;
+     q=2;
+     r=q*1;
+     p4(r);
+     write(q,r,s,t);
+     END
+
+BEGIN
+q=1;
+r=2;
+s=4;
+t=1;
+p2(r);
+write(q,r,s,t);
+END
+

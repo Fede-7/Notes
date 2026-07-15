@@ -1,0 +1,1 @@
+param_x([1-2,2-3,2-4],[var([],[a,b,c,d],[]),var([b],[c],[d,a]),var([a],[c],[d,b]),var([b],[a],[d,c])],[[],[in_copia],[in_out_copia],[any]],[[a=4,b=3,c=4,d=0,call(2,[a]),write(a,b,c,d)],[c=d*2,b=d,d=1,a=3,call(3,[c]),write(a,b,c,d)],[c=d-1,a=1,d=d-3,b=2,call(4,[a]),write(a,b,c,d)],[a=b,b=2,d=4,c=3,write(a,b,c,d)]]).

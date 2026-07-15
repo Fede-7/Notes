@@ -1,0 +1,5 @@
+********* SOLUTION
+********* Mode: out_copia
+********* Scoping: dynamic
+Compile time error:
+Illegal usage z>20 of out_copia parameter z of p3
