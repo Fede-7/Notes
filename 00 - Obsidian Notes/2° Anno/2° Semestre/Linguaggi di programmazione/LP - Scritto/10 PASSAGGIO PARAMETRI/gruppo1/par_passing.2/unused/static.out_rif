@@ -1,5 +1,0 @@
-********* SOLUTION
-********* Mode: out_rif
-********* Scoping: static
-Compile time error:
-Illegal usage z=x of out_rif parameter x of p4

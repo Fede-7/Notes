@@ -1,5 +1,0 @@
-********* SOLUTION
-********* Mode: out_rif
-********* Scoping: dynamic
-Compile time error:
-Illegal usage z>20 of out_rif parameter z of p3

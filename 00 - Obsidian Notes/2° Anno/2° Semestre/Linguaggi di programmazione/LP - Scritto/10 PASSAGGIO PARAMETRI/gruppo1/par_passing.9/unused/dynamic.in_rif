@@ -1,5 +1,0 @@
-********* SOLUTION
-********* Mode: in_rif
-********* Scoping: dynamic
-Compile time error:
-Illegal assignment c=2 to IN/ref parameter of p4
