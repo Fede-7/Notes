@@ -6,20 +6,39 @@
 
 La **content negotiation** consente a un client di esprimere preferenze rispetto alle rappresentazioni di una risorsa. Il client comunica queste preferenze attraverso specifici header della richiesta, permettendo al server di scegliere una rappresentazione adatta tra quelle disponibili.
 
-### Preferenze con pesi
+### Pesi e fallback
 
 Le preferenze possono essere assegnate con un livello di priorità tramite il parametro `q` (quality factor). 
 
->[!example] Example Request
-> Ad esempio, l'header `Accept-Language: en, it;q=0.9, fr;q=0.8` indica che l'inglese è la lingua preferita, seguita dall'italiano con una preferenza leggermente inferiore, e infine dal francese. 
+> [!example]
+> 
+> ```http
+> GET /sections/wisdom.txt HTTP/1.1
+> Host: book-of-programming.local
+> Accept: text/plain
+> Accept-Language: en, it;q=0.9, fr;q=0.8
+> Accept-Encoding: gzip, deflate, br
+> Accept-Charset: utf-8, iso-8859-1;q=0.7, *;q=0.7
+> ```
+> 
+> Una possibile risposta è:
+> 
+> ```http
+> HTTP/1.1 200 OK
+> Content-Type: text/plain
+> Content-Language: it
+> Content-Encoding: br
+> Content-Charset: utf-8
+> 
+> Contenuto in italiano.
+> ```
+> 
 
-Il server non è obbligato a disporre di tutte le rappresentazioni richieste; se nessuna rappresentazione è accettabile per il client, il server può rispondere con uno status 406 Not Acceptable. In pratica, tuttavia, i server spesso scelgono un fallback predefinito, ad esempio servendo la versione in una lingua di default se quella richiesta non è disponibile.
+Il server non è obbligato a disporre di tutte le rappresentazioni richieste; se nessuna rappresentazione è accettabile per il client, il server può rispondere con uno status **406 Not Acceptable**. In pratica, tuttavia, i server spesso scelgono un fallback predefinito, ad esempio servendo la versione in una lingua di default se quella richiesta non è disponibile.
 
 ### Header di negoziazione comuni
 
 I principali header di negoziazione includono `Accept` (tipo di contenuto), `Accept-Language` (lingua), `Accept-Encoding` (compressione) e `Accept-Charset` (set di caratteri). Ogni header comunica al server quale forma della risorsa il client preferisce.
-
----
 
 ## Content Encoding
 
@@ -40,8 +59,6 @@ Il beneficio della compressione aumenta con la dimensione del file.
 > Ad esempio, il file bootstrap.css, non compresso, occupa circa 280 KB; compresso con gzip scende a 44 KB, realizzando un'efficienza del 84%. 
 
 È importante notare che la compressione introduce un overhead di elaborazione, sia per la compressione che per la decompressione, quindi va valutata in relazione alla dimensione del file e al contesto di utilizzo.
-
----
 
 ## Caching
 
