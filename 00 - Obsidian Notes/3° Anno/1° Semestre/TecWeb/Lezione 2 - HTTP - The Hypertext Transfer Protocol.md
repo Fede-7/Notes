@@ -18,79 +18,7 @@ I documenti tradizionali sono semplici sequenze di caratteri. Un **ipertesto**, 
 
 Un URL completo ha la forma: 
 
-![image](https://cdn-mineru.openxlab.org.cn/result/2026-09-24/1c1f3f0c-3c72-49eb-9b4b-09d84679c1af/cfd3bbb7b91b1a8bb97efc0c008318034f036e36710e2f8bd2d27f9ecbed6eef.jpg)
-#### Componenti di un URL
-
-**Schema (Protocollo)**: specifica il protocollo utilizzato per accedere alla risorsa. I protocolli web più comuni sono **http** e **https**. **HTTPS (HTTP Secure)** rappresenta HTTP su una connessione crittografata tramite **Transport Layer Security (TLS)**, che svolge un ruolo cruciale nel mitigare diversi tipi di attacchi alle applicazioni web.
-
-**Nome di Dominio (Host)**: è il nome del server web che ospita la risorsa. Questo nome viene risolto a un indirizzo IP attraverso il DNS.
-
-**Porta**: è il numero della porta sulla quale il server è in ascolto per le connessioni. Se il server utilizza le porte standard (80 per HTTP, 443 per HTTPS), la porta può essere omessa dall'URL; altrimenti deve essere esplicitamente specificata.
-
-**Percorso (Path)**: indica la posizione specifica della risorsa sul server, tipicamente relativa a una **directory radice (document root)**. I server sono configurati per servire solo i file presenti all'interno di questa directory, poiché non si desidera che tutti i file del sistema siano accessibili via web.
-
-Gli URL possono inoltre contenere **parametri di query** e **ancoraggi**, argomenti che verranno affrontati nelle lezioni successive.
-
-### Lo Scambio Richiesta-Risposta HTTP
-
-Lo scambio HTTP segue uno schema **request-response**. Il client invia una richiesta che specifica quale operazione eseguire, su quale risorsa, con quali condizioni o preferenze, e se vi è contenuto allegato; il server risponde indicando l'esito della richiesta, i metadati che lo descrivono ed eventuale contenuto. La risposta ha una struttura precisa: **riga di stato** (versione HTTP e status), **header** con i metadati, una riga vuota e infine il **corpo** opzionale.
-
-## Richieste HTTP
-
-### Struttura di una Richiesta
-
-Una richiesta HTTP è composta da:
-
-- **Linea di Richiesta**: contiene il verbo HTTP, il percorso della risorsa, e la versione del protocollo.
-- **Intestazioni (Headers)**: metadata aggiuntivi che forniscono informazioni sulla richiesta.
-- **Linea Vuota**: separa le intestazioni dal corpo della richiesta.
-- **Corpo della Richiesta (facoltativo)**: contiene dati, se necessari.
-
-> [!example]  Esempio di una Richiesta:
-> 
-> ```http
-> GET /wisdom/grain.txt HTTP/1.1
-> Host: bookofprogramming.com
-> User-Agent: Mozilla/5.0
-> Accept: text/plain
-> Accept-Language: en-us
-> Connection: keep-alive
-> ```
-
-### Metodi HTTP (Verbi)
-
-I metodi HTTP indicano lo scopo della richiesta rispetto alla risorsa:
-
-| Metodo  | Descrizione                                                        |
-| ------- | ------------------------------------------------------------------ |
-| GET     | Recupera (una rappresentazione di) una risorsa.                    |
-| POST    | Invia nuovi dati alla risorsa, con effetti collaterali sul server. |
-| PUT     | Sostituisce integralmente la risorsa con il payload specificato.   |
-| DELETE  | Elimina la risorsa specificata.                                    |
-| HEAD    | Restituisce gli stessi metadati di GET ma senza il corpo.          |
-| PATCH   | Applica una modifica parziale alla risorsa.                        |
-| OPTIONS | Chiede informazioni sulle opzioni di comunicazione disponibili.    |
-| QUERY   | Invia dati da elaborare senza effetti collaterali (RFC 100008).    |
-
-Consulta la [documentazione ufficiale su MDN](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods) per il riferimento completo.
-
-#### Sicurezza e Idempotenza
-
-Un metodo è **safe** se non modifica lo stato del server, poiché comporta solo operazioni di lettura. Logging e audit non interferiscono con questa proprietà, quindi le richieste sicure possono comunque essere registrate. I metodi **GET, HEAD, QUERY e OPTIONS** sono sicuri.
-
-Un metodo è **idempotente** se l'effetto desiderato sul server di una singola richiesta è equivalente a quello di molteplici richieste identiche consecutive. Tutti i metodi sicuri sono anche idempotenti. **PUT e DELETE** sono idempotenti, mentre **POST e PATCH** non lo sono necessariamente.
-
-| Metodo  | Sicuro | Idempotente                    |
-| ------- | ------ | ------------------------------ |
-| GET     | Sì     | Sì                             |
-| HEAD    | Sì     | Sì                             |
-| OPTIONS | Sì     | Sì                             |
-| PUT     | No     | Sì                             |
-| DELETE  | No     | Sì                             |
-| POST    | No     | Non garantito (solitamente no) |
-| PATCH   | No     | Non garantito (solitamente no) |
-| QUERY   | Si     | Si                             |
-
+![[Lezione 2 - HTTP - The Hypertext Transfer Protocol-1790354892063.png]]
 ### Intestazioni delle Richieste
 
 Le intestazioni HTTP sono meccanismi per passare informazioni aggiuntive nelle richieste e nelle risposte. Un'intestazione è composta da un nome (case-insensitive) seguito da un due-punti e dal valore: `HEADER_NAME: value`. 
@@ -146,7 +74,7 @@ Una questione che sorge naturalmente è: perché le richieste HTTP includono un'
 In realtà **più nomi di host possono risolvere allo stesso IP** — ad esempio `www`, `informatica`, `biblioteca` ed `erasmus.dieti.unina.it` puntano tutti a 143.225.97.81. 
 Poiché un server HTTP può essere configurato per gestire più **virtual host**, ciascuno con la propria document root, è proprio l'header **Host** a permettergli di selezionare il virtual host corretto, poiché il server non conosce automaticamente quale dominio il client ha digitato nel browser; conosce solo l'indirizzo IP verso cui la connessione è stata stabilita.
 
-![image](https://cdn-mineru.openxlab.org.cn/result/2026-09-24/1c1f3f0c-3c72-49eb-9b4b-09d84679c1af/b0f0bacd2080e64df5c731eff4d7c62b1d4d3ec292345f463bc7aa9f6f46aabf.jpg)
+![[Lezione 2 - HTTP - The Hypertext Transfer Protocol-1790354846207.png]]
 
 ## Caratteristica Statelessness
 
@@ -245,9 +173,3 @@ L'estensione REST Client per VS Code permette di scrivere richieste HTTP in file
 ### Client HTTP dedicati
 
 Esistono anche client HTTP dedicati, come **Postman**, **Bruno** e **Insomnia**, che offrono una GUI per definire richieste e ispezionare risposte. Tipicamente includono funzioni avanzate per gestire collezioni di richieste e per il testing, e si rivelano utili quando si sviluppano API web.
-
-## Riferimenti
-
-- **Introduction to Web Applications Development** — Carles Mateu (Modulo 1), liberamente su archive.org.
-- **Computer Networks: A Systems Approach** — Peterson & Davie, sez. 9.1.2.
-- MDN web docs: *How the web works*, *What are hyperlinks?*, *What is a URL?*, *An overview of HTTP*, *Webpage, website, web server, and search engine*.

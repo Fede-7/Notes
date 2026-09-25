@@ -292,7 +292,8 @@ HTTPS garantisce tre proprietà fondamentali: **riservatezza** (chi ascolta il c
 
 ### Il problema delle richieste parallele
 
-Una pagina web moderna può richiedere decine o **centinaia** di richieste per essere renderizzata. HTTP/1.1 può riusare una connessione TCP persistente, ma le risposte non possono essere liberamente interlacciate: devono arrivare nell'ordine delle richieste, quindi una risposta lenta ne ritarda tutte le successive. Per aggirare il problema i browser aprono più connessioni TCP verso lo stesso server, il che comporta però più connessioni da stabilire e mantenere, un overhead ripetuto di setup trasporto e TLS, competizione tra connessioni e un uso inefficiente della capacità di rete.
+Una pagina web moderna può richiedere decine o **centinaia** di richieste per essere renderizzata. HTTP/1.1 può riusare una connessione TCP persistente, ma le risposte non possono essere liberamente interlacciate: devono arrivare nell'ordine delle richieste, quindi una risposta lenta ne ritarda tutte le successive. 
+Per aggirare il problema i browser aprono più connessioni TCP verso lo stesso server, il che comporta però più connessioni da stabilire e mantenere, un overhead ripetuto di setup trasporto e TLS, competizione tra connessioni e un uso inefficiente della capacità di rete.
 
 ### HTTP/2: multiplexing
 
