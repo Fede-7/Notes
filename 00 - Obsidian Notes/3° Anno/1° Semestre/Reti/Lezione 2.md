@@ -2,7 +2,8 @@
 
 ## Le due visioni di Internet
 
-Internet può essere descritta in due modi complementari. Nella visione "concreta" (*nuts and bolts*) essa è costituita da miliardi di **dispositivi di calcolo connessi**: gli **host** (o sistemi finali, *end system*) eseguono applicazioni di rete al bordo (*edge*) di Internet, mentre i **commutatori di pacchetti** (*packet switch*), come router e switch, inoltrano blocchi di dati chiamati pacchetti. I dispositivi sono collegati da **collegamenti di comunicazione** di vario mezzo (fibra, rame, radio, satellite), ciascuno caratterizzato dalla propria **banda** (velocità di trasmissione). Un'ultima componente è l'insieme delle **reti**: insiemi di dispositivi, router e link gestiti da un'organizzazione. Tra i dispositivi oggi connessi si va ben oltre i PC: assistenti vocali, elettrodomestici, telecamere, pacemaker, dispositivi indossabili e tostapane connessi.
+Internet può essere descritta in due modi complementari. 
+Nella visione "concreta" (*nuts and bolts*) essa è costituita da miliardi di **dispositivi di calcolo connessi**: gli **host** (o sistemi finali, *end system*) eseguono applicazioni di rete al bordo (*edge*) di Internet, mentre i **commutatori di pacchetti** (*packet switch*), come router e switch, inoltrano blocchi di dati chiamati pacchetti. I dispositivi sono collegati da **collegamenti di comunicazione** di vario mezzo (fibra, rame, radio, satellite), ciascuno caratterizzato dalla propria **banda** (velocità di trasmissione). Un'ultima componente è l'insieme delle **reti**: insiemi di dispositivi, router e link gestiti da un'organizzazione. Tra i dispositivi oggi connessi si va ben oltre i PC: assistenti vocali, elettrodomestici, telecamere, pacemaker, dispositivi indossabili e tostapane connessi.
 
 Nella visione "dei servizi", invece, Internet è un'**infrastruttura che fornisce servizi alle applicazioni**: Web, video in streaming, teleconferenze, e-mail, giochi, e-commerce e social media. Fornisce inoltre un'*interfaccia di programmazione* alle applicazioni distribuite, ossia degli "agganci" (*hook*) che permettono alle applicazioni che inviano e ricevono di connettersi a Internet e usare il servizio di trasporto, con opzioni di servizio analoghe a quelle del servizio postale.
 
@@ -10,7 +11,10 @@ Nella visione "dei servizi", invece, Internet è un'**infrastruttura che fornisc
 
 ### Dai protocolli umani ai protocolli di rete
 
-I protocolli umani — come chiedere l'ora o presentarsi — consistono nell'inviare messaggi specifici e nel compiere azioni specifiche alla ricezione di un messaggio o in risposta ad altri eventi. I **protocolli di rete** seguono lo stesso schema, ma coinvolgono calcolatori anziché esseri umani: tutta l'attività di comunicazione in Internet è governata da protocolli. Un protocollo definisce il **formato e l'ordine dei messaggi** scambiati tra le entità di rete, e le **azioni compiute** alla trasmissione e alla ricezione dei messaggi.
+I protocolli umani , come chiedere l'ora o presentarsi , consistono nell'inviare messaggi specifici e nel compiere azioni specifiche alla ricezione di un messaggio o in risposta ad altri eventi. I **protocolli di rete** seguono lo stesso schema, ma coinvolgono calcolatori anziché esseri umani: tutta l'attività di comunicazione in Internet è governata da protocolli. Un protocollo definisce il **formato e l'ordine dei messaggi** scambiati tra le entità di rete, e le **azioni compiute** alla trasmissione e alla ricezione dei messaggi.
+
+![[Lezione 2-1790359298799.webp|337]]
+Jakobson Comunication model
 
 ### Chi definisce gli standard
 
@@ -89,4 +93,4 @@ Anche il modello TCP/IP ha difetti: non distingue chiaramente i concetti di **se
 
 ### TCP/IP vs OSI
 
-Il modello ISO/OSI è lo stack standard *de iure* per le reti di calcolatori, ma è piuttosto complesso e dettagliato. TCP/IP e UDP/IP (detti *Internet Protocol Suite*) sono invece l'insieme di protocolli di comunicazione effettivamente usati su Internet e nelle reti locali — TCP (*Transmission Control Protocol*), UDP (*User Datagram Protocol*) e IP (*Internet Protocol*) — e costituiscono quindi lo stack standard *de facto* per la comunicazione su Internet. Esistono infine diversi altri protocolli per la comunicazione tra dispositivi, usabili a seconda della situazione, che si basano comunque sul modello a livelli.
+Il modello ISO/OSI è lo stack standard *de iure* per le reti di calcolatori, ma è piuttosto complesso e dettagliato. TCP/IP e UDP/IP (detti *Internet Protocol Suite*) sono invece l'insieme di protocolli di comunicazione effettivamente usati su Internet e nelle reti locali , TCP (*Transmission Control Protocol*), UDP (*User Datagram Protocol*) e IP (*Internet Protocol*) , e costituiscono quindi lo stack standard *de facto* per la comunicazione su Internet. Esistono infine diversi altri protocolli per la comunicazione tra dispositivi, usabili a seconda della situazione, che si basano comunque sul modello a livelli.
