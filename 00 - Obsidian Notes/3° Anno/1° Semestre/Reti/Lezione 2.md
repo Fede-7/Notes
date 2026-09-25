@@ -13,7 +13,7 @@ Nella visione "dei servizi", invece, Internet è un'**infrastruttura che fornisc
 
 I protocolli umani , come chiedere l'ora o presentarsi , consistono nell'inviare messaggi specifici e nel compiere azioni specifiche alla ricezione di un messaggio o in risposta ad altri eventi. I **protocolli di rete** seguono lo stesso schema, ma coinvolgono calcolatori anziché esseri umani: tutta l'attività di comunicazione in Internet è governata da protocolli. Un protocollo definisce il **formato e l'ordine dei messaggi** scambiati tra le entità di rete, e le **azioni compiute** alla trasmissione e alla ricezione dei messaggi.
 
-![[Lezione 2-1790359298799.webp|337]]
+![[Lezione 2-1790359298799.png|337]]
 Jakobson Comunication model
 
 ### Chi definisce gli standard
@@ -53,33 +53,49 @@ Negli anni '80 la ISO (*International Standards Organization*) definì un modell
 
 Non sempre tutti i livelli sono implementati: tipicamente nei nodi intermedi (switch, router) sono implementati solo 2 o 3 livelli (i livelli dei mezzi), mentre solo gli endpoint implementano l'intero stack fino ai livelli applicativi. La comunicazione tra livelli segue due meccanismi speculari: con l'**incapsulamento** (*top-down*) ogni livello del mittente aggiunge al messaggio (payload) un campo proprio, sotto forma di header (H) o trailer (T); con il **decapsulamento** (*bottom-up*) quei campi sono rimossi e interpretati dallo stesso livello nel destinatario.
 
+![[Lezione 2-1790359871813.png|338]]
+
 ### 1. Livello fisico
 
 Il **livello fisico** è responsabile del movimento dei singoli bit da un hop (nodo) al successivo. Regola le caratteristiche fisiche di interfacce e mezzi (connettori, cavi, segnali elettrici), la configurazione della linea (punto-punto o multipunto), la topologia fisica (mesh, star, ring o bus), la modalità di trasmissione (simplex, half-duplex o duplex), la rappresentazione dei bit, la velocità di trasmissione (*data rate*) e la sincronizzazione dei bit.
+
+![[MinerU_markdown_CN1_L02_slides_2102794442727772161-1790359752463.png]]
 
 ### 2. Livello data link
 
 Il **livello data link** è responsabile del movimento dei frame da un hop al successivo (segmento). Lavora su frame, porzioni di dati tipicamente di poche centinaia di byte, e si occupa di controllo di flusso ed errori (tramite sequenze di controllo del frame) e di controllo di accesso.
 
+![[Lezione 2-1790359763877.png]]
+
 ### 3. Livello di rete
 
 Il **livello di rete** è responsabile della consegna dei singoli pacchetti dall'host sorgente all'host destinazione (cammino). Lavora su pacchetti, tipicamente più grandi e complessi dei frame, e gestisce la consegna da sorgente a destinazione, l'indirizzamento logico e il routing tramite tabelle di routing.
+
+![[Lezione 2-1790359770150.png]]
 
 ### 4. Livello di trasporto
 
 Il **livello di trasporto** è responsabile della consegna di un messaggio da un estremo all'altro, così che il messaggio arrivi al programma giusto. Si occupa di consegna end-to-end, controllo della connessione (orientato o senza connessione), segmentazione/riassemblaggio da e verso i pacchetti del livello 3, indirizzamento delle porte e controllo di flusso ed errori.
 
+![[Lezione 2-1790359803876.png]]
+
 ### 5. Livello di sessione
 
 Il **livello di sessione** è responsabile del controllo del dialogo e della sincronizzazione richiesta/risposta: stabilisce, mantiene e sincronizza l'interazione tra i sistemi che comunicano (sessione di comunicazione), gestisce il dialogo e prevede punti di controllo (*checkpoint*) per la sincronizzazione.
+
+![[Lezione 2-1790359808584.png]]
 
 ### 6. Livello di presentazione
 
 Il **livello di presentazione** è responsabile della rappresentazione dei dati: si occupa di traduzione (ad esempio da codifica EBCDIC o ASCII a testo), cifratura e decifratura, e compressione.
 
+![[Lezione 2-1790359825642.png]]
+
 ### 7. Livello applicazione
 
 Il **livello applicazione** è responsabile di fornire servizi all'utente: terminale virtuale di rete (accesso remoto), trasferimento e accesso a file, servizi di posta e accesso al World Wide Web.
+
+![[Lezione 2-1790359815636.png]]
 
 ## Critiche ai modelli
 
