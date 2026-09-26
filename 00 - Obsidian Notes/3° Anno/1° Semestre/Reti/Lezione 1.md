@@ -41,7 +41,7 @@ La comunicazione dati coinvolge cinque componenti principali:
 - Il **mezzo**, il canale tra mittente e destinatario in cui viaggia il messaggio.
 - Il **protocollo**, un insieme di regole di comunicazione note a mittente e destinatario.
 
-![[Lezione 1-1790182376439.png]]
+![[Lezione 1-1790182376439.png|373x102]]
 
 I dati da scambiare possono essere rappresentati in forme diverse (testo, numeri, immagini, audio, video). A seconda del tipo e dello scopo della comunicazione, il **flusso dei dati** può essere **simplex** (monodirezionale), **half-duplex** (bidirezionale a turni) o **full-duplex** (bidirezionale simultaneo).
 
