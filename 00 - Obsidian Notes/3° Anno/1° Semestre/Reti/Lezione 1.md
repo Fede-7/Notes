@@ -29,7 +29,7 @@ I dispositivi di rete e i collegamenti (*link*) costituiscono l'infrastruttura c
 
 Le reti di calcolatori condividono la terminologia con la teoria dei grafi. I dispositivi connessi tramite la rete sono chiamati **nodi**, mentre le connessioni tra nodi sono chiamate **collegamenti** (o **canali**) di comunicazione. Una sequenza di nodi e collegamenti forma un **cammino** (*path*). I punti terminali della rete, che forniscono o usano **servizi**, sono nodi speciali chiamati **host**: idealmente sono le foglie della rete (anche se spesso non è vero), mentre i nodi intermedi sono dispositivi di routing come router e switch.
 
-![[Lezione 1-1790182318504.webp]]
+![[Lezione 1-1790182515582.png|309]]
 
 ### Comunicazione dei dati
 
@@ -40,7 +40,7 @@ La comunicazione dati coinvolge cinque componenti principali:
 - Il **destinatario**, l'entità che dovrebbe riceverlo.
 - Il **mezzo**, il canale tra mittente e destinatario in cui viaggia il messaggio.
 - Il **protocollo**, un insieme di regole di comunicazione note a mittente e destinatario.
-x
+
 ![[Lezione 1-1790182376439.png|420|420x115]]
 
 I dati da scambiare possono essere rappresentati in forme diverse (testo, numeri, immagini, audio, video). A seconda del tipo e dello scopo della comunicazione, il **flusso dei dati** può essere **simplex** (monodirezionale), **half-duplex** (bidirezionale a turni) o **full-duplex** (bidirezionale simultaneo).
@@ -112,7 +112,7 @@ In una MAN sia i segnali televisivi che Internet vengono immessi nel centralino 
 #### WAN
 
 Le WAN mostrano come host in città diverse possano comunicare tramite linee dedicate (*leased line*), via Internet o tramite un ISP. La complessità della topologia cresce con le dimensioni della rete: le WAN che connettono nazioni o continenti possono essere molto complesse ed eterogenee.
-![[MinerU_markdown_CN1_L01_slides_2102794442727772160-1790196039569.png|297]]
+
 ## Internet Service Provider (ISP)
 
 L'accesso a Internet è il servizio base. Un **Internet Service Provider** (ISP) è un'organizzazione che fornisce servizi per accedere, utilizzare o partecipare a Internet; può essere commerciale, comunitario, no-profit o privato (per esempio un'azienda o un'università). Diversi ISP si scambiano dati tramite Network Access Point (NAP) neutri o Internet Exchange Point (IXP).
@@ -124,7 +124,9 @@ La rete di un ISP è definita gerarchicamente:
 - I **regional ISP** coprono aree più ampie.
 - I **national ISP** coprono intere nazioni.
 - Un **Internet Exchange Point** (IXP) funge da punto d'incontro tra più ISP, spesso non gestito dagli ISP coinvolti.
-![[Lezione 1-1790196095424.png|391]]Structure of a national ISP
+
+![[Lezione 1-1790196095424.png|391]]
+Structure of a national ISP
 
 ![[Lezione 1-1790196285957.png|389]]
 Interconnection of national ISPs
