@@ -79,7 +79,7 @@ Il caching non è banale, perché non tutte le risposte vanno memorizzate I meto
 
 Le risposte possono essere memorizzate in più punti lungo il percorso della richiesta, quindi una risposta può raggiungere il browser senza che il server di origine la elabori. Una cache **privata** serve un singolo utente, come la cache del browser; una cache **condivisa** può riusare la stessa risposta per più utenti, il che è appropriato per i contenuti pubblici ma non per i dati personali, che non devono mai finire per caso a un altro utente. Si noti che **se una risposta può essere memorizzata e chi può riusarla sono due decisioni distinte**.
 
-![[Lezione 3 - HTTP Rappresentazioni, Efficienza e Sicurezza-1790354943429.png|384]]
+![[Lezione 3 - HTTP Rappresentazioni, Efficienza e Sicurezza-1790354943429.png|358]]
 
 ### Il dilemma della consistenza
 
@@ -95,16 +95,16 @@ L'header **Cache-Control** trasporta direttive che controllano il comportamento 
 
 > Esempio: `Cache-Control: public, max-age=300, must-revalidate`.
 
-| Direttiva | Significato |
-| --- | --- |
-| max-age=300 | La risposta è fresca per 300 secondi. |
-| s-max-age=300 | Durata di freschezza per le cache condivise. |
-| public | La risposta può essere memorizzata in cache pubbliche. |
-| private | La risposta è destinata a una cache privata. |
-| no-cache | La risposta può essere memorizzata, ma va validata prima di ogni riuso. |
-| no-store | La risposta non va memorizzata in nessuna cache. |
-| must-revalidate | Scaduta la freschezza, la risposta va validata prima del riuso. |
-| immutable | La rappresentazione non cambierà durante la durata di freschezza. |
+| Direttiva       | Significato                                                             |
+| --------------- | ----------------------------------------------------------------------- |
+| max-age=300     | La risposta è fresca per 300 secondi.                                   |
+| s-max-age=300   | Durata di freschezza per le cache condivise.                            |
+| public          | La risposta può essere memorizzata in cache pubbliche.                  |
+| private         | La risposta è destinata a una cache privata.                            |
+| no-cache        | La risposta può essere memorizzata, ma va validata prima di ogni riuso. |
+| no-store        | La risposta non va memorizzata in nessuna cache.                        |
+| must-revalidate | Scaduta la freschezza, la risposta va validata prima del riuso.         |
+| immutable       | La rappresentazione non cambierà durante la durata di freschezza.       |
 
 ### Freschezza
 
@@ -135,11 +135,11 @@ Last-Modified: Thu, 13 Aug 2026 08:15:00 GMT
 La validazione avviene tramite **conditional requests**, ovvero richieste normali che includono header di validazione aggiuntivi. 
 Quando una risposta è diventata *stale*, ma aveva un ETag o un Last-Modified, la cache può inviare una richiesta condizionale. Se la cache include l'header `If-None-Match: "article-v7"` e il server conferma che l'ETag è ancora valido, il server risponde con **304 Not Modified** (corpo vuoto), e la cache riusa il corpo memorizzato. Se la risposta è stata modificata, il server risponde con **200 OK** e il nuovo contenuto. 
 
-![[Lezione 3 - HTTP Rappresentazioni, Efficienza e Sicurezza-1790356127058.png|448]]
+![[Lezione 3 - HTTP Rappresentazioni, Efficienza e Sicurezza-1790356127058.png|411]]
 
 Analogamente, `If-Modified-Since` consente di validare basandosi sulla data di modifica.
 
-![[Lezione 3 - HTTP Rappresentazioni, Efficienza e Sicurezza-1790356148861.png|446]]
+![[Lezione 3 - HTTP Rappresentazioni, Efficienza e Sicurezza-1790356148861.png|416]]
 
 ### Caching e Content Negotiation
 
@@ -167,9 +167,9 @@ Ciò significa che una risposta precedente può essere riutilizzata per una rich
 
 Una cache, all'arrivo di una richiesta, deve innanzitutto verificare se una risposta corrispondente è già memorizzata. Se non esiste (cache miss), invia la richiesta al server di origine e, se appropriato, memorizza la risposta. Se esiste una risposta corrispondente (cache hit), verifica se è ancora fresca e riutilizzabile; in caso affermativo, la serve direttamente. Se la risposta è stale ma un validatore è disponibile, esegue una richiesta condizionale. Se il server risponde con 304, la cache riusa il corpo memorizzato. Se il server risponde con 200, archivia e serve la nuova risposta.
 - Cache view:
-	![[Lezione 3 - HTTP Rappresentazioni, Efficienza e Sicurezza-1790356390904.png|527]]
+	![[Lezione 3 - HTTP Rappresentazioni, Efficienza e Sicurezza-1790356390904.png|476]]
 - Server view:
-	![[Lezione 3 - HTTP Rappresentazioni, Efficienza e Sicurezza-1790356408018.png]]
+	![[Lezione 3 - HTTP Rappresentazioni, Efficienza e Sicurezza-1790356408018.png|478]]
 
 ## HTTPS e Sicurezza della Comunicazione
 

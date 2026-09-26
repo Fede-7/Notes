@@ -59,43 +59,43 @@ Non sempre tutti i livelli sono implementati: tipicamente nei nodi intermedi (sw
 
 Il **livello fisico** è responsabile del movimento dei singoli bit da un hop (nodo) al successivo. Regola le caratteristiche fisiche di interfacce e mezzi (connettori, cavi, segnali elettrici), la configurazione della linea (punto-punto o multipunto), la topologia fisica (mesh, star, ring o bus), la modalità di trasmissione (simplex, half-duplex o duplex), la rappresentazione dei bit, la velocità di trasmissione (*data rate*) e la sincronizzazione dei bit.
 
-![[MinerU_markdown_CN1_L02_slides_2102794442727772161-1790359752463.png]]
+![[Lezione 2-1790458351461.png|426]]
 
 ### 2. Livello data link
 
 Il **livello data link** è responsabile del movimento dei frame da un hop al successivo (segmento). Lavora su frame, porzioni di dati tipicamente di poche centinaia di byte, e si occupa di controllo di flusso ed errori (tramite sequenze di controllo del frame) e di controllo di accesso.
 
-![[Lezione 2-1790359763877.png]]
+![[Lezione 2-1790359763877.png|426]]]
 
 ### 3. Livello di rete
 
 Il **livello di rete** è responsabile della consegna dei singoli pacchetti dall'host sorgente all'host destinazione (cammino). Lavora su pacchetti, tipicamente più grandi e complessi dei frame, e gestisce la consegna da sorgente a destinazione, l'indirizzamento logico e il routing tramite tabelle di routing.
 
-![[Lezione 2-1790359770150.png]]
+![[Lezione 2-1790359770150.png|426]]]
 
 ### 4. Livello di trasporto
 
 Il **livello di trasporto** è responsabile della consegna di un messaggio da un estremo all'altro, così che il messaggio arrivi al programma giusto. Si occupa di consegna end-to-end, controllo della connessione (orientato o senza connessione), segmentazione/riassemblaggio da e verso i pacchetti del livello 3, indirizzamento delle porte e controllo di flusso ed errori.
 
-![[Lezione 2-1790359803876.png]]
+![[Lezione 2-1790359803876.png|426]]]
 
 ### 5. Livello di sessione
 
 Il **livello di sessione** è responsabile del controllo del dialogo e della sincronizzazione richiesta/risposta: stabilisce, mantiene e sincronizza l'interazione tra i sistemi che comunicano (sessione di comunicazione), gestisce il dialogo e prevede punti di controllo (*checkpoint*) per la sincronizzazione.
 
-![[Lezione 2-1790359808584.png]]
+![[Lezione 2-1790359808584.png|426]]]
 
 ### 6. Livello di presentazione
 
 Il **livello di presentazione** è responsabile della rappresentazione dei dati: si occupa di traduzione (ad esempio da codifica EBCDIC o ASCII a testo), cifratura e decifratura, e compressione.
 
-![[Lezione 2-1790359825642.png]]
+![[Lezione 2-1790359825642.png|426]]]
 
 ### 7. Livello applicazione
 
 Il **livello applicazione** è responsabile di fornire servizi all'utente: terminale virtuale di rete (accesso remoto), trasferimento e accesso a file, servizi di posta e accesso al World Wide Web.
 
-![[Lezione 2-1790359815636.png]]
+![[Lezione 2-1790359815636.png|426]]]
 
 ## Critiche ai modelli
 
