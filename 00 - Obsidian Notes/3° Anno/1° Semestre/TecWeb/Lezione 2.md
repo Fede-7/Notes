@@ -19,11 +19,13 @@ I documenti tradizionali sono semplici sequenze di caratteri. Un **ipertesto**, 
 Un URL completo ha la forma: 
 
 ![[Lezione 2 - HTTP - The Hypertext Transfer Protocol-1790354892063.png|534]]
+
 ### Intestazioni delle Richieste
 
 Le intestazioni HTTP sono meccanismi per passare informazioni aggiuntive nelle richieste e nelle risposte. Un'intestazione è composta da un nome (case-insensitive) seguito da un due-punti e dal valore: `HEADER_NAME: value`. 
 
 > [!faq] nota: 
+> 
 > L'**Internet Assigned Numbers Authority (IANA)** mantiene un elenco ufficiale di intestazioni permanenti e provvisorie. È inoltre possibile definire intestazioni personalizzate. 
 > Consulta il [riferimento MDN sulle intestazioni HTTP](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers) per ulteriori dettagli.
 

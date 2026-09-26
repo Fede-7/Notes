@@ -5,20 +5,10 @@
 > Luigi Libero Lucio Starace, Ph.D. — luigiliberolucio.starace@unina.it
 > https://www.squids.unina.it · https://luistar.github.io · https://www.docenti.unina.it/luigiliberolucio.starace
 
----
-
-## In precedenza, su Web Technologies
-
-Abbiamo discusso come l'inserimento di un URL nel browser avvii una **catena di lavoro**. Oggi ci concentriamo sul primo passo di questa catena: il **Domain Name System (DNS)**.
-
----
-
 ## DNS: più di una «rubrica telefonica»
 
 - A volte il DNS viene descritto come la «rubrica telefonica» di Internet
 - In realtà il DNS è un database **distribuito e gerarchico**
-
----
 
 ## DNS: i nomi
 
@@ -42,8 +32,6 @@ Rappresentazione gerarchica dei seguenti nomi DNS:
 - `squids.unina.it.`
 - `mozilla.org.`
 - `w3.org.`
-
----
 
 ## Domini, zone e delega
 
@@ -71,8 +59,6 @@ Se **unina.it.** delega **dieti.unina.it.** al DIETI:
 - **dieti.unina.it.** smette di far parte della zona **unina.it.**? **Sì.** L'autorità è stata delegata!
 
 > *I domini descrivono l'albero. Le zone descrivono la responsabilità amministrativa su parti dell'albero.*
-
----
 
 ## DNS: tipi di record
 
@@ -162,7 +148,7 @@ Il DNS memorizza le informazioni come **Resource Record** (RR):
 - I record MX puntano a un nome di server
   - L'indirizzo IP dovrà essere risolto a sua volta (acquisendo il record A/AAAA)
 
----
+
 
 ## DNS: gli attori
 
@@ -175,7 +161,7 @@ Come fanno i browser (o i client in generale) a passare da un nome DNS a un indi
   - Ciò può richiedere il «dialogo» con più server DNS
 - Il resolver ricorsivo restituisce il record oppure un errore
 
----
+
 
 ## Query ricorsive vs iterative
 
@@ -188,7 +174,7 @@ Come fanno i browser (o i client in generale) a passare da un nome DNS a un indi
   - Ogni server può restituire una risposta o un referral
   - Nell'iterazione, il resolver segue i referral e decide quale sia la query successiva
 
----
+
 
 ## Interazioni DNS: query e risposte
 
@@ -209,7 +195,7 @@ Le domande contengono tre campi principali:
 - **CLASS** (normalmente IN per Internet — talvolta omessa)
 - **TYPE** (il tipo di record richiesto)
 
----
+
 
 ## Risposte DNS
 
@@ -232,7 +218,7 @@ Gli header delle risposte DNS iniziano con un **codice di stato**. I possibili c
   - **Referral.** Il blocco Authority contiene record **NS** di una zona che potrebbe sapere di più
   - **NODATA.** La risposta può confermare che il nome esiste, ma non esiste alcun record del tipo richiesto (blocco Answer vuoto)
 
----
+
 
 ## Esempio di risoluzione: cold-cache
 
@@ -255,7 +241,7 @@ Il client vuole ottenere un record A per `squids.unina.it.`:
   - Chiamato anche **risoluzione cold-cache**
 - Il **TTL** determina per quanto tempo un record in cache può essere usato
 
----
+
 
 ## La risoluzione DNS in pratica
 
@@ -273,7 +259,7 @@ luigi@XPS-9520:/$ dig @8.8.8.8 squids.unina.it. +trace
 
 Il DNS di Google ci rimanda ai name server della radice:
 
-```text
+```bash
 .                    87203   IN      NS      i.root-servers.net.
 .                    87203   IN      NS      b.root-servers.net.
 .                    87203   IN      NS      a.root-servers.net.
@@ -292,7 +278,7 @@ Il DNS di Google ci rimanda ai name server della radice:
 
 Il root name server selezionato (`h.root-servers.net`) ci rimanda ai name server responsabili del TLD `.it`:
 
-```text
+```bash
 it.                  172800 IN    NS    a.dns.it.
 it.                  172800 IN    NS    m.dns.it.
 it.                  172800 IN    NS    r.dns.it.
@@ -304,7 +290,7 @@ it.                  172800 IN    NS    nameserver.cnr.it.
 
 Il name server `.it` selezionato (`m.dns.it`) ci rimanda ai name server responsabili del dominio di secondo livello `unina.it`, e il name server di `unina.it` (`dscna2.unina.it`) restituisce il record A richiesto:
 
-```text
+```bash
 unina.it.             3600    IN    NS    dscna1.unina.it.
 unina.it.             3600    IN    NS    dscna2.unina.it.
 ;; Received 146 bytes from 217.29.76.4#53(m.dns.it) in 23 ms
@@ -315,13 +301,13 @@ squids.unina.it.    1800    IN    A    143.225.131.206
 
 > Nota: il DNS è usato anche per ottenere l'IP (record A) del NS selezionato, se la risposta intermedia non lo contiene già nella sezione additional!
 
----
+
 
 ## Risoluzione DNS: troubleshooting
 
 Cosa succede se proviamo a risolvere un nome che non esiste (es. `webtechnologies.unina.it.`)?
 
-```text
+```bash
 luigi@XPS-9520:/$ dig webtechnologies.unina.it A
 
 ; <<>> DiG 9.20.18-1ubuntu2-Ubuntu <<>>
@@ -344,7 +330,7 @@ Il browser mostra l'errore «Server Not Found» (Firefox non riesce a connetters
 - Perché? `www.docenti.unina.it.` e `docenti.unina.it.` sono **nomi diversi**!
   - Esiste un record A per il primo, ma non per il secondo…
 
-```text
+```bash
 luigi@XPS-9520:/$ dig www.docenti.unina.it A
 ;; ->>HEADER<<- opcode: QUERY, status: NOERROR
 ;; QUESTION SECTION:
