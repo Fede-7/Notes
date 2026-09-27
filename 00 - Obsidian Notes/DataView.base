@@ -1,17 +1,22 @@
 summaries:
   Empty: values.filter(value.isType("null")).length
   Filled: values.filter(!value.isType("null")).length
+formulas:
+  Senza titolo: file.folder.replace(/^.*\//, "")
+properties:
+  formula.Senza titolo:
+    displayName: Nome cartella
 views:
   - type: table
     name: Tabella Semestre
     filters:
       and:
-        - file.inFolder("00 - Obsidian Notes/2° Anno/2° Semestre")
+        - file.inFolder("00 - Obsidian Notes/3° Anno/1° Semestre")
+        - '!file.inFolder("00 - Obsidian Notes/3° Anno/1° Semestre/Reti/Spunto")'
+        - file.ext != "png"
     order:
       - file.name
-      - Date
-      - tags
-      - Professore
+      - formula.Senza titolo
     sort:
       - property: Date
         direction: DESC
