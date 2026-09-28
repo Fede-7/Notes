@@ -29,61 +29,33 @@ Restituisci l'output interamente in Markdown pulito, organizzando il documento s
 
 ## Elementi Speciali
 
-L'output è un **file Markdown**, che verrà convertito in LaTeX (classe `unina_doc_class`) solo in un secondo momento. La struttura del documento (titoli, grassetti, liste, prosa) resta Markdown puro; i callout e gli altri elementi della classe vanno invece inseriti come **frammenti LaTeX grezzi inline nel Markdown**, che il convertitore farà passare invariati:
-
-- i callout vanno come comandi LaTeX su righe proprie, es. `\dfn{Coda}{La coda è una struttura dati ...}` — mai come blockquote, fenced code o syntax `:::`;
-- gli ambienti vanno come blocchi `\begin{...} ... \end{...}`;
-- le macro inline (`\hi`, `\dir`, `\file`, `\abs`, ecc.) si scrivono direttamente nel flusso della frase.
-
-Non racchiudere mai questi comandi in fenced code block: devono essere testo attivo, visibile nel sorgente Markdown.
-
 Regole di composizione per i frammenti LaTeX:
 
 - separa sempre un frammento LaTeX da eventuali elementi Markdown adiacenti con una riga vuota, onde evitare che il convertitore li interpreti come parte del paragrafo Markdown;
-- all'interno di un frammento LaTeX non usare syntax Markdown (grassetti, link): tutto va in syntax LaTeX (`\textbf{...}`, `\href{...}{...}`);
 - i comandi LaTeX e il Markdown non vanno mescolati dentro lo stesso "frammento": un callout contiene solo LaTeX.
 
 ### Callout
 
-- `\dfn{<titolo>}{<corpo>}` → per una **definizione formale** di un concetto (renderizzata come teorema "Definition" numerato per sezione).
-- `\info{<titolo>}{<corpo>}` → per **informazioni utili**, note a margine, precisazioni, approfondimenti facoltativi.
-- `\warning{<titolo>}{<corpo>}` → per **avvertenze**: errori comuni, fraintendimenti tipici, punti delicati.
-- `\error{<titolo>}{<corpo>}` → per **errori veri e propri**: condizioni non verificate, comportamenti errati, controesempi.
-- `\example{<titolo>}{<corpo>}` → per un **esempio** discusso o un caso concreto.
-- `\infoalt{<tag>}{<corpo>}` → variante leggera di `\info` con un tag laterale; usala per note brevi.
-- `\gbox{<titolo>}{<colore>}{<corpo>}` → box generico con titolo; il colore è un nome LaTeX valido (es. `azure`, `primary`, `red`, `green`, `violet`).
-- `\simplebox{<colore sfondo>}{<colore regola>}{<corpo>}` → box semplice senza titolo, per blocchi di sintesi.
-- `\marker{<colore sfondo>}{<colore cornice>}{<corpo>}` → box "foglietto piegato", per promemoria o osservazioni brevi.
-- `\framedbox{<colore>}{<titolo>}{<corpo>}` → box con angoli evidenziati.
+- `[!def] <titolo>` → per una **definizione formale** di un concetto (renderizzata come teorema "Definition" numerato per sezione).
+- `[!info] <titolo>` → per **informazioni utili**, note a margine, precisazioni, approfondimenti facoltativi.
+- `[!warnings] <titolo>` → per **avvertenze**: errori comuni, fraintendimenti tipici, punti delicati.
+- `[!example] <titolo>` → per un **esempio** discusso o un caso concreto.
+- `[!info] <titolo>` → variante leggera di `\info` con un tag laterale; usala per note brevi.
 
 Criteri d'uso: un callout deve contenere contenuto autonomo e significativo, mai una frase scontata. In caso di dubbio, prosa normale.
 
-### Esempi ed esercizi con numerazione
-
-- Scrivili come blocchi `\begin{esempio}{<titolo>} ... \end{esempio}` e `\begin{esercizio}{<titolo>} ... \end{esercizio}` (titolo opzionale: `\begin{esempio}{} ... \end{esempio}`).
-- Esempio numerato per sezione (doppia linea sopra/sotto); esercizio idem.
-- Usali invece di `\example` quando vuoi la numerazione automatica "Esempio `sezione.numero`".
-
 ### Codice
 
-- Blocchi di codice → ambiente `lstlisting` con linguaggio appropriato. La classe predefinisce gli stili per: `C` (dialetto `[POSIX]`), `JAVA` (`[POSIX]`), `bash`, `makefile`, `ini`, `http`, `nginx`, `asd` (pseudocodice).
-- Percorsi e file nel testo → `\dir{<percorso>}` e `\file{<nomefile>}`; comandi/terminali → `\qterm`, makefile → `\qmake` / `\qmakefile`.
-- Terminale → `\iterminal`; breve inline va in `\texttt{...}` se non coperto da macro dedicate.
+- Blocchi di codice → ambiente "```<linguaggio>" con linguaggio appropriato. La classe predefinisce gli stili per: `C` (dialetto `[POSIX]`), `JAVA` (`[POSIX]`), `bash`, `makefile`, `ini`, `http`, `nginx`, `asd` (pseudocodice).
 
 ### Matematica
 
 - Formula in linea o display → normale matematica LaTeX (`$...$` / `\[...\]`).
-- Valore assoluto e norma → `\abs{...}` e `\norm{...}` (supportano la forma `\abs*{...}` per adattarsi).
-- Media/valor atteso → `\abrakets{...}`; parentesi tonde/graffe adattive → `\rbrakets{...}` / `\cbrakets{...}`.
-- Insiemi numerici → `\mbN`, `\mbZ`, `\mbQ`, `\mbR`, `\mbC` (e le altre `\mb<A-Z>`); insiemi/spazi calligrafici → `\mcA` … `\mcZ`; XOR → `\xor`.
-
 ### Enfasi e varie
 
-- Parola chiave evidenziata → `\hi{...}` oltre al grassetto Markdown.
-- Separatore decorativo tra blocchi concettuali → `\separator` (usarlo con parsimonia).
+- Parola chiave evidenziata → grassetto Markdown.
 
 ### Vincoli
 
-- Non usare pacchetti, `\usepackage`, comandi custom o ambienti non elencati qui: la classe li fornisce già.
 - Non inventare comandi: se nessun callout calza, scrivi prosa o un elenco.
 - La numerazione dei callout `Definition` e degli ambienti `esempio`/`esercizio` è automatica: non numerare a mano nel titolo.

@@ -1,6 +1,6 @@
 # DNS: Domain Name System
 
-> **Web Technologies — Lecture 02**
+> **Web Technologies — Lecture 01**
 > Università degli Studi di Napoli Federico II
 > Luigi Libero Lucio Starace, Ph.D. — luigiliberolucio.starace@unina.it
 > https://www.squids.unina.it · https://luistar.github.io · https://www.docenti.unina.it/luigiliberolucio.starace
