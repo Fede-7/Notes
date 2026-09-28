@@ -10,7 +10,7 @@ La **content negotiation** consente a un client di esprimere preferenze rispetto
 
 Le preferenze possono essere assegnate con un livello di priorità tramite il parametro `q` (quality factor). 
 
-> [!example]
+> [!example] Esempio:
 > 
 > ```http
 > GET /sections/wisdom.txt HTTP/1.1
@@ -52,7 +52,7 @@ L'header **identity** indica l'assenza di compressione, invece, gli algoritmi pi
 
 Il beneficio della compressione aumenta con la dimensione del file, va però ricordato che comprimere e decomprimere introduce a sua volta un overhead.
 
-> [!example]
+> [!example] Esempio:
 > Ad esempio, il file bootstrap.css, non compresso, occupa circa 280 KB; compresso con gzip scende a 44 KB, realizzando un'efficienza del 84%. 
 
 ## Caching
@@ -71,7 +71,7 @@ La cache immagazzina una risposta affinché possa essere riutilizzata per richie
 
 Il caching non è banale, perché non tutte le risposte vanno memorizzate I metodi **safe** (GET, HEAD) sono sempre cacheabili, mentre PUT e DELETE non lo sono; POST e PATCH sono teoricamente cacheabili se la risposta include header specifici, ma in pratica lo sono raramente.
 
-> [!example]
+> [!example] Esempio:
 > Si pensi a una pagina che mostra i posti liberi di un parcheggio, il cui valore cambia continuamente. 
 > Alcune risposte sono inoltre **private**: la risposta a `GET your-bank.com/my-account` contiene i dati del proprio conto, e nessuno vuole ricevere per errore la versione in cache di quello di un altro. 
 
@@ -127,7 +127,7 @@ ETag: "article-v7"
 Last-Modified: Thu, 13 Aug 2026 08:15:00 GMT 
 ```
 
-> [!info] Identificatore opaco
+> [!def] Identificatore opaco
 > Il client non ha bisogno di conoscerne il significato interno né come è stata generata
 
 #### Validazione tramite conditional requests
@@ -150,7 +150,7 @@ Quando il client invia una richiesta con `Accept-Language: it` non si può servi
 
 Per risolvere questo problema, i server devono utilizzare l'header `Vary` per indicare quali header di richiesta influenzano la risposta. 
 
-> [!example]
+> [!example] Esempio
 > ```http
 > HTTP/1.1 200 OK
 > Content-Type: text/plain
@@ -208,7 +208,8 @@ Le moderne pagine web richiedono dozzine o centinaia di richieste per essere ren
 HTTP/2 mira a risolvere queste limitazioni. I messaggi sono rappresentati utilizzando **frame binari**. Ogni coppia richiesta-risposta è assegnata a uno **stream**. I frame provenienti da stream diversi possono essere interleaved, consentendo una serializzazione efficiente su un'unica connessione TCP.
 La semantica di più richieste HTTP è preservata: le richieste concettualmente rimangono `GET /index.html`, `GET /logo.png`, `GET /style.css`. L'unica differenza è che non sono trasmesse utilizzando la sintassi testuale di HTTP/1.1.
 
-> [!example]
+> [!example] Esempio
+> 
 > Stream A: A1 A2 A3 
 > Stream B: B1 B2 
 > Stream C: C1 C2 
@@ -224,7 +225,8 @@ HTTP/2 multiplessa gli stream a livello HTTP, ma TCP non può vedere questi stre
 
 Questo collo di bottiglia è detto **Head-of-Line (HoL) Blocking**: un singolo elemento ritardato o bloccato arresta gli elementi successivi dal progredire, anche se questi ultimi sono indipendenti.
 
-> [!example]
+> [!example] Esempio
+> 
 > Supponiamo tre streams: $A = ( A 1 , A 2 ) : B = ( B 1 , B 2 ) : C = ( C 1 , C 2 )$ 
 > <table><tr><td>TCP Segment</td><td>Conceptual HTTP/2 bytes</td><td>Result</td></tr><tr><td>Segment 1 (S1)</td><td>A1 and part of B1</td><td>Received</td></tr><tr><td>Segment 2 (S2)</td><td>Rest of B1 and C1</td><td>Lost</td></tr><tr><td>Segment 3 (S3)</td><td>B2 and A2</td><td>Received but buffered (waiting for Segment 2)</td></tr></table>
 > 

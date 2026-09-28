@@ -151,9 +151,7 @@ Il suffisso `.local` non è un **Top-Level Domain (TLD)** che può essere acquis
 
 I **risolutori DNS stub** (le componenti locali del sistema di risoluzione dei nomi) consultano questo file prima di inviare la richiesta a un risolutore ricorsivo remoto. Aggiungendo al file hosts una voce come `127.0.0.1 book-of-programming.local`, le richieste DNS per questo dominio verranno automaticamente risolte a 127.0.0.1 (localhost).
 
-> [!example]
-> 
-> #### Esempio di Configurazione del File Hosts
+> [!example] Esempio di Configurazione del File Hosts
 >
 > | Indirizzo IP | Hostname |
 > |--------------|----------|
