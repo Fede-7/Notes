@@ -84,8 +84,8 @@
 
 - L'elemento **`<form>`** raccoglie input dell'utente, tipicamente inviati a un server per l'elaborazione; contiene controlli come `<input>`, `<label>`, `<textarea>`, `<select>`.
 
-[!def] Controlli successful e form data set
-All'atto dell'invio, il **form data set** è costruito raccogliendo tutti i **controlli successful** del form, rappresentati come coppie nome/valore separate da `&`. Ogni nome è il valore dell'attributo `name` di un input; il valore è quello assunto al momento dell'invio.
+>[!def] Controlli successful e form data set
+>All'atto dell'invio, il **form data set** è costruito raccogliendo tutti i **controlli successful** del form, rappresentati come coppie nome/valore separate da `&`. Ogni nome è il valore dell'attributo `name` di un input; il valore è quello assunto al momento dell'invio.
 
 #### Condizioni per un controllo successful
 
@@ -127,8 +127,8 @@ All'atto dell'invio, il **form data set** è costruito raccogliendo tutti i **co
 - L'attributo **`type`** definisce il tipo di valore atteso; **`required`** impedisce l'invio di valori vuoti.
 - Attributi per vincoli comuni: **`minlength`/`maxlength`** (lunghezza del testo), **`min`/`max`/`step`** (numeri e date), **`pattern`** (il testo deve corrispondere a un'espressione regolare).
 
-[!warnings] La validazione HTML non è sicurezza
-La validazione HTML gira **nel browser dell'utente**: l'utente potrebbe usare un browser senza validazione, modificare l'HTML con le Dev Tools o bypassare il form inviando richieste HTTP direttamente; un client malintenzionato può inviare qualunque valore. Non fidarsi **solo** della validazione HTML — che resta comunque utile per intercettare gli errori presto e migliorare l'esperienza utente.
+>[!warning] La validazione HTML non è sicurezza
+>La validazione HTML gira **nel browser dell'utente**: l'utente potrebbe usare un browser senza validazione, modificare l'HTML con le Dev Tools o bypassare il form inviando richieste HTTP direttamente; un client malintenzionato può inviare qualunque valore. Non fidarsi **solo** della validazione HTML — che resta comunque utile per intercettare gli errori presto e migliorare l'esperienza utente.
 
 ## Organizzazione del contenuto
 
@@ -140,8 +140,8 @@ La validazione HTML gira **nel browser dell'utente**: l'utente potrebbe usare un
 
 - La struttura nidificata di un documento HTML lo costituisce naturalmente come un **albero**: gli elementi contengono altri elementi, fino ai nodi di testo foglia.
 
-[!info] I browser recuperano dagli errori HTML
-I browser cercano di visualizzare la pagina anche in presenza di errori (chiusura automatica di tag mai chiusi, aggiunta di markup mancante, correzione di entità e problemi strutturali), nascondendo però gli errori a chi sta imparando. Una pagina visualizzata correttamente **non** implica HTML sintatticamente o semanticamente corretto: per verificarlo servono linter dedicati e validatori online.
+>[!info] I browser recuperano dagli errori HTML
+>I browser cercano di visualizzare la pagina anche in presenza di errori (chiusura automatica di tag mai chiusi, aggiunta di markup mancante, correzione di entità e problemi strutturali), nascondendo però gli errori a chi sta imparando. Una pagina visualizzata correttamente **non** implica HTML sintatticamente o semanticamente corretto: per verificarlo servono linter dedicati e validatori online.
 
 ## Dev Tools del browser
 
