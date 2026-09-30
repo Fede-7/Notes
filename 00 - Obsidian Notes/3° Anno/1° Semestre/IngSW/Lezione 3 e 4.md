@@ -1,143 +1,184 @@
-# Lezione 3 e 4: Ingegneria del Software: Fondamenti di Requisiti e Progettazione della Qualità
+# Requirements Engineering: Elicitation and Analysis
 
-## Dal programma al prodotto software
+> [!info] Citazione chiave
+> «La parte più difficile della costruzione di un sistema software è decidere precisamente cosa costruire» — Fred P. Brooks. Nessun errore, se fatto in questa fase, è più difficile da correggere in seguito.
 
-Nel contesto dell'ingegneria del software è fondamentale distinguere il semplice **programma** dal **prodotto software**. Un programma è uno sviluppo ad hoc o a uso personale, mentre un prodotto software è un sistema complesso sviluppato in modo industriale attraverso un processo strutturato, noto come **Software Development Life Cycle (SDLC)**.
+Il costo di correzione di un errore cresce con la fase del ciclo di vita in cui viene scoperto; gli errori di requisiti sono quindi i più costosi.
 
-Realizzare un prodotto di qualità non significa massimizzare indefinitamente ogni singolo attributo qualitativo. La qualità è un concetto ampio e inclusivo: il compito dell'ingegnere del software è individuare e massimizzare, per lo specifico problema, le **caratteristiche di qualità prioritario-vincolanti**.
+![Cost of errors through project lifecycle](https://cdn-mineru.openxlab.org.cn/result/2026-09-29/dbd6eb51-869f-48fa-8fbb-7e67555438a4/101917e12abeca00b34507836f4f5e950a4cb255b9b6a8b076afe0e14974d47b.jpg)
 
-## La centralità dei requisiti: la lezione di Fred Brooks
+## Software Requirements
 
-La prima fase critica del ciclo di vita è l'**Ingegneria dei Requisiti (Requirements Engineering)**. Come evidenziato da Fred Brooks in *The Mythical Man-Month*:
+> [!def] Requisito
+> Un **requisito** è una descrizione di ciò che il sistema deve fare: **servizi** che il sistema deve fornire ai propri utenti e **vincoli operativi** a cui è sottoposto.
 
-> *"La singola parte più difficile nella costruzione di un sistema software è decidere esattamente cosa costruire. Nessun'altra parte del lavoro concettuale è così difficile come definire i requisiti tecnici dettagliati, e nessun'altra parte può rovinare così gravemente il sistema risultante se fatta male."*
+### Livelli di requisiti
 
-Un algoritmo subottimale, infatti, può essere riorganizzato o ottimizzato in fase di refactoring; la mancata comprensione di un requisito o un'errata stima di un attributo di qualità può invece comportare il **fallimento totale del progetto**, costringendo a scartare l'intero sistema con enormi perdite economiche.
+Il termine «requisito» è usato in modo incoerente nell'industria; distingue due livelli di astrazione.
 
-L'Ingegneria dei Requisiti è inoltre una disciplina fortemente multidisciplinare, posta all'intersezione tra informatica, psicologia e sociologia, poiché richiede empatia per estrarre e comprendere i reali bisogni degli utenti.
+- **Requisiti utente** (*user requirements*): descrizione astratta e ad alto livello di un servizio o vincolo, nella prospettiva dell'utente finale.
+- **Requisiti di sistema** (*system requirements*): definizione dettagliata e formale di una funzione del sistema, nella prospettiva del sistema da costruire.
 
-## Tassonomia e classificazione dei requisiti
+L'ambiguità tra i due livelli è inevitabile perché i requisiti svolgono una doppia funzione contrattuale: i **requisiti utente** possono essere la base di un bando di gara, mentre i **requisiti di sistema** — formulati dal contraente vincitore e validati dal committente — entrano nel contratto finale e sono **vincolanti**.
 
-### Gerarchia dei requisiti: business, user e system
+I requisiti esistono a livelli di astrazione crescente, dal business al dettaglio:
 
-I requisiti non si collocano tutti al medesimo livello di astrazione, ma seguono una gerarchia strutturata che parte dagli obiettivi strategici e scende fino ai dettagli contrattuali:
+- **Business goal**: obiettivo aziendale che motiva il progetto (es. ridurre le visite mancate).
+- **User requirement**: servizio richiesto dall'utente.
+- **System requirement**: comportamento preciso del sistema.
+- **Quality / constraint**: proprietà quantitativa o vincolo sul comportamento.
 
-1. I **Business Requirements** (requisiti di business) esprimono gli obiettivi strategici ed economici dell'organizzazione, ad esempio "ridurre del 30% i mancati appuntamenti per aumentare i ricavi" o "velocizzare la gestione dei tirocini".
-2. Gli **User Requirements** (requisiti utente) descrivono i servizi che l'utente si aspetta dal sistema in linguaggio naturale, ad esempio "i pazienti devono ricevere un promemoria per gli appuntamenti".
-3. I **System Requirements** (requisiti di sistema) specificano in modo formale e dettagliato le funzioni e i vincoli operativi del sistema, e costituiscono la base contrattuale tra cliente e software house.
+### Tipi di requisiti
 
-### Requisiti funzionali e non funzionali
+- **Requisiti funzionali** (*functional requirements*): cosa il sistema deve fare.
+- **Requisiti di qualità** (*quality requirements*): quanto bene il sistema deve svolgere le sue funzioni (prestazioni, affidabilità, sicurezza, manutenibilità, …).
+- **Vincoli** (*constraints*): tecnologici, organizzativi, legali/regolatori, di processo.
+- **Requisiti di dominio** (*domain requirements*): derivanti dal contesto o settore d'uso del software; possono essere funzionali o non e vincolano sia il progetto sia il processo di sviluppo (es. uno standard di sicurezza medica).
 
-Ortogonalmente al livello di astrazione, i requisiti si dividono per contenuto. I **requisiti funzionali** definiscono *cosa* il sistema deve fare, cioè i servizi e le funzionalità offerti agli utenti. I **requisiti non funzionali** definiscono *come* il sistema deve performare e comprendono due famiglie:
+I requisiti di qualità e i vincoli sono spesso chiamati collettivamente **requisiti non funzionali**.
 
-- I **Quality Requirements** (requisiti di qualità), che riguardano prestazioni, scalabilità, usabilità e manutenibilità.
-- I **Constraints** (vincoli), cioè limiti tecnologici (ad esempio l'utilizzo obbligatorio di database Oracle), organizzativi o legali.
+#### Requisiti non funzionali: classificazione
 
-### Vincoli organizzativi, legali ed esterni
+- **Requisiti di prodotto** (*product requirements*): caratteristiche richieste al prodotto — usabilità, efficienza (prestazioni, spazio), dipendenza (affidabilità, sicurezza).
+- **Requisiti organizzativi** (*organizational requirements*): derivanti dall'organizzazione di committente e sviluppatori — ambientali, operativi, di sviluppo, contabili.
+- **Requisiti esterni** (*external requirements*): derivanti da fonti esterne — regolatori, legislativi, etici, di sicurezza.
 
-Molti requisiti non funzionali derivano da fattori esterni al prodotto stesso. Tra i **vincoli organizzativi** rientrano le convenzioni aziendali sulla scrittura del codice o le naming convention. Tra i **vincoli legali e regolatori** rientrano il rispetto della normativa sulla privacy **GDPR** per la gestione dei dati personali in Europa, o certificazioni specifiche come la normativa **DO-178** in ambito aeronautico.
+I non-funzionali non riguardano servizi specifici ma **caratteristiche del sistema nel suo insieme**; spesso sono più critici dei funzionali: un requisito funzionale subottimale si aggira, mentre il fallimento di un non-funzionale può rendere il sistema inutilizzabile o non schierabile (es. per mancata conformità al GDPR).
 
-## Ambiguità del linguaggio naturale e verificabilità quantitativa
+La distinzione funzionale/non-funzionale **non è netta**: un non-funzionale, sviluppato in dettaglio, genera requisiti funzionali (es. «solo utenti autorizzati» genera il login). I requisiti non sono indipendenti: uno spesso genera o vincola altri.
 
-### I rischi della lingua naturale
+> [!warning] Testabilità
+> I non-funzionali di sistema devono includere **indicatori quantitativi** quando possibile: «il sistema deve essere affidabile» non è verificabile, «uptime mensile del 99,9%» lo è.
 
-Il linguaggio naturale è intrinsecamente ambiguo: un requisito espresso in modo generico può portare a interpretazioni divergenti da parte del team di sviluppo e del cliente, generando contenziosi. Due esempi discussi in aula lo dimostrano concretamente.
+Metriche tipiche per i requisiti non funzionali:
 
-Il **cartello stradale americano** con la scritta "School speed limit 20 when children are present" sembra chiaro a prima vista, ma solleva enormi ambiguità algoritmiche: che cosa definisce la presenza di un bambino? A quale distanza? Quali sono gli orari scolastici validi? Analogamente, il **comando "Start/Stop" di un servizio remoto** lascia aperte domande cruciali: che cosa accade se si invia il comando *Start* a un servizio già attivo, o se due utenti inviano comandi opposti simultaneamente?
+| Proprietà | Metriche |
+| --- | --- |
+| Prestazioni | Operazioni/secondo, tempo di risposta a utente/evento, frequenza di refresh dello schermo |
+| Dimensione | Megabyte |
+| Facilità d'uso | Tempo di formazione richiesto, tasso di errori utente, numero di richieste di supporto |
+| Affidabilità | Tempo medio a guasto, tasso di disponibilità (uptime) |
+| Robustezza | Tempo di ripristino dopo guasto, probabilità di perdita dati al guasto |
 
-### Proprietà dei requisiti e verificabilità
+### Proprietà di un buon requisito
 
-Per essere validi, i requisiti devono essere **chiari, non ambigui, completi, consistenti, tracciabili e verificabili**.
+- **Chiaro e comprensibile**: soprattutto per i requisiti utente.
+- **Non ambiguo**: l'ambiguità porta a dispute col committente.
+- **Completo** e **consistente**: senza conflitti reciproci.
+- **Necessario**: se ne deve capire la ragione d'essere.
+- **Fattibile**: implementabile realisticamente.
+- **Tracciabile**: si deve sapere da dove proviene e cosa dipende da esso.
+- **Verificabile**: deve essere possibile stabilire senza ambiguità se il sistema lo soddisfa.
 
-Da questa esigenza deriva una regola fondamentale: un requisito non funzionale non deve mai utilizzare aggettivi qualitativi generici come "veloce" o "usabile", ma deve essere espresso tramite **metriche quantitative e misurabili**, ad esempio "il 95% delle operazioni deve completarsi entro 1 secondo" o "garantire 30 FPS su una specifica GPU".
+> [!example] I demoni dell'ambiguità
+> Un requisito apparentemente chiaro nasconde domande non risposte (es. «segnale per i bambini» non definisce chi è un bambino né quando la regola si applica). Analogamente, un requisito di avvio/stop di un servizio remoto non specifica comportamento su stati già attivi, riavvii, cadute di connessione, errori e retry: i requisiti di sistema devono contenere dettaglio sufficiente a essere non ambigui e verificabili.
 
-## Il processo iterativo di Requirements Engineering
+## Il processo di Requirements Engineering
 
-L'Ingegneria dei Requisiti è un **processo iterativo** articolato in tre macrofasi che si ripercorrono a ciclo in caso di incongruenze o dubbi:
+> [!def] Requirements Engineering (RE)
+> Sottoarea dell'ingegneria del software che fornisce metodi, tecniche e strumenti per comprendere e documentare cosa un sistema software deve fare.
 
-1. L'**elicitazione** (requirements elicitation) è la raccolta dei fabbisogni attraverso il dialogo con gli stakeholder.
-2. L'**analisi e specifica** (analysis & specification) è la modellazione, la formalizzazione e la strutturazione tecnica dei requisiti.
-3. La **validazione** (validation) è il controllo della consistenza e dell'assenza di contraddizioni nei requisiti.
+Tre attività chiave:
 
-Al termine del ciclo si produce il **documento dei requisiti**.
+1. **Elicitation e analisi**: scoprire i requisiti interagendo con gli stakeholder.
+2. **Specification**: convertire i requisiti in una forma standardizzata.
+3. **Validation**: verificare che i requisiti definiscano davvero il sistema voluto dal committente.
 
-### Simulazione pratica: il caso della gestione tirocini su Segrepass
-
-Per dimostrare la variabilità delle prospettive degli stakeholder, durante la lezione è stata condotta un'intervista a tre studenti per progettare la funzionalità di gestione tirocini su Segrepass. Il primo stakeholder ha richiesto un catalogo con filtri e collegamenti ai siti aziendali per informarsi; il secondo ha ipotizzato un semplice elenco statico di contatti e-mail; il terzo ha preteso un'integrazione nell'area riservata del piano di studi, attivabile solo al completamento degli esami dei primi due anni, con form dinamici di candidatura.
-
-### Gestione delle contraddizioni e il Product Owner
-
-La simulazione ha evidenziato requisiti in palese contrasto, come rendere la sezione visibile a tutti versus nasconderla a chi non possiede i CFU necessari. In presenza di visioni divergenti è quindi necessaria la figura del **Product Owner** lato cliente: il responsabile finale che possiede l'autorità di dirimere i dubbi e prendere decisioni vincolanti.
-
-### Prioritarizzazione e modelli di ciclo di vita: Waterfall vs Agile
-
-I requisiti devono essere organizzati secondo un **ordine di priorità**, e questa organizzazione influenza la scelta del modello di sviluppo. Nel **modello a cascata (Waterfall)** si segue un approccio sequenziale "per pilastri verticali": si completa interamente la fase di analisi prima di passare alla progettazione e allo sviluppo. Nel **modello Agile** si adotta invece un approccio iterativo "per fette/funzionalità": si rilasciano continuamente incrementi software, partendo dai requisiti a priorità più alta.
-
-## Tecniche di elicitazione e strumenti di prototipazione
-
-### Tecniche di intervista e studi etnografici
-
-- Le **interviste aperte** funzionano come sessioni di brainstorming libero: permettono di far emergere aspetti inaspettati, ma possono portare a dettagli disomogenei.
-- Le **interviste chiuse** sono basate su quesiti prefissati: garantiscono risposte omogenee, ma rischiano di tralasciare esigenze non previste dall'intervistatore.
-- Gli **studi etnografici** consistono nell'osservazione diretta dell'operatore sul campo, per comprendere i flussi operativi reali e l'integrazione nell'organizzazione.
-
-### La barriera del linguaggio di dominio
-
-Ogni ambito operativo possiede un proprio **gergo specialistico** (il linguaggio di dominio) che l'analista deve apprendere prima di poter dialogare con gli stakeholder. Negli enti locali, ad esempio, si usano termini come "Tracciato 290" o "iscrizione a ruolo coattivo" nella gestione dei tributi comunali; nel settore cinematografico si parla della stampa del "Borderò" per la SIAE.
-
-### Modellazione degli utenti: le personas
-
-Le **Personas** sono archetipi e rappresentazioni fittizie delle diverse classi di utenti finali, come lo studente smanettone contrapposto all'utente poco tecnologico. Aiutano il team a immedesimarsi nelle reali esigenze e limitazioni dell'utente finale durante la progettazione delle interfacce.
-
-### Wireframe e mockup
-
-Per eliminare l'ambiguità del linguaggio naturale si utilizzano i **Mockup** (o wireframe). Poiché la loro funzione è concentrare la discussione esclusivamente sulla struttura informativa e sul flusso di navigazione, i wireframe devono essere a **bassa fedeltà**, cioè privi di colori o elementi estetici. Tra gli strumenti professionali indicati figurano **Figma**, **Balsamiq** e **Penpot**.
-
-## Modellazione dei requisiti con UML: Use Case Diagrams
-
-### Scopo comunicativo di UML
-
-Il **Unified Modeling Language (UML)** offre un insieme di diagrammi standardizzati il cui scopo fondamentale è **comunicare in modo sintetico e non ambiguo** la struttura e il comportamento del software.
-
-### Componenti del diagramma dei casi d'uso
-
-Il **Diagramma dei Casi d'Uso** definisce le funzionalità del sistema da una prospettiva ad alto livello attraverso tre elementi:
-
-1. L'**attore** (actor), rappresentato con uno *stickman*, indica una classe di utenti o un sistema esterno che interagisce con il software.
-2. Il **caso d'uso** (use case), rappresentato da un'ellisse contenente un sintagma verbale (ad esempio "Prenota Esame"), esprime una funzionalità ad alto livello.
-3. Il **confine del sistema** (system boundary) è un box che racchiude i casi d'uso interni al software sviluppato.
+In pratica il processo **non è lineare**: le attività sono interleavate in un processo iterativo su livelli di granularità crescente — prima requisiti di **business**, poi **utente**, infine **di sistema** — e ogni iterazione include elicitation/analisi, specification e validation (con feasibility study, prototyping e review come tecniche di supporto).
 
 ```mermaid
-graph LR
-    A["👤 Utente"] -->|Accede| B["Visualizza Prodotti"]
-    A -->|Accede| C["Effettua Acquisto"]
-    A -->|Accede| D["Paga con Circuito"]
-    D -->|Comunica con| E["💳 PagoPA<br/>(Sistema Esterno)"]
-    
-    style A fill:#f9f,stroke:#333,stroke-width:2px
-    style B fill:#bbf,stroke:#333,stroke-width:2px
-    style C fill:#bbf,stroke:#333,stroke-width:2px
-    style D fill:#bbf,stroke:#333,stroke-width:2px
-    style E fill:#fbf,stroke:#333,stroke-width:2px
+flowchart LR
+  A["Elicitation e Analisi"] --> B["Specification"] --> C["Validation"]
+  subgraph It["Iterazioni a granularità crescente"]
+    direction TB
+    B1["Requisiti di Business"] --> B2["Requisiti Utente"] --> B3["Requisiti di Sistema"]
+  end
+  A ~~~ It
 ```
 
-### Scenari di esecuzione e relazioni
+## Requirements Elicitation and Analysis
 
-Ogni caso d'uso si articola in più flussi. Il **Main Success Scenario** è il flusso principale in cui tutte le operazioni vanno a buon fine; gli **scenari alternativi/eccezioni** sono i flussi gestiti in caso di errori, ad esempio il credito insufficiente. Esistono inoltre relazioni tra attori: la **specializzazione degli attori** fa sì che un attore specializzato erediti tutte le funzionalità dell'attore generale e ne aggiunga di proprie, e viene rappresentata con una freccia con triangolo cavo.
+L'elicitazione è considerata la parte **più critica** del processo RE e coinvolge la collaborazione tra **stakeholder**.
 
-### Granularità del caso d'uso
+> [!def] Stakeholder
+> Persone o gruppi affetti in qualche modo dal progetto: utenti finali (gruppo spesso eterogeneo), utilizzatori degli output del software, management e dirigenti del cliente, personale tecnico del cliente.
 
-Un caso d'uso deve rappresentare una **macro-funzionalità con un reale beneficio economico o pratico per l'utente**, come "Effettua Acquisto", e non singoli passi operativi intermedi come "Inserisci Login" o "Aggiungi Carta di Credita": questi costituiscono dettagli di sequenza, non casi d'uso.
+### Sfide dell'elicitazione
 
-## Sintesi finale
+- Gli stakeholder **non sanno cosa vogliono**, se non nei termini più generali, e possono avanzare richieste irrealistiche.
+- Gli stakeholder sono **esperti del proprio dominio**: usano gergo e conoscenza implicita, dando per scontati dettagli che non lo sono.
+- Stakeholder diversi esprimono **bisogni diversi in modi diversi**: occorre gestire comunanze e conflitti.
+- **Fattori politici** possono influenzare il processo (es. manager che chiedono requisiti per accrescere la propria influenza).
+- Le priorità sono contrastanti e stakeholder che si sentono ignorati possono **sabotare** il processo.
+- I requisiti **cambiano** durante l'elicitazione, anche per nuovi stakeholder emersi in corsa.
 
-- **Prodotto software vs programma:** approccio industriale vs sviluppo individuale.
-- **Requirements Engineering:** la fase più critica del ciclo di vita, poiché gli errori sui requisiti causano il fallimento dell'intero progetto.
-- **Tassonomia:** Business Requirements → User Requirements → System Requirements.
-- **Funzionali vs non funzionali:** *cosa* fa il sistema vs *come* lo fa (quality requirements + constraints).
-- **Verificabilità quantitativa:** un requisito non funzionale deve essere espresso con metriche numeriche misurabili, evitando termini ambigui come "veloce".
-- **Processo iterativo:** elicitazione → analisi/specifica → validazione.
-- **Strumenti di elicitazione:** interviste (aperte/chiuse), studi etnografici, personas, user stories, wireframe/mockup (Figma, Balsamiq).
-- **UML Use Case Diagram:** rappresentazione ad alto livello di attori, casi d'uso (verbo + complemento) e confini di sistema.
-- **Product Owner:** figura responsabile lato cliente che dirime i requisiti in contrasto.
-- **Ciclo di vita:** Waterfall (approccio per pilastri) vs Agile (approccio per fette/funzionalità prioritarizzate).
+### Processo di elicitation e analisi
+
+1. **Discovery e comprensione**: interazione con gli stakeholder per scoprire i requisiti.
+2. **Classificazione e organizzazione**: raggruppamento dei requisiti correlati.
+3. **Prioritizzazione e negoziazione**: risoluzione dei conflitti tra bisogni contrastanti.
+4. **Documentazione**: tracciamento dei requisiti per l'iterazione successiva.
+
+## Tecniche di elicitation
+
+### Interviste con gli stakeholder
+
+- **Interviste chiuse** (*closed*): il risponditore risponde a una lista predefinita di domande.
+- **Interviste aperte** (*open*): nessuna agenda predefinita.
+- In pratica si combinano: le interviste totalmente aperte raramente funzionano; conviene partire da domande predisposte che aprono discussioni meno strutturate.
+
+Limiti e accorgimenti:
+
+- Le persone parlano volentieri del proprio lavoro, ma occorre **non sprecare il loro tempo** e minimizzare l'impatto sul loro lavoro.
+- Lo **gergo** e le conoscenze implicite rendono ambigue le risposte.
+- Ogni stakeholder ha una **visione parziale o distorta** del lavoro dei colleghi di altre aree.
+- Dinamiche di potere possono rendere gli stakeholder **riluttanti** a discutere requisiti e vincoli organizzativi.
+
+### Etnografia
+
+- Il software esiste in un **ambiente sociale e organizzativo** che genera o vincola i requisiti; spesso i processi realmente usati **differiscono** da quelli formali dichiarati.
+- È una tecnica **osservativa**: l'ingegnere dei requisiti si immerge nell'ambiente di lavoro degli utenti finali e osserva il lavoro quotidiano, annotando i compiti effettivi e i partecipanti coinvolti.
+
+È particolarmente efficace per scoprire:
+
+- Requisiti derivanti da **come le persone lavorano davvero**, non da come i processi formali dicono che dovrebbero lavorare.
+- Requisiti derivanti da **cooperazione e consapevolezza** delle attività altrui (es. verificare con i colleghi se un ordine è già stato consegnato).
+
+### Personas
+
+> [!def] Persona
+> Archetipo **ipotetico** di utenti reali: non è una persona reale né completamente inventata, ma viene **scoperta** come sottoprodotto dell'elicitazione e definita con rigore e precisione. È basata su evidenze, non su stereotipi.
+
+- Motivazione: gli utenti reali del software sono **diversi dagli sviluppatori**; le personas promuovono **empatia** e comprensione completa degli utenti.
+- Sono essenziali quando **non ci sono stakeholder da intervistare** (es. software off-the-shelf per il grande pubblico).
+- Non esiste una rappresentazione standard; elementi comuni:
+  - **Personalizzazione**: nome, età, breve biografia.
+  - **Informazioni lavorative**: qualifica e ruolo.
+  - **Educazione** ed esperienza.
+  - **Obiettivi**: interesse nell'uso del software.
+  - **Frustrazioni / pain points**: criticità che il software può risolvere.
+
+Da una persona possono **emergere nuovi requisiti** che gli stakeholder non avevano espresso (es. utenti non tecnologici che necessitano di prenotazione telefonica e reminder umani).
+
+### Stories
+
+- È più facile rapportarsi a **esempi reali** che ad astrazioni: gli stakeholder descrivono bene *come fanno le cose*, non *come devono essere i requisiti*.
+- Una **storia** è una descrizione narrativa, ad alto livello, di come il sistema viene usato per un compito particolare: cosa fa l'utente, quali informazioni usa, quale output serve.
+
+### Low-fidelity mockups
+
+> [!def] Wireframe
+> Schizzo semplificato dell'interfaccia utente del sistema; il focus è su **funzionalità e flusso**, non sull'estetica.
+
+Benefici:
+
+- **Facilitano la comprensione**: punto di partenza per la discussione e per una comunicazione chiara delle idee iniziali.
+- **Aiutano a scoprire nuovi requisiti**: è più facile ragionare su interfacce concrete che su affermazioni astratte.
+- **Engagement e feedback iterativo** senza grandi investimenti di design.
+- **Fondamenta per lo sviluppo**: base per passare ai design a maggiore fedeltà e infine allo sviluppo.
+
+Strumenti: carta e matita per gli schizzi iniziali; strumenti digitali commerciali (Balsamiq, Figma) o open-source (PenPot) per creare e condividere wireframe elettronici.
+
+## Collocazione nel ciclo di vita
+
+Nel ciclo di vita del software, la RE precede System Design e Software/UI-UX Design: i requisiti sono raccolti tramite interviste, personas e specificati con storie/scenari, use case, linguaggio naturale, modelli di dominio e mock-up; l'architettura alloca poi sottosistemi e requisiti su risorse hardware e software.
