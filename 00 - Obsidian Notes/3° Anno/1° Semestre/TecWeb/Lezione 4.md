@@ -1,149 +1,196 @@
 # Lezione 04 — HTML: Hypertext Markup Language
 
-## HTML e il web
 
-- Il **web** è un sistema di documenti **ipertesto** interconnessi tramite **hyperlink**; i client (tipicamente browser) usano HTTP per recuperarli.
-- Un **server HTTP** è un software in ascolto di richieste su una porta, che può gestire più host (da qui l'header **Host**) e serve i file a partire dalla **document root** del proprio filesystem.
-- Un **Web App** consiste di uno o più documenti (pagine web), descritti in HTML e visualizzati dal browser.
+## Web e HTML
 
->[!def] Linguaggio di markup
->Un **linguaggio di markup** arricchisce un documento con annotazioni (i **tag**, racchiusi tra parentesi angolari) che ne controllano la **struttura**, la **formattazione** o le **relazioni tra le parti**. I tag di apertura possono contenere **attributi** chiave-valore, con valore opzionale.
+- Il **web** è un sistema di documenti **ipertesto** interconnessi tramite **hyperlink**, recuperati dai client (browser) tramite HTTP.
+- Un **server HTTP** è un software in ascolto su una porta che può servire più host (da qui l'header **Host**) e distribuisce i file a partire dalla **document root** del proprio filesystem.
+- Una **Web App** consiste di una o più pagine web, descritte in HTML e visualizzate dal browser.
 
-## Struttura di un documento HTML
+> [!def] Linguaggio di markup
+> Un **linguaggio di markup** arricchisce un documento con annotazioni (**tag**, tra parentesi angolari) che ne controllano struttura, formattazione o relazioni tra le parti; i tag di apertura possono contenere **attributi** chiave-valore con valore opzionale.
+> ```html
+> <tagName attr1="value" attr2> ... <\tagName>
+> ```
 
-- Il documento inizia con la dichiarazione `<!DOCTYPE HTML>`, che non è un tag ma comunica al client il tipo di documento atteso.
-- Il tag `<html>` rappresenta l'intero documento e contiene un `<head>` e un `<body>`; l'attributo `lang` è raccomandato per l'accessibilità.
-- Il **`<head>`** è un contenitore di **metadati**: dati sul documento, spesso non mostrati all'utente ma utili a browser e motori di ricerca; deve contenere un `<title>`.
-- Il **`<body>`** contiene i contenuti effettivi del documento.
-- I **commenti** sono ignorati dai browser e servono per note o per nascondere temporaneamente contenuto.
+- HTML esiste dal 1993 in diverse versioni; il riferimento attuale è l'**HTML Living Standard**.
 
-## Elementi principali
+### Struttura del documento
+
+- Il documento inizia con la dichiarazione `<!DOCTYPE HTML>`: non è un tag, indica al client il tipo di documento atteso.
+- Il tag `<html>` rappresenta l'intero documento e contiene un `<head>` e un `<body>`; l'attributo **lang** è raccomandato per l'accessibilità.
+- Lo `<head>` contiene i **metadati** (dati sul documento, spesso non mostrati all'utente ma utili a browser e motori di ricerca) e deve contenere un `<title>`.
+- Lo `<body>` contiene il contenuto effettivo del documento.
+
+> [!def] Attributi globali
+> Alcuni attributi sono **globali**, cioè ammessi su qualunque elemento; altri hanno senso solo per alcuni elementi.
+> - **id**: identificatore univoco dell'elemento nel documento.
+> - **lang**: lingua del contenuto dell'elemento.
+> - **style, class**: usati per lo stile.
+
+### Commenti
+
+I **commenti** sono ignorati dai browser, delimitati da `<!--` e `-->`; servono per note o per nascondere temporaneamente contenuto.
+
+## Elementi fondamentali
 
 ### Titoli e paragrafi
 
-- **`<h1>`–`<h6>`**: rappresentano titoli e sottotitoli, dal livello più alto al più basso.
-- **`<p>`**: rappresenta un paragrafo, che tipicamente inizia su una nuova riga.
+- `<h1>`–`<h6>` rappresentano titoli e sottotitoli di livello crescente.
+- `<p>` rappresenta un paragrafo, che tipicamente inizia su una nuova riga.
 
 ### Semantica a livello di testo
 
-- **`<em>`**: enfatizza il contenuto; **`<strong>`**: forte importanza.
-- **`<br>`**: interruzione di riga (**void element**, cioè senza contenuto).
-- **`<abbr>`**: definisce acronimi e abbreviazioni, con la descrizione nell'attributo `title`.
-- **`<del>`** e **`<ins>`**: contenuti rispettivamente eliminati o inseriti nel documento.
+- `<em>` enfatizza il contenuto; `<strong>` indica forte importanza; `<br>` è un elemento *void* che inserisce un'interruzione di riga.
+- `<abbr title="...">` definisce acronimi e abbreviazioni.
+- `<del>` marca contenuto eliminato dal documento; `<ins>` contenuto inserito.
 
 ### Ancore e URL
 
-- Gli **hyperlink** si definiscono con il tag ancora **`<a>`**, il cui attributo **`href`** indica l'URL di destinazione.
-- Un URL può essere **assoluto** (include scheme e hostname, contiene tutto il necessario per raggiungere la risorsa) o **relativo** (specifica solo un path; scheme e hostname sono dedotti dal contesto corrente).
-- Se un URL relativo inizia con `/`, l'intero path è sostituito; altrimenti è sostituito solo l'ultimo segmento del path corrente.
-- I **dot segments** modificano il path: `.` indica la directory corrente, `..` la directory padre.
-- Le URL relative sono da preferire per risorse **interne** alla stessa web app (un cambio di hostname non richiede modifiche alle pagine); per risorse **esterne** non c'è scelta: servono URL assoluti.
-- L'attributo **`target`** specifica dove aprire la risorsa collegata: `_self` nella stessa finestra/scheda (comportamento di default), `_blank` in una nuova finestra/scheda.
-- Se un URL punta a una directory, il server risponde tipicamente col file `index.html` presente in essa; il nome di default è configurabile (altri usati: `home.html`, `default.html`) e, in assenza di file di default, il server può generare automaticamente un indice della directory.
-- L'attributo **`id`** degli elementi può essere usato anche negli **anchor** di URL: il fragment (`#id`) è un "segnaposto" interno alla risorsa che dice al browser di mostrare il contenuto in quel punto.
+- I **link** si definiscono con l'ancora `<a>`; l'attributo **href** punta all'URL di destinazione.
+- Un URL è composto da **schema** (protocollo), **nome di dominio**, **porta** e **percorso**; può includere una **query string** e un **anchor**.
+
+#### URL assoluti e relativi
+
+- Un **URL assoluto** include schema e hostname e contiene tutte le informazioni per raggiungere la risorsa.
+- Un **URL relativo** specifica solo un percorso; schema e hostname sono dedotti dal contesto corrente.
+- Un URL relativo che inizia con `/` sostituisce l'intero percorso; altrimenti sostituisce solo l'ultimo segmento del percorso.
+- I segmenti **dot** indicano directory: `.` è la directory corrente, `..` la directory padre.
+
+| href | Percorso risultante (da `/a/b/c/hello.html`) |
+| --- | --- |
+| `./index.html` | `/a/b/c/index.html` |
+| `../foo.html` | `/a/b/foo.html` |
+| `../../pic.jpg` | `/a/pic.jpg` |
+
+- Le URL relative sono da preferire per link interni alla stessa web app (cambiare l'hostname non richiede modifiche alle pagine); per risorse esterne servono URL assoluti.
+- L'attributo **target** specifica dove aprire la risorsa: `_self` (default) nella stessa scheda, `_blank` in una nuova scheda/finestra.
+
+#### Anchor e index.html
+
+- Un **anchor** (`#id`) è un "segnalibro" dentro la risorsa: indica al browser di mostrare il contenuto in corrispondenza dell'elemento con quell'`id`.
+- Quando un URL punta a una directory, il server risponde tipicamente con il file `index.html` in essa (comportamento configurabile: anche `home.html`, `default.htm`, o generazione automatica di un indice).
 
 ### Tabelle
 
-- **`<tr>`**: una riga, contenente celle **`<td>`** (dati) e/o **`<th>`** (intestazioni).
-- **`<thead>`**: raggruppa le righe di intestazione; **`<tbody>`**: le righe di dati; **`<tfoot>`**: le righe di pié di pagina (tipicamente riepiloghi).
-- **`<caption>`**: descrive la tabella nel suo complesso.
+- `<table>` contiene righe `<tr>`; ogni riga contiene celle `<td>` o intestazioni `<th>`.
+- `<thead>`, `<tbody>` e `<tfoot>` raggruppano rispettivamente intestazioni di colonna, righe di dati e righe di riepilogo; `<caption>` descrive la tabella nel suo insieme.
 
 ### Liste
 
-- HTML definisce tre tipi di liste: **ordinate** (`<ol>`, enumerazioni), **non ordinate** (`<ul>`, elenchi puntati) e **di descrizione** (`<dl>`, termini e relative descrizioni, usate spesso per glossari).
-- Le liste ordinate e non ordinate contengono una sequenza di **`<li>`**; le liste di descrizione contengono termini **`<dt>`** e descrizioni **`<dd>`** dei termini precedenti.
+- **Liste ordinate** `<ol>`: per enumerazioni.
+- **Liste non ordinate** `<ul>`: per elenchi puntati; entrambe contengono elementi `<li>`.
+- **Liste di descrizione** `<dl>`: coppie di termine `<dt>` e descrizione `<dd>`, spesso usate per glossari.
 
-### Riferimenti a caratteri
+### Riferimenti di carattere
 
-- Alcuni caratteri sono **riservati** in HTML (il browser può confonderli con i tag), quindi per visualizzarli si usano i **character references** (o **entità**), nella forma `&nome;` o `&#numero;`.
-- Sono definiti per i caratteri riservati, lo spazio unificatore, le virgolette e simili; l'elenco completo è nella specifica HTML.
+- Alcuni caratteri (es. `<`, `>`) sono **riservati** in HTML: per visualizzarli si usano i **riferimenti di carattere** (entità) nella forma `&nome;` o `&#numero;`.
+
+| Risultato | Riferimento |
+| --- | --- |
+| Spazio non separabile | `&nbsp;` |
+| `<` | `&lt;` |
+| `>` | `&gt;` |
+| `&` | `&amp;` |
+| `"` | `&quot;` |
+| `'` | `&#x27;` |
+| © | `&copy;` |
 
 ### Immagini
 
-- **`<img>`** incorpora un'immagine: è un void element; **`src`** specifica l'URL dell'immagine, **`alt`** una descrizione testuale alternativa, **`width`/`height`** la dimensione in pixel.
-- L'attributo **`alt`** è un sostituto testuale che deve esprimere il significato o lo scopo dell'immagine: sostituendo mentalmente l'immagine con il suo testo, la pagina deve comunicare la stessa informazione.
-- Non usare descrizioni generiche (es. "immagine"): lo scopo è far trasmettere agli screen reader lo stesso significato o funzione agli utenti che non vedono le immagini.
+- `<img>` è un elemento *void* che incorpora un'immagine: **src** specifica l'URL, **alt** il testo alternativo, **width**/**height** le dimensioni in pixel.
+- **`alt`** è un sostituto testuale che deve esprimere significato o scopo dell'immagine: sostituendo mentalmente l'immagine col suo testo, la pagina deve comunicare la stessa informazione.
+ 	> Non usare descrizioni generiche: lo scopo è far trasmettere dagli screen reader lo stesso significato o funzione a chi non vede le immagini.
+- Non usare descrizioni generiche: lo scopo è far trasmettere dagli screen reader lo stesso significato o funzione a chi non vede le immagini.
 
-#### Testo alt in base allo scopo
+> [!info] Testo alt in base allo scopo
+> - Immagine **informativa** → testo alternativo significativo.
+> - Immagine **decorativa** → `alt=""` (vuoto).
+> - Immagine che è l'unico contenuto di un link → `alt` che descrive la destinazione o lo scopo del link.
 
-- Un'immagine **informativa** richiede un testo alternativo significativo.
-- Un'immagine puramente **decorativa** deve usare `alt=""` (vuoto).
-- Se un'immagine è l'unico contenuto di un link, il suo `alt` deve descrivere la destinazione o lo scopo del link.
-
-#### Dietro le quinte
-
-- I documenti HTML erano finora **autonomi** (self-contained): tutti i dati erano dentro il documento.
-- Con `<img>` il contenuto esterno è indicato solo tramite URL: l'immagine non è inclusa nel documento, quindi il browser, che **parsa il documento dall'alto verso il basso**, deve **recuperare (fetch)** risorse aggiuntive per visualizzarlo.
-
-### Attributi globali
-
-- Gli attributi specifici (es. `href`, `src`, `alt`) hanno senso solo per alcuni elementi; gli **attributi globali** sono usabili con qualsiasi elemento HTML.
-- **`id`**: identificatore **unico** dell'elemento nel documento; **`lang`**: lingua del contenuto dell'elemento; **`style` e `class`**: usati per lo styling.
+> [!info] Dietro le quinte
+> I documenti HTML erano finora **autonomi** (self-contained). Con `<img>` il contenuto esterno è indicato solo tramite URL: l'immagine non è inclusa nel documento, quindi il browser, che **parsa dall'alto verso il basso**, deve **recuperare (fetch)** risorse aggiuntive per visualizzarlo.
 
 ## Form
 
-- L'elemento **`<form>`** raccoglie input dell'utente, tipicamente inviati a un server per l'elaborazione; contiene controlli come `<input>`, `<label>`, `<textarea>`, `<select>`.
+- L'elemento **`<form>`** raccoglie input dell'utente, tipicamente inviati a un server; contiene controlli come `<input>`, `<label>`, `<textarea>`, `<select>`.
 
->[!def] Controlli successful e form data set
->All'atto dell'invio, il **form data set** è costruito raccogliendo tutti i **controlli successful** del form, rappresentati come coppie nome/valore separate da `&`. Ogni nome è il valore dell'attributo `name` di un input; il valore è quello assunto al momento dell'invio.
+> [!def] Controlli successful e form data set
+> All'invio, il **form data set** è costruito raccogliendo tutti i **controlli successful** del form: coppie nome/valore separate da `&`, dove il nome è l'attributo `name` di un input e il valore è quello assunto al momento dell'invio.
 
-#### Condizioni per un controllo successful
-
+**Condizioni per un controllo successful:**
 - Deve essere definito dentro un `<form>` e avere un attributo **`name`**.
-- Un controllo **`disabled`** non può essere successful (è ignorato nell'invio).
-- Se ci sono più pulsanti di invio, solo quello attivato è successful.
-- Tutte le checkbox selezionate ("on") possono essere successful.
-- Per i radio button con lo stesso `name`, solo quello selezionato può essere successful.
+- Un controllo **`disabled`** non è successful (ignorato nell'invio).
+- Con più pulsanti di invio, solo quello attivato è successful.
+- Tutte le checkbox selezionate possono essere successful.
+- Per i radio button con lo stesso `name`, solo quello selezionato è successful.
 - L'algoritmo completo è nell'HTML Living Standard.
 
 ### Controlli di input
 
-- I tipi di `<input>` sono selezionati con l'attributo **`type`**: `text` (testo a riga singola), `password` (input nascosto con `***`), `number`, `radio` (una scelta su molte), `checkbox` (da zero a molte scelte), `button` (pulsante cliccabile).
-- Esistono tipi dedicati a **date e tempi**: `date`, `week`, `month`, `time`, `datetime-local`.
-- **`<select>`** definisce menu a tendina con `<option>`; l'attributo `multiple` permette di selezionare più opzioni.
-- Esistono altri tipi di input (es. selettore di colore, file picker, datalist); il riferimento completo è nella documentazione MDN.
+- Il tipo di `<input>` è definito dall'attributo **type**: `text`, `password`, `number`, `radio` (una scelta tra molte), `checkbox` (zero o più scelte), `submit` (pulsante), oltre a tipi dedicati a date e orari (`date`, `week`, `month`, `time`, `datetime-local`) e altri (color picker, file picker, datalist…).
+- `<select>` definisce menu a tendina con `<option>`; l'attributo **multiple** permette la selezione multipla.
+- L'attributo **disabled** fa sì che un controllo sia ignorato durante l'invio.
 
-### Label e raggruppamento
+#### Label e raggruppamento
 
 - **`<label>`** etichetta un input: l'attributo **`for`** deve valere l'`id` dell'input corrispondente; usarle è una buona pratica di usabilità e accessibilità.
 - **`<fieldset>`** raggruppa logicamente i controlli, con **`<legend>`** come titolo/caption del gruppo.
 
-### Invio del form
+### Invio (submission)
 
-- L'attributo **`action`** del form specifica l'URL del **form-handler** a cui inviare i dati (default: la stessa pagina del form).
-- L'attributo **`method`** specifica il metodo HTTP (default: `GET`); all'invio viene tipicamente eseguita una nuova richiesta HTTP.
-- Con **`GET`** gli input sono **appesi all'URL** del handler come **query string**: coppie chiave/valore (`?chiave=valore&...`), i cui elementi si chiamano **query parameters**.
-- I **query parameters** sono parametri extra passati al server, che può usarli prima di restituire la risorsa.
-- Con **`POST`** gli input sono **inviati nel body** della richiesta.
+Alla sottomissione si genera una nuova richiesta HTTP verso il **form-handler** indicato dall'attributo:
+	- **action** (default: URL della pagina corrente);
+	- **method** indica il metodo HTTP (default: GET).
+	
+```html
+<form action="/handler.html" method="GET">
+Message: <input type="text" name="msg"><br>
+Number: <input type="number" name="num"><br>
+<input type="submit">
+</form>
+```
 
-### URL encoding
+I dati raccolti formano il **form data set**: coppie nome/valore `name1=value1&...&nameN=valueN`, dove il nome è l'attributo **name** di ciascun controllo e il valore il suo contenuto all'atto dell'invio.
 
-- Se l'input contiene caratteri speciali (es. `&`), questi sono sostituiti da terne della forma `%XX`, dove `XX` sono due cifre esadecimali che rappresentano il carattere in ASCII.
-- Gli spazi possono essere sostituiti con `%20` o con il simbolo `+`.
+#### Method
 
-### Validazione nativa dei form
+- Con **GET** i dati sono accodati alla URL del handler come **query string** (`/handler.html?msg=Hello!&num=42`): i nomi sono detti **query parameters**, coppie chiave/valore separate da `&`, che il server può usare prima di restituire la risorsa.
 
-- I browser moderni hanno capacità di **validazione integrata**: verificano che l'input rispetti certi vincoli e bloccano l'invio in caso contrario.
-- L'attributo **`type`** definisce il tipo di valore atteso; **`required`** impedisce l'invio di valori vuoti.
-- Attributi per vincoli comuni: **`minlength`/`maxlength`** (lunghezza del testo), **`min`/`max`/`step`** (numeri e date), **`pattern`** (il testo deve corrispondere a un'espressione regolare).
+- Con **POST** i dati sono inviati nel corpo della richiesta.
 
->[!warning] La validazione HTML non è sicurezza
->La validazione HTML gira **nel browser dell'utente**: l'utente potrebbe usare un browser senza validazione, modificare l'HTML con le Dev Tools o bypassare il form inviando richieste HTTP direttamente; un client malintenzionato può inviare qualunque valore. Non fidarsi **solo** della validazione HTML — che resta comunque utile per intercettare gli errori presto e migliorare l'esperienza utente.
+#### URL Encoding
+La **URL encoding** sostituisce i caratteri speciali con terne `%XX`, dove XX sono due cifre esadecimali che rappresentano il carattere ASCII (gli spazi diventano `%20` o `+`).
+
+![[Lezione 4 new-1790759153098.webp|419]]
+### Validazione nativa
+
+- I browser moderni hanno **validazione integrata**: verificano vincoli sull'input e bloccano l'invio se non soddisfatti.
+- Vincoli esprimibili con attributi: **type** (tipo atteso), **required** (valore non vuoto), **minlength/maxlength** (lunghezza del testo), **min/max/step** (numeri e date), **pattern** (espressione regolare da rispettare).
+
+> [!warning] La validazione HTML non è sicurezza
+> La validazione gira nel browser dell'utente, che potrebbe usare un browser senza validazione, modificare l'HTML con le DevTools o inviare richieste HTTP direttamente: un client malintenzionato può inviare qualunque valore. Restano comunque utili per intercettare gli errori presto e migliorare l'esperienza utente.
 
 ## Organizzazione del contenuto
 
-- Il contenuto di una pagina può essere **raggruppato** in parti usando le divisioni **`<div>`** o **tag semantici**.
-- **`<div>`**: era il modo principale di raggruppare contenuto prima dell'introduzione dei tag semantici; non porta alcuna semantica specifica oltre al raggruppare contenuti tra loro correlati.
-- I **tag semantici** descrivono il **significato** del contenuto a browser, sviluppatori e software: `<nav>` (link di navigazione), `<main>` (contenuto principale), `<article>` (contenuto indipendente e autonomo), `<aside>` (contenuto tangenzialmente correlato), oltre a `<header>`, `<footer>`, `<section>`.
+Il contenuto di una pagina può essere raggruppato con **divisioni** `<div>` (nessuna semantica oltre al raggruppamento) o con **tag semantici**, che descrivono il significato del contenuto a browser, sviluppatori e software.
+- `<nav>` contiene link di navigazione; 
+- `<main>` il contenuto principale; 
+- `<article>` contenuto indipendente e autonomo; 
+- `<aside>` contenuto tangenzialmente correlato; 
+- `<header>`, `<footer>`, `<section>` autoesplicativi.
 
-## Il modello ad albero
+![[Lezione 4 new-1790759532874.webp|193]]
 
-- La struttura nidificata di un documento HTML lo costituisce naturalmente come un **albero**: gli elementi contengono altri elementi, fino ai nodi di testo foglia.
+Un documento HTML è un **albero**: `html` è la radice, con figli `head` e `body`; il nesting di elementi definisce la gerarchia.
 
->[!info] I browser recuperano dagli errori HTML
->I browser cercano di visualizzare la pagina anche in presenza di errori (chiusura automatica di tag mai chiusi, aggiunta di markup mancante, correzione di entità e problemi strutturali), nascondendo però gli errori a chi sta imparando. Una pagina visualizzata correttamente **non** implica HTML sintatticamente o semanticamente corretto: per verificarlo servono linter dedicati e validatori online.
+![Struttura ad albero di un documento HTML|267](https://cdn-mineru.openxlab.org.cn/result/2026-09-29/b3a92b72-21ce-4049-937b-de0d1d0cdf5d/6c31009ea4e2a7d20f2638d6c4bea84d6ecdda98bd6b24ad46f36e6259cb53a5.jpg)
 
-## Dev Tools del browser
+## Errori HTML e recupero dei browser
 
-- La scheda **Inspector** ("Analisi pagina") consente di ispezionare il contenuto HTML di un documento e modificarlo **localmente**.
-- "Localmente" significa modificare la pagina caricata nel browser: **non** il contenuto dell'HTML memorizzato sul server web.
+- I browser cercano di visualizzare la pagina anche in presenza di errori (**tag soup**): chiudono automaticamente tag non chiusi, aggiungono markup mancante, correggono entità e problemi strutturali.
+- Questo può mascherare errori durante l'apprendimento: una pagina visualizzata correttamente non implica HTML sintatticamente o semanticamente corretto; conviene usare linter (es. HTMLHint) o validatori online (es. validator.w3.org/nu).
+
+## DevTools
+
+- La scheda "Inspector"/"Analisi pagina" dei DevTools del browser permette di ispezionare l'HTML del documento e modificarlo **localmente**, cioè solo nella copia caricata nel browser, non sul server.
