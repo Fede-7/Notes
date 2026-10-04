@@ -1,4 +1,4 @@
-# Requirements Engineering: Elicitation and Analysis
+# Lezione 3 e 4 —  Requirements Engineering: Elicitation and Analysis
 
 > [!info] Citazione chiave
 > «La parte più difficile della costruzione di un sistema software è decidere precisamente cosa costruire» — Fred P. Brooks. Nessun errore, se fatto in questa fase, è più difficile da correggere in seguito.

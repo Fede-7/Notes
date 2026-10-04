@@ -162,7 +162,7 @@ I dati raccolti formano il **form data set**: coppie nome/valore `name1=value1&.
 #### URL Encoding
 La **URL encoding** sostituisce i caratteri speciali con terne `%XX`, dove XX sono due cifre esadecimali che rappresentano il carattere ASCII (gli spazi diventano `%20` o `+`).
 
-![[Lezione 4 new-1790759153098.webp|419]]
+![[Lezione 4 new-1790759153098.png|419]]
 ### Validazione nativa
 
 - I browser moderni hanno **validazione integrata**: verificano vincoli sull'input e bloccano l'invio se non soddisfatti.
@@ -180,7 +180,7 @@ Il contenuto di una pagina può essere raggruppato con **divisioni** `<div>` (ne
 - `<aside>` contenuto tangenzialmente correlato; 
 - `<header>`, `<footer>`, `<section>` autoesplicativi.
 
-![[Lezione 4 new-1790759532874.webp|193]]
+![[Lezione 4 new-1790759532874.png|193]]
 
 Un documento HTML è un **albero**: `html` è la radice, con figli `head` e `body`; il nesting di elementi definisce la gerarchia.
 
