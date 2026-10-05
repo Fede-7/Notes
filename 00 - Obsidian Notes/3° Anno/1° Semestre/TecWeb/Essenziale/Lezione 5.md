@@ -6,6 +6,7 @@
 - Un elemento come `<em>` specifica solo che il contenuto va enfatizzato, non come: l'enfasi può essere resa con corsivo, colori o sfondi diversi.
 
 > [!def] CSS
+> 
 > Linguaggio **dichiarativo e basato su regole** che specifica come i documenti vengono presentati agli utenti.
 
 - Un **stylesheet** è un insieme di **regole**; ogni regola è composta da un **selettore** (quali elementi HTML sono coinvolti) e da un blocco di **dichiarazioni** (coppie proprietà-valore che specificano lo stile da applicare).
@@ -35,6 +36,7 @@ selector {
 ## Selettori
 
 > [!info] Usi dei selettori oltre allo stile
+> 
 > I selettori CSS non servono solo per lo stile: con **JavaScript** selezionano gli elementi con cui interagire, nel **testing automatizzato** del web individuano gli elementi su cui agiscono i test, e nello **scraping/crawling** selezionano gli elementi che contengono le informazioni da estrarre.
 
 ### Selettori semplici
@@ -86,6 +88,7 @@ main > em  { color: teal; }         /* figlio diretto */
 ### Pseudo-classi
 
 > [!def] Pseudo-classe
+> 
 > I elementi HTML possono trovarsi in **stati** diversi (per interazione dell'utente o per relazione con altri elementi); le pseudo-classi, con sintassi che inizia con `:`, permettono di stilizzare gli elementi in base al loro stato.
 
 - **Stati interattivi** (derivanti dall'interazione utente): `:hover` (puntatore del mouse sopra l'elemento), `:active` (elemento attivamente in interazione, es. pulsante premuto), `:focus` (elemento attualmente selezionato/fuocato, es. link o campo input).
@@ -98,6 +101,7 @@ main > em  { color: teal; }         /* figlio diretto */
 	- `:nth-child(n)` e `:nth-of-type(n)`: elemento in ennesima posizione tra i fratelli; accettano anche parole chiave come `even` e `odd`.
 
 > [!warning] Indicizzazione
+> 
 > In CSS l'indicizzazione parte da **1**, non da 0.
 
 ```css
@@ -109,6 +113,7 @@ li:nth-child(odd)  { color: blue; }
 ### Pseudo-elementi
 
 > [!def] Pseudo-elemento
+> 
 > Pseudo-elemento (sintassi `selector::pseudo-element`) che permette di mirare **parti specifiche del contenuto** di un elemento HTML, senza aggiungere markup HTML aggiuntivo.
 
 - `::first-letter`: la prima lettera del contenuto di un elemento a livello di blocco (block-level).
@@ -128,6 +133,7 @@ p::first-letter { font-weight: bold; }
 ## La cascata (the cascade)
 
 > [!def] La cascata
+> 
 > Algoritmo usato per risolvere i **conflitti** quando due o più regole si applicano allo stesso elemento assegnando valori diversi alla stessa proprietà. Input: un insieme di proprietà conflittuali per un elemento; output: la singola proprietà (con valore) da applicare effettivamente.
 
 - La cascata considera 4 aspetti chiave, in ordine: **origine e importanza**, **layers**, **specificità**, **posizione/ordine di apparizione** della regola.
@@ -154,8 +160,7 @@ h1 { color: red !important; }
 
 - Gli origin bucket vanno dal **meno specifico al più specifico**; l'importanza (`!important`) crea ulteriori sotto-bucket all'interno di ciascuna origine.
 
-
-![image](https://cdn-mineru.openxlab.org.cn/result/2026-10-01/50d28a12-4f76-41e4-81d4-1f91c8160bcd/fa6ece4b874a6f2db189fade96d47841a111ee44d78edbe12fd3255ee6a3573e.jpg)
+![[Lezione 5-1791213829616.webp|452]]
 
 ### Layers
 
@@ -164,11 +169,12 @@ h1 { color: red !important; }
 	- Tutto il CSS in `<style>` o importato con `<link>` appartiene a un **layer senza nome**.
 	- Gli **stili inline** appartengono a un layer separato e hanno la **priorità più alta**.
 
-![image](https://cdn-mineru.openxlab.org.cn/result/2026-10-01/50d28a12-4f76-41e4-81d4-1f91c8160bcd/4fc89737d5df1609716f60cc340d8ac4106ffdf6e10cc75db4556597ae80c41c.jpg)
+![[Lezione 5-1791213863152.webp|351]]
 
 ### Specificità
 
 > [!def] Specificità
+> 
 > Una terna numerica **(A, B, C)** calcolata da un selettore: si ignora il selettore universale; **A** = numero di selettori di id; **B** = numero di selettori di classe, attributo e pseudo-classi; **C** = numero di selettori di tipo e pseudo-elementi.
 
 - Il calcolo vale quando due regole in conflitto appartengono allo stesso bucket origine/importanza e allo stesso layer: **vince il selettore più specifico**.
@@ -217,4 +223,5 @@ p {
 ```
 
 > [!info] Ispezione nel browser
+> 
 > Negli strumenti di sviluppo (Dev Tools) gli user agent styles sono **nascosti per default**: per vederli occorre premere F1 e cambiare l'impostazione.

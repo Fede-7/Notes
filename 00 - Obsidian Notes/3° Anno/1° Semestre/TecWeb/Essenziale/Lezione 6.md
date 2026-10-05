@@ -42,6 +42,7 @@ span { font-size: 1.5em; }
 ### Unità relative al viewport
 
 > [!def] Viewport
+> 
 > Il **viewport** è la finestra del browser.
 
 - **vw**: `1vw` rappresenta l'1% della **larghezza** del viewport corrente.
@@ -55,6 +56,7 @@ div { height: 50vh; }
 ## Il box model
 
 > [!def] Box model
+> 
 > Ogni elemento HTML è un **box** composto da aree distinte.
 
 - **Content box**: l'area dove vivono i figli dell'elemento.
@@ -215,6 +217,7 @@ aside  { grid-area: sidebar; }
 ## Media queries
 
 > [!def] Media query
+> 
 > Una media query applica stili CSS solo quando il **dispositivo** che visualizza il contenuto ha **caratteristiche specifiche**.
 
 - Le media query si aprono con la keyword `@media`.
@@ -260,6 +263,7 @@ aside  { grid-area: sidebar; }
 - Tipicamente basato su **user agent sniffing** per reindirizzare gli utenti mobili a una versione su sottodominio.
 
 > [!warning] Contro dei siti separati
+> 
 > - Lo UA sniffing è inaffidabile (può mancare i mobile o reindirizzare i desktop).
 > - Ogni sito separato va mantenuto.
 > - La distinzione mobile/non-mobile oggi è sfumata.

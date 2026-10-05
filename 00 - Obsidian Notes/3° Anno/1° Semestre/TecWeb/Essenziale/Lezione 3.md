@@ -119,6 +119,7 @@ Last-Modified: Thu, 13 Aug 2026 08:15:00 GMT
 ```
 
 > [!def] Identificatore opaco
+> 
 > Il client non ha bisogno di conoscerne il significato interno né come è stata generata
 
 #### Validazione tramite conditional requests

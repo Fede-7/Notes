@@ -8,6 +8,7 @@
 - Una **Web App** consiste di una o più pagine web, descritte in HTML e visualizzate dal browser.
 
 > [!def] Linguaggio di markup
+> 
 > Un **linguaggio di markup** arricchisce un documento con annotazioni (**tag**, tra parentesi angolari) che ne controllano struttura, formattazione o relazioni tra le parti; i tag di apertura possono contenere **attributi** chiave-valore con valore opzionale.
 > ```html
 > <tagName attr1="value" attr2> ... <\tagName>
@@ -23,6 +24,7 @@
 - Lo `<body>` contiene il contenuto effettivo del documento.
 
 > [!def] Attributi globali
+> 
 > Alcuni attributi sono **globali**, cioè ammessi su qualunque elemento; altri hanno senso solo per alcuni elementi.
 > - **id**: identificatore univoco dell'elemento nel documento.
 > - **lang**: lingua del contenuto dell'elemento.
@@ -104,11 +106,13 @@ I **commenti** sono ignorati dai browser, delimitati da `<!--` e `-->`; servono 
 - Non usare descrizioni generiche: lo scopo è far trasmettere dagli screen reader lo stesso significato o funzione a chi non vede le immagini.
 
 > [!info] Testo alt in base allo scopo
+> 
 > - Immagine **informativa** → testo alternativo significativo.
 > - Immagine **decorativa** → `alt=""` (vuoto).
 > - Immagine che è l'unico contenuto di un link → `alt` che descrive la destinazione o lo scopo del link.
 
 > [!info] Dietro le quinte
+> 
 > I documenti HTML erano finora **autonomi** (self-contained). Con `<img>` il contenuto esterno è indicato solo tramite URL: l'immagine non è inclusa nel documento, quindi il browser, che **parsa dall'alto verso il basso**, deve **recuperare (fetch)** risorse aggiuntive per visualizzarlo.
 
 ## Form
@@ -116,6 +120,7 @@ I **commenti** sono ignorati dai browser, delimitati da `<!--` e `-->`; servono 
 - L'elemento **`<form>`** raccoglie input dell'utente, tipicamente inviati a un server; contiene controlli come `<input>`, `<label>`, `<textarea>`, `<select>`.
 
 > [!def] Controlli successful e form data set
+> 
 > All'invio, il **form data set** è costruito raccogliendo tutti i **controlli successful** del form: coppie nome/valore separate da `&`, dove il nome è l'attributo `name` di un input e il valore è quello assunto al momento dell'invio.
 
 **Condizioni per un controllo successful:**
@@ -169,6 +174,7 @@ La **URL encoding** sostituisce i caratteri speciali con terne `%XX`, dove XX so
 - Vincoli esprimibili con attributi: **type** (tipo atteso), **required** (valore non vuoto), **minlength/maxlength** (lunghezza del testo), **min/max/step** (numeri e date), **pattern** (espressione regolare da rispettare).
 
 > [!warning] La validazione HTML non è sicurezza
+> 
 > La validazione gira nel browser dell'utente, che potrebbe usare un browser senza validazione, modificare l'HTML con le DevTools o inviare richieste HTTP direttamente: un client malintenzionato può inviare qualunque valore. Restano comunque utili per intercettare gli errori presto e migliorare l'esperienza utente.
 
 ## Organizzazione del contenuto
@@ -184,7 +190,7 @@ Il contenuto di una pagina può essere raggruppato con **divisioni** `<div>` (ne
 
 Un documento HTML è un **albero**: `html` è la radice, con figli `head` e `body`; il nesting di elementi definisce la gerarchia.
 
-![Struttura ad albero di un documento HTML|267](https://cdn-mineru.openxlab.org.cn/result/2026-09-29/b3a92b72-21ce-4049-937b-de0d1d0cdf5d/6c31009ea4e2a7d20f2638d6c4bea84d6ecdda98bd6b24ad46f36e6259cb53a5.jpg)
+![[Lezione 4-1791213926165.webp]]
 
 ## Errori HTML e recupero dei browser
 
