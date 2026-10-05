@@ -159,7 +159,7 @@ Il client vuole ottenere un record A per `squids.unina.it.`:
 > 
 > - Con **dig**, analizziamo query e risposte DNS; l'opzione **+trace** mostra la risoluzione gerarchica completa, senza cache, dai root server fino ai server autoritativi:
 > 
-> ```terminal
+> ```bash
 > luigi@XPS-9520:/$ dig @8.8.8.8 squids.unina.it. +trace
 > ```
 > 

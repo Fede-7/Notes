@@ -11,7 +11,6 @@ La **content negotiation** consente a un client di esprimere preferenze rispetto
 Le preferenze possono essere assegnate con un livello di priorità tramite il parametro `q` (quality factor). 
 
 > [!example] Esempio:
-> 
 > ```http
 > GET /sections/wisdom.txt HTTP/1.1
 > Host: book-of-programming.local
@@ -119,7 +118,6 @@ Last-Modified: Thu, 13 Aug 2026 08:15:00 GMT
 ```
 
 > [!def] Identificatore opaco
-> 
 > Il client non ha bisogno di conoscerne il significato interno né come è stata generata
 
 #### Validazione tramite conditional requests
@@ -189,7 +187,6 @@ HTTP/2 mira a risolvere queste limitazioni. I messaggi sono rappresentati utiliz
 La semantica di più richieste HTTP è preservata: le richieste concettualmente rimangono `GET /index.html`, `GET /logo.png`, `GET /style.css`. L'unica differenza è che non sono trasmesse utilizzando la sintassi testuale di HTTP/1.1.
 
 > [!example] Esempio
-> 
 > Stream A: A1 A2 A3 
 > Stream B: B1 B2 
 > Stream C: C1 C2 
@@ -206,7 +203,6 @@ HTTP/2 multiplessa gli stream a livello HTTP, ma TCP non può vedere questi stre
 Questo collo di bottiglia è detto **Head-of-Line (HoL) Blocking**: un singolo elemento ritardato o bloccato arresta gli elementi successivi dal progredire, anche se questi ultimi sono indipendenti.
 
 > [!example] Esempio
-> 
 > Supponiamo tre streams: $A = ( A 1 , A 2 ) : B = ( B 1 , B 2 ) : C = ( C 1 , C 2 )$ 
 > <table><tr><td>TCP Segment</td><td>Conceptual HTTP/2 bytes</td><td>Result</td></tr><tr><td>Segment 1 (S1)</td><td>A1 and part of B1</td><td>Received</td></tr><tr><td>Segment 2 (S2)</td><td>Rest of B1 and C1</td><td>Lost</td></tr><tr><td>Segment 3 (S3)</td><td>B2 and A2</td><td>Received but buffered (waiting for Segment 2)</td></tr></table>
 > 
