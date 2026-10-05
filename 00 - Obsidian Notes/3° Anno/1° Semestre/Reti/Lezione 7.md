@@ -2,7 +2,7 @@
 
 ## Introduzione al DNS
 
-Un host si può identificare in due modi: per **hostname** e per **indirizzo IP**. Le persone preferiscono il più mnemonico hostname, mentre i dispositivi di rete preferiscono gli IP, a lunghezza fissa e strutturati gerarchicamente (esempio: `www.unina.it` → `143.225.15.50`). Il **Domain Name System** (DNS) è un protocollo di livello applicazione che gestisce la traduzione da hostname a indirizzo IP. È un protocollo **client-server**: un client DNS chiede a un server DNS una specifica traduzione nome→indirizzo. I server DNS sono spesso macchine UNIX con il software *Berkeley Internet Name Domain* (BIND), **tipicamente via UDP** sulla porta 53.
+Un host si può identificare in due modi: per **hostname** e per **indirizzo IP**. Le persone preferiscono il più mnemonico hostname, mentre i dispositivi di rete preferiscono gli IP, a lunghezza fissa e strutturati gerarchicamente (esempio: `www.unina.it` → `143.225.15.50`). Il **Domain Name System** (DNS) è un protocollo di livello applicazione che gestisce la traduzione da hostname a indirizzo IP. È un protocollo **client-server**: un client DNS chiede a un server DNS una specifica traduzione nome→indirizzo. I server DNS sono spesso macchine UNIX con il software *Berkeley Internet Name Domain* (BIND), **tipicamente via UDP** sulla porta 53 (in rari casi anche TCP).
 
 Un repository (tabella) centralizzato sarebbe impossibile da gestire, a causa dell'elevato numero di host e della distanza geografica (con i relativi ritardi). Il DNS è quindi un sistema **distribuito e decentralizzato**: gerarchico, basato su domini e implementato tramite un database distribuito.
 
