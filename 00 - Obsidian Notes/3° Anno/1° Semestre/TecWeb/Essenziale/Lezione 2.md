@@ -35,7 +35,7 @@ Una risposta HTTP è composta da:
 - **Linea Vuota**: separa le intestazioni dal corpo della risposta.
 - **Corpo della Risposta (facoltativo)**: contiene la risorsa richiesta o ulteriori informazioni.
 
-> [!example] Esempio di una Risposta
+> [!example] 
 > 
 > ```http
 > HTTP/1.1 200 OK
