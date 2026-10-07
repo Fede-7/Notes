@@ -63,7 +63,7 @@ div { height: 50vh; }
 - **Margin**: crea spazio attorno agli elementi.
 
 ```mermaid
-flowchart TD
+flowchart LR
     subgraph margin["Margin (spazio attorno)"]
         subgraph border["Border (confine)"]
             subgraph padding["Padding (spaziatura interna)"]

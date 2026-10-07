@@ -133,7 +133,7 @@ p::first-letter { font-weight: bold; }
 - La cascata considera 4 aspetti chiave, in ordine: **origine e importanza**, **layers**, **specificità**, **posizione/ordine di apparizione** della regola.
 
 ```mermaid
-flowchart TD
+flowchart LR
   A["Proprietà in conflitto"] --> B1{Stesso bucket origine/importanza?}
   B1 -- "No" --> B1w["Vince il bucket più specifico"]
   B1 -- "Sì" --> B2{Stesso layer?}

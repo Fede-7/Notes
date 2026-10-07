@@ -154,7 +154,7 @@ Il client vuole ottenere un record A per `squids.unina.it.`:
 
 ## Pratica
 
-> [!NOTE]
+> [!Lab]
 > 
 > 
 > - Con **dig**, analizziamo query e risposte DNS; l'opzione **+trace** mostra la risoluzione gerarchica completa, senza cache, dai root server fino ai server autoritativi:
