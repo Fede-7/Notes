@@ -117,7 +117,7 @@ p+p { clear: both; }
 - **sticky**: ibrido relative/fixed — relativo finché non supera una soglia (`top`, …), poi fixed finché non raggiunge il confine del proprio padre.
 
 ```mermaid
-flowchart LR
+flowchart TD
     static["static<br/>normal flow"] --> relative["relative<br/>rispetto alla posizione normale"]
     static --> absolute["absolute<br/>rispetto all'antenato posizionato"]
     static --> fixed["fixed<br />rispetto al viewport"]

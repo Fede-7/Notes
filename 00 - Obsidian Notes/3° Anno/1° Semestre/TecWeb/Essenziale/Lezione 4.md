@@ -1,4 +1,4 @@
-# Lezione 04 — HTML: Hypertext Markup Language
+# Lezione 4 HTML: Hypertext Markup Language
 
 
 ## Web e HTML
@@ -184,7 +184,7 @@ Il contenuto di una pagina può essere raggruppato con **divisioni** `<div>` (ne
 
 Un documento HTML è un **albero**: `html` è la radice, con figli `head` e `body`; il nesting di elementi definisce la gerarchia.
 
-![[Lezione 4-1791213926165.webp]]
+![[Lezione 4-1791213926165.webp|329]]
 
 ## Errori HTML e recupero dei browser
 

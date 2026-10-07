@@ -18,7 +18,7 @@ I documenti tradizionali sono semplici sequenze di caratteri. Un **ipertesto**, 
 
 Un URL completo ha la forma: 
 
-![[Lezione 2 - HTTP - The Hypertext Transfer Protocol-1790354892063.png|534]]
+![[Lezione 2 - HTTP - The Hypertext Transfer Protocol-1790354892063.png|406]]
 
 ### Intestazioni delle Richieste
 
