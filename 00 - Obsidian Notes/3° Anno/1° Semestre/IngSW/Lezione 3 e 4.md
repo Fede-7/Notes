@@ -5,7 +5,7 @@
 
 Il costo di correzione di un errore cresce con la fase del ciclo di vita in cui viene scoperto; gli errori di requisiti sono quindi i più costosi.
 
-![Cost of errors through project lifecycle](https://cdn-mineru.openxlab.org.cn/result/2026-09-29/dbd6eb51-869f-48fa-8fbb-7e67555438a4/101917e12abeca00b34507836f4f5e950a4cb255b9b6a8b076afe0e14974d47b.jpg)
+<Immagine |  Cost of errors through project lifecycle>
 
 ## Software Requirements
 

@@ -11,7 +11,7 @@
 - In **Operation and Maintenance** il sistema entra in uso pratico; la manutenzione serve a correggere errori non scoperti prima e ad adattare il software a cambiamenti nei requisiti o nell'ambiente.
 
 ```mermaid
-flowchart LR
+flowchart TD
   RE[Requirements Engineering] --> SD[System Design]
   SD --> SWD[Software and UI/UX Design]
   SWD --> IMPL[Implementation]
@@ -168,7 +168,7 @@ flowchart LR
 flowchart LR
   Customer([Customer]) ---|associazione| UC1(((Checkout)))
   Cashier([Cashier]) --- UC1
-  Bank{{Bank Payment Processor}} -. 0..1 .-> UC1
+  Bank{{Bank Payment Processor}} -- 0..1 --> UC1
 ```
 
 #### Generalizzazione di attori
