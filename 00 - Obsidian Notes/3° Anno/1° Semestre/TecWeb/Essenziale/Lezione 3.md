@@ -71,7 +71,7 @@ Il caching non è banale, perché non tutte le risposte vanno memorizzate I meto
 
 Le risposte possono essere memorizzate in più punti lungo il percorso della richiesta, quindi una risposta può raggiungere il browser senza che il server di origine la elabori. Una cache **privata** serve un singolo utente, come la cache del browser; una cache **condivisa** può riusare la stessa risposta per più utenti, il che è appropriato per i contenuti pubblici ma non per i dati personali, che non devono mai finire per caso a un altro utente. Si noti che **se una risposta può essere memorizzata e chi può riusarla sono due decisioni distinte**.
 
-![[Lezione 3 - HTTP Rappresentazioni, Efficienza e Sicurezza-1790354943429.png|358]]
+![[Lezione 3 - HTTP Rappresentazioni, Efficienza e Sicurezza-1790354943429.png|300]]
 
 ### Il dilemma della consistenza
 
@@ -125,11 +125,11 @@ Last-Modified: Thu, 13 Aug 2026 08:15:00 GMT
 La validazione avviene tramite **conditional requests**, ovvero richieste normali che includono header di validazione aggiuntivi. 
 Quando una risposta è diventata *stale*, ma aveva un ETag o un Last-Modified, la cache può inviare una richiesta condizionale. Se la cache include l'header `If-None-Match: "article-v7"` e il server conferma che l'ETag è ancora valido, il server risponde con **304 Not Modified** (corpo vuoto), e la cache riusa il corpo memorizzato. Se la risposta è stata modificata, il server risponde con **200 OK** e il nuovo contenuto. 
 
-![[Lezione 3 - HTTP Rappresentazioni, Efficienza e Sicurezza-1790356127058.png|411]]
+![[Lezione 3 - HTTP Rappresentazioni, Efficienza e Sicurezza-1790356127058.png|300]]
 
 Analogamente, `If-Modified-Since` consente di validare basandosi sulla data di modifica.
 
-![[Lezione 3 - HTTP Rappresentazioni, Efficienza e Sicurezza-1790356148861.png|416]]
+![[Lezione 3 - HTTP Rappresentazioni, Efficienza e Sicurezza-1790356148861.png|300]]
 
 ### Caching e Content Negotiation
 
@@ -145,9 +145,9 @@ Ciò significa che una risposta precedente può essere riutilizzata per una rich
 #### Flusso decisionale della cache
 
 - Cache view:
-	![[Lezione 3 - HTTP Rappresentazioni, Efficienza e Sicurezza-1790356390904.png|476]]
+	![[Lezione 3 - HTTP Rappresentazioni, Efficienza e Sicurezza-1790356390904.png|300]]
 - Server view:
-	![[Lezione 3 - HTTP Rappresentazioni, Efficienza e Sicurezza-1790356408018.png|478]]
+	![[Lezione 3 - HTTP Rappresentazioni, Efficienza e Sicurezza-1790356408018.png|300]]
 
 ## HTTPS e Sicurezza della Comunicazione
 

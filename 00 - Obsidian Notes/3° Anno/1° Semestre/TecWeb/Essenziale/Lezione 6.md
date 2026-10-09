@@ -173,7 +173,7 @@ Gli overflow sono possibili e si controllano con `flex-wrap` sul container.
 }
 ```
 
-![[Lezione 6-1791220827473.png|390]]
+![[Lezione 6-1791220827473.png|300]]
 
 ### Grid
 

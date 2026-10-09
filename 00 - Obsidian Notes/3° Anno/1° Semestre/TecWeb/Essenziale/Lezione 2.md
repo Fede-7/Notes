@@ -18,7 +18,7 @@ I documenti tradizionali sono semplici sequenze di caratteri. Un **ipertesto**, 
 
 Un URL completo ha la forma: 
 
-![[Lezione 2 - HTTP - The Hypertext Transfer Protocol-1790354892063.png|406]]
+![[Lezione 2 - HTTP - The Hypertext Transfer Protocol-1790354892063.png|400]]
 
 ### Intestazioni delle Richieste
 
@@ -60,7 +60,7 @@ Una questione che sorge naturalmente è: perché le richieste HTTP includono un'
 In realtà **più nomi di host possono risolvere allo stesso IP** — ad esempio `www`, `informatica`, `biblioteca` ed `erasmus.dieti.unina.it` puntano tutti a 143.225.97.81. 
 Poiché un server HTTP può essere configurato per gestire più **virtual host**, ciascuno con la propria document root, è proprio l'header **Host** a permettergli di selezionare il virtual host corretto, poiché il server non conosce automaticamente quale dominio il client ha digitato nel browser; conosce solo l'indirizzo IP verso cui la connessione è stata stabilita.
 
-![[Lezione 2 - HTTP - The Hypertext Transfer Protocol-1790354846207.png|554]]
+![[Lezione 2 - HTTP - The Hypertext Transfer Protocol-1790354846207.png|400]]
 
 ## Caratteristica Statelessness
 

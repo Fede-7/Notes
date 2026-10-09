@@ -154,7 +154,7 @@ h1 { color: red !important; }
 
 - Gli origin bucket vanno dal **meno specifico al più specifico**; l'importanza (`!important`) crea ulteriori sotto-bucket all'interno di ciascuna origine.
 
-![[Lezione 5-1791213829616.webp|452]]
+![[Lezione 5-1791213829616.png|300]]
 
 ### Layers
 
@@ -163,7 +163,7 @@ h1 { color: red !important; }
 	- Tutto il CSS in `<style>` o importato con `<link>` appartiene a un **layer senza nome**.
 	- Gli **stili inline** appartengono a un layer separato e hanno la **priorità più alta**.
 
-![[Lezione 5-1791213863152.webp|351]]
+![[Lezione 5-1791213863152.png|300]]
 
 ### Specificità
 
@@ -185,12 +185,13 @@ h1 { color: red !important; }
 
 - Le tre componenti si confrontano **in ordine**: vince la specificità con A maggiore; a parità di A, quella con B maggiore; a parità anche di B, quella con C maggiore; se tutti i valori sono pari, le specificità sono **uguali** (pareggio).
 
-| Selettore #1 | Spec. #1 | Selettore #2 | Spec. #2 | Vincitore |
-| --- | --- | --- | --- | --- |
-| `a[target]` | (0, 1, 1) | `.list a` | (0, 1, 1) | Pareggio |
-| `#msg` | (1, 0, 0) | `input[type].inp` | (0, 2, 1) | #1 |
-| `#nav > #brd a.lk` | (2, 1, 1) | `em.foo.bar.light` | (0, 3, 1) | #1 |
-| `[id='nav'] a` | (0, 1, 1) | `#nav a` | (1, 0, 1) | #2 |
+> [!example]
+> | Selettore #1 | Spec. #1 | Selettore #2 | Spec. #2 | Vincitore |
+> | --- | --- | --- | --- | --- |
+> | `a[target]` | (0, 1, 1) | `.list a` | (0, 1, 1) | Pareggio |
+> | `#msg` | (1, 0, 0) | `input[type].inp` | (0, 2, 1) | #1 |
+> | `#nav > #brd a.lk` | (2, 1, 1) | `em.foo.bar.light` | (0, 3, 1) | #1 |
+> | `[id='nav'] a` | (0, 1, 1) | `#nav a` | (1, 0, 1) | #2 |
 
 ### Posizione e ordine di apparizione
 
