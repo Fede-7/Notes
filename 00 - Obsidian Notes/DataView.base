@@ -14,6 +14,7 @@ views:
         - file.inFolder("00 - Obsidian Notes/3° Anno/1° Semestre")
         - '!file.inFolder("00 - Obsidian Notes/3° Anno/1° Semestre/Reti/Spunto")'
         - file.ext != "png"
+        - file.ext == "pdf"
     order:
       - file.name
       - formula.Senza titolo
@@ -26,7 +27,7 @@ views:
         direction: DESC
     summaries: {}
     columnSize:
-      note.Date: 166
+      file.name: 138
   - type: table
     name: Last notes
   - type: cards
