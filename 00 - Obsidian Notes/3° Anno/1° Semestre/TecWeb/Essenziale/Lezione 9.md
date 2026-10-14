@@ -7,8 +7,15 @@
 > [!def] Ereditarietà prototipale
 > Ogni oggetto possiede una proprietà nascosta **`[[Prototype]]`**, che è `null` oppure riferimento a un altro oggetto. Quando si accede a una proprietà mancante, JavaScript la cerca risalendo la **catena dei prototipi**.
 
-- **`__proto__`** è un getter/setter per la proprietà `[[Prototype]]`; in JavaScript moderno si preferiscono `Object.getPrototypeOf()` e `Object.setPrototypeOf()`.
-- I prototipi sono usati **solo in lettura**: le operazioni di **scrittura e cancellazione** agiscono direttamente sull'oggetto, non sul prototipo.
+> [!aside]
+> 
+> - **`__proto__`** è un getter/setter per la proprietà `[[Prototype]]`; in JavaScript moderno si preferiscono `Object.getPrototypeOf()` e `Object.setPrototypeOf()`.
+> - I prototipi sono usati **solo in lettura**: le operazioni di **scrittura e cancellazione** agiscono direttamente sull'oggetto, non sul prototipo.
+> 
+> ---
+> 
+> ![[63e6435241b609648e2d8921fb37a65a1df6c2c1c50a3380f88a9efc2bef20d7.png|100]]
+> 
 
 ```js
 let pet = { legs: 4 };
@@ -17,8 +24,6 @@ Object.setPrototypeOf(cat, pet);
 cat.legs;      // 4 (dalla catena)
 snake.legs = 0; // snake ora ha una proprietà propria legs
 ```
-
-![[63e6435241b609648e2d8921fb37a65a1df6c2c1c50a3380f88a9efc2bef20d7.png|100]]
 
 ### Costruttori e prototype
 
