@@ -1,151 +1,161 @@
-# Lezione 7: Il DNS
+# Application Layer DNS
 
-## Introduzione al DNS
+## Identificazione degli host
 
-Un host si può identificare in due modi: per **hostname** e per **indirizzo IP**. Le persone preferiscono il più mnemonico hostname, mentre i dispositivi di rete preferiscono gli IP, a lunghezza fissa e strutturati gerarchicamente (esempio: `www.unina.it` → `143.225.15.50`). Il **Domain Name System** (DNS) è un protocollo di livello applicazione che gestisce la traduzione da hostname a indirizzo IP. È un protocollo **client-server**: un client DNS chiede a un server DNS una specifica traduzione nome→indirizzo. I server DNS sono spesso macchine UNIX con il software *Berkeley Internet Name Domain* (BIND), **tipicamente via UDP** sulla porta 53 (in rari casi anche TCP).
+Ci sono due modi per identificare un host:
 
-Un repository (tabella) centralizzato sarebbe impossibile da gestire, a causa dell'elevato numero di host e della distanza geografica (con i relativi ritardi). Il DNS è quindi un sistema **distribuito e decentralizzato**: gerarchico, basato su domini e implementato tramite un database distribuito.
+- **Hostname**: identificatore mnemonico, preferito dalle persone.
+- **Indirizzo IP**: identificatore a lunghezza fissa e struttura gerarchica, preferito dai dispositivi di rete.
 
-### Il resolver
+> [!def] DNS
+> **Domain Name System**: protocollo di livello applicativo che gestisce la **traduzione da hostname a indirizzo IP**; è un protocollo **client-server** in cui un client DNS chiede a un server DNS una traduzione specifica nome-indirizzo.
 
-Il **resolver** è il programma che restituisce l'indirizzo IP associato a un nome: interroga un server DNS locale, e tutti i messaggi scambiati sono pacchetti UDP.
+- Il DNS è un **database distribuito**, implementato in una gerarchia di server, più il protocollo applicativo che permette agli host di interrogarlo; query e risposte viaggiano in datagrammi **UDP sulla porta 53** (può usare anche TCP porta 53).
+- I server DNS sono spesso macchine UNIX con il software **BIND** (*Berkeley Internet Name Domain*), il più diffuso su Linux e sistemi Unix-like.
+- È l'unica applicazione che nessuno usa di proposito: lavora per le altre applicazioni e si vede solo quando fallisce.
 
-## Lo spazio dei nomi DNS
+Un repository centralizzato (tabella unica) è impossibile da gestire per il grande numero di host e per la distanza geografica (e i relativi ritardi): il DNS è quindi un sistema **distribuito e decentralizzato**, ovvero **gerarchico**, **basato su domini** e **implementato tramite un database distribuito**.
 
-Lo spazio dei nomi è una gerarchia organizzata da ICANN (*Internet Corp. for Assigned Names and Numbers*), con circa 250 domini di primo livello; ogni dominio è partizionato in sotto-domini, e così via. I domini di primo livello sono di due tipi: **generici** (aero, com, edu, ...) e **di paese** (uk, it, tv, ...), tutti gestiti da registrar nominati da ICANN. Lo spazio dei nomi è gerarchico **dalla radice verso il basso**, con parti delegate a organizzazioni diverse.
+- **Singolo punto di guasto**: se crasha, ogni applicazione che risolve un nome si ferma con lui.
+- **Traffico**: risponderebbe per ogni richiesta Web e ogni mail inviata sul pianeta.
+- **Distanza**: non può essere vicino a tutti: dall'altro capo del mondo ogni lookup paga il viaggio.
+- **Manutenzione**: un record per host, con host aggiunti e spostati di continuo.
 
-### Domini generici di primo livello
+Il DNS è quindi **distribuito per progetto**: gerarchico, basato su domini, e da nessuna parte completo — un sistema **distribuito e decentralizzato**, ovvero **gerarchico**, **basato su domini** e **implementato tramite un database distribuito**.
 
-Controllati da ICANN, che nomina i registrar che li gestiscono:
+### Resolver
 
-| Dominio | Uso previsto | Attivo dal | Ristretto? |
-| --- | --- | --- | --- |
-| com | Commerciale | 1985 | No |
-| edu | Istituzioni educative | 1985 | Sì |
-| gov | Governo | 1985 | Sì |
-| int | Organizzazioni internazionali | 1988 | Sì |
-| mil | Militare | 1985 | Sì |
-| net | Provider di rete | 1985 | No |
-| org | Organizzazioni no-profit | 1985 | No |
-| aero | Trasporto aereo | 2001 | Sì |
-| biz | Aziende | 2001 | No |
-| coop | Cooperative | 2001 | Sì |
-| info | Informativo | 2002 | No |
-| museum | Musei | 2002 | Sì |
-| name | Persone | 2002 | No |
-| pro | Professionisti | 2002 | Sì |
-| cat | Catalano | 2005 | Sì |
-| jobs | Lavoro | 2005 | Sì |
-| mobi | Dispositivi mobili | 2005 | Sì |
-| tel | Dati di contatto | 2005 | Sì |
-| travel | Industria del viaggio | 2005 | Sì |
-| xxx | Industria del sesso | 2010 | No |
+> [!def] Resolver
+> **Componente** usato dalle applicazioni per richiedere la risoluzione dei nomi: costruisce la query DNS e ottiene la risposta, appoggiandosi a un server DNS configurato.
 
-## Nomi di dominio
+## Il name space DNS
 
-I nomi sono cammini dal dominio verso l'alto fino alla radice (esempio: `eng.mit.edu`). I cammini **assoluti** terminano con un punto, mentre quelli **relativi** vanno interpretati. È possibile registrarsi sotto più domini di primo livello (es. `ibm.com`, `ibm.us`); il **cyber-squatting** è l'acquisto di domini solo per rivenderli poi ad aziende interessate. Ogni dominio controlla l'allocazione dei domini sottostanti, quindi creare un nuovo dominio richiede il permesso del dominio padre. Va infine notato che la nomenclatura non segue i confini fisici o geografici.
+- La gerarchia dei nomi è organizzata da **ICANN** (*Internet Corp. for Assigned Names and Numbers*).
+- Esistono circa 250 **top-level domain (TLD)**, di due tipi, tutti gestiti da registrar nominati da ICANN:
+  - **Generici**: `aero`, `com`, `edu`, ecc.
+  - **Geografici** (country): `uk`, `it`, `tv`, ecc.
+- Ogni dominio è partizionato in sotto-domini, e così via; lo name space è gerarchico **dalla radice verso il basso**, con parti diverse delegate a organizzazioni diverse.
 
-## Record di risorsa (resource records)
+Alcuni domini generici di riferimento:
 
-I campi di un record di risorsa sono:
+| Dominio | Uso previsto | Anno | Ristretto? |
+|---|---|---|---|
+| `com` | Commerciale | 1985 | No |
+| `edu` | Istituzioni educative | 1985 | Sì |
+| `gov` | Governo | 1985 | Sì |
+| `int` | Organizzazioni internazionali | 1988 | Sì |
+| `mil` | Militare | 1985 | Sì |
+| `net` | Fornitori di rete | 1985 | No |
+| `org` | Organizzazioni non-profit | 1985 | No |
+| `aero` | Trasporto aereo | 2001 | Sì |
+| `biz` | Imprese | 2001 | No |
+| `info` | Informativo | 2002 | No |
+| `name` | Persone | 2002 | No |
+| `pro` | Professionisti | 2002 | Sì |
+| `tel` | Dettagli di contatto | 2005 | Sì |
+| `xxx` | Industria del sesso | 2010 | No |
 
-- **Nome di dominio (NAM)**: indica il dominio cui il record si applica; è la chiave di ricerca principale per le query DNS. Normalmente esistono più record per dominio, su server diversi.
-- **Time to live (TTL)**: vita del record; lungo per host stabili (es. 86400 = 1 giorno), corto per quelli volatili (es. 60 = 1 minuto). Valore massimo $2^{31}-1$, circa 68 anni.
-- **Classe (CLASS)**: sempre `IN` (Internet) per i record Internet; altri codici sono raramente usati.
-- **Tipo (TYPE)**: vedi sotto.
-- **Valore (RDATA)**: dipende dal tipo di record; può contenere un dominio, un valore o una stringa ASCII.
+Regole dei nomi di dominio:
 
-### Tipi di record
+- I nomi sono **percorsi verso l'alto** dal dominio alla radice (es. `eng.mit.edu`); i percorsi **assoluti terminano con un punto**, quelli relativi vanno interpretati.
+- È possibile registrarsi sotto **più di un** top-level domain (es. `ibm.com`, `ibm.us`).
+- Ogni dominio controlla l'allocazione dei domini sottostanti: creare un nuovo dominio richiede il **permesso del dominio padre**.
+- Il naming **non segue** i confini fisici/geografici.
+- **Cyber-squatting**: acquisto di domini solo per rivenderli successivamente ad aziende interessate.
 
-- **SOA** (*Start of Authority*): informazioni sulla zona del server, contatto dell'amministratore, ecc.
-- **A**: indirizzo IPv4 a 32 bit di un'interfaccia dell'host (alcuni host hanno più interfacce); equivalente **AAAA** per IPv6.
-- **MX** (*Mail eXchange*): nome dell'host che accetta la posta nel dominio.
-- **NS** (*Name Server*): name server del dominio, usato nella risoluzione dei nomi.
-- **CNAME** (*Canonical Name*): permette alias; la lookup prosegue con il nuovo nome.
-- **PTR** (*Pointer*): alias per la lookup inversa; la lookup non prosegue, restituisce il nome.
+## Resource record
+I record di risorsa (**resource record**) sono le voci del database distribuito: sono ciò che un server restituisce e ciò di cui è fatta una zona. Una risposta DNS trasporta uno o più record, e questi record, sparsi su molti server, **sono** il database, non è mai conservato interamente da nessuna parte.
 
-Altri tipi:
+> [!def] Resource record
+> **Voce** del database distribuito DNS con cinque campi: **name**, **time to live**, **class**, **type**, **value**. Il tipo decide come leggere gli altri due: cosa significa il nome e cosa significa il valore.
+
+La distribuzione DNS mappa i domini su valori tramite **resource record**, con i seguenti campi:
+
+- **Domain name (NAME)**: dominio a cui il record si applica; è la **chiave di ricerca** principale delle query DNS; per ogni dominio esistono normalmente più record su server diversi.
+- **Time to live (TTL)**: vita del record; lungo per host stabili (es. 86400 = 1 giorno), breve per host volatili (es. 60 = 1 minuto); massimo $2^{31}-1$, circa 68 anni.
+- **Class (CLASS)**: sempre `IN` (Internet) per i record Internet; altri codici sono raramente usati.
+- **Type (TYPE)**: tipo del record (vedi sotto).
+- **Value (RDATA)**: dipende dal tipo; può contenere un dominio, un valore o una stringa ASCII.
+
+### Tipi di record principali:
 
 | Tipo | Significato | Valore |
-| --- | --- | --- |
-| SOA | Inizio di autorità | Parametri della zona |
-| A | Indirizzo IPv4 di un host | Intero a 32 bit |
-| AAAA | Indirizzo IPv6 di un host | Intero a 128 bit |
-| MX | Mail exchange | Priorità, dominio che accetta la posta |
-| NS | Name server | Nome di un server per il dominio |
-| CNAME | Nome canonico | Nome di dominio |
-| PTR | Puntatore | Alias di un indirizzo IP |
-| SPF | Sender policy framework | Codifica testuale della policy di invio mail |
-| SRV | Servizio | Host che lo fornisce |
-| TXT | Testo | Testo ASCII descrittivo |
+|---|---|---|
+| `SOA` | Start of authority | Parametri della zona, contatti dell'amministratore |
+| `A` | Indirizzo IPv4 dell'host | Intero a 32 bit (più interfacce → più record) |
+| `AAAA` | Indirizzo IPv6 dell'host | Intero a 128 bit |
+| `MX` | Mail exchange | Priorità, dominio che accetta la posta per il dominio |
+| `NS` | Name server | Nome di un server per il dominio (usato nella risoluzione) |
+| `CNAME` | Canonical name | Alias: la lookup prosegue col nuovo nome |
+| `PTR` | Pointer | Alias per il reverse lookup (nome restituito senza procedere) |
+| `SPF` | Sender policy framework | Codifica testuale della policy di invio mail |
+| `SRV` | Service | Host che fornisce il servizio |
+| `TXT` | Text | Testo ASCII descrittivo |
 
-### Esempio (dati autorevoli per cs.vu.nl)
+## Name server e zone
 
-```
-cs.vu.nl.    86400  IN  SOA  star boss (9527,7200,7200,241920,86400)
-cs.vu.nl.    86400  IN  MX   1 zephyr
-cs.vu.nl.    86400  IN  MX   2 top
-cs.vu.nl.    86400  IN  NS   star
+![[Lezione 7-1792083548316.webp|250]]
 
-star         86400  IN  A    130.37.56.205      ; name server
-zephyr       86400  IN  A    130.37.20.10       ; mail gateway
-top          86400  IN  A    130.37.20.11
-www          86400  IN  CNAME star.cs.vu.nl
-ftp          86400  IN  CNAME zephyr.cs.vu.nl
+Un unico server DNS centralizzato non avrebbe senso: lo space DNS è partizionato in **zone non sovrapposte**; il partizionamento spetta all'amministratore della zona.
 
-flits        86400  IN  A    130.37.16.112
-flits        86400  IN  A    192.31.231.165
-flits        86400  IN  MX   1 flits
-flits        86400  IN  MX   2 zephyr
-flits        86400  IN  MX   3 top
+- Ogni zona contiene **uno o più name server**: uno primario e uno (o più) secondario.
+- I name server contengono i dati delle porzioni di name space dette zone.
 
-rowboat      IN  A  130.37.56.201
-             IN  MX 1 rowboat
-             IN  MX 2 zephyr
+> [!def] Zona
+> **Dominio**: un nodo dell'albero DNS e tutti i suoi discendenti (gerarchia di naming). **Zona**: la porzione di quel dominio gestita dalla **stessa autorità DNS**; delegando un sottodominio si crea una nuova zona, che però resta parte del dominio padre (es. se `cs.unina.it` è delegata, diventa una zona separata restando parte del dominio `unina.it`). Dominio = gerarchia di naming; zona = autorità amministrativa.
 
-little-sister IN  A  130.37.62.23
-laserjet     IN  A  192.31.231.216
-```
+La **risoluzione dei nomi** (name resolution) procede così:
 
-## Name server
+1. L'host interroga un **server DNS locale**.
+2. Se il dominio cade sotto la giurisdizione (zona) del server locale, viene restituito un record **authoritative**.
+3. Altrimenti il server locale gestisce la query **ricorsivamente** e inoltra query remote: se il server DNS interrogato ha l'indirizzo lo restituisce, altrimenti restituisce il name server di una **zona più bassa**; il processo continua **iterativamente** fino a trovare l'indirizzo.
 
-Un server DNS unico e centralizzato non avrebbe senso. Lo spazio dei nomi DNS è diviso in **zone non sovrapposte**, e il partizionamento spetta all'amministratore della zona; ogni zona contiene uno o più name server, uno **primario** e uno o più **secondari**. I name server contengono i dati delle porzioni di spazio dei nomi dette **zone**.
+Sui **root server**:
 
-### Risoluzione dei nomi
+- Sono il punto di partenza quando non si ha alcuna informazione.
+- Sono **13**, da `a.root-servers.net` a `m.root-servers.net`, altamente replicati.
+- Sono molto occupati, quindi in genere restituiscono informazioni su zone più basse, non sui singoli record.
 
-1. Un host interroga un name server locale.
-2. Se il dominio ricade nella giurisdizione (zona) del server locale, viene restituito un record **autoritativo**.
-3. Altrimenti il server locale gestisce la query **ricorsivamente**, emettendo query remote: se il server DNS ha l'indirizzo, lo restituisce; altrimenti restituisce il name server di una zona più in basso; il processo prosegue **iterativamente** fino a trovare l'indirizzo.
+Sui tipi di query e record:
 
-I **root server** sono il punto di partenza quando non si ha alcuna informazione: sono 13, da `a.root-servers.net` a `m.root-servers.net`, altamente replicati. Poiché sono molto occupati, di solito restituiscono informazioni su zone inferiori (non sui singoli record).
+- I server DNS locali gestiscono **query ricorsive** (servizio verso i propri host): restituiscono la risposta completa o un errore.
+- Molti server DNS (i più occupati, es. quelli vicini alla cima) **non gestiscono** query ricorsive.
+- I record sono **authoritative** oppure **cached**: tutte le risposte vengono mesche in cache, i record cached **scadono** (ricorda il TTL) e non provengono dal server che gestisce la zona (risposte *non authoritative*); il caching migliora le prestazioni, poiché l'indirizzo può essere restituito subito dal server locale.
+- I root server sono interrogati solo in **assenza totale** di informazioni su un dominio; se per `cs.mit.edu` arriva una richiesta e il server ha l'indirizzo del DNS server di `mit.edu`, può interrogare direttamente quello.
 
-### Esempio: nslookup
+## Il resolver locale e i servizi aggiuntivi
 
-Possiamo eseguire manualmente le query iterative fatte da un server DNS locale; è possibile anche la **lookup inversa** (nome dall'indirizzo). Il server di default (in questo caso il router) è `127.0.0.53` (porta 53). I record restituiti sono **non autoritativi** (in cache), cioè non provengono dal server DNS che gestisce la zona. Il server locale gestisce l'intera risoluzione via query iterative, mentre l'host emette una **query ricorsiva**: gli viene restituita la risposta completa oppure un errore.
+> [!aside]
+> > [!def] Local DNS server
+> > **Server DNS locale** (o resolver): tipo di server DNS che **non appartiene strettamente** alla gerarchia, tipicamente gestito dagli ISP; fa da **proxy**, inoltrando le query dell'host alla gerarchia DNS.
+> 
+> - Anche Google fornisce resolver pubblici (Google Public DNS) agli indirizzi `8.8.8.8` e `8.8.4.4`.
+> - Quando un host si connette, l'ISP gli fornisce gli IP di uno o più server DNS locali, tipicamente "vicini" all'host.
+> 
+> ![[Lezione 7-1792083897958.webp|200]]
 
-```
-andrea@turgia:~$ nslookup www.vatican.va
-Server:  127.0.0.53
-Address: 127.0.0.53#53
+Servizi aggiuntivi del DNS:
 
-Non-authoritative answer:
-www.vatican.va canonical name = wcm-disp.spc.va.
-Name:    wcm-disp.spc.va
-Address: 185.152.70.33
-```
+- **Aliasing**: servizio che associa nomi lunghi/complicati (nomi **canonicali**) a nomi più semplici (**alias**); un host con nome complicato può avere alias mnemonici (es. `relay1.west-coast.enterprise.com` → `www.enterprise.com`); l'applicazione può comunque chiedere al DNS il nome canonico di un alias insieme all'indirizzo IP.
+- **Load distribution**: distribuzione del carico tra **server replicati** (*round-robin DNS*); i siti trafficati sono replicati su più server con indirizzi IP diversi (più IP associati a un solo nome canonico); il server può **ruotare l'ordine** degli indirizzi nelle risposte, così i client vengono distribuiti sulle repliche.
 
-### Tipi di query e record
+Con `nslookup` si può eseguire manualmente la query iterativa fatta dal server locale, ed è possibile anche il **reverse lookup** (nome a partire dall'indirizzo).
 
-I server DNS locali gestiscono query ricorsive: è un servizio verso i propri host. Molti server DNS (i più occupati, come quelli vicini alla radice) invece non gestiscono query ricorsive. I record sono **autoritativi** o **in cache**: i record in cache scadono (si ricordi il TTL), ma il caching aiuta le prestazioni perché tutte le risposte vengono messe in cache, così l'indirizzo può essere restituito subito dal server locale. Se arriva una richiesta per `cs.mit.edu` e il server ha l'indirizzo del DNS server per `mit.edu`, può interrogare direttamente quel server; i root server sono interrogati solo in assenza di qualunque informazione su un dominio.
+> [!lab]
+> ```bash
+> #Richiesta
+> ❯ nslookup www.vatican.va
+> 
+> #Risposta
+> Server:         127.0.0.53
+> Address:        127.0.0.53#53
+> 
+> Non-authoritative answer:
+> www.vatican.va  canonical name = vatican-g5fcczeabnb9atb6.a03.azurefd.net.
+> vatican-g5fcczeabnb9atb6.a03.azurefd.net        canonical name = mr-a03.tm-azurefd.net.
+> Name:   mr-a03.tm-azurefd.net
+> Address: 150.171.110.52
+> Name:   mr-a03.tm-azurefd.net
+> Address: 2603:1061:14:133::1
+> ```
 
-## Il resolver locale
-
-C'è un altro tipo importante di server DNS: il **local DNS server** (o **DNS resolver**). Non appartiene strettamente alla gerarchia di server ed è **tipicamente gestito dagli ISP**; anche Google fornisce server simili in tutto il mondo (Google Public DNS) agli indirizzi 8.8.8.8 e 8.8.4.4. Quando un host si connette a un ISP, l'ISP fornisce gli IP di uno o più dei suoi server DNS locali (tipicamente "vicini" all'host). Quando l'host fa una query DNS, questa va al server locale, che **agisce da proxy**, inoltrandola alla gerarchia DNS.
-
-## Alias
-
-Il DNS fornisce un servizio di **aliasing** per server, in cui nomi complicati o lunghi (detti **canonici**) sono associati a nomi più semplici e corti (detti **alias**). Con l'**host aliasing**, host con hostname complicati possono essere associati ad alias più mnemonici (esempio: `relay1.west-coast.enterprise.com` → `www.enterprise.com`). Il DNS può essere invocato da un'applicazione **per ottenere l'hostname canonico (originale)** a partire da un alias, insieme all'indirizzo IP associato.
-
-## Distribuzione del carico
-
-Il DNS può essere usato per la **distribuzione del carico** tra server replicati (detto **round-robin DNS**). I siti molto trafficati (es. Google, Amazon, CNN) sono tipicamente **replicati su più server**, ognuno su un sistema finale diverso con un IP diverso (più IP associati a un solo hostname canonico). Il database DNS contiene questo insieme di IP: quando i client fanno una query per un nome mappato su un insieme di indirizzi, il server può **ruotare l'ordine** in cui gli indirizzi vengono restituiti.

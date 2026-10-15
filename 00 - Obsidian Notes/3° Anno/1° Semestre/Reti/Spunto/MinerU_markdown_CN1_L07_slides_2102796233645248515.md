@@ -243,7 +243,7 @@ The (default) server is in this case the router: 127.0.0.53 (port 53)
 
 • The host issues a recursive query (either the complete answer or an error is returned) 
 
-```txt
+```bash
 andrea@turgia:~$ nslookup www.vatican.va
 Server: 127.0.0.53
 Address: 127.0.0.53#53 

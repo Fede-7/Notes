@@ -1,112 +1,142 @@
-# Lezione 2: Internet, protocolli e livelli
+# Internet protocolli e livelli
 
-## Le due visioni di Internet
+## Vista "nuts and bolts" di Internet
 
-Internet può essere descritta in due modi complementari. 
-Nella visione "concreta" (*nuts and bolts*) essa è costituita da miliardi di **dispositivi di calcolo connessi**: gli **host** (o sistemi finali, *end system*) eseguono applicazioni di rete al bordo (*edge*) di Internet, mentre i **commutatori di pacchetti** (*packet switch*), come router e switch, inoltrano blocchi di dati chiamati pacchetti. I dispositivi sono collegati da **collegamenti di comunicazione** di vario mezzo (fibra, rame, radio, satellite), ciascuno caratterizzato dalla propria **banda** (velocità di trasmissione). Un'ultima componente è l'insieme delle **reti**: insiemi di dispositivi, router e link gestiti da un'organizzazione. Tra i dispositivi oggi connessi si va ben oltre i PC: assistenti vocali, elettrodomestici, telecamere, pacemaker, dispositivi indossabili e tostapane connessi.
+Dalla prospettiva dell'implementazione, Internet è composta da:
 
-Nella visione "dei servizi", invece, Internet è un'**infrastruttura che fornisce servizi alle applicazioni**: Web, video in streaming, teleconferenze, e-mail, giochi, e-commerce e social media. Fornisce inoltre un'*interfaccia di programmazione* alle applicazioni distribuite, ossia degli "agganci" (*hook*) che permettono alle applicazioni che inviano e ricevono di connettersi a Internet e usare il servizio di trasporto, con opzioni di servizio analoghe a quelle del servizio postale.
+- **Host** (o *end systems*): miliardi di dispositivi connessi che eseguono le applicazioni di rete al "bordo" di Internet.
+- **Packet switch**: dispositivi che inoltrano pacchetti (blocchi di dati), principalmente router e switch.
+- **Link di comunicazione**: fibra, rame, radio, satellite; il tasso di trasmissione è la **banda**.
+- **Reti**: insiemi di dispositivi, router e link gestiti da un'organizzazione.
 
-## Protocolli
+> [!info] Internet
+> Internet è una **rete di reti** di ISP interconnessi, in cui i protocolli sono ovunque: governano l'invio e la ricezione dei messaggi (es. HTTP, streaming video, TCP, IP, WiFi, 4G, Ethernet).
 
-### Dai protocolli umani ai protocolli di rete
+Dalla prospettiva dei servizi, Internet è un'**infrastruttura** che offre servizi alle applicazioni (Web, e-mail, e-commerce, social, ...) e fornisce una **interfaccia di programmazione** alle applicazioni distribuite: "agganci" per connettersi al servizio di trasporto, con opzioni di servizio analoghe al servizio postale.
 
-I protocolli umani , come chiedere l'ora o presentarsi , consistono nell'inviare messaggi specifici e nel compiere azioni specifiche alla ricezione di un messaggio o in risposta ad altri eventi. I **protocolli di rete** seguono lo stesso schema, ma coinvolgono calcolatori anziché esseri umani: tutta l'attività di comunicazione in Internet è governata da protocolli. Un protocollo definisce il **formato e l'ordine dei messaggi** scambiati tra le entità di rete, e le **azioni compiute** alla trasmissione e alla ricezione dei messaggi.
+## Protocolli e standard
 
-![[Lezione 2-1790359298799.png|337]]
-Jakobson Comunication model
+> [!def] Protocollo di rete
+> **Insieme di regole** che definisce il *formato*, l'*ordine* dei messaggi scambiati tra le entità di rete e le *azioni* intraprese alla trasmissione e alla ricezione dei messaggi.
 
-### Chi definisce gli standard
+I protocolli umani (domande, presentazioni) e i protocolli di rete condividono la stessa struttura: messaggi specifici inviati e azioni specifiche compiute alla ricezione di un messaggio o di un altro evento; nei protocolli di rete, però, le entità sono computer.
 
-Gli standard e i protocolli di Internet sono definiti da una comunità di esperti, la **Internet Engineering Task Force** (IETF), organizzata in gruppi di lavoro aperti, ciascuno dedicato ad aspetti specifici di Internet. Ogni gruppo produce documenti numerati chiamati **Request For Comments** (RFC), che descrivono e definiscono protocolli, concetti e metodi alla base di uno standard: ad esempio il protocollo IPv4 è stato definito nell'RFC 791 (1981).
+Gli standard di Internet sono definiti da una comunità di esperti:
+
+- **IETF** (*Internet Engineering Task Force*): organizzata in **working group** aperti, ciascuno focalizzato su un aspetto specifico di Internet.
+- **RFC** (*Request For Comments*): documenti numerati prodotti dai working group, con descrizione e definizione di protocolli, concetti e metodi alla base di uno standard (es. IPv4 è definito nell'RFC 791, 1981).
 
 ## Il modello a livelli
 
-Le reti sono sistemi complessi: host, router, link di vario mezzo, applicazioni, protocolli, hardware e software. Per dominare questa complessità si ricorre a un approccio architetturale chiamato **modello a livelli**, una strategia *divide et impera* in cui ogni livello costituisce un livello di astrazione: ogni livello si appoggia sui servizi del livello inferiore e fornisce servizi al livello superiore, attraverso interfacce ben definite, dal livello alto (le applicazioni) verso quello basso (l'hardware).
+> [!def] Layering
+> **Approccio architetturale** alla comunicazione: il sistema è diviso in livelli (*divide et impera*), ciascuno un livello di astrazione che **usa i servizi del livello inferiore e offre servizi al livello superiore** attraverso interfacce.
 
-Il layering è la chiave per gestire sistemi complessi. Una struttura esplicita permette di identificare le componenti del sistema e le loro relazioni, fornendo così un modello di riferimento per la discussione; la **modularizzazione**, inoltre, facilita manutenzione e aggiornamento, poiché un cambiamento nell'*implementazione* del servizio di un livello è trasparente al resto del sistema. Va notato che il layering può avere un costo in termini di efficienza, e che strutture a livelli esistono anche in molti altri sistemi complessi. Le entità usano i protocolli per implementare le proprie definizioni di servizio; quando due dispositivi comunicano, ogni livello del mittente comunica con lo stesso livello del destinatario tramite un protocollo specifico.
+Il modello a livelli serve a domare la complessità della rete (host, router, link eterogenei, applicazioni, protocolli, hardware e software):
 
-## Connessioni e affidabilità
+- La struttura esplicita permette di **identificare** e mettere in relazione i pezzi del sistema complesso.
+- La **modularizzazione** facilita manutenzione e aggiornamento: cambiare l'implementazione del servizio di un livello è trasparente al resto del sistema.
+- **Contro**: il layering ha un costo in efficienza ("*layering considered harmful*").
 
-### Servizio orientato alla connessione
+Quando due dispositivi comunicano, **ogni livello del mittente comunica con lo stesso livello del destinatario** mediante un protocollo specifico.
 
-Il servizio orientato alla connessione è modellato sul sistema telefonico: l'utente stabilisce prima una connessione, la usa, poi la rilascia, e durante l'instaurazione può condurre una negoziazione sui parametri da usare.
+## Servizi di connessione e affidabilità
 
-### Servizio senza connessione
+> [!def] Servizio connection-oriented
+> **Servizio orientato alla connessione** modellato sul sistema telefonico: l'utente prima **stabilisce** la connessione, la usa, poi la rilascia; può negoziare i parametri da usare.
 
-Il servizio senza connessione è modellato sul sistema postale, dove il pacchetto è un messaggio al livello di rete. Lo scambio può avvenire in due modi: con **store-and-forward switching** i nodi intermedi ricevono il messaggio per intero prima di inoltrarlo al nodo successivo, mentre con **cut-through switching** la trasmissione da un nodo inizia prima che il nodo abbia ricevuto completamente il messaggio. Il **servizio datagram** è un servizio senza connessione non affidabile, cioè privo di *acknowledgement*. L'affidabilità, in generale, caratterizza sia i servizi orientati alla connessione sia quelli senza connessione.
+> [!def] Servizio connectionless
+> **Servizio senza connessione** modellato sul sistema postale: i pacchetti vengono inviati indipendentemente, senza setup.
 
-#### Sei servizi comuni
+Alcune nozioni collegate:
+
+- **Pacchetto** (*packet*): un messaggio al livello di rete.
+- **Store-and-forward switching**: i nodi intermedi ricevono il messaggio per intero prima di inoltrarlo al nodo successivo.
+- **Cut-through switching**: la trasmissione presso un nodo inizia prima che il messaggio sia ricevuto completamente.
+- **Servizio datagram**: servizio connectionless non affidabile (senza conferme).
+- L'**affidabilità** caratterizza sia i servizi orientati sia quelli non orientati alla connessione.
+
+I sei servizi tipici orientati e non orientati alla connessione sono i seguenti.
 
 | Tipo | Servizio | Esempio |
-| --- | --- | --- |
-| Orientato alla connessione | Flusso di messaggi affidabile | Sequenza di pagine |
-| Orientato alla connessione | Flusso di byte affidabile | Download di un film |
-| Orientato alla connessione | Connessione non affidabile | Voice over IP |
-| Senza connessione | Datagram non affidabile | Posta elettronica spazzatura |
-| Senza connessione | Datagram confermato | Messaggistica testuale |
-| Senza connessione | Richiesta-risposta | Query su database |
+|---|---|---|
+| Connection-oriented | Reliable message stream | Sequenza di pagine |
+| Connection-oriented | Reliable byte stream | Download di un film |
+| Connection-oriented | Unreliable connection | Voice over IP |
+| Connectionless | Unreliable datagram | Posta elettronica di massa |
+| Connectionless | Acknowledged datagram | Messaggistica testuale |
+| Connectionless | Request-reply | Interrogazione di database |
 
-## Il modello OSI
+## Il modello ISO/OSI
 
-Negli anni '80 la ISO (*International Standards Organization*) definì un modello a livelli per le reti di calcolatori: il modello **OSI** (*Open System Interconnection*), composto da 7 livelli, che vanno dalla trasmissione fisica dei bit "grezzi" (livello 1) fino all'uso dei dati e all'interazione uomo-macchina (livello 7). I livelli intermedi si occupano, nell'ordine, del formato dei dati (frame), dell'instradamento dei messaggi, dei protocolli di trasmissione, della gestione delle porte e delle sessioni, e della traduzione dei messaggi (codifica, compressione, decifratura).
+![[Lezione 2-1790359871813.png|300]]
 
-Non sempre tutti i livelli sono implementati: tipicamente nei nodi intermedi (switch, router) sono implementati solo 2 o 3 livelli (i livelli dei mezzi), mentre solo gli endpoint implementano l'intero stack fino ai livelli applicativi. La comunicazione tra livelli segue due meccanismi speculari: con l'**incapsulamento** (*top-down*) ogni livello del mittente aggiunge al messaggio (payload) un campo proprio, sotto forma di header (H) o trailer (T); con il **decapsulamento** (*bottom-up*) quei campi sono rimossi e interpretati dallo stesso livello nel destinatario.
-
-![[Lezione 2-1790359871813.png|338]]
+Negli anni '80 l'**ISO** (*International Standards Organization*) ha definito il modello a livelli **OSI** (*Open System Interconnection*), con 7 livelli:
 
 ### 1. Livello fisico
 
 Il **livello fisico** è responsabile del movimento dei singoli bit da un hop (nodo) al successivo. Regola le caratteristiche fisiche di interfacce e mezzi (connettori, cavi, segnali elettrici), la configurazione della linea (punto-punto o multipunto), la topologia fisica (mesh, star, ring o bus), la modalità di trasmissione (simplex, half-duplex o duplex), la rappresentazione dei bit, la velocità di trasmissione (*data rate*) e la sincronizzazione dei bit.
 
-![[Lezione 2-1790458351461.png|426]]
+![[Lezione 2-1790458351461.png|300]]
 
 ### 2. Livello data link
 
 Il **livello data link** è responsabile del movimento dei frame da un hop al successivo (segmento). Lavora su frame, porzioni di dati tipicamente di poche centinaia di byte, e si occupa di controllo di flusso ed errori (tramite sequenze di controllo del frame) e di controllo di accesso.
 
-![[Lezione 2-1790359763877.png|426]]]
+![[Lezione 2-1790359763877.png|300]]
 
 ### 3. Livello di rete
 
 Il **livello di rete** è responsabile della consegna dei singoli pacchetti dall'host sorgente all'host destinazione (cammino). Lavora su pacchetti, tipicamente più grandi e complessi dei frame, e gestisce la consegna da sorgente a destinazione, l'indirizzamento logico e il routing tramite tabelle di routing.
 
-![[Lezione 2-1790359770150.png|426]]]
+![[Lezione 2-1790359770150.png|300]]
 
 ### 4. Livello di trasporto
 
 Il **livello di trasporto** è responsabile della consegna di un messaggio da un estremo all'altro, così che il messaggio arrivi al programma giusto. Si occupa di consegna end-to-end, controllo della connessione (orientato o senza connessione), segmentazione/riassemblaggio da e verso i pacchetti del livello 3, indirizzamento delle porte e controllo di flusso ed errori.
 
-![[Lezione 2-1790359803876.png|426]]]
+![[Lezione 2-1790359803876.png|300]]
 
 ### 5. Livello di sessione
 
 Il **livello di sessione** è responsabile del controllo del dialogo e della sincronizzazione richiesta/risposta: stabilisce, mantiene e sincronizza l'interazione tra i sistemi che comunicano (sessione di comunicazione), gestisce il dialogo e prevede punti di controllo (*checkpoint*) per la sincronizzazione.
 
-![[Lezione 2-1790359808584.png|426]]]
+![[Lezione 2-1790359808584.png|300]]
 
 ### 6. Livello di presentazione
 
 Il **livello di presentazione** è responsabile della rappresentazione dei dati: si occupa di traduzione (ad esempio da codifica EBCDIC o ASCII a testo), cifratura e decifratura, e compressione.
 
-![[Lezione 2-1790359825642.png|426]]]
+![[Lezione 2-1790359825642.png|300]]
 
 ### 7. Livello applicazione
 
 Il **livello applicazione** è responsabile di fornire servizi all'utente: terminale virtuale di rete (accesso remoto), trasferimento e accesso a file, servizi di posta e accesso al World Wide Web.
 
-![[Lezione 2-1790359815636.png|426]]]
+![[Lezione 2-1790359815636.png|300]]
 
-## Critiche ai modelli
 
-### Critiche al modello OSI
+Non sempre tutti i livelli sono implementati: nei nodi intermedi (switch, router) sono implementati solo 2–3 livelli (livelli "media"), mentre solo i sistemi finali implementano l'intero stack fino all'applicazione.
 
-Il modello OSI fu criticato su più fronti: il **tempismo** era sbagliato, poiché i protocolli concorrenti TCP/IP erano già in uso diffuso; il **progetto** era scadente, con difetti sia nel modello sia nei protocolli; le prime **implementazioni** erano enormi, ingombranti e lente; e la **politica** lo vedeva diffusamente come creatura dei ministeri europei delle telecomunicazioni e dei governi. Per evitare il "tempismo sbagliato", è essenziale che gli standard vengano scritti nell'incavo tra le creste delle due "onde degli elefanti".
+## Incapsulamento
 
-### Critiche al modello TCP/IP
+> [!def] Incapsulamento
+> **Processo top-down** in cui ogni livello del mittente aggiunge al messaggio (payload) un campo proprio del livello, come **header** (`H`) o **trailer** (`T`); la **decapsulazione** (bottom-up) rimuole e interpreta quei campi negli stessi livelli del ricevente.
 
-Anche il modello TCP/IP ha difetti: non distingue chiaramente i concetti di **servizi, interfacce e protocolli**; non è affatto generale, quindi è poco adatto a descrivere qualunque altro stack di protocolli; il **livello link** non è davvero un livello nel senso normale del termine; e il modello non distingue tra livello fisico e data link. A ciò si aggiunge il fatto che altre implementazioni di protocolli erano distribuite gratuitamente.
+## Critiche e confronto TCP/IP vs OSI
 
-### TCP/IP vs OSI
+> [!info] Critiche al modello OSI
+> **Bad timing** (i protocolli TCP/IP concorrenti erano già in uso), **bad design** (modello e protocolli difettosi), **bad implementations** (implementazioni iniziali enormi e lente), **bad politics** (visto come creatura dei ministeri telecom europei).
 
-Il modello ISO/OSI è lo stack standard *de iure* per le reti di calcolatori, ma è piuttosto complesso e dettagliato. TCP/IP e UDP/IP (detti *Internet Protocol Suite*) sono invece l'insieme di protocolli di comunicazione effettivamente usati su Internet e nelle reti locali , TCP (*Transmission Control Protocol*), UDP (*User Datagram Protocol*) e IP (*Internet Protocol*) , e costituiscono quindi lo stack standard *de facto* per la comunicazione su Internet. Esistono infine diversi altri protocolli per la comunicazione tra dispositivi, usabili a seconda della situazione, che si basano comunque sul modello a livelli.
+Critiche al modello TCP/IP:
+
+- Non distingue chiaramente i concetti di **servizi, interfacce e protocolli**.
+- Non è generale: poco adatto a descrivere altri stack di protocolli.
+- Il **link layer** non è un vero livello; non distingue il livello fisico dal data link.
+- Le altre implementazioni di protocolli erano distribuite gratuitamente.
+
+Confronto:
+
+- **ISO/OSI** è *de iure* lo stack standard per le reti di calcolatori, ma è complesso e dettagliato.
+- **TCP/IP e UDP/IP** (*Internet Protocol Suite*) sono *de facto* lo stack realmente usato su Internet e nelle reti locali: **TCP** (*Transmission Control Protocol*), **UDP** (*User Datagram Protocol*), **IP** (*Internet Protocol*).
+
+Esistono altri modelli di rete per la comunicazione tra dispositivi, dipendenti dalla situazione, che però restano basati sul modello a livelli.

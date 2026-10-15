@@ -1,145 +1,158 @@
-# Lezione 1: Introduzione alle reti di calcolatori
+# Introduzione alle reti di calcolatori
 
-## Cosa sono le reti di calcolatori
+## Rete di calcolatori
 
-Il networking è il processo di collegare tra loro calcolatori affinché possano condividere informazioni. Una **rete di calcolatori** è un insieme di dispositivi di calcolo interconnessi e autonomi: un numero elevato di calcolatori separati ma connessi svolge un lavoro comune e può scambiarsi informazioni.
+> [!def] Rete di calcolatori
+> **Insieme di dispositivi di calcolo autonomi ma interconnessi**: un numero elevato di computer separati che, grazie ai collegamenti, possono **scambiarsi informazioni** per svolgere un lavoro comune.
 
-**Internet** è la rete di calcolatori più importante al mondo e, anzi, è una **rete di reti**: tecnicamente si tratta di un'enorme *Wide Area Network* (WAN) che connette sotto-reti e dispositivi tra nazioni e continenti diversi. Comprende centinaia di milioni di dispositivi di rete, collegamenti e calcolatori che offrono centinaia di servizi agli utenti; esistono comunque anche reti più piccole, locali o disconnesse da Internet.
+Gli usi principali delle reti di calcolatori sono:
 
-### Usi delle reti
+- **Accesso all'informazione**, tipicamente secondo il modello client-server o peer-to-peer.
+- **Comunicazione persona-persona** ed e-commerce.
+- **Intrattenimento** e *Internet of Things* (quasi qualsiasi dispositivo può connettersi).
 
-Le reti servono per accedere alle informazioni, per la comunicazione da persona a persona, per il commercio elettronico, per l'intrattenimento e per l'**Internet delle cose** (IoT).
+Nel **modello client-server** un client richiede esplicitamente informazioni a un server che le ospita; il processo client invia una richiesta in rete e attende la risposta. In un sistema **peer-to-peer** non esistono client e server fissi.
 
-### Storia di Internet
+## Internet
 
-L'idea di una rete "universale" fu teorizzata dai ricercatori (in particolare J.C.R. Licklider) intorno al 1950 e iniziò a diventare realtà quasi dieci anni dopo. Le tappe fondamentali sono:
+> [!def] Internet
+> **Rete di reti**: la più grande rete di calcolatori, tecnicamente un enorme **WAN** che collega sotto-reti e dispositivi su nazioni e continenti.
 
-- L'**Advanced Research Projects Agency** (ARPA) del Dipartimento della Difesa statunitense assegnò contratti per lo sviluppo del progetto **ARPANET** (1969).
-- R. Kahn (ARPA) e V. Cerf (Stanford) progettarono il Transmission Control Protocol (TCP) e l'Internet Protocol (IP), due protocolli della **suite di protocolli Internet** (1974).
-- La National Science Foundation (NSF) finanziò il progetto **NSFNET**, una rete basata su TCP/IP (1986).
-- **ARPANET fu dismesso** nel 1990; **NSFNET fu dismesso** nel 1995, rimuovendo le ultime restrizioni all'uso di Internet per il traffico commerciale.
+Cronologia essenziale:
 
-L'ARPANET iniziale aveva quattro nodi (SRI, UCLA, UCSB e UTAH, 1969) e nasceva come rete chiusa, pensata per università e centri di ricerca; reti simili furono create indipendentemente in tutta Europa e negli USA. NSFNET e il protocollo TCP/IP realizzarono l'idea di *rete di reti*, ma sia ARPANET che NSFNET presentavano **restrizioni commerciali**.
+- **1950 ca.**: l'idea di una rete "universale" viene teorizzata (J.C.R. Licklider).
+- **1969**: l'ARPA (U.S. Dept. of Defense) finanzia **ARPANET**, inizialmente una rete chiusa di università e centri di ricerca (primi nodi: SRI, UCLA, UCSB, Utah).
+- **1974**: R. Kahn e V. Cerf progettano **TCP** e **IP**, i due protocolli della *Internet protocol suite*.
+- **1986**: la NSF finanzia **NSFNET**, rete basata su TCP/IP; essa e TCP/IP avviano l'idea di *network of networks*, ma entrambe le reti hanno restrizioni commerciali.
+- **1990**: ARPANET viene dismessa; **1995**: NSFNET viene dismessa, rimuovendo le ultime restrizioni al traffico commerciale.
 
-## Componenti della rete
+## Componenti di una rete
 
-I dispositivi di rete e i collegamenti (*link*) costituiscono l'infrastruttura che permette agli host di connettersi: router, access point, switch e hub. Gli **host** sono invece i dispositivi su cui girano le applicazioni, come laptop, server, smartphone e PC.
+La rete distingue l'infrastruttura dai sistemi finali:
 
-### Reti e grafi
+- **Dispositivi di rete** (*network devices*): router, switch, access point, hub, insieme ai **link** (canali di comunicazione), formano l'infrastruttura che permette ai host di connettersi.
+- **Host**: i dispositivi su cui girano applicazioni o programmi (PC, laptop, smartphone, server).
 
-Le reti di calcolatori condividono la terminologia con la teoria dei grafi. I dispositivi connessi tramite la rete sono chiamati **nodi**, mentre le connessioni tra nodi sono chiamate **collegamenti** (o **canali**) di comunicazione. Una sequenza di nodi e collegamenti forma un **cammino** (*path*). I punti terminali della rete, che forniscono o usano **servizi**, sono nodi speciali chiamati **host**: idealmente sono le foglie della rete (anche se spesso non è vero), mentre i nodi intermedi sono dispositivi di routing come router e switch.
+> [!aside]
+> Le reti condividono la terminologia della teoria dei grafi:
+> 
+> - I dispositivi connessi sono i **nodi**, le connessioni sono i **link** (o canali).
+> - Una **sequenza** di nodi e link è un **cammino** (*path*).
+> - I **host** (o sistemi finali) sono i nodi che producono o usano i **servizi**; idealmente sono le foglie della rete, mentre i nodi intermedi sono dispositivi di instradamento.
+> 
+> ---
+> 
+> ![[Lezione 1-1790182515582.png|250]]
 
-![[Lezione 1-1790182515582.png|309]]
+## Comunicazione dei dati
 
-### Comunicazione dei dati
+> [!def] Comunicazione dei dati
+> Scambio che coinvolge cinque componenti: **messaggio** (i dati da trasmettere), **mittente**, **destinatario**, **mezzo** (canale tra mittente e destinatario) e **protocollo** (regole di comunicazione note a entrambi).
 
-La comunicazione dati coinvolge cinque componenti principali:
+![[Lezione 1-1790182376439.png|300]]
 
-- Il **messaggio**, che contiene i dati da trasmettere.
-- Il **mittente**, l'entità che invia il messaggio.
-- Il **destinatario**, l'entità che dovrebbe riceverlo.
-- Il **mezzo**, il canale tra mittente e destinatario in cui viaggia il messaggio.
-- Il **protocollo**, un insieme di regole di comunicazione note a mittente e destinatario.
+I dati si rappresentano in forme diverse: testo, numeri, immagini, audio, video. Il **flusso** dipende dal tipo e dallo scopo della comunicazione:
 
-![[Lezione 1-1790182376439.png|420|420x115]]
+- **Simplex**: monodirezionale.
+- **Half-duplex**: bidirezionale, ma a turni alterni.
+- **Full-duplex**: bidirezionale simultaneo.
 
-I dati da scambiare possono essere rappresentati in forme diverse (testo, numeri, immagini, audio, video). A seconda del tipo e dello scopo della comunicazione, il **flusso dei dati** può essere **simplex** (monodirezionale), **half-duplex** (bidirezionale a turni) o **full-duplex** (bidirezionale simultaneo).
+Tre grandezze misurano il flusso, in bit/s (o byte/s):
 
-### Velocità di trasmissione, banda e throughput
+- **Transmission rate**: quantità *massima* di informazione trasmissibile da un *dispositivo*.
+- **Banda (bandwidth)**: quantità *massima* trasmissibile da un *cammino* (link e nodi).
+- **Throughput**: quantità *effettiva* (istantanea) trasmessa su un cammino.
 
-Questi tre termini si distinguono per ciò che misurano. 
-- La **velocità di trasmissione** è la quantità **massima** di informazione che un **dispositivo** può trasmettere, misurata in bit/s (o byte/s). 
-- La **banda** (*bandwidth*) è la quantità **massima** di informazione che un **cammino** (link + nodi) può trasmettere, sempre in bit/s. 
-- Il **throughput**, infine, è la quantità **effettiva** (istantanea) di informazione che viene realmente trasmessa su un cammino.
+Le connessioni tra host possono essere di due tipi:
 
-### Tipi di connessione
-
-Gli host di una rete possono essere connessi in modi diversi: **punto-punto**, quando viene fornito un collegamento dedicato tra due dispositivi (wireless o cablato), oppure **multipunto** (broadcast), quando più di due dispositivi condividono un singolo collegamento.
-
-### Architetture di comunicazione
-
-Nel modello **client-server**, un client richiede esplicitamente informazioni a un server che le ospita: il processo client invia un messaggio attraverso la rete al processo server e attende un messaggio di risposta. In un sistema **peer-to-peer**, invece, non esistono client e server fissi.
+- **Point-to-point**: link dedicato tra due soli dispositivi (cablato o wireless).
+- **Multipoint (broadcast)**: più di due dispositivi condividono lo stesso link.
 
 ## Topologie di rete
 
-La **topologia di rete** è la disposizione degli elementi (link, nodi, ecc.) di una rete di comunicazione. Le topologie principali sono:
+> [!def] Topologia di rete
+> **Disposizione** degli elementi (nodi, link) di una rete di comunicazione.
 
-### Bus
+> [!aside]
+> - **Bus**: gli host sono collegati a un cavo dorsale centrale; possibili **collisioni**; semplice ed economica, adatta a reti piccole, ma la dorsale è un punto singolo di guasto. Ha 1 link fisico duplex (o 1 dorsale e `n` link).
+> 
+> ---
+> 
+> ![[Lezione 1-1790195672276.png|100]]
+> 
 
-Nella topologia **bus** gli host sono connessi a un cavo dorsale centrale, e quindi sono possibili **collisioni**. È una soluzione semplice ed economica, adatta a reti piccole; il difetto principale è che il bus è un singolo punto di guasto, anche se le sotto-reti possono rimanere disponibili. Una rete bus ha un collegamento fisico duplex (una dorsale più n link).
+> [!aside]
+> - **Ring**: ogni host è connesso point-to-point a esattamente altri due; il segnale è **inoltrato** lungo l'anello fino alla destinazione; semplice ed economica, con prestazioni migliori del bus, ma aggiungere nodi è più difficile e un guasto di un nodo può compromettere la rete; ha `n` link duplex.
+> 
+> ---
+> 
+> ![[Lezione 1-1790195640079.png|100]]
 
-![[Lezione 1-1790195672276.png|207]]
-### Ring
+> [!aside]
+> - **Star**: gli host sono collegati a un controllore centrale (hub, switch o router) che reindirizza i messaggi, senza link diretti tra host; economica, semplice, robusta e scalabile, ma il controllore deve essere raggiungibile da tutti ed è un punto singolo di guasto; ha `n` link duplex.
+> 
+> ---
+> 
+> ![[Lezione 1-1790195698195.png|100]]
 
-Nella topologia **ring** ogni host è connesso punto-punto esattamente ad altri due, e il segnale viene **inoltrato** lungo l'anello, da dispositivo a dispositivo, fino a raggiungere la destinazione. È semplice ed economica, con prestazioni migliori del bus; tuttavia aggiungere nuovi nodi è più difficile e i nodi guasti possono compromettere la rete. Una rete ring ha $n$ collegamenti duplex.
+> [!aside]
+> - **Tree**: più topologie a stella integrate, tipicamente tramite un cavo bus; versatile, scalabile, robusta e ben supportata, ma difficile da configurare ed eredita la debolezza del bus.
+> 
+> ---
+> 
+> ![[Lezione 1-1790195701360.png|100]]
 
-![[Lezione 1-1790195640079.png|146]]
-### Star
+> [!aside]
+> - **Mesh**: host collegati point-to-point in modo non gerarchico; nella **full mesh** tutti i nodi sono tra loro connessi ($n(n-1)/2$ link duplex), nella **partial mesh** solo alcuni; poco traffico, robusta, sicura, con link dedicati, ma difficilmente scalabile e costosa.
+>
+>---
+>
+![[Lezione 1-1790195717867.png|100]]
+![[Lezione 1-1790195745017.png|100]]
+>
 
-Nella topologia **star** gli host sono collegati a un controllore centrale (hub, switch o router), senza collegamenti diretti tra host: è il controllore a reindirizzare i messaggi. È meno costosa, semplice, robusta e più scalabile delle precedenti, ma il controllore deve essere raggiungibile da tutti gli host e rappresenta un singolo punto di guasto. Una rete star ha un controllore e $n$ collegamenti fisici duplex.
+> [!aside]
+> - **Hybrid**: topologie diverse possono essere **mixate** in una rete ibrida.
+> 
+> ---
+> 
+> ![[Lezione 1-1790195783748.png|200]]
+> 
 
-![[Lezione 1-1790195698195.png|133]]
-### Tree
-
-La topologia **tree** integra più topologie star, tipicamente tramite un cavo bus. È versatile, scalabile e robusta, ed è ben supportata dai fornitori di hardware e software; in compenso è difficile da configurare ed eredita la debolezza del bus.
-
-![[Lezione 1-1790195701360.png|200]]
-### Mesh
-
-Nella topologia **mesh** gli host sono collegati punto-punto in modo non gerarchico. Si distingue tra **full mesh**, in cui tutti i nodi sono pienamente connessi, e **partial mesh**, in cui i nodi sono connessi solo ad alcuni altri. Offre traffico ridotto, robustezza, sicurezza e collegamenti dedicati, ma è difficilmente scalabile e costosa, perché richiede dispositivi con più porte. Una rete full mesh ha $n(n-1)/2$ collegamenti fisici duplex.
-
-![[Lezione 1-1790195717867.png|230]]![[Lezione 1-1790195745017.png|196]]
-### Ibrida
-
-Le topologie possono essere **combinate** in una rete ibrida, per esempio una dorsale star con tre reti bus.
-
-![[Lezione 1-1790195783748.png|391]]
 ## Categorie di reti
 
-Le reti si classificano per dimensione, numero di host e banda in **PAN** (Personal Area Network), **LAN** (Local Area Network) o **WLAN** (Wireless LAN), **MAN** (Metropolitan Area Network) e **WAN** (Wide Area Network).
-#### PAN
+Le reti si classificano per dimensione, numero di host e banda:
 
-Le PAN permettono ai dispositivi di comunicare entro il raggio di una persona. **Bluetooth** è una rete wireless a corto raggio usata per connettere componenti senza cavi.
+- **PAN** (*Personal Area Network*): dispositivi nel raggio di una persona (es. Bluetooth).
+- **LAN/WLAN** (*Local/Wireless Area Network*): rete locale cablata (es. Ethernet switchata) o wireless (es. 802.11).
+- **MAN** (*Metropolitan Area Network*): copertura metropolitana (es. distribuzione di TV e Internet tramite *cable head-end*).
+- **WAN** (*Wide Area Network*): copertura di nazioni/continenti, tipicamente molto complessa ed eterogenea; la complessità della topologia cresce con la dimensione della rete.
 
-#### LAN e rete casalinga
+La **rete casalinga** (home LAN) ospita una gamma ampia e diversificata di dispositivi connessi a Internet (IoT): deve essere facile da installare, sicura e affidabile, con interfacce compatibili tra tutti i prodotti.
 
-Una LAN domestica connette una gamma ampia e diversificata di dispositivi a Internet, e deve essere gestibile, affidabile e sicura; l'IoT permette di connettere quasi qualsiasi dispositivo. Le proprietà richieste a una rete domestica sono: facile da installare, sicura e affidabile, con interfacce compatibili tra tutti i prodotti e costi ridotti dei dispositivi.
+## ISP e accesso a Internet
 
-#### MAN
+> [!def] ISP
+> **Internet Service Provider**: organizzazione (commerciale, comunitaria, non-profit, privata) che fornisce servizi di accesso, uso e partecipazione a Internet.
 
-In una MAN sia i segnali televisivi che Internet vengono immessi nel centralino via cavo (*cable head-end*, o cable modem termination system) per la successiva distribuzione alle abitazioni.
+- Le connessioni private avvengono tramite modem/ONT collegato alla rete telefonica; le aziende (medie/grandi) possono avere un collegamento diretto/dedicato all'ISP.
+- Differenti ISP si scambiano dati tramite **NAP** (*Network Access Point*) o **IXP** (*Internet Exchange Point*), punti di incontro tra più ISP spesso non gestiti dagli ISP coinvolti.
 
-#### WAN
+> [!aside]
+> La rete di un ISP è gerarchica:
+> 
+> - **PoP** (*Point of Presence*): gruppo di uno o più router con cui l'ISP raggiunge i clienti.
+> - **Access ISP** per aree locali, **regional ISP** per aree più ampie, **national ISP** a livello di nazione.
+> 
+> ---
+> 
+> ![[Lezione 1-1790196095424.png|200]]
 
-Le WAN mostrano come host in città diverse possano comunicare tramite linee dedicate (*leased line*), via Internet o tramite un ISP. La complessità della topologia cresce con le dimensioni della rete: le WAN che connettono nazioni o continenti possono essere molto complesse ed eterogenee.
-
-## Internet Service Provider (ISP)
-
-L'accesso a Internet è il servizio base. Un **Internet Service Provider** (ISP) è un'organizzazione che fornisce servizi per accedere, utilizzare o partecipare a Internet; può essere commerciale, comunitario, no-profit o privato (per esempio un'azienda o un'università). Diversi ISP si scambiano dati tramite Network Access Point (NAP) neutri o Internet Exchange Point (IXP).
-
-La rete di un ISP è definita gerarchicamente:
-
-- Un punto di presenza (**PoP**) è un gruppo di uno o più router usati dall'ISP per raggiungere i clienti.
-- Gli **access ISP** coprono aree locali.
-- I **regional ISP** coprono aree più ampie.
-- I **national ISP** coprono intere nazioni.
-- Un **Internet Exchange Point** (IXP) funge da punto d'incontro tra più ISP, spesso non gestito dagli ISP coinvolti.
-
-![[Lezione 1-1790196095424.png|391]]
-Structure of a national ISP
-
-![[Lezione 1-1790196285957.png|389]]
-Interconnection of national ISPs
-
-## Connessione a Internet
-
-Le connessioni private a Internet si stabiliscono tramite modem o ONT collegato alla rete telefonica. Le tecnologie, in ordine cronologico e di capacità, sono:
-
-- Analogica (56 kbps).
-- ISDN (Integrated Services Digital Network, 128 kbps).
-- ADSL (Asymmetric Digital Subscriber Line, da 1 a 20 Mbps).
-- Doppino in rame (da 10 a 100 Mbps).
-- Fibra ottica (da 50 Mbps a 40 Gbps), tramite ottico di rete (ONT), senza (de)modulazione.
-
-Le aziende, soprattutto medie e grandi, possono invece avere un collegamento diretto o dedicato all'ISP.
-![[Lezione 1-1790196393884.png|289]]
+> [!aside]
+>Tecnologie di connessione privata (in ordine di banda):
+>
+> - Modem analogico (56 kbps), **ISDN** (128 kbps), **ADSL** (1–20 Mbps), doppino in rame (10–100 Mbps), fibra ottica (50 Mbps–40 Gbps, tramite **ONT** senza (de)modulazione).
+> 
+> ---
+> 
+> ![[Lezione 1-1790196393884.png|200]]

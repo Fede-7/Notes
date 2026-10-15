@@ -1,84 +1,139 @@
-# Lezione 4: Il livello applicazione: HTTP
+# Application Layer HTTP
 
 ## Web e HTTP
 
-Fino ai primi anni '90 Internet era usato principalmente da ricercatori, accademici e studenti universitari, per accedere a host remoti (Telnet), trasferire file (FTP), ricevere e inviare notizie ed e-mail. Queste applicazioni erano (e restano) utilissime, ma Internet restava essenzialmente sconosciuto fuori dalla comunità accademica. Nei primi anni '90 il **World Wide Web** fu la **prima applicazione di Internet** a conquistare il grande pubblico.
+Fino ai primi anni '90 Internet era usato principalmente da ricercatori, accademici e studenti (Telnet per il login remoto, FTP per i file, e-mail); il **World Wide Web**, nei primi anni '90, fu la prima applicazione che catturò il grande pubblico.
 
-Il **World Wide Web** (WWW, o semplicemente Web) è una **raccolta di informazioni** — documenti, immagini, video, audio, ecc. — accessibile su Internet tramite un protocollo specifico: l'**HyperText Transfer Protocol** (HTTP). La comunicazione basata su HTTP è tipicamente **client-server**: un **programma client** traduce le richieste dell'utente in messaggi HTTP (è implementato nei **browser**, come Chrome, Firefox, Edge e Safari), mentre un **programma server** esegue la richiesta HTTP e restituisce una risposta HTTP. HTTP definisce principalmente la **struttura dei messaggi** e come client e server li scambiano; il Web e i suoi protocolli **fanno da piattaforma** per le applicazioni web: YouTube, webmail, gran parte delle app mobile e i social network.
+> [!def] World Wide Web
+> **Insieme di informazione** (documenti, immagini, video, audio, ecc.) accessibile su Internet secondo il protocollo **HTTP** (*HyperText Transfer Protocol*).
+
+La comunicazione HTTP è tipicamente **client-server**:
+
+- Un programma client traduce le richieste dell'utente in messaggi HTTP: è il **browser** (Chrome, Firefox, Edge, Safari, ecc.).
+- Un programma server esegue le richieste HTTP e restituisce le **risposte** HTTP.
+
+HTTP definisce principalmente due cose:
+
+- La **struttura dei messaggi**.
+- **Come client e server si scambiano** tali messaggi.
+
+Il Web e i suoi protocolli sono la piattaforma per applicazioni web-based (YouTube, web-mail, app mobili, social network). HTTP evolve continuamente per bilanciare affidabilità e prestazioni.
 
 ## URL
 
-Le informazioni sul Web si chiamano **risorse** (o oggetti) e sono identificate da un **Uniform Resource Locator** (URL), una stringa così composta:
+> [!def] URL
+> **Uniform Resource Locator**: stringa che identifica una risorsa (o oggetto) sul Web, con la struttura `[protocol]://[usrinfo@][host][:port][/path][?query][#fragment]`.
 
-```
-[protocollo]://[usrinfo@][host][:porta][/percorso][?query][#frammento]
-```
+I campi del URL:
 
-Dove `[protocollo]` è il protocollo da usare per accedere alla risorsa (HTTP, HTTPS, FTP, ecc.); `[usrinfo]` (opzionale) sono le credenziali utente (username e password seguiti da @), **largamente deprecato** per motivi di sicurezza; `[host]` è il nome o l'indirizzo IP del server; `[porta]` (opzionale) è la porta da usare, spesso dedotta dal protocollo; `[percorso]` è il percorso della risorsa sul server; `[query]`, preceduta da `?`, specifica eventuali richieste; `[frammento]`, preceduto da `#`, identifica un elemento nella risorsa (es. una sezione).
+- **`[protocol]`**: protocollo da usare per accedere alla risorsa (`HTTP`, `HTTPS`, `FTP`, ecc.).
+- **`[usrinfo]`** (opzionale): informazioni utente come username e password seguite da `@` (es. `username:password@`); per lo più deprecato per ragioni di sicurezza.
+- **`[host]`**: nome o indirizzo IP del server.
+- **`[port]`** (opzionale): porta da usare, spesso dedotta dal protocollo.
+- **`[path]`**: percorso della risorsa nel server (es. `/path/to/resource`).
+- **`[query]`**: preceduta da `?`, specifica possibili richieste.
+- **`[fragment]`**: preceduta da `#`, identifica un elemento nella risorsa (es. un punto di un formulario).
 
-### Esempi
+Pagine e oggetti:
 
-La maggior parte delle pagine Web è costituita da un file **HTML base** e riferimenti ad altri **oggetti** (immagini, video, ecc.): una pagina con testo HTML e cinque immagini JPEG, ad esempio, ha sei oggetti — il file HTML base più le cinque immagini.
+- Le pagine Web consistono di un **file HTML** (*HyperText Markup Language*) di base e riferimenti a oggetti aggiuntivi (immagini, video, Java applet, ecc.).
+- Una pagina con testo HTML e cinque immagini JPEG contiene **6 oggetti**: il file base più le 5 immagini.
+- La URL `http://www.someSchool.edu/someDepartment/picture1.gif` si legge: `http` protocollo, `www.someSchool.edu` hostname, `/someDepartment/picture1.gif` percorso dell'oggetto.
+- Una query reale come `https://en.wikipedia.org/w/index.php?title=SSC_Napoli` si legge: `https` protocollo, `en.wikipedia.org` hostname, `/w/index.php` percorso, `?title=SSC_Napoli` query; equivale alla pagina `https://en.wikipedia.org/wiki/SSC_Napoli`.
 
-```
-http://www.someSchool.edu/someDepartment/picture1.gif
-```
+## Il protocollo HTTP
 
-Qui `http` è il **protocollo**, `www.someSchool.edu` l'**hostname** e `/someDepartment/picture1.gif` il **percorso** dell'oggetto. Un esempio reale di query:
+HTTP definisce come i client Web richiedono oggetti (es. pagine Web) ai server Web e come i server li trasferiscono ai client.
 
-```
-https://en.wikipedia.org/w/index.php?title=SSC_Napoli
-```
+- Quando l'utente chiede un oggetto (es. cliccando un collegamento), il browser invia al server **messaggi di richiesta HTTP** per gli oggetti della pagina.
+- Il server riceve le richieste e risponde con **messaggi di risposta** che contengono gli oggetti.
 
-dove `https` è il protocollo, `en.wikipedia.org` l'hostname, `/w/index.php` il percorso della pagina e `?title=SSC_Napoli` la query; in questo caso equivale a chiedere la pagina `https://en.wikipedia.org/wiki/SSC_Napoli`.
+> [!info] HTTP e livello trasporto
+> HTTP usa **TCP** come protocollo di trasporto sottostante; dalla versione **HTTP/3** (2022) può usare anche **UDP**, e circa il 30% del traffico HTTP complessivo viaggia su UDP.
 
-## HTTP
+- Il client prima **inizializza la connessione** con il server; stabilita la connessione, browser e server comunicano attraverso le rispettive interfacce **socket**: il client invia richieste nella propria socket e riceve risposte dalla propria socket; analogamente il server riceve richieste e invia risposte nella propria socket.
+- Storicamente si usava TCP per i suoi servizi, prima di tutto il **trasferimento affidabile**: TCP garantisce che i messaggi arrivino integri a destinazione (se possibile).
+- I servizi di TCP possono però rallentare la comunicazione, quindi HTTP/3 usa anche UDP: si stima che sia circa il **30% più veloce**; si affida a **QUIC** (*Quick UDP Internet Connection*), che implementa l'affidabilità sopra UDP.
+- Qui si vede il vantaggio dell'architettura a livelli: le applicazioni HTTP **non si preoccupano** di raggiungibilità o perdita di dati, delegando il lavoro ai livelli inferiori, e risultano più semplici (logicamente e computazionalmente).
 
-HTTP definisce come i client Web chiedono oggetti (es. pagine) ai server Web e come i server li trasferiscono ai client. Quando l'utente chiede un oggetto (es. cliccando su un hyperlink), il **browser** invia messaggi di richiesta HTTP per gli oggetti della pagina al server, che riceve le richieste e risponde con messaggi HTTP contenenti gli oggetti. HTTP **evolve continuamente** per soddisfare i requisiti (affidabilità vs prestazioni) del networking moderno: HTTP/1.0 (1996), HTTP/1.1 (1997), HTTP/2 (2015), HTTP/3 (2022).
+## Stateless
 
-### Protocollo di trasporto
+> [!def] Stateless
+> **Proprietà** delle applicazioni HTTP: il server **non mantiene informazioni** sull'interazione (sequenza di richieste/risposte) con un client specifico.
 
-HTTP usa principalmente **TCP** come trasporto, ma dal 2022 (HTTP/3) può usare anche UDP: circa il 30% del traffico HTTP complessivo è oggi su UDP. Il client HTTP **per prima cosa apre una connessione** con il server; stabilita la connessione, browser e server comunicano tramite le proprie **interfacce socket**: il client invia richieste HTTP nel suo socket e riceve risposte dal suo socket, mentre il server fa viceversa.
-
-Storicamente HTTP usava TCP per i suoi servizi utili, in particolare il **trasferimento affidabile dei dati**: TCP garantisce che richiesta e risposta arrivino integre a destinazione (se possibile). Tuttavia i servizi TCP possono rallentare la comunicazione, quindi le versioni recenti usano anche UDP, con una stima di circa il 30% di velocità in più rispetto alla sola comunicazione TCP; questo si basa sul protocollo **QUIC** (*Quick UDP Internet Connection*), che **implementa l'affidabilità sopra UDP**. Qui si vede uno dei **grandi vantaggi dell'architettura a livelli**: le applicazioni HTTP non devono preoccuparsi di raggiungibilità o perdita di dati, quindi possono essere **più semplici** (logicamente e computazionalmente), delegando gran parte del lavoro allo stack inferiore.
-
-### Assenza di stato (statelessness)
-
-La semplicità è fondamentale per server HTTP che gestiscono migliaia di richieste al secondo: in media un server esegue circa 1000 richieste HTTP al secondo, e i grandi motori di ricerca ricevono centinaia di migliaia di query al secondo. Le applicazioni HTTP sono tipicamente **stateless**: il server non mantiene informazioni sull'interazione (sequenza di richieste/risposte) con un client specifico. Se un client chiede due volte di seguito lo stesso oggetto, il server non considera la richiesta ridondante: **reinvia semplicemente l'oggetto**, avendo completamente dimenticato il passato. Non tutte le applicazioni sono però senza stato: diverse sono **stateful**.
+- Se un client chiede due volte lo stesso oggetto, il server non considera la richiesta ridondante: reinvia l'oggetto, avendo "dimenticato" il passato.
+- La semplicità è importante per server che gestiscono molti riferimenti al secondo (in media ~1000 richieste/s; i grandi motori di ricerca ricevono centinaia di migliaia di query al secondo).
+- Non tutte le applicazioni sono stateless: diverse sono invece **stateful**.
 
 ## Connessioni persistenti e non persistenti
 
-In molte applicazioni client e server comunicano per un periodo esteso, scambiando coppie richiesta-risposta multiple (una dietro l'altra, a intervalli regolari o intermittenti). Con un protocollo orientato alla connessione (TCP o QUIC) si possono usare **connessioni persistenti**, in cui tutte le richieste e le risposte corrispondenti passano sulla stessa connessione, oppure **connessioni non persistenti**, in cui per ogni coppia richiesta-risposta si stabilisce una nuova connessione. Oggi le applicazioni HTTP usano di default connessioni persistenti, ma client e server possono essere configurati diversamente; le prime versioni (HTTP 1.0) usavano non-persistenti di default.
+In molte applicazioni client e server comunicano per un periodo esteso scambiando più coppie richiesta-risposta (back-to-back, periodiche o intermittenti). Con un protocollo connection-oriented (TCP o QUIC) si hanno due modalità:
 
-### Esempio di connessione non persistente
+- **Connessione persistente**: tutte le richieste e le relative risposte sono inviate sulla **stessa connessione**.
+- **Connessione non persistente**: per ogni coppia richiesta-risposta si stabilisce una **nuova connessione**.
 
-Nella connessione non persistente la connessione si chiude ogni volta che una richiesta è servita (es. un oggetto inviato). Si consideri, su TCP, una pagina composta da un file HTML base e 10 immagini JPEG, tutti e 11 gli oggetti sullo stesso server, all'URL `http://www.someschool.edu/someDepartment/home.index`. La connessione avviene così:
+Per impostazione predefinita le applicazioni HTTP odierne usano connessioni persistenti, ma client e server possono essere configurati per la modalità non persistente; le prime versioni di HTTP (1.0) usavano di default la non persistenza.
 
-1. Il **processo client HTTP apre una connessione TCP** verso il server sulla porta 80 (porta di default di HTTP); si avranno due socket, uno al client e uno al server.
-2. Il **client invia un messaggio di richiesta HTTP** tramite il proprio socket, includendo il percorso `/someDepartment/home.index`.
-3. Il **processo server riceve la richiesta**, **recupera** l'oggetto (da RAM o disco), lo **incapsula** in un messaggio di risposta HTTP e lo **rimanda** al client tramite il proprio socket.
-4. Il **server chiede a TCP di chiudere** la connessione; TCP la terminerà (più tardi) solo quando sarà certo che il client ha ricevuto la risposta integra (affidabilità).
-5. Il **client riceve la risposta**; la **connessione TCP termina**. Il messaggio indica che l'oggetto è un file HTML: il client lo estrae, esamina il file e **trova i riferimenti alle 10 immagini JPEG**.
-6. I primi quattro passi **si ripetono** per ciascuno degli oggetti JPEG referenziati.
+### Connessione non persistente
 
-Poiché la connessione non persiste tra oggetti diversi, servono **11 connessioni TCP** (e 11 coppie di socket) per l'intera pagina, e gli elementi possono arrivare in momenti diversi. Si noti che HTTP **definisce solo il protocollo di comunicazione** tra programma client e programma server, non come i contenuti sono visualizzati: la visualizzazione **dipende dal browser**, e due browser possono interpretare (e mostrare) la stessa pagina in modo diverso, ad esempio attendendo il caricamento completo o mostrandola progressivamente.
+> [!aside]
+> In una connessione non persistente la connessione si chiude a ogni richiesta servita (es. a ogni oggetto inviato). La sequenza su TCP per una pagina con file HTML base e 10 immagini JPEG (11 oggetti sullo stesso server):
+> 
+> 1. Il processo client HTTP inizializza la connessione TCP verso il server sulla porta 80 (porta di default di HTTP): una socket al client e una al server.
+> 2. Il client invia il messaggio di richiesta HTTP con il percorso `/someDepartment/home.index`.
+> 3. Il server riceve la richiesta, recupera l'oggetto (da RAM o disco), lo incapsula in un messaggio di risposta e lo invia tramite la propria socket.
+> 4. Il server chiede a TCP di chiudere la connessione; TCP la termina solo dopo aver certificato che il client ha ricevuto la risposta integra (affidabilità).
+> 5. Il client riceve la risposta, estrae il file HTML e trova i riferimenti alle 10 immagini JPEG.
+> 6. I primi quattro passi si ripetono per ciascuno degli oggetti referenziati.
+> 
+> ---
+> 
+> ![[Lezione 4-1792081943365.webp|150]]
 
-Le connessioni multiple possono stabilirsi in **sequenza** o in **parallelo**: nell'esempio, noto che servono 10 JPEG, possiamo scaricarle tutte in parallelo. I browser moderni permettono di **configurare** il grado di parallelismo: la maggior parte apre 5-10 connessioni TCP parallele, ognuna per una transazione richiesta-risposta. Il parallelismo **riduce il tempo di risposta ma aumenta il costo computazionale**; nonostante il parallelismo, stabilire più connessioni TCP induce comunque un significativo **overhead di tempo**.
 
-### RTT (Round-Trip Time)
+> [!example]
+> - Servono **11 connessioni TCP** (e 11 paia di socket) per trasferire l'intera pagina, quindi gli elementi possono arrivare in momenti diversi.
+> - Le connessioni possono essere stabilite in **sequenza o in parallelo**: ricevuta la pagina base, si possono scaricare in parallelo tutte le immagini; i browser aprono tipicamente 5–10 connessioni TCP parallele, ciascuna per una transazione richiesta-risposta.
+> - Il parallelismo **accorcia il tempo di risposta** ma **aumenta il costo computazionale**, e stabilire più connessioni TCP può introdurre comunque un overhead significativo.
+> - HTTP definisce solo il protocollo di comunicazione tra programma client e programma server, **non come i contenuti sono visualizzati**: la resa dipende dal browser (due browser possono interpretare la stessa pagina in modo diverso).
 
-È difficile stimare i tempi con precisione su Internet; possiamo però stimare l'overhead per completare una richiesta HTML in termini di **round-trip time** (RTT), cioè il tempo che un piccolo pacchetto impiega per andare dal client al server e tornare al client. Quando l'utente clicca su un hyperlink, il browser apre una connessione con il server. Con una richiesta TCP (orientata alla connessione), per stabilire la connessione si esegue un **three-way handshake**: il client invia un piccolo segmento TCP al server per richiedere la connessione, il server conferma e risponde con un piccolo segmento TCP, e il client conferma a sua volta.
+### RTT e tempi di risposta
 
-Le prime due parti dell'handshake richiedono **un RTT**; in HTTP il client invia il messaggio di richiesta insieme alla terza parte dell'handshake (l'acknowledgment). Arrivata la richiesta, il server invia il file HTML: questa richiesta/risposta consuma **un altro RTT**. In grossolanità, il tempo di risposta totale è quindi **2 RTT più il tempo di trasmissione** del file HTML da parte del server. Un handshake simile avviene anche alla **chiusura** della connessione.
+> [!def] RTT
+> **Round-Trip Time**: tempo che un pacchetto piccolo impiega per andare dal client al server e tornare al client.
 
-### Connessioni persistenti
+> [!aside]
+> - Per stabilire una connessione TCP si esegue il **three-way handshake**: il client invia un segmento TCP per richiedere la connessione; il server risponde con un segmento di acknowledgement; il client conferma al server.
+> - Dalla prospettiva dell'RTT servono **2 RTT** per stabilire la connessione (senza perdite); un handshake simile avviene anche alla chiusura.
+> - Le prime due parti del handshake consumano 1 RTT; il client invia la richiesta HTTP **insieme alla terza parte** del handshake (l'acknowledgment); arrivata la richiesta, il server invia il file HTML, consumando un altro RTT.
+> - Il **tempo totale di risposta** è circa **2 RTT più il tempo di trasmissione** del file HTML da parte del server.
+> 
+> ---
+> 
+> ![[Lezione 4-1792082066036.webp|200]]
 
-Nelle connessioni persistenti il server **lascia aperta** la connessione TCP dopo aver inviato una risposta: richieste e risposte tra lo stesso client e server passano sulla stessa connessione, quindi un'intera pagina Web (file HTML + 10 immagini dell'esempio) può essere inviata su **una sola connessione TCP persistente**. Anche **più pagine Web** sullo stesso server possono essere inviate allo stesso client su una sola connessione persistente. Così si risparmiano grossolanamente **2-4 RTT per oggetto**.
+### Connessione persistente
 
-### Pipelining
+- Il server **lascia aperta** la connessione TCP dopo aver inviato una risposta.
+- Un'intera pagina Web (file HTML e oggetti referenziati) e anche più pagine dello stesso server verso lo stesso client viaggiano su **una sola** connessione persistente.
+- Il risparmio è di circa **2–4 RTT per oggetto**.
 
-Con il **pipelining** le richieste di oggetti possono essere fatte una dietro l'altra, senza attendere le risposte alle richieste pendenti. Dagli ultimi anni (da HTTP/2) richieste e risposte multiple possono essere intervallate nella stessa connessione, ed esiste anche un meccanismo per dare priorità a richieste e risposte nella connessione. Le connessioni persistenti **con pipelining sono la modalità di default** di HTTP.
+**Pipelining**: le richieste degli oggetti possono essere fatte back-to-back, senza attendere le risposte; da HTTP/2 richieste e risposte multiple possono essere **interleave** sulla stessa connessione, con meccanismi per **prioritizzare** richieste e risposte. Connessione persistente con pipelining è la modalità di default di HTTP.
 
-### Confronto: persistenti vs non persistenti
+![[Lezione 4-1792082164482.webp|200]]
 
-Le connessioni **persistenti** sono più veloci (soprattutto con il pipelining) e richiedono meno risorse (soprattutto memoria), ma sono più complesse da implementare; inoltre la connessione può restare aperta inutilizzata, quindi tipicamente il server HTTP la chiude dopo un certo tempo di inattività (*timeout*). Le connessioni **non persistenti** sono facili da implementare e coerenti con la statelessness di HTTP, ma richiedono più risorse — per ogni connessione vanno allocati buffer TCP e mantenute variabili TCP sia nel client che nel server — e sono più lente, con 1-2 RTT aggiuntivi per richiesta; le connessioni, infine, non possono restare aperte.
+### Confronto persistente vs non persistente
+
+**Persistente**:
+
+- Più **veloce**, soprattutto con pipelining.
+- Richiede **meno risorse** (soprattutto memoria).
+- Più **complessa** da implementare, soprattutto con pipelining.
+- La connessione può restare aperta anche inutilizzata: il server la chiude dopo un **timeout** di inattività.
+
+**Non persistente**:
+
+- **Facile** da implementare e coerente con la *statelessness* di HTTP.
+- Richiede più risorse: per ogni connessione si allocano buffer TCP e variabili TCP sia al client sia al server.
+- Più **lenta**: 1–2 RTT aggiuntivi per richiesta.
+- Le connessioni non possono restare aperte.
