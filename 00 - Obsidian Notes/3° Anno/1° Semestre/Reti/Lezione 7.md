@@ -104,17 +104,34 @@ Un unico server DNS centralizzato non avrebbe senso: lo space DNS è partizionat
 > [!def] Zona
 > **Dominio**: un nodo dell'albero DNS e tutti i suoi discendenti (gerarchia di naming). **Zona**: la porzione di quel dominio gestita dalla **stessa autorità DNS**; delegando un sottodominio si crea una nuova zona, che però resta parte del dominio padre (es. se `cs.unina.it` è delegata, diventa una zona separata restando parte del dominio `unina.it`). Dominio = gerarchia di naming; zona = autorità amministrativa.
 
+### Name resolution
+
 La **risoluzione dei nomi** (name resolution) procede così:
 
 1. L'host interroga un **server DNS locale**.
 2. Se il dominio cade sotto la giurisdizione (zona) del server locale, viene restituito un record **authoritative**.
 3. Altrimenti il server locale gestisce la query **ricorsivamente** e inoltra query remote: se il server DNS interrogato ha l'indirizzo lo restituisce, altrimenti restituisce il name server di una **zona più bassa**; il processo continua **iterativamente** fino a trovare l'indirizzo.
 
+#### Query ricorsive e iterative
+
+- **Query ricorsiva**: chi viene interrogato deve produrre la risposta finale, o un errore; chi chiede aspetta e non fa nulla.
+- **Query iterativa**: la risposta è o la risposta, o un *referral* al server successivo; chi chiede continua a lavorare.
+
+Suddivisione dei ruoli:
+
+- L'**host** chiede una volta, ricorsivamente: una query fuori, un indirizzo dentro.
+- Il **server locale** fa il percorso, iterativamente, un server alla volta (**recursive DNS resolver**).
+- I server **root, TLD e authoritative** rispondono normalmente in modo iterativo: restituiscono una risposta autoritativa o un referral, invece di fare ricorsione per il client.
+
+#### Root server
+
 Sui **root server**:
 
 - Sono il punto di partenza quando non si ha alcuna informazione.
 - Sono **13**, da `a.root-servers.net` a `m.root-servers.net`, altamente replicati.
 - Sono molto occupati, quindi in genere restituiscono informazioni su zone più basse, non sui singoli record.
+
+---
 
 Sui tipi di query e record:
 

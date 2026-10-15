@@ -43,11 +43,11 @@ Entrambe le scelte sono cruciali: è difficile modificarle quando lo sviluppo è
 > 
 > ---
 > 
-> ![[5b6c036d261169026d2dd19dd2ef13fceae45724851f490c675bd922d072b293.png|200]]
+> ![[5b6c036d261169026d2dd19dd2ef13fceae45724851f490c675bd922d072b293.png|100]]
 
 Nell'architettura logica, layer e partizioni si combinano: i layer dividono il sistema lungo la dimensione dell'astrazione, le partizioni lungo la dimensione funzionale.
 
-![[462b9c3fc06a5699505d54e7548eb4424f82086702a54eaaddfb140bb7e34e48.png|350]]
+![[462b9c3fc06a5699505d54e7548eb4424f82086702a54eaaddfb140bb7e34e48.png|300]]
 
 ## L'architettura a livelli
 
@@ -83,7 +83,7 @@ Le regole di conoscenza sono asimmetriche.
 - I client chiamano il server, che realizza alcuni servizi e restituisce il risultato; i client conoscono l'interfaccia del server, i server non conoscono le interfacce dei client.
 - La risposta è in generale immediata; gli utenti interagiscono solo con il client.
 
-![[250086ab7686895d396fb5fe130641383849f45554585e507c9db53ba6a2626a.png|300]]
+![[250086ab7686895d396fb5fe130641383849f45554585e507c9db53ba6a2626a.png|200]]
 
 ## L'architettura a repository
 
@@ -92,7 +92,7 @@ Le regole di conoscenza sono asimmetriche.
 
 Il flusso di controllo è dettato o dal repository (un cambiamento nei dati memorizzati) o dai sottosistemi (flusso di controllo indipendente). Esempi tipici: i database management systems e i compilatori moderni.
 
-![[b2ba2a73c8a8997c4100d5965f35933b857b190dbf33732384c084f8e64e4ed0.png|300]]
+![[b2ba2a73c8a8997c4100d5965f35933b857b190dbf33732384c084f8e64e4ed0.png|200]]
 
 ### Vantaggi del repository
 
@@ -116,7 +116,7 @@ Le architetture three-tier sono state introdotte negli anni Novanta e trattano l
 - **Livello 2 — business logic**: processamento dei dati.
 - **Livello 3 — interfaccia utente**: presentazione dei dati, servizi.
 
-![[037291eff6d670a161d588af6de5eeea9e331fa5b06f37f9748610083bba0811.png|300]]
+![[037291eff6d670a161d588af6de5eeea9e331fa5b06f37f9748610083bba0811.png|200]]
 
 Ogni livello ha obiettivi e vincoli di design propri, e nessun livello fa assunzioni sulla struttura o sull'implementazione degli altri: il livello 2 non assume nulla sulla rappresentazione dei dati né sull'implementazione dell'interfaccia utente, e il livello 3 non assume nulla su come opera la business logic.
 
@@ -144,7 +144,7 @@ Le architetture **n-tier** sono l'evoluzione delle 3-tier su N livelli e permett
 - **Infrastructure services**: forniscono funzionalità supplementari alle componenti dell'applicazione (messaging, supporto alle transazioni).
 - **Data layer**: il livello dei dati dell'applicazione.
 
-![[b19cabbfdb75bba004ec23b9377bdeaecb99a1a0a7a4cd3c70814d62b14404dc.png|350]]
+![[b19cabbfdb75bba004ec23b9377bdeaecb99a1a0a7a4cd3c70814d62b14404dc.png|200]]
 
 ## La Service-oriented Architecture
 
@@ -154,7 +154,7 @@ Le architetture **n-tier** sono l'evoluzione delle 3-tier su N livelli e permett
 - Molti server possono essere coinvolti nell'erogazione dei servizi.
 - Una SOA è in genere più facile da scalare quando la domanda cresce ed è resiliente ai guasti.
 
-![[9f93dadded8e37f55f48b10a8f61695b026f16a7b5d7370e9e803e5dd2c33fca.png|350]]
+![[9f93dadded8e37f55f48b10a8f61695b026f16a7b5d7370e9e803e5dd2c33fca.png|200]]
 
 ## Gli stili architetturali
 

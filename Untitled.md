@@ -1,7 +1,5 @@
 # Lezione 7 Application Layer DNS
 
-<<FINIRE DI CORREGGERE>>
-
 ## Name server e zone
 
 Un unico server DNS centralizzato non avrebbe senso: lo name space DNS è partizionato in **zone non sovrapposte**; il partizionamento spetta all'amministratore della zona.

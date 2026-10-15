@@ -47,7 +47,7 @@ Un server fisico consiste di risorse hardware, un sistema operativo e uno o più
 
 Su ogni computer virtualizzato si installa un normalissimo sistema operativo, che non ha modo di sapere se sta funzionando su un computer reale o virtuale.
 
-![[3206b1bbd2dc71f527f86e6b7e2106f2cf7032953251b9e3d7317d51ab0c3b94.png|350|200]]
+![[3206b1bbd2dc71f527f86e6b7e2106f2cf7032953251b9e3d7317d51ab0c3b94.png|300]]
 
 ### Le proprietà delle macchine virtuali
 
