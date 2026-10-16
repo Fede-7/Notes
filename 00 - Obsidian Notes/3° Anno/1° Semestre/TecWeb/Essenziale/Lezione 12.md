@@ -52,8 +52,6 @@ Finora abbiamo imparato le tecnologie core del web — **HTML**, **CSS** e **Jav
 - **Dinamicità nel browser**: il dinamismo dato da JavaScript avviene interamente dentro il browser.
 - **Documento identico**: ogni richiesta a una stessa pagina riceve sempre lo stesso documento identico, servito dal **document root** del server.
 
-![[4425226243ac7cba6e4e68c6f6e4864b6ccc6901915afceff90c293130c436c3.jpg|300]]
-
 ![[Pasted image 20261016111438.jpg|300]]
 
 ### Limitazioni del web statico
@@ -77,8 +75,6 @@ Un web server può fare molto più che servire file: può **generare** pagine we
 - **Parametri della richiesta**: richieste diverse, anche verso la stessa risorsa, producono pagine diverse.
 - **Contenuti sempre aggiornati**: la pagina viene costruita al momento della richiesta, non preparata in anticipo.
 
-![[2718bea27869518337fb08ab9c8706b46224e37103eefbb2655fe100dd594172.jpg|350]]
-
 ![[Pasted image 20261016111727.jpg|300]]
 
 ## CGI
@@ -96,22 +92,19 @@ Il CGI definisce come comunicano il web server e i programmi **CGI-compliant**.
 - **Server → Programma**: il server invoca il programma CGI per processarla.
 - **Ritorno**: l'output del programma torna al server, che lo invia al browser come risposta HTTP.
 
-![[9517ee3673ff11c0295b6edccc923aea5b8ffb04e8bd0eb77a718de20f5fb6cc.jpg|350]]
-
 
 ![[Pasted image 20261016111848.jpg|300]]
 
 ### Input e output del programma
 
-Il programma CGI accede ai suoi input e costruisce la risposta secondo regole precise.
-
-- **Header e query string della richiesta**: disponibili tramite **variabili d'ambiente**.
-- **Corpo della richiesta**: disponibile al programma sullo stream **stdin**.
-- **Corpo della risposta**: è l'output del programma sullo stream **stdout**.
-
-![[62452e499fa01db870ba99964c07638b618e0091470e196754b8278b82547a83c.jpg|400]]
-
-![[Pasted image 20261016112005.jpg|300]]
+> [!aside]
+> Il programma CGI accede ai suoi input e costruisce la risposta secondo regole precise.
+> 
+> - **Header e query string della richiesta**: disponibili tramite **variabili d'ambiente**.
+> - **Corpo della richiesta**: disponibile al programma sullo stream **stdin**.
+> - **Corpo della risposta**: è l'output del programma sullo stream **stdout**.
+> 
+> ![[Pasted image 20261016112005.jpg|200]]
 
 ### Primo script CGI
 
@@ -181,8 +174,5 @@ Un'applicazione PHP moderna può essere distribuita con **NGINX** come web serve
 - **NGINX**: web server che riceve le richieste HTTP in arrivo e le smista.
 - **Pool di worker**: PHP-FPM gestisce un pool di processi worker che eseguono il codice PHP.
 - **Comunicazione**: NGINX inoltra a PHP-FPM le richieste PHP via TCP sulla porta `9000`; i due componenti condividono un volume di dati comune.
-
-![[602af63e2d39296b9aea515c3f12d5ad06ff8824431c6d307a229389de3dfa5f.jpg|400]]
-
 
 ![[Pasted image 20261016112143.jpg|300]]
