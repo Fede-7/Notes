@@ -1,4 +1,4 @@
-# Lezione — UML: Class Diagram e Sequence Diagram
+# Lezione 8 UML: Class Diagram e Sequence Diagram
 
 ## Il Class Diagram e i suoi limiti
 

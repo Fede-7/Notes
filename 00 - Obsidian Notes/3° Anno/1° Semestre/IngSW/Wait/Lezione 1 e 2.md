@@ -48,7 +48,7 @@ L'obiettivo è **costruire software funzionante**, raffinando e verificando le d
 
 Le linee guida del Clean Code sono **euristiche** da valutare nel contesto, non regole assolute. Un punto critico attuale: gli sviluppatori restano responsabili della revisione e della validazione dei contributi assistiti dall'IA, anche quando il codice viene generato automaticamente.
 
-### Verifica e validazione (V&V)
+### Verifica e validazione (V\&V)
 
 La domanda alla base della V&V è: gli artefatti sviluppati soddisfano davvero i bisogni degli utenti? Si distinguono due attività complementari. La **verifica** chiede se il sistema è conforme alla sua specifica — cioè "abbiamo costruito la cosa giusta *nel modo giusto*?" — e si fa tipicamente con il testing del programma, eseguendo il software in un ambiente controllato e verificando che il comportamento sia corretto rispetto alle specifiche. La **validazione** chiede invece se il sistema soddisfa le aspettative dei clienti — "abbiamo costruito la cosa giusta?" — e si fa tipicamente definendo ed eseguendo test di accettazione.
 
