@@ -103,7 +103,8 @@ Il CGI definisce come comunicano il web server e i programmi **CGI-compliant**.
 > - **Header e query string della richiesta**: disponibili tramite **variabili d'ambiente**.
 > - **Corpo della richiesta**: disponibile al programma sullo stream **stdin**.
 > - **Corpo della risposta**: è l'output del programma sullo stream **stdout**.
-> 
+>
+>---
 > ![[Pasted image 20261016112005.jpg|200]]
 
 ### Primo script CGI
