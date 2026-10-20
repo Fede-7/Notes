@@ -25,6 +25,7 @@ cat.legs;      // 4 (dalla catena)
 snake.legs = 0; // snake ora ha una proprietà propria legs
 ```
 
+L'API standard moderna raccomandata rispetto a __proto__, ma va usata con cautela perché fa crollare le ottimizzazioni del motore JS.
 ### Costruttori e prototype
 
 - Con una **funzione costruttore** invocata con `new`, l'operatore usa `Constructor.prototype` per impostare il `[[Prototype]]` del nuovo oggetto.
