@@ -29,7 +29,7 @@ L'architettura è un tema ostico per clienti e utenti perché non è direttament
 
 Una scarsa architettura produce sistemi molto più difficili da realizzare ed evolvere, con impatti su costi e consegna di nuove funzionalità. L'**alta qualità interna** costa di più all'inizio, ma ripaga nel lungo periodo.
 
-![[0ab277368569fdb7bf483b86dd948f9b360d78b5d2ad3b1c61928a5872c8f730.jpg|350]]
+![[0ab277368569fdb7bf483b86dd948f9b360d78b5d2ad3b1c61928a5872c8f730.png|350]]
 
 ### Proprietà influenzate dall'architettura
 
@@ -57,7 +57,7 @@ Esistono tre strategie per servire più unità di lavoro.
 > 
 > ---
 > 
-> ![[64d0f7efa6bcfc6df5e52483593a9862a8e514d5147e48de72fb4fdeb71bb153.jpg|100]]
+> ![[64d0f7efa6bcfc6df5e52483593a9862a8e514d5147e48de72fb4fdeb71bb153.png|100]]
 > 
 
 > [!aside]
@@ -65,7 +65,7 @@ Esistono tre strategie per servire più unità di lavoro.
 > 
 > ---
 > 
-> ![[23c976ce8e7811e4c27f13f8e12c74f2a2dfe6f47bbbfbbe69261c51b4d4a921.jpg|100]]
+> ![[23c976ce8e7811e4c27f13f8e12c74f2a2dfe6f47bbbfbbe69261c51b4d4a921.png|100]]
 > 
 
 > [!aside]
@@ -73,7 +73,7 @@ Esistono tre strategie per servire più unità di lavoro.
 > 
 > ---
 > 
-> ![[838908feb906809fa575b40b713d7b9ffe685feb8473c1b444ffeb2c8c143e4c.jpg|100]]
+> ![[838908feb906809fa575b40b713d7b9ffe685feb8473c1b444ffeb2c8c143e4c.png|100]]
 > 
 
 ### Load balancing
@@ -85,7 +85,7 @@ Scalando orizzontalmente (o diagonalmente) è necessario un componente dedicato 
 
 Il Load Balancer instrada il traffico secondo strategie diverse: **random** (traffico diretto a un nodo casuale), **least loaded** (al nodo meno caricato), **round robin**, **Layer 4** (guarda i dettagli del livello di trasporto, es. indirizzo IP sorgente), **Layer 7** (guarda i dettagli del livello applicativo, es. cookie e sessioni).
 
-![[b40f39e7ba1b9f65f69644546ebf56dbd8eb375e7df66fcce2005866f7a18c30.jpg|300]]
+![[b40f39e7ba1b9f65f69644546ebf56dbd8eb375e7df66fcce2005866f7a18c30.png|300]]
 
 > [!warning] Limiti del load balancer
 > Un load balancer può diventare un collo di bottiglia per le prestazioni, e un singolo load balancer è un singolo punto di guasto (*single point of failure*).
@@ -121,18 +121,18 @@ L'alta disponibilità si persegue con meccanismi di *fail-over*, in due varianti
 > 
 > ---
 > 
-> ![[Lezione 19-20-1792742963622.webp|100]]
+> ![[Lezione 19-20-1792742963622.png|100]]
 
 > [!aside]
 > - **Fail-over attivo-attivo**: due o più istanze del componente esistono da subito e si dividono il lavoro (come nello scaling orizzontale); al guasto di una, le altre ne raccolgono anche la sua parte.
 > 
 > ---
 > 
-> ![[Lezione 19-20-1792742987903.webp|100]]
+> ![[Lezione 19-20-1792742987903.png|100]]
 
 > [!example]  Fault Tollerance
 > Software e dei sistemi per garantire la tolleranza ai guasti
-> ![[Lezione 19-20-1792742934556.webp]]
+> ![[Lezione 19-20-1792742934556.png]]
 
 ### Osservabilità e monitoraggio
 
@@ -160,19 +160,19 @@ Scalare orizzontalmente le istanze applicative è relativamente facile: basta un
 
 Le proprietà ACID rendono impossibile scalare orizzontalmente un RDBMS in modo semplice. Le strade percorribili sono lo scaling verticale (più risorse di calcolo sullo stesso nodo) e tecniche specifiche di replica e partizionamento.
 
-![[Lezione 19-20-1792744201866.webp|200]]
+![[Lezione 19-20-1792744201866.png|200]]
 
 #### Master-Slave
 
 Più istanze dell'RDBMS: un **master** e uno o più **slave**. Il master serve letture e scritture, replicando ogni scrittura su ciascuno slave; gli slave agiscono da repliche in sola lettura. Se il master fallisce, il sistema può continuare a operare in sola lettura (uno slave può eventualmente essere promosso). L'approccio funziona bene con molte letture e poche scritture; la replica introduce un *overhead*.
 
-![[c86882a30387c174bb7258e076b1f49be992cf034bb947d50804b31e7e2d9a67.jpg|300]]
+![[c86882a30387c174bb7258e076b1f49be992cf034bb947d50804b31e7e2d9a67.png|300]]
 
 #### Master-Master
 
 Tutte le istanze sono master e servono sia letture che scritture: per ogni scrittura i master si coordinano e sincronizzano, mentre le letture sono gestite indipendentemente. Se un master fallisce, il sistema continua a operare con gli altri; la sincronizzazione introduce un *overhead*.
 
-![[89483fa01f10f72e940dfe899beed38d504f18c16036845b159c2e253b25e56f.jpg|300]]
+![[89483fa01f10f72e940dfe899beed38d504f18c16036845b159c2e253b25e56f.png|300]]
 
 #### Federation
 
@@ -185,7 +185,7 @@ Un singolo grande database può essere suddiviso in più database per funzione (
 > 
 > ---
 > 
-> ![[3fd69e98f66a344556b2713ebc959905516a041f9019e8d7ace2aeced8ec00f2.jpg|200]]
+> ![[3fd69e98f66a344556b2713ebc959905516a041f9019e8d7ace2aeced8ec00f2.png|200]]
 > 
 
 #### Denormalizzazione
@@ -207,9 +207,9 @@ I modelli di database NoSQL sono più scalabili, al costo di rinunciare alle ver
 
 In un cluster NoSQL un aggiornamento si propaga progressivamente ai vari nodi, che per un certo tempo possono restituire valori diversi.
 
-![[7bffaeeadbba625eee0f843477e5926fb63760d27740798f30da0616bd6dab3e.jpg|300]]
+![[7bffaeeadbba625eee0f843477e5926fb63760d27740798f30da0616bd6dab3e.png|300]]
 
-![[Lezione 19-20-1792743955311.webp|300]]
+![[Lezione 19-20-1792743955311.png|300]]
 
 Esistono diversi modelli di database NoSQL.
 
@@ -286,7 +286,7 @@ Quando la complessità cresce, il monolite diventa problematico.
 > 
 > ---
 > 
-> ![[6ec3953a2307bf5d2943391de3766b6e6e4cee6f24e886deb39547115566c619.jpg|100]]
+> ![[6ec3953a2307bf5d2943391de3766b6e6e4cee6f24e886deb39547115566c619.png|100]]
 > 
 
 ### Motivazioni
@@ -321,7 +321,7 @@ Le due architetture scalano in modo diverso: i monoliti mettono tutte le funzion
 > 
 > ---
 > 
-> ![[155850a9e60b9ed8cbb365bdb0a48f132bf827d195fcb91fb952c693dcd8f004.jpg|200]]
+> ![[155850a9e60b9ed8cbb365bdb0a48f132bf827d195fcb91fb952c693dcd8f004.png|200]]
 > 
 
 L'adozione richiede di affrontare quattro punti chiave: come organizzare i team di sviluppo, come progettare i microservizi, come gestire la comunicazione tra servizi e come gestire i dati.
@@ -357,7 +357,7 @@ Nei monoliti la comunicazione tra componenti avviene tramite invocazioni di meto
 - **Sincrona**: REST (API su risorse HTTP); Apache Thrift, che supporta più protocolli (binari, basati su JSON...).
 - **Asincrona**: message queue.
 
-![[9d2598b8a060e87ed9abcd1269eae15c460d5d6f3577a1076613c7f0569ae2c4.jpg|300]]
+![[9d2598b8a060e87ed9abcd1269eae15c460d5d6f3577a1076613c7f0569ae2c4.png|300]]
 
 > [!warning] Effetto moltiplicativo del downtime
 > Le chiamate sincrone ostacolano le prestazioni: in presenza di molte chiamate sincrone, il downtime del sistema diventa il prodotto dei downtime dei singoli servizi. Occorre rendere asincrone le comunicazioni, oppure gestire i downtime.
@@ -369,12 +369,12 @@ Nei monoliti la comunicazione tra componenti avviene tramite invocazioni di meto
 > 
 > ---
 > 
-> ![[fb8fc81293f6a5d31130bf8a481d623641ed5640ed50859d67f6f22ea553e3cf.jpg|100]]
+> ![[fb8fc81293f6a5d31130bf8a481d623641ed5640ed50859d67f6f22ea553e3cf.png|100]]
 > 
 
 L'alternativa è un **singolo database per servizio**: ogni microservizio (e team) è davvero indipendente, e si abilita la **persistenza poliglotta**.
 
-![[3ea0b6ce0e8cb6dff5d0c0858ee808eb526c5a8882c89d713ae4d135b917b047.jpg|200]]
+![[3ea0b6ce0e8cb6dff5d0c0858ee808eb526c5a8882c89d713ae4d135b917b047.png|200]]
 
 Nei sistemi distribuiti garantire la consistenza forte diventa sempre più difficile: ci si può accontentare della consistenza finale, per cui a un certo punto nel futuro tutte le letture su un'entità restituiranno il valore aggiornato.
 
@@ -406,7 +406,7 @@ L'accoppiamento software è permesso e favorito dalle comunicazioni umane: se si
 > 
 > ---
 > 
-> ![[8080bc651a4a128fc1ba266d618379598f172bd4b42a6c7a330163a6f4cfced5.jpg|100]]
+> ![[8080bc651a4a128fc1ba266d618379598f172bd4b42a6c7a330163a6f4cfced5.png|100]]
 > 
 
 ### Gestire la legge di Conway

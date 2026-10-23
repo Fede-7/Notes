@@ -26,6 +26,8 @@ Node.js effettua anche del **pre-processing sulle richieste** (es. il parsing de
 > [!def] Routing
 > **Processo** che, data una richiesta HTTP, decide quale codice eseguire per servirla. Il componente che svolge questo compito è il **router**.
 
+![[Lezione 15-1792748112696.png|200]]
+
 ### Percorsi
 
 Le richieste a percorsi diversi dell'app (homepage, pagina della lista, pagina di reset, …) possono essere gestite da funzioni diverse, selezionate sull'URL della richiesta:
@@ -98,8 +100,12 @@ L'app deve produrre codice HTML da inviare nel body della risposta, così che il
 
 ### Pug
 
-> [!def] Pug
-> **Template engine** ad alte prestazioni implementato in JavaScript (port disponibili in molti altri linguaggi), con sintassi **whitespace-sensitive** (simile a Python) per scrivere template HTML, facilmente compilabili in codice HTML.
+> [!aside]
+> > [!def] Pug
+> > **Template engine** ad alte prestazioni implementato in JavaScript (port disponibili in molti altri linguaggi), con sintassi **whitespace-sensitive** (simile a Python) per scrivere template HTML, facilmente compilabili in codice HTML.
+> 
+> ---
+> ![[Lezione 15-1792748045067.png|50]]
 
 L'installazione avviene con `npm install pug`; l'uso più semplice richiede il modulo e chiama `pug.renderFile()` sul file del template, che restituisce l'HTML generato:
 
@@ -138,10 +144,15 @@ I partial inclusi (es. `partials/head.pug` con `head`, `title`, `script` e `link
 
 ### Ereditarietà dei template
 
-Nella progettazione di web application è comune un **layout comune** condiviso da tutte le pagine, che ciascuna pagina può eventualmente ridefinire in alcune parti; Pug supporta questi scenari con l'**ereditarietà dei template**, basata su due keyword:
-
-- **`block`**: blocco di template che i template figli possono sostituire; può contenere un contenuto di default.
-- **`extends`**: permette a un template di estenderne un altro e sovrascrivere alcuni dei blocchi definiti nel genitore; i blocchi non sovrascritti mostrano il contenuto di default.
+> [!aside]
+> Nella progettazione di web application è comune un **layout comune** condiviso da tutte le pagine, che ciascuna pagina può eventualmente ridefinire in alcune parti; Pug supporta questi scenari con l'**ereditarietà dei template**, basata su due keyword:
+> 
+> - **`block`**: blocco di template che i template figli possono sostituire; può contenere un contenuto di default.
+> - **`extends`**: permette a un template di estenderne un altro e sovrascrivere alcuni dei blocchi definiti nel genitore; i blocchi non sovrascritti mostrano il contenuto di default.
+> 
+> ---
+> 
+> ![[Lezione 15-1792747711309.png|200]]
 
 ```text
 //- base-layout.pug
@@ -230,9 +241,13 @@ Per salvare l'elemento serve leggere il body della richiesta ed estrarne i nomi 
 
 ### Lettura del body
 
-Il body potrebbe non essere ancora disponibile quando si processa la richiesta (l'utente ha una connessione lenta o sta caricando file grandi) e diventa disponibile più tardi. L'oggetto richiesta (`http.IncomingMessage`) estende `stream.Readable`: genera un evento **`data`** quando un nuovo chunk di dati diventa disponibile nel body e un evento **`end`** quando non c'è più dati da consumare dallo stream.
-
-![[53ce5694ed1bf12e45437f492979aeb5a5352e89965422d6036054c82b7459da.jpg|350]]
+> [!aside]
+> Il body potrebbe non essere ancora disponibile quando si processa la richiesta (l'utente ha una connessione lenta o sta caricando file grandi) e diventa disponibile più tardi. L'oggetto richiesta (`http.IncomingMessage`) estende `stream.Readable`: genera un evento **`data`** quando un nuovo chunk di dati diventa disponibile nel body e un evento **`end`** quando non c'è più dati da consumare dallo stream.
+> 
+> ---
+> 
+> ![[Lezione 15-1792750126646.png|150]]
+> 
 
 La lettura del body va quindi operata in modo asincrono, sfruttando questi due eventi:
 
@@ -271,4 +286,4 @@ function parseRequestBodyString(body) {
 
 Lo schema riassume l'organizzazione dei componenti di una web application tipica.
 
-![[0a5e74d2db0b096e7e9a7bab2e279688cd9333761bbfdbecd940147cf7c56c69.jpg|450]]
+![[Lezione 15-1792750068993.png]]
