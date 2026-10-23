@@ -57,7 +57,7 @@ Esistono tre strategie per servire più unità di lavoro.
 > 
 > ---
 > 
-> ![[64d0f7efa6bcfc6df5e52483593a9862a8e514d5147e48de72fb4fdeb71bb153.png|100]]
+> ![[64d0f7efa6bcfc6df5e52483593a9862a8e514d5147e48de72fb4fdeb71bb153.png|50]]
 > 
 
 > [!aside]
@@ -65,7 +65,7 @@ Esistono tre strategie per servire più unità di lavoro.
 > 
 > ---
 > 
-> ![[23c976ce8e7811e4c27f13f8e12c74f2a2dfe6f47bbbfbbe69261c51b4d4a921.png|100]]
+> ![[23c976ce8e7811e4c27f13f8e12c74f2a2dfe6f47bbbfbbe69261c51b4d4a921.png|50]]
 > 
 
 > [!aside]
@@ -73,7 +73,7 @@ Esistono tre strategie per servire più unità di lavoro.
 > 
 > ---
 > 
-> ![[838908feb906809fa575b40b713d7b9ffe685feb8473c1b444ffeb2c8c143e4c.png|100]]
+> ![[838908feb906809fa575b40b713d7b9ffe685feb8473c1b444ffeb2c8c143e4c.png|50]]
 > 
 
 ### Load balancing
@@ -132,7 +132,7 @@ L'alta disponibilità si persegue con meccanismi di *fail-over*, in due varianti
 
 > [!example]  Fault Tollerance
 > Software e dei sistemi per garantire la tolleranza ai guasti
-> ![[Lezione 19-20-1792742934556.png]]
+> ![[Lezione 19-20-1792742934556.png|200]]
 
 ### Osservabilità e monitoraggio
 
@@ -263,8 +263,6 @@ Tre casi d'uso tipici degli stream sono i seguenti.
 
 > [!def] Architettura monolitica
 > **Stile architetturale** in cui componenti e moduli diversi sono strettamente impacchettati in un'unica unità: singola codebase, singola unità di deployment autosufficiente, business concern accoppiati.
-
-![[bb12f096ab74cef9da68fcb2de38ab9c4a1c5bb7fc12cc5d225a5dbefdae37d4.jpg|350]]
 
 All'inizio — o per software a bassa complessità — il monolite è vantaggioso: i deployment sono facili (si costruisce un solo artefatto) e lo sviluppo è facile (singola codebase, gestione dei dati semplice).
 

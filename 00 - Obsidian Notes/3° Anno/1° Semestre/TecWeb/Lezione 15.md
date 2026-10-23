@@ -82,6 +82,7 @@ case "/css/bootstrap.css":
 ```
 
 > `function (err, data){...}` è una call-back
+
 ### Oltre il caso semplice
 
 Il routing sembra semplice, ma può crescere in complessità insieme all'app.
@@ -101,6 +102,7 @@ L'app deve produrre codice HTML da inviare nel body della risposta, così che il
 ### Pug
 
 > [!aside]
+> 
 > > [!def] Pug
 > > **Template engine** ad alte prestazioni implementato in JavaScript (port disponibili in molti altri linguaggi), con sintassi **whitespace-sensitive** (simile a Python) per scrivere template HTML, facilmente compilabili in codice HTML.
 > 
@@ -208,7 +210,7 @@ else
 
 ### Iterazioni
 
-Un task comune nell'uso dei template è iterare su sequenze di dati, con `each … in` e un ramo `else` per la sequenza vuota:
+Un task comune nell'uso dei template è iterare su sequenze di dati, con `each ... in` e un ramo `else` per la sequenza vuota:
 
 ```text
 ul
@@ -287,4 +289,4 @@ function parseRequestBodyString(body) {
 
 Lo schema riassume l'organizzazione dei componenti di una web application tipica.
 
-![[Lezione 15-1792750068993.png]]
+![[Lezione 15-1792750068993.png|300]]
