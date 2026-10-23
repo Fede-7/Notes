@@ -105,6 +105,7 @@ L'app deve produrre codice HTML da inviare nel body della risposta, così che il
 > > **Template engine** ad alte prestazioni implementato in JavaScript (port disponibili in molti altri linguaggi), con sintassi **whitespace-sensitive** (simile a Python) per scrivere template HTML, facilmente compilabili in codice HTML.
 > 
 > ---
+> 
 > ![[Lezione 15-1792748045067.png|50]]
 
 L'installazione avviene con `npm install pug`; l'uso più semplice richiede il modulo e chiama `pug.renderFile()` sul file del template, che restituisce l'HTML generato:
