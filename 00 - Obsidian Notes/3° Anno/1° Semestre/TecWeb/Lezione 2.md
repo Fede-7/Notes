@@ -18,16 +18,11 @@ I documenti tradizionali sono semplici sequenze di caratteri. Un **ipertesto**, 
 
 Un URL completo ha la forma: 
 
-![[Lezione 2 - HTTP - The Hypertext Transfer Protocol-1790354892063.png|534]]
+![[Lezione 2 - HTTP - The Hypertext Transfer Protocol-1790354892063.png|400]]
 
 ### Intestazioni delle Richieste
 
 Le intestazioni HTTP sono meccanismi per passare informazioni aggiuntive nelle richieste e nelle risposte. Un'intestazione è composta da un nome (case-insensitive) seguito da un due-punti e dal valore: `HEADER_NAME: value`. 
-
-> [!faq] nota: 
-> 
-> L'**Internet Assigned Numbers Authority (IANA)** mantiene un elenco ufficiale di intestazioni permanenti e provvisorie. È inoltre possibile definire intestazioni personalizzate. 
-> Consulta il [riferimento MDN sulle intestazioni HTTP](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers) per ulteriori dettagli.
 
 ## Risposte HTTP
 
@@ -40,7 +35,7 @@ Una risposta HTTP è composta da:
 - **Linea Vuota**: separa le intestazioni dal corpo della risposta.
 - **Corpo della Risposta (facoltativo)**: contiene la risorsa richiesta o ulteriori informazioni.
 
-> [!example] Esempio di una Risposta
+> [!example] 
 > 
 > ```http
 > HTTP/1.1 200 OK
@@ -58,17 +53,6 @@ I codici di stato indicano se una richiesta è stata completata con successo. So
 - **4xx (Errore della Richiesta)**: La richiesta non può essere elaborata come presentata (errore nel client).
 - **5xx (Errore del Server)**: Il server, o un componente intermedio come un database, ha fallito.
 
-> [!example] Esempi comuni
->  **200 OK** (successo), 
->  **301 Moved** (reindirizzamento permanente), 
->  **400 Bad Request** (richiesta malformata),
->   **403 Forbidden** (accesso negato), 
->   **404 Not Found** (risorsa non trovata),
->    **500 Application Error** (errore interno del server),
->    **503 Service Unavailable** (servizio temporaneamente non disponibile). 
->    
-> Consulta la [documentazione dettagliata](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status) per un elenco completo.
-
 ### L'Intestazione Host
 
 Una questione che sorge naturalmente è: perché le richieste HTTP includono un'intestazione **Host** quando il nome di dominio è già stato risolto in indirizzo IP dal DNS?
@@ -76,7 +60,7 @@ Una questione che sorge naturalmente è: perché le richieste HTTP includono un'
 In realtà **più nomi di host possono risolvere allo stesso IP** — ad esempio `www`, `informatica`, `biblioteca` ed `erasmus.dieti.unina.it` puntano tutti a 143.225.97.81. 
 Poiché un server HTTP può essere configurato per gestire più **virtual host**, ciascuno con la propria document root, è proprio l'header **Host** a permettergli di selezionare il virtual host corretto, poiché il server non conosce automaticamente quale dominio il client ha digitato nel browser; conosce solo l'indirizzo IP verso cui la connessione è stata stabilita.
 
-![[Lezione 2 - HTTP - The Hypertext Transfer Protocol-1790354846207.png|554]]
+![[Lezione 2 - HTTP - The Hypertext Transfer Protocol-1790354846207.png|400]]
 
 ## Caratteristica Statelessness
 
@@ -112,64 +96,8 @@ Tra i server HTTP statici più noti figurano **nginx** e **Apache httpd**.
 
 I server statici mappano le risorse richieste a file nel filesystem, secondo una configurazione decisa dal server. Tipicamente si servono i file a partire da una directory specifica, la **document root**: se questa è `/var/www/`, la richiesta `GET /webtech/hello.txt` restituisce `/var/www/webtech/hello.txt`. La root e molte altre impostazioni si definiscono nei file di configurazione dedicati del server.
 
-> [!example] Esempio: nginx in Docker
-> 
-> ```nginx
-> services:
->   nginx:
->     image: nginx:1.31.3
->     ports:
->       - "80:80"
->     volumes:
->       - ./website-book-of-programming:/usr/share/nginx/html/book-of-programming
->       - ./website-web-technologies:/usr/share/nginx/html/web-technologies
->       - ./nginx.conf:/etc/nginx/nginx.conf:ro
-> ```
-> 
-> Il file `nginx.conf` definisce due blocchi `server`, cioè due virtual host (`book-of-programming.local` e `web-technologies.local`), ciascuno con una document root diversa:
-> 
-> ```nginx
-> events {}
-> http {
->     server {
->         listen 80;
->         server_name book-of-programming.local;
->         root /usr/share/nginx/html/book-of-programming;
->     }
->     server {
->         listen 80;
->         server_name web-technologies.local;
->         root /usr/share/nginx/html/web-technologies;
->     }
-> }
-> ```
-> 
-
 ## Risoluzione DNS per Siti Web Locali
 
-Il suffisso `.local` non è un **Top-Level Domain (TLD)** che può essere acquistato pubblicamente. Per fare in modo che i nomi di dominio `book-of-programming.local` e `web-technologies.local` vengano risolti all'indirizzo IP corretto (127.0.0.1), è necessario ricorrere a un meccanismo locale. Nei sistemi operativi moderni, è possibile utilizzare il **file hosts** per ottenere questo risultato. Su Windows il file si trova in `C:\Windows\System32\drivers\etc\hosts`, mentre su Linux e macOS in `/etc/hosts`.
+Il suffisso `.local` non è un **Top-Level Domain (TLD)** che può essere acquistato pubblicamente. Per fare in modo che i nomi di dominio vengano risolti all'indirizzo IP corretto (127.0.0.1), è necessario ricorrere a un meccanismo locale. Nei sistemi operativi moderni, è possibile utilizzare il **file hosts** per ottenere questo risultato.
 
 I **risolutori DNS stub** (le componenti locali del sistema di risoluzione dei nomi) consultano questo file prima di inviare la richiesta a un risolutore ricorsivo remoto. Aggiungendo al file hosts una voce come `127.0.0.1 book-of-programming.local`, le richieste DNS per questo dominio verranno automaticamente risolte a 127.0.0.1 (localhost).
-
-> [!example] Esempio di Configurazione del File Hosts
->
-> | Indirizzo IP | Hostname |
-> |--------------|----------|
-> | 127.0.0.1 | localhost (IPv4) |
-> | ::1 | localhost (IPv6) |
-> | 127.0.0.1 | web-technologies.local |
-> | 127.0.0.1 | book-of-programming.local |
-
-## Strumenti per fare richieste HTTP
-
-### Dev tools del browser
-
-I dev tools del browser sono strumenti integrati, accessibili con **F12** o con *tasto destro → Ispeziona*, ed equivalenti tra i browser moderni. La scheda **Network** mostra le richieste HTTP effettuate: header e body di richiesta e risposta, metodo e percorso, codici di stato e un'analisi dettagliata dei tempi, dalla risoluzione DNS alla connessione, dall'invio della richiesta alla ricezione della risposta.
-
-### REST Client in VS Code
-
-L'estensione REST Client per VS Code permette di scrivere richieste HTTP in file di testo con estensione `.http` e di inviarle al volo dall'editor: un modo pratico per richieste rapide e molto utile per imparare HTTP.
-
-### Client HTTP dedicati
-
-Esistono anche client HTTP dedicati, come **Postman**, **Bruno** e **Insomnia**, che offrono una GUI per definire richieste e ispezionare risposte. Tipicamente includono funzioni avanzate per gestire collezioni di richieste e per il testing, e si rivelano utili quando si sviluppano API web.

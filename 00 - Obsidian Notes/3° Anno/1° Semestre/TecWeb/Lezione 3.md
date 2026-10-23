@@ -10,8 +10,7 @@ La **content negotiation** consente a un client di esprimere preferenze rispetto
 
 Le preferenze possono essere assegnate con un livello di priorità tramite il parametro `q` (quality factor). 
 
-> [!example] Esempio:
-> 
+> [!example] 
 > ```http
 > GET /sections/wisdom.txt HTTP/1.1
 > Host: book-of-programming.local
@@ -52,9 +51,6 @@ L'header **identity** indica l'assenza di compressione, invece, gli algoritmi pi
 
 Il beneficio della compressione aumenta con la dimensione del file, va però ricordato che comprimere e decomprimere introduce a sua volta un overhead.
 
-> [!example] Esempio:
-> Ad esempio, il file bootstrap.css, non compresso, occupa circa 280 KB; compresso con gzip scende a 44 KB, realizzando un'efficienza del 84%. 
-
 ## Caching
 
 La cache immagazzina una risposta affinché possa essere riutilizzata per richieste successive.
@@ -71,15 +67,11 @@ La cache immagazzina una risposta affinché possa essere riutilizzata per richie
 
 Il caching non è banale, perché non tutte le risposte vanno memorizzate I metodi **safe** (GET, HEAD) sono sempre cacheabili, mentre PUT e DELETE non lo sono; POST e PATCH sono teoricamente cacheabili se la risposta include header specifici, ma in pratica lo sono raramente.
 
-> [!example] Esempio:
-> Si pensi a una pagina che mostra i posti liberi di un parcheggio, il cui valore cambia continuamente. 
-> Alcune risposte sono inoltre **private**: la risposta a `GET your-bank.com/my-account` contiene i dati del proprio conto, e nessuno vuole ricevere per errore la versione in cache di quello di un altro. 
-
 ### Livelli, cache private e condivise
 
 Le risposte possono essere memorizzate in più punti lungo il percorso della richiesta, quindi una risposta può raggiungere il browser senza che il server di origine la elabori. Una cache **privata** serve un singolo utente, come la cache del browser; una cache **condivisa** può riusare la stessa risposta per più utenti, il che è appropriato per i contenuti pubblici ma non per i dati personali, che non devono mai finire per caso a un altro utente. Si noti che **se una risposta può essere memorizzata e chi può riusarla sono due decisioni distinte**.
 
-![[Lezione 3 - HTTP Rappresentazioni, Efficienza e Sicurezza-1790354943429.png|358]]
+![[Lezione 3 - HTTP Rappresentazioni, Efficienza e Sicurezza-1790354943429.png|300]]
 
 ### Il dilemma della consistenza
 
@@ -92,8 +84,6 @@ Per ogni risposta, la cache decide tre cose: se può **memorizzarla**, per quant
 ### L'header Cache-Control
 
 L'header **Cache-Control** trasporta direttive che controllano il comportamento di caching. Le direttive sono separate da virgole; alcune ammettono un valore, altre no, e i tempi sono espressi in secondi. 
-
-> Esempio: `Cache-Control: public, max-age=300, must-revalidate`.
 
 | Direttiva       | Significato                                                             |
 | --------------- | ----------------------------------------------------------------------- |
@@ -135,11 +125,11 @@ Last-Modified: Thu, 13 Aug 2026 08:15:00 GMT
 La validazione avviene tramite **conditional requests**, ovvero richieste normali che includono header di validazione aggiuntivi. 
 Quando una risposta è diventata *stale*, ma aveva un ETag o un Last-Modified, la cache può inviare una richiesta condizionale. Se la cache include l'header `If-None-Match: "article-v7"` e il server conferma che l'ETag è ancora valido, il server risponde con **304 Not Modified** (corpo vuoto), e la cache riusa il corpo memorizzato. Se la risposta è stata modificata, il server risponde con **200 OK** e il nuovo contenuto. 
 
-![[Lezione 3 - HTTP Rappresentazioni, Efficienza e Sicurezza-1790356127058.png|411]]
+![[Lezione 3 - HTTP Rappresentazioni, Efficienza e Sicurezza-1790356127058.png|300]]
 
 Analogamente, `If-Modified-Since` consente di validare basandosi sulla data di modifica.
 
-![[Lezione 3 - HTTP Rappresentazioni, Efficienza e Sicurezza-1790356148861.png|416]]
+![[Lezione 3 - HTTP Rappresentazioni, Efficienza e Sicurezza-1790356148861.png|300]]
 
 ### Caching e Content Negotiation
 
@@ -150,26 +140,14 @@ Quando il client invia una richiesta con `Accept-Language: it` non si può servi
 
 Per risolvere questo problema, i server devono utilizzare l'header `Vary` per indicare quali header di richiesta influenzano la risposta. 
 
-> [!example] Esempio
-> ```http
-> HTTP/1.1 200 OK
-> Content-Type: text/plain
-> Content-Encoding: gzip
-> Vary: Accept-Encoding
-> Cache-Control: public, max-age=300 
-> ```
-> 
-> `Vary: Accept-Encoding` comunica che la risposta varia in base all'encoding richiesto. Le cache sono indicizzate sulla combinazione di URL + valore Vary. 
-
 Ciò significa che una risposta precedente può essere riutilizzata per una richiesta successiva solo se la richiesta originale e quella attuale condividono lo stesso URL e metodo, e la richiesta attuale corrisponde all'header Vary della risposta vecchia.
 
 #### Flusso decisionale della cache
 
-Una cache, all'arrivo di una richiesta, deve innanzitutto verificare se una risposta corrispondente è già memorizzata. Se non esiste (cache miss), invia la richiesta al server di origine e, se appropriato, memorizza la risposta. Se esiste una risposta corrispondente (cache hit), verifica se è ancora fresca e riutilizzabile; in caso affermativo, la serve direttamente. Se la risposta è stale ma un validatore è disponibile, esegue una richiesta condizionale. Se il server risponde con 304, la cache riusa il corpo memorizzato. Se il server risponde con 200, archivia e serve la nuova risposta.
 - Cache view:
-	![[Lezione 3 - HTTP Rappresentazioni, Efficienza e Sicurezza-1790356390904.png|476]]
+	![[Lezione 3 - HTTP Rappresentazioni, Efficienza e Sicurezza-1790356390904.png|300]]
 - Server view:
-	![[Lezione 3 - HTTP Rappresentazioni, Efficienza e Sicurezza-1790356408018.png|478]]
+	![[Lezione 3 - HTTP Rappresentazioni, Efficienza e Sicurezza-1790356408018.png|300]]
 
 ## HTTPS e Sicurezza della Comunicazione
 
@@ -208,8 +186,7 @@ Le moderne pagine web richiedono dozzine o centinaia di richieste per essere ren
 HTTP/2 mira a risolvere queste limitazioni. I messaggi sono rappresentati utilizzando **frame binari**. Ogni coppia richiesta-risposta è assegnata a uno **stream**. I frame provenienti da stream diversi possono essere interleaved, consentendo una serializzazione efficiente su un'unica connessione TCP.
 La semantica di più richieste HTTP è preservata: le richieste concettualmente rimangono `GET /index.html`, `GET /logo.png`, `GET /style.css`. L'unica differenza è che non sono trasmesse utilizzando la sintassi testuale di HTTP/1.1.
 
-> [!example] Esempio
-> 
+> [!example]
 > Stream A: A1 A2 A3 
 > Stream B: B1 B2 
 > Stream C: C1 C2 
@@ -225,8 +202,7 @@ HTTP/2 multiplessa gli stream a livello HTTP, ma TCP non può vedere questi stre
 
 Questo collo di bottiglia è detto **Head-of-Line (HoL) Blocking**: un singolo elemento ritardato o bloccato arresta gli elementi successivi dal progredire, anche se questi ultimi sono indipendenti.
 
-> [!example] Esempio
-> 
+> [!example] 
 > Supponiamo tre streams: $A = ( A 1 , A 2 ) : B = ( B 1 , B 2 ) : C = ( C 1 , C 2 )$ 
 > <table><tr><td>TCP Segment</td><td>Conceptual HTTP/2 bytes</td><td>Result</td></tr><tr><td>Segment 1 (S1)</td><td>A1 and part of B1</td><td>Received</td></tr><tr><td>Segment 2 (S2)</td><td>Rest of B1 and C1</td><td>Lost</td></tr><tr><td>Segment 3 (S3)</td><td>B2 and A2</td><td>Received but buffered (waiting for Segment 2)</td></tr></table>
 > 

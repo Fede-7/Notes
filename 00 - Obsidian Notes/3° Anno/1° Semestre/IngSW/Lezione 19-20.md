@@ -130,8 +130,8 @@ L'alta disponibilità si persegue con meccanismi di *fail-over*, in due varianti
 > 
 > ![[Lezione 19-20-1792742987903.webp|100]]
 
-> [!example]  Sistema di volo bywire
-> 
+> [!example]  Fault Tollerance
+> Software e dei sistemi per garantire la tolleranza ai guasti
 > ![[Lezione 19-20-1792742934556.webp]]
 
 ### Osservabilità e monitoraggio
@@ -159,6 +159,8 @@ Scalare orizzontalmente le istanze applicative è relativamente facile: basta un
 ### Scalare un RDBMS
 
 Le proprietà ACID rendono impossibile scalare orizzontalmente un RDBMS in modo semplice. Le strade percorribili sono lo scaling verticale (più risorse di calcolo sullo stesso nodo) e tecniche specifiche di replica e partizionamento.
+
+![[Lezione 19-20-1792744201866.webp|200]]
 
 #### Master-Slave
 
@@ -205,7 +207,9 @@ I modelli di database NoSQL sono più scalabili, al costo di rinunciare alle ver
 
 In un cluster NoSQL un aggiornamento si propaga progressivamente ai vari nodi, che per un certo tempo possono restituire valori diversi.
 
-![[7bffaeeadbba625eee0f843477e5926fb63760d27740798f30da0616bd6dab3e.jpg|350]]
+![[7bffaeeadbba625eee0f843477e5926fb63760d27740798f30da0616bd6dab3e.jpg|300]]
+
+![[Lezione 19-20-1792743955311.webp|300]]
 
 Esistono diversi modelli di database NoSQL.
 

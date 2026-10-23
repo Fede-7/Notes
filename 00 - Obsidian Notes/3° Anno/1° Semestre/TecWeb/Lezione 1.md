@@ -1,10 +1,4 @@
 # DNS: Domain Name System
-
-> **Web Technologies — Lecture 01**
-> Università degli Studi di Napoli Federico II
-> Luigi Libero Lucio Starace, Ph.D. — luigiliberolucio.starace@unina.it
-> https://www.squids.unina.it · https://luistar.github.io · https://www.docenti.unina.it/luigiliberolucio.starace
-
 ## DNS: più di una «rubrica telefonica»
 
 - A volte il DNS viene descritto come la «rubrica telefonica» di Internet
@@ -22,17 +16,7 @@
 - I nomi DNS sono talvolta chiamati informalmente *hostname*
   - Possono non corrispondere a un host, ma a un servizio, a un punto di delega, a una policy di instradamento della posta, o semplicemente a un nodo del database DNS distribuito
   - Inoltre, lo stesso host può avere nomi DNS diversi
-
-### Esempi di nomi e gerarchia
-
-Rappresentazione gerarchica dei seguenti nomi DNS:
-
-- `ansa.it.`
-- `informatica.dieti.unina.it.`
-- `squids.unina.it.`
-- `mozilla.org.`
-- `w3.org.`
-
+  
 ## Domini, zone e delega
 
 - Un **dominio** è una parte dello spazio dei nomi (namespace)
@@ -76,79 +60,14 @@ Il DNS memorizza le informazioni come **Resource Record** (RR):
 
 ### Principali tipi di record DNS
 
-| Tipo | Scopo |
-| --- | --- |
-| A | Da nome a indirizzo IPv4 |
-| AAAA | Da nome a indirizzo IPv6 |
-| CNAME | Alias verso un nome canonico |
-| NS | Server autoritativi di una zona |
-| SOA | Identifica una zona |
-| MX | Server di posta per un dominio |
-
-### Record A/AAAA
-
-- I record A e AAAA associano un nome DNS a un indirizzo IPv4/IPv6
-- Un nome può avere entrambi i tipi, e più record dello stesso tipo
-  - Più record dello stesso tipo sono usati per il bilanciamento del carico (load balancing)
-  - I client possono usare uno qualunque degli indirizzi forniti e provarne altri in caso di fallimento di quello scelto
-- Ad esempio, `www.google.com.` ha molti record A e AAAA:
-
-| Owner name | TTL | Class | Type | Value |
-| --- | --- | --- | --- | --- |
-| www.google.com. | 286 | IN | A | 142.251.27.100 |
-| www.google.com. | 286 | IN | A | 142.251.27.101 |
-| www.google.com. | 170 | IN | AAAA | 2a00:1450:4025:1803::8b |
-| www.google.com. | 170 | IN | AAAA | 2a00:1450:4025:1803::71 |
-
-### Record CNAME
-
-- Un record CNAME indica che un nome è un **alias** di un altro nome
-- Ad esempio, se `www.squids.unina.it.` è un CNAME verso `squids.unina.it.`, il client deve ottenere i record di indirizzo per `squids.unina.it.`
-- Un CNAME punta a un altro nome DNS, non direttamente a un indirizzo IP
-
-| Owner name | TTL | Class | Type | Value |
-| --- | --- | --- | --- | --- |
-| www.squids.unina.it. | 1800 | IN | CNAME | squids.unina.it. |
-
-### Record NS
-
-- I record NS identificano i name server autoritativi di una zona
-- In una zona padre, i record NS possono anche creare la delega verso una zona figlia
-- Di seguito, i record NS per `unina.it.`:
-
-| Owner name | TTL | Class | Type | Value |
-| --- | --- | --- | --- | --- |
-| unina.it. | 1753 | IN | NS | dscna1.unina.it |
-| unina.it. | 1753 | IN | NS | dscna2.unina.it |
-
-### Record SOA
-
-- I record SOA (Start Of Authority) identificano l'inizio (apex) di una zona
-- Contengono metadati amministrativi:
-  - Server primario, numeri seriali, valori temporali
-- Ogni zona ha **esattamente un** record SOA
-- Esempi di record SOA per `unina.it.` e `dieti.unina.it.`:
-
-| Owner name | TTL | Class | Type | Value |
-| --- | --- | --- | --- | --- |
-| unina.it. | 3600 | IN | SOA | dscna2.unina.it. empty.empty. 29085 3600 600 1209600 3600 |
-| dieti.unina.it. | 3600 | IN | SOA | dscna1.unina.it. empty.empty. 114 3600 600 1209600 3600 |
-
-### Record MX
-
-- I record MX identificano il server che accetta e-mail per un dominio
-- Esempi di record MX per `unina.it.`:
-
-| Owner name | TTL | Class | Type | Value |
-| --- | --- | --- | --- | --- |
-| unina.it. | 3600 | IN | MX | 20 fmvip.unina.it. |
-| unina.it. | 3600 | IN | MX | 10 unina-it.mail.protection.outlook.com. |
-
-- Il numero è una preferenza: i valori più bassi vengono provati per primi
-- I record MX puntano a un nome di server
-  - L'indirizzo IP dovrà essere risolto a sua volta (acquisendo il record A/AAAA)
-
-
+| Tipo  | Scopo                           |
+| ----- | ------------------------------- |
+| A     | Da nome a indirizzo IPv4        |
+| AAAA  | Da nome a indirizzo IPv6        |
+| CNAME | Alias verso un nome canonico    |
+| NS    | Server autoritativi di una zona |
+| SOA   | Identifica una zona             |
+| MX    | Server di posta per un dominio  |
 
 ## DNS: gli attori
 
@@ -161,8 +80,6 @@ Come fanno i browser (o i client in generale) a passare da un nome DNS a un indi
   - Ciò può richiedere il «dialogo» con più server DNS
 - Il resolver ricorsivo restituisce il record oppure un errore
 
-
-
 ## Query ricorsive vs iterative
 
 - **Query ricorsive**: «Trova la risposta definitiva per me»
@@ -173,8 +90,6 @@ Come fanno i browser (o i client in generale) a passare da un nome DNS a un indi
   - Dal resolver ricorsivo → ai server DNS
   - Ogni server può restituire una risposta o un referral
   - Nell'iterazione, il resolver segue i referral e decide quale sia la query successiva
-
-
 
 ## Interazioni DNS: query e risposte
 
@@ -194,8 +109,6 @@ Le domande contengono tre campi principali:
 - **NAME** (il nome richiesto)
 - **CLASS** (normalmente IN per Internet — talvolta omessa)
 - **TYPE** (il tipo di record richiesto)
-
-
 
 ## Risposte DNS
 
@@ -218,8 +131,6 @@ Gli header delle risposte DNS iniziano con un **codice di stato**. I possibili c
   - **Referral.** Il blocco Authority contiene record **NS** di una zona che potrebbe sapere di più
   - **NODATA.** La risposta può confermare che il nome esiste, ma non esiste alcun record del tipo richiesto (blocco Answer vuoto)
 
-
-
 ## Esempio di risoluzione: cold-cache
 
 Il client vuole ottenere un record A per `squids.unina.it.`:
@@ -241,107 +152,38 @@ Il client vuole ottenere un record A per `squids.unina.it.`:
   - Chiamato anche **risoluzione cold-cache**
 - Il **TTL** determina per quanto tempo un record in cache può essere usato
 
+## Pratica
 
-
-## La risoluzione DNS in pratica
-
-- Vediamo la risoluzione DNS in pratica con il tool **dig**
-  - Strumento potente per analizzare query e risposte DNS
-  - Installabile su Linux/WSL (`apt install bind9-dnsutils`)
-  - L'opzione **+trace** mostra la risoluzione gerarchica completa (senza cache) dai root server fino ai server autoritativi
-- Il comando per la risoluzione completa di `squids.unina.it.` partendo dal server DNS di Google 8.8.8.8:
-
-```bash
-luigi@XPS-9520:/$ dig @8.8.8.8 squids.unina.it. +trace
-```
-
-### Tracciamento con dig: dai root ai TLD
-
-Il DNS di Google ci rimanda ai name server della radice:
-
-```bash
-.                    87203   IN      NS      i.root-servers.net.
-.                    87203   IN      NS      b.root-servers.net.
-.                    87203   IN      NS      a.root-servers.net.
-.                    87203   IN      NS      k.root-servers.net.
-.                    87203   IN      NS      c.root-servers.net.
-.                    87203   IN      NS      e.root-servers.net.
-.                    87203   IN      NS      g.root-servers.net.
-.                    87203   IN      NS      f.root-servers.net.
-.                    87203   IN      NS      m.root-servers.net.
-.                    87203   IN      NS      l.root-servers.net.
-.                    87203   IN      NS      h.root-servers.net.
-.                    87203   IN      NS      j.root-servers.net.
-.                    87203   IN      NS      d.root-servers.net.
-;; Received 239 bytes from 8.8.8.8#53(8.8.8.8) in 32 ms
-```
-
-Il root name server selezionato (`h.root-servers.net`) ci rimanda ai name server responsabili del TLD `.it`:
-
-```bash
-it.                  172800 IN    NS    a.dns.it.
-it.                  172800 IN    NS    m.dns.it.
-it.                  172800 IN    NS    r.dns.it.
-it.                  172800 IN    NS    v.dns.it.
-it.                  172800 IN    NS    dns.nic.it.
-it.                  172800 IN    NS    nameserver.cnr.it.
-;; Received 427 bytes from 198.97.190.53#53(h.root-servers.net) in 31 ms
-```
-
-Il name server `.it` selezionato (`m.dns.it`) ci rimanda ai name server responsabili del dominio di secondo livello `unina.it`, e il name server di `unina.it` (`dscna2.unina.it`) restituisce il record A richiesto:
-
-```bash
-unina.it.             3600    IN    NS    dscna1.unina.it.
-unina.it.             3600    IN    NS    dscna2.unina.it.
-;; Received 146 bytes from 217.29.76.4#53(m.dns.it) in 23 ms
-
-squids.unina.it.    1800    IN    A    143.225.131.206
-;; Received 88 bytes from 192.133.28.107#53(dscna2.unina.it) in 19 ms
-```
-
-> Nota: il DNS è usato anche per ottenere l'IP (record A) del NS selezionato, se la risposta intermedia non lo contiene già nella sezione additional!
-
-
-
-## Risoluzione DNS: troubleshooting
-
-Cosa succede se proviamo a risolvere un nome che non esiste (es. `webtechnologies.unina.it.`)?
-
-```bash
-luigi@XPS-9520:/$ dig webtechnologies.unina.it A
-
-; <<>> DiG 9.20.18-1ubuntu2-Ubuntu <<>>
-;; Got answer:
-;; ->>HEADER<<- opcode: QUERY, status: NXDOMAIN
-
-;; QUESTION SECTION:
-;webtechnologies.unina.it.        IN      A
-
-;; AUTHORITY SECTION:
-unina.it. 3600 IN SOA dscna2.u...
-```
-
-Il browser mostra l'errore «Server Not Found» (Firefox non riesce a connettersi al server `webtechnologies.unina.it`).
-
-### Caso di studio: docenti.unina
-
-- Se visitate `www.docenti.unina.it` ottenete la piattaforma che tutti conosciamo
-- Se visitate `docenti.unina.it` ottenete un errore «Server Not Found»…
-- Perché? `www.docenti.unina.it.` e `docenti.unina.it.` sono **nomi diversi**!
-  - Esiste un record A per il primo, ma non per il secondo…
-
-```bash
-luigi@XPS-9520:/$ dig www.docenti.unina.it A
-;; ->>HEADER<<- opcode: QUERY, status: NOERROR
-;; QUESTION SECTION:
-;www.docenti.unina.it.          IN   A
-;; ANSWER SECTION:
-www.docenti.unina.it.  73806   IN   A   143.225.212.48
-
-luigi@XPS-9520:/$ dig docenti.unina.it A
-;; ->>HEADER<<- opcode: QUERY, status: NOERROR
-;; QUESTION SECTION:
-;docenti.unina.it.          IN   A
-```
-
-→ Risposta **NODATA**: il nome esiste, ma non c'è alcun record A!
+> [!Lab]
+> 
+> 
+> - Con **dig**, analizziamo query e risposte DNS; l'opzione **+trace** mostra la risoluzione gerarchica completa, senza cache, dai root server fino ai server autoritativi:
+> 
+> ```bash
+> luigi@XPS-9520:/$ dig @8.8.8.8 squids.unina.it. +trace
+> ```
+> 
+> - Ogni livello rimanda ai name server del livello successivo: il DNS di Google elenca i root server, il root server selezionato rimanda ai name server del TLD `.it`, questi a quelli di `unina.it`, e infine il name server autoritativo (`dscna2.unina.it`) restituisce il record A:
+> 
+> ```bash
+> .                    87203   IN      NS      h.root-servers.net.
+> it.                  172800  IN      NS      m.dns.it.
+> unina.it.            3600    IN      NS      dscna2.unina.it.
+> squids.unina.it.     1800    IN      A       143.225.131.206
+> ```
+> 
+> - Se il nome **non esiste** (es. `webtechnologies.unina.it.`), la risposta ha status **NXDOMAIN** e il browser mostra «Server Not Found»:
+> 
+> ```bash
+> ;; ->>HEADER<<- opcode: QUERY, status: NXDOMAIN
+> ;webtechnologies.unina.it.        IN      A
+> ```
+> 
+> - Se invece il nome **esiste ma non ha record A**, la risposta è **NODATA** (status NOERROR, nessuna sezione ANSWER) — è il caso di `docenti.unina.it` rispetto a `www.docenti.unina.it`, che sono **nomi diversi**: solo il primo ha un record A, quindi il secondo restituisce «Server Not Found»:
+> 
+> ```bash
+> $ dig www.docenti.unina.it A     → NOERROR, A 143.225.212.48
+> $ dig docenti.unina.it A         → NOERROR, nessuna ANSWER SECTION
+> ```
+> 
+> > Nota: il DNS è usato anche per ottenere l'IP (record A) del NS selezionato, se la risposta intermedia non lo contiene già nella sezione additional!
