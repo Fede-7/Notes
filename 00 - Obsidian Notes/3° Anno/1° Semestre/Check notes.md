@@ -49,11 +49,10 @@ last in Notes:
     2026-10-12  : Slide Lezione 7
 
 last slide (non caricata):
-    2026-10-13  : Slide Lezione 8
+    2026-10-13  : Lezione transizione Slide 7 -> Slide 8
     2026-10-20  : Slide Lezione 8
     2026-10-22  : Slide Lezione 8
     2026-10-23  : Slide Lezione 8
     2026-10-27  : Slide Lezione 8
     
 ---
-
