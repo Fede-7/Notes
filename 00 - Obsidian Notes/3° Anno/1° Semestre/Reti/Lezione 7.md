@@ -21,7 +21,7 @@ Un repository centralizzato (tabella unica) è impossibile da gestire per il gra
 - **Distanza**: non può essere vicino a tutti: dall'altro capo del mondo ogni lookup paga il viaggio.
 - **Manutenzione**: un record per host, con host aggiunti e spostati di continuo.
 
-Il DNS è quindi **distribuito per progetto**: gerarchico, basato su domini, e da nessuna parte completo — un sistema **distribuito e decentralizzato**, ovvero **gerarchico**, **basato su domini** e **implementato tramite un database distribuito**.
+Il DNS è quindi **distribuito per progetto**: gerarchico, basato su domini, e da nessuna parte completo ; un sistema **distribuito e decentralizzato**, ovvero **gerarchico**, **basato su domini** e **implementato tramite un database distribuito**.
 
 ### Resolver
 
@@ -131,14 +131,35 @@ Sui **root server**:
 - Sono **13**, da `a.root-servers.net` a `m.root-servers.net`, altamente replicati.
 - Sono molto occupati, quindi in genere restituiscono informazioni su zone più basse, non sui singoli record.
 
----
-
 Sui tipi di query e record:
 
 - I server DNS locali gestiscono **query ricorsive** (servizio verso i propri host): restituiscono la risposta completa o un errore.
 - Molti server DNS (i più occupati, es. quelli vicini alla cima) **non gestiscono** query ricorsive.
-- I record sono **authoritative** oppure **cached**: tutte le risposte vengono mesche in cache, i record cached **scadono** (ricorda il TTL) e non provengono dal server che gestisce la zona (risposte *non authoritative*); il caching migliora le prestazioni, poiché l'indirizzo può essere restituito subito dal server locale.
+- I record sono **authoritative** oppure **cached**: tutte le risposte vengono messe in cache, i record cached **scadono** (ricorda il TTL) e non provengono dal server che gestisce la zona (risposte *non authoritative*); il caching migliora le prestazioni, poiché l'indirizzo può essere restituito subito dal server locale.
 - I root server sono interrogati solo in **assenza totale** di informazioni su un dominio; se per `cs.mit.edu` arriva una richiesta e il server ha l'indirizzo del DNS server di `mit.edu`, può interrogare direttamente quello.
+
+#### DNS caching
+
+Ogni risposta ricevuta da un resolver può essere **messa in cache** e riusata per le query successive:
+
+- La risposta di un resolver ricorsivo è **non-authoritative**: il resolver non è autoritativo per la zona interrogata, che la risposta arrivi dalla cache o sia appena risolta.
+- Vengono messi in cache **non solo gli indirizzi** (A/AAAA), ma anche i record **NS** e altre informazioni DNS: questo evita di ripetere l'intero percorso di risoluzione; gli indirizzi dei server TLD in cache fanno sì che una risoluzione di solito **parta sotto la radice**.
+- I record in cache valgono solo per il loro **TTL**, dopo il quale vanno rinfrescati.
+
+> Il caching è ciò che fa funzionare il tutto a questa scala ; e il TTL è ciò che impedisce a una copia in cache di mentire per sempre.
+
+Un resolver non parte necessariamente dalla radice: **parte dal punto noto più vicino nella gerarchia DNS**. 
+
+> [!example] 
+> Se deve risolvere `www.cs.mit.edu` e il record A/AAAA finale non è in cache, usa l'informazione già in cache **più specifica**:
+> 
+> | Informazione già in cache | La risoluzione parte da |
+> |---|---|
+> | A/AAAA per `www.cs.mit.edu` | Risposta immediata |
+> | NS per `cs.mit.edu` | Server autoritativo di `cs.mit.edu` |
+> | NS per `mit.edu` | Server autoritativo di `mit.edu` |
+> | NS per `.edu` | Server TLD `.edu` |
+> | Nessuna delegazione utile | Root server |
 
 ## Il resolver locale e i servizi aggiuntivi
 
@@ -149,14 +170,23 @@ Sui tipi di query e record:
 > - Anche Google fornisce resolver pubblici (Google Public DNS) agli indirizzi `8.8.8.8` e `8.8.4.4`.
 > - Quando un host si connette, l'ISP gli fornisce gli IP di uno o più server DNS locali, tipicamente "vicini" all'host.
 > 
+> ---
+> 
 > ![[Lezione 7-1792083897958.webp|200]]
+
+#### Stub resolver
+Un host in genere **non esegue da solo** la risoluzione DNS: sul'host agisce uno **stub resolver**, che riceve le richieste delle applicazioni e invia **una query ricorsiva** al resolver ricorsivo configurato (ISP, istituzione o servizio pubblico); il resolver ricorsivo esegue la risoluzione vera e propria e restituisce la risposta finale. Su molti sistemi Linux è un servizio DNS locale a fare da stub/forwarder: è il caso di `127.0.0.53`.
 
 Servizi aggiuntivi del DNS:
 
 - **Aliasing**: servizio che associa nomi lunghi/complicati (nomi **canonicali**) a nomi più semplici (**alias**); un host con nome complicato può avere alias mnemonici (es. `relay1.west-coast.enterprise.com` → `www.enterprise.com`); l'applicazione può comunque chiedere al DNS il nome canonico di un alias insieme all'indirizzo IP.
 - **Load distribution**: distribuzione del carico tra **server replicati** (*round-robin DNS*); i siti trafficati sono replicati su più server con indirizzi IP diversi (più IP associati a un solo nome canonico); il server può **ruotare l'ordine** degli indirizzi nelle risposte, così i client vengono distribuiti sulle repliche.
 
-Con `nslookup` si può eseguire manualmente la query iterativa fatta dal server locale, ed è possibile anche il **reverse lookup** (nome a partire dall'indirizzo).
+## Strumenti di laboratorio
+
+### `nslookup`
+
+Permette di eseguire manualmente la query iterativa normalmente effettuata dal server locale, ed effettuare anche il **reverse lookup** (dal nome all'indirizzo IP, e viceversa). Può anche interrogare uno specifico server DNS, riproducendo a mano il lavoro del resolver ricorsivo.
 
 > [!lab]
 > ```bash
@@ -176,3 +206,67 @@ Con `nslookup` si può eseguire manualmente la query iterativa fatta dal server 
 > Address: 2603:1061:14:133::1
 > ```
 
+> 👀 Da notare nell'output: la catena di *canonical name* (aliasing in azione) e il fatto che la risposta è *non-authoritative*: la query va al servizio DNS locale `127.0.0.53:53`, che la inoltra al resolver ricorsivo configurato; l'host fa una query ricorsiva, è il resolver a percorrere iterativamente la gerarchia.
+
+> [!lab] Verificare la configurazione DNS
+> ```bash
+> resolvectl status
+> # oppure
+> cat /etc/resolv.conf
+> ```
+
+### `dig` (Domain Information Groper)
+
+Oltre a `nslookup`, **`dig`** è uno strumento da riga di comando avanzato per interrogare i server DNS e ispezionare le risposte in un formato molto vicino alla struttura reale dei messaggi DNS.
+
+**Funzionalità principali:**
+- Interrogare **tipi di Resource Record specifici**: A, AAAA, NS, MX, SOA…
+- Inviare query a uno **specifico server DNS**.
+- Mostrare l'intero **percorso di delega** lungo la gerarchia con il parametro `+trace`.
+- Analizzare nel dettaglio **intestazione e flag del messaggio**:
+  - `rd` (*recursion desired*), `ra` (*recursion available*);
+  - assenza di `aa` → risposta *non-authoritative*;
+  - sezione *Question*, record della sezione *Answer* con i relativi TTL;
+  - tempo di esecuzione della query, server interrogato, protocollo e dimensione del messaggio.
+
+**Filtrare l'output:** con i flag `+noall +answer` si isola la sola sezione delle risposte.
+
+> [!info] Anatomia dell'output di `dig vatican.va`
+> L'output rispecchia la struttura del messaggio DNS (header di 12 byte + quattro sezioni):
+> - **Header**: flag `rd` richiesto e `ra` disponibile; **assenza di `aa`** → risposta *non-authoritative*;
+> - **Question**: il record richiesto;
+> - **Answer**: i resource record restituiti, con i relativi **TTL**;
+> - **Final**: tempo di esecuzione della query, server DNS contattato, protocollo e dimensione del messaggio.
+>
+> Ricorda la struttura del messaggio DNS: **header** (identificatore copiato nella risposta, così il client può associare risposte a domande, + flag: authoritative answer, recursion desired, recursion available) · **Question** (nome richiesto e tipo) · **Answer** (i record che rispondono) · **Authority** (server che "saprebbero") · **Additional** (record utili, tipicamente gli indirizzi dei server appena nominati).
+
+> [!lab] Record A con catena di CNAME
+> ```bash
+> ❯ dig +noall +answer www.mit.edu A
+> ```
+> Nella risposta compaiono **due CNAME prima dell'indirizzo**: il nome pubblicato è un alias di un altro nome, e la macchina che infine risponde appartiene a un soggetto completamente diverso. Osserva i **TTL**: l'alias è tenuto per minuti, l'indirizzo finale per pochi secondi.
+
+> [!lab] Record MX: priorità e mail server
+> ```bash
+> # Record MX: TTL, classe, preferenza (valore più basso = priorità più alta), mail server
+> ❯ dig +noall +answer mit.edu MX
+> ```
+> La RDATA di un record MX contiene **due campi**: valore di preferenza e nome del mail server; **valori più bassi = priorità più alta**.
+> 
+> ```text
+> mit.edu.   65   IN   MX   100   mit-edu.mail.protection.outlook.com.
+> ↑          ↑    ↑    ↑    ↑     ↑
+> TTL        classe TYPE pref.  mail server
+> ```
+
+> [!lab] Record NS: l'NS RRset della zona
+> ```bash
+> # Record NS: server di nome autoritativi per la zona (NS RRset)
+> ❯ dig +noall +answer mit.edu NS
+> ```
+> Una query NS può restituire **più record** che insieme formano un **NS RRset**: ciascuno identifica un name server autoritativo per la zona.
+> 
+> ```text
+> mit.edu.   1800   IN     NS     asia2.akam.net
+> └─NAME────  └─TTL   └─CLASS └─TYPE └─authoritative name server
+> ```

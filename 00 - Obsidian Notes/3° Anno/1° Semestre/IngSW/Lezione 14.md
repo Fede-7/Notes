@@ -1,4 +1,4 @@
-# Lezione 14-15 Virtualizzazione e Cloud
+# Lezione 14 Virtualizzazione e Cloud
 
 ## La virtualizzazione
 
