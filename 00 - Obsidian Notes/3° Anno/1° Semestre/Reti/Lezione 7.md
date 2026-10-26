@@ -164,6 +164,7 @@ Un resolver non parte necessariamente dalla radice: **parte dal punto noto più 
 ## Il resolver locale e i servizi aggiuntivi
 
 > [!aside]
+>
 > > [!def] Local DNS server
 > > **Server DNS locale** (o resolver): tipo di server DNS che **non appartiene strettamente** alla gerarchia, tipicamente gestito dagli ISP; fa da **proxy**, inoltrando le query dell'host alla gerarchia DNS.
 > 
