@@ -209,6 +209,8 @@ if (inet_pton(AF_INET, "143.225.5.3", &indirizzo.sin_addr) != 1)
 - Non richiede handshake di stabilimento o terminazione, quindi introduce meno overhead di TCP e può essere più veloce per piccole quantità di dati.
 - Quando una perdita occasionale di dati è accettabile, UDP fornisce una comunicazione molto rapida ed efficiente.
 
+![[lezione-8-12-programmazione-di-rete-1793193894397.webp|200]]
+
 ### `sendto()` e `recvfrom()`
 
 L'invio e la ricezione di messaggi in UDP sono eseguiti dalle funzioni `sendto()` e `recvfrom()`, che restituiscono il numero di byte inviati o ricevuti, oppure `-1` in caso di errore.
@@ -269,6 +271,75 @@ while (1) {
 
 - Il server riceve con `recvfrom()` (che riempie la struttura del mittente con IP e porta del client) e risponde con `sendto()` verso quell'indirizzo: può così rispondere anche a un client che non ha fatto il bind.
 - Il buffer di ricezione raccoglie byte: per trattarli come stringa si aggiunge il terminatore alla posizione `n`.
+
+> [!lab]
+> - Esempio Server
+> ```c
+> #include <netinet/in.h>
+> #include <arpa/inet.h>
+> #include <string.h>
+> #include <unistd.h>
+> 
+> int main(void) {
+>     int s;
+>     struct sockaddr_in addr = {0};
+>     char buf[1024];
+> 
+>     s = socket(AF_INET, SOCK_DGRAM, 0);
+> 
+>     addr.sin_family = AF_INET;
+>     addr.sin_port = htons(5200);
+>     addr.sin_addr.s_addr = htonl(INADDR_ANY);
+> 
+>     bind(s, (struct sockaddr *)&addr, sizeof(addr));
+> 
+>     while (1) {
+>         struct sockaddr_in from = {0};
+>         socklen_t flen = sizeof(from);
+> 
+>         int n = recvfrom(s, buf, sizeof(buf), 0,
+>                          (struct sockaddr *)&from, &flen);
+> 
+>         sendto(s, buf, n, 0,
+>                (struct sockaddr *)&from, flen);
+>     }
+>     
+>     close(s);
+> }
+> ```
+> 
+> - Esempio client
+> ```c
+> #include <netinet/in.h>
+> #include <arpa/inet.h>
+> #include <string.h>
+> #include <unistd.h>
+> #include <stdio.h>
+> 
+> int main(void) {
+>     int s;
+>     struct sockaddr_in addr = {0};
+>     char buf[1024] = "ciao";
+> 
+>     s = socket(AF_INET, SOCK_DGRAM, 0);
+> 
+>     addr.sin_family = AF_INET;
+>     addr.sin_port = htons(5200);
+>     inet_pton(AF_INET, "127.0.0.1", &addr.sin_addr);
+> 
+>     sendto(s, buf, strlen(buf), 0,
+>            (struct sockaddr *)&addr, sizeof(addr));
+>     
+>     int n = recvfrom(s, buf, sizeof(buf), 0, NULL, NULL);
+> 
+>     /* ... usa buf ... */
+>     buf[n] = '\0';
+>     printf("ricevuto dal server: %s\n", buf);
+> 
+>     close(s);
+> }
+> ```
+> 
 
 ### Binding implicito
 
@@ -332,25 +403,35 @@ Nella comunicazione su `localhost` lo stack di rete viene attraversato fino al l
 
 ### Buffer dei socket UDP
 
-Un socket UDP ha due buffer gestiti dal kernel: un buffer di invio per i datagram in uscita e un buffer di ricezione per quelli in arrivo.
-
-- La dimensione dei due buffer è configurabile con le opzioni `SO_SNDBUF` e `SO_RCVBUF`.
-- Ogni `sendto()` invia un datagram UDP completo: socket bloccante, attende finché il datagram può essere accettato; socket non bloccante, restituisce `-1` con `EAGAIN`/`EWOULDBLOCK` se il datagram non può essere accettato.
-- Il blocco può essere interrotto (per esempio da un segnale): anche in modalità bloccante i dati vanno controllati.
-- UDP non supporta invii parziali: il datagram completo è accettato oppure l'operazione fallisce, tutto intero o niente, anche se il payload può essere un frammento del dato applicativo.
-- Ogni `recvfrom()` recupera al più un datagram; se il buffer dell'applicazione è più piccolo del datagram ricevuto, questo è troncato e i byte in eccesso sono scartati, irrecuperabili con ricezioni successive.
-- In modalità non bloccante, se la coda è vuota la gestione si riduce a un polling (busy waiting).
+> [!aside]
+> Un socket UDP ha due buffer gestiti dal kernel: un buffer di invio per i datagram in uscita e un buffer di ricezione per quelli in arrivo.
+> 
+> - La dimensione dei due buffer è configurabile con le opzioni `SO_SNDBUF` e `SO_RCVBUF`.
+> - Ogni `sendto()` invia un datagram UDP completo: socket bloccante, attende finché il datagram può essere accettato; socket non bloccante, restituisce `-1` con `EAGAIN`/`EWOULDBLOCK` se il datagram non può essere accettato.
+> - Il blocco può essere interrotto (per esempio da un segnale): anche in modalità bloccante i dati vanno controllati.
+> - UDP non supporta invii parziali: il datagram completo è accettato oppure l'operazione fallisce, tutto intero o niente, anche se il payload può essere un frammento del dato applicativo.
+> - Ogni `recvfrom()` recupera al più un datagram; se il buffer dell'applicazione è più piccolo del datagram ricevuto, questo è troncato e i byte in eccesso sono scartati, irrecuperabili con ricezioni successive.
+> - In modalità non bloccante, se la coda è vuota la gestione si riduce a un polling (busy waiting).
+> 
+> ---
+> 
+> ![[lezione-8-12-programmazione-di-rete-1793200008929.webp|200]]
 
 ## TCP
 
 ### Dal socket UDP al modello TCP
 
-A differenza di UDP, in TCP client e server devono completare un handshake prima di trasmettere messaggi; sul lato server servono due socket distinti.
-
-- **Welcoming socket**: sempre attivo, permette ai client di eseguire l'handshake con il server.
-- **Socket client-specifico**: creato dopo l'handshake, usato da client e server per comunicare.
-- Il **three-way handshake** avviene nello strato di trasporto ed è completamente invisibile ai due programmi.
-- Una volta che il server accetta la connessione (handshake riuscito), la comunicazione passa al socket appena creato.
+> [!aside]
+> A differenza di UDP, in TCP client e server devono completare un handshake prima di trasmettere messaggi; sul lato server servono due socket distinti.
+> 
+> - **Welcoming socket**: sempre attivo, permette ai client di eseguire l'handshake con il server.
+> - **Socket client-specifico**: creato dopo l'handshake, usato da client e server per comunicare.
+> - Il **three-way handshake** avviene nello strato di trasporto ed è completamente invisibile ai due programmi.
+> - Una volta che il server accetta la connessione (handshake riuscito), la comunicazione passa al socket appena creato.
+> 
+> ---
+> 
+> ![[lezione-8-12-programmazione-di-rete-1793200099395.webp|200]]
 
 ### `connect()`
 
@@ -360,6 +441,8 @@ La connessione TCP lato client è eseguita dalla funzione `connect()`, che resti
 int connect(int socket, const struct sockaddr *address,
             socklen_t address_len);
 ```
+
+#### Parametri
 
 - **`socket`**: file descriptor del socket con cui connettersi.
 - **`address`**: puntatore a una struttura `sockaddr` con l'indirizzo del server.
@@ -371,7 +454,7 @@ int connect(int socket, const struct sockaddr *address,
 
 ### `listen()` e `accept()`
 
-L'attesa di connessioni lato server è eseguita dalle funzioni `listen()` e `accept()`, che operano in combinazione con la `connect()` del client.
+L'attesa di connessioni lato server (*wait-for-connection*) è eseguita dalle funzioni `listen()` e `accept()`, che operano in combinazione con la `connect()` del client.
 
 ```c
 int listen(int sockfd, int backlog);
@@ -379,11 +462,17 @@ int accept(int sockfd, struct sockaddr *addr,
            socklen_t *addrlen);
 ```
 
-- `listen()` marca il socket come **listening socket**, pronto ad accettare connessioni; si usa con i tipi orientati alla connessione come `SOCK_STREAM` e `SOCK_SEQPACKET`.
-- **`backlog`**: lunghezza massima della coda di connessioni pendenti, unica per tutti i client che si collegano, cioè quante connessioni completate possono attendere prima che il kernel inizi a rifiutarle o ignorarle (di solito le rifiuta).
-- `accept()` restituisce un **nuovo descrittore**, oppure `-1`: crea un nuovo socket dedicato a quella connessione, mentre il vecchio socket resta in ascolto.
-- Il secondo e terzo argomento di `accept()` identificano il client e possono essere `NULL`.
-- `accept()` blocca il processo se non vi sono connessioni in attesa; il socket può essere marcato non bloccante.
+> [!aside]
+> - `listen()` marca il socket come **listening socket**, pronto ad accettare connessioni; si usa con i tipi orientati alla connessione come `SOCK_STREAM` e `SOCK_SEQPACKET`.
+> - **`backlog`**: lunghezza massima della coda di connessioni pendenti, unica per tutti i client che si collegano, cioè quante connessioni completate possono attendere prima che il kernel inizi a rifiutarle o ignorarle (di solito le rifiuta).
+> - `accept()` restituisce un **nuovo descrittore**, oppure `-1`: crea un nuovo socket dedicato a quella connessione, mentre il vecchio socket resta in ascolto.
+> - Il secondo e terzo argomento di `accept()` identificano il client e possono essere `NULL`.
+> - `accept()` blocca il processo se non vi sono connessioni in attesa; il socket può essere marcato non bloccante.
+> 
+> ---
+> 
+> ![[lezione-8-12-programmazione-di-rete-1793201084586.webp|200]]
+
 
 > [!info] Due generi di socket sul server
 > Il socket di ascolto è creato una volta, associato alla porta nota e **non trasporta mai dati**; ogni `accept()` restituisce un socket di connessione dedicato a un solo client. Un server che serve tre client detiene quattro descrittori.
@@ -438,7 +527,51 @@ I flag abilitano funzionalità extra rispetto a `write()`/`read()`; senza flag i
 > [!warning] SIGPIPE
 > Scrivere su un **canale rotto** (l'estremo di lettura ha chiuso) genera il segnale **SIGPIPE**: se non è catturato o ignorato, il comportamento di default è la **terminazione del processo** che lo riceve; la schermatura del segnale andrebbe comunque predisposta oltre a `MSG_NOSIGNAL`.
 
-### Opzioni del socket
+### Esempi pratici
+
+Tieni presente che, essendo frammenti minimali mancano delle direttive `#include` necessarie (come `<sys/socket.h>`, `<netinet/in.h>`, `<arpa/inet.h>`, `<string.h>`, `<stdio.h>`, `<stdlib.h>`, `<unistd.h>`) per poter essere compilati ed eseguiti direttamente.
+
+> [!lab]
+> #### Client Code
+> 
+> ```c
+> 1  int main(void) {
+> 2      char buf[256];
+> 3      struct sockaddr_in srv;
+> 4      int fd = socket(AF_INET, SOCK_STREAM, 0);
+> 5      if (fd < 0) { perror("socket"); exit(EXIT_FAILURE); }
+> 6      memset(&srv, 0, sizeof srv);
+> 7      srv.sin_family = AF_INET;
+> 8      srv.sin_port   = htons(5000);
+> 9      inet_pton(AF_INET, "127.0.0.1", &srv.sin_addr);  /* not INADDR_ANY */
+> 10     if (connect(fd, (struct sockaddr *) &srv, sizeof srv) < 0) {
+> 11         perror("connect"); exit(EXIT_FAILURE); }
+> 12     write(fd, "hello\n", 6);
+> 13     ssize_t n = read(fd, buf, sizeof buf - 1); /* room for the '\0' */
+> 14     if (n > 0) { buf[n] = '\0'; printf("%s", buf); }
+> 15     close(fd);
+> 16 }
+> ```
+> 
+> #### Server Code
+> 
+> ```c
+> 1  struct sockaddr_in me;
+> 2  int yes = 1;
+> 3  int listen_fd = socket(AF_INET, SOCK_STREAM, 0);
+> 4  if (listen_fd < 0) { perror("socket"); exit(EXIT_FAILURE); }
+> 5  setsockopt(listen_fd, SOL_SOCKET, SO_REUSEADDR, &yes, sizeof yes);
+> 6  memset(&me, 0, sizeof me);
+> 7  me.sin_family      = AF_INET;
+> 8  me.sin_port        = htons(5000);
+> 9  me.sin_addr.s_addr = htonl(INADDR_ANY);      /* any local interface */
+> 10 if (bind(listen_fd, (struct sockaddr *) &me, sizeof me) < 0) {
+> 11     perror("bind"); exit(EXIT_FAILURE); }
+> 12 if (listen(listen_fd, 16) < 0) {
+> 13     perror("listen"); exit(EXIT_FAILURE); }
+> ```
+
+#### Opzioni del socket
 
 Le opzioni si leggono e si configurano con `getsockopt()` e `setsockopt()`, che restituiscono `0` in caso di successo e `-1` in caso di errore (con `errno` impostato).
 
@@ -454,7 +587,7 @@ int setsockopt(int sockfd, int level, int optname,
 - **`optval`**: puntatore al valore dell'opzione; in `getsockopt()` `optlen` è un puntatore a una lunghezza di input/output.
 - Le opzioni non riguardano solo il livello del socket: si può scendere fino ai livelli più bassi dello stack di rete, e vanno impostate **prima del bind** (`SO_REUSEADDR`, `SO_REUSEPORT`, `SO_RCVTIMEO`, `SO_SNDBUF`/`SO_RCVBUF`).
 
-#### `SO_REUSEADDR`
+##### `SO_REUSEADDR`
 
 > [!def] `SO_REUSEADDR`
 > **Opzione a livello socket** (`SOL_SOCKET`) che permette di riutilizzare un indirizzo e una porta locali in certe condizioni, in particolare quando connessioni TCP precedenti sono in `TIME_WAIT`.
@@ -471,7 +604,7 @@ setsockopt(sockfd, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt));
 - Le connessioni in `TIME_WAIT` possono impedire a un nuovo socket di fare `bind()` sullo stesso indirizzo e porta: riavviare un server TCP poco dopo lo stop può fallire con *Address already in use*.
 - `SO_REUSEADDR` consente il riuso, secondo le regole del sistema operativo; non consente normalmente a due server TCP di ascoltare sullo stesso IP e porta contemporaneamente.
 
-#### `SO_REUSEPORT`
+##### `SO_REUSEPORT`
 
 > [!def] `SO_REUSEPORT`
 > **Opzione a livello socket** (non parte dello standard POSIX) che permette a più socket di fare `bind()` sullo stesso indirizzo IP e sulla stessa porta.
