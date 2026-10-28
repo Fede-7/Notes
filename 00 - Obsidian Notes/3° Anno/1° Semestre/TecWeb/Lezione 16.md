@@ -1,4 +1,4 @@
-# Lezione 17 Sessioni in Node.js
+# Lezione 16 Sessioni in Node.js
 
 ## HTTP e session tracking
 

@@ -4,20 +4,19 @@ Lezione 0-1 -> 01-Introduction.pdf
 Lezione 2-3 -> 02-Quality.pdf
 Lezione 4-5 -> 03-Requirement Engineering-Elicitation and Analysis.pdf
 Lezione 6-7 -> 04-05-Requirement Engineering-Specification.pdf
-Lezione 8   -> 10-System Design + DesignPractices.pdf
-Lezione 9   -> Esercitazione traccia esame (causa poche persone - meteo)
-Lezione 10  ->  09-Statecharts.pdf
+Lezione 8    ->  09-Statecharts.pdf
+Lezione 9    -> Esercitazione traccia esame (causa poche persone - meteo)
+Lezione 10-11  ->  10-System Design + DesignPractices.pdf
+Lezione 12-13   ->  11-12-Standard Software Architectures.pdf
+Lezione 14   ->  14-Virtualizzazione e Cloud.pdf
+Lezione 15-16   ->  17-18-Modern Software Architectures - Microservices.pdf
 
-Lezione 11-12   ->  11-12-Standard Software Architectures.pdf
-Lezione 0   ->  14-Virtualizzazione e Cloud.pdf
-Lezione 0   ->  17-18-Modern Software Architectures - Microservices.pdf
-
+Lezione 16-17   ->  22-Containerization for Software Engineers.pdf
 
  --- Da fare
 
-
 Lezione 0   ->  21-REST APIs.pdf
-Lezione 0   ->  22-Containerization for Software Engineers.pdf
+
 Lezione 0   ->  23-Design-Patterns.pdf
 Lezione 0   ->  24-Build-tools-and-version-control.pdf
 Lezione 0   ->  25-Refactoring.pdf
@@ -39,20 +38,18 @@ Lezione 0   ->  Martin-PrinciplesAndPatterns.PDF
 ## TecWeb
 
 In Ordine
-last: 
-    Lezione 15 Web app con Node.js
+last in Notes:
+    2026-10-23  : Slide Lezione 15
+last slide (non caricata):
+	    Lezione 16
 
 ## Reti&PD
-Boh
 
 last in Notes:
-    2026-10-12  : Slide Lezione 7
+    2026-10-27  : Slide Lezione 8-12
 
 last slide (non caricata):
-    2026-10-13  : Lezione transizione Slide 7 -> Slide 8
-    2026-10-20  : Slide Lezione 8
-    2026-10-22  : Slide Lezione 8
-    2026-10-23  : Slide Lezione 8
-    2026-10-27  : Slide Lezione 8
-    
+	    ?
+
+
 ---
