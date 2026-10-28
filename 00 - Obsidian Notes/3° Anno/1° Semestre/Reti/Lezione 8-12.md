@@ -1,4 +1,4 @@
-# Lezione 8 Programmazione di rete
+# Lezione 8-12 Programmazione di rete: Socket
 
 ## Dal livello di applicazione alle socket
 
@@ -10,12 +10,19 @@ La maggior parte delle applicazioni di rete include un programma **lato client**
 > [!info] Socket
 > **Elemento centrale** della creazione di applicazioni di rete: implementano come scatola nera le funzionalità dei livelli **trasporto** (UDP/TCP) e **rete** (IP); esistono middleware che le incapsulano semplificandone l'uso, ma le API di base restano diffusissime.
 
-I protocolli e i servizi si collocano nel sistema operativo secondo la divisione tra user space e kernel space.
+![[Lezione 8-1793187055593.webp|250]]
 
-- I protocolli di **livello applicazione** (web, DNS) sono pubblici ma sono implementati da **applicazioni in user space** (per esempio il browser), anche se i loro pacchetti attraversano tutto lo stack.
-- Dal livello di **trasporto** in giù tutto è gestito nel **kernel space**, almeno su Unix/Linux e in generale sulle architetture monolitiche.
-- Lo schema di interfacciamento è: applicazione (user space) → **API socket** → chiamate di sistema e servizi del kernel → trasporto → rete → accesso; nel kernel il livello di accesso si appoggia ai **driver** delle schede di rete, che realizzano la parte fisica.
-- Ogni host implementa gli strati secondo il proprio ruolo: i terminali implementano tutto lo stack, i nodi interni solo i livelli necessari al loro compito (per esempio fino al livello rete per instradare i pacchetti).
+> [!aside]
+> I protocolli e i servizi si collocano nel sistema operativo secondo la divisione tra user space e kernel space.
+> 
+> - I protocolli di **livello applicazione** (web, DNS) sono pubblici ma sono implementati da **applicazioni in user space** (per esempio il browser), anche se i loro pacchetti attraversano tutto lo stack.
+> - Dal livello di **trasporto** in giù tutto è gestito nel **kernel space**, almeno su Unix/Linux e in generale sulle architetture monolitiche.
+> - Lo schema di interfacciamento è: applicazione (user space) → **API socket** → chiamate di sistema e servizi del kernel → trasporto → rete → accesso; nel kernel il livello di accesso si appoggia ai **driver** delle schede di rete, che realizzano la parte fisica.
+> - Ogni host implementa gli strati secondo il proprio ruolo: i terminali implementano tutto lo stack, i nodi interni solo i livelli necessari al loro compito (per esempio fino al livello rete per instradare i pacchetti).
+> 
+> ---
+> 
+> ![[Lezione 8-1793187372440.webp|150]]
 
 Le API di base per socket UDP e TCP sono disponibili in quasi tutti i linguaggi (C, C++, C#, Java, Python, Matlab), con sintassi diverse ma semantica identica.
 
@@ -94,6 +101,8 @@ struct sockaddr_in {
 - Il programmatore non deve conoscere l'endianess della propria macchina: le funzioni di conversione `htons`/`htonl` (host → network) e `ntohs`/`ntohl` (network → host) fanno la traduzione localmente e rendono il codice portabile; `short` per le porte, `long` per gli indirizzi e gli interi a 32 bit.
 - Regola pratica: prima di mandare un numero si converte con `htonl`/`htons`, dopo averlo ricevuto con `ntohl`/`ntohs`; per i byte non serve conversione.
 
+![[Lezione 8-1793187787514.webp|200]]
+
 ## `bind` e assegnazione dell'indirizzo
 
 `bind(socket, address, address_len)` associa la socket a un indirizzo e a una porta locali; restituisce `0` in caso di successo, `-1` altrimenti, e l'ultimo campo serve a verificare la lunghezza attesa della struttura.
@@ -113,6 +122,10 @@ struct sockaddr_in {
 > **Operazione fallimentare a runtime** (per esempio `EINVAL`): dopo l'associazione implicita non si può rifare il bind; per associare di nuovo l'indirizzo bisogna chiudere la socket e aprirne un'altra.
 
 ## UDP
+
+È un semplice protocollo a livello di trasporto. A differenza del TCP, che è orientato alla connessione, l'UDP non stabilisce una connessione tra client e server e non fornisce garanzie di affidabilità.
+
+![[Lezione 8-1793188000210.webp|300]]
 
 ### Schema di comunicazione
 
