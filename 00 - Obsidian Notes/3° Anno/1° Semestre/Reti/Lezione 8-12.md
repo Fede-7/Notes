@@ -272,8 +272,7 @@ while (1) {
 - Il server riceve con `recvfrom()` (che riempie la struttura del mittente con IP e porta del client) e risponde con `sendto()` verso quell'indirizzo: può così rispondere anche a un client che non ha fatto il bind.
 - Il buffer di ricezione raccoglie byte: per trattarli come stringa si aggiunge il terminatore alla posizione `n`.
 
-> [!lab]
-> - Esempio Server
+> [!lab] Esempio Server
 > ```c
 > #include <netinet/in.h>
 > #include <arpa/inet.h>
@@ -308,7 +307,8 @@ while (1) {
 > }
 > ```
 > 
-> - Esempio client
+
+> [!lab]  Esempio client
 > ```c
 > #include <netinet/in.h>
 > #include <arpa/inet.h>
@@ -576,6 +576,7 @@ setsockopt(sockfd, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt));
 Tieni presente che, essendo frammenti minimali mancano delle direttive `#include` necessarie (come `<sys/socket.h>`, `<netinet/in.h>`, `<arpa/inet.h>`, `<string.h>`, `<stdio.h>`, `<stdlib.h>`, `<unistd.h>`) per poter essere compilati ed eseguiti direttamente.
 
 > [!lab]
+> 
 > #### Client Code
 > 
 > ```c
@@ -597,6 +598,9 @@ Tieni presente che, essendo frammenti minimali mancano delle direttive `#include
 > 16 }
 > ```
 > 
+
+>[!lab] 
+>
 > #### Server Code
 > 
 > ```c

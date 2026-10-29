@@ -11,13 +11,14 @@ Lezione 12-13   ->  11-12-Standard Software Architectures.pdf
 Lezione 14   ->  14-Virtualizzazione e Cloud.pdf
 Lezione 15-16   ->  17-18-Modern Software Architectures - Microservices.pdf
 
-Lezione 16-17   ->  22-Containerization for Software Engineers.pdf
+Lezione 16   ->  22-Containerization for Software Engineers.pdf (Accenno Docker)
+part Sw and design patt
+Lezione 17-18   ->  23-Design-Patterns.pdf
 
  --- Da fare
 
 Lezione 0   ->  21-REST APIs.pdf
 
-Lezione 0   ->  23-Design-Patterns.pdf
 Lezione 0   ->  24-Build-tools-and-version-control.pdf
 Lezione 0   ->  25-Refactoring.pdf
 Lezione 0   ->  26-SOLID-Principles.pdf
@@ -39,9 +40,9 @@ Lezione 0   ->  Martin-PrinciplesAndPatterns.PDF
 
 In Ordine
 last in Notes:
-    2026-10-23  : Slide Lezione 15
+    2026-10-29  : Slide Lezione 17
 last slide (non caricata):
-	    Lezione 16
+	    2026-10-30
 
 ## Reti&PD
 
@@ -49,7 +50,8 @@ last in Notes:
     2026-10-27  : Slide Lezione 8-12
 
 last slide (non caricata):
-	    ?
+	    2026-10-29 Lezione 13
+	    2026-10-30 Lezione 14
 
 
 ---
