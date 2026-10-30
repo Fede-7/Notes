@@ -1,4 +1,4 @@
-# Lezione 23 Web Testing
+# Lezione 27 Web Testing
 
 ## Verifica del software
 

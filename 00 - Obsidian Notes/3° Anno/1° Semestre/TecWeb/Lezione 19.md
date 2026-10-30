@@ -1,4 +1,4 @@
-# Lezione 15 REST
+# Lezione 19 REST API
 
 ## Dal server-centric all'architettura a due componenti
 

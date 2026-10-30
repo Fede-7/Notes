@@ -1,4 +1,4 @@
-# Lezione 21 Angular To-do List SPA
+# Lezione 25 Angular To-do List SPA
 
 Questa lezione applica i concetti di Angular a un'app To-do List completa: frontend Angular 19 e backend REST (l'API Express delle lezioni precedenti). Gli schemi architetturali nuovi o degni di nota sono riportati di seguito.
 

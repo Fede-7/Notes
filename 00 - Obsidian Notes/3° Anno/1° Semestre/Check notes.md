@@ -34,16 +34,13 @@ Lezione 0   ->  39-Guidelines-and-Principles-in-HCI.pdf
 Lezione 0   ->  Martin-PrinciplesAndPatterns.PDF
 
 
-
-
 ## TecWeb
 
-In Ordine
 last in Notes:
-    2026-10-29  : Slide Lezione 17
-last slide (non caricata):
-	    2026-10-30
+    2026-10-30  : Slide Lezione 18
 
+last slide (non caricata):
+	2026-
 
 
 ## Reti&PD
@@ -52,8 +49,8 @@ last in Notes:
     2026-10-27  : Slide Lezione 8-12
 
 last slide (non caricata):
-	    2026-10-29 Lezione 13
-	    2026-10-30 Lezione 14
+	2026-10-29 Lezione 13
+	2026-10-30 Lezione 14
 
 
 ---

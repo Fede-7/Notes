@@ -1,4 +1,4 @@
-# Lezione 16 TypeScript
+# Lezione 20 TypeScript
 
 ## JavaScript e i tipi
 

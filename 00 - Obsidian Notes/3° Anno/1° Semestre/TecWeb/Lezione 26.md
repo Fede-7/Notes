@@ -1,4 +1,4 @@
-# Lezione 22 Web App Security
+# Lezione 26 Web App Security
 
 ## Sicurezza delle web app
 

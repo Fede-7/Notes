@@ -1,4 +1,4 @@
-# Lezione 8-12 Programmazione di rete
+# Lezione 8 Programmazione di rete
 
 ## Applicazioni di rete
 
@@ -14,7 +14,7 @@ La maggior parte delle applicazioni di rete è composta da un programma lato cli
 - **TCP** (*Transmission Control Protocol*): orientato alla connessione, fornisce un canale affidabile di byte-stream attraverso cui i dati fluiscono tra i due sistemi terminali.
 - **UDP** (*User Datagram Protocol*): connectionless, invia pacchetti indipendenti da un sistema all'altro senza garanzie di consegna.
 
-### Dove sono implementati i livelli
+## Dove sono implementati i livelli
 
 > [!aside]
 > La separazione tra user space e kernel space decide dove vivono protocolli e servizi.
@@ -201,7 +201,7 @@ if (inet_pton(AF_INET, "143.225.5.3", &indirizzo.sin_addr) != 1)
 - Per l'indirizzo si può usare `INADDR_ANY` con `htonl()`, mentre per IPv6 la costante globale equivalente è `in6addr_any`.
 - `inet_ntop()` fa l'inverso: converte il formato binario in notazione dotted.
 
-## UDP
+# Lezione 9 Programmazione con UDP
 
 > [!def] UDP
 > **Protocollo di trasporto** semplice, senza connessione e senza garanzie di affidabilità: mentre TCP trasmette un flusso di byte, UDP invia pacchetti discreti chiamati *datagram*.
@@ -211,7 +211,7 @@ if (inet_pton(AF_INET, "143.225.5.3", &indirizzo.sin_addr) != 1)
 
 ![[lezione-8-12-programmazione-di-rete-1793193894397.png|200]]
 
-### `sendto()` e `recvfrom()`
+## `sendto()` e `recvfrom()`
 
 L'invio e la ricezione di messaggi in UDP sono eseguiti dalle funzioni `sendto()` e `recvfrom()`, che restituiscono il numero di byte inviati o ricevuti, oppure `-1` in caso di errore.
 
@@ -222,7 +222,7 @@ ssize_t recvfrom(int sockfd, void *buf, size_t len, int flags,
                  struct sockaddr *src_addr, socklen_t *addrlen);
 ```
 
-#### Parametri
+### Parametri
 - **`sockfd`**: descrittore del socket su cui inviare o ricevere.
 - **`buf`**: puntatore al buffer dei dati da inviare o ricevere.
 - **`len`**: numero di byte da inviare, o massimo numero di byte ricevibili.
@@ -242,7 +242,7 @@ Entrambe le funzioni accettano un parametro `flags` che ne controlla il comporta
 - Entrambe le parti devono essere pronte a ricevere: per ogni `sendto()` deve esserci dall'altra parte un processo su una `recvfrom()`.
 - La configurazione più tipica è **simmetrica**: entrambe le parti fanno il bind, così ciascuna può mandare e ricevere; il client può comunque ometterlo grazie al binding implicito.
 
-#### Comportamento *Blocking* di default
+### Comportamento *Blocking* di default
 
 **Modalità attiva** :
 - `sendto()` può bloccare finché il datagram è accettato dal sistema operativo, senza attendere la consegna al ricevente.
@@ -255,7 +255,7 @@ Per non attendere indefinitamente si usano `MSG_DONTWAIT` o un timeout di ricezi
 > Se il datagram ricevuto è più grande del buffer, i byte in eccesso sono di norma scartati.
 
 
-### Flusso di un server UDP
+## Flusso di un server UDP
 
 Il ciclo tipico di un server UDP è un loop di ricezione e risposta su un solo socket.
 
@@ -341,7 +341,7 @@ while (1) {
 > ```
 > 
 
-### Binding implicito
+## Binding implicito
 
 Quando un socket UDP è creato con `socket()` non è ancora associato a una porta locale; il client può lasciare che sia il sistema operativo a farlo.
 
@@ -357,7 +357,7 @@ Quando un socket UDP è creato con `socket()` non è ancora associato a una port
 > [!error] Bind esplicito dopo quello implicito
 > **Operazione fallimentare a runtime**: una successiva chiamata a `bind()` sullo stesso socket fallisce, perché il socket è già associato; per associare di nuovo l'indirizzo bisogna chiudere il socket e aprirne un altro.
 
-### Ordine di avvio di client e server
+## Ordine di avvio di client e server
 
 L'esito della comunicazione dipende da quale dei due programmi parte prima.
 
@@ -370,7 +370,7 @@ L'esito della comunicazione dipende da quale dei due programmi parte prima.
 
 - Dev'esserci sempre un **processo in ascolto nel momento giusto**: le sincronizzazioni si ottengono con le primitive bloccanti.
 
-### Timeout di ricezione
+## Timeout di ricezione
 
 Poiché `recvfrom()` è bloccante, è possibile configurare un timeout di ricezione con `setsockopt()` e l'opzione `SO_RCVTIMEO`.
 
@@ -384,7 +384,7 @@ setsockopt(sockfd, SOL_SOCKET, SO_RCVTIMEO,
 - Se nessun datagram arriva entro 5 secondi, `recvfrom()` restituisce `-1` con `errno` pari a `EAGAIN` o `EWOULDBLOCK`: non sono equivalenti, e si controllano entrambi per portabilità tra sistemi.
 - Il timeout non ritrasmette i datagram persi.
 
-### Più client su un solo socket
+## Più client su un solo socket
 
 UDP non richiede che una connessione sia stabilita tra client e server, il che semplifica la gestione di più client.
 
@@ -395,13 +395,13 @@ UDP non richiede che una connessione sia stabilita tra client e server, il che s
 - Non sono richiesti `listen()`, `accept()` né un socket separato per ogni client.
 - È più semplice del TCP quando i messaggi sono brevi in entrambe le direzioni e i client sono molti; non c'è garanzia se due datagram arrivano insieme mentre il server non è ancora tornato in `recvfrom()`.
 
-### Comunicazione su localhost
+## Comunicazione su localhost
 
 Nella comunicazione su `localhost` lo stack di rete viene attraversato fino al livello di trasporto, che rimanda indietro il pacchetto (**loopback**): nessun pacchetto reale viaggia sulla rete.
 
 - Questi esempi servono a prendere confidenza con le API sulla stessa macchina, senza attraversare la rete fisica.
 
-### Buffer dei socket UDP
+## Buffer dei socket UDP
 
 > [!aside]
 > Un socket UDP ha due buffer gestiti dal kernel: un buffer di invio per i datagram in uscita e un buffer di ricezione per quelli in arrivo.
@@ -417,9 +417,9 @@ Nella comunicazione su `localhost` lo stack di rete viene attraversato fino al l
 > 
 > ![[lezione-8-12-programmazione-di-rete-1793200008929.png|200]]
 
-## TCP
+# Lezione 10 Programmazione con TCP (Connessioni e Flusso)
 
-### Dal socket UDP al modello TCP
+## Dal socket UDP al modello TCP
 
 > [!aside]
 > A differenza di UDP, in TCP client e server devono completare un handshake prima di trasmettere messaggi; sul lato server servono due socket distinti.
@@ -433,7 +433,7 @@ Nella comunicazione su `localhost` lo stack di rete viene attraversato fino al l
 > 
 > ![[lezione-8-12-programmazione-di-rete-1793200099395.png|200]]
 
-### `connect()`
+## `connect()`
 
 La connessione TCP lato client è eseguita dalla funzione `connect()`, che restituisce `0` in caso di successo e `-1` altrimenti.
 
@@ -442,7 +442,7 @@ int connect(int socket, const struct sockaddr *address,
             socklen_t address_len);
 ```
 
-#### Parametri
+### Parametri
 
 - **`socket`**: file descriptor del socket con cui connettersi.
 - **`address`**: puntatore a una struttura `sockaddr` con l'indirizzo del server.
@@ -452,7 +452,7 @@ int connect(int socket, const struct sockaddr *address,
 > [!info] `connect()` con UDP
 > `connect()` può essere usata anche con UDP: a differenza di TCP **non stabilisce una connessione**, imposta solo un indirizzo di destinazione di default e filtra i datagram in entrata; la comunicazione resta UDP, con perdite comprese.
 
-### `listen()` e `accept()`
+## `listen()` e `accept()`
 
 L'attesa di connessioni lato server (*wait-for-connection*) è eseguita dalle funzioni `listen()` e `accept()`, che operano in combinazione con la `connect()` del client.
 
@@ -479,7 +479,7 @@ int accept(int sockfd, struct sockaddr *addr,
 
 - Stabilita la connessione, i due processi comunicano come su un'**inter-process communication**: chi parla e chi ascolta va definito a livello applicativo, perché se entrambi si mettono su `send()` (o entrambi su `recv()`) non comunicano.
 
-### Chiusura a quattro segmenti
+## Chiusura a quattro segmenti
 
 La terminazione TCP avviene a quattro segmenti, due per ciascuna direzione di chiusura.
 
@@ -492,7 +492,7 @@ La terminazione TCP avviene a quattro segmenti, due per ciascuna direzione di ch
 
 - `shutdown(socket, how)` chiude selettivamente una direzione del canale: `SHUT_RD` per la lettura, `SHUT_WR` per la scrittura, `SHUT_RDWR` per entrambe; su Linux interrompe anche una `accept()` bloccata, quindi è il modo ordinato di sbloccare il server alla ricezione di un segnale.
 
-### Lettura e scrittura
+## Lettura e scrittura
 
 L'invio e la ricezione in TCP sono eseguiti da `read()`, `write()`, `send()` e `recv()`, più semplici delle controparti UDP, e usano la stessa interfaccia della lettura/scrittura su file.
 
@@ -527,7 +527,7 @@ I flag abilitano funzionalità extra rispetto a `write()`/`read()`; senza flag i
 > [!warning] SIGPIPE
 > Scrivere su un **canale rotto** (l'estremo di lettura ha chiuso) genera il segnale **SIGPIPE**: se non è catturato o ignorato, il comportamento di default è la **terminazione del processo** che lo riceve; la schermatura del segnale andrebbe comunque predisposta oltre a `MSG_NOSIGNAL`.
 
-#### Opzioni del socket
+### Opzioni del socket
 
 Le opzioni si leggono e si configurano con `getsockopt()` e `setsockopt()`, che restituiscono `0` in caso di successo e `-1` in caso di errore (con `errno` impostato).
 
@@ -543,7 +543,7 @@ int setsockopt(int sockfd, int level, int optname,
 - **`optval`**: puntatore al valore dell'opzione; in `getsockopt()` `optlen` è un puntatore a una lunghezza di input/output.
 - Le opzioni non riguardano solo il livello del socket: si può scendere fino ai livelli più bassi dello stack di rete, e vanno impostate **prima del bind** (`SO_REUSEADDR`, `SO_REUSEPORT`, `SO_RCVTIMEO`, `SO_SNDBUF`/`SO_RCVBUF`).
 
-##### `SO_REUSEADDR`
+#### `SO_REUSEADDR`
 
 > [!def] `SO_REUSEADDR`
 > **Opzione a livello socket** (`SOL_SOCKET`) che permette di riutilizzare un indirizzo e una porta locali in certe condizioni, in particolare quando connessioni TCP precedenti sono in `TIME_WAIT`.
@@ -560,7 +560,7 @@ setsockopt(sockfd, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt));
 - Le connessioni in `TIME_WAIT` possono impedire a un nuovo socket di fare `bind()` sullo stesso indirizzo e porta: riavviare un server TCP poco dopo lo stop può fallire con *Address already in use*.
 - `SO_REUSEADDR` consente il riuso, secondo le regole del sistema operativo; non consente normalmente a due server TCP di ascoltare sullo stesso IP e porta contemporaneamente.
 
-##### `SO_REUSEPORT`
+#### `SO_REUSEPORT`
 
 > [!def] `SO_REUSEPORT`
 > **Opzione a livello socket** (non parte dello standard POSIX) che permette a più socket di fare `bind()` sullo stesso indirizzo IP e sulla stessa porta.
@@ -571,13 +571,13 @@ setsockopt(sockfd, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt));
 - È utile per il bilanciamento di carico tra processi o thread, per server ad alte prestazioni multicore e per ridurre la contesa su un singolo socket in ascolto.
 - Su Linux i processi che condividono lo stesso indirizzo e porta devono avere lo stesso effective user ID.
 
-### Esempi pratici
+## Esempi pratici
 
 Tieni presente che, essendo frammenti minimali mancano delle direttive `#include` necessarie (come `<sys/socket.h>`, `<netinet/in.h>`, `<arpa/inet.h>`, `<string.h>`, `<stdio.h>`, `<stdlib.h>`, `<unistd.h>`) per poter essere compilati ed eseguiti direttamente.
 
 > [!lab]
 > 
-> #### Client Code
+> ### Client Code
 > 
 > ```c
 > 1  int main(void) {
@@ -601,7 +601,7 @@ Tieni presente che, essendo frammenti minimali mancano delle direttive `#include
 
 >[!lab] 
 >
-> #### Server Code
+> ### Server Code
 > 
 > ```c
 > 1  struct sockaddr_in me;
@@ -619,7 +619,7 @@ Tieni presente che, essendo frammenti minimali mancano delle direttive `#include
 > 13     perror("listen"); exit(EXIT_FAILURE); }
 > ```
 
-### Buffer dei socket TCP
+## Buffer dei socket TCP
 
 Anche i socket TCP hanno due buffer: un buffer di ricezione per i dati in entrata e un buffer di invio per i dati in uscita, entrambi in spazio kernel; non vanno confusi con il buffer applicativo definito dal programmatore.
 
@@ -651,7 +651,7 @@ Anche i socket TCP hanno due buffer: un buffer di ricezione per i dati in entrat
 > | 1000 byte        | può restituire 1000         | può restituire 1000           |
 > 
 
-### Modalità non bloccante
+## Modalità non bloccante
 
 Il metodo POSIX per rendere non bloccante un descrittore è impostare il flag `O_NONBLOCK` con `fcntl()`.
 
@@ -667,7 +667,7 @@ fcntl(fd, F_SETFL, flags | O_NONBLOCK);
 - Il meccanismo vale per TCP, UDP, pipe e altri file descriptor supportati.
 - `MSG_DONTWAIT` abilita il comportamento non bloccante **per una singola chiamata** a `send()` o `recv()`, senza cambiare la modalità del socket.
 
-### Lettura e scrittura complete
+## Lettura e scrittura complete
 
 Poiché `read()` e `write()` possono trasferire meno byte di quelli richiesti, per leggere o scrivere `n` byte in sicurezza servono cicli che ripetono l'operazione finché tutti i byte sono trasferiti.
 
@@ -685,7 +685,7 @@ while (sent < n) {
 
 - Lo schema è identico per la lettura robusta, che ritorna i byte letti finora anche in caso di chiusura del canale.
 
-## Server concorrenti
+# Lezione 11 Server Concorrenti e Multiplexing I/O
 
 Un generico server attende le richieste di connessione su una porta determinata, ma le richieste possono arrivare in modo concorrente da molteplici client.
 
@@ -696,7 +696,7 @@ Un generico server attende le richieste di connessione su una porta determinata,
 
 ![[lezione-8-12-programmazione-di-rete-1793202440146.png|200]]
 
-### Server a processi con `fork()`
+## Server a processi con `fork()`
 
 Un server concorrente genera un processo ad hoc per ogni client, così che più client siano serviti in modalità concorrente; l'attesa in coda si limita alla gestione della richiesta e all'avvio del nuovo processo.
 
@@ -726,7 +726,7 @@ Per evitare processi **zombie** si installa un gestore di `SIGCHLD` che raccogli
 - In alternativa si imposta `SIG_IGN` su `SIGCHLD`, che equivale a mettere i figli in **detach**: il loro destino non è più legato al monitoraggio del padre.
 - `signal()` è l'alternativa storica e più semplice: associa direttamente la funzione al segnale.
 
-### Server multithreaded
+## Server multithreaded
 
 In alternativa ai processi si può servire ogni connessione con un thread.
 
@@ -743,7 +743,7 @@ pthread_detach(tid);
 - La **gestione della distruzione** della memoria allocata può essere centralizzata o delegata al thread in uscita, che sa cosa distruggere.
 - `pthread_detach()` fa sì che le risorse del thread siano rilasciate automaticamente alla sua terminazione, senza chiamare `pthread_join()`.
 
-### Più connessioni sulla stessa porta
+## Più connessioni sulla stessa porta
 
 Un server TCP può gestire più connessioni simultanee su una sola porta in ascolto.
 
@@ -783,7 +783,7 @@ int select(int nfds, fd_set *readfds, fd_set *writefds,
 - `select()` blocca finché uno di questi eventi si verifica: un descrittore diventa pronto in lettura o scrittura; occorre una condizione eccezionale su un descrittore monitorato; scade il timeout; una signal interrompe la chiamata.
 - Valore di ritorno: `-1` in caso di errore (`errno` impostato), `0` se il timeout è scaduto, valore positivo pari al numero totale di descrittori pronti negli insiemi restituiti.
 
-### Insiemi di descrittori
+## Insiemi di descrittori
 
 I tre insiemi di descrittori da monitorare sono puntatori a variabili `fd_set`, tipicamente implementate come bitmask.
 
@@ -809,7 +809,7 @@ Gli insiemi `fd_set` si manipolano con quattro macro.
 
 - Poiché la `select()` si sblocca solo quando c'è qualcosa da fare, l'operazione successiva sul descrittore pronto **non si blocca**: si è certi che ci sia un dato da ricevere (o spazio per scrivere).
 
-### Condizioni di prontezza
+## Condizioni di prontezza
 
 `select()` identifica i descrittori pronti per operazioni di I/O senza bloccarsi.
 
@@ -834,7 +834,7 @@ L'insieme `exceptfds` monitora condizioni eccezionali: per TCP è usato principa
 - TCP segnala dati urgenti con il flag `URG`.
 - Su Linux i dati urgenti si ricevono con `recv()` e il flag `MSG_OOB`.
 
-### Timeout
+## Timeout
 
 Il parametro `timeout` specifica il tempo massimo per cui `select()` attende che un descrittore diventi pronto.
 
@@ -849,7 +849,7 @@ struct timeval {
 - **`tv_sec == 0 && tv_usec == 0`**: `select()` restituisce immediatamente senza bloccare (polling).
 - **Timeout non nullo**: `select()` attende al massimo il tempo specificato, ma ritorna prima se uno o più descrittori diventano pronti.
 
-### Server e client multiplexing
+## Server e client multiplexing
 
 Un server multiplexing gestisce più client con un solo processo o thread, monitorando sia il socket di ascolto sia i socket dei client connessi.
 
@@ -865,7 +865,7 @@ Un client multiplexing monitora in lettura due descrittori.
 - **Socket connesso** (`sockfd`): per ricevere i messaggi dal server.
 - Con `select()` il client risponde al descrittore che diventa pronto, senza bloccarsi sull'altro.
 
-## Broadcast e multicast
+# Lezione 12 Broadcast, Multicast e Risoluzione dei Nomi (DNS)
 
 Broadcast e multicast sono meccanismi a livello IP, usati comunemente con socket UDP (non standard TCP).
 
@@ -873,7 +873,7 @@ Broadcast e multicast sono meccanismi a livello IP, usati comunemente con socket
 - **Multicast**: supportato da IPv4 e IPv6.
 - IPv6 non ha il broadcast: si usa il multicast al suo posto.
 
-### Broadcast
+## Broadcast
 
 > [!def] Broadcast
 > **Invio** di dati a tutti gli host di una rete locale, senza richiedere l'adesione a un gruppo.
@@ -884,7 +884,7 @@ Broadcast e multicast sono meccanismi a livello IP, usati comunemente con socket
 - Mittente: crea un socket con `socket(AF_INET, SOCK_DGRAM, 0)`, abilita il broadcast con `setsockopt()` e `SO_BROADCAST`, e invia il datagram all'indirizzo di broadcast e alla porta di destinazione con `sendto()`.
 - Ricevente: crea un socket UDP, fa `bind()` su `INADDR_ANY` e sulla porta di destinazione, e riceve i datagram con `recvfrom()`.
 
-### Multicast
+## Multicast
 
 > [!def] Multicast
 > **Invio** di datagram UDP a un gruppo di riceventi identificati da un indirizzo IP multicast (es. `239.255.0.1`).
@@ -976,7 +976,7 @@ freeaddrinfo(res);
 - `p->ai_addr` si può usare direttamente con `connect()`; per accedere all'IP e stamparlo va fatto il cast a `sockaddr_in` (IPv4) o `sockaddr_in6` (IPv6).
 - `freeaddrinfo()` libera la memoria allocata dinamicamente da `getaddrinfo()`; gli errori si descrivono con `gai_strerror()`.
 
-### Richieste HTTP su socket TCP
+## Richieste HTTP su socket TCP
 
 Una richiesta HTTP su un socket TCP specifica tre elementi: hostname del server web, numero di porta e path della risorsa da recuperare.
 

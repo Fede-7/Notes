@@ -1,4 +1,4 @@
-# Lezione 20 Angular (parte II)
+# Lezione 24 Angular (parte II)
 
 ## Form
 
