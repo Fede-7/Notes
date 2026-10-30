@@ -137,44 +137,46 @@ Il file di configurazione deve essere il punto unico dove cambiare queste impost
 
 ## To-do List con Express
 
-### Configurazione dei middleware
-
-La configurazione tipica dell'app registra, in ordine, template engine, logging, file statici, parsing del body, sessioni e gestione dei messaggi flash:
-
-```js
-app.set("view engine", "pug");
-app.use(morgan('dev'));
-app.use(express.static("public"));
-app.use(express.urlencoded({ extended: false }));
-app.use(session({ secret: 'fu-tzu the great master', resave: false,
-  saveUninitialized: false, cookie: { maxAge: 10*60*1000 } }));
-```
-
-- **Sessione**: `maxAge` del cookie espresso in millisecondi (nell'esempio, 10 minuti).
-- Completano la configurazione `flash()` e middleware custom che esportano i messaggi flash e lo stato di autenticazione verso le viste.
-
-### Rotte e gestione degli errori
-
-La configurazione delle rotte monta i vari Router con `app.use(router)` e in coda:
-
-- Una rotta **catch-all** (`app.get('/*splat')`) che, se raggiunta, risponde `404` renderizzando la pagina d'errore.
-- Un **error handler** con firma `(err, req, res, next)`: logga lo stack e risponde con status `err.status || 500` renderizzando la pagina d'errore con codice e descrizione.
-
-Ogni router può registrare un middleware comune a tutte le sue rotte con `todoRouter.use(enforceAuthentication)`, e le rotte delegano al controller, che restituisce Promise; gli errori vengono inoltrati con `next(err)`.
-
-### Autenticazione con sessioni
-
-Il controller di autenticazione verifica le credenziali cercando un utente con `findOne` su username e password della richiesta; se le credenziali sono valide crea la sessione impostando `req.session.isAuthenticated = true` e salvandovi lo username, altrimenti fallisce l'autenticazione.
-
-Il middleware che impone l'autenticazione è il seguente:
-
-```js
-export function enforceAuthentication(req, res, next) {
-  if (!req?.session?.isAuthenticated) {
-    req.flash("error", "You must be logged in to access this feature.");
-    res.redirect("/auth");
-  } else { next(); }
-}
-```
-
-Il middleware redirige gli utenti non autenticati alla pagina di login con un messaggio flash d'errore; altrimenti passa il controllo al successivo. I controller usano lo username in sessione per filtrare i dati dell'utente corrente, es. con `Todo.findAll({ where: { ... } })` sulla chiave esterna dell'utente.
+> [!lab]
+> 
+> ### Configurazione dei middleware
+> 
+> La configurazione tipica dell'app registra, in ordine, template engine, logging, file statici, parsing del body, sessioni e gestione dei messaggi flash:
+> 
+> ```js
+> app.set("view engine", "pug");
+> app.use(morgan('dev'));
+> app.use(express.static("public"));
+> app.use(express.urlencoded({ extended: false }));
+> app.use(session({ secret: 'fu-tzu the great master', resave: false,
+>   saveUninitialized: false, cookie: { maxAge: 10*60*1000 } }));
+> ```
+> 
+> - **Sessione**: `maxAge` del cookie espresso in millisecondi (nell'esempio, 10 minuti).
+> - Completano la configurazione `flash()` e middleware custom che esportano i messaggi flash e lo stato di autenticazione verso le viste.
+> 
+> ### Rotte e gestione degli errori
+> 
+> La configurazione delle rotte monta i vari Router con `app.use(router)` e in coda:
+> 
+> - Una rotta **catch-all** (`app.get('/*splat')`) che, se raggiunta, risponde `404` renderizzando la pagina d'errore.
+> - Un **error handler** con firma `(err, req, res, next)`: logga lo stack e risponde con status `err.status || 500` renderizzando la pagina d'errore con codice e descrizione.
+> 
+> Ogni router può registrare un middleware comune a tutte le sue rotte con `todoRouter.use(enforceAuthentication)`, e le rotte delegano al controller, che restituisce Promise; gli errori vengono inoltrati con `next(err)`.
+> 
+> ### Autenticazione con sessioni
+> 
+> Il controller di autenticazione verifica le credenziali cercando un utente con `findOne` su username e password della richiesta; se le credenziali sono valide crea la sessione impostando `req.session.isAuthenticated = true` e salvandovi lo username, altrimenti fallisce l'autenticazione.
+> 
+> Il middleware che impone l'autenticazione è il seguente:
+> 
+> ```js
+> export function enforceAuthentication(req, res, next) {
+>   if (!req?.session?.isAuthenticated) {
+>     req.flash("error", "You must be logged in to access this feature.");
+>     res.redirect("/auth");
+>   } else { next(); }
+> }
+> ```
+> 
+> Il middleware redirige gli utenti non autenticati alla pagina di login con un messaggio flash d'errore; altrimenti passa il controllo al successivo. I controller usano lo username in sessione per filtrare i dati dell'utente corrente, es. con `Todo.findAll({ where: { ... } })` sulla chiave esterna dell'utente.
