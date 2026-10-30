@@ -40,7 +40,7 @@ L'IoC è una **caratteristica distintiva** dei framework, nota anche come *legge
 
 Il confronto tra i flussi di controllo in una libreria e in un framework:
 
-![[8ba020a4df23b4ac9b4eac109e4ec327d0b8fa313d268e56b7d81e8b7f25a602.jpg|200]] ![[4248a9b5a5e6fb3ed49c2e9b0fffab8095fda414118da9a142e6621693049ade.jpg|200]]
+![[8ba020a4df23b4ac9b4eac109e4ec327d0b8fa313d268e56b7d81e8b7f25a602.png|200]] ![[4248a9b5a5e6fb3ed49c2e9b0fffab8095fda414118da9a142e6621693049ade.png|200]]
 
 ## Componenti dei web framework
 
@@ -176,7 +176,7 @@ Il ciclo richiesta-risposta è il cuore del framework Express:
 2. Esecuzione di una sequenza di uno o più passi di calcolo per processare la richiesta, come il parsing del corpo, il parsing dei cookie e l'istituzione di una sessione.
 3. Preparazione e invio della risposta.
 
-![[54c6cae737bf1985f450daf0f5efc4d6ffad69c7c295bc54ef349b0e726e5d90.jpg|200]]
+![[54c6cae737bf1985f450daf0f5efc4d6ffad69c7c295bc54ef349b0e726e5d90.png|200]]
 
 ## Middleware
 

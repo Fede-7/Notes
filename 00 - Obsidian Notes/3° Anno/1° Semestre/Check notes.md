@@ -10,10 +10,10 @@ Lezione 10-11  ->  10-System Design + DesignPractices.pdf
 Lezione 12-13   ->  11-12-Standard Software Architectures.pdf
 Lezione 14   ->  14-Virtualizzazione e Cloud.pdf
 Lezione 15-16   ->  17-18-Modern Software Architectures - Microservices.pdf
-
-Lezione 16   ->  22-Containerization for Software Engineers.pdf (Accenno Docker)
-part Sw and design patt
+Lezione 16.2  ->  22-Containerization for Software Engineers.pdf (Accenno Docker)
 Lezione 17-18   ->  23-Design-Patterns.pdf
+
+Lezione 19  -> Clean Code : No slide yet
 
  --- Da fare
 
