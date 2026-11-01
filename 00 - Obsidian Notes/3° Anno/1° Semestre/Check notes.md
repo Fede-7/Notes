@@ -12,15 +12,15 @@ Lezione 14   ->  14-Virtualizzazione e Cloud.pdf
 Lezione 15-16   ->  17-18-Modern Software Architectures - Microservices.pdf
 Lezione 16.2  ->  22-Containerization for Software Engineers.pdf (Accenno Docker)
 Lezione 17-18   ->  23-Design-Patterns.pdf
+Lezione 19   ->  25-Refactoring.pdf
 
-Lezione 19  -> Clean Code : No slide yet
 
  --- Da fare
 
 Lezione 0   ->  21-REST APIs.pdf
 
 Lezione 0   ->  24-Build-tools-and-version-control.pdf
-Lezione 0   ->  25-Refactoring.pdf
+
 Lezione 0   ->  26-SOLID-Principles.pdf
 Lezione 0   ->  27-29-Verification_Validation_Intro.pdf
 Lezione 0   ->  28-Esercitazione-Software-Design.pdf
@@ -35,6 +35,7 @@ Lezione 0   ->  Martin-PrinciplesAndPatterns.PDF
 
 
 ## TecWeb
+Completo tramite le slide vecchie, forse.
 
 last in Notes:
     2026-10-30  : Slide Lezione 18
@@ -47,10 +48,12 @@ last slide (non caricata):
 
 last in Notes:
     2026-10-27  : Slide Lezione 8-12
-
-last slide (non caricata):
 	2026-10-29 Lezione 13
 	2026-10-30 Lezione 14
+    
+
+last slide (non caricata):
+
 
 
 ---
