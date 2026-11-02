@@ -48,13 +48,11 @@ I comportamenti caratteristici dell'asincronismo in JavaScript sono due.
 
 La specificità di un selettore si esprime come terna `(A, B, C)`, confrontata da sinistra a destra.
 
-
 | Composto del selettore          | Specificità |
 | ------------------------------- | ----------- |
 | ID                              | `(1,0,0)`   |
 | Classi, pseudoclassi, attributi | `(0,1,0)`   |
 | Elementi                        | `(0,0,1)`   |
-
 
 Le pseudoclassi funzionali seguono regole particolari.
 
@@ -88,7 +86,6 @@ Le proprietà dei metodi HTTP riguardano l'effetto delle richieste sullo stato d
 - **Idempotente**: `N` richieste identiche producono lo stesso effetto sul server; lo sono `GET`, `HEAD`, `OPTIONS`, `PUT` e `DELETE`.
 - `POST` e `PATCH` non sono garantiti né safe né idempotenti.
 
-
 | Metodo    | Safe | Idempotente |
 | --------- | ---- | ----------- |
 | `GET`     | sì   | sì          |
@@ -98,7 +95,6 @@ Le proprietà dei metodi HTTP riguardano l'effetto delle richieste sullo stato d
 | `DELETE`  | no   | sì          |
 | `POST`    | no   | no          |
 | `PATCH`   | no   | no          |
-
 
 ### Validazione e caching
 

@@ -14,7 +14,6 @@ Lezione 16.2  ->  22-Containerization for Software Engineers.pdf (Accenno Docker
 Lezione 17-18   ->  23-Design-Patterns.pdf
 Lezione 19   ->  25-Refactoring.pdf
 
-
  --- Da fare
 
 Lezione 0   ->  21-REST APIs.pdf
