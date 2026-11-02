@@ -174,17 +174,24 @@ La **URL encoding** sostituisce i caratteri speciali con terne `%XX`, dove XX so
 ## Organizzazione del contenuto
 
 Il contenuto di una pagina può essere raggruppato con **divisioni** `<div>` (nessuna semantica oltre al raggruppamento) o con **tag semantici**, che descrivono il significato del contenuto a browser, sviluppatori e software.
-- `<nav>` contiene link di navigazione; 
-- `<main>` il contenuto principale; 
-- `<article>` contenuto indipendente e autonomo; 
-- `<aside>` contenuto tangenzialmente correlato; 
-- `<header>`, `<footer>`, `<section>` autoesplicativi.
 
-![[Lezione 4 new-1790759532874.png|200]]
+> [!aside]
+> - `<nav>` contiene link di navigazione; 
+> - `<main>` il contenuto principale; 
+> - `<article>` contenuto indipendente e autonomo; 
+> - `<aside>` contenuto tangenzialmente correlato; 
+> - `<header>`, `<footer>`, `<section>` autoesplicativi.
+> 
+> ---
+> 
+> ![[Lezione 4 new-1790759532874.png|200]]
 
-Un documento HTML è un **albero**: `html` è la radice, con figli `head` e `body`; il nesting di elementi definisce la gerarchia.
-
-![[Lezione 4-1791213926165.png|200]]
+> [!aside]
+> Un documento HTML è un **albero**: `html` è la radice, con figli `head` e `body`; il nesting di elementi definisce la gerarchia.
+> 
+> ---
+> 
+> ![[Lezione 4-1791213926165.png|200]]
 
 ## Errori HTML e recupero dei browser
 
@@ -193,4 +200,5 @@ Un documento HTML è un **albero**: `html` è la radice, con figli `head` e `bod
 
 ## DevTools
 
-- La scheda "Inspector"/"Analisi pagina" dei DevTools del browser permette di ispezionare l'HTML del documento e modificarlo **localmente**, cioè solo nella copia caricata nel browser, non sul server.
+> [!lab]
+> La scheda "Inspector"/"Analisi pagina" dei DevTools del browser permette di ispezionare l'HTML del documento e modificarlo **localmente**, cioè solo nella copia caricata nel browser, non sul server.

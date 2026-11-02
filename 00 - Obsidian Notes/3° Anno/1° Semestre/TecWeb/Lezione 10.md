@@ -4,13 +4,16 @@
 
 ### Host environment
 
-JavaScript può girare in diversi **host environment** (ambienti host):
-
-- **Browser web**: per cui JavaScript è stato originariamente creato.
-- **Web server**: es. tramite il runtime **Node.js**.
-- Ogni host environment fornisce i propri **oggetti** e **funzioni**, in aggiunta a quelli inclusi nel **core del linguaggio**.
-
-![[b3bd56a960dc06c510972ebcd9623350bda01e6e7a63b8351d4f84b7a922ed34.png|300]]
+> [!aside]
+> JavaScript può girare in diversi **host environment** (ambienti host):
+> 
+> - **Browser web**: per cui JavaScript è stato originariamente creato.
+> - **Web server**: es. tramite il runtime **Node.js**.
+> - Ogni host environment fornisce i propri **oggetti** e **funzioni**, in aggiunta a quelli inclusi nel **core del linguaggio**.
+> 
+> ---
+> 
+> ![[b3bd56a960dc06c510972ebcd9623350bda01e6e7a63b8351d4f84b7a922ed34.png|300]]
 
 ### window
 
@@ -51,13 +54,17 @@ Gli oggetti principali del BOM sono i seguenti:
 
 Un documento HTML può essere visto come un **albero** (con discendenti, figli, fratelli): il **DOM formalizza** questa intuizione.
 
-- Ogni **tag HTML è un oggetto** nel DOM.
-- I tag annidati sono **figli** del tag che li racchiude.
-- Il contenuto testuale di un tag è un oggetto (`#text`) a sua volta **figlio del tag**.
-- Gli **attributi** di un tag sono accessibili come **proprietà** dell'oggetto corrispondente.
-- Il DOM reale include anche **spazi e a-capo** tra i tag come nodi `#text`; nelle rappresentazioni si omettono per brevità.
-
-![[1a98e0c713a936e079235c32b6ec8108f789ce453c2a90aab1f8ea4e7ebcf7d6.png|200]]
+> [!aside]
+> - Ogni **tag HTML è un oggetto** nel DOM.
+> - I tag annidati sono **figli** del tag che li racchiude.
+> - Il contenuto testuale di un tag è un oggetto (`#text`) a sua volta **figlio del tag**.
+> - Gli **attributi** di un tag sono accessibili come **proprietà** dell'oggetto corrispondente.
+> - Il DOM reale include anche **spazi e a-capo** tra i tag come nodi `#text`; nelle rappresentazioni si omettono per brevità.
+> 
+> ---
+> 
+> ![[1a98e0c713a936e079235c32b6ec8108f789ce453c2a90aab1f8ea4e7ebcf7d6.png|200]]
+> 
 
 I **commenti HTML** non sono mostrati dal browser, ma vengono comunque analizzati e aggiunti al DOM come speciali **nodi commento**.
 
@@ -117,16 +124,22 @@ let links = sidebar.querySelectorAll("a"); // cerca solo dentro sidebar
 
 Gli elementi più in alto (`html`, `head`, `body`) sono disponibili anche come **proprietà di `document`**; inoltre, i nodi del DOM sono collegati tra loro da riferimenti di navigazione.
 
-- I nodi del DOM contengono **riferimenti a padre, fratelli e figli**: `parentNode`, `previousSibling` / `nextSibling`, `firstChild` / `lastChild`, `childNodes`.
-- Questi riferimenti sono **di sola lettura**.
-
-![[6078ffb9e70ced9fdf91bbb23154ad61b67f3ff89efd2032852659242aeeb09b.png|200]]
+> [!aside]
+> - I nodi del DOM contengono **riferimenti a padre, fratelli e figli**: `parentNode`, `previousSibling` / `nextSibling`, `firstChild` / `lastChild`, `childNodes`.
+> - Questi riferimenti sono **di sola lettura**.
+> 
+> ---
+> 
+> ![[6078ffb9e70ced9fdf91bbb23154ad61b67f3ff89efd2032852659242aeeb09b.png|200]]
 
 ### Navigazione solo elementi
 
-Per ignorare i nodi di testo e commento si usano le proprietà che considerano **solo i DOM element**: `parentElement`, `children`, `firstElementChild` / `lastElementChild`, `previousElementSibling` / `nextElementSibling`.
-
-![[6592253cfd7810b3705f9a83a732b605c8a5b50eb1db7052a3588af0b6acd109.png|250]]
+> [!aside]
+> Per ignorare i nodi di testo e commento si usano le proprietà che considerano **solo i DOM element**: `parentElement`, `children`, `firstElementChild` / `lastElementChild`, `previousElementSibling` / `nextElementSibling`.
+> 
+> ---
+> 
+> ![[6592253cfd7810b3705f9a83a732b605c8a5b50eb1db7052a3588af0b6acd109.png|250]]
 
 ```html
 <main><h1>Hello DOM!</h1><!-- comment --><p>DOM is <em>FUN</em>!</p></main>
@@ -221,7 +234,6 @@ document.body.prepend(heading); // <h1> (con il suo figlio) in cima al <body>
 ### Metodi di inserimento
 
 ![[e084e9cb13fb1a243cf8ce78c2639137e9f48629f62f2a9526894ef2ab786aab.png|200]]
-
 
 | Metodo                                 | Descrizione                                                 |
 | -------------------------------------- | ----------------------------------------------------------- |
@@ -385,11 +397,14 @@ input.dispatchEvent(click); // isTrusted === false per gli eventi generati via J
 
 ### Capturing
 
-- Esiste un'altra fase di elaborazione dell'evento, il **capturing**, che procede «verso il basso» fino all'elemento target.
-- L'elaborazione di un evento ha tecnicamente **tre fasi**: 1. capturing, 2. target, 3. bubbling.
-- I listener nella fase di capturing si registrano con `elem.addEventListener(..., { capture: true });`.
-
-![[12a2031a63c396958532c1c37f952fbcf42131c561da6a32a53905549822d001.png|200]]
+> [!aside]
+> - Esiste un'altra fase di elaborazione dell'evento, il **capturing**, che procede «verso il basso» fino all'elemento target.
+> - L'elaborazione di un evento ha tecnicamente **tre fasi**: 1. capturing, 2. target, 3. bubbling.
+> - I listener nella fase di capturing si registrano con `elem.addEventListener(..., { capture: true });`.
+> 
+> ---
+> 
+> ![[12a2031a63c396958532c1c37f952fbcf42131c561da6a32a53905549822d001.png|200]]
 
 ## Ordine di esecuzione degli script
 

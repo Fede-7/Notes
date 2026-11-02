@@ -1,156 +1,149 @@
-# DNS: Domain Name System
-## DNS: più di una «rubrica telefonica»
+# Lezione 1 DNS: Domain Name System
 
-- A volte il DNS viene descritto come la «rubrica telefonica» di Internet
-- In realtà il DNS è un database **distribuito e gerarchico**
+> [!def] DNS  
+> **Database distribuito e gerarchico** di Internet, talvolta descritto in modo improprio come la «rubrica telefonica» della rete. Memorizza e fornisce le informazioni associate ai nomi.
 
-## DNS: i nomi
+## I nomi
 
-- I nomi DNS sono una sequenza di **etichette** (label)
-  - Convenzionalmente stampate separate da punti
-  - La gerarchia si legge da destra verso sinistra; la specificità aumenta da destra verso sinistra
-  - Le etichette non distinguono maiuscole/minuscole (case insensitive)
-- Si consideri: `informatica.dieti.unina.it.`
-  - L'etichetta vuota dopo il punto finale è la «radice» (root)
-  - «root» → `it` → `unina` → `dieti` → `informatica`
-- I nomi DNS sono talvolta chiamati informalmente *hostname*
-  - Possono non corrispondere a un host, ma a un servizio, a un punto di delega, a una policy di instradamento della posta, o semplicemente a un nodo del database DNS distribuito
-  - Inoltre, lo stesso host può avere nomi DNS diversi
-  
+Un nome DNS è una sequenza gerarchica di etichette, lette da destra verso sinistra.
+
+- **Etichetta (label)**: componente elementare del nome; convenzionalmente le etichette sono stampate separate da punti.
+- La **gerarchia** si legge da destra verso sinistra: la specificità del nome aumenta da destra verso sinistra.
+- Le etichette sono **case insensitive**: non distinguono maiuscole e minuscole.
+- **Root**: l'etichetta vuota dopo il punto finale del nome, che rappresenta la radice del namespace.
+
+Nel nome `informatica.dieti.unina.it.` la gerarchia si legge: root → `it` → `unina` → `dieti` → `informatica`.
+
+I nomi DNS sono talvolta chiamati informalmente *hostname*, ma in realtà:
+
+- Un nome può non corrispondere a un host, bensì a un servizio, a un punto di delega, a una policy di instradamento della posta o semplicemente a un nodo del database DNS distribuito.
+- Lo stesso host può avere nomi DNS diversi.
+
 ## Domini, zone e delega
 
-- Un **dominio** è una parte dello spazio dei nomi (namespace)
-  - Un nodo e il sottoalbero che vi è radicato
-- Tutti i domini di primo livello e molti domini di secondo livello e inferiori sono suddivisi, tramite **delega**, in unità più piccole e gestibili
-- Queste unità più piccole si chiamano **zone**
-- Ogni zona è servita da uno o più **name server autoritativi**
-  - I name server memorizzano e forniscono le informazioni DNS per le zone
-  - Possono esistere più name server autoritativi per ridondanza
-  - L'autorità di un name server termina in corrispondenza di zone figlie delegate
-  - Un name server può essere autoritativo per molte zone
+> [!def] Dominio  
+> **Parte dello spazio dei nomi (namespace)**: un nodo dell'albero e il sottoalbero che vi è radicato.
+
+- **Delega**: suddivisione di un dominio in unità più piccole e gestibili, tramite l'assegnazione dell'autorità su di esse.
+- **Zona**: unità più piccola risultante dalla delega.
+- Ogni zona è servita da uno o più **name server autoritativi**, che memorizzano e forniscono le informazioni DNS della zona.
+- Possono esistere più name server autoritativi per la stessa zona, per ridondanza.
+- L'autorità di un name server termina in corrispondenza delle zone figlie delegate.
+- Un name server può essere autoritativo per molte zone.
 
 ### Dominio vs Zona
 
-Dominio e zona sono concetti diversi:
+Dominio e zona sono concetti diversi, ed è la delega a renderli tali.
 
-- Il **dominio** è un concetto **strutturale** (un sottoalbero del namespace)
-- La **zona** è un concetto **amministrativo** (la parte del namespace per la quale un'autorità pubblica dati)
-- È la delega a renderli diversi!
+- Il **dominio** è un concetto **strutturale**: un sottoalbero del namespace.
+- La **zona** è un concetto **amministrativo**: la parte del namespace per la quale un'autorità pubblica dati.
 
-Se **unina.it.** delega **dieti.unina.it.** al DIETI:
+Se `unina.it.` delega `dieti.unina.it.` al DIETI, `dieti.unina.it.` smette di far parte della zona `unina.it.` perché l'autorità è stata delegata, ma continua a far parte del dominio `unina.it.` perché resta nel sottoalbero radicato in `unina.it.`.
 
-- **dieti.unina.it.** smette di far parte del dominio **unina.it.**? **No.** Fa ancora parte del sottoalbero radicato in `unina.it.`
-- **dieti.unina.it.** smette di far parte della zona **unina.it.**? **Sì.** L'autorità è stata delegata!
+> I domini descrivono l'albero. Le zone descrivono la responsabilità amministrativa su parti dell'albero.
 
-> *I domini descrivono l'albero. Le zone descrivono la responsabilità amministrativa su parti dell'albero.*
+## Tipi di record
 
-## DNS: tipi di record
+Il DNS memorizza le informazioni come **Resource Record** (RR), descritti dai seguenti campi.
 
-Il DNS memorizza le informazioni come **Resource Record** (RR):
 
-| Owner name | TTL | Class | Type | Value |
-| --- | --- | --- | --- | --- |
-| informatica.dieti.unina.it. | 21600 | IN | A | 143.225.97.81 |
+| Owner name                    | TTL   | Class | Type | Value           |
+| ----------------------------- | ----- | ----- | ---- | --------------- |
+| `informatica.dieti.unina.it.` | 21600 | `IN`  | `A`  | `143.225.97.81` |
 
-- **Owner name**: il nome DNS descritto dal record
-- **TTL**: time-to-live, ovvero per quanto tempo la risposta può essere conservata in cache (in secondi)
-- **Class**: normalmente «IN», ovvero Internet
-- **Type**: il tipo di informazione contenuta nel record
-- **Value**: il dato associato al nome
+
+- **Owner name**: il nome DNS descritto dal record.
+- **TTL** (*time-to-live*): per quanto tempo, in secondi, la risposta può essere conservata in cache.
+- **Class**: normalmente `IN`, ovvero Internet.
+- **Type**: il tipo di informazione contenuta nel record.
+- **Value**: il dato associato al nome.
 
 ### Principali tipi di record DNS
 
-| Tipo  | Scopo                           |
-| ----- | ------------------------------- |
-| A     | Da nome a indirizzo IPv4        |
-| AAAA  | Da nome a indirizzo IPv6        |
-| CNAME | Alias verso un nome canonico    |
-| NS    | Server autoritativi di una zona |
-| SOA   | Identifica una zona             |
-| MX    | Server di posta per un dominio  |
 
-## DNS: gli attori
+| Tipo    | Scopo                           |
+| ------- | ------------------------------- |
+| `A`     | Da nome a indirizzo IPv4        |
+| `AAAA`  | Da nome a indirizzo IPv6        |
+| `CNAME` | Alias verso un nome canonico    |
+| `NS`    | Server autoritativi di una zona |
+| `SOA`   | Identifica una zona             |
+| `MX`    | Server di posta per un dominio  |
 
-Come fanno i browser (o i client in generale) a passare da un nome DNS a un indirizzo IP? Nel processo sono coinvolti diversi attori:
 
-- Il **client** chiede a un'interfaccia locale di risoluzione (**stub resolver**), gestita a livello di sistema operativo, un record di un certo tipo (es. A) per un dato nome
-- Lo stub resolver delega la risoluzione a un **resolver ricorsivo**
-  - Tipicamente gestito da ISP o provider pubblici (Google – 8.8.8.8, Cloudflare – 1.1.1.1, …)
-- Il resolver ricorsivo naviga la **gerarchia autoritativa** cercando il record
-  - Ciò può richiedere il «dialogo» con più server DNS
-- Il resolver ricorsivo restituisce il record oppure un errore
+## Gli attori
+
+Nel passaggio da un nome DNS a un indirizzo IP sono coinvolti diversi attori.
+
+- **Client**: chiede un record di un certo tipo per un dato nome a un'interfaccia locale di risoluzione.
+- **Stub resolver**: interfaccia locale di risoluzione gestita a livello di sistema operativo, che riceve la richiesta del client e la delega al resolver ricorsivo.
+- **Resolver ricorsivo**: tipicamente gestito da ISP o provider pubblici (Google `8.8.8.8`, Cloudflare `1.1.1.1`); naviga la **gerarchia autoritativa** cercando il record, il che può richiedere il dialogo con più server DNS.
+- Il resolver ricorsivo restituisce il record oppure un errore.
 
 ## Query ricorsive vs iterative
 
-- **Query ricorsive**: «Trova la risposta definitiva per me»
-  - Dal client → al resolver ricorsivo
-  - Il resolver svolge tutto il lavoro
-  - Nella ricorsione, il server interpellato è responsabile di ottenere il risultato
-- **Query iterative**: «Dammi la migliore informazione che hai»
-  - Dal resolver ricorsivo → ai server DNS
-  - Ogni server può restituire una risposta o un referral
-  - Nell'iterazione, il resolver segue i referral e decide quale sia la query successiva
+- **Query ricorsiva**: chiede al server di trovare la risposta definitiva; il server interpellato è responsabile di ottenere il risultato e svolge tutto il lavoro.
+- **Query iterativa**: chiede al server la migliore informazione che ha; ogni server può restituire una risposta o un referral, e il resolver segue i referral decidendo quale sia la query successiva.
+- La query ricorsiva è usata dal client verso il resolver ricorsivo; la query iterativa è usata dal resolver ricorsivo verso i server DNS.
 
 ## Interazioni DNS: query e risposte
 
-Un'interazione DNS consiste normalmente di due messaggi:
+Un'interazione DNS consiste normalmente di due messaggi: una **question** e una **response**.
 
-- **Question** (domanda)
-  - Es. `informatica.dieti.unina.it. IN A`
-- **Response** (risposta)
-  - *Header*: stato e flag
-  - *Question*: riportata dalla query (echo)
-  - *Answer*: record che rispondono alla domanda
-  - *Authority*: dati autoritativi o referral
-  - *Additional*: record di supporto utili
+- **Question**: la domanda, es. `informatica.dieti.unina.it. IN A`.
+- **Response**: la risposta, articolata in sezioni.
 
-Le domande contengono tre campi principali:
+Le sezioni della response sono:
 
-- **NAME** (il nome richiesto)
-- **CLASS** (normalmente IN per Internet — talvolta omessa)
-- **TYPE** (il tipo di record richiesto)
+- **Header**: stato e flag.
+- **Question**: la domanda, riportata dalla query (echo).
+- **Answer**: i record che rispondono alla domanda.
+- **Authority**: dati autoritativi o referral.
+- **Additional**: record di supporto utili.
+
+Le question contengono tre campi principali: **NAME** (il nome richiesto), **CLASS** (normalmente `IN` per Internet, talvolta omessa) e **TYPE** (il tipo di record richiesto).
 
 ## Risposte DNS
 
-Gli header delle risposte DNS iniziano con un **codice di stato**. I possibili codici includono:
+Gli header delle risposte DNS iniziano con un **codice di stato**. I principali codici sono:
 
-| Stato | Significato |
-| --- | --- |
-| **NOERROR** | Il server ha elaborato la query con successo |
-| **NXDOMAIN** | Il nome richiesto non esiste |
-| **SERVFAIL** | Il server non è riuscito a completare la query |
-| **REFUSED** | Il server ha rifiutato di eseguire l'operazione richiesta |
-| **FORMERR** | Il messaggio di query era malformato |
+
+| Stato      | Significato                                               |
+| ---------- | --------------------------------------------------------- |
+| `NOERROR`  | Il server ha elaborato la query con successo              |
+| `NXDOMAIN` | Il nome richiesto non esiste                              |
+| `SERVFAIL` | Il server non è riuscito a completare la query            |
+| `REFUSED`  | Il server ha rifiutato di eseguire l'operazione richiesta |
+| `FORMERR`  | Il messaggio di query era malformato                      |
+
 
 ### Risposte NOERROR
 
-- **NOERROR** non significa necessariamente che il record sia stato trovato
-- Significa che il server DNS ha capito ed elaborato la query
-- Sono possibili scenari diversi:
-  - **Risposta positiva.** Il blocco Answer contiene il record richiesto
-  - **Referral.** Il blocco Authority contiene record **NS** di una zona che potrebbe sapere di più
-  - **NODATA.** La risposta può confermare che il nome esiste, ma non esiste alcun record del tipo richiesto (blocco Answer vuoto)
+`NOERROR` significa che il server ha capito ed elaborato la query, ma non implica che il record sia stato trovato. Gli scenari possibili sono:
+
+- **Risposta positiva**: il blocco Answer contiene il record richiesto.
+- **Referral**: il blocco Authority contiene record `NS` di una zona che potrebbe sapere di più.
+- **NODATA**: il nome esiste ma non esiste alcun record del tipo richiesto; il blocco Answer è vuoto.
 
 ## Esempio di risoluzione: cold-cache
 
-Il client vuole ottenere un record A per `squids.unina.it.`:
-
-1. Il client chiede allo stub resolver
-2. Lo stub resolver invia una query DNS al resolver ricorsivo
-3. Il resolver ricorsivo interroga la root → riceve un referral verso `.it`
-4. Il resolver ricorsivo interroga `.it` → riceve un referral verso `unina.it`
-5. Il resolver ricorsivo interroga `unina.it` → riceve il record A
-6. Il resolver ricorsivo risponde allo stub resolver
+> [!example] 
+> Nella risoluzione di un record `A` per `squids.unina.it.` con nessun dato in cache, il processo attraversa tutta la gerarchia.
+> 
+> 1. Il client chiede allo stub resolver.
+> 2. Lo stub resolver invia una query DNS al resolver ricorsivo.
+> 3. Il resolver ricorsivo interroga la root e riceve un referral verso `.it`.
+> 4. Il resolver ricorsivo interroga `.it` e riceve un referral verso `unina.it`.
+> 5. Il resolver ricorsivo interroga `unina.it` e riceve il record `A`.
+> 6. Il resolver ricorsivo risponde allo stub resolver.
+> 
 
 ### La cache nella risoluzione DNS
 
-- Nello scenario precedente il resolver ricorsivo ha navigato l'intera gerarchia
-- Nel mondo reale, i sistemi memorizzano i dati in una cache per efficienza
-  - Questo vale per browser, stub resolver, resolver ricorsivi, …
-- Se un record è già in cache (e non è scaduto), non serve alcuna navigazione!
-- Lo scenario in cui nessun dato in cache è disponibile durante la risoluzione è lo scenario peggiore
-  - Chiamato anche **risoluzione cold-cache**
-- Il **TTL** determina per quanto tempo un record in cache può essere usato
+- Nel mondo reale, browser, stub resolver e resolver ricorsivi memorizzano i dati in una cache per efficienza.
+- Se un record è già in cache e non è scaduto, non serve alcuna navigazione della gerarchia.
+- **Risoluzione cold-cache**: lo scenario peggiore, in cui nessun dato in cache è disponibile durante la risoluzione.
+- Il **TTL** determina per quanto tempo un record in cache può essere usato.
 
 ## Pratica
 
@@ -160,7 +153,7 @@ Il client vuole ottenere un record A per `squids.unina.it.`:
 > - Con **dig**, analizziamo query e risposte DNS; l'opzione **+trace** mostra la risoluzione gerarchica completa, senza cache, dai root server fino ai server autoritativi:
 > 
 > ```bash
-> luigi@XPS-9520:/$ dig @8.8.8.8 squids.unina.it. +trace
+> $ dig @8.8.8.8 squids.unina.it. +trace
 > ```
 > 
 > - Ogni livello rimanda ai name server del livello successivo: il DNS di Google elenca i root server, il root server selezionato rimanda ai name server del TLD `.it`, questi a quelli di `unina.it`, e infine il name server autoritativo (`dscna2.unina.it`) restituisce il record A:

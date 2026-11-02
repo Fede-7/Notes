@@ -152,18 +152,24 @@ flowchart LR
 h1 { color: red !important; }
 ```
 
-- Gli origin bucket vanno dal **meno specifico al più specifico**; l'importanza (`!important`) crea ulteriori sotto-bucket all'interno di ciascuna origine.
-
-![[Lezione 5-1791213829616.png|300]]
+> [!aside]
+> - Gli origin bucket vanno dal **meno specifico al più specifico**; l'importanza (`!important`) crea ulteriori sotto-bucket all'interno di ciascuna origine.
+> 
+> ---
+> 
+> ![[Lezione 5-1791213829616.png|300]]
 
 ### Layers
 
-- Dentro ogni bucket origine/importanza possono esserci più **cascade layers**:
-	- Negli stili authored si possono definire **layer personalizzati** con la regola `@layer`; i layer dichiarati **più tardi hanno priorità più alta**.
-	- Tutto il CSS in `<style>` o importato con `<link>` appartiene a un **layer senza nome**.
-	- Gli **stili inline** appartengono a un layer separato e hanno la **priorità più alta**.
-
-![[Lezione 5-1791213863152.png|300]]
+> [!aside]
+> - Dentro ogni bucket origine/importanza possono esserci più **cascade layers**:
+> 	- Negli stili authored si possono definire **layer personalizzati** con la regola `@layer`; i layer dichiarati **più tardi hanno priorità più alta**.
+> 	- Tutto il CSS in `<style>` o importato con `<link>` appartiene a un **layer senza nome**.
+> 	- Gli **stili inline** appartengono a un layer separato e hanno la **priorità più alta**.
+> 
+> ---
+> 
+> ![[Lezione 5-1791213863152.png|300]]
 
 ### Specificità
 

@@ -18,7 +18,6 @@ Lezione 19   ->  25-Refactoring.pdf
  --- Da fare
 
 Lezione 0   ->  21-REST APIs.pdf
-
 Lezione 0   ->  24-Build-tools-and-version-control.pdf
 
 Lezione 0   ->  26-SOLID-Principles.pdf
@@ -41,7 +40,7 @@ last in Notes:
     2026-10-30  : Slide Lezione 18
 
 last slide (non caricata):
-	2026-
+	2026-11-
 
 
 ## Reti&PD
@@ -53,6 +52,7 @@ last in Notes:
     
 
 last slide (non caricata):
+	2026-11-
 
 
 

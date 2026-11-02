@@ -1,4 +1,4 @@
-# Lezione 3 : HTTP Rappresentazioni, Efficienza e Sicurezza
+# Lezione 3 HTTP Rappresentazioni, Efficienza e Sicurezza
 
 ## Content Negotiation
 

@@ -1,4 +1,4 @@
-# Lezione 2: HTTP: The Hypertext Transfer Protocol
+# Lezione 2 HTTP: The Hypertext Transfer Protocol
 
 ## Il Contesto: Web Technologies
 

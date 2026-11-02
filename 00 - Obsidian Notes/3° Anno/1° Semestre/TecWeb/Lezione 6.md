@@ -57,21 +57,25 @@ div { height: 50vh; }
 > [!def] Box model
 > Ogni elemento HTML è un **box** composto da aree distinte.
 
-- **Content box**: l'area dove vivono i figli dell'elemento.
-- **Padding**: spaziatura interna, separa il content box dal bordo.
-- **Border**: il confine dell'elemento.
-- **Margin**: crea spazio attorno agli elementi.
-
-```mermaid
-flowchart LR
-    subgraph margin["Margin (spazio attorno)"]
-        subgraph border["Border (confine)"]
-            subgraph padding["Padding (spaziatura interna)"]
-                content["Content box (figli dell'elemento)"]
-            end
-        end
-    end
-```
+> [!aside]
+> - **Content box**: l'area dove vivono i figli dell'elemento.
+> - **Padding**: spaziatura interna, separa il content box dal bordo.
+> - **Border**: il confine dell'elemento.
+> - **Margin**: crea spazio attorno agli elementi.
+> 
+> ---
+> 
+> ```mermaid
+> flowchart LR
+>     subgraph margin["Margin (spazio attorno)"]
+>         subgraph border["Border (confine)"]
+>             subgraph padding["Padding (spaziatura interna)"]
+>                 content["Content box (figli dell'elemento)"]
+>             end
+>         end
+>     end
+> ```
+> 
 
 - La dimensione di ogni area si definisce con dichiarazioni CSS.
 - Comportamento e aspetto dei box sono determinati da: **layout mode**, **contenuto** e **proprietà del box model**.
