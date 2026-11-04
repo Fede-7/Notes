@@ -12,7 +12,8 @@ Lezione 14   ->  14-Virtualizzazione e Cloud.pdf
 Lezione 15-16   ->  17-18-Modern Software Architectures - Microservices.pdf
 Lezione 16.2  ->  22-Containerization for Software Engineers.pdf (Accenno Docker)
 Lezione 17-18   ->  23-Design-Patterns.pdf
-Lezione 19   ->  25-Refactoring.pdf
+Lezione 18-19   ->  25-Refactoring.pdf
+
 
  --- Da fare
 
@@ -39,7 +40,7 @@ last in Notes:
     2026-10-30  : Slide Lezione 18
 
 last slide (non caricata):
-	2026-11-
+	2026-11-03 Slide Lezione 19 - Rest API
 
 
 ## Reti&PD
@@ -51,8 +52,15 @@ last in Notes:
     
 
 last slide (non caricata):
-	2026-11-
-
+	2026-11-03 - Lezione 15 
 
 
 ---
+
+## Intercorso
+
+### Reti
+Solo esercizi dalle slide, codice boh
+
+### TecWeb
+Argomenti fino alla lezione 18
