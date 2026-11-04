@@ -1,4 +1,4 @@
-# Lezione 16.2 Docker - Containerization for Software Engineers
+# Lezione 16.2 Docker - Containerization for Software Engineers 
 
 > [!info] Contesto
 > Lezione **introduttiva** sul tema containerization: serve a motivare l'utilità di Docker, non è contenuto essenziale del corso.
@@ -118,7 +118,7 @@ La CLI gestisce il ciclo di vita: `docker pull` scarica un'immagine, `docker run
 
 Come esempio di uso di Docker come sviluppatori, la lezione costruisce una web app a microservizi: un **frontend** (pagina web con un po' di JavaScript) e due servizi backend che comunicano via **HTTP**, un **fortune service** (Nodejs ed Express) che risponde a GET `/fortune`, e un **uppercase service** (Python e Flask) che risponde a POST `/uppercase` e GET `/uppercase-fortune`, quest'ultimo ottenendo il fortune dal fortune service e rendendolo maiuscolo. Ogni componente ha un proprio Dockerfile, che estende l'immagine base del linguaggio (`node:14`, `python:3.8`, `nginx:latest`), copia i file del servizio, installa le dipendenze ed espone la porta del container.
 
-![[4cad402a5e752becc4b9cfb39de98a5c19ad52e48baba9442159ea43de52220a.png|400]]
+![[4cad402a5e752becc4b9cfb39de98a5c19ad52e48baba9442159ea43de52220a.png|350]]
 
 > [!def] Docker Compose
 > **Strumento di orchestrazione** che definisce e avvia applicazioni multi-container a partire da un unico file YAML, con una direttiva per ogni servizio.
