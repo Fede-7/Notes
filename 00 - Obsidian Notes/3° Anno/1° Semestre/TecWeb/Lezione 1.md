@@ -180,3 +180,6 @@ Gli header delle risposte DNS iniziano con un **codice di stato**. I principali 
 > ```
 > 
 > > Nota: il DNS è usato anche per ottenere l'IP (record A) del NS selezionato, se la risposta intermedia non lo contiene già nella sezione additional!
+
+
+

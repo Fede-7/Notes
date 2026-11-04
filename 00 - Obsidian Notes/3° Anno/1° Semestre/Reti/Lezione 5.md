@@ -28,7 +28,7 @@ La richiesta include i seguenti campi:
 - **Header lines**: parametri della richiesta, in numero e tipo non fissi; ogni riga contiene nome e valore del parametro (es. persistenza della connessione; sono possibili header personalizzati).
 - **Body**: dipende dal metodo, contiene dati potenzialmente associati al comando (es. testo di un form).
 
-![[Lezione 5-1792082402962.webp|300]]
+![[Lezione 5-1792082402962.png|300]]
 
 I campi sono separati da caratteri speciali: **sp** (spazio), **cr** (carriage return, `\r`), **lf** (line feed, `\n`).
 
@@ -65,7 +65,7 @@ Il formato è simile alla richiesta, ma al posto della request line c'è una **s
 - **Status code**: codice (numero) che specifica l'esito del comando.
 - **Phrase**: frase con il risultato della richiesta.
 
-![[Lezione 5-1792082528768.webp|300]]
+![[Lezione 5-1792082528768.png|300]]
 
 Classi di status code:
 
@@ -124,7 +124,7 @@ La tecnologia dei cookie ha quattro componenti:
 > 
 > ---
 > 
-> ![[Lezione 5-1792082711902.webp|300]]
+> ![[Lezione 5-1792082711902.png|300]]
 
 Usi principali e criticità:
 
@@ -161,7 +161,7 @@ Misure e problemi:
 - **Problema di obsolescence**: la copia in cache può essere datata; per verificarla esiste il **conditional GET**: richiesta HTTP con metodo `GET` e header `If-Modified-Since:`, con cui la cache controlla se l'oggetto è aggiornato e, in tal caso, restituisce la versione memorizzata senza ulteriore comunicazione.
 - Anche i **browser** fanno caching locale: memorizzano gli oggetti per non recuperarli dal server; la tecnica migliora molto le prestazioni, ma la versione locale può non essere aggiornata, generando errori piuttosto frequenti.
 
-![[Lezione 5-1792083357474.webp|200]]
+![[Lezione 5-1792083357474.png|200]]
 
 ## Oltre il caching
 

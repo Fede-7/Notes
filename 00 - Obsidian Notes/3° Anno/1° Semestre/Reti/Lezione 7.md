@@ -94,7 +94,7 @@ La distribuzione DNS mappa i domini su valori tramite **resource record**, con i
 
 ## Name server e zone
 
-![[Lezione 7-1792083548316.webp|250]]
+![[Lezione 7-1792083548316.png|250]]
 
 Un unico server DNS centralizzato non avrebbe senso: lo space DNS è partizionato in **zone non sovrapposte**; il partizionamento spetta all'amministratore della zona.
 
@@ -173,7 +173,7 @@ Un resolver non parte necessariamente dalla radice: **parte dal punto noto più 
 > 
 > ---
 > 
-> ![[Lezione 7-1792083897958.webp|200]]
+> ![[Lezione 7-1792083897958.png|200]]
 
 #### Stub resolver
 Un host in genere **non esegue da solo** la risoluzione DNS: sul'host agisce uno **stub resolver**, che riceve le richieste delle applicazioni e invia **una query ricorsiva** al resolver ricorsivo configurato (ISP, istituzione o servizio pubblico); il resolver ricorsivo esegue la risoluzione vera e propria e restituisce la risposta finale. Su molti sistemi Linux è un servizio DNS locale a fare da stub/forwarder: è il caso di `127.0.0.53`.

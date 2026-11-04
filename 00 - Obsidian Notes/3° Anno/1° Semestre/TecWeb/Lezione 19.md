@@ -15,7 +15,7 @@ Il trend attuale è dividere la web app in due componenti che comunicano via Int
 - **Backend** (lato server): responsabile di dati e business logic.
 - **Frontend** (lato client): responsabile della UI; può essere un'app nativa mobile o desktop, oppure una pagina HTML "più smart" che rende un'interfaccia interattiva tramite JavaScript (Single Page Application).
 
-![[Pasted image 20261103170315.png|200]]
+![[Lezione 19-1793792904358.png|200]]
 
 ## API e REST
 
@@ -112,14 +112,14 @@ Uno schema di autenticazione ampiamente usato è **token-based**, con questo flu
 > ![[Pasted image 20261103172102.png|150]]
 > 
 
-> [!def] JSON Web Token (JWT)
+> [!def] JSON Web Token (JWT) [^1]
 > **Standard aperto (RFC 7519)** ampiamente adottato che permette di condividere in modo sicuro claim tra due parti; il token è una stringa di tre parti separate da `.`, nella forma `Header.Payload.Signature`.
 
 - **Header**: JSON con il tipo di token e la funzione di hashing usata per firmarlo (es. `{"alg": "HS256", "typ": "JWT"}`), codificato con Base64Url.
 - **Payload**: JSON contenente i **claim**, personalizzabili; alcuni claim registrati sono raccomandati, es. `exp` che indica la scadenza del token; anche questo è Base64Url.
 - **Signature**: funzione di hash crittografica applicata alla concatenzione di header, payload e una **secret key** nota solo al server emittente; garantisce che il token non sia manomesso o contraffatto.
 
-![[Pasted image 20261103173414.png|200]]
+![[Lezione 19-1793792985584.png|200]]
 
 > [!warning] Base64Url è codifica, non cifratura
 > Header e payload di un JWT sono semplicemente codificati e **possono** essere invertiti con facilità: chiunque può leggerne il contenuto. La sicurezza sta nella firma, non nella segretezza del contenuto.
@@ -134,8 +134,9 @@ Le funzioni di hash crittografiche sicure hanno due proprietà chiave:
 
 La firma JWT è in realtà un po' più complessa di una semplice hash (es. algoritmi HS256 e RS256).
 
-![[Pasted image 20261103172927.png|700x70]]
+![[Lezione 19-1793792954002.png|400]]
 
+[^1]: [JWT Debugger](https://www.jwt.io/)
 ### Con Express
 
 La configurazione tipica registra questi middleware:
@@ -165,7 +166,28 @@ Il middleware di autenticazione legge l'header `authorization`, estrae il token 
 
 **Autorizzazione**: oltre all'autenticazione, occorre verificare che l'utente possa interagire con quella specifica risorsa (es. modificare solo i propri to-do). Un middleware dedicato, es. `ensureUsersModifyOnlyOwnTodos`, controlla con il controller di autenticazione se l'utente ha il permesso su quella risorsa; in caso negativo passa a `next({ status: 403, ... })`: **403 Forbidden**, non 401.
 
-## OpenAPI
+## Regole di design REST
+
+Un buon insieme di regole di base per il design di API RESTful è riportato di seguito; strumenti come RESTRuler rilevano automaticamente le violazioni di queste regole (REST antipatterns) nelle web API.
+
+| Regola | Identificatore | Categoria |
+|---|---|---|
+| `401` per problemi con le credenziali del client | RC401 | Codici di stato HTTP |
+| Nome plurale per collection e store | PluralNoun | URI Design |
+| Nome singolare per document | SingularNoun | URI Design |
+| Nessuna slash finale nelle URI | NoTrailingSlash | URI Design |
+| Verbo o frase verbale per i controller | VerbController | URI Design |
+| Niente nomi CRUD nelle URI | NoCRUDNames | URI Design |
+| `Content-Type` sempre usato | ContentType | Metadata Design |
+| Descrizione della richiesta coerente col tipo di richiesta | DescriptionType | Metadata Design |
+| Slash iniziale `/` per la gerarchia | ForwardSlash | URI Design |
+| `GET` e `POST` non devono "tunnelare" altri metodi | NoTunnel | Request Methods |
+| `GET` solo per recuperare una rappresentazione di una risorsa | GETRetrieve | Request Methods |
+| Trattini `-` per migliorare la leggibilità delle URI | Hyphens | URI Design |
+| Lettere minuscole preferite nei path delle URI | Lowercase | URI Design |
+| Niente underscore `_` nelle URI | NoUnderscores | URI Design |
+
+## OpenAPI (Approfondimento)
 
 > [!def] OpenAPI
 > **Standard formale e aperto** per descrivere API HTTP, noto un tempo come Swagger; le descrizioni sono documenti strutturati in JSON o YAML che rappresentano un oggetto JSON.
@@ -208,23 +230,3 @@ In Express si usano due pacchetti: **swagger-jsdoc**, che genera la specifica Op
 authenticationRouter.post("/auth", async (req, res) => { /* ... */ });
 ```
 
-## Regole di design REST
-
-Un buon insieme di regole di base per il design di API RESTful è riportato di seguito; strumenti come RESTRuler rilevano automaticamente le violazioni di queste regole (REST antipatterns) nelle web API.
-
-| Regola | Identificatore | Categoria |
-|---|---|---|
-| `401` per problemi con le credenziali del client | RC401 | Codici di stato HTTP |
-| Nome plurale per collection e store | PluralNoun | URI Design |
-| Nome singolare per document | SingularNoun | URI Design |
-| Nessuna slash finale nelle URI | NoTrailingSlash | URI Design |
-| Verbo o frase verbale per i controller | VerbController | URI Design |
-| Niente nomi CRUD nelle URI | NoCRUDNames | URI Design |
-| `Content-Type` sempre usato | ContentType | Metadata Design |
-| Descrizione della richiesta coerente col tipo di richiesta | DescriptionType | Metadata Design |
-| Slash iniziale `/` per la gerarchia | ForwardSlash | URI Design |
-| `GET` e `POST` non devono "tunnelare" altri metodi | NoTunnel | Request Methods |
-| `GET` solo per recuperare una rappresentazione di una risorsa | GETRetrieve | Request Methods |
-| Trattini `-` per migliorare la leggibilità delle URI | Hyphens | URI Design |
-| Lettere minuscole preferite nei path delle URI | Lowercase | URI Design |
-| Niente underscore `_` nelle URI | NoUnderscores | URI Design |

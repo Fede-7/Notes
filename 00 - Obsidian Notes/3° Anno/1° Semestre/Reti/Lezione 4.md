@@ -88,7 +88,7 @@ Per impostazione predefinita le applicazioni HTTP odierne usano connessioni pers
 > 
 > ---
 > 
-> ![[Lezione 4-1792081943365.webp|150]]
+> ![[Lezione 4-1792081943365.png|150]]
 
 
 > [!example]
@@ -110,7 +110,7 @@ Per impostazione predefinita le applicazioni HTTP odierne usano connessioni pers
 > 
 > ---
 > 
-> ![[Lezione 4-1792082066036.webp|200]]
+> ![[Lezione 4-1792082066036.png|200]]
 
 ### Connessione persistente
 
@@ -120,7 +120,7 @@ Per impostazione predefinita le applicazioni HTTP odierne usano connessioni pers
 
 **Pipelining**: le richieste degli oggetti possono essere fatte back-to-back, senza attendere le risposte; da HTTP/2 richieste e risposte multiple possono essere **interleave** sulla stessa connessione, con meccanismi per **prioritizzare** richieste e risposte. Connessione persistente con pipelining è la modalità di default di HTTP.
 
-![[Lezione 4-1792082164482.webp|200]]
+![[Lezione 4-1792082164482.png|200]]
 
 ### Confronto persistente vs non persistente
 

@@ -66,7 +66,7 @@ Il pattern DAO affronta la variabilità dell'accesso ai dati.
 - **Problema**: l'accesso ai dati varia molto a seconda del tipo di memorizzazione (DBMS relazionale, DBMS NoSQL, flat file, ecc.) e dell'implementazione del fornitore.
 - **Soluzione**: il pattern **Data Access Object (DAO)** astrae e incapsula ogni accesso alla sorgente dati; ogni DAO gestisce la connessione con la sorgente per ottenere e memorizzare dati e implementa il meccanismo di accesso richiesto per lavorare con essa.
 
-![[c944cc784b59d630641c3aa7fe31e7d171b3512b96e24de9a985624293e6dd60.jpg|200]]
+![[c944cc784b59d630641c3aa7fe31e7d171b3512b96e24de9a985624293e6dd60.png|200]]
 
 Si definisce una classe DAO per ciascuna classe entità, che astrae le operazioni **CRUD** (Create, Retrieve, Update, Delete); i metodi «utili» dipendono dalla classe di dominio e dall'applicazione (per `LocationDao`: `findById`, `findByName`, `find`, `save`, `delete`). I benefici sono tre.
 
@@ -109,7 +109,7 @@ Builder e Factory formano una famiglia di pattern che affronta il problema delle
 
 Nella soluzione il singolo prodotto (`Product`) è costruito dal `ConcreteBuilder`, mentre la classe `Director` può gestire la costruzione di un insieme di oggetti `Product`.
 
-![[911b6ee3abfc9170b5e8471c5d4ab9ad58831adeb2fc66dc9141c2cdab9180e2.jpg|200]]
+![[911b6ee3abfc9170b5e8471c5d4ab9ad58831adeb2fc66dc9141c2cdab9180e2.png|200]]
 
 Il pattern si usa quando sussistono queste condizioni.
 
@@ -162,7 +162,7 @@ La motivazione si vede ripartendo dal system design: se `Traveler` ha un attribu
 
 La motivazione dell'Abstract Factory è l'indipendenza dalle famiglie di prodotti: un toolkit di interfaccia utente deve supportare più standard di look-and-feel (X, Windows Vista, il Finder di MacOS) oppure un sistema di facility management per la casa intelligente deve supportare diversi sistemi di controllo (Instabus di Siemens, Metasys di Johnson & Control, lo standard proprietario Zumtobe). In entrambi i casi si vuole un'unica interfaccia, indipendente dal produttore.
 
-![[91b440200d25efb07e9f331fa15d6d1b9981b7b33f2d0f27ce18dd38d09d5837.jpg|200]]
+![[91b440200d25efb07e9f331fa15d6d1b9981b7b33f2d0f27ce18dd38d09d5837.png|200]]
 
 L'applicabilità del pattern copre quattro esigenze.
 
@@ -202,7 +202,7 @@ I partecipanti sono quattro.
 > 
 > ---
 > 
-> ![[2e8f0a7548183fd9a9d4a40af8089c59b08fdc2d3efe7b024af9889a44ae3181.jpg|200]]
+> ![[2e8f0a7548183fd9a9d4a40af8089c59b08fdc2d3efe7b024af9889a44ae3181.png|200]]
 
 L'Adapter può essere usato in tre casi.
 
@@ -244,7 +244,7 @@ I partecipanti sono quattro.
 > 
 > ---
 > 
-> ![[4b0a672dc61ede824b2b4e5cea9a5898695237d97cb65cc26c08a89b2a1c2b95.jpg|200]]
+> ![[4b0a672dc61ede824b2b4e5cea9a5898695237d97cb65cc26c08a89b2a1c2b95.png|200]]
 
 Il caso tipico è un file system, dove una `Directory` può contenere `File` e altre directory (anche vuote) e l'operazione `ls()` viene invocata ricorsivamente e polimorficamente sui figli tramite l'interfaccia `AbstractFile`.
 
@@ -286,7 +286,7 @@ Nello schema concettuale intervengono quattro ruoli.
 > 
 > ---
 > 
-> ![[23f68efaaaa8808166891e62f6ce5dcd9a6b178f81d261fb475fdbc5d5561330.jpg|200]]
+> ![[23f68efaaaa8808166891e62f6ce5dcd9a6b178f81d261fb475fdbc5d5561330.png|200]]
 
 Un decorator concreto incapsula l'oggetto decorato e ne estende il comportamento in override.
 
@@ -320,7 +320,7 @@ Il Bridge permette di decidere dinamicamente tra implementazioni diverse di un'i
 
 Nell'esempio un cerchio può essere disegnato in colori diversi usando lo stesso metodo della classe astratta ma diverse classi implementatrici del bridge.
 
-![[623567b40758151800313a9c850d65e51124327a6d4bf875d4fe08c6e862ddbb.jpg|200]]
+![[623567b40758151800313a9c850d65e51124327a6d4bf875d4fe08c6e862ddbb.png|200]]
 
 L'astrazione mantiene un riferimento all'implementatore, ricevuto nel costruttore.
 
@@ -359,7 +359,7 @@ La struttura ideale di un sottosistema combina Facade e Adapter/Bridge: un sotto
 
 L'intento dell'Observer è definire una dipendenza uno-a-molti tra oggetti, così che quando un oggetto cambia stato tutti i suoi dipendenti sono notificati e aggiornati automaticamente. L'esempio concettuale è un unico dato (es. `SpreadSheet Data`) osservato da più viste (formula, grafico a barre, grafico a torta) che si aggiornano al variare del dato.
 
-![[e61b27c59a3f4c73f3ff42c0c13550754cd3e03bf1dca21fca4a2b97bf318247.jpg|200]]
+![[e61b27c59a3f4c73f3ff42c0c13550754cd3e03bf1dca21fca4a2b97bf318247.png|200]]
 
 Il pattern si applica in tre casi.
 
@@ -367,7 +367,7 @@ Il pattern si applica in tre casi.
 - Quando un cambiamento a un oggetto richiede di cambiarne altri e non si sa quanti oggetti vanno cambiati.
 - Quando un oggetto deve notificarne altri senza fare assunzioni su chi siano.
 
-![[294493bd42106922731e6c64b09c2e384e31f8dca5ba477601437576fb07e139.jpg|200]]
+![[294493bd42106922731e6c64b09c2e384e31f8dca5ba477601437576fb07e139.png|200]]
 
 Nella struttura il soggetto astratto conserva la lista degli osservatori, offre la registrazione e notifica i cambiamenti invocando `aggiorna()` su ciascun osservatore; il soggetto concreto, in `setStato(...)`, effettua la chiamata extra `update()` rispetto a una normale classe; l'osservatore concreto è legato al soggetto che vuole osservare e in `aggiorna()` legge lo stato aggiornato.
 
@@ -401,7 +401,7 @@ Per lo stesso compito esistono in genere molti algoritmi diversi (es. spezzare u
 
 La **Policy** decide quale Strategy è migliore in funzione del Context corrente.
 
-![[eb6a2bdd4eae9d829f9373ed0eb729f494116262a12a8faba15ba79907b0994f.jpg|200]]
+![[eb6a2bdd4eae9d829f9373ed0eb729f494116262a12a8faba15ba79907b0994f.png|200]]
 
 Il pattern si applica in due casi.
 
@@ -414,7 +414,7 @@ In un'applicazione database, ad esempio, le strategie di ordinamento `BubbleSort
 
 Classi e sottosistemi possono essere visti come sistemi reattivi: reagiscono a stimoli esterni (eventi) in base al loro stato corrente. Il caso motivante è una classe `Document` il cui comportamento è descritto da uno statechart con stati `Draft`, `Moderation` e `Published` e transizioni come la pubblicazione da parte dell'utente, l'approvazione o il rifiuto da parte dell'admin e la scadenza della pubblicazione.
 
-![[85bd47df0374693f68a0bdc4b88f3c219d2f7c0565b18e63b311e6b9b3a6b373.jpg|300]]
+![[85bd47df0374693f68a0bdc4b88f3c219d2f7c0565b18e63b311e6b9b3a6b373.png|300]]
 
 L'implementazione diretta con condizionali sullo stato sembra gestibile.
 
@@ -434,7 +434,7 @@ public void publish() {
 
 Il pattern State risolve il problema: creare nuove classi per tutti i possibili stati di un oggetto e delegare a queste classi il comportamento specifico dello stato.
 
-![[16cd69c3e7fcccec690c1de072c73398abc9b57b3edef9828f0732c1cf1f8a7d.jpg|200]]
+![[16cd69c3e7fcccec690c1de072c73398abc9b57b3edef9828f0732c1cf1f8a7d.png|200]]
 
 #### State e Strategy a confronto
 
@@ -456,7 +456,7 @@ I partecipanti sono quattro.
 - **Iteratee interface**: definisce un'interfaccia per creare la lista che verrà iterata.
 - **Concrete Iteratee**: crea un iteratore concreto per il proprio tipo di dati.
 
-![[00759d66defc1ec7c2390b0e0c30b0c44f1a20ec32935071d1542e05692185ba.jpg|200]]
+![[00759d66defc1ec7c2390b0e0c30b0c44f1a20ec32935071d1542e05692185ba.png|200]]
 
 Nella collaborazione il client chiede al container un iteratore con `getIterator()`: `Iterator` e `Container` sono le interfacce, il `ConcreteContainer` crea il `ConcreteIterator` per i propri dati.
 
@@ -533,7 +533,7 @@ Il riuso per implementazione inheritance nasce quando una classe molto simile a 
 
 Lo sviluppatore può assicurarsi che l'oggetto ricevente non permetta al client di usare male l'oggetto delegato. La differenza operativa è netta: l'ereditarietà estende una classe base con una nuova operazione o ne sovrascrive una; la delega intercetta un'operazione e la invia a un altro oggetto.
 
-![[c4ca332d92a9ba512deca3f0c60be5e3ea01ffce538159e43e4c6f0bc5863230.jpg|300]]
+![[c4ca332d92a9ba512deca3f0c60be5e3ea01ffce538159e43e4c6f0bc5863230.png|300]]
 
 Delega ed ereditarietà di implementazione si confrontano su pro e contro.
 
