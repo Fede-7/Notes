@@ -67,7 +67,7 @@ Negli anni '90 l'**IETF** (ONG fondata nel 1986) iniziò a sviluppare il success
 
 Vantaggi rispetto a IPv4:
 
-- **Indirizzamento esteso**: da 32 a **128 bit** ($3{,}4 \times 10^{38}$ indirizzi — "ogno granello di sabbia del pianeta può avere un IP");
+- **Indirizzamento esteso**: da 32 a **128 bit** ($3{,}4 \times 10^{38}$ indirizzi, "ogno granello di sabbia del pianeta può avere un IP");
 - **header a lunghezza fissa di 40 byte**: alcuni campi di IPv4 eliminati o resi opzionali;
 - **flow labeling**: i pacchetti di certe applicazioni (es. streaming audio/video) possono essere raggruppati in un unico *flusso* identificato (l'uso preciso è ancora in discussione).
 
@@ -92,7 +92,7 @@ Campi del datagramma IPv6:
 
 ### Da IPv4 a IPv6
 
-Il grosso problema: IPv6 **non è retrocompatibile** — i sistemi IPv4 non sanno gestire datagrammi IPv6. Due strade possibili:
+Il grosso problema: IPv6 **non è retrocompatibile**, i sistemi IPv4 non sanno gestire datagrammi IPv6. Due strade possibili:
 
 - **Flag day**: a una data prefissata tutte le macchine si spengono e si aggiornano. Fu già un disastro quando si introdusse TCP (con una rete piccolissima); impensabile oggi con miliardi di dispositivi.
 - **Tunneling** (approccio realistico, già usato): router dedicati (*tunnel*) si occupano di **mappare datagrammi IPv4 in IPv6 e viceversa** in modo quasi trasparente.

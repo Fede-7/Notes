@@ -9,7 +9,7 @@ Il link layer offre fino a 4 servizi: **framing**, **link access** (regolato dal
 Esistono due tipi fondamentali di link:
 
 - **Punto-punto**: un singolo mittente a un estremo e un singolo ricevitore all'altro (es. link Ethernet diretto tra due computer). Un protocollo di riferimento è **PPP** (Point-to-Point Protocol).
-- **Broadcast**: più nodi trasmittenti/riceventi collegati allo **stesso canale condiviso**. Il termine *broadcast* deriva dal fatto che quando un nodo trasmette, **tutti** i nodi sul canale ricevono il frame (es. bus Ethernet, half-duplex Ethernet — raro, i cavi sono oggi full-duplex — e LAN wireless).
+- **Broadcast**: più nodi trasmittenti/riceventi collegati allo **stesso canale condiviso**. Il termine *broadcast* deriva dal fatto che quando un nodo trasmette, **tutti** i nodi sul canale ricevono il frame (es. bus Ethernet, half-duplex Ethernet, raro, i cavi sono oggi full-duplex, e LAN wireless).
 
 L'accesso ai link broadcast va **coordinato** (*multiple access problem*): trasmissioni multiple sullo stesso link possono interferire tra loro.
 
@@ -97,7 +97,7 @@ Caratteristiche:
 
 ### CSMA (Carrier Sense Multiple Access)
 
-**Debolezza di ALOHA**: si può iniziare a trasmettere (produendo una collisione) **anche se il canale è già occupato** — lo si scopre solo attraverso l'effetto della collisione.
+**Debolezza di ALOHA**: si può iniziare a trasmettere (produendo una collisione) **anche se il canale è già occupato**, lo si scopre solo attraverso l'effetto della collisione.
 
 Soluzione: **monitorare il canale** e tentare la trasmissione solo se è libero. CSMA e CSMA/CD si basano su due principi:
 

@@ -9,9 +9,9 @@ La definizione ha diverse implicazioni.
 
 - L'architettura è un'**astrazione** del sistema: definisce gli elementi e come interagiscono, sopprimendo le informazioni puramente locali (i dettagli privati degli elementi non sono architetturali).
 - Le proprietà esternamente visibili sono le assunzioni che un elemento può fare su un altro: servizi forniti e richiesti, caratteristiche di performance, gestione dei fault, uso delle risorse.
-- **Ogni sistema ha un'architettura**, anche nel caso più semplice di un singolo elemento; ma avere un'architettura è diverso dall'avere un'architettura nota a tutti (l'architettura vs. la specifica dell'architettura): se non la si sviluppa esplicitamente, la si ottiene comunque — e potrebbe non piacere.
+- **Ogni sistema ha un'architettura**, anche nel caso più semplice di un singolo elemento; ma avere un'architettura è diverso dall'avere un'architettura nota a tutti (l'architettura vs. la specifica dell'architettura): se non la si sviluppa esplicitamente, la si ottiene comunque, e potrebbe non piacere.
 - I disegni di box-and-line da soli **non sono** architetture, ma solo un punto di partenza: serve aggiungere specifiche e proprietà.
-- I sistemi hanno molte strutture (**viste**): nessuna struttura singola può essere "l'architettura", e l'insieme delle strutture candidate non è fisso né prescritto — si scelgono quelle utili per analisi, comunicazione o comprensione.
+- I sistemi hanno molte strutture (**viste**): nessuna struttura singola può essere "l'architettura", e l'insieme delle strutture candidate non è fisso né prescritto, si scelgono quelle utili per analisi, comunicazione o comprensione.
 
 ## Scopo della progettazione architetturale
 

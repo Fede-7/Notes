@@ -88,7 +88,7 @@ Il comando `ng test --no-watch --code-coverage` calcola anche le **metriche di c
 L'interfaccia esterna dipende dal tipo di web app:
 
 - **REST API**: gli endpoint REST sono l'interfaccia esterna e gli "utenti" sono altri programmi; i test E2E inviano richieste HTTP e controllano che le risposte siano corrette secondo la specifica (es. scenario di login: `POST /auth` con credenziali → aspettarsi `200 OK` con `{token}` JWT valido; scenario di inserimento: autenticarsi, salvare il token, `POST /todos` con header `Bearer <TOKEN>` → aspettarsi `200 OK` col corpo atteso).
-- **Web app tradizionale o SPA**: le pagine web sono l'interfaccia esterna e gli utenti sono umani con un browser; i test E2E — detti **E2E web test** — interagiscono con le pagine e controllano che cambino correttamente (es. visitare la pagina di login, riempire i campi, cliccare Login, aspettarsi la redirezione alla homepage e il saluto nella navbar).
+- **Web app tradizionale o SPA**: le pagine web sono l'interfaccia esterna e gli utenti sono umani con un browser; i test E2E, detti **E2E web test**, interagiscono con le pagine e controllano che cambino correttamente (es. visitare la pagina di login, riempire i campi, cliccare Login, aspettarsi la redirezione alla homepage e il saluto nella navbar).
 
 Gli step chiave di un E2E web test sono due, ripetuti per ogni passo dello scenario:
 
@@ -107,7 +107,7 @@ L'E2E testing può essere manuale o automatizzato:
 | Competenze | Nessuna conoscenza di programmazione | Programmazione e testing |
 | Costi | Lento, tedioso, error-prone | Costo iniziale alto, ma rieseguibile con poco sforzo |
 | Scala | Non scala: ripetere a ogni release, su tutti i browser e dispositivi | Serve manutenzione del codice di test al variare dell'app |
-| Rischi | — | I test possono essere flaky e/o fragili |
+| Rischi |, | I test possono essere flaky e/o fragili |
 
 ### Locator strategies
 
@@ -161,9 +161,9 @@ Di default i test girano su **chromium** (Blink), **firefox** (Gecko) e **webkit
 
 ### Isolamento e fixture
 
-Playwright ottiene l'isolamento **partendo da zero**: ogni test gira in un ambiente pulito, cioè un nuovo **`BrowserContext`** — una sorta di profilo in incognito — con i propri `localStorage`, `sessionStorage` e cookie, non influenzato dai test precedenti.
+Playwright ottiene l'isolamento **partendo da zero**: ogni test gira in un ambiente pulito, cioè un nuovo **`BrowserContext`**, una sorta di profilo in incognito, con i propri `localStorage`, `sessionStorage` e cookie, non influenzato dai test precedenti.
 
-L'ambiente di ogni test è definito da **Test Fixtures**: tipicamente Playwright crea un nuovo `BrowserContext` per test e vi fornisce una `Page` di default — un'astrazione di una tab in un browser nuovo. L'argomento `{ page }` nella firma del test chiede a Playwright di configurare la fixture `page`.
+L'ambiente di ogni test è definito da **Test Fixtures**: tipicamente Playwright crea un nuovo `BrowserContext` per test e vi fornisce una `Page` di default, un'astrazione di una tab in un browser nuovo. L'argomento `{ page }` nella firma del test chiede a Playwright di configurare la fixture `page`.
 
 ### Locating, actions, asserting
 

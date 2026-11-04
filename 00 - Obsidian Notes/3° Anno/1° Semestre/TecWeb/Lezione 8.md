@@ -181,7 +181,7 @@ let helloGreeter = getGreeter("Hello"); // "cattura" message e sep
 
 - **Copia per riferimento**: assegnare un oggetto a un'altra variabile non copia nulla; le modifiche sono visibili da entrambe le variabili.
 - **Shallow clone**: copia proprietà per proprietà (es. con un ciclo `for...in`); gli oggetti annidati restano **condivisi** (modificare `copy.owner.name` modifica anche l'originale).
-- **Deep clone**: richiede **ricorsione** — se il valore di una proprietà è un oggetto, si clona ricorsivamente.
+- **Deep clone**: richiede **ricorsione**, se il valore di una proprietà è un oggetto, si clona ricorsivamente.
 - Alternative built-in: `Object.assign()` (shallow), `structuredClone()` (deep).
 
 ```javascript

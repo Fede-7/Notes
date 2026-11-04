@@ -12,7 +12,7 @@ I due livelli sono **strettamente intrecciati** (spesso raggruppati in un unico 
 - **nodi**: host, router, switch, hub, access point WiFi, ecc.
 - **link**: cablati (rame, fibra ottica) o wireless (radiofrequenze).
 
-Per trasmettere un datagramma IP bisogna attraversare i singoli link lungo il percorso: i datagrammi vengono **incapsulati in frame di link layer**, che rappresentano **l'ultima incapsulazione** — i frame vengono poi convertiti in **segnali** (impulsi elettrici, luce, onde radio) e trasmessi secondo le specifiche del link.
+Per trasmettere un datagramma IP bisogna attraversare i singoli link lungo il percorso: i datagrammi vengono **incapsulati in frame di link layer**, che rappresentano **l'ultima incapsulazione**, i frame vengono poi convertiti in **segnali** (impulsi elettrici, luce, onde radio) e trasmessi secondo le specifiche del link.
 
 ## Servizi del link layer
 
@@ -106,7 +106,7 @@ La forma più semplice: si aggiunge **1 bit di parità** tale che il numero tota
 
 Il ricevitore **conta gli 1**: con parità pari, trova un numero dispari di 1 → almeno un errore.
 
-**Limite**: funziona solo con un **numero dispari** di errori. In pratica gli errori sono **raggruppati in burst** (non indipendenti): in quelle condizioni la probabilità di errore non rilevato con la parità a bit singolo può avvicinarsi al **50%** — quindi poco utile.
+**Limite**: funziona solo con un **numero dispari** di errori. In pratica gli errori sono **raggruppati in burst** (non indipendenti): in quelle condizioni la probabilità di errore non rilevato con la parità a bit singolo può avvicinarsi al **50%**, quindi poco utile.
 
 ### Parity check bidimensionale (2D)
 

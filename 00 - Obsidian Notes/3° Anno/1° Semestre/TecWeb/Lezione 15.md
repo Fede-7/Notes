@@ -240,7 +240,7 @@ form(action="/todo" method="POST")
   button(type="submit") Save To-do
 ```
 
-Per salvare l'elemento serve leggere il body della richiesta ed estrarne i nomi dei parametri e i loro valori: il body è una stringa nella forma `p1=v1&p2=v2&...` — non banale come potrebbe sembrare.
+Per salvare l'elemento serve leggere il body della richiesta ed estrarne i nomi dei parametri e i loro valori: il body è una stringa nella forma `p1=v1&p2=v2&...`, non banale come potrebbe sembrare.
 
 ### Lettura del body
 

@@ -28,7 +28,7 @@ La progressione da canale perfetto a canale reale riassume ciò che il protocoll
 | anche il riconoscimento può corrompersi | un numero di sequenza, per riconoscere una copia |
 | i pacchetti possono perdersi | un timer al sender e la ritrasmissione che innesca |
 
-L'ultima riga è il **protocollo alternating bit**: checksum, numero di sequenza a un bit, riconoscimenti numerati, un timer; è corretto su ogni canale descritto — e resta da misurare quanto sia lento.
+L'ultima riga è il **protocollo alternating bit**: checksum, numero di sequenza a un bit, riconoscimenti numerati, un timer; è corretto su ogni canale descritto, e resta da misurare quanto sia lento.
 
 ## Stop-and-wait e ARQ
 
@@ -40,7 +40,7 @@ Primo caso: canale in cui i pacchetti possono solo **corrompersi**, non perdersi
 > [!aside]
 > 
 > > [!def] ARQ
-> > **Famiglia di protocolli** basati sulla ritrasmissione, detti *Automatic Repeat reQuest*: se arriva un NACK, il messaggio viene rinviato. Per funzionare richiedono tre meccanismi, nessuno dei quali è opzionale — e i tre insieme non bastano ancora.
+> > **Famiglia di protocolli** basati sulla ritrasmissione, detti *Automatic Repeat reQuest*: se arriva un NACK, il messaggio viene rinviato. Per funzionare richiedono tre meccanismi, nessuno dei quali è opzionale, e i tre insieme non bastano ancora.
 > > - **Error detection**: bit aggiuntivi (il checksum) perché il receiver noti che il messaggio è cambiato.
 > > - **Receiver feedback**: il sender non vede la destinazione, può sapere solo se gli viene detto; in principio il feedback è un bit, un valore per sì e uno per no.
 > > - **Retransmission**: ciò che è arrivato con errore viene rinviato; non esiste altra riparazione.
@@ -84,7 +84,7 @@ La sfida è stimare un timeout adeguato, che dipende dall'**RTT** (*Round-Trip T
 - Un timeout ragionevole deve quindi essere in qualche modo più lungo dell'RTT; in questi protocolli teorici è fisso: sono strumenti concettuali, che gli algoritmi reali poi usano in modo più mirato, e il protocollo deve restare robusto tenendo conto di tutto ciò che può avvenire.
 
 > [!warning] Il paradosso del timeout breve
-> Un timer più corto dell'andata e ritorno non lascia scampo: l'acknowledgment non può arrivare prima che il timer scatti, quindi ogni messaggio viene ritrasmesso su un canale che non sta perdendo nulla — come il timer da 50 ms su un percorso da 80 ms, dove tutto va due volte e il numero di sequenza al receiver è l'unica ragione per cui il programma funziona. L'effetto paradosso è che un timeout più breve può **ritardare** la sequenza: ogni ritrasmissione rimette la finestra d'attesa e, se l'ACK arriva sistematicamente in ritardo, il ciclo si ripete fin quasi ad allungare la faccenda all'infinito.
+> Un timer più corto dell'andata e ritorno non lascia scampo: l'acknowledgment non può arrivare prima che il timer scatti, quindi ogni messaggio viene ritrasmesso su un canale che non sta perdendo nulla, come il timer da 50 ms su un percorso da 80 ms, dove tutto va due volte e il numero di sequenza al receiver è l'unica ragione per cui il programma funziona. L'effetto paradosso è che un timeout più breve può **ritardare** la sequenza: ogni ritrasmissione rimette la finestra d'attesa e, se l'ACK arriva sistematicamente in ritardo, il ciclo si ripete fin quasi ad allungare la faccenda all'infinito.
 
 ## Prestazioni dello stop-and-wait
 
@@ -99,7 +99,7 @@ Il caso di scuola: due host sulle coste opposte degli Stati Uniti, con RTT alla 
 - Con ACK di dimensione trascurabile (tempo di invio ignorato), l'ACK riemerge al sender a `RTT + L/R = 0,030008` s.
 - In 0,030008 s di tempo totale, il sender ha trasmesso per soli 8 µs: è rimasto ad attendere il **99,973%** del tempo, senza sfruttare minimamente la banda disponibile.
 
-**Formula**: l'utilizzazione è la frazione del tempo totale in cui il sender trasmette, `U = (L/R) / (RTT + L/R)`; su un percorso da 100 ms di RTT con un messaggio da 1 KB e un link a 100 Mbps, `L/R` = 80 µs, quindi `U = 0,0008` e la chat si muove intorno a 80 kbps. Su loopback e in rete locale l'RTT è una frazione di millisecondo e il problema non si vede; dieci messaggi al secondo vanno bene per una chat, ma non è un modo per muovere un file — e non è ciò che fa TCP.
+**Formula**: l'utilizzazione è la frazione del tempo totale in cui il sender trasmette, `U = (L/R) / (RTT + L/R)`; su un percorso da 100 ms di RTT con un messaggio da 1 KB e un link a 100 Mbps, `L/R` = 80 µs, quindi `U = 0,0008` e la chat si muove intorno a 80 kbps. Su loopback e in rete locale l'RTT è una frazione di millisecondo e il problema non si vede; dieci messaggi al secondo vanno bene per una chat, ma non è un modo per muovere un file, e non è ciò che fa TCP.
 
 ## Pipelining
 
@@ -139,7 +139,7 @@ Lato sender valgono tre meccanismi.
 > Il receiver mantiene un solo numero: **expectedseqnum**, il numero di sequenza del prossimo pacchetto che è disposto a consegnare ai livelli superiori.
 > 
 > - Pacchetto **corretto e in ordine**: consegnato all'applicazione, riconosciuto, e si avanza di uno.
-> - **Qualsiasi altro pacchetto**: scartato — anche se perfettamente valido e arrivato in anticipo, buttato esattamente come se fosse danneggiato — e ri-riconosciuto l'ultimo pacchetto in ordine ricevuto.
+> - **Qualsiasi altro pacchetto**: scartato, anche se perfettamente valido e arrivato in anticipo, buttato esattamente come se fosse danneggiato, e ri-riconosciuto l'ultimo pacchetto in ordine ricevuto.
 > - **Nessun buffer**: la complessità è deliberatamente tutta da un lato, il sender tiene una finestra, il receiver tiene un intero.
 > 
 > ---
@@ -147,7 +147,7 @@ Lato sender valgono tre meccanismi.
 > ![[Lezione 14-1793555494777.png|200]]
 > 
 
-Con una finestra di quattro i pacchetti 0–3 escono in raffica, poi il sender si ferma perché la finestra è piena. `pkt2` si perde: i pacchetti 3, 4 e 5 arrivano corretti ma vengono scartati, perché il 2 non è stato consegnato; il receiver continua a rispondere ACK1, l'ultimo effettivamente consegnato all'applicazione. Scaduto il timer di `pkt2` — il più vecchio in attesa — i quattro pacchetti in coda vengono ritrasmessi, tornando all'ultimo ricevuto con successo.
+Con una finestra di quattro i pacchetti 0–3 escono in raffica, poi il sender si ferma perché la finestra è piena. `pkt2` si perde: i pacchetti 3, 4 e 5 arrivano corretti ma vengono scartati, perché il 2 non è stato consegnato; il receiver continua a rispondere ACK1, l'ultimo effettivamente consegnato all'applicazione. Scaduto il timer di `pkt2`, il più vecchio in attesa, i quattro pacchetti in coda vengono ritrasmessi, tornando all'ultimo ricevuto con successo.
 
 I limiti del protocollo sono pesanti.
 
@@ -191,8 +191,8 @@ Un problema del Selective Repeat è che la finestra è vincolata allo spazio dei
 
 Scenario con quattro numeri di sequenza (massimo 3) e finestra di dimensione 3: i pacchetti da 0 a 2 arrivano correttamente e i relativi ACK vengono inviati ma non ancora ricevuti; la finestra del receiver avanza comunque fino al sesto pacchetto, cioè su `[3, 0, 1]`.
 
-- **Caso a**: gli ACK dei primi tre pacchetti si perdono e il sender li ritrasmette — il pacchetto 0 è nuovo o vecchio?
-- **Caso b**: gli ACK arrivano, il sender invia 3, 0, 1 e il pacchetto 3 si perde; il receiver vede un pacchetto numerato 0 dentro la sua finestra e questa volta è dato nuovo — il pacchetto 0 è nuovo o vecchio?
+- **Caso a**: gli ACK dei primi tre pacchetti si perdono e il sender li ritrasmette, il pacchetto 0 è nuovo o vecchio?
+- **Caso b**: gli ACK arrivano, il sender invia 3, 0, 1 e il pacchetto 3 si perde; il receiver vede un pacchetto numerato 0 dentro la sua finestra e questa volta è dato nuovo, il pacchetto 0 è nuovo o vecchio?
 
 I due casi producono la stessa sequenza di arrivi e sono indistinguibili: il receiver non può "vedere" il sender, quindi non può decidere se acquisire o scartare il pacchetto. Il protocollo non deve avere ambiguità di questo tipo.
 

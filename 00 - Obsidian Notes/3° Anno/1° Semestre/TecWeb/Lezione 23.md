@@ -32,7 +32,7 @@ Per l'ambiente di sviluppo si usa Visual Studio Code, con l'estensione raccomand
 
 ## Componenti
 
-I componenti sono i **mattoni** delle app Angular: ciascuno è responsabile di funzione e aspetto di un elemento di pagina — codice (stato, business logic, eventi), layout HTML e stile CSS. Un componente può contenerne altri: un'app Angular è un **albero di componenti**.
+I componenti sono i **mattoni** delle app Angular: ciascuno è responsabile di funzione e aspetto di un elemento di pagina, codice (stato, business logic, eventi), layout HTML e stile CSS. Un componente può contenerne altri: un'app Angular è un **albero di componenti**.
 
 Anatomicamente, un componente è una **classe TypeScript** annotata col decorator `@Component`, cui si passa un oggetto di metadati:
 

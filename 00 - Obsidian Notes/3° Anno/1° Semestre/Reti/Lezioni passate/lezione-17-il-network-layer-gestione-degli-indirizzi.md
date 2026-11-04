@@ -59,7 +59,7 @@ Per verificare se due host sono nella stessa subnet basta confrontare i loro pre
 
 Il router è il dispositivo che interconnette subnet diverse: ha più porte fisiche, con interfacce e indirizzi IP diversi, e fa spesso da **gateway** sul bordo di più subnet. Per la sua posizione privilegiata offre spesso servizi aggiuntivi al semplice routing: **NAT**, **DHCP**, **firewall**.
 
-Un classico esempio: un router con tre interfacce collega sette host divisi in 3 subnet — `223.1.1.0/24`, `223.1.2.0/24`, `223.1.3.0/24` — con l'interfaccia del router che appartiene a ciascuna subnet. Con tre router interconnessi da link punto-a-punto, anche i link tra router formano subnet proprie: in un esempio simile si contano **6 subnet** (3 router-host, 3 router-router).
+Un classico esempio: un router con tre interfacce collega sette host divisi in 3 subnet, `223.1.1.0/24`, `223.1.2.0/24`, `223.1.3.0/24`, con l'interfaccia del router che appartiene a ciascuna subnet. Con tre router interconnessi da link punto-a-punto, anche i link tra router formano subnet proprie: in un esempio simile si contano **6 subnet** (3 router-host, 3 router-router).
 
 > [!info] ifconfig / ip
 > Su Linux si ispeziona la configurazione di rete (indirizzi, maschere, interfacce) con `ifconfig` (equivalente Windows: `ipconfig`), oppure con il comando più moderno `ip`.

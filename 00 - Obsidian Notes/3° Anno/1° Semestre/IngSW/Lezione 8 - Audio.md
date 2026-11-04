@@ -48,7 +48,7 @@ sequenceDiagram
 > [!info] Frame
 > Rettangoli che racchiudono le chiamate per rappresentare logiche condizionali o iterative.
 
-- **`alt`** (alternativa, `if-else`): frame diviso orizzontalmente da una linea tratteggiata; la condizione booleana è indicata tra parentesi quadre `[condizione]` — se vera si esegue la sequenza superiore, altrimenti quella inferiore.
+- **`alt`** (alternativa, `if-else`): frame diviso orizzontalmente da una linea tratteggiata; la condizione booleana è indicata tra parentesi quadre `[condizione]`, se vera si esegue la sequenza superiore, altrimenti quella inferiore.
 - **`opt`** (opzione, `if` semplice): racchiude chiamate eseguite solo se una condizione è verificata, senza ramo di alternativa.
 - **`loop`** (ciclo/iterazione): le chiamate nel blocco vengono ripetute per *n* volte o finché la condizione specificata resta vera.
 - **`ref`** (reference): fa riferimento a un altro Sequence Diagram definito altrove, utile per mantenere i diagrammi leggibili, scomporre funzionalità complesse e riutilizzare sequenze comuni.

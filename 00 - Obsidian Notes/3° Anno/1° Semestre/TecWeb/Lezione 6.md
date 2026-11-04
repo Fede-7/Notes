@@ -118,7 +118,7 @@ p+p { clear: both; }
 - **relative**: l'elemento è posizionato rispetto alla sua posizione normale.
 - **absolute**: l'elemento è posizionato rispetto all'**antenato posizionato più vicino** (nearest relative-positioned ancestor).
 - **fixed**: l'elemento è posizionato rispetto al **viewport**.
-- **sticky**: ibrido relative/fixed — relativo finché non supera una soglia (`top`, …), poi fixed finché non raggiunge il confine del proprio padre.
+- **sticky**: ibrido relative/fixed, relativo finché non supera una soglia (`top`, …), poi fixed finché non raggiunge il confine del proprio padre.
 
 ```mermaid
 flowchart TD

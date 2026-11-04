@@ -141,7 +141,7 @@ Con i meccanismi di fail-over, il downtime dipende da diversi fattori.
 - Quanto in fretta si nota il guasto di un componente? Tipicamente lo si rileva tramite **heartbeat**: segnali o controlli periodici che verificano il funzionamento normale del sistema.
 - Quanto tempo impiega l'istanza secondaria a partire? La secondaria può essere in standby «caldo» (*hot*) o «freddo» (*cold*); nel fail-over attivo-attivo le istanze secondarie sono già in esecuzione.
 
-La **osservabilità** — il grado in cui si può capire cosa accade in un sistema software — è una caratteristica importante dell'architettura; per il monitoraggio si usano spesso soluzioni come OpenTelemetry.
+La **osservabilità**, il grado in cui si può capire cosa accade in un sistema software, è una caratteristica importante dell'architettura; per il monitoraggio si usano spesso soluzioni come OpenTelemetry.
 
 ## Dati e consistenza
 
@@ -246,7 +246,7 @@ Popolari message broker open-source sono RabbitMQ, Apache ActiveMQ e BlazingMQ.
 
 ### Code e stream
 
-Alcuni message broker (es. RabbitMQ) supportano anche gli **stream**, che svolgono lo stesso compito delle code — accumulare messaggi dai produttori, letti in seguito dai consumatori — ma differiscono in due modi importanti.
+Alcuni message broker (es. RabbitMQ) supportano anche gli **stream**, che svolgono lo stesso compito delle code, accumulare messaggi dai produttori, letti in seguito dai consumatori, ma differiscono in due modi importanti.
 
 - **Come i messaggi sono memorizzati**: gli stream modellano un log in sola aggiunta (*append-only*) che può essere riletto ripetutamente finché i messaggi non scadono; sono sempre persistenti e replicati, con semantica di consumo non distruttiva.
 - **Come i messaggi sono consumati**: lo stesso messaggio può essere letto da più consumatori, quante volte vogliono, e i consumatori possono collegarsi in qualsiasi punto dello stream.
@@ -264,7 +264,7 @@ Tre casi d'uso tipici degli stream sono i seguenti.
 > [!def] Architettura monolitica
 > **Stile architetturale** in cui componenti e moduli diversi sono strettamente impacchettati in un'unica unità: singola codebase, singola unità di deployment autosufficiente, business concern accoppiati.
 
-All'inizio — o per software a bassa complessità — il monolite è vantaggioso: i deployment sono facili (si costruisce un solo artefatto) e lo sviluppo è facile (singola codebase, gestione dei dati semplice).
+All'inizio, o per software a bassa complessità, il monolite è vantaggioso: i deployment sono facili (si costruisce un solo artefatto) e lo sviluppo è facile (singola codebase, gestione dei dati semplice).
 
 Quando la complessità cresce, il monolite diventa problematico.
 
@@ -392,7 +392,7 @@ Bisogna assicurarsi di avere una buona ragione per adottare i microservizi.
 > [!quote] Melvin Conway
 > «Any organization that designs a system will produce a design whose structure is a copy of the organization's communication structure».
 
-L'accoppiamento software è permesso e favorito dalle comunicazioni umane: se si può parlare con l'autore di un codice è più facile capirlo davvero, e quindi è più facile far interagire — cioè accoppiare — il proprio codice con quello.
+L'accoppiamento software è permesso e favorito dalle comunicazioni umane: se si può parlare con l'autore di un codice è più facile capirlo davvero, e quindi è più facile far interagire, cioè accoppiare, il proprio codice con quello.
 
 ### Team a livelli e team cross-funzionali
 
@@ -411,7 +411,7 @@ L'accoppiamento software è permesso e favorito dalle comunicazioni umane: se si
 
 Nei confronti della legge di Conway sono possibili tre atteggiamenti.
 
-- **Ignorarla**: non tenerne conto, perché non la si conosce o non si pensa che si applichi — «spoiler»: si applica.
+- **Ignorarla**: non tenerne conto, perché non la si conosce o non si pensa che si applichi, «spoiler»: si applica.
 - **Accettarla**: riconoscerne l'impatto e assicurarsi che l'architettura non entri in conflitto con i pattern comunicativi del team.
 - **Inverse Conway Maneuver**: cambiare i pattern di comunicazione del team di sviluppo per incoraggiare l'architettura desiderata.
 

@@ -15,7 +15,7 @@ Il trend attuale è dividere la web app in due componenti che comunicano via Int
 - **Backend** (lato server): responsabile di dati e business logic.
 - **Frontend** (lato client): responsabile della UI; può essere un'app nativa mobile o desktop, oppure una pagina HTML "più smart" che rende un'interfaccia interattiva tramite JavaScript (Single Page Application).
 
-![[Pasted image 20261103170315.jpg|200]]
+![[Pasted image 20261103170315.png|200]]
 
 ## API e REST
 
@@ -25,7 +25,7 @@ Il trend attuale è dividere la web app in due componenti che comunicano via Int
 Per la comunicazione via Internet si potrebbe definire manualmente un protocollo su TCP/UDP con socket e simili, ma è poco conveniente e poco interoperabile: integrare n API richiederebbe di imparare n protocolli diversi. Protocolli e architetture dedicate come CORBA, Java RMI o SOAP reinventano un'alternativa al web. La scelta del corso è usare direttamente i protocolli del web, cioè HTTP.
 
 > [!def] REST
-> **Stile architettonale** — non uno standard né un protocollo — cioè un insieme di principi e linee guida che definisce come usare gli standard del web nelle API, basato su HTTP e URI.
+> **Stile architettonale**, non uno standard né un protocollo, cioè un insieme di principi e linee guida che definisce come usare gli standard del web nelle API, basato su HTTP e URI.
 
 REST fornisce un'interfaccia comune e consistente basata sull'uso «corretto» di HTTP ed è lo stile architettonale prevalente per le web API.
 
@@ -109,7 +109,7 @@ Uno schema di autenticazione ampiamente usato è **token-based**, con questo flu
 > 5. La API verifica il token prima di rispondere.
 > 
 > ---
-> ![[Pasted image 20261103172102.jpg|150]]
+> ![[Pasted image 20261103172102.png|150]]
 > 
 
 > [!def] JSON Web Token (JWT)
@@ -119,7 +119,7 @@ Uno schema di autenticazione ampiamente usato è **token-based**, con questo flu
 - **Payload**: JSON contenente i **claim**, personalizzabili; alcuni claim registrati sono raccomandati, es. `exp` che indica la scadenza del token; anche questo è Base64Url.
 - **Signature**: funzione di hash crittografica applicata alla concatenzione di header, payload e una **secret key** nota solo al server emittente; garantisce che il token non sia manomesso o contraffatto.
 
-![[Pasted image 20261103173414.jpg|200]]
+![[Pasted image 20261103173414.png|200]]
 
 > [!warning] Base64Url è codifica, non cifratura
 > Header e payload di un JWT sono semplicemente codificati e **possono** essere invertiti con facilità: chiunque può leggerne il contenuto. La sicurezza sta nella firma, non nella segretezza del contenuto.
@@ -134,7 +134,7 @@ Le funzioni di hash crittografiche sicure hanno due proprietà chiave:
 
 La firma JWT è in realtà un po' più complessa di una semplice hash (es. algoritmi HS256 e RS256).
 
-![[Pasted image 20261103172927.jpg|700x70]]
+![[Pasted image 20261103172927.png|700x70]]
 
 ### Con Express
 

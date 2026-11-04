@@ -188,7 +188,7 @@ Il checksum non può rilevare tutti gli errori di trasmissione, perché contenut
 #### Perché un controllo end-to-end
 
 > [!info] Errore end-to-end
-> I controlli del livello link non bastano: non tutti i collegamenti offrono gli stessi controlli di integrità, e i dati possono corrompersi dentro i dispositivi intermedi (es. in un router) anche quando i controlli link-by-link sui frame riescono. Per il **principio end-to-end**, i controlli di integrità che devono valere tra gli endpoint non possono affidarsi esclusivamente ai componenti intermedi; i controlli link e quello di trasporto proteggono il dato in punti diversi del percorso e sono complementari — nessuno dei due sostituisce l'altro.
+> I controlli del livello link non bastano: non tutti i collegamenti offrono gli stessi controlli di integrità, e i dati possono corrompersi dentro i dispositivi intermedi (es. in un router) anche quando i controlli link-by-link sui frame riescono. Per il **principio end-to-end**, i controlli di integrità che devono valere tra gli endpoint non possono affidarsi esclusivamente ai componenti intermedi; i controlli link e quello di trasporto proteggono il dato in punti diversi del percorso e sono complementari, nessuno dei due sostituisce l'altro.
 
 ### Consegna, perdita e ordinamento
 

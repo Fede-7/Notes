@@ -63,7 +63,7 @@ Alcuni aspetti del processo:
 Le modalità di sincronizzazione sono tre:
 
 - `User.sync()`: crea la tabella solo se non esiste.
-- `User.sync({ force: true })`: ricrea la tabella, droppandola se esiste — è distruttivo.
+- `User.sync({ force: true })`: ricrea la tabella, droppandola se esiste, è distruttivo.
 - `User.sync({ alter: true })`: controlla lo stato della tabella (colonne, tipi…) e la altera per farla combaciare col modello.
 
 ### Creazione, lettura, modifica, cancellazione

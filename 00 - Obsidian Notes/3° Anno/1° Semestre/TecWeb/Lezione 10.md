@@ -179,9 +179,9 @@ Gli attributi **standard** vengono analizzati e resi disponibili come **propriet
 ```js
 // <input id="x" class="inp ok" name="field" custom="y">
 let i = document.body.firstElementChild;
-i.id;                     // "x" — attributo standard
+i.id;                     // "x", attributo standard
 i.classList;               // DOMTokenList ["inp", "ok"]
-i.custom;                  // undefined — non è un attributo standard
+i.custom;                  // undefined, non è un attributo standard
 i.getAttribute("custom");  // "y"
 ```
 
@@ -200,7 +200,7 @@ i.removeAttribute("name");
 Un'altra coppia di proprietà riguarda il codice HTML dell'elemento:
 
 - **`innerHTML`** restituisce il codice HTML **contenuto** in un elemento; **`outerHTML`** il codice HTML dell'**intero elemento**.
-- Sono entrambi **scrivibili**: assegnare loro un valore cambia la pagina — `innerHTML` cambia il contenuto, `outerHTML` sostituisce l'elemento.
+- Sono entrambi **scrivibili**: assegnare loro un valore cambia la pagina, `innerHTML` cambia il contenuto, `outerHTML` sostituisce l'elemento.
 
 ```js
 let h1 = document.querySelector("h1"); // <h1 id="h">Hello <em>DOM!</em></h1>

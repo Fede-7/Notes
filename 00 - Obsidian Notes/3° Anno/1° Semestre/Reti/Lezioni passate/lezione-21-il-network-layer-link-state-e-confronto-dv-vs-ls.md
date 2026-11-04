@@ -74,7 +74,7 @@ I due algoritmi adottano approcci **complementari**: il DV sfrutta informazione 
 | Robustezza | Le computazioni sono a catena: se una tabella è errata, **l'errore si propaga a tutte** | Più robusta: le tabelle sono calcolate separatamente da ogni nodo |
 
 > [!warning] La lezione del 1997
-> Un **router malfunzionante di un piccolo ISP** causò una reazione a catena: le sue tabelle corrotte vennero propagate inondando i router di backbone e **disconnettendo parte di Internet per diverse ore** — esempio classico della fragilità del DV.
+> Un **router malfunzionante di un piccolo ISP** causò una reazione a catena: le sue tabelle corrotte vennero propagate inondando i router di backbone e **disconnettendo parte di Internet per diverse ore**, esempio classico della fragilità del DV.
 
 > [!info] Conclusione
 > In Internet **entrambe le soluzioni sono usate**.

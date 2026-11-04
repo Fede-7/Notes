@@ -37,22 +37,20 @@ Lezione 0   ->  Martin-PrinciplesAndPatterns.PDF
 Completo tramite le slide vecchie, forse.
 
 last in Notes:
-    2026-10-30  : Slide Lezione 18
-
-last slide (non caricata):
+    2026-10-30  : Slide Lezione 18 -> 1° Intercorso
 	2026-11-03 Slide Lezione 19 - Rest API
+	
+last slide (non caricata):
+	
 
 
 ## Reti&PD
 
 last in Notes:
-    2026-10-27  : Slide Lezione 8-12
-	2026-10-29 Lezione 13
-	2026-10-30 Lezione 14
-    
+	2026-11-03 - Lezione 15 
 
 last slide (non caricata):
-	2026-11-03 - Lezione 15 
+	
 
 
 ---

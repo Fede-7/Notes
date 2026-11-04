@@ -22,14 +22,14 @@ Ci si può appoggiare alla **certification authority (CA)**, ma non basta.
 
 Se A e B hanno già comunicato e l'IP di A non è cambiato, B potrebbe autenticare A controllando **l'indirizzo IP nel datagramma**: se è quello noto, si assume sia A. Funziona con intrusi "ingenui", ma un intruso meno ingenuo può **forgiare l'indirizzo sorgente** (spoofing).
 
-Una contromisura via router: il router inoltra solo datagrammi "legittimi" (con IP sorgenti coerenti con i propri host) e scarta i forgiati — ma questa capacità **non è universalmente dispiegata**, quindi lo spoofing va considerato possibile.
+Una contromisura via router: il router inoltra solo datagrammi "legittimi" (con IP sorgenti coerenti con i propri host) e scarta i forgiati, ma questa capacità **non è universalmente dispiegata**, quindi lo spoofing va considerato possibile.
 
 ### Autenticazione tramite password
 
 Approccio più comune: la password come **segreto condiviso** tra autenticatore e autenticato (Gmail, Facebook, telnet, FTP...). Il segreto serve anche per il controllo di integrità.
 
 - **Problema 1**: l'intruso può fare **eavesdropping** e rubare la password. → Si risolve **cifrando** la password; con cifratura simmetrica non serve nemmeno una password aggiuntiva: la chiave condivisa fa già da password.
-- **Problema 2**: **playback (replay) attack** — un intruso "molto smart" sniffera i pacchetti da A a B, ottiene la **versione cifrata** della password e la **riutilizza** in una nuova sessione (senza comprenderla). Diversamente dai MiM (in tempo reale), sniffing e playback avvengono **separatamente**. B non può capire se A è "vivo" (sessione attiva tra il vero A e B).
+- **Problema 2**: **playback (replay) attack**, un intruso "molto smart" sniffera i pacchetti da A a B, ottiene la **versione cifrata** della password e la **riutilizza** in una nuova sessione (senza comprenderla). Diversamente dai MiM (in tempo reale), sniffing e playback avvengono **separatamente**. B non può capire se A è "vivo" (sessione attiva tra il vero A e B).
 
 ### Nonce
 
@@ -88,7 +88,7 @@ SSL spezza il flusso applicativo in **record**; per ogni record:
 3. il record cifrato è passato a TCP per la trasmissione.
 
 > [!warning] Riordino dei segmenti
-> Solo il payload è cifrato: un MiM tra A e B può **invertire o rimuovere segmenti** (es. catturare due segmenti consecutivi e scambiarli insieme ai numeri di sequenza TCP) — il destinatario non se ne accorgerebbe finché i dati non raggiungono l'applicazione. SSL integra quindi anche un **numero di sequenza nel messaggio prima della cifratura**: il record reale cifrato è `record + MAC + sequenceNumber`, così il destinatario può certificare l'integrità dell'intero flusso.
+> Solo il payload è cifrato: un MiM tra A e B può **invertire o rimuovere segmenti** (es. catturare due segmenti consecutivi e scambiarli insieme ai numeri di sequenza TCP), il destinatario non se ne accorgerebbe finché i dati non raggiungono l'applicazione. SSL integra quindi anche un **numero di sequenza nel messaggio prima della cifratura**: il record reale cifrato è `record + MAC + sequenceNumber`, così il destinatario può certificare l'integrità dell'intero flusso.
 
 ## Firewall
 
@@ -119,11 +119,11 @@ Esempio di **access control list** sull'interfaccia verso l'ISP (rete 222.22/16,
 | --- | --- | --- | --- | --- | --- | --- |
 | allow | 222.22/16 | fuori 222.22/16 | TCP | >1023 | 80 | any |
 | allow | fuori 222.22/16 | 222.22/16 | TCP | 80 | >1023 | ACK |
-| allow | 222.22/16 | fuori 222.22/16 | UDP | >1023 | 53 | — |
-| allow | fuori 222.22/16 | 222.22/16 | UDP | 53 | >1023 | — |
+| allow | 222.22/16 | fuori 222.22/16 | UDP | >1023 | 53 |, |
+| allow | fuori 222.22/16 | 222.22/16 | UDP | 53 | >1023 |, |
 | deny | all | all | all | all | all | all |
 
-Problema: il filtering tradizionale è **stateless** — la seconda regola fa passare **qualsiasi** pacchetto esterno con ACK=1 e porta sorgente 80, e tali pacchetti sono noti strumenti di attacchi **DoS**. Bloccare anche i TCP ACK impedirebbe però agli utenti interni di navigare.
+Problema: il filtering tradizionale è **stateless**, la seconda regola fa passare **qualsiasi** pacchetto esterno con ACK=1 e porta sorgente 80, e tali pacchetti sono noti strumenti di attacchi **DoS**. Bloccare anche i TCP ACK impedirebbe però agli utenti interni di navigare.
 
 ### Stateful packet filtering
 
@@ -163,7 +163,7 @@ Gli IDS rilevano un ampio spettro di attacchi: **port/network scan** (es. nmap),
 
 Architettura: uno o più **sensori IDS** + un **processore centrale** che colleziona e integra le informazioni e invia gli allarmi. Tipologie:
 
-- **Signature-based**: mantiene un database esteso di **firme d'attacco** (regole legate a un'attività di intrusione) — il più comune;
+- **Signature-based**: mantiene un database esteso di **firme d'attacco** (regole legate a un'attività di intrusione), il più comune;
 - **Anomaly-based**: crea un **profilo del traffico** e segnala flussi statisticamente insoliti.
 
 ## DMZ

@@ -64,7 +64,7 @@ token = computed(() => this.authState().token);
 isAuthenticated = computed(() => this.authState().isAuthenticated);
 ```
 
-La sincronizzazione con `localStorage` si affida a un **effect** nel costruttore: ogni volta che `token` o `user` cambiano nello stato, l'effect li riscrive in `localStorage` — o li rimuove se valgono `null`.
+La sincronizzazione con `localStorage` si affida a un **effect** nel costruttore: ogni volta che `token` o `user` cambiano nello stato, l'effect li riscrive in `localStorage`, o li rimuove se valgono `null`.
 
 ## Servizio REST e intercettore
 

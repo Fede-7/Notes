@@ -116,7 +116,7 @@ La CLI gestisce il ciclo di vita: `docker pull` scarica un'immagine, `docker run
 > [!def] Software container-native
 > **Software** per cui i container sono le unità di infrastruttura di primo livello (non server o VM), progettato per i container fin dall'inizio.
 
-Come esempio di uso di Docker come sviluppatori, la lezione costruisce una web app a microservizi: un **frontend** (pagina web con un po' di JavaScript) e due servizi backend che comunicano via **HTTP** — un **fortune service** (Nodejs ed Express) che risponde a GET `/fortune`, e un **uppercase service** (Python e Flask) che risponde a POST `/uppercase` e GET `/uppercase-fortune`, quest'ultimo ottenendo il fortune dal fortune service e rendendolo maiuscolo. Ogni componente ha un proprio Dockerfile, che estende l'immagine base del linguaggio (`node:14`, `python:3.8`, `nginx:latest`), copia i file del servizio, installa le dipendenze ed espone la porta del container.
+Come esempio di uso di Docker come sviluppatori, la lezione costruisce una web app a microservizi: un **frontend** (pagina web con un po' di JavaScript) e due servizi backend che comunicano via **HTTP**, un **fortune service** (Nodejs ed Express) che risponde a GET `/fortune`, e un **uppercase service** (Python e Flask) che risponde a POST `/uppercase` e GET `/uppercase-fortune`, quest'ultimo ottenendo il fortune dal fortune service e rendendolo maiuscolo. Ogni componente ha un proprio Dockerfile, che estende l'immagine base del linguaggio (`node:14`, `python:3.8`, `nginx:latest`), copia i file del servizio, installa le dipendenze ed espone la porta del container.
 
 ![[4cad402a5e752becc4b9cfb39de98a5c19ad52e48baba9442159ea43de52220a.jpg|400]]
 

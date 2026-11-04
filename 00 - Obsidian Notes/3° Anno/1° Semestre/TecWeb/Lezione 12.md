@@ -44,7 +44,7 @@ async function f(){
 
 ## Il web statico
 
-Finora abbiamo imparato le tecnologie core del web — **HTML**, **CSS** e **JavaScript** — progettando pagine moderne, responsive e dinamiche: gestione di eventi, modifica del DOM al volo e richieste HTTP asincrone per recuperare dati da mostrare nelle pagine.
+Finora abbiamo imparato le tecnologie core del web, **HTML**, **CSS** e **JavaScript**, progettando pagine moderne, responsive e dinamiche: gestione di eventi, modifica del DOM al volo e richieste HTTP asincrone per recuperare dati da mostrare nelle pagine.
 
 ### App web statiche
 
@@ -52,7 +52,7 @@ Finora abbiamo imparato le tecnologie core del web — **HTML**, **CSS** e **Jav
 - **Dinamicità nel browser**: il dinamismo dato da JavaScript avviene interamente dentro il browser.
 - **Documento identico**: ogni richiesta a una stessa pagina riceve sempre lo stesso documento identico, servito dal **document root** del server.
 
-![[Pasted image 20261016111438.jpg|300]]
+![[Pasted image 20261016111438.png|300]]
 
 ### Limitazioni del web statico
 
@@ -75,7 +75,7 @@ Un web server può fare molto più che servire file: può **generare** pagine we
 - **Parametri della richiesta**: richieste diverse, anche verso la stessa risorsa, producono pagine diverse.
 - **Contenuti sempre aggiornati**: la pagina viene costruita al momento della richiesta, non preparata in anticipo.
 
-![[Pasted image 20261016111727.jpg|300]]
+![[Pasted image 20261016111727.png|300]]
 
 ## CGI
 
@@ -93,7 +93,7 @@ Il CGI definisce come comunicano il web server e i programmi **CGI-compliant**.
 - **Ritorno**: l'output del programma torna al server, che lo invia al browser come risposta HTTP.
 
 
-![[Pasted image 20261016111848.jpg|300]]
+![[Pasted image 20261016111848.png|300]]
 
 ### Input e output del programma
 
@@ -105,7 +105,7 @@ Il CGI definisce come comunicano il web server e i programmi **CGI-compliant**.
 > - **Corpo della risposta**: è l'output del programma sullo stream **stdout**.
 >
 >---
-> ![[Pasted image 20261016112005.jpg|200]]
+> ![[Pasted image 20261016112005.png|200]]
 
 ### Primo script CGI
 
@@ -176,4 +176,4 @@ Un'applicazione PHP moderna può essere distribuita con **NGINX** come web serve
 - **Pool di worker**: PHP-FPM gestisce un pool di processi worker che eseguono il codice PHP.
 - **Comunicazione**: NGINX inoltra a PHP-FPM le richieste PHP via TCP sulla porta `9000`; i due componenti condividono un volume di dati comune.
 
-![[Pasted image 20261016112143.jpg|300]]
+![[Pasted image 20261016112143.png|300]]

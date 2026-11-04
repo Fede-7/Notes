@@ -27,7 +27,7 @@ Le operazioni di invio e ricezione in TCP si basano fortemente su **buffer**, ch
 > Esiste anche il limite del ritmo di trasmissione: messaggi lunghi possono essere spezzati in segmenti più piccoli, raccolti nei buffer prima di essere **disassemblati** (lato mittente) e **riassemblati** (lato ricevente).
 > 
 > ---
-> ![[Lezione 15-1793789021613.webp | 150]]
+> ![[Lezione 15-1793789021613.png| 150]]
 > 
 
 > [!def] MSS
@@ -55,7 +55,7 @@ Il segmento TCP consiste di campi di header e di un campo dati (al massimo di MS
 > - **Checksum** (16 bit): controllo di integrità.
 > 
 > ---
-> ![[Lezione 15-1793788979675.webp|200]]
+> ![[Lezione 15-1793788979675.png|200]]
 
 
 ## Numeri di sequenza e acknowledgment
@@ -66,7 +66,7 @@ I numeri di sequenza servono anche a gestire la **segmentazione**: un grande flu
 - Il **numero di acknowledgment** è convenzionalmente il **prossimo pezzo del flusso atteso** (calcolato dal numero di sequenza del segmento precedente).
 - TCP non sa nulla dei dati trasmessi: dal suo punto di vista i dati sono solo un **flusso ordinato di byte** (è un protocollo di trasporto general-purpose).
 
-![[Lezione 15-1793789101717.webp|300]]
+![[Lezione 15-1793789101717.png|300]]
 
 > [!example] 
 > Per un flusso da 500.000 byte (~500 KB) con MSS di 1000 byte, TCP costruisce 500 segmenti: il primo ha numero di sequenza 0, il secondo 1000, il terzo 2000, e così via.
@@ -93,7 +93,7 @@ Trasferimento A $\to$ B (partendo dal numero di sequenza 0):
 > 
 > ---
 > 
-> ![[Lezione 15-1793789569416.webp|150]]
+> ![[Lezione 15-1793789569416.png|150]]
 > 
 
 ## Stima dell'RTT e timeout di ritrasmissione
@@ -117,7 +117,7 @@ con $\alpha = 0.125$ (cioè 1/8).
 > 
 > ---
 > 
-> ![[Lezione 15-1793790241001.webp|200]]
+> ![[Lezione 15-1793790241001.png|200]]
 
 
  L'**intervallo di timeout** è:
@@ -149,7 +149,7 @@ Il meccanismo si svolge in tre passi.
 > 
 > ---
 > 
-> ![[Lezione 15-1793791268998.webp|150]]
+> ![[Lezione 15-1793791268998.png|150]]
 
 ### Dopo la ritrasmissione
 
@@ -162,9 +162,9 @@ Completata la ritrasmissione, la ripresa della trasmissione dipende dalla politi
 A prima vista TCP assomiglia a entrambi, ma il confronto va fatto punto per punto.
 
 - **Come Go-Back-N**: ACK **cumulativi**, nessuna risposta individuale per ciò che arriva in anticipo, **un solo timer** e due variabili.
-- **A differenza di Go-Back-N**: al timeout si ritrasmette **un solo segmento**, non tutto ciò che è in attesa — e nemmeno quello, se l'ACK successivo lo copre già.
+- **A differenza di Go-Back-N**: al timeout si ritrasmette **un solo segmento**, non tutto ciò che è in attesa; e nemmeno quello, se l'ACK successivo lo copre già.
 - **Come selective repeat**: il ricevente **buffera** ciò che arriva in anticipo invece di scartarlo.
-- **Conclusione**: TCP non è né l'uno né l'altro — ACK cumulativi su un ricevente che **conserva** i dati, cioè **la metà utile di ciascuno**.
+- **Conclusione**: TCP non è né l'uno né l'altro; ACK cumulativi su un ricevente che **conserva** i dati, cioè **la metà utile di ciascuno**.
 
 > [!tip] Selective Acknowledgement (SACK)
-> Un'opzione, il **selective acknowledgement**, permette al ricevente di **nominare i blocchi** che sta trattenendo — e porta TCP **fino in fondo** verso il selective repeat.
+> Un'opzione, il **selective acknowledgement**, permette al ricevente di **nominare i blocchi** che sta trattenendo; e porta TCP **fino in fondo** verso il selective repeat.

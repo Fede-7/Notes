@@ -211,7 +211,7 @@ h1 { color: blue; } /* vince blue */
 
 ## Ereditarietà (inheritance)
 
-- Alcune proprietà CSS (**inheritable**) — ad esempio `color`, `font-size`, `font-family`, `font-weight`, `font-style` — vengono **ereditate dagli antenati** se all'elemento non è impostato un valore specifico.
+- Alcune proprietà CSS (**inheritable**), ad esempio `color`, `font-size`, `font-family`, `font-weight`, `font-style`, vengono **ereditate dagli antenati** se all'elemento non è impostato un valore specifico.
 - Le proprietà ereditate **non prendono parte alla cascata**: vengono considerate solo quando la cascata non ha prodotto alcun valore per quell'elemento; in un certo senso hanno la specificità più bassa di tutti i metodi di stilizzazione.
 
 ```css

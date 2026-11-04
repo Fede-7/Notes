@@ -18,7 +18,7 @@ Questa strategia si è arrestata nel 2005: processori recenti (es. Intel Core Ul
 
 ### Le CPU multicore
 
-Raggiunti i limiti fisici del silicio, la soluzione è stata aumentare il numero di unità di elaborazione (**multicore**) per aumentare la potenza di calcolo (es. AMD Ryzen 9 9955HX, 2,5–5,4 GHz, 32 unità di calcolo). Il problema: i programmi sono tradizionalmente scritti per un computer con una singola CPU e la stragrande maggioranza delle applicazioni è sequenziale — come sfruttare più unità in parallelo?
+Raggiunti i limiti fisici del silicio, la soluzione è stata aumentare il numero di unità di elaborazione (**multicore**) per aumentare la potenza di calcolo (es. AMD Ryzen 9 9955HX, 2,5–5,4 GHz, 32 unità di calcolo). Il problema: i programmi sono tradizionalmente scritti per un computer con una singola CPU e la stragrande maggioranza delle applicazioni è sequenziale, come sfruttare più unità in parallelo?
 
 ## L'infrastruttura tradizionale di un CED
 
@@ -72,7 +72,7 @@ Con l'introduzione della virtualizzazione si parla di **consolidamento** di un C
 
 - **Ottimizzazione delle risorse HW**: esecuzione di distinti sistemi operativi contemporaneamente in una singola macchina.
 - **Ottimizzazione dello spazio disco**: a ogni VM viene assegnato lo spazio strettamente necessario, e il resto del volume resta disponibile per nuove macchine virtuali.
-- **Semplificazione**: backup e disaster recovery (l'intero server — SO, applicazioni, dati, dispositivi e stato — non è altro che un file); indipendenza dall'hardware; rilasci semplificati; possibilità di clonare "live" le VM per test e aggiornamenti senza compromettere l'integrità dell'originale.
+- **Semplificazione**: backup e disaster recovery (l'intero server, SO, applicazioni, dati, dispositivi e stato, non è altro che un file); indipendenza dall'hardware; rilasci semplificati; possibilità di clonare "live" le VM per test e aggiornamenti senza compromettere l'integrità dell'originale.
 - **Riduzione dei costi**: meno server significa risparmio sui costi energetici, di condizionamento e sugli spazi fisici richiesti dal CED; la gestione centralizzata attraverso un'unica interfaccia di amministrazione incrementa la produttività del reparto IT.
 
 ## Il cloud computing
@@ -126,7 +126,7 @@ Esempi tipici: per IaaS, Amazon EC2, Azure Compute, OpenNebula; per PaaS, Micros
 
 ## I deployment model
 
-I modelli di deployment primari del cloud sono tre — public, private e hybrid — che insieme al community cloud compongono l'ecosistema cloud. Le loro differenze stanno principalmente nello scope e nell'accesso dei servizi cloud pubblicati verso i consumatori.
+I modelli di deployment primari del cloud sono tre, public, private e hybrid, che insieme al community cloud compongono l'ecosistema cloud. Le loro differenze stanno principalmente nello scope e nell'accesso dei servizi cloud pubblicati verso i consumatori.
 
 > [!def] Public cloud
 > **Infrastruttura** cloud resa disponibile al grande pubblico o a un grande gruppo industriale e di proprietà di un'organizzazione che vende servizi cloud; nota anche come cloud esterno o multi-tenant cloud, rappresenta un ambiente apertamente accessibile.

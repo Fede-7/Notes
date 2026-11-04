@@ -348,7 +348,7 @@ Entrambi i pattern nascondono i dettagli dell'implementazione sottostante, ma si
 
 La facciata incapsula gli oggetti del sottosistema ed espone operazioni di livello superiore: ad esempio `ShapeMaker` possiede `circle`, `rectangle` e `square` ed espone `drawCircle()`, `drawRectangle()` e `drawSquare()`, ciascuna che delega all'oggetto interno.
 
-La struttura ideale di un sottosistema combina Facade e Adapter/Bridge: un sottosistema consiste di un oggetto interfaccia, di un insieme di oggetti di dominio applicativo (oggetti entità) che modellano entità reali o sistemi esistenti — alcuni dei quali sono interfacce verso sistemi esistenti — e di uno o più oggetti di controllo. I due ruoli chiave sono realizzati con i pattern.
+La struttura ideale di un sottosistema combina Facade e Adapter/Bridge: un sottosistema consiste di un oggetto interfaccia, di un insieme di oggetti di dominio applicativo (oggetti entità) che modellano entità reali o sistemi esistenti, alcuni dei quali sono interfacce verso sistemi esistenti, e di uno o più oggetti di controllo. I due ruoli chiave sono realizzati con i pattern.
 
 - **Interface object**: realizzato con un Facade, fornisce l'interfaccia del sottosistema.
 - **Interfaccia verso sistemi esistenti**: realizzata con Adapter o Bridge, fornisce l'interfaccia al sistema esistente (sistema legacy), che non è necessariamente object-oriented.

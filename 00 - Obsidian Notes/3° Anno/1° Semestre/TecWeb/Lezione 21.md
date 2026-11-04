@@ -77,7 +77,7 @@ nav {
 ### Moduli e partial
 
 - **Moduli**: un file può usare le definizioni di un altro con `@use 'base'` e accedervi col namespace, es. `base.$primary-color`.
-- **Partial**: i file Sass il cui nome inizia con underscore (es. `_variables.scss`) sono pensati per essere inclusi da altri file; Sass **non genera** un CSS standalone per essi — utile, ad esempio, per un file di sole variabili.
+- **Partial**: i file Sass il cui nome inizia con underscore (es. `_variables.scss`) sono pensati per essere inclusi da altri file; Sass **non genera** un CSS standalone per essi, utile, ad esempio, per un file di sole variabili.
 
 ### Liste, mappe e control flow
 
@@ -103,7 +103,7 @@ I framework più diffusi sono **Bootstrap** (il più popolare, originario di Twi
 
 ### Uso e personalizzazione
 
-Il framework è un insieme di file CSS da importare nelle pagine, usando le classi documentate: si possono servire dal proprio server o tramite **CDN** — comodo per il prototipazione, ma solleva qualche problema di privacy.
+Il framework è un insieme di file CSS da importare nelle pagine, usando le classi documentate: si possono servire dal proprio server o tramite **CDN**, comodo per il prototipazione, ma solleva qualche problema di privacy.
 
 Due approcci per non avere un sito identico a mille altri:
 
@@ -160,4 +160,4 @@ Durante la build Vite svolge parecchio lavoro automaticamente:
 - Sposta tutte le risorse in `/dist` e aggiorna l'`index.html` con i riferimenti corretti.
 
 > [!def] Filename fingerprinting
-> **Tecnica** che nomina i bundle finali con un hash del loro contenuto (es. `index-DiAK_ebR.js`): quando il contenuto cambia, cambia anche il nome del file, il che evita i problemi di **cache staleness** — il browser non continua a usare la vecchia versione in cache come farebbe con un nome fisso come `index.js`.
+> **Tecnica** che nomina i bundle finali con un hash del loro contenuto (es. `index-DiAK_ebR.js`): quando il contenuto cambia, cambia anche il nome del file, il che evita i problemi di **cache staleness**, il browser non continua a usare la vecchia versione in cache come farebbe con un nome fisso come `index.js`.

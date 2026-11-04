@@ -7,14 +7,14 @@
 
 La sicurezza va gestita a due livelli:
 
-- **Network-level**: riguarda la comunicazione tra web app e Internet — cifratura del traffico (HTTPS), firewall che filtrano richieste HTTP malevole, monitoraggio e logging per rilevare pattern sospetti.
-- **Application-level**: riguarda i meccanismi interni della web app — autenticazione e autorizzazione, validazione degli input per l'integrità dei dati, gestione delle sessioni, riservatezza dei dati.
+- **Network-level**: riguarda la comunicazione tra web app e Internet, cifratura del traffico (HTTPS), firewall che filtrano richieste HTTP malevole, monitoraggio e logging per rilevare pattern sospetti.
+- **Application-level**: riguarda i meccanismi interni della web app, autenticazione e autorizzazione, validazione degli input per l'integrità dei dati, gestione delle sessioni, riservatezza dei dati.
 
 Il livello network protegge da attacchi al livello di rete (es. sniffing, man-in-the-middle, DDoS filtrati da un firewall); gli attacchi applicativi invece possono nascondersi in richieste HTTP perfettamente valide ed exploitare vulnerabilità nel modo in cui l'app è implementata. Nel corso ci si concentra sul livello applicativo, facendo sì che le app sviluppate non contengano vulnerabilità, e sui meccanismi di sicurezza dei browser (es. CORS).
 
 ### La catena dello stack moderno
 
-Una web app moderna è molto più del codice che si scrive: è un'intera pila, dove ogni anello può introdurre vulnerabilità — dal proprio codice al codice di terze parti, al framework, al runtime (es. Node, PHP), al sistema operativo, all'hypervisor, fino all'hardware.
+Una web app moderna è molto più del codice che si scrive: è un'intera pila, dove ogni anello può introdurre vulnerabilità, dal proprio codice al codice di terze parti, al framework, al runtime (es. Node, PHP), al sistema operativo, all'hypervisor, fino all'hardware.
 
 > [!info] L'anello più debole
 > Una web app è sicura solo quanto il suo anello più debole: una RCE nel template engine EJS o in PHP, un open redirect in Express, una vulnerabilità nel kernel Linux o nell'hypervisor possono compromettere tutta l'app.
@@ -158,7 +158,7 @@ La policy si applica ai dati recuperati via JavaScript con `fetch()` o `XMLHttpR
 A volte serve accedere a contenuti di origini diverse dalla propria.
 
 > [!def] Cross-Origin Resource Sharing (CORS)
-> **Meccanismo** che permette a un server di fare "opt-out" della Same-origin Policy, dichiarando — tramite header dedicati nelle risposte — che il proprio contenuto è accessibile anche da origini diverse dalla sua.
+> **Meccanismo** che permette a un server di fare "opt-out" della Same-origin Policy, dichiarando, tramite header dedicati nelle risposte, che il proprio contenuto è accessibile anche da origini diverse dalla sua.
 
 Il meccanismo è **header-based**:
 

@@ -172,7 +172,7 @@ Gli header delle risposte DNS iniziano con un **codice di stato**. I principali 
 > ;webtechnologies.unina.it.        IN      A
 > ```
 > 
-> - Se invece il nome **esiste ma non ha record A**, la risposta è **NODATA** (status NOERROR, nessuna sezione ANSWER) — è il caso di `docenti.unina.it` rispetto a `www.docenti.unina.it`, che sono **nomi diversi**: solo il primo ha un record A, quindi il secondo restituisce «Server Not Found»:
+> - Se invece il nome **esiste ma non ha record A**, la risposta è **NODATA** (status NOERROR, nessuna sezione ANSWER), è il caso di `docenti.unina.it` rispetto a `www.docenti.unina.it`, che sono **nomi diversi**: solo il primo ha un record A, quindi il secondo restituisce «Server Not Found»:
 > 
 > ```bash
 > $ dig www.docenti.unina.it A     → NOERROR, A 143.225.212.48

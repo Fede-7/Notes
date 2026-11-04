@@ -23,7 +23,7 @@ Il livello di rete è responsabile della consegna **host-to-host**. Servizi che 
 - **Sicurezza**: cifratura/decifratura di tutti i datagram a sorgente e destinazione.
 
 > [!info] Best-effort
-> **In pratica nessuno** di questi servizi è offerto: la rete Internet fornisce **un solo servizio**, il **best-effort** — la rete fa del suo meglio per consegnare il pacchetto, senza garanzie di ordine, di consegna, di ritardo o di banda minima.
+> **In pratica nessuno** di questi servizi è offerto: la rete Internet fornisce **un solo servizio**, il **best-effort**, la rete fa del suo meglio per consegnare il pacchetto, senza garanzie di ordine, di consegna, di ritardo o di banda minima.
 
 Nonostante la semplicità, il modello best-effort combinato con buona banda si è dimostrato **adeguato** per applicazioni come Netflix, voice-and-video-over-IP, conferenze real-time, ecc.
 
@@ -76,7 +76,7 @@ Il meccanismo:
 - Il lookup è eseguito in hardware il più rapidamente possibile (nanosecondi per trasmissioni Gigabit), con memorie incorporate e algoritmi avanzati di ricerca in tabella.
 - Determinata la porta di uscita, il pacchetto attraversa lo switching fabric; in alcuni dispositivi può essere messo in **coda** (bufferato) se altre porte occupano il fabric.
 
-Questa operazione in due passi — cercare l'indirizzo di destinazione (*match*) e inoltrare (*action*) — è detta **match-plus-action**, presente anche in altri dispositivi:
+Questa operazione in due passi, cercare l'indirizzo di destinazione (*match*) e inoltrare (*action*), è detta **match-plus-action**, presente anche in altri dispositivi:
 
 - **Switch**: azione analoga ai router.
 - **Firewall**: l'azione è filtrare pacchetti in arrivo specifici.

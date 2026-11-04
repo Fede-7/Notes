@@ -55,7 +55,7 @@ Nella variante **DDoS (Distributed DoS)** l'attacco usa una **botnet di zombie**
 - Tecnica che permette a host malevoli di iniettare in rete pacchetti con **indirizzi sorgente falsificati** (forged).
 - Può combinarsi con vulnerabilità applicative per attaccare host **spacciandosi per un altro utente**;
 - può servire per **DoS** (alternativa alle botnet: messaggi da IP sorgenti diversi sono più difficili da filtrare);
-- con lo sniffing consente attacchi **man-in-the-middle (MitM/MiM)**: l'attaccante si frappone tra due host **fingendosi entrambi** — i due pensano di comunicare tra loro ma parlano con l'attaccante.
+- con lo sniffing consente attacchi **man-in-the-middle (MitM/MiM)**: l'attaccante si frappone tra due host **fingendosi entrambi**, i due pensano di comunicare tra loro ma parlano con l'attaccante.
 - Contromisure: **controlli di integrità dei messaggi** e **autenticazione degli endpoint**, per verificare che il messaggio non sia stato modificato e che provenga dalla sorgente giusta.
 
 ## Proprietà di una comunicazione sicura
@@ -65,9 +65,9 @@ Data la tassonomia degli attacchi, una comunicazione sicura dovrebbe garantire:
 | Proprietà | Significato | Evita |
 | --- | --- | --- |
 | **Confidenzialità** | Solo mittente e destinatario devono comprendere il contenuto del messaggio trasmesso | Sniffing |
-| **Integrità dei messaggi** | Il contenuto non deve essere alterato, né maliziosamente né accidentalmente | — |
+| **Integrità dei messaggi** | Il contenuto non deve essere alterato, né maliziosamente né accidentalmente |, |
 | **Autenticazione degli endpoint** | Mittente e destinatario devono poter confermare l'identità dell'altro | Spoofing |
-| **Operational security** | Potersi affidare a un'infrastruttura di rete che impedisca a host malevoli di intrufolarsi nella comunicazione | — |
+| **Operational security** | Potersi affidare a un'infrastruttura di rete che impedisca a host malevoli di intrufolarsi nella comunicazione |, |
 
 Le prime 3 proprietà sono **software-based**; l'ultima si affida tipicamente a **hardware dedicato** (firewall, intrusion detection systems).
 
@@ -83,7 +83,7 @@ Terminologia:
 
 ### Chiavi
 
-Nei sistemi moderni (inclusi quelli usati su Internet) l'**algoritmo è noto e standard** per tutti (intruso compreso): la parte segreta sono le **chiavi** di cifratura/decifratura — stringhe alfanumeriche fornite all'algoritmo per cifrare/decifrare.
+Nei sistemi moderni (inclusi quelli usati su Internet) l'**algoritmo è noto e standard** per tutti (intruso compreso): la parte segreta sono le **chiavi** di cifratura/decifratura, stringhe alfanumeriche fornite all'algoritmo per cifrare/decifrare.
 
 Le chiavi possono essere **identiche** (simmetriche) o **diverse** (asimmetriche).
 
@@ -112,7 +112,7 @@ Nella crittografia a chiave pubblica serve **verificare che una chiave pubblica 
 
 Il **binding** tra chiave pubblica ed entità è fatto da una **Certification Authority (CA)**, il cui lavoro è validare identità ed emettere certificati:
 
-1. **Verifica dell'identità**: la CA verifica che l'entità sia chi dice di essere. Non c'è un protocollo: bisogna **fidarsi** che la CA abbia fatto una verifica rigorosa (selezione naturale: una CA inaffidabile non si fida nessuno; esistono CA federali/statali ragionevolmente affidabili — ma resta una fiducia).
+1. **Verifica dell'identità**: la CA verifica che l'entità sia chi dice di essere. Non c'è un protocollo: bisogna **fidarsi** che la CA abbia fatto una verifica rigorosa (selezione naturale: una CA inaffidabile non si fida nessuno; esistono CA federali/statali ragionevolmente affidabili, ma resta una fiducia).
 2. **Emissione del certificato**: la CA crea un certificato che **lega la chiave pubblica all'identità**, contenente la chiave pubblica e un identificatore globalmente univoco del proprietario (es. nome o indirizzo IP).
 
 ## Integrità dei messaggi
@@ -136,7 +136,7 @@ Approccio ingenuo:
 
 ### MAC (Message Authentication Code)
 
-A e B condividono un **segreto** $s$ (chiave condivisa o password) noto solo a loro — di fatto una cifratura simmetrica dove $s$ è l'unica chiave privata:
+A e B condividono un **segreto** $s$ (chiave condivisa o password) noto solo a loro, di fatto una cifratura simmetrica dove $s$ è l'unica chiave privata:
 
 1. A calcola $h = H(m + s)$ (hash di messaggio concatenato al segreto): il **MAC**;
 2. A invia il messaggio esteso $(m,\ H(m+s))$;

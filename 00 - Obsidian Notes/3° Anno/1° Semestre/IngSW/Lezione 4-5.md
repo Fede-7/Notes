@@ -1,4 +1,4 @@
-# Lezione 4-5 Requirements Engineering — Elicitation e Analysis
+# Lezione 4-5 Requirements Engineering, Elicitation e Analysis
 
 ## Il posto della RE nel ciclo di vita
 
