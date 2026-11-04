@@ -15,6 +15,8 @@ Il trend attuale è dividere la web app in due componenti che comunicano via Int
 - **Backend** (lato server): responsabile di dati e business logic.
 - **Frontend** (lato client): responsabile della UI; può essere un'app nativa mobile o desktop, oppure una pagina HTML "più smart" che rende un'interfaccia interattiva tramite JavaScript (Single Page Application).
 
+![[Pasted image 20261103170315.jpg|200]]
+
 ## API e REST
 
 > [!def] Application Programming Interface (API)
@@ -62,10 +64,14 @@ A volte esiste una gerarchia tra risorse (es. una company ha dipartimenti, che h
 
 Quando si disegna una API si possono considerare quattro archetipi fondamentali di risorsa:
 
-- **Document**: concetto singolare, corrisponde a un'istanza di un oggetto o a un record del database; es. `/leagues/serie-a/teams/napoli`. Regola: i nomi (non numerici) di un document sono singolari.
-- **Collection**: directory di risorse gestita dalla web app; il client può proporre l'aggiunta di nuove risorse, ma è la risorsa a decidere se accettarla; es. `/leagues`, `/leagues/serie-a/teams`. Regola: i nomi sono plurali.
-- **Store**: directory di risorse gestita dal client, che può creare, recuperare, aggiornare e cancellare le risorse; es. `/users/1234/favourites`. Regola: i nomi sono plurali.
-- **Controller**: modella un concetto procedurale, una sorta di funzione eseguibile invocabile con parametri che produce un output o un effetto collaterale; es. `/alerts/1234/resend`, `/login`. Regola: i nomi sono verbi o frasi verbali.
+- **Document**: concetto singolare, corrisponde a un'istanza di un oggetto o a un record del database; es. `/leagues/serie-a/teams/napoli`. 
+>	Regola: *i nomi (non numerici) di un document sono singolari.*
+- **Collection**: directory di risorse gestita dalla web app; il client può proporre l'aggiunta di nuove risorse, ma è la risorsa a decidere se accettarla; es. `/leagues`, `/leagues/serie-a/teams`. 
+>	Regola: *i nomi sono plurali.*
+- **Store**: directory di risorse gestita dal client, che può creare, recuperare, aggiornare e cancellare le risorse; es. `/users/1234/favourites`. 
+>	Regola: *i nomi sono plurali*.
+- **Controller**: modella un concetto procedurale, una sorta di funzione eseguibile invocabile con parametri che produce un output o un effetto collaterale; es. `/alerts/1234/resend`, `/login`. 
+>	Regola: *i nomi sono verbi o frasi verbali.*
 
 ### Query string: filtering e paginazione
 
@@ -95,11 +101,16 @@ Una REST API permette di manipolare risorse e in genere non tutti devono poterlo
 
 Uno schema di autenticazione ampiamente usato è **token-based**, con questo flusso:
 
-1. Il client invia una richiesta con username e password alla API.
-2. La API valida le credenziali e genera un token.
-3. Il token (una stringa) viene restituito al client.
-4. Il client rimanda il token alla API in ogni richiesta successiva che richiede autenticazione, nell'header `Authorization`.
-5. La API verifica il token prima di rispondere.
+> [!aside]
+> 1. Il client invia una richiesta con username e password alla API.
+> 2. La API valida le credenziali e genera un token.
+> 3. Il token (una stringa) viene restituito al client.
+> 4. Il client rimanda il token alla API in ogni richiesta successiva che richiede autenticazione, nell'header `Authorization`.
+> 5. La API verifica il token prima di rispondere.
+> 
+> ---
+> ![[Pasted image 20261103172102.jpg|150]]
+> 
 
 > [!def] JSON Web Token (JWT)
 > **Standard aperto (RFC 7519)** ampiamente adottato che permette di condividere in modo sicuro claim tra due parti; il token è una stringa di tre parti separate da `.`, nella forma `Header.Payload.Signature`.
@@ -108,8 +119,10 @@ Uno schema di autenticazione ampiamente usato è **token-based**, con questo flu
 - **Payload**: JSON contenente i **claim**, personalizzabili; alcuni claim registrati sono raccomandati, es. `exp` che indica la scadenza del token; anche questo è Base64Url.
 - **Signature**: funzione di hash crittografica applicata alla concatenzione di header, payload e una **secret key** nota solo al server emittente; garantisce che il token non sia manomesso o contraffatto.
 
+![[Pasted image 20261103173414.jpg|200]]
+
 > [!warning] Base64Url è codifica, non cifratura
-> Header e payload di un JWT sono semplicemente codificati e possono essere invertiti con facilità: chiunque può leggerne il contenuto. La sicurezza sta nella firma, non nella segretezza del contenuto.
+> Header e payload di un JWT sono semplicemente codificati e **possono** essere invertiti con facilità: chiunque può leggerne il contenuto. La sicurezza sta nella firma, non nella segretezza del contenuto.
 
 > [!def] Funzione di hash crittografica
 > **Funzione** che mappa una stringa binaria arbitraria (input) a una stringa binaria di dimensione fissa (digest o hash).
@@ -120,6 +133,8 @@ Le funzioni di hash crittografiche sicure hanno due proprietà chiave:
 - Sono **facili da calcolare, impossibili da invertire**: dato un input è facile calcolare il digest, ma dato un digest è infeasibile risalire all'input che l'ha generato.
 
 La firma JWT è in realtà un po' più complessa di una semplice hash (es. algoritmi HS256 e RS256).
+
+![[Pasted image 20261103172927.jpg|700x70]]
 
 ### Con Express
 
