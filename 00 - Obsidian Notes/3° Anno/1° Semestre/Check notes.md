@@ -14,11 +14,11 @@ Lezione 16.2  ->  22-Containerization for Software Engineers.pdf (Accenno Docker
 Lezione 17-18   ->  23-Design-Patterns.pdf
 Lezione 18-19   ->  25-Refactoring.pdf
 
+Lezione 20   ->  24-Build-tools-and-version-control.pdf
 
  --- Da fare
 
 Lezione 0   ->  21-REST APIs.pdf
-Lezione 0   ->  24-Build-tools-and-version-control.pdf
 
 Lezione 0   ->  26-SOLID-Principles.pdf
 Lezione 0   ->  27-29-Verification_Validation_Intro.pdf
@@ -41,16 +41,16 @@ last in Notes:
 	2026-11-03 Slide Lezione 19 - Rest API
 	
 last slide (non caricata):
-	
+	2026-11-05 Slide Lezione 20 - API (new)
 
 
 ## Reti&PD
 
 last in Notes:
-	2026-11-03 - Lezione 15 
+	2026-11-03 - Lezione 15
 
 last slide (non caricata):
-	
+	2026-11-04 - Lezione 16 ( check credo che abbia aggiunto qualcosa)
 
 
 ---
@@ -58,7 +58,7 @@ last slide (non caricata):
 ## Intercorso
 
 ### Reti
-Solo esercizi dalle slide, codice boh
+Solo esercizi dalle slide, codice boh fino alla 15
 
 ### TecWeb
 Argomenti fino alla lezione 18
