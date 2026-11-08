@@ -42,6 +42,7 @@ last in Notes:
 	
 last slide (non caricata):
 	2026-11-05 Slide Lezione 20 - API (new)
+	2026-11-06 Slide Lezione 21 - CMS (new)
 
 
 ## Reti&PD
