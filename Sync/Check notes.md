@@ -16,16 +16,22 @@ Lezione 18-19   ->  25-Refactoring.pdf
 
 Lezione 20   ->  24-Build-tools-and-version-control.pdf
 
+??? check mi sono perso
+Lezione 0   ->  29-jUnit-Hamcrest-Mockito.pdf
+Lezione 0   ->  30-33-Testing-Black-Box-White-Box-updated.pdf
+Lezione 0   ->  31-UnitTesting-jUnit.pdf
+
  --- Da fare
 
 Lezione 0   ->  21-REST APIs.pdf
 
 Lezione 0   ->  26-SOLID-Principles.pdf
 Lezione 0   ->  27-29-Verification_Validation_Intro.pdf
+
 Lezione 0   ->  28-Esercitazione-Software-Design.pdf
-Lezione 0   ->  29-jUnit-Hamcrest-Mockito.pdf
-Lezione 0   ->  30-33-Testing-Black-Box-White-Box-updated.pdf
-Lezione 0   ->  31-UnitTesting-jUnit.pdf
+
+
+
 Lezione 0   ->  32-Teaching-Case-on-Bug-Patterns-in-LLM-generated-Code.pdf
 Lezione 0   ->  35-Mocking-And-Continuous-Code-Inspection.pdf
 Lezione 0   ->  36-37-Process-Models-SCRUM.pdf
@@ -43,6 +49,8 @@ last in Notes:
 last slide (non caricata):
 	2026-11-05 Slide Lezione 20 - API (new)
 	2026-11-06 Slide Lezione 21 - CMS (new)
+	2026-11-10 Lezione 22 Esercitazione pre intercorso
+	2026-11-17 Lezione 23 Typescript (aggiornato)
 
 
 ## Reti&PD
@@ -51,7 +59,11 @@ last in Notes:
 	2026-11-03 - Lezione 15
 
 last slide (non caricata):
-	2026-11-04 - Lezione 16 ( check credo che abbia aggiunto qualcosa)
+	2026-11-05 - Lezione 16 ( check credo che abbia aggiunto qualcosa)
+	2026-11-10 - Lezione 17
+	2026-11-12 - Lezione 18
+	2026-11-13 - Lezione 19
+	2026-11-17 - Lezione 20 Network Layer
 
 
 ---
