@@ -1,151 +1,309 @@
-# Lezione 20 TypeScript
+# Lezione 20 API REST: documentazione, evoluzione e hardening
 
-## JavaScript e i tipi
+Un backend non è finito appena gli endpoint funzionano: diventa maturo quando può evolvere, sopravvivere ai clienti, resistere agli abusi ed essere gestito in sicurezza. Gli strumenti per riuscirci sono documentazione formale, strategie di evoluzione, sicurezza e osservabilità.
 
-JavaScript ha un type system peculiare, con due caratteristiche fondamentali:
+## OpenAPI
 
-- È **dinamicamente tipizzato**: una variabile non ha un tipo fisso, che dipende dal valore assegnato (`undefined`, poi `number`, poi `string`, …).
-- È **debolmente tipizzato** ed esegue cast impliciti nelle espressioni, es. in `"100" - 1 + "42"` la sottrazione converte a numero e la somma finale converta a stringa, producendo `"9942"`.
+### Cos'è OpenAPI
 
-Queste caratteristiche rendono il linguaggio pratico per manipolare piccole pagine web, senza dichiarare tipi o cast espliciti. Al crescere della complessità dei programmi però:
+> [!def] OpenAPI
+> **Standard aperto e formale** per descrivere API HTTP, noto in precedenza come *Swagger*. È lo standard più adottato a livello industriale.
 
-- È più facile introdurre bug subdoli.
-- L'esperienza di sviluppo peggiora: scarso supporto IDE, pochissimi errori colti prima del runtime.
-- Il codice diventa meno manutenibile e difficile da capire.
+Le ragioni dell'introduzione dello standard:
 
-Tipici errori rilevabili solo a runtime in JavaScript puro: invocare come funzione una variabile che non lo è (`TypeError`), assegnare a una proprietà col nome sbagliato senza alcun errore, usare un metodo inesistente (es. `add` su un array).
+- **Standardizzazione**: garantisce pratiche di documentazione consistenti.
+- **Documentazione**: consente di generare automaticamente documentazione completa.
+- **Code generation**: permette la generazione automatica di librerie client e di stub server.
+- **Leggibilità**: è leggibile sia da macchine (discovery automatizzata) sia da esseri umani.
 
-## Transpiler
+### Struttura di una specifica
 
-> [!def] Transpiler
-> **Strumento** che traduce codice scritto in un nuovo linguaggio di programmazione, con feature aggiuntive, in codice JavaScript standard, eseguibile ovunque JavaScript sia supportato.
+Una descrizione OpenAPI è un documento testuale strutturato che rappresenta un oggetto JSON, in formato JSON o YAML. I campi principali della specifica sono:
 
-Con l'uso di JS per programmi sempre più complessi, gli sviluppatori hanno sentito il bisogno di superarne i limiti; un nuovo linguaggio non era fattibile perché JS era già ampiamente supportato, quindi sono nati molti linguaggi che compilano verso JS: CoffeeScript, TypeScript, Dart, Elm e centinaia d'altri.
+- `openapi`: la versione della specifica OpenAPI usata.
+- `info`: i metadati dell'API (titolo, versione).
+- `paths`: gli endpoint dell'API.
 
-> [!def] TypeScript
-> **Superset di JavaScript** nato nel 2012, disegnato e sviluppato da Microsoft (core dev: Anders Hejlsberg), che aggiunge la tipizzazione statica e altro; compila verso JavaScript ed è di gran lunga il "sapore" di JS più popolare.
-
-Si installa come pacchetto npm con `npm install -g typescript`, che rende disponibile il compilatore `tsc`; in alternativa si esegue `tsc` da un pacchetto locale con `npx`. I file TypeScript hanno estensione `.ts`.
-
-## Compilazione e downleveling
-
-Il codice JavaScript standard è anche TypeScript valido: un file `.ts` contenente solo JS può essere eseguito direttamente con Node, ma senza type checking.
-
-Il compilatore rileva i bug prima del runtime anche su codice JS puro, es. un numero di argomenti inferiore a quello atteso da una funzione (`TS2554`). Con `tsc file.ts` il compilatore produce `file.js`, eseguibile con Node come al solito; il codice generato preserva commenti e indentazioni e sembra scritto da un essere umano.
-
-> [!def] Downleveling
-> **Riscrittura** da parte del compilatore di feature di versioni JavaScript recenti in codice per versioni più vecchie: di default TypeScript targetizza ES3 (1999), quindi i template string vengono convertiti in concatenazioni `.concat()`; è possibile scegliere il target, es. `tsc --target es6`.
-
-Il downleveling permette di usare le feature moderne pur girando su browser vecchi.
-
-## Dichiarare i tipi
-
-TypeScript permette di dichiarare tipi per variabili, parametri e valori di ritorno; i tipi primitivi più comuni sono `string`, `number` e `boolean`:
-
-```ts
-let courseName: string = "Web Technologies";
-let credits: number = 6;
-let isGreat: boolean = true;
+```yaml
+openapi: 3.1.0
+info:
+  title: A minimal specification
+  version: 0.0.1
+paths: {} # nessun endpoint definito
 ```
 
-Il codice con annotazioni di tipo non è più JavaScript valido: l'esecuzione diretta con Node fallisce con un `SyntaxError`, quindi occorre compilare il file `.ts` prima di eseguire il `.js` generato. Il compilatore segnala le assegnazioni di tipo incompatibile, es. assegnare una stringa a una variabile `number` (`TS2322`).
+### Paths
 
-## `any` e inferenza dei tipi
+Gli endpoint dell'API sono chiamati **path** nella specifica. Un oggetto `paths` definisce una sequenza di endpoint; per ogni endpoint i metodi HTTP supportati; per ogni metodo i parametri di input attesi (path parameter, header, ecc.), l'eventuale request body e le possibili risposte.
 
-- **`any`**: tipo speciale con cui si può fare qualsiasi cosa senza che il compilatore si lamenti; il codice compila ma gli errori tornano a manifestarsi a runtime.
-- **Type inference**: senza annotazione esplicita, TypeScript deduce il tipo dal contesto, es. una stringa letterale diventa `string`, un array di numeri diventa `number[]`; il tipo inferito viene comunque applicato, quindi assegnare dopo un tipo diverso è errore.
-- **Implicit any**: quando il tipo non è specificato né deducibile, il compilatore defaulta a `any`; il flag `noImplicitAny` trasforma ogni `any` implicito in errore di compilazione (`TS7006`).
+Un endpoint `/auth` con metodo `POST` attende una request body JSON di tipo `{usr, pwd}` e risponde `200` in caso di successo, `401` con credenziali non valide:
 
-## Tipi strutturali
+```yaml
+/auth:
+  post:
+    requestBody:
+      content:
+        application/json:
+          schema: { type: object, properties: { usr: {type: string}, pwd: {type: string} } }
+    responses:
+      "200": { description: User authenticated }
+      "401": { description: Invalid credentials }
+```
 
-### Array e object types
+### Strumenti e code generation
 
-- **Array**: si specificano con la sintassi `type[]`, es. `let langs: string[]`; passare un elemento di altro tipo è errore (`TS2345`).
-- **Object types**: si definiscono elencando le proprietà e i loro tipi, es. `{name: string, credits: number}`; il compilatore segnala le proprietà mancanti (`TS2453`) e le proprietà extra non previste (`TS2353`).
-- **Proprietà opzionali**: si dichiarano aggiungendo `?` dopo il nome, es. `credits?: number`; in tal caso il valore può essere `undefined` e va controllato prima dell'uso.
+OpenAPI è supportato da strumenti open source maturi, tra cui:
 
-### Union types
+- **Swagger Editor**: editor della specifica con anteprima della documentazione (Swagger UI) generata in tempo reale.
+- **Swagger Codegen**: generazione di codice a partire dalla specifica.
+- **Swagger UI**: rendering della documentazione interattiva.
+- Un'alternativa gratuita è `openapi-generator.tech`.
 
-> [!def] Union type
-> **Tipo** ottenuto combinando due o più tipi con `|`, che rappresenta valori appartenenti a uno qualsiasi dei tipi combinati.
+La generazione di codice agisce su due lati:
 
-TypeScript garantisce che le operazioni su un union type siano valide per **ogni** tipo dell'unione: chiamare `toUpperCase()` su `number | string` è errore (`TS2339`).
+- **Server**: produce soltanto stub; i linguaggi e framework supportati includono ASP.NET, Go, Java, JaxRS, Micronaut, Kotlin, Node.js, Python (Flask), Scala, Spring.
+- **Client**: genera SDK dell'API in decine di linguaggi, tra cui C#, Dart, Go, Java, JavaScript, Kotlin, PHP, Python, R, Ruby, Scala, Swift, TypeScript.
 
-> [!def] Narrowing
-> **Restrizione** del tipo entro un ramo del codice tramite controlli specifici, es. `typeof x === "string"` o `Array.isArray(x)`; TypeScript inferisce il tipo specifico per ciascun ramo.
+### OpenAPI-driven development
 
-```ts
-function printError(code: number | string) {
-  if (typeof code === "string") {
-    console.log(code.toUpperCase()); // in questo ramo code: string
-  } else {
-    console.log(code); // in questo ramo code: number
-  }
+Nell'approccio **OpenAPI-driven development** la specifica dell'API viene definita prima di scrivere il codice. In questo modo si sfruttano al massimo le capacità di code generation e si promuove l'indipendenza tra i team coinvolti (front-end, back-end, QA): la definizione dell'API tiene tutti gli stakeholder allineati.
+
+## Il contratto API
+
+> [!def] Contratto API
+> **Impegno** che si crea verso i clienti nel momento in cui si espone un'API. Anche se non viene scritto formalmente, i client ci dipendono.
+
+Il contratto include:
+
+- **Percorsi URL e metodi HTTP**.
+- **Formato della request body** e della **response body**.
+- **Status code**.
+- **Requisiti di autenticazione e regole di autorizzazione**.
+- **Formato degli errori**.
+- **Aspettative di performance**.
+
+## Evoluzione dell'API
+
+### Perché le API evolvono
+
+Le API, come ogni software di rilievo, evolvono nel tempo. Cause tipiche di cambiamento:
+
+- **Regole di business** che cambiano.
+- **Requisiti del frontend** che cambiano.
+- **App mobile** che hanno bisogno di nuovi campi.
+- **Modello dati** diventato insufficiente.
+- **Problemi di performance** che emergono.
+- **Requisiti di sicurezza** che cambiano.
+- **Integrazioni con terze parti** che evolvono.
+
+### Cambiamenti sicuri e breaking
+
+Un cambiamento è **sicuro** se non influisce sui clienti esistenti; è **potenzialmente breaking** se può far smettere di funzionare i clienti esistenti con la nuova API.
+
+| Di solito sicuri | Potenzialmente breaking |
+|---|---|
+| Aggiungere un nuovo endpoint | Rinominare un campo |
+| Aggiungere un campo opzionale in request | Rimuovere un campo |
+| Aggiungere un campo opzionale in response | Cambiare il tipo di un campo |
+| Aggiungere un parametro di filtro con default | Cambiare gli status code |
+| Rifattorizzare l'interno senza alterare il comportamento | Cambiare il formato degli errori |
+|  | Cambiare la semantica di un endpoint esistente |
+|  | Cambiare i requisiti di autenticazione/autorizzazione |
+
+Aggiungere un campo a una response è tipicamente sicuro: i client dovrebbero ignorare i campi sconosciuti. Al contrario, sostituire un campo `completed` booleano con un campo `status` a valori `TODO`, `IN-PROGRESS`, `DONE` (per tracciare lo stato con granularità più fine) è breaking, perché i client esistenti si aspettano il campo originale con il tipo originale.
+
+### Versionamento
+
+Non è possibile limitarsi ai soli cambiamenti sicuri: prima o poi un cambiamento breaking diventa necessario. Quando la retro-compatibilità si rompe serve una **strategia evolutiva**: mantenere online entrambe le versioni, almeno per un periodo, e permettere ai client di usare versioni diverse dell'API.
+
+Le strategie comuni di **API versioning** sono:
+
+- **URI versioning**: la versione compare nell'URI, es. `/api/v1/tasks` e `/api/v2/tasks`.
+- **Header**: il client dichiara la versione in un header di richiesta, es. `X-API-Version: 2` oppure `Accept: application/vnd.academy.tasks.v2+json`.
+
+L'URI versioning è facile da capire e testare, facile da documentare e facile da instradare nella maggior parte dei framework; può però creare duplicazioni nei controller e nei router.
+
+> [!info] Regole di versionamento
+> - Non creare una nuova versione per ogni piccolo cambiamento: il versionamento si usa solo in presenza di un cambiamento breaking.
+> - Mantenere più versioni contemporaneamente è un grosso sforzo.
+> - Regola pratica: aggiungere senza versionare, rimuovere o ridefinire con versionamento.
+
+### Deprecation e sunset
+
+Il versionamento non basta: serve anche comunicare il ciclo di vita, perché in genere non si vuole supportare una vecchia API per sempre. Il ciclo tipico di una versione è:
+
+1. **Active**: la versione raccomandata.
+2. **Deprecated**: funziona ancora, ma i client dovrebbero migrare alla versione attiva.
+3. **Sunset**: funziona ancora, ma la data di rimozione è stata annunciata.
+4. **Removed**: la versione non è più disponibile.
+
+L'idea importante è non rompere i client in silenzio, dando loro un preavviso equo prima del cambiamento breaking. Un endpoint deprecato può continuare a funzionare ma restituire header di avvertimento aggiuntivi:
+
+```http
+HTTP/1.1 200 OK
+Deprecation: true
+Sunset: Wed, 31 Dec 2026 23:59:59 GMT
+Link: </docs/migrate-v1-to-v2>; rel="deprecation"
+```
+
+Questi header si aggiungono con Spring Boot impostandoli sulla `ResponseEntity` (es. `.header("Deprecation", "true")`) e con Django Ninja assegnandoli direttamente sulla risposta.
+
+## Sicurezza e hardening
+
+### OWASP API Security Top 10
+
+L'elenco dei principali rischi di sicurezza per le API:
+
+1. **Broken Object Level Authorization** (BOLA)
+2. **Broken Authentication**
+3. **Broken Object Property Level Authorization**
+4. **Unrestricted Resource Consumption**
+5. **Broken Function Level Authorization**
+6. **Unrestricted Access to Sensitive Business Flows**
+7. **Server Side Request Forgery** (SSRF)
+8. **Security Misconfiguration**
+9. **Improper Inventory Management**
+10. **Unsafe Consumption of APIs**
+
+### Broken Object Level Authorization
+
+Il rischio: un client autenticato richiede un oggetto che non gli appartiene, es. `GET /api/tasks/42` dove il task 42 è di un altro utente. Gli sviluppatori spesso dimenticano l'autorizzazione a livello di oggetto e si affidano troppo alla sola autenticazione.
+
+> [!warning] Autenticazione e autorizzazione
+> L'autenticazione accerta **chi** è il client, non **che cosa** può fare: ogni accesso a un oggetto deve verificare anche la **proprietà** dell'oggetto, es. filtrando per proprietario (`owner`) nella query.
+
+### Broken Authentication
+
+Impatto: un attaccante può prendere il controllo di account di altri utenti, accedendo a dati personali ed eseguendo operazioni sensibili. Un'API è vulnerabile se:
+
+- La chiave segreta dei JWT è esposta o prevedibile.
+- Permette password deboli.
+- Permette di cambiare email o password, o di fare operazioni sensibili, senza conferma della password.
+- Non valida correttamente i token, es. ignora la data di scadenza.
+- Permette attacchi brute force senza meccanismi di lockout.
+
+### Broken Object Property Level Authorization
+
+Impatto: l'accesso non autorizzato a proprietà private o sensibili di un oggetto può causare divulgazione indesiderata di dati. Un'API è vulnerabile se espone proprietà sensibili di un oggetto, o se permette di cambiarne, aggiungerne o eliminarne il valore. Il difetto è tipicamente associato alla restituzione dei modelli direttamente, senza l'uso di DTO o schema.
+
+### Unrestricted Resource Consumption
+
+Le API spesso non limitano le interazioni dei client né il consumo di risorse, il che può essere sfruttato per attacchi DoS o per aumentare i costi operativi. Un'API è vulnerabile se almeno uno di questi limiti è impostato in modo inappropriato:
+
+- **Execution timeout**.
+- **Rate limit**: quante richieste per client per unità di tempo.
+- **Memoria allocabile massima**.
+- **Numero massimo di processi**.
+- **Dimensione massima dei file in upload**.
+- **Numero di record restituiti per pagina** in una singola request-response.
+- **Limiti di spesa** verso servizi di terze parti.
+
+### Rate limiting
+
+> [!def] Rate limiting
+> **Meccanismo** che controlla quante richieste un client può effettuare, imponendo un numero massimo di richieste per utente, per funzionalità, per unità di tempo.
+
+Il rate limiting aiuta con: prevenzione degli abusi, riduzione dei brute-force, controllo dei costi, fair usage, protezione degli endpoint costosi e riduzione dei sovraccarichi accidentali.
+
+Lo si implementa ad esempio con il middleware `express-rate-limit` in Express:
+
+```js
+const limiter = rateLimit({
+  windowMs: 60 * 1000,
+  limit: 10, // max richieste per finestra temporale
+})
+app.use(limiter)
+```
+
+Con Django Ninja esiste il throttling globale, a livello di router e di metodo (es. `AnonRateThrottle("1/s")`, `AuthRateThrottle("10/s")`); in Spring Boot si può usare la libreria Bucket4j. Quando il limite è superato, la risposta tipica è `429 Too Many Requests`.
+
+### Broken Function Level Authorization
+
+Difetti di autorizzazione che permettono di accedere a funzionalità non autorizzate: un'operazione riservata agli staff, come `DELETE /api/tags/{id}`, viene implementata con un controllo errato oppure non implementata affatto.
+
+### Unrestricted Access to Sensitive Business Flows
+
+Le API possono esporre flussi di business sensibili. Esempi tipici:
+
+- **Acquisto di un prodotto**: l'attaccante compra tutte le scorte di un articolo molto richiesto e rivende a prezzo maggiorato (scalping).
+- **Creazione di commenti o post**: l'attaccante riempie il sistema di spam.
+- **Prenotazione**: l'attaccante occupa tutti gli slot disponibili impedendone l'uso agli altri utenti.
+
+La mitigazione prevede due fasi: identificare i flussi di business sensibili e applicare soluzioni ingegneristiche — device fingerprinting, human-detection, rilevamento di pattern d'uso non umani, blocco di indirizzi IP.
+
+### Server Side Request Forgery
+
+Se un endpoint esegue una richiesta verso un URI remoto fornito dal client, l'URI deve essere validato correttamente. In caso contrario, un attaccante può forzare l'API a fare richieste verso destinazioni inattese, con possibile esposizione di informazioni sensibili.
+
+### Security Misconfiguration
+
+I framework per API contengono configurazioni complesse; sviluppatori e DevOps possono non seguirle o non rispettare le best practice di sicurezza, aprendo a diversi tipi di attacco. Esempi:
+
+- API distribuita in modalità debug o dev, con esposizione degli stack trace.
+- **TLS** non configurato.
+- Patch di sicurezza mancanti.
+
+### Error responses
+
+Gli errori fanno parte del contratto API: le API mature restituiscono errori prevedibili e consistenti.
+
+```json
+{
+  "error": "VALIDATION_ERROR",
+  "message": "Title must not be blank",
+  "details": { "field": "title" }
 }
 ```
 
-### Type alias e interface
+> [!error] Dettagli interni negli errori
+> Non far trapelare gli internals nelle risposte di errore, es. `"NullPointerException at TaskService.java:47"` espone dettagli implementativi utili a un attaccante.
 
-- **Type alias**: assegnano un nome a un tipo con la sintassi `type Nome = definizione`, per riusare lo stesso tipo più volte senza ripetersi (principio DRY).
-- **Interface**: altro modo di nominare object types, con la sintassi `interface Nome { ... }`.
+### Improper Inventory Management
 
-```ts
-type Credits = number | string;
-type Course = { name: string, credits: Credits };
+A volte un'organizzazione non conosce con chiarezza quali endpoint, versioni, ambienti e flussi dati sono esposti. Il problema nasce quando API vecchie o dimenticate restano raggiungibili: gli attaccanti le cercano perché possono avere autenticazione più debole, controlli di autorizzazione mancanti o vulnerabilità note.
+
+### Unsafe Consumption of APIs
+
+Gli sviluppatori tendono a fidarsi dei dati forniti dalle API di terze parti più che dei dati forniti dai client. È pericoloso: i servizi esterni sono fuori dal nostro controllo e vanno trattati con lo stesso sospetto. Un'API fidata può essere compromessa, reindirizzare verso servizi malevoli o inviare payload malevoli, es. SQL injection.
+
+## Osservabilità
+
+In produzione bisogna poter osservare automaticamente lo stato dell'API. Le domande a cui saper rispondere: l'applicazione è in esecuzione? il database è raggiungibile? quante richieste falliscono? quali endpoint sono lenti? gli utenti ricevono 401, 403, 404 o 500? i rate limit vengono superati? le vecchie versioni dell'API sono ancora usate? Senza osservabilità, i problemi di produzione diventano congetture.
+
+### Health check e metriche
+
+Due strumenti concreti di osservabilità:
+
+- **Spring Boot Actuator**: aggiungendo la dipendenza al progetto ed esponendo gli endpoint con `management.endpoints.web.exposure.include=*`, `GET /actuator/health` restituisce lo stato dell'applicazione — valori possibili `UP`, `DOWN`, `OUT_OF_SERVICE`, `UNKNOWN` — mentre `GET /actuator/metrics` elenca le metriche disponibili e `/actuator/metrics/{name}` ne restituisce i valori.
+- **Django Ninja**: un health check minimale è un endpoint senza autenticazione che verifica il database con una query semplice.
+
+```python
+@api.get("/health", auth=None)
+def health(request):
+    with connection.cursor() as cursor:
+        cursor.execute("SELECT 1")
+    return {"status": "ok", "database": "ok"}
 ```
 
-> [!def] Structural typing
-> **Natura di TypeScript**: la compatibilità tra tipi è determinata solo dalla struttura e dalle capacità dei tipi, non dai nomi; un oggetto con `name: string` e `age: number` è compatibile sia con `interface Person` sia con `interface Pet` che abbiano quei membri. Java, al contrario, ha un type system **nominativo**.
+### Logging
 
-Le interfacce si estendono con `interface Bird extends Pet`, che eredita le proprietà; assegnare un oggetto senza la proprietà richiesta della "madre" è errore (`TS2322`).
+I log utili riguardano gli eventi significativi da tenere sotto controllo:
 
-Per estendere i type alias si usano gli **intersection types**, creati con `&`: combinano più tipi in uno, il cui risultato ha le proprietà di ciascun tipo (es. `type Bird = Pet & { flies: boolean }`).
+- **Fallimenti di autenticazione** e di **autorizzazione**.
+- **Violazioni dei rate limit**.
+- **Errori server imprevisti**.
+- **Uso di API deprecate**.
+- **Azioni amministrative**.
+- **Operazioni che modificano i dati**.
+- **Guasti dei servizi esterni**.
 
-> [!info] `type` vs `interface`
-> Sono molto simili e spesso intercambiabili; la distinzione chiave è che un **type alias non può essere riaperto** per aggiungere proprietà (una seconda dichiarazione omonima è un errore `TS2300`), mentre un'**interfaccia è sempre estendibile**: più dichiarazioni omonime si fondono in una sola.
+Da evitare invece nei log, perché espongono dati sensibili:
 
-### Altri strumenti di tipizzazione
+- **Password**.
+- **Token**.
+- **Header `Authorization` completo**.
+- **Dati personali sensibili**.
+- **Corpi delle richieste completi**, per default.
 
-- **Type assertions**: sintassi `x as T` per dire al compilatore un tipo più specifico di quello inferibile, es. `document.getElementById("name") as HTMLInputElement`, che altrimenti sarebbe `HTMLElement`.
-- **Type literals**: in posizione di tipo si possono usare stringhe e numeri specifici, es. `let alignment: "center"` accetta solo quel valore; poco utili da soli.
-- **Literals + unions**: esprimono tipi che corrispondono a un insieme chiuso di valori noti: `type Alignment = "center" | "left" | "right"`; valori fuori dall'insieme sono errore di compilazione.
-- **Enum**: permettono di definire un insieme di costanti nominate, es. `enum Priority { Low, Medium, High }`; i membri hanno valori numerici progressivi a partire da 0, quindi `Priority.Medium` vale `1`.
-- **Function types**: espressioni che descrivono firme di funzione, es. `type stringDecoratorFunction = (x: string, mode: boolean) => string`; una funzione assegnata deve avere la firma compatibile.
-
-> [!warning] Type assertion a compile-time
-> Un'asserzione di tipo non è un'asserzione in senso di testing e **non è applicata a runtime**: è solo una promessa al compilatore, che non verifica nulla dell'effettivo contenuto del valore.
-
-## Generics
-
-Il problema di partenza: una funzione come l'identità, con parametri e ritorno `any`, è generica ma **perde l'informazione sul tipo** in uscita; dichiararla su un tipo fisso funziona solo con quello.
-
-> [!def] Type variable (generics)
-> **Variabile speciale** che opera sui tipi anziché sui valori, dichiarata dopo il nome della funzione tra `<` e `>`; è uno degli strumenti principali per scrivere codice che lavora con una varietà di tipi preservando l'informazione su di essi.
-
-```ts
-function identity<Type>(x: Type): Type { return x; }
-let s: string = identity<string>("Hello"); // Type impostato esplicitamente
-let n: number = identity(42);              // inferenza automatica
-```
-
-Usare i generics non equivale a usare `any`: il tipo di input viene **preservato** in output. Altre possibilità:
-
-- **Più variabili di tipo**: `function merge<T1, T2>(x: T1, y: T2)`.
-- **Array parametrici**: `function getFirst<T>(arr: T[]): T` ritorna il primo elemento di un array di `T`.
-- **Classi generiche**: `class CustomCollection<T>` incapsula `list: T[]` con metodi tipizzati su `T`.
-- **Vincoli**: `<T extends Animal>` restringe il type variable ai tipi compatibili con l'animale; per il typing strutturale, anche un oggetto letterale con le proprietà richieste soddisfa il vincolo.
-
-## Altri tipi da conoscere
-
-- **`void`**: il tipo di ritorno delle funzioni che non restituiscono un valore; è il tipo inferito per le funzioni senza `return` o con `return` vuoto.
-- **`unknown`**: rappresenta qualsiasi possibile valore; è simile ad `any` ma più sicuro, perché **non consente alcuna operazione** senza un narrowing o un'asserzione (accedere a `a.name` è errore `TS18046`).
-- **`never`**: rappresenta valori mai osservati; è il tipo di un ramo irraggiungibile (es. dopo aver escluso con `typeof` tutti i tipi di un union) o di funzioni che non ritornano mai, perché terminano sempre con un'eccezione.
-
-## Livelli di strictness
-
-Di default TypeScript offre un'esperienza **opt-in**: i tipi sono facoltativi e si usa `any` quando non si può dedurre un tipo preciso. Per evitare di essere troppo invasivo, alcuni controlli sono disattivati di default:
-
-- `noImplicitAny`: segnala come errore ogni `any` implicito.
-- `strictNullChecks`: di default `null` e `undefined` sono assegnabili a qualsiasi tipo; dimenticare di gestirli esplicitamente è la causa di innumerevoli bug nel mondo (il cosiddetto **billion dollar mistake**), e il flag li obbliga a una gestione esplicita (es. `TS18048`: "possibly `undefined`").
-
-Un caso tipico: `Array.prototype.find` può restituire `undefined`, e chiamare un metodo sul risultato senza controllarlo è esattamente l'errore che `strictNullChecks` intercetta a compile-time.
+> [!warning] I log come rischio
+> I log sono strumenti operativi, ma possono diventare essi stessi un rischio per la sicurezza.

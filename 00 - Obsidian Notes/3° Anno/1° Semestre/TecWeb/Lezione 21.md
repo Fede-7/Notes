@@ -1,163 +1,193 @@
-# Lezione 21 Frontend Tooling
+# Lezione 21 CMS (headless) e GraphQL
 
-## Perché serve del tooling
+## La gestione dei contenuti
 
-I siti costruiti con le tecnologie fondamentali (HTML, CSS, JS) avevano un solo foglio di stile, poco client-side JavaScript e nessuna libreria esterna. I frontend moderni sono molto più complessi:
+### Sfide
 
-- Il codice client-side JavaScript cresce ed è sempre più complesso.
-- Si usano molti moduli e librerie esterne.
-- Serve transpilare e fare downleveling del codice.
-- Si vogliono ottimizzare i file serviti.
-- Si usano pre/post-processori per i fogli di stile, es. SASS.
+L'obiettivo chiave di molte web app è mostrare contenuti agli utenti. I contenuti possono cambiare molto frequentemente e crescere esponenzialmente (es. ~7M pagine su Wikipedia). Questo pone delle sfide:
 
-Per sviluppare frontend complessi serve quindi del **tooling** che automatizzi questi passi: pre/post-processori CSS, framework CSS, bundling e minification, server di sviluppo e build.
+- Codificare a mano intere pagine web per aggiornare i contenuti richiede competenze tecniche e rallenta il flusso di lavoro.
+- Chi si occupa dei contenuti in genere non è uno sviluppatore web.
+- Gestire versioni diverse dei contenuti pubblicati non è banale.
+- Garantire l'adozione di un flusso di lavoro strutturato è difficile.
 
-## CSS pre e post processori
+> [!def] CMS
+> Un **Content Management System (CMS)** è una web application progettata per permettere la modifica collaborativa, l'organizzazione e la pubblicazione di contenuti, senza scrivere una sola riga di codice, tramite l'interfaccia utente (UI) fornita dal CMS stesso. Permette agli utenti non tecnici di gestire e aggiornare i contenuti senza dipendere costantemente dagli sviluppatori web. È spesso usato per blog, siti di news e siti e-commerce.
 
-> [!def] CSS pre-processore
-> **Compilatore speciale** che genera codice CSS a partire da file scritti in una sintassi propria, che estende il CSS base con nuove feature (es. variabili) per scrivere fogli di stile mantenibili in modo più efficiente.
+### Funzionalità
 
-I pre-processori più diffusi sono **Sass**, LESS e Stylus.
+La maggior parte dei CMS include:
 
-> [!def] CSS post-processore
-> **Strumento** che processa e trasforma automaticamente fogli di stile CSS esistenti.
+- **Web publishing**: i contenuti sono disponibili agli utenti tramite pagine web.
+- **Formattazione dei contenuti**: tipicamente con un editor grafico WYSIWYG.
+- **Version control**: tracciamento delle versioni multiple dello stesso contenuto.
+- **Indicizzazione, ricerca e retrieval** dei contenuti.
+- **Autenticazione/autorizzazione** degli utenti con un sistema di permessi basato su gruppi.
+- **Media manager** integrato per i contenuti multimediali.
+- **Estensibilità e personalizzabilità** tramite temi e plugin.
 
-I post-processori si usano tipicamente per:
+## Architetture CMS
 
-- **Downleveling**: riscrivere feature CSS recenti in sintassi compatibile con i browser vecchi (es. `oklch()` convertito in `rgb()`).
-- **Autoprefixing**: aggiungere i prefissi vendor (es. `-webkit-`, `-o-`) alle proprietà che li richiedono.
-- **Ottimizzazioni**: minificazione o eliminazione delle parti non usate.
-- **Applicare convenzioni e rilevare errori**.
+### CMS tradizionali
 
-Il post-processore più popolare è **PostCSS**.
+I CMS tradizionali sono composti da due parti chiave:
 
-## SASS
+- **Content Management Application (CMA)**: permette agli utenti non tecnici di gestire i contenuti (es. tramite le sue pagine web).
+- **Content Delivery Application (CDA)**: rende i contenuti aggiornati disponibili agli utenti finali (es. come pagine web).
 
-> [!def] Sass
-> **Pre-processore CSS** che si autodefinisce «CSS with superpowers», il più popolare in circolazione, attivo dal 2006.
+```mermaid
+flowchart LR
+  e[Editor di contenuti] --> cma[CMA]
+  cma --> cda[CDA]
+  cda --> u[Utenti finali]
+```
 
-Si installa facilmente via npm con `npm install -g sass`, che rende disponibile il binario `sass`; la compilazione è `sass input.scss output.css`.
+I CMS tradizionali hanno un'**architettura monolitica**: CMA e CDA sono strettamente integrate in un monolite. Questo rende i CMS tradizionali facili da distribuire e gestire (sono una singola web application con due componenti), ma comporta alcuni limiti:
 
-Sass supporta **due sintassi**:
+- Potrebbero non essere abbastanza flessibili per certe esigenze.
+- Potrebbero limitare i canali di distribuzione: i CMS tradizionali danno priorità agli output web; cosa fare se serve esporre una REST API?
 
-- **SCSS** (estensione `.scss`): superset del CSS, la più popolare.
-- **Indented syntax** (estensione `.sass`): basata sull'indentazione come Python, era la sintassi originale.
+> [!def] Headless CMS
+> Un **headless CMS** è un CMS senza la sua «testa»: separa la CMA (il corpo, che si occupa dell'organizzazione dei contenuti) dalla CDA (la testa, che si occupa della presentazione). Non gestisce la presentazione dei contenuti ed espone solo un'API: così i contenuti possono essere distribuiti su qualsiasi canale serva.
 
-### Variabili e nesting
+> [!def] Decoupled CMS
+> Un **decoupled CMS** è un CMS tradizionale in cui CMA e CDA sono disaccoppiate: si può usare la CDA inclusa oppure implementare modi diversi di distribuire i contenuti usando le API esposte dalla CMA. La maggior parte dei CMS tradizionali è oggi decoupled (es. WordPress).
 
-- **Variabili**: dichiarate con `$nome`, permettono di riusare valori nel foglio di stile; alla compilazione vengono sostituite col loro valore.
-- **Nesting**: le regole possono essere annidate seguendo la gerarchia degli elementi HTML, es. `a` dentro `span` dentro `.elem`; il CSS generato espande i selettori combinati (`.elem span a`).
+### Sicurezza dei CMS
 
-```scss
-$primary-color: #333;
-nav {
-  ul { margin: 0; padding: 0; list-style: none; }
-  li { display: inline-block; }
-  a { display: block; padding: 6px 12px; text-decoration: none; }
+I CMS sono ottimi bersagli per gli attacchi: lo stesso CMS è usato su un gran numero di siti web, quindi una vulnerabilità in un CMS può essere sfruttata su un grande numero di siti. È imperativo tenere i CMS aggiornati per applicare le patch alle vulnerabilità appena possibile (es. vulnerabilità di SQL injection in WordPress 3.7.3–5.8.3 e in Joomla! 3.0.0–3.10.6 e 4.0.0–4.1.0).
+
+### CMS tradizionali diffusi
+
+Esistono numerosi CMS; i più noti:
+
+- **WordPress**: il CMS più popolare, usato da ~43% di tutti i siti web.
+- **Joomla**.
+- **WooCommerce**: soluzione per siti e-commerce.
+- **MediaWiki**: alimenta Wikipedia, Fandom, WikiHow…
+
+Un CMS tradizionale si installa tipicamente come una web app qualunque: in fase di installazione si specificano i dati di connessione a un database relazionale (url, username, password), il CMS crea le tabelle necessarie e si definiscono le credenziali dell'account di amministrazione. Dopo l'installazione, l'admin può creare e organizzare i contenuti, aggiungere utenti, definire i template e personalizzare l'aspetto del sito.
+
+## CMS headless: Strapi
+
+CMS headless diffusi:
+
+- **Strapi** (basato su Node.js).
+- **Wagtail** (basato sul framework Django per Python).
+- **Ghost** (basato su Node.js).
+- **CrafterCMS** (basato su Java).
+
+### Creazione del progetto
+
+```bash
+npx create-strapi-app@latest project-name
+cd project-name
+npm run develop
+```
+
+`npx create-strapi-app` è il modo più rapido per iniziare: un wizard chiede informazioni di base sul progetto, crea il progetto npm e installa le dipendenze. `npm run develop` avvia Strapi in modalità development, con il pannello di amministrazione su `/admin` e il server sulla root.
+
+### Definizione delle risorse
+
+Tramite la GUI si definisce la «shape» delle risorse da gestire (content type con campi, es. campi di tipo string o number), si definiscono le **relazioni tra risorse** usando l'editor visuale e si creano i contenuti effettivi, sempre tramite la GUI.
+
+### REST API generata automaticamente
+
+Per ogni risorsa, Strapi genera automaticamente gli endpoint REST:
+
+| Metodo | URL | Descrizione |
+|---|---|---|
+| `GET` | `/api/:pluralApiId` | Lista delle entry |
+| `POST` | `/api/:pluralApiId` | Creazione di una entry |
+| `GET` | `/api/:pluralApiId/:resourceId` | Una entry specifica |
+| `PUT` | `/api/:pluralApiId/:resourceId` | Aggiornamento di una entry |
+| `DELETE` | `/api/:pluralApiId/:resourceId` | Eliminazione di una entry |
+
+### Autorizzazione via token
+
+L'interfaccia di Strapi permette di creare token di autorizzazione (Settings > API Tokens > Create): per ogni token si specificano nome, durata e permessi di lettura/scrittura per ogni risorsa. Gli utenti devono passare il token nell'header `Authorization` quando usano l'API, a meno che l'endpoint sia dichiarato accessibile senza autorizzazione.
+
+```text
+GET http://localhost:1337/api/professors
+Authorization: Bearer <token>
+```
+
+### Parametri di query
+
+Gli endpoint supportano parametri di query string per filtrare, ordinare e paginare i risultati e per selezionare campi e relazioni:
+
+| Parametro | Descrizione |
+|---|---|
+| `populate` | Controlla quali risorse collegate includere nei risultati |
+| `fields` | Seleziona quali campi includere nel risultato, e in quale ordine |
+| `filters` | Definisce query personalizzate e filtra i dati |
+| `sort` | Controlla l'ordinamento dei risultati |
+| `pagination` | Controlla la paginazione dei risultati |
+
+I filtri hanno la sintassi `GET /api/:pluralApiId?filters[field][operator]=value`, es. `filters[credits][$eq]=6` (uguaglianza), `filters[credits][$gte]=6&filters[title][$contains]=Web`, `filters[firstName][$containsi]=Luigi` (contains case-insensitive).
+
+## GraphQL
+
+### Limiti di REST
+
+REST è un modo pratico e diffuso per esporre dati da un server, ma in alcuni scenari può essere inefficiente:
+
+- **Over-fetching**: a volte non servono tutti i campi di una risorsa, ma vengono comunque scaricati.
+- **Under-fetching**: a volte servono risorse collegate ed è necessario effettuare richieste aggiuntive per ottenerle (es. prima si ottiene l'utente corrente, poi i suoi post, poi per ogni post i suoi commenti…).
+- **Evoluzione dell'API**: le API evolvono nel tempo e vanno versionate, mantenendo retro-compatibilità e deprecando funzionalità.
+
+Over- e under-fetching deteriorano le performance e aumentano i trasferimenti di dati.
+
+> [!def] GraphQL
+> **GraphQL** è un linguaggio di query per API, sviluppato da Facebook (versione open source pubblicata nel 2015, specifica disponibile su `spec.graphql.org`), progettato per offrire più flessibilità ed efficienza: invece di affidarsi a endpoint predefiniti come in REST, permette agli utenti di specificare in modo dichiarativo, tramite query, di quali dati hanno bisogno.
+
+```mermaid
+flowchart LR
+  c[Client] -- query --> g[GraphQL server]
+  g -- dati --> d[(Database)]
+  g -- risposta --> c
+```
+
+### Query
+
+La query dichiara i campi desiderati e il server risponde con esattamente quei dati. Es. mostrare solo il cognome di ogni professore:
+
+```text
+query {
+  professors {
+    data { attributes { lastName } }
+  }
 }
 ```
 
-> [!warning] Nesting eccessivo
-> Troppo nesting è una cattiva pratica: porta a CSS eccessivamente specifico.
+In una sola query si possono richiedere campi di risorse collegate (es. cognome dei professori e titoli dei loro corsi), evitando richieste aggiuntive. I filtri sono analoghi a una query SQL (`credits >= 6 AND (title CONTAINS «Web» OR title CONTAINS «TypeScript»)`):
 
-### Mixin
-
-> [!def] Mixin
-> **Gruppo riutilizzabile** di dichiarazioni CSS/Sass, dichiarato con l'at-rule `@mixin` seguita da un identificatore e incluso con `@include`; può accettare uno o più parametri opzionali, anche con valori di default.
-
-```scss
-@mixin theme($color: DarkBlue) {
-  background: $color;
-  color: #fff;
+```text
+query {
+  courses(filters: {
+    credits: { gte: 6 },
+    or: [{title: {containsi: "Web"}},
+         {title: {containsi: "TypeScript"}}]
+  }) { data { attributes { title, credits } } }
 }
-.info   { @include theme; }
-.danger { @include theme($color: DarkRed); }
 ```
 
-### Moduli e partial
+In Strapi, il plugin GraphQL aggiunge un GraphQL Playground (su `/graph`) da cui eseguire le query.
 
-- **Moduli**: un file può usare le definizioni di un altro con `@use 'base'` e accedervi col namespace, es. `base.$primary-color`.
-- **Partial**: i file Sass il cui nome inizia con underscore (es. `_variables.scss`) sono pensati per essere inclusi da altri file; Sass **non genera** un CSS standalone per essi, utile, ad esempio, per un file di sole variabili.
+## Generazione automatica di siti statici
 
-### Liste, mappe e control flow
+### Quando un CMS è inefficiente
 
-- **Lista**: sequenza di valori separati da virgole, spazi o slash, purché coerente nella lista.
-- **Map**: sequenza di coppie `<chiave>: <valore>` con chiavi uniche, es. `("xs": 480px, "md": 768px)`.
+Usare un CMS completo per un sito web può essere eccessivo quando i dati non cambiano spesso (es. un ristorante che aggiorna il menu del sito ~una volta al mese): per un mese intero ogni caricamento di pagina causa una query sul database che recupera la stessa lista di voci, e il CMS mostra sempre lo stesso contenuto. Un CMS può sprecare cicli di calcolo (cioè denaro ed emissioni) per renderizzare le stesse pagine ancora e ancora. Esistono meccanismi di caching, ma resta un overhead di calcolo; inoltre i CMS vanno tenuti aggiornati, con ulteriore overhead.
 
-Sass fornisce **regole di controllo del flusso** per decidere se e quante volte emettere gli stili, come un template engine per generare CSS:
+> [!def] Generazione statica di siti web
+> Nell'**automatic static website generation** le pagine web vengono renderizzate una sola volta, quando avvengono cambiamenti nei dati, e agli utenti vengono servite le pagine compilate (statiche), molto più efficienti del rendering dinamico.
 
-- `@if` / `@else`: emette stili in modo condizionale.
-- `@each`: itera su tutti gli elementi di una lista o mappa, es. per generare media query per ogni breakpoint.
-- `@for` e `@while`: le consuete semantiche di iterazione.
+Generatori di siti statici diffusi: **Hugo** (scritto in Go), **Gatsby** (genera siti statici con React), **Jekyll** (basato su Ruby), **Pelican** (basato su Python), **Zola** (basato su Rust).
 
-## Framework CSS
-
-I framework CSS non sono framework software veri e propri: sono un insieme di **stili general-purpose** pronti all'uso. Risolvono problemi ricorrenti:
-
-- Creare un sistema di layout.
-- Creare una tipografia consistente.
-- Stilizzare tabelle, liste e componenti UI.
-- Azzerare gli stili user agent per un aspetto consistente su ogni browser.
-
-I framework più diffusi sono **Bootstrap** (il più popolare, originario di Twitter), **Tailwind** (noto per l'approccio *utility-first*), Materialize, Foundation, Bulma e PureCSS.
-
-### Uso e personalizzazione
-
-Il framework è un insieme di file CSS da importare nelle pagine, usando le classi documentate: si possono servire dal proprio server o tramite **CDN**, comodo per il prototipazione, ma solleva qualche problema di privacy.
-
-Due approcci per non avere un sito identico a mille altri:
-
-- **Personalizzare la build**: la maggior parte dei framework è costruita con Sass o simili; si possono cambiare le variabili di build (colori, font, dimensioni…) e ricompilare il framework, es. importare `bootstrap.scss` dopo aver ridefinito `$primary` e `$secondary`.
-- **Override CSS**: definire stili custom che sovrascrivono alcuni stili del framework.
-
-## Bundling e minification
-
-> [!def] Bundling
-> **Tecnica** che combina più file CSS o JS in un unico file, così il browser esegue meno richieste HTTP per caricare la pagina.
-
-Il bundling è un'ottimizzazione delle prestazioni ampiamente adottata perché ogni richiesta HTTP aggiuntiva introduce latenza: le strategie di caching aiutano i caricamenti successivi, ma il primo caricamento resta penalizzato da molti stylesheet e script.
-
-> [!warning] L'ordine conta
-> L'ordine con cui i file vengono concatenati nel bundle è significativo: può cambiare il comportamento della pagina.
-
-Nota storica: prima che i moduli ES fossero disponibili nei browser, non c'era modo di scrivere codice JS modulare per il client; i bundler (Webpack, Rollup, Parcel) si occupavano di concatenare i moduli sorgente in un modo comprensibile ai browser.
-
-> [!def] Tree shaking
-> **Eliminazione del codice morto** (dead code elimination) eseguita dai bundler: analizzando import ed export, pota dal bundle finale tutto il codice non usato dei moduli importati, con un impatto significativo sulle dimensioni del bundle.
-
-### Minification
-
-> [!def] Minification
-> **Processo di ottimizzazione** del trasferimento dei file che rimuove gli spazi "non necessari" e accorcia il codice sorgente senza impattarne la funzionalità; i file risultanti sono detti *minified*.
-
-Gli umani hanno bisogno di indentazione e nomi di variabile significativi per leggibilità, manutenibilità e capibilità; i browser non necessitano di codice leggibile. L'effetto cresce con la dimensione dei file:
-
-- React 18.2.0 pesa ~85 kB, la versione minificata ~25 kB: ~70% di compressione.
-- Moment.js 2.29.4 pesa ~151 kB, la versione minificata ~75 kB: ~50% di compressione.
-
-## Vite
-
-> [!def] Vite
-> **Strumento di supporto** allo sviluppo e al deploy di progetti web, con due componenti chiave: un **development server** con funzionalità avanzate per lo sviluppo, e un **build tool** che produce asset statici altamente ottimizzati, pronti per la produzione.
-
-Un progetto Vite si crea con `npm create vite@latest`, scegliendo framework e variante (es. TypeScript). Lo scaffolding generato prevede tre script:
-
-- `npm run dev`: avvia il dev server, che osserva i cambiamenti ai sorgenti e ricarica automaticamente l'app quando serve (**live reload**).
-- `npm run build`: genera un bundle ottimizzato, pronto per la produzione.
-- `npm run preview`: un semplice server statico che serve i file generati in fase di build.
-
-Per usare un foglio di stile Sass nel progetto si installa `npm install -D sass`, si crea il file `.scss` e lo si importa nel `main.ts`: Vite lo rileva, lo compila con `sass` e lo aggiunge al bundle dopo il CSS originale.
-
-### La fase di build
-
-Durante la build Vite svolge parecchio lavoro automaticamente:
-
-- Analizza le risorse statiche effettivamente usate nell'app.
-- Compila i file Sass (risp. TypeScript) in CSS (risp. JavaScript).
-- Raggruppa in un singolo bundle i file CSS e i file JavaScript.
-- Minifica i bundle.
-- Applica il **filename fingerprinting** ai bundle finali.
-- Sposta tutte le risorse in `/dist` e aggiorna l'`index.html` con i riferimenti corretti.
-
-> [!def] Filename fingerprinting
-> **Tecnica** che nomina i bundle finali con un hash del loro contenuto (es. `index-DiAK_ebR.js`): quando il contenuto cambia, cambia anche il nome del file, il che evita i problemi di **cache staleness**, il browser non continua a usare la vecchia versione in cache come farebbe con un nome fisso come `index.js`.
+```mermaid
+flowchart LR
+  c[(Contenuti)] --> g[Generatore statico]
+  t[Templates] --> g
+  g --> s[Sito statico] --> w[Web server] --> b[Browsers]
+```

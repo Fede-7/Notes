@@ -1,169 +1,323 @@
-# Lezione 23 Frontend Frameworks Angular
+# Lezione 23 TypeScript
 
-## Frontend framework
+## JavaScript e i tipi
 
-> [!def] Frontend framework
-> **Insieme predefinito** di componenti software, strumenti e best practice che fa da fondamento per sviluppare Single Page Application.
+### Un sistema di tipi peculiare
 
-Le SPA portano con sé una complessità nota: client-side routing, view rendering, componenti e riuso del codice. I framework frontend affrontano esattamente queste sfide.
+JavaScript ha un sistema di tipi **dinamicamente tipizzato**: una stessa variabile può assumere valori di tipo diverso nel tempo.
 
-## Angular
-
-> [!def] Angular
-> **Framework frontend** tra i più usati al mondo, sviluppato da Google, particolarmente diffuso in Italia e per le applicazioni enterprise; la versione 2.0 è del 2016.
-
-Le sue caratteristiche distintive sono:
-
-- **Focus sul tooling e sulla produttività** dello sviluppatore.
-- **Batteries included**: è un framework opinionato e completo (include meccanismi di dependency injection, routing, …), che riduce la *decision fatigue* e garantisce consistenza tra progetti.
-- **Supporto alla migrazione**: tooling dedicato per migrare a versioni più recenti.
-- **Best practice da subito**: impone TypeScript.
-
-### CLI
-
-L'interfaccia a riga di comando è il punto d'ingresso tipico del lavoro con Angular:
-
-- `npm install -g @angular/cli` installa la CLI, che espone il comando `ng`.
-- `ng new nome-app` crea un nuovo progetto.
-- `ng serve` avvia il dev server (di default su `http://localhost:4200/`).
-- `ng generate component nome` genera il boilerplate di un componente.
-
-Per l'ambiente di sviluppo si usa Visual Studio Code, con l'estensione raccomandata (ma facoltativa) **Angular Language Service**.
-
-## Componenti
-
-I componenti sono i **mattoni** delle app Angular: ciascuno è responsabile di funzione e aspetto di un elemento di pagina, codice (stato, business logic, eventi), layout HTML e stile CSS. Un componente può contenerne altri: un'app Angular è un **albero di componenti**.
-
-Anatomicamente, un componente è una **classe TypeScript** annotata col decorator `@Component`, cui si passa un oggetto di metadati:
-
-- **`selector`**: dice ad Angular dove renderizzare il componente; per ogni elemento HTML che combacia col selettore viene creata un'istanza del componente (es. il componente con `selector: 'app-root'` renderizza dentro `<app-root>`).
-- **`template`** / **`templateUrl`**: il layout HTML, inline o in file separato.
-- **`styles`** / **`styleUrl`**: gli stili CSS (o Sass), inline o in file separato.
-- **`standalone: true`** e **`imports`**: dichiarano il componente come standalone e importano ciò che usa.
-
-```ts
-@Component({
-  selector: 'app-root',
-  standalone: true,
-  template: "<h1>Hello {{name.toUpperCase()}}!</h1>",
-  styles: "h1 { color: darkblue; }",
-})
-export class AppComponent { name = 'Web Technologies'; }
+```js
+let x;
+console.log(typeof(x)); // undefined
+x = 1.25e7;
+console.log(typeof(x)); // number
+x = "Hello Web Technologies!";
+console.log(typeof(x)); // string
 ```
 
-Le espressioni in `{{ }}` nel template vengono valutate e il risultato, convertito in stringa, è renderizzato nella pagina.
+È anche **debolmente tipizzato** e ama eseguire cast impliciti:
 
-### Standalone components
-
-> [!def] Standalone component
-> **Componente** con `standalone: true` nei metadati, che importa direttamente gli altri componenti, direttive e pipe usati nei suoi template.
-
-Le versioni di Angular precedenti alla 14 usavano un meccanismo diverso, gli **NgModule**; nel corso si usano solo standalone component.
-
-### Stato ed eventi
-
-- Lo **stato** del componente sono le proprietà della classe, referenziabili nel template con l'interpolazione; se una proprietà cambia, la vista si aggiorna.
-- Gli **eventi** si collegano a handler con la sintesi delle parentesi, es. `(click)="increment()"`, dove `increment()` è un metodo della classe del componente.
-
-## Control flow nei template
-
-I template Angular supportano gli scenari comuni con la nuova sintassi `@if` / `@for` (prima di Angular 17 si usavano le direttive `ngIf` e `ngFor`):
-
-```html
-<button (click)="increment()">Click me</button>
-<ul>
-  @for (ts of clickTimestamps; track ts) {
-    <li>{{ts}}</li>
-  } @empty {
-    <li>Button has never been clicked!</li>
-  }
-</ul>
+```js
+let y = "100" - 1 + "42";
+// string - number → number, number + string → string
+console.log(`${y}: ${typeof(y)}`); // 9942: string
 ```
 
-- **`@if` / `@else`**: renderizza una porzione di template in modo condizionale, es. `@if (counter === 1) {time} @else {times}`.
-- **`@for`**: itera su una collezione rendendo la stessa porzione di template per ogni elemento; richiede `track` per identificare gli elementi; il blocco `@empty` è renderizzato quando la collezione è vuota.
+Queste caratteristiche rendono il linguaggio pratico per piccole attività di manipolazione delle pagine web: funziona senza dover essere verbosi, dichiarando tipi o cast espliciti.
 
-## Comunicazione tra componenti
+### I problemi crescono con la complessità
 
-I componenti devono a volte condividere dati: il genitore configura il figlio o gli passa dati da visualizzare, il figlio comunica al genitore che un evento è avvenuto. I due pattern si implementano con `@Input()` e `@Output()`.
+Man mano che la complessità dei programmi aumenta:
 
-### Da genitore a figlio: `@Input()`
+- È più facile introdurre bug subdoli.
+- La developer experience peggiora: scarso supporto dell'IDE, pochissimi errori colti nell'IDE e non a runtime.
+- Il codice diventa meno manutenibile e difficile da capire.
 
-Nel componente figlio, le proprietà che il genitore può passare si dichiarano col decorator `@Input()`, con un valore di default usato quando il genitore non ne passa uno:
+> [!error] Bug scoperti solo a runtime
+> In JavaScript puro errori come invocare qualcosa che non è una funzione (`message()`), sbagliare il nome di una proprietà (`employee.nome` invece di `name`, senza alcun errore) o chiamare un metodo inesistente (`team.add(...)`) emergono solo durante l'esecuzione, se emergono.
+
+Sarebbe utile poter cogliere questi bug prima del runtime.
+
+## Transpiler e TypeScript
+
+### Transpiler
+
+Con l'uso di JS per programmi sempre più complessi, gli sviluppatori hanno sentito il bisogno di colmare questi limiti. JS era però già ampiamente supportato, quindi un nuovo linguaggio non era fattibile: sono nati molti nuovi linguaggi che **compilano verso JavaScript standard** (CoffeeScript, TypeScript, Dart, Elm…). Si scrive codice in un linguaggio con funzionalità aggiuntive, e il codice prodotto può girare ovunque giri JavaScript.
+
+```mermaid
+flowchart LR
+  s["Codice sorgente (nuovo linguaggio)"] --> t[Transpiler]
+  t --> js["JavaScript standard"]
+```
+
+> [!def] TypeScript
+> **TypeScript**, nato nel 2012 e progettato e sviluppato da Microsoft (core developer: Anders Hejlsberg), è un **superset di JavaScript** con typing statico e altro, che compila a JavaScript. È di gran lunga il flavor di JS più popolare.
+
+### Installazione e compilazione
+
+TypeScript si installa come pacchetto npm (`npm install -g typescript`): il comando rende disponibile globalmente il compilatore `tsc` (si può usare `npx` o strumenti simili per eseguirlo da un pacchetto locale in `node_modules`). I file TypeScript hanno tipicamente estensione `.ts`.
+
+Il codice JavaScript standard è anche codice TypeScript valido: il compilatore rileva bug anche in JS puro (es. `error TS2554: Expected 2 arguments, but got 1` per una chiamata con argomenti mancanti) e transpila il file `.ts` in un file `.js` eseguibile con Node come al solito.
+
+### Downleveling
+
+`tsc` preserva commenti e indentazione, quindi il codice transpilato sembra scritto da un umano, ma può riscrivere codice da versioni più recenti a versioni più vecchie di JS (**downleveling**): per default TS ha come target ES3 (1999), per esempio trasformando i template string in multiple invocazioni di `.concat()`. Si possono così usare le nuove funzionalità mantenendo la compatibilità anche con vecchi browser che supportano solo ES3. Con `tsc --target es6` si compila verso ES6.
+
+*Vantaggi* :
+- Feature moderne accessibili su versioni più vecchie, così facendo non si rinuncia alla retrocompatibilità.
+
+## Dichiarare i tipi
+
+### Tipi primitivi
+
+TS permette di dichiarare i tipi di variabili, parametri e valori di ritorno; i tipi primitivi più comuni sono `string`, `number`, `boolean`.
 
 ```ts
-export class CounterComponent {
-  @Input() buttonText = "Click me";
-  counter: number = 0;
+let courseName: string = "Web Technologies";
+let credits: number = 6;
+let isGreat: boolean = true;
+```
+
+Il codice con annotazioni di tipo non è più JavaScript valido: per eseguirlo va prima compilato con `tsc`. Il compilatore verifica le assegnazioni: assegnare una string a una variabile `number` è un errore (TS2322, `Type 'string' is not assignable to type 'number'`).
+
+### Tipi di array
+
+Il tipo di un array si specifica con la sintassi `type[]`:
+
+```ts
+let langs: string[] = ["TypeScript", "JavaScript", "PHP"];
+langs.push({name: "C#"}); // errore in TS, ok in plain JS
+```
+
+### Il tipo `any`
+
+> [!def] any
+> **`any`** è un tipo speciale: quando un valore è di tipo `any` si può fare qualsiasi cosa con esso e il compilatore non si lamenta, rinunciando a ogni verifica di tipo (con possibili errori a runtime, es. chiamare `x.foo()` su un valore che non ha quel metodo).
+
+### Tipi delle funzioni
+
+TS permette di specificare i tipi sia degli input che dei valori di output delle funzioni:
+
+```ts
+function greet(name: string): string {
+  return `Hello ${name.toUpperCase()}`;
 }
 ```
 
-Il genitore passa il valore impostando una proprietà sull'elemento HTML: `<app-counter buttonText="CLICK HERE" />`.
+Passare un argomento del tipo sbagliato è un errore (TS2345, argomento `number` non assegnabile al parametro `string`).
 
-> [!info] `@Input()` e `input()`
-> In molti framework lo stesso meccanismo si chiama *Props* (es. React, Vue). Da Angular 19 l'input/output si gestisce anche con le funzioni `input()` e `output()`, in un approccio basato su signal.
+### Inferenza automatica dei tipi
 
-### Property binding
+Quando non è fornita un'annotazione esplicita, TypeScript cerca di inferire automaticamente i tipi dal contesto (es. `let arr = [1,2,3,4,5]` è inferito `number[]`, `let course = "Web Technologies"` è inferito `string`). Nelle versioni moderne di TS l'inferenza automatica di `any` genera un errore (a meno di compilare con l'opzione `--strict false`).
 
-> [!def] Property binding
-> **Associazione dinamica** tra un attributo di un elemento HTML o di un componente nel template e una proprietà del componente corrente: il nome dell'attributo va tra parentesi quadre `[...]` e il valore è la proprietà collegata, es. `<app-counter [buttonText]="btnMsg" />`.
+> [!info] Implicit any
+> Quando non si specifica un tipo e TypeScript non può inferirlo dal contesto, le versioni vecchie del compilatore assumevano per default `any`, che non è verificato. Il flag `noImplicitAny` segnala come errore ogni implicit `any` (errore TS7006: parametro implicitamente di tipo `any`).
 
-Il binding e l'interpolazione non sono sempre equivalenti:
+### Tipi oggetto
 
-- L'**interpolazione** valuta l'espressione e converte il risultato in stringa.
-- Il **property binding** passa il valore così com'è: per passare un oggetto o un array come proprietà di un elemento serve il binding, non l'interpolazione.
-
-### Da figlio a genitore: `@Output()`
-
-> [!def] `@Output()`
-> **Canale di comunicazione** da figlio a genitore: una proprietà del figlio decorata con `@Output()` e di tipo `EventEmitter`; il figlio emette un evento invocando `emit()` sulla proprietà.
+> [!def] Object type
+> Per definire un **object type** si elencano le proprietà dell'oggetto e i loro tipi.
 
 ```ts
-export class CounterComponent {
-  @Output() counterClickedTenTimes = new EventEmitter<number>();
-  increment() {
-    this.counter++;
-    if (this.counter % 10 === 0)
-      this.counterClickedTenTimes.emit(this.counter);
+function printCourse(course: {name: string, credits: number}) {
+  console.log(`Course name: ${course.name}`);
+}
+```
+
+Passare un oggetto privo di una proprietà richiesta è un errore (TS2453, proprietà mancante); passare un object literal con proprietà non previste è un errore (TS2353, proprietà sconosciuta).
+
+### Proprietà opzionali
+
+I tipi oggetto possono specificare una o più **proprietà opzionali** aggiungendo `?` dopo il nome della proprietà: l'oggetto può ometterla, ma il suo valore sarà `undefined`, quindi va gestito (verificare se è `undefined`).
+
+### Union types
+
+> [!def] Union type
+> Un **union type** si ottiene combinando due o più tipi, definiti con una lista di tipi separati da `|`, e rappresenta valori che possono appartenere a uno qualsiasi dei tipi combinati.
+
+```ts
+function printError(code: number | string) {
+  console.log(`Error code: ${code}`);
+}
+printError(404);
+printError("401 Unauthorized");
+```
+
+TypeScript garantisce che le operazioni su un union type siano valide per ogni possibile tipo dell'unione: usare `toUpperCase` su `number | string` è un errore (TS2339), perché la proprietà non esiste su `number`.
+
+In questi casi serve **restringere** (narrow) il tipo usando codice e controlli specifici (es. `typeof`, `Array.isArray(x)`): TypeScript inferisce i tipi specifici per i singoli branch.
+
+```ts
+function printError(code: number | string) {
+  if (typeof code === "string") {
+    // in questo branch code è string
+  } else {
+    // in questo branch code è number
   }
 }
 ```
 
-Il genitore reagisce agli eventi del canale definendo un handler, come per un evento ordinario: `<app-counter (counterClickedTenTimes)="addClicks($event)" />`.
+### Type aliases
 
-## Routing
-
-Una SPA deve gestire il client-side routing: il **Router** di Angular abilita la navigazione tra viste interpretando l'URL come istruzione per cambiare vista. I progetti creati con `ng new` hanno già il routing configurato.
-
-### Setup
-
-Il setup del Router tocca tre file:
-
-- **`main.ts`**: carica il componente radice con `bootstrapApplication(AppComponent, appConfig)`.
-- **`app.config.ts`**: esporta l'`appConfig` con `provideRouter(routes)`, che prepara i provider necessari al modulo Router.
-- **`app.routes.ts`**: definisce l'oggetto `routes` di tipo `Routes` (un array di `Route`); ciascuna `Route` ha, tra le altre, le proprietà `path` (URL associato), `title` (titolo della pagina HTML) e `component` (componente associato al path).
+> [!def] Type alias
+> Un **type alias** assegna un nome specifico a un tipo, per riusare più volte lo stesso tipo senza ripeterne la definizione (principio DRY); la sintassi usa la parola chiave `type`.
 
 ```ts
-export const routes: Routes = [
-  { path: "", component: HomePageComponent, title: "Home Page" },
-  { path: "counter", component: CounterPageComponent, title: "Counter" },
-];
+type Credits = number | string;
+type Course = {
+  name: string,
+  credits: Credits
+}
 ```
 
-Col setup in atto, il componente **`RouterOutlet`** analizza l'URL corrente e renderizza il componente della rotta combaciante al posto del tag `<router-outlet></router-outlet>` nel template radice.
+### Interfacce
 
-### Navigazione senza full-reload
+> [!def] Interface
+> Le **interface declaration** sono un altro modo di dare un nome agli object type.
 
-Usare link tradizionali con `href` fa eseguire al browser una nuova richiesta HTTP e ricarica tutta l'app: sconfigge lo scopo stesso di una SPA.
+```ts
+interface Course {
+  name: string;
+  credits: number;
+}
+```
 
-> [!def] `RouterLink`
-> **Direttiva** da applicare agli elementi che innescano la navigazione, es. `<a routerLink="/counter">Counter</a>`, per usare il Router e cambiare vista senza ricaricare la pagina: è così che una SPA gestisce il routing.
+### Typing strutturale
 
-Se l'utente digita manualmente l'URL, avviene un page load e il Router renderizza comunque il componente giusto.
+TypeScript è un linguaggio **structuralmente tipizzato**: per determinare la compatibilità dei tipi si basa solo sulla struttura e sulle capacità dei tipi, non sui loro nomi. Java, al contrario, ha un sistema di tipi **nominativo**. Per questo un oggetto `Pet` con le stesse proprietà di `Person` può essere passato dove è atteso un `Person`.
 
-### Link attivi
+### Estendere le interfacce
 
-> [!def] `RouterLinkActive`
-> **Direttiva** che applica una lista di classi CSS ai link corrispondenti alla rotta su cui l'app si trova correntemente, per ricordare all'utente in quale pagina è.
+Un'interfaccia può estenderne un'altra con `extends`: le proprietà dell'interfaccia base diventano richieste anche per il tipo derivato (es. `Bird extends Pet` richiede sia `name` sia `flies`).
 
-Si usa come `routerLinkActive="active"`, abbinata a un po' di CSS (es. `nav .active { font-weight: bold; }`); con `routerLinkActiveOptions` si può richiedere la combaciatura esatta del path.
+### Types vs interfaces
+
+Type alias e interfacce sono molto simili e spesso intercambiabili. La distinzione chiave: i **type non possono essere riaperti** per aggiungere nuove proprietà (rideclararli è un errore TS2300, duplicate identifier), mentre le **interfacce sono sempre estendibili** (dichiarazioni successive dello stesso nome si fondono).
+
+### Intersection types
+
+In modo simile agli union types, gli **intersection types** combinano più tipi in uno, creati con il carattere `&`: il tipo risultante ha le proprietà di ogni singolo tipo.
+
+```ts
+type Bird = Pet & { flies: boolean }
+```
+
+### Type assertions
+
+A volte lo sviluppatore sa più di TypeScript: es. `document.getElementById()` permette di inferire solo che la chiamata restituisce un `HTMLElement`, ma si può sapere che l'elemento è di un tipo più specifico.
+
+```ts
+const nameInput =
+  document.getElementById("name") as HTMLInputElement;
+```
+
+> [!warning] Assertion non enforce a runtime
+> La type assertion non è una vera asserzione (come nel testing): non è affatto enforce a runtime, vale solo a compile-time.
+
+### Literal types
+
+Oltre ai tipi `string` e `number` si può fare riferimento a specifiche stringhe e numeri in posizioni di tipo: `let alignment: "center"` accetta solo il valore `center`, cosa poco utile da sola. Combinati con le union esprimono un concetto molto più utile: tipi che corrispondono a un certo insieme di valori noti.
+
+```ts
+type Alignment = "center" | "left" | "right";
+alignment = "left";  // ok
+alignment = "centre"; // errore TS2820
+```
+
+### Enum
+
+> [!def] Enum
+> Gli **enum** permettono agli sviluppatori di definire un insieme di costanti nominate.
+
+```ts
+enum Priority {
+  Low,
+  Medium,
+  High
+}
+```
+
+I valori sono numerati a partire da 0: `Priority.Medium` vale `1`.
+
+### Function types
+
+Per specificare che una funzione prende in input una callback con parametri e output specifici, le funzioni si descrivono con le **function type expression**:
+
+```ts
+type stringDecoratorFunction =
+  (x: string, mode: boolean) => string;
+```
+
+Il tipo indica una funzione che prende in input una string e un boolean e restituisce una string. Es. `let fn: () => string` è una funzione che non prende argomenti e restituisce una string.
+
+## Generics
+
+### Motivazione
+
+Buona parte dell'ingegneria del software va verso la costruzione di software riutilizzabile: sviluppare componenti capaci di operare senza attrito sia sui dati attuali che su quelli futuri è cruciale per costruire grandi sistemi software. I **generics** sono uno dei principali strumenti per scrivere codice che funziona con una varietà di tipi.
+
+### Il problema della identity function
+
+La identity function restituisce ciò che le viene passato:
+
+- Con `any` è generica, ma si perde l'informazione sul tipo al ritorno (il risultato è `any`).
+- Con un tipo specifico (es. `string`) si preserva il tipo, ma funziona solo con le string.
+
+> [!def] Type variable
+> TypeScript permette di definire **type variables**, un tipo speciale di variabili che lavorano su tipi anziché su valori, dichiarate dopo il nome della funzione, tra `<` e `>`.
+
+```ts
+function identity<Type>(x: Type): Type {
+  return x;
+}
+let s = identity<string>("Hello"); // Type impostato esplicitamente
+let n = identity(42);              // inferenza automatica
+```
+
+Non è la stessa cosa di usare `any`: l'informazione sul tipo di input è preservata.
+
+### Più type variables e array
+
+Ci possono essere più type variables:
+
+```ts
+function merge<T1, T2>(x: T1, y: T2)
+  : {field: T2, otherField: T1} {
+  return {field: y, otherField: x};
+}
+```
+
+Si può lavorare anche con array type-parametrici: `function getFirst<T>(arr: T[]): T` restituisce il primo elemento preservandone il tipo.
+
+### Classi generiche
+
+```ts
+class CustomCollection<T> {
+  list: T[] = [];
+  addElement(element: T): number {
+    return this.list.push(element);
+  }
+}
+let c = new CustomCollection<string>();
+```
+
+### Vincoli di tipo
+
+> [!def] Generic constraint
+> Un **vincolo di tipo** con `T extends Animal` limita i tipi ammessi per la type variable ai sottotipi di `Animal`, permettendo di accedere alle proprietà definite in `Animal` (es. `species`).
+
+## void, unknown, never
+
+TS include alcuni tipi aggiuntivi, utili specialmente nel contesto delle funzioni:
+
+- **`void`**: il tipo di ritorno delle funzioni che non restituiscono un valore; è il tipo di ritorno inferito per le funzioni senza istruzione `return` o con `return` vuoto.
+- **`unknown`**: rappresenta un qualunque possibile valore; è simile ad `any` ma più sicuro, perché non permette alcuna operazione (errore TS18046, `'a' is of type 'unknown'`, finché il tipo non viene ristretto o si fa un cast).
+- **`never`**: rappresenta valori che non vengono mai osservati; es. il tipo di `x` nel ramo irraggiungibile di una funzione che discrimina tutti i casi di un union type, o il tipo di ritorno di funzioni che non ritornano mai perché lanciano sempre un errore.
+
+## Livelli di strictness
+
+Utenti diversi si aspettano cose diverse da TypeScript: per default offre un'esperienza opt-in, con tipi opzionali e `any` usato quando un tipo preciso non può essere inferito. Alcuni controlli sono disabilitati di default per non essere troppo invasivi. Si può essere più severi:
+
+- **`noImplicitAny`**: segnala come errore ogni implicit `any`.
+- **`strictNullChecks`**: per default `null` e `undefined` possono essere assegnati a qualunque tipo; dimenticare di gestirli esplicitamente è causa di innumerevoli bug nel mondo (definita da alcuni la *billion dollar mistake*). Il flag impone la gestione esplicita dei valori `null`/`undefined` (es. il risultato di `find` potrebbe essere `undefined`).
+- Le versioni moderne di TS abilitano la **strict mode** di default; le versioni più vecchie richiedevano di specificare l'opzione `--strictNullChecks`.
