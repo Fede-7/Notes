@@ -31,10 +31,3 @@ tags: [università, esami]
 | Tecnologie Web | Luigi Libero Lucio Starace | luigiliberolucio.starace@unina.it | FG1 | 11 gen 2027 · 11 feb 2027 · 8 mar 2027 ⚠️ |
 | Ingegneria del Software | Sergio Di Martino | sergio.dimartino@unina.it | FG1 | 12 gen 2027 · 18 feb 2027 · 9 mar 2027 |
 
-## III anno · Vecchio Regolamento (I semestre)
-
-| Insegnamento | Docente | Mail | Canale | Date |
-|---|---|---|---|---|
-| Laboratorio di Sistemi Operativi | Alberto Finzi | alberto.finzi@unina.it | FG1 | nessuna data indicata |
-| Ingegneria del Software (Mod. A+B) | Sergio Di Martino | sergio.dimartino@unina.it | FG1 | 12 gen 2027 · 18 feb 2027 · 9 mar 2027 |
-| Ingegneria del Software (Mod. A+B) | Luigi Libero Lucio Starace | luigiliberolucio.starace@unina.it | FG1 | 12 gen 2027 · 18 feb 2027 · 9 mar 2027 |
