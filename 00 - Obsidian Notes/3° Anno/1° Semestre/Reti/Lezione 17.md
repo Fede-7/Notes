@@ -4,10 +4,17 @@
 
 Tra i campi dell'header TCP uno non era mai stato usato, e un limite non compare in nessun header:
 
-- **Receive window**: quanto spazio rimane nel buffer all'altra estremità; è un limite impostato dal ricevitore.
-- **Congestione**: è l'altro limite, impostato dalla rete, che il mittente deve dedurre da ciò che torna indietro.
-
-Entrambi generano la stessa azione: inviare meno. L'affidabilità dice cosa fare dopo una perdita, nulla ancora dice come non provocarne una.
+> [!aside]
+> 
+> - **Receive window**: quanto spazio rimane nel buffer all'altra estremità; è un limite impostato dal ricevitore.
+> - **Congestione**: è l'altro limite, impostato dalla rete, che il mittente deve dedurre da ciò che torna indietro.
+> 
+> Entrambi generano la stessa azione: inviare meno. L'affidabilità dice cosa fare dopo una perdita, nulla ancora dice come non provocarne una.
+> 
+> ---
+> 
+> ![[Lezione 17-1795125758508.png|150]]
+> 
 
 ## Controllo di flusso
 
@@ -21,17 +28,22 @@ Quando una connessione TCP riceve byte corretti e in sequenza li colloca nel rec
 
 ### Definizione e utilizzo della receive window
 
-Sul lato ricevitore (host B) si tengono tre grandezze in byte:
-
-- **RcvBuffer**: dimensione totale del buffer di ricezione.
-- **LastByteRead**: l'ultimo byte dello stream letto dall'applicazione.
-- **LastByteRcvd**: l'ultimo byte dello stream ricevuto.
-
-La dimensione della **rwnd** (receive window) si dice allora:
-
-$$
-\mathrm{rwnd} = \mathrm{RcvBuffer} - (\mathrm{LastByteRcvd} - \mathrm{LastByteRead})
-$$
+> [!aside]
+> Sul lato ricevitore (host B) si tengono tre grandezze in byte:
+> 
+> - **RcvBuffer**: dimensione totale del buffer di ricezione.
+> - **LastByteRead**: l'ultimo byte dello stream letto dall'applicazione.
+> - **LastByteRcvd**: l'ultimo byte dello stream ricevuto.
+> 
+> La dimensione della **rwnd** (receive window) si dice allora:
+> 
+> $$
+> \mathrm{rwnd} = \mathrm{RcvBuffer} - (\mathrm{LastByteRcvd} - \mathrm{LastByteRead})
+> $$
+> 
+> ---
+> 
+> ![[Lezione 17-1795126307899.png|150]]
 
 Il ricevitore colloca la sua rwnd corrente nel campo receive window di ogni segmento che invia indietro. Il mittente tiene due numeri propri: **LastByteSent** e **LastByteAcked**; la loro differenza è la quantità di dati in volo, inviata dal mittente ma non ancora confermati. La regola che il mittente garantisce in ogni istante è:
 
@@ -40,6 +52,7 @@ $$
 $$
 
 Se si rispetta la regola, il buffer di ricezione non può andare in overflow: il mittente non ha mai più dati in volo di quanto c'è spazio. Poiché la connessione è full duplex, ogni direzione ha la propria finestra e ciascuna estremità annuncia la propria.
+
 
 ### Deadlock della finestra zero
 
@@ -71,6 +84,8 @@ Se due flussi condividono un collegamento di capacità R, la ripartizione vale n
 - Se $\lambda_{\mathrm{in}} = R/2$, il collegamento raggiunge la sua piena capacità R e i pacchetti in eccesso si accumulano nel buffer del router.
 - Oltre la capacità massima i pacchetti si accumulano aspettando il loro turno; con buffer infinito non si perdono pacchetti, ma il ritardo cresce senza sosta: se la capacità è superata per sempre il ritardo tende all'infinito, cioè i pacchetti sono a tutti effetti perduti.
 
+![[Lezione 17-1795126432743.png|230]]
+
 In termini di prestazioni: **throughput** cresce con $\lambda_{\mathrm{in}}$ fino a R/2, la massima quota disponibile a ciascuna connessione; **ritardo** cresce man mano che $\lambda_{\mathrm{in}}$ si avvicina a R/2, poiché i pacchetti passano sempre più tempo nel buffer; se $\lambda_{\mathrm{in}}$ supera R/2 il traffico in entrata eccede la capacità disponibile e le code crescono o si perdono pacchetti.
 
 ### Il caso di buffer finiti
@@ -91,11 +106,18 @@ Punto chiave: le ritrasmissioni aumentano il carico di rete senza aumentare la q
 
 ### Reti multihop e celle collapse della congestione
 
-In una rete multihop, più mittenti trasmettono percorsi in که due salti sovrapposti, compete per buffer e capacità limitati dei router; gli effetti sono:
+In una rete multihop, più mittenti trasmettono lungo percorsi in cui due o più salti si sovrappongono e competono per buffer e capacità limitati dei router; gli effetti sono:
 
-- **Spreco di risorse**: un pacchetto può attraversare il primo router ed essere scartato al secondo, sprecando la banda già usata.
-- **Crescita della congestione**: al crescere del carico offerto, più pacchetti sono scartati prima di raggiungere la destinazione.
-- **Congestion collapse**: sotto congestione estrema, il throughput utile può tendere a zero anche mentre la rete resta fortemente carica.
+> [!aside]
+> 
+> - **Spreco di risorse**: un pacchetto può attraversare il primo router ed essere scartato al secondo, sprecando la banda già usata.
+> - **Crescita della congestione**: al crescere del carico offerto, più pacchetti sono scartati prima di raggiungere la destinazione.
+> - **Congestion collapse**: sotto congestione estrema, il throughput utile può tendere a zero anche mentre la rete resta fortemente carica.
+> 
+> ---
+> 
+> ![[Lezione 17-1795126567866.png|100]]
+
 
 Punto chiave: più traffico trasmesso non significa sempre più dati consegnati. Ciò motiva il controllo di congestione. La congestion collapse è stata osservata in Internet negli anni '80, spingendo allo sviluppo dei meccanismi di congestione di TCP.
 
@@ -154,6 +176,8 @@ $$
 
 così la velocità è regolata aumentando o riducendo cwnd.
 
+![[Lezione 17-1795126889602.png|300]]
+
 ### Velocità di invio e self-clocking
 
 La velocità di invio di TCP è determinata approssimativamente da:
@@ -167,7 +191,8 @@ $$
 - **Crescita della finestra**: TCP adegua cwnd in base agli acknowledgment e ai segnali di congestione.
 - **Dipendenza dal RTT**: con il classico congestion avoidance di TCP, un RTT più lungo significa crescita della finestra più lenta nel tempo.
 
-Punto chiave: connessioni che condividono lo stesso collo di bottiglia possono raggiungere throughput diversi a causa dei loro RTT diversi.
+> [!note] **Punto chiave**
+> Connessioni che condividono lo stesso collo di bottiglia possono raggiungere throughput diversi a causa dei loro RTT diversi.
 
 La formula è approssimativa perché TCP non fissa esplicitamente una velocità: controlla la quantità di dati non confermati tramite cwnd, mentre gli arrivi degli ACK determinano quando nuovi dati possono essere inviati; la formula stima la velocità media assumendo cwnd pienamente utilizzato e RTT abbastanza stabile.
 
@@ -202,6 +227,8 @@ Durante Slow Start cwnd raddoppia circa a ogni RTT finché non accade uno di tre
 - **Tre ACK duplicati**: si innesca Fast Retransmit e si entra in Fast Recovery (in TCP Reno).
 
 Lo **ssthresh** (Slow Start Threshold) determina quando TCP passa dalla crescita esponenziale a quella lineare e viene aggiornato in risposta alla congestione.
+
+![[Lezione 17-1795127094568.png|200]]
 
 ### Congestion avoidance
 
@@ -246,7 +273,7 @@ TCP Reno offre il modello base, ma i sistemi moderni possono usare algoritmi dif
 
 Punto chiave: i diversi algoritmi mirano a usare efficientemente la banda disponibile limitando congestione e ritardo.
 
-## Riassunto
+## Riassunto Congestion Control
 
 - **Flow control**: protegge il buffer del ricevitore tramite la receive window annunciata (rwnd).
 - **Congestion control**: protegge la rete adeguando la finestra di congestione del mittente (cwnd) al feedback della rete.

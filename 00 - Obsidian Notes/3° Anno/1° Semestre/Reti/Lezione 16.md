@@ -1,6 +1,6 @@
 # Lezione 16 TCP
 
-## Il segmento TCP
+## Il segmento TCP (richiamo)
 
 **Il segmento TCP** è composto da un campo header e da un campo dati, quest'ultimo contiene dati applicativi di dimensione al massimo pari a MSS (Maximum Segment Size).
 
@@ -40,7 +40,7 @@ Poiché TCP è orientato alla connessione, i due host devono concordare apertura
 
 ### Il two-army problem
 
-> [!info] Two-army problem
+> [!example] Two-army problem
 > Due armate alleate, separate dal nemico da un valle attraversabile da messaggeri inaffidabili, devono sincronizzare un attacco simultaneo ricambiando conferme su conferme: nessuna conferma è certa perché quella successiva può perdersi.
 
 Il nodo del problema: il comandante che invia la risposta non sa se la sua conferma è arrivata; aggiungendo una terza conferma (handshake a tre vie) il dubbio si sposta sul mittente dell'ultimo messaggio, e un'eventuale quarta conferma non risolve nulla. Può essere dimostrato che **nessun protocollo esiste** che garantisca l'accordo su una rete inaffidabile.

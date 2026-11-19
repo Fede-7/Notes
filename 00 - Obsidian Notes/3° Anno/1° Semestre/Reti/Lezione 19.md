@@ -2,11 +2,17 @@
 
 ## Dal livello di trasporto al livello di rete
 
-- **Compito del livello di rete**: permettere la comunicazione tra host remoti.
-- **All'host mittente**: prelevare i segmenti dal livello di trasporto, incapsularli ciascuno in un datagramma e inviarli nella rete.
-- **All'host ricevente**: ricevere i datagrammi dalla rete, estrarre i segmenti del livello di trasporto e consegnarli al livello di trasporto.
+> [!aside]
+> - **Compito del livello di rete**: permettere la comunicazione tra host remoti.
+> - **All'host mittente**: prelevare i segmenti dal livello di trasporto, incapsularli ciascuno in un datagramma e inviarli nella rete.
+> - **All'host ricevente**: ricevere i datagrammi dalla rete, estrarre i segmenti del livello di trasporto e consegnarli al livello di trasporto.
+> 
+> A questo livello operano alcuni dei più importanti protocolli delle reti di calcolatori, come **IP** e **DHCP**; esistono inoltre dispositivi specializzati, i **router**, che operano a questo livello. All'interno della rete vi sono nodi che inoltrano i datagrammi ai nodi adiacenti (i router) fino all'host di destinazione. I router non eseguono applicazioni né protocolli del livello di trasporto, per cui il loro stack è mostrato troncato. L'atto di un datagramma ridirezionato da un router è detto anche **hop**.
+> 
+> ---
+> 
+> ![[Lezione 19-1795127212949.png|200]]
 
-A questo livello operano alcuni dei più importanti protocolli delle reti di calcolatori, come **IP** e **DHCP**; esistono inoltre dispositivi specializzati, i **router**, che operano a questo livello. All'interno della rete vi sono nodi che inoltrano i datagrammi ai nodi adiacenti (i router) fino all'host di destinazione. I router non eseguono applicazioni né protocolli del livello di trasporto, per cui il loro stack è mostrato troncato. L'atto di un datagramma ridirezionato da un router è detto anche **hop**.
 
 ## Servizi e best-effort
 
@@ -28,8 +34,13 @@ In realtà nessuno di questi servizi è generalmente offerto dalle reti: il live
 > [!def] Forwarding e Routing
 > **Forwarding**: azione locale al router di spostare un pacchetto dalla interfaccia di ingresso appropriata a quella di uscita. **Routing**: processo esteso all'intera rete che determina i cammini end-to-end seguiti dai pacchetti.
 
-- **Forwarding**: quando un pacchetto arriva su un collegamento di ingresso, il router deve spostarlo verso il collegamento di uscita appropriato; è possível anche bloccare un pacchetto (ad esempio se proviene da un host noto come malevolo), scartare un pacchetto scaduto, duplicarlo su più collegamenti in uscita, o modificarne la segnalazione di congestione.
-- **Routing**: decide la rotta o cammino seguito dai pacchetti dal mittente al ricevitore; gli algoritmi che calcolano questi cammini sono detti **routing algorithms**.
+> [!aside]
+> - **Forwarding**: quando un pacchetto arriva su un collegamento di ingresso, il router deve spostarlo verso il collegamento di uscita appropriato; è possível anche bloccare un pacchetto (ad esempio se proviene da un host noto come malevolo), scartare un pacchetto scaduto, duplicarlo su più collegamenti in uscita, o modificarne la segnalazione di congestione.
+> - **Routing**: decide la rotta o cammino seguito dai pacchetti dal mittente al ricevitore; gli algoritmi che calcolano questi cammini sono detti **routing algorithms**.
+> 
+> ---
+> 
+> ![[Lezione 19-1795127307783.png|150]]
 
 I due compiti operano su scale temporali distanti un miliardo di volte, e per questo hanno nomi separati: il **data plane** fa il forwarding in alcuni nanosecondi ed è implementato in hardware; il **control plane** fa il routing in secondi ed è implementato in software. Tra i due sta un'unica struttura dati, la **forwarding table**: il control plane la scrive, il data plane la legge una volta per pacchetto. Di conseguenza un router inoltra senza conoscere il cammino: sa solo quale dei propri collegamenti è il prossimo.
 
@@ -52,6 +63,8 @@ I componenti principali di un router (diversi dalle porte del livello di traspor
 - **Switching fabric**: collegano le porte di ingresso alle porte di uscita.
 - **Porte di uscita (output ports)**: salvano i pacchetti ricevuti dalla matrice di commutazione e li trasmettono sul collegamento in uscita eseguendo le funzioni di link layer e fisica necessarie; le porte possono essere bidirezionali (input/output accoppiati).
 - **Routing processor**: esegue i protocolli di instradamento, mantiene le informazioni di stato sui collegamenti e calcola/aggiorna la forwarding table.
+
+![[Lezione 19-1795127383989.png|200]]
 
 Il numero di porte dipende fortemente dal tipo di router: da poche porte nei router domestici a decine o centinaia nei router di fascia alta per ISP. Nei router ad alte prestazioni la commutazione dei pacchetti è tipicamente implementata in hardware dedicato; nei router più piccoli può avvenire anche in software.
 
@@ -113,16 +126,32 @@ La matrice di commutazione è realizzabile in tre modi:
 
 ### Switching via memoria
 
-I primi router erano normali calcolatori: un pacchetto in arrivo interrompeva il processore, veniva copiato in memoria, ricercato, e copiato in uscita nel buffer della porta di uscita. Il pacchetto attraversa la memoria due volte: se la memoria regge B pacchetti al secondo, il router inoltra meno di B/2; inoltre due pacchetti non possono essere inoltrati contemporaneamente anche verso porte diverse, perché sul bus condiviso c'è una lettura o scrittura per volta. Nelle architetture a memoria condivisa più recenti, l'hardware della porta di ingresso esegue il lookup e trasferisce i pacchetti nei buffer di memoria opportuni, senza coinvolgere la CPU centrale per ogni pacchetto.
+> [!aside]
+> I primi router erano normali calcolatori: un pacchetto in arrivo interrompeva il processore, veniva copiato in memoria, ricercato, e copiato in uscita nel buffer della porta di uscita. Il pacchetto attraversa la memoria due volte: se la memoria regge B pacchetti al secondo, il router inoltra meno di B/2; inoltre due pacchetti non possono essere inoltrati contemporaneamente anche verso porte diverse, perché sul bus condiviso c'è una lettura o scrittura per volta. Nelle architetture a memoria condivisa più recenti, l'hardware della porta di ingresso esegue il lookup e trasferisce i pacchetti nei buffer di memoria opportuni, senza coinvolgere la CPU centrale per ogni pacchetto.
+> 
+> ---
+> 
+> ![[Lezione 19-1795127446301.png|100]]
 
 ### Switching via bus
 
-La porta di ingresso consegna il pacchetto direttamente alla porta di uscita over un bus condiviso: antepone un'etichetta interna che nomina la porta di uscita; tutte le porte vedono il pacchetto, solo quella nominata lo conserva e rimuove l'etichetta. Sul bus passa un solo pacchetto per volta, quindi la velocità di commutazione del router è la velocità del bus. Spesso basta: un noto router enterprise di questo tipo commuta over un backplane a 32 Gbps. Approccio semplice, economico, ma con un tetto rigido.
+> [!aside]
+> La porta di ingresso consegna il pacchetto direttamente alla porta di uscita over un bus condiviso: antepone un'etichetta interna che nomina la porta di uscita; tutte le porte vedono il pacchetto, solo quella nominata lo conserva e rimuove l'etichetta. Sul bus passa un solo pacchetto per volta, quindi la velocità di commutazione del router è la velocità del bus. Spesso basta: un noto router enterprise di questo tipo commuta over un backplane a 32 Gbps. Approccio semplice, economico, ma con un tetto rigido.
+> 
+> ---
+> 
+> ![[Lezione 19-1795127485259.png|100]]
 
 ### Switching via crossbar
 
-> [!def] Crossbar
-> **Rete di interconnessione** formata da 2N bus che uniscono N ingressi a N uscite, con un crosspoint in ogni incrocio che si apre e chiude: chiudendo il crosspoint che unisce un ingresso a un'uscita, solo il bus di quell'uscita raccoglie il pacchetto.
+> [!aside]
+> 
+> > [!def] Crossbar
+> > **Rete di interconnessione** formata da 2N bus che uniscono N ingressi a N uscite, con un crosspoint in ogni incrocio che si apre e chiude: chiudendo il crosspoint che unisce un ingresso a un'uscita, solo il bus di quell'uscita raccoglie il pacchetto.
+> 
+> ---
+> 
+> ![[Lezione 19-1795127584793.png|100]]
 
 Per spostare un pacchetto da A a Y il controller chiude il crosspoint AY, e solo il bus Y lo raccoglie; così A → Y e B → X avvengono contemporaneamente, con pacchetti in parallelo. La matrice è **non-blocking**: un pacchetto non è mai fermato sulla strada verso una porta di uscita che nessun altro sta usando; però due pacchetti diretti alla stessa porta contengono comunque, e uno aspetta all'ingresso.
 
@@ -148,6 +177,8 @@ Nessuna scelta della fabric rimuove la coda: decide soltanto dove si verifica.
 > [!def] Head-of-Line (HOL) blocking
 > **Situazione** in cui il pacchetto in testa a una coda di ingresso non può essere inoltrato perché la porta di uscita desiderata è occupata; poiché la stessa coda è servita in FIFO, tutti i pacchetti dietro di lui aspettano anche se le loro porte di destinazione sono libere.
 
+![[Lezione 19-1795127725003.png|200]]
+
 ## Gestione dell'output queueing
 
 Anche con una fabric veloce, più pacchetti possono arrivare alla stessa porta di uscita più veloci di quanto il collegamento trasmetta. I pacchetti sono temporaneamente salvati in un **output buffer** in attesa di trasmissione; poiché la capacità è limitata, una coda eccessiva può causare overflow e perdita di pacchetti. Quando il buffer è pieno il router deve decidere quali pacchetti scartare:
@@ -157,10 +188,10 @@ Anche con una fabric veloce, più pacchetti possono arrivare alla stessa porta d
 
 ### La dimensione dei buffer
 
-- **Regola storica**: buffer = RTT medio × capacità del collegamento; per un collegamento a 10 Gbps con 250 ms di RTT, 2,5 Gbit di buffer. La figura derivava dall'analisi di pochi flussi TCP; con N flussi grandi e indipendenti il fabbisogno scende a $RTT \cdot C/\sqrt{N}$, che nel core, dove migliaia di flussi condividono un collegamento, è una riduzione molto grande.
+- **Regola storica**: buffer = RTT medio × capacità del collegamento. La figura derivava dall'analisi di pochi flussi TCP; con N flussi grandi e indipendenti il fabbisogno scende a $RTT \cdot C/\sqrt{N}$, che nel core, dove migliaia di flussi condividono un collegamento, è una riduzione molto grande.
 - **Bufferbloat**: più non è meglio, poiché un buffer più grande assorbe burst maggiori ma allunga il ritardo di coda di tutto ciò che è dentro; dieci volte il buffer per evitare perdite può significare un ritardo end-to-end maggiore e un RTT più lungo che rende più lento reagire a ogni mittente di quel cammino.
 
-> [!info] Esempio di bufferbloat
+> [!example] Esempio di bufferbloat
 > **Scenario** di un flusso TCP isolato con finestra di 25 pacchetti: a un RTT base di 200 ms (trasmissione per pacchetto di 10 ms), un burst di 25 pacchetti riempie il buffer; successivamente gli ACK arrivano a cadenza di 10 ms, innescando un nuovo pacchetto a ogni arrivo. Circa 5 pacchetti restano persistentemente in coda, aggiungendo circa 50 ms di ritardo di coda senza alcun aumento di throughput: è il *bufferbloat*, la coda persistente che aumenta la latenza anche a collegamento pienamente utilizzato.
 
 ## Packet scheduling
@@ -175,13 +206,24 @@ Qualunque sia l'algoritmo, un pacchetto è rimosso solo quando è stato interame
 
 ### FIFO
 
-Un'unica coda. I pacchetti sono selezionati per transmission nello stesso ordine di arrivo alla porta di uscita; se il collegamento è occupato, un pacchetto in arrivo è memorizzato nel buffer, e se non c'è spazio la politica di scarto decide il suo destino. Nessun pacchetto può essere favorito né rimandato a favore di un altro: tutto cioè che è sul collegamento condivide una sorte. È il motivo per cui è il default: niente da configurare, niente da sbagliare.
+> [!aside]
+> Un'unica coda. I pacchetti sono selezionati per transmission nello stesso ordine di arrivo alla porta di uscita; se il collegamento è occupato, un pacchetto in arrivo è memorizzato nel buffer, e se non c'è spazio la politica di scarto decide il suo destino. Nessun pacchetto può essere favorito né rimandato a favore di un altro: tutto cioè che è sul collegamento condivide una sorte. È il motivo per cui è il default: niente da configurare, niente da sbagliare.
+> 
+> ---
+> 
+> ![[Lezione 19-1795127900824.png|100]]
+
 
 ### Priority queueing
 
-I pacchetti in arrivo sul collegamento di uscita sono classificati in **classi di priorità** all'arrivo in coda, sulla base di criteri specifici (numeri di porta a livello di trasporto, indirizzi IP, o marcature di priorità nell'intestazione IP). Un operatore di rete può configurare code affinché pacchetti specifici (per esempio di gestione della rete o voce su IP in tempo reale) abbiano priorità sul traffico utente o non in tempo reale.
-
-Ogni classe di priorità può avere la sua coda: vengono trasmessi prima i pacchetti della classe non vuota con priorità maggiore; la scelta tra i pacchetti della stessa classe avviene tipicamente in modo FIFO. Lo schedulatore è **non-preemptive**: una trasmissione già iniziata non è mai interrotta.
+> [!aside]
+> I pacchetti in arrivo sul collegamento di uscita sono classificati in **classi di priorità** all'arrivo in coda, sulla base di criteri specifici (numeri di porta a livello di trasporto, indirizzi IP, o marcature di priorità nell'intestazione IP). Un operatore di rete può configurare code affinché pacchetti specifici (per esempio di gestione della rete o voce su IP in tempo reale) abbiano priorità sul traffico utente o non in tempo reale.
+> 
+> Ogni classe di priorità può avere la sua coda: vengono trasmessi prima i pacchetti della classe non vuota con priorità maggiore; la scelta tra i pacchetti della stessa classe avviene tipicamente in modo FIFO. Lo schedulatore è **non-preemptive**: una trasmissione già iniziata non è mai interrotta.
+> 
+> ---
+> 
+> ![[Lezione 19-1795127926115.png|100]]
 
 ### Round robin e WFQ
 
@@ -205,6 +247,8 @@ Di fronte a questi approcci si distinguono tre varianti:
 - **Weighted Round-Robin (WRR)**: a ciascuna classe è assegnato un peso che determina quanti pacchetti può trasmettere per ciclo.
 - **Weighted Fair Queuing (WFQ)**: a ciascuna classe è assegnato un peso che determina la sua quota della banda del collegamento in uscita, tenendo conto delle dimensioni dei pacchetti.
 
+![[Lezione 19-1795128014487.png|200]]
+
 Differenza chiave: RR e WRR (a pacchetti) allocano opportunità di trasmissione, mentre WFQ mira ad allocare la banda in modo proporzionale ai pesi.
 
 ### Classificazione dei pacchetti
@@ -216,12 +260,3 @@ Chi decide a quale classe appartiene ciascun pacchetto?
 - **Classi diverse**: possono ricevere priorità o quote di banda diverse.
 - **Filtri**: meccanismi di classificazione simili possono anche servire per filtrare o limitare specifici tipi di traffico.
 - **Net neutrality**: la differenziazione del traffico pone questioni di equità e della misura in cui gli ISP debbano poter dare priorità o limitare il traffico.
-
-## Riassunto
-
-- La rete offre un solo servizio, il best-effort: ordine, consegna e garanzie di ritardo sono assenti, e le estremità hanno costruito ciò di cui avevano bisogno al di sopra.
-- Il forwarding è locale e richiede nanosecondi; il routing è esteso a tutta la rete e richiede secondi; la forwarding table è il punto in cui i due si incontrano.
-- Una riga della tabella è un prefisso, cioè un gruppo di indirizzi che condividono i primi bit; quando più righe corrispondono, vince la più lunga.
-- Tre fabric: memoria, bus, crossbar. L'ultima inoltra in parallelo e comunque non può aiutare due pacchetti che vogliono la stessa porta di uscita.
-- Le code si formano dove una velocità incontra una più lenta: all'ingresso, all'uscita o in entrambi; è lì che nasce la perdita che i mittenti deducono.
-- Lo scheduling decide l'ordine. Rimane aperto da dove vengono gli indirizzi dentro quei prefissi.
