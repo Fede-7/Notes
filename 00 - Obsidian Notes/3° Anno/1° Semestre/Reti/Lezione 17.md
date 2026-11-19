@@ -1,6 +1,4 @@
-# Lezione 18 Controllo di Flusso e Congestion Control
-
-Materiale di studio, solo teoria tratta dal set di slide "Lecture 18".
+# Lezione 17 Controllo di Flusso e Congestion Control
 
 ## Congestion control e Flow control: la distinzione
 

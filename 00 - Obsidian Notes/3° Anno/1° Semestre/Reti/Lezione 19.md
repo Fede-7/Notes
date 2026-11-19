@@ -1,6 +1,4 @@
-# Lezione 20 Network Layer
-
-Materiale di studio, solo teoria tratta dal set di slide "Lecture 20".
+# Lezione 19 Network Layer
 
 ## Dal livello di trasporto al livello di rete
 

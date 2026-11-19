@@ -17,9 +17,10 @@ Lezione 18-19   ->  25-Refactoring.pdf
 ?? Da verificare la correttezza - il prof non carica le cacacazzo di slide ??
 
 Lezione 20   ->  24-Build-tools-and-version-control.pdf
-Lezione 0   ->  26-SOLID-Principles.pdf
-Lezione 0   ->  27-29-Verification_Validation_Intro.pdf
-Lezione 0   ->  29-jUnit-Hamcrest-Mockito.pdf
+Lezione 21   ->  26-SOLID-Principles.pdf
+Lezione 22   ->  27-29-Verification_Validation_Intro.pdf
+Lezione 23   ->  29-jUnit-Hamcrest-Mockito.pdf
+
 Lezione 0   ->  30-33-Testing-Black-Box-White-Box-updated.pdf
 Lezione 0   ->  31-UnitTesting-jUnit.pdf
 
@@ -33,7 +34,6 @@ Lezione 0   ->  36-37-Process-Models-SCRUM.pdf
 Lezione 0   ->  39-Guidelines-and-Principles-in-HCI.pdf
 Lezione 0   ->  Martin-PrinciplesAndPatterns.PDF
 
-
 ## TecWeb
 Completo tramite le slide vecchie, forse.
 
@@ -42,26 +42,16 @@ last in Notes:
 	
 last slide (non caricata):
 
-
-
 ## Reti&PD
 
 last in Notes:
-	2026-11-05 - Lezione 16 ( check credo che abbia aggiunto qualcosa)
-	
-last slide (non caricata):
-	2026-11-10 - Lezione 17
-	2026-11-12 - Lezione 18
 	2026-11-13 - Lezione 19
+
+last slide (non caricata):
 	2026-11-17 - Lezione 20 Network Layer
+	2026-11-17 - Lezione 21 Network Layer II
 
 
 ---
 
-## Intercorso
-
-### Reti
-Solo esercizi dalle slide, codice boh fino alla 15
-
-### TecWeb
-Argomenti fino alla lezione 18
+## Intercorso II
