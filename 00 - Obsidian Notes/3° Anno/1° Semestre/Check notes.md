@@ -21,8 +21,8 @@ Lezione 21   ->  26-SOLID-Principles.pdf
 Lezione 22   ->  27-29-Verification_Validation_Intro.pdf
 Lezione 23   ->  29-jUnit-Hamcrest-Mockito.pdf
 
-Lezione 0   ->  30-33-Testing-Black-Box-White-Box-updated.pdf
-Lezione 0   ->  31-UnitTesting-jUnit.pdf
+Lezione 24   ->  30-33-Testing-Black-Box-White-Box-updated.pdf
+Lezione 25   ->  31-UnitTesting-jUnit.pdf
 
  --- Da fare
  
